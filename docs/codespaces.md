@@ -1,6 +1,6 @@
 # C Foundry in Codespaces
 
-The web course is at https://snowch.github.io/c-foundry/#/course. The nine-part syllabus has 44 chapters and 211 topics. Part 1 now contains five authored chapters and 25 topic lessons; the remaining content is labeled as planned. Twelve browser exercises, 25 ungraded examples, and five native foundations are runnable.
+The web course is at https://snowch.github.io/c-foundry/#/course. The nine-part syllabus has 44 chapters and 211 topics. Parts 1–2 contain ten authored chapters and 51 topic lessons; later content is labeled as planned. Fourteen browser exercises, 40 inline browser examples, 11 native examples, and five native foundations are runnable. Part 2 also includes two unfinished native projects with executable checks and references.
 
 ## Start or reuse a workspace
 
@@ -19,7 +19,7 @@ make chapter CHAPTER=coordination
 make queue
 ```
 
-`make chapter` shows the chapter workspace README: complete readings for Part 1, and planned topics, practice goals, execution needs, and available foundations for later parts. It does not claim the chapter’s advanced implementation is complete. All 44 chapter workspaces are in `native/chapters/`.
+`make chapter` shows the chapter workspace README: complete readings for Parts 1–2, and planned topics, practice goals, execution needs, and available foundations for later parts. It does not claim the chapter’s advanced implementation is complete. All 44 chapter workspaces are in `native/chapters/`.
 
 ## Available native foundations
 
@@ -40,7 +40,7 @@ The queue uses predicate loops and drains before shutdown. TinyDB currently uses
 
 ## Existing exercises
 
-Starter files for the twelve browser exercises are in `native/exercises/`. Edit a file, then run its output checks:
+Starter files for the fourteen browser exercises are in `native/exercises/`. Edit a file, then run its output checks:
 
 ```sh
 make exercise EXERCISE=pointers
@@ -70,3 +70,29 @@ make check-part1 CC=clang
 ```
 
 The complete Part 1 examples are in `native/examples/`. They are demonstrations, not unfinished exercise starters. Running or modifying one does not mark a browser practice exercise as completed.
+
+## Part 2 modules, files, and projects
+
+Chapter 9 provides multi-file programs with headers and source modules. Chapter 10 uses native file operations, explicit byte encodings, assertions, and sanitizer checks. Each topic has a ready-to-run command and a link to its actual example files:
+
+```sh
+make example EXAMPLE=larger-programs-1
+make example EXAMPLE=files-bytes-1
+make example EXAMPLE=files-bytes-5 SANITIZE=1
+make check-part2
+make check-part2 CC=clang
+```
+
+The browser still provides all readings and question feedback. For the first three Part 2 chapters, run and edit the examples directly in the reading page. Browser drafts do not synchronize into native examples automatically.
+
+Complete the TODOs in `native/projects/record-store/store.c` and `native/projects/binary-record/record.c`, guided by their headers and READMEs:
+
+```sh
+make project PROJECT=record-store
+make project PROJECT=record-store SANITIZE=1
+make project PROJECT=binary-record
+```
+
+The student starters intentionally fail. After attempting them, compare the separate `.reference/` implementations using `REFERENCE=1`. `make check-projects` checks both references; it does not mark student work complete. Tests run outside the repository tree and include ownership, validation, exact-format fixtures, error paths, and temporary-file I/O. They are evidence for exercised cases rather than a proof of memory safety or crash durability.
+
+Maintainers regenerate all authored native readings and examples with `node tools/sync_readings.cjs`. This leaves editable student exercises and project modules untouched.

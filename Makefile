@@ -3,7 +3,7 @@ CFLAGS ?= -std=c17 -Wall -Wextra -Wpedantic -Werror -g -O1
 NATIVE_BUILD ?= .build/native
 NATIVE_DEMOS = hello standards counter queue tinydb
 
-.PHONY: help check-native check-native-clang sanitize tsan standards-matrix chapter exercise example check-part1 serve test clean $(NATIVE_DEMOS)
+.PHONY: help check-native check-native-clang sanitize tsan standards-matrix chapter exercise example check-part1 check-part2 project check-projects serve test clean $(NATIVE_DEMOS)
 help:
 	@python3 tools/lab.py
 
@@ -38,10 +38,20 @@ exercise:
 	python3 tools/lab.py --exercise '$(EXERCISE)' --compiler '$(CC)'
 
 example:
-	python3 tools/lab.py --example '$(EXAMPLE)' --compiler '$(CC)'
+	python3 tools/lab.py --example '$(EXAMPLE)' --compiler '$(CC)' $(if $(filter 1,$(SANITIZE)),--sanitize,)
 
 check-part1:
 	python3 tools/check_part1.py '$(CC)'
+
+project:
+	python3 tools/project.py '$(PROJECT)' --compiler '$(CC)' $(if $(filter 1,$(REFERENCE)),--reference,) $(if $(filter 1,$(SANITIZE)),--sanitize,)
+
+check-projects:
+	$(MAKE) project PROJECT=record-store REFERENCE=1
+	$(MAKE) project PROJECT=binary-record REFERENCE=1
+
+check-part2:
+	python3 tools/check_examples.py --part 2 --compiler '$(CC)'
 
 serve:
 	python3 -m http.server 8000 --directory dist

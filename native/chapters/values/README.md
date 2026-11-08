@@ -16,6 +16,8 @@ A type determines the values an object can represent and the operations that mak
 
 `int` represents whole numbers, while `double` represents floating-point approximations. `char` is an integer type used for character-sized storage; a character literal such as `'A'` uses single quotes. In C17, include `<stdbool.h>` to use `bool`, `true`, and `false`. Integer widths and plain-char signedness are implementation choices within the standard’s requirements. Do not assume one compiler’s sizes describe all C platforms. The language also provides short, long, long long, and unsigned integer variants, and float and long double for other floating-point ranges or precision. This introduction uses double for fractional calculations. A float argument to printf is promoted to double; scanf follows different format rules, so do not transfer printf formats to input functions without checking their contracts.
 
+### main.c
+
 ```c
 #include <stdio.h>
 #include <stdbool.h>
@@ -54,7 +56,7 @@ The formats match the arguments: %d for int, %.1f for a double printed with one 
 
 **Try:** Change the values and predict the complete line before you run the example.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=values-1
@@ -65,6 +67,8 @@ make example EXAMPLE=values-1
 A variable is a named object whose stored value may change. Initialization gives it a starting value at its declaration. A later assignment replaces the value it holds.
 
 Declare and initialize small local variables near their first use. An uninitialized automatic int has an indeterminate value; do not read it before assigning a valid value. `const` expresses that an object should not be modified through that declaration. It helps document intent and lets the compiler reject accidental writes. In C, a const-qualified object is not automatically an integer constant expression in every context; that distinction matters later for array bounds and declarations.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -102,7 +106,7 @@ No. An initializer is evaluated once at that point in execution. C does not main
 
 **Try:** Recalculate total after changing quantity. Check that the first number now becomes 28.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=values-2
@@ -113,6 +117,8 @@ make example EXAMPLE=values-2
 An expression combines values and operators to compute a result. Parentheses make grouping explicit; they are often clearer than expecting a reader to remember every precedence rule.
 
 Multiplication, division, and remainder bind more tightly than addition and subtraction. When both operands of division are integers, the result is an integer truncated toward zero: 7 / 2 is 3. The remainder operator % works on integers; for these positive operands, 7 % 2 is 1. Division by zero is invalid. Evaluation order is a separate issue from precedence: grouping does not generally tell you the order in which unrelated function calls or side effects are evaluated.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -149,7 +155,7 @@ The first line divides seven into two groups with one left over. On the second l
 
 **Try:** Add expressions for 9 / 4 and 9 % 4. Explain each result rather than only matching the output.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=values-3
@@ -160,6 +166,8 @@ make example EXAMPLE=values-3
 C converts values when types differ, but the point at which a conversion happens matters. Converting a completed integer result cannot recover a fraction that integer division already discarded.
 
 In a mixed expression involving double and an ordinary integer, the integer can be converted to double before arithmetic. A cast explicitly requests a conversion. Thus `(double)7 / 2` performs floating-point division, whereas `(double)(7 / 2)` first computes the integer quotient. Smaller integer types commonly undergo integer promotion in expressions. Signed/unsigned combinations have additional conversion rules, so avoid mixing them casually when testing ranges.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -195,7 +203,7 @@ fractional receives 3.5 because conversion happens before division. truncated re
 
 **Try:** Rewrite fractional using 7.0 instead of a cast. Explain why the result is unchanged.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=values-4
@@ -206,6 +214,8 @@ make example EXAMPLE=values-4
 C’s numeric types have finite ranges. Correct code distinguishes unsigned arithmetic, which wraps modulo its type’s range, from signed overflow, whose behavior is undefined.
 
 Use `<limits.h>` for bounds such as INT_MAX, INT_MIN, and UINT_MAX. Do not assume int is exactly 32 bits merely because this browser target uses that size. A signed addition must be checked before it overflows, not afterward. Unsigned wrap is defined, but it can still be a bug in sizes or indexes. Floating-point types have separate limits and precision characteristics described by `<float.h>`.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -242,7 +252,7 @@ No; signed overflow has undefined behavior. Unsigned arithmetic has defined modu
 
 **Try:** Use the chapter’s numeric-expression exercise to practice type choice and conversion without invoking overflow.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=values-5
@@ -250,7 +260,7 @@ make example EXAMPLE=values-5
 
 ## Chapter practice
 
-Edit `native/exercises/numbers.c`, then run:
+Edit `native/exercises/numbers.c`.
 
 ```sh
 make exercise EXERCISE=numbers
@@ -258,4 +268,4 @@ make exercise EXERCISE=numbers
 
 Chapter workspace command: `make chapter CHAPTER=values`.
 
-Generated from dist/part1.js by tools/sync_part1.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/values
+Generated from dist/part1.js by tools/sync_readings.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/values

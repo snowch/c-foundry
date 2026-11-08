@@ -15,10 +15,14 @@
   function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4000);}
   function nav(){
     $('drawer-progress').textContent=`${state.completed.length} of ${PRACTICE.length} available exercises checked`;
-    $('drawer-nav').innerHTML='<p class="menu-label">Available practice</p>'+PRACTICE.map((l)=>`<a class="lesson-link ${l.id===LESSONS[selected].id&&view==='lab'?'active':''}" href="#/lesson/${l.id}" ${l.id===LESSONS[selected].id&&view==='lab'?'aria-current="page"':''}>${state.completed.includes(l.id)?'✓ ':''}${escape(l.title)}</a>`).join('')+'<p class="menu-label">Complete syllabus</p>'+COURSE.parts.map((part,i)=>`<details><summary>Part ${i+1}: ${escape(part)}</summary>${COURSE.chapters.filter(c=>c.part===i).map(c=>`<a href="#/chapter/${c.id}">${c.number}. ${escape(c.title)}</a>`).join('')}</details>`).join('');
+    const route=location.hash.split('/');
+    const activeChapter=route[1]==='chapter'?COURSE.chapters.find(c=>c.id===route[2]):view==='lab'?COURSE.chapters.find(c=>c.id===LESSONS[selected].chapterId||c.labs.includes(LESSONS[selected].id)):null;
+    const topicId=route[1]==='chapter'?route[3]:null;
+    $('drawer-nav').innerHTML=COURSE.parts.map((part,i)=>`<details ${activeChapter?.part===i?'open':''}><summary><span class="part-number">${i+1}</span>${escape(part)}</summary>${COURSE.chapters.filter(c=>c.part===i).map(c=>`<div class="drawer-chapter"><a class="chapter-entry" href="#/chapter/${c.id}${c.status==='ready'?'/1':''}" ${activeChapter?.id===c.id?'aria-current="location"':''}><span>${c.number}. ${escape(c.title)}</span><small>${c.topics.length} ${c.status==='ready'?'lessons':'planned topics'}</small></a>${activeChapter?.id===c.id?`<div class="drawer-topics"><a href="#/chapter/${c.id}" ${!topicId&&route[1]==='chapter'?'aria-current="page"':''}>Chapter overview</a>${c.topics.map(t=>`<a href="#/chapter/${c.id}/${t.id}" ${topicId===t.id?'aria-current="page"':''}>${escape(t.title)}</a>`).join('')}${c.labs.map(id=>`<a href="#/lesson/${id}" ${route[1]==='lesson'&&route[2]===id?'aria-current="page"':''}>Practice: ${escape(LESSONS.find(l=>l.id===id).title)}</a>`).join('')}</div>`:''}</div>`).join('')}</details>`).join('');
+
   }
   function lines(){$('line-numbers').textContent=Array.from({length:$('editor').value.split('\n').length},(_,i)=>i+1).join('\n');$('line-numbers').scrollTop=$('editor').scrollTop;}
-  function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const readingTopic=next==='preview'&&!!$('inline-editor-host');const active=(b.dataset.view==='lab'&&(next==='lab'||readingTopic))||(b.dataset.view==='curriculum'&&(next==='curriculum'||(!readingTopic&&['preview','complexity','setup'].includes(next))));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});nav();}
+  function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const readingTopic=next==='preview'&&!!document.querySelector('#preview-content .topic-content');const active=(b.dataset.view==='lab'&&(next==='lab'||readingTopic))||(b.dataset.view==='curriculum'&&(next==='curriculum'||(!readingTopic&&['preview','complexity','setup'].includes(next))));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});nav();}
   function select(index){
     selected=index;const l=LESSONS[index];state.selected=l.id;
     const chapter=COURSE.chapters.find(c=>c.id===l.chapterId||c.labs.includes(l.id));
@@ -36,12 +40,12 @@
     window.lessonVisuals.show(l.id);document.querySelector('.worked-example').hidden=!!l.isExample;document.querySelector('#lab-view .prediction').hidden=!!l.isExample;document.querySelector('.hint').open=false;document.querySelector('.reference-solution').open=false;consoleTab('output');lines();save();showView('lab');
   }
   function renderMap(){
-    $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)}</h2><ol start="${COURSE.chapters.find(c=>c.part===i).number}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}"><strong>${escape(c.title)}</strong><span>${c.topics.length} ${c.status==='ready'?'lessons ready':'planned topics'} · ${courseExecution.label(c)}${c.labs.length?' · practice available':c.id==='big-o'?' · explorer available':' · preview'}</span></a></li>`).join('')}</ol></section>`).join('');
+    $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)}</h2><ol start="${COURSE.chapters.find(c=>c.part===i).number}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}${c.status==='ready'?'/1':''}"><strong>${escape(c.title)}</strong><span>${c.topics.length} ${c.status==='ready'?'lessons ready':'planned topics'} · ${courseExecution.label(c)}${c.labs.length?' · practice available':c.id==='big-o'?' · explorer available':c.status==='ready'?' · native project':' · preview'}</span></a></li>`).join('')}</ol></section>`).join('');
   }
   function preview(chapter,topic){
     if(chapter.status==='ready'){
-      $('preview-content').innerHTML=partOne.render(chapter,topic);
-      if(topic)mountInlineExample(chapter,topic);
+      $('preview-content').innerHTML=authoredLessons.render(chapter,topic);
+      if(topic&&authoredLessons.content[chapter.id].topics[topic.id].runtime!=='native')mountInlineExample(chapter,topic);
       showView('preview');return;
     }
     const prev=COURSE.chapters[chapter.number-2];const next=COURSE.chapters[chapter.number];
@@ -149,6 +153,7 @@
   $('stdin').oninput=()=>{state.inputs[LESSONS[selected].id]=$('stdin').value;$('input-dot').textContent=$('stdin').value?'•':'';save();};
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&(view==='lab'||inlineActive)){e.preventDefault();run(e.shiftKey);}});
   document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view==='lab'?'/lesson/'+state.selected:'/course'));
+  document.addEventListener('change',event=>{if(event.target.id==='chapter-jump')go(event.target.value);});
   document.querySelectorAll('[data-console]').forEach(b=>b.onclick=()=>consoleTab(b.dataset.console));
   $('run-button').onclick=()=>run();$('check-button').onclick=()=>run(true);$('stop-button').onclick=()=>stop();
   function practiceSequence(){return COURSE.chapters.flatMap(c=>c.labs).filter(id=>PRACTICE.some(l=>l.id===id));}
@@ -163,7 +168,7 @@
   document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#/"]');if(a&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey&&e.button===0){e.preventDefault();go(a.getAttribute('href').slice(1));}});
   $('about-button')?.addEventListener('click',()=>$('about-dialog').showModal());$('close-about').onclick=()=>$('about-dialog').close();
   function closeCourseMenu(){if($('course-drawer').open)$('course-drawer').close();$('course-menu-button').setAttribute('aria-expanded','false');}
-  $('course-menu-button').onclick=()=>{$('course-drawer').showModal();$('course-menu-button').setAttribute('aria-expanded','true');};
+  $('course-menu-button').onclick=()=>{$('course-drawer').showModal();$('course-menu-button').setAttribute('aria-expanded','true');document.querySelector('#drawer-nav [aria-current="page"]')?.scrollIntoView({block:'center'});};
   $('close-course-menu').onclick=closeCourseMenu;
   $('course-drawer').addEventListener('close',()=>{$('course-menu-button').setAttribute('aria-expanded','false');$('course-menu-button').focus();});
   $('course-drawer').addEventListener('click',e=>{if(e.target===$('course-drawer')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeCourseMenu();}});

@@ -16,6 +16,8 @@ A decision chooses which statements run. In a condition, zero is false and a non
 
 `if` executes a statement or block when its condition is true. An else branch handles the alternative. Use braces even for short branches while learning: they keep later edits unambiguous. `switch` selects among integer-valued cases. A break exits the switch; without it, execution may continue into the following case. Use default for the unmatched case when that is meaningful.
 
+### main.c
+
 ```c
 #include <stdio.h>
 
@@ -60,7 +62,7 @@ pass. The >= comparison includes equality. Boundary values belong in your tests.
 
 **Try:** Change score to 49 and command to an unmatched value. Predict both output lines.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=control-flow-1
@@ -71,6 +73,8 @@ make example EXAMPLE=control-flow-1
 Logical operators combine conditions. Use && for both conditions, || for either condition, and ! to invert a truth value. Write the comparisons explicitly so the code reads like the rule.
 
 C evaluates the left operand of && first and evaluates the right operand only if the left is true. For ||, the right operand is evaluated only if the left is false. This short-circuit behavior can protect a later operation: check that a divisor is nonzero before dividing. To test whether x is between two limits, write `x > 0 && x < 10`; the mathematical-looking `0 < x < 10` does not mean the same thing in C.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -110,7 +114,7 @@ No. The false left operand of && skips its right operand.
 
 **Try:** Try divisor = 2 and then divisor = 5. Explain why one reaches the true branch and the other does not.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=control-flow-2
@@ -121,6 +125,8 @@ make example EXAMPLE=control-flow-2
 A loop repeats work while a condition permits it. Identify the initial state, continuation condition, update, and body before reasoning about its output.
 
 A for loop gathers initialization, condition, and update in one place. Its condition is tested before each iteration. A while loop also tests before its body, while do–while tests afterward and therefore runs the body at least once. Track a small example by hand: record the loop variable before the body, the output, and its next value. Make sure the loop can progress toward termination.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -165,7 +171,7 @@ The for body sees i equal to 0, 1, and 2. After the update makes it 3, the condi
 
 **Try:** Rewrite the countdown using for. Keep the output and final value the same.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=control-flow-3
@@ -176,6 +182,8 @@ make example EXAMPLE=control-flow-3
 break and continue change the ordinary path through a loop. Use them when they make a termination or skip rule clearer; avoid using them to hide a complicated set of conditions.
 
 break leaves the nearest enclosing loop or switch. continue skips the rest of the current loop iteration. In a for loop, continue proceeds to the update expression and then tests the condition again. In a while loop, it returns directly to the condition, so a necessary update below continue would be skipped. Trace these paths separately when debugging.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -217,7 +225,7 @@ At i = 2, continue skips printf but the for update still increments i. At i = 5,
 
 **Try:** Move the break condition to i == 4. Predict which final value disappears from the output.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=control-flow-4
@@ -228,6 +236,8 @@ make example EXAMPLE=control-flow-4
 A useful small project combines decisions, repetition, and a clear input contract. Our number-guessing game keeps a fixed target and tells the player whether a valid guess is too low, too high, or correct.
 
 The Input panel supplies a sequence before execution. In this scaffold, `scanf("%d", &guess)` returns 1 when it stores one integer, 0 for a nonmatching token, and EOF when input ends before a conversion. The ampersand supplies the destination address; pointers are explained in Part 2. For this exercise, integer tokens are between −1000 and 1000. This bound matters: %d is not a safe parser for arbitrarily large numbers. Later text-input lessons explain how to handle buffers and prepare for checked parsing.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -273,7 +283,7 @@ No. No assignment was made by that failed conversion. Handle the failure before 
 
 **Try:** Open the guessing-game exercise and add the loop, range checks, and higher/lower responses.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=control-flow-5
@@ -281,7 +291,7 @@ make example EXAMPLE=control-flow-5
 
 ## Chapter practice
 
-Edit `native/exercises/guess.c`, then run:
+Edit `native/exercises/guess.c`.
 
 ```sh
 make exercise EXERCISE=guess
@@ -289,4 +299,4 @@ make exercise EXERCISE=guess
 
 Chapter workspace command: `make chapter CHAPTER=control-flow`.
 
-Generated from dist/part1.js by tools/sync_part1.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/control-flow
+Generated from dist/part1.js by tools/sync_readings.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/control-flow

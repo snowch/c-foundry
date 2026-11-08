@@ -469,6 +469,141 @@ window.LESSONS = [
       "answer": 1,
       "why": "Words begin when a non-whitespace character follows the start of input or a whitespace run."
     }
+  },
+  {
+    "id": "grow",
+    "section": 0,
+    "chapterId": "allocation",
+    "title": "Build a growable int array",
+    "time": "25 min",
+    "tag": "Part 2 practice",
+    "concept": "Keep length, capacity, and ownership separate.",
+    "body": "Implement push for an int buffer. Grow when the initialized length reaches capacity, and preserve the original owner if allocation fails.",
+    "detail": "The supplied parser accepts one integer from 0 through 16. The array starts empty. The caller supplies valid pointer arguments and releases its allocation on success or failure.",
+    "task": "Complete push so the program builds the values 1 through the requested count. Use checked capacity arithmetic and a temporary realloc result. Do not change length on a failed push.",
+    "hint": "When full, grow capacity from zero to 4, then double it with overflow checks. After successful growth, replace the owner. Finally store through (*values)[*length] and increment length.",
+    "code": "#include <stdio.h>\n#include <stdlib.h>\n#include <stdbool.h>\n#include <stdint.h>\n#include <errno.h>\n#include <string.h>\n\nbool push(int **values, size_t *length, size_t *capacity, int value) {\n    (void)values; (void)length; (void)capacity; (void)value;\n    // TODO: grow safely if full, then store value and increase length.\n    return false;\n}\n\nint main(void) {\n    char line[64], *end;\n    if (!fgets(line, sizeof line, stdin)) { puts(\"invalid\"); return 0; }\n    line[strcspn(line, \"\\r\\n\")] = '\\0';\n    errno = 0;\n    long count = strtol(line, &end, 10);\n    if (errno == ERANGE || end == line || *end != '\\0' || count < 0 || count > 16) {\n        puts(\"invalid\"); return 0;\n    }\n    int *values = NULL;\n    size_t length = 0, capacity = 0;\n    for (long i = 0; i < count; i++) {\n        if (!push(&values, &length, &capacity, (int)i + 1)) {\n            free(values); puts(\"allocation failed\"); return 0;\n        }\n    }\n    printf(\"%zu |\", length);\n    for (size_t i = 0; i < length; i++) printf(\" %d\", values[i]);\n    puts(\"\");\n    free(values);\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdlib.h>\n#include <stdbool.h>\n#include <stdint.h>\n#include <errno.h>\n#include <string.h>\n\nbool push(int **values, size_t *length, size_t *capacity, int value) {\n    if (*length == *capacity) {\n        if (*capacity > SIZE_MAX / 2) return false;\n        size_t next = *capacity ? *capacity * 2 : 4;\n        if (next > SIZE_MAX / sizeof **values) return false;\n        int *grown = realloc(*values, next * sizeof **values);\n        if (!grown) return false;\n        *values = grown;\n        *capacity = next;\n    }\n    (*values)[(*length)++] = value;\n    return true;\n}\n\nint main(void) {\n    char line[64], *end;\n    if (!fgets(line, sizeof line, stdin)) { puts(\"invalid\"); return 0; }\n    line[strcspn(line, \"\\r\\n\")] = '\\0';\n    errno = 0;\n    long count = strtol(line, &end, 10);\n    if (errno == ERANGE || end == line || *end != '\\0' || count < 0 || count > 16) {\n        puts(\"invalid\"); return 0;\n    }\n    int *values = NULL;\n    size_t length = 0, capacity = 0;\n    for (long i = 0; i < count; i++) {\n        if (!push(&values, &length, &capacity, (int)i + 1)) {\n            free(values); puts(\"allocation failed\"); return 0;\n        }\n    }\n    printf(\"%zu |\", length);\n    for (size_t i = 0; i < length; i++) printf(\" %d\", values[i]);\n    puts(\"\");\n    free(values);\n    return 0;\n}\n",
+    "input": "5",
+    "tests": [
+      {
+        "name": "Empty",
+        "input": "0",
+        "expected": "0 |"
+      },
+      {
+        "name": "One value",
+        "input": "1",
+        "expected": "1 | 1"
+      },
+      {
+        "name": "Grow past initial capacity",
+        "input": "5",
+        "expected": "5 | 1 2 3 4 5"
+      },
+      {
+        "name": "Two growth boundaries",
+        "input": "12",
+        "expected": "12 | 1 2 3 4 5 6 7 8 9 10 11 12"
+      },
+      {
+        "name": "Upper bound",
+        "input": "16",
+        "expected": "16 | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16"
+      },
+      {
+        "name": "Outside range",
+        "input": "17",
+        "expected": "invalid"
+      },
+      {
+        "name": "Malformed count",
+        "input": "abc",
+        "expected": "invalid"
+      },
+      {
+        "name": "Trailing junk",
+        "input": "5x",
+        "expected": "invalid"
+      }
+    ],
+    "assessment": "Output checks do not prove ownership or exercise allocator failure. Review the temporary realloc owner, overflow checks, cleanup paths, and length/capacity invariant.",
+    "example": {
+      "code": "// Push into an empty buffer.\n// Grow capacity to 4, store 1, then set length to 1.",
+      "html": "<pre>length=1\ncapacity=4\nvalues[0]=1</pre>",
+      "question": "Does unused capacity contain initialized logical elements?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "why": "Length counts initialized elements; capacity is only reserved storage."
+    }
+  },
+  {
+    "id": "records",
+    "section": 0,
+    "chapterId": "structured-data",
+    "title": "Update a record collection",
+    "time": "25 min",
+    "tag": "Part 2 practice",
+    "concept": "Use an explicit status and a bounded embedded string.",
+    "body": "Find a row by ID and replace its name without overflowing the embedded 32-char array. Return distinct results for success, a missing ID, and an invalid name.",
+    "detail": "The input scaffold reads a positive int ID on the first line and a name on the second. Input lines are at most 63 bytes. A valid name contains 1–31 bytes; it can contain spaces. The supplied collection contains IDs 1, 2, and 3.",
+    "task": "Implement update_name. Reject an empty or overlong name before modifying any row, then find the ID and copy the name including its terminator. Leave the collection unchanged on failure.",
+    "hint": "Compare strlen(name) with sizeof rows[0].name. After finding the matching index, memcpy the checked length plus one and return UPDATED.",
+    "code": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <errno.h>\n#include <limits.h>\n\ntypedef struct { int id; char name[32]; } Row;\ntypedef enum { UPDATED, NOT_FOUND, BAD_NAME } Result;\n\nResult update_name(Row *rows, size_t count, int id, const char *name) {\n    (void)rows; (void)count; (void)id; (void)name;\n    // TODO: validate the name, find the ID, and copy the complete string.\n    return NOT_FOUND;\n}\n\nint main(void) {\n    Row rows[] = {{1, \"Ada\"}, {2, \"Grace\"}, {3, \"Linus\"}};\n    char id_line[64], name[64], *end;\n    if (!fgets(id_line, sizeof id_line, stdin)) { puts(\"invalid id\"); return 0; }\n    id_line[strcspn(id_line, \"\\r\\n\")] = '\\0';\n    errno = 0;\n    long id = strtol(id_line, &end, 10);\n    if (errno == ERANGE || end == id_line || *end != '\\0' || id < 1 || id > INT_MAX) {\n        puts(\"invalid id\"); return 0;\n    }\n    if (!fgets(name, sizeof name, stdin)) { puts(\"invalid name\"); return 0; }\n    name[strcspn(name, \"\\r\\n\")] = '\\0';\n    Result result = update_name(rows, 3, (int)id, name);\n    if (result == BAD_NAME) puts(\"invalid name\");\n    else if (result == NOT_FOUND) puts(\"not found\");\n    else {\n        for (size_t i = 0; i < 3; i++) {\n            if (rows[i].id == id) printf(\"%d | %s\\n\", rows[i].id, rows[i].name);\n        }\n    }\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <errno.h>\n#include <limits.h>\n\ntypedef struct { int id; char name[32]; } Row;\ntypedef enum { UPDATED, NOT_FOUND, BAD_NAME } Result;\n\nResult update_name(Row *rows, size_t count, int id, const char *name) {\n    if (!name || strlen(name) == 0 || strlen(name) >= sizeof rows[0].name) return BAD_NAME;\n    for (size_t i = 0; i < count; i++) {\n        if (rows[i].id == id) {\n            memcpy(rows[i].name, name, strlen(name) + 1);\n            return UPDATED;\n        }\n    }\n    return NOT_FOUND;\n}\n\nint main(void) {\n    Row rows[] = {{1, \"Ada\"}, {2, \"Grace\"}, {3, \"Linus\"}};\n    char id_line[64], name[64], *end;\n    if (!fgets(id_line, sizeof id_line, stdin)) { puts(\"invalid id\"); return 0; }\n    id_line[strcspn(id_line, \"\\r\\n\")] = '\\0';\n    errno = 0;\n    long id = strtol(id_line, &end, 10);\n    if (errno == ERANGE || end == id_line || *end != '\\0' || id < 1 || id > INT_MAX) {\n        puts(\"invalid id\"); return 0;\n    }\n    if (!fgets(name, sizeof name, stdin)) { puts(\"invalid name\"); return 0; }\n    name[strcspn(name, \"\\r\\n\")] = '\\0';\n    Result result = update_name(rows, 3, (int)id, name);\n    if (result == BAD_NAME) puts(\"invalid name\");\n    else if (result == NOT_FOUND) puts(\"not found\");\n    else {\n        for (size_t i = 0; i < 3; i++) {\n            if (rows[i].id == id) printf(\"%d | %s\\n\", rows[i].id, rows[i].name);\n        }\n    }\n    return 0;\n}\n",
+    "input": "2\nGrace Hopper\n",
+    "tests": [
+      {
+        "name": "Matching row",
+        "input": "2\nGrace Hopper\n",
+        "expected": "2 | Grace Hopper"
+      },
+      {
+        "name": "First row",
+        "input": "1\nAda Lovelace\n",
+        "expected": "1 | Ada Lovelace"
+      },
+      {
+        "name": "Absent ID",
+        "input": "99\nSomeone\n",
+        "expected": "not found"
+      },
+      {
+        "name": "Empty name",
+        "input": "2\n\n",
+        "expected": "invalid name"
+      },
+      {
+        "name": "Maximum name",
+        "input": "3\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+        "expected": "3 | xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      {
+        "name": "Name too long",
+        "input": "3\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+        "expected": "invalid name"
+      },
+      {
+        "name": "Bad ID",
+        "input": "bad\nName\n",
+        "expected": "invalid id"
+      }
+    ],
+    "assessment": "Explain the embedded string’s capacity and why the terminator is included in the copy. Output checks alone do not establish that every failure leaves the collection unchanged.",
+    "example": {
+      "code": "// Row 2 before: {2, \"Grace\"}\n// After a validated copy: {2, \"Grace Hopper\"}",
+      "html": "<pre>2 | Grace Hopper</pre>",
+      "question": "Does a name of 32 text characters fit in char name[32] as a C string?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "why": "The zero terminator needs a further element; at most 31 text chars fit."
+    }
   }
 ];
 window.SECTIONS = [

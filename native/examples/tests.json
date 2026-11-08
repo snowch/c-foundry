@@ -173,5 +173,222 @@
       "input": "C is fun\n",
       "expected": "words=3"
     }
+  ],
+  "pointers-1": [
+    {
+      "name": "Addresses, dereferencing, and null pointers",
+      "input": "",
+      "expected": "value=42\nnull=1"
+    }
+  ],
+  "pointers-2": [
+    {
+      "name": "Pointers as function arguments",
+      "input": "",
+      "expected": "42 10 10"
+    }
+  ],
+  "pointers-3": [
+    {
+      "name": "Arrays, pointers, and pointer arithmetic",
+      "input": "",
+      "expected": "4 6 3"
+    }
+  ],
+  "pointers-4": [
+    {
+      "name": "const and pointer declarations",
+      "input": "",
+      "expected": "11 20"
+    }
+  ],
+  "pointers-5": [
+    {
+      "name": "Swapping values through pointers",
+      "input": "",
+      "expected": "42 10 7"
+    }
+  ],
+  "allocation-1": [
+    {
+      "name": "Stack storage and heap allocation",
+      "input": "",
+      "expected": "15"
+    }
+  ],
+  "allocation-2": [
+    {
+      "name": "malloc, calloc, realloc, and free",
+      "input": "",
+      "expected": "first=0\nlast=6"
+    }
+  ],
+  "allocation-3": [
+    {
+      "name": "Allocation failure and size calculations",
+      "input": "",
+      "expected": "overflow rejected\nsimulated failure handled"
+    }
+  ],
+  "allocation-4": [
+    {
+      "name": "Leaks, dangling pointers, and double frees",
+      "input": "",
+      "expected": "Hi Bi"
+    }
+  ],
+  "allocation-5": [
+    {
+      "name": "A growing array and string builder",
+      "input": "",
+      "expected": "hello C\nlength=7 fits=1"
+    }
+  ],
+  "structured-data-1": [
+    {
+      "name": "Structs, initialization, and member access",
+      "input": "",
+      "expected": "1 | Ada\n2 | Ada"
+    }
+  ],
+  "structured-data-2": [
+    {
+      "name": "typedef, enums, and tagged unions",
+      "input": "",
+      "expected": "number=7\ntext=Ada"
+    }
+  ],
+  "structured-data-3": [
+    {
+      "name": "Padding, alignment, and sizeof",
+      "input": "",
+      "expected": "fields fit=1\ncount aligned=1"
+    }
+  ],
+  "structured-data-4": [
+    {
+      "name": "Pointers to structs and linked objects",
+      "input": "",
+      "expected": "sum=3"
+    }
+  ],
+  "structured-data-5": [
+    {
+      "name": "An in-memory record collection",
+      "input": "",
+      "expected": "Grace 99"
+    }
+  ],
+  "larger-programs-1": [
+    {
+      "name": "Header files and separate compilation",
+      "input": "",
+      "expected": "42",
+      "sources": [
+        "larger-programs-1/operations.c",
+        "larger-programs-1/main.c"
+      ]
+    }
+  ],
+  "larger-programs-2": [
+    {
+      "name": "Declarations, definitions, linkage, and static",
+      "input": "",
+      "expected": "calls=2 private=2",
+      "sources": [
+        "larger-programs-2/counter.c",
+        "larger-programs-2/main.c"
+      ]
+    }
+  ],
+  "larger-programs-3": [
+    {
+      "name": "Include guards and the preprocessor",
+      "input": "",
+      "expected": "21",
+      "sources": [
+        "larger-programs-3/main.c"
+      ]
+    }
+  ],
+  "larger-programs-4": [
+    {
+      "name": "Function pointers and callbacks",
+      "input": "",
+      "expected": "-3 0 7 7",
+      "sources": [
+        "larger-programs-4/main.c"
+      ]
+    }
+  ],
+  "larger-programs-5": [
+    {
+      "name": "Interfaces, ownership contracts, and error reporting",
+      "input": "",
+      "expected": "Ada\nbad input=1",
+      "sources": [
+        "larger-programs-5/main.c"
+      ]
+    }
+  ],
+  "files-bytes-1": [
+    {
+      "name": "Text and binary file I/O",
+      "input": "",
+      "expected": "Ada",
+      "sources": [
+        "files-bytes-1/main.c"
+      ]
+    }
+  ],
+  "files-bytes-2": [
+    {
+      "name": "Fixed-width integers, bitwise operations, and masks",
+      "input": "",
+      "expected": "hex=20 bit2=0 bit5=1",
+      "sources": [
+        "files-bytes-2/main.c"
+      ]
+    }
+  ],
+  "files-bytes-3": [
+    {
+      "name": "Endianness and explicit serialization",
+      "input": "",
+      "expected": "78 56 34 12\nround trip=1",
+      "sources": [
+        "files-bytes-3/main.c"
+      ]
+    }
+  ],
+  "files-bytes-4": [
+    {
+      "name": "Undefined behavior, assertions, and debugging",
+      "input": "",
+      "expected": "12",
+      "sources": [
+        "files-bytes-4/main.c"
+      ]
+    }
+  ],
+  "files-bytes-5": [
+    {
+      "name": "Testing, sanitizers, portability, and browser runtime limits",
+      "input": "",
+      "expected": "short=ok\ntoo-long=rejected",
+      "sources": [
+        "files-bytes-5/main.c"
+      ]
+    }
+  ],
+  "files-bytes-6": [
+    {
+      "name": "A portable binary record format",
+      "input": "",
+      "expected": "id=513 score=90\nbad version=1",
+      "sources": [
+        "files-bytes-6/main.c"
+      ]
+    }
   ]
 }

@@ -237,5 +237,84 @@
       "input": "abc",
       "expected": "3 1"
     }
+  ],
+  "grow": [
+    {
+      "name": "Empty",
+      "input": "0",
+      "expected": "0 |"
+    },
+    {
+      "name": "One value",
+      "input": "1",
+      "expected": "1 | 1"
+    },
+    {
+      "name": "Grow past initial capacity",
+      "input": "5",
+      "expected": "5 | 1 2 3 4 5"
+    },
+    {
+      "name": "Two growth boundaries",
+      "input": "12",
+      "expected": "12 | 1 2 3 4 5 6 7 8 9 10 11 12"
+    },
+    {
+      "name": "Upper bound",
+      "input": "16",
+      "expected": "16 | 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16"
+    },
+    {
+      "name": "Outside range",
+      "input": "17",
+      "expected": "invalid"
+    },
+    {
+      "name": "Malformed count",
+      "input": "abc",
+      "expected": "invalid"
+    },
+    {
+      "name": "Trailing junk",
+      "input": "5x",
+      "expected": "invalid"
+    }
+  ],
+  "records": [
+    {
+      "name": "Matching row",
+      "input": "2\nGrace Hopper\n",
+      "expected": "2 | Grace Hopper"
+    },
+    {
+      "name": "First row",
+      "input": "1\nAda Lovelace\n",
+      "expected": "1 | Ada Lovelace"
+    },
+    {
+      "name": "Absent ID",
+      "input": "99\nSomeone\n",
+      "expected": "not found"
+    },
+    {
+      "name": "Empty name",
+      "input": "2\n\n",
+      "expected": "invalid name"
+    },
+    {
+      "name": "Maximum name",
+      "input": "3\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+      "expected": "3 | xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "name": "Name too long",
+      "input": "3\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+      "expected": "invalid name"
+    },
+    {
+      "name": "Bad ID",
+      "input": "bad\nName\n",
+      "expected": "invalid id"
+    }
   ]
 }

@@ -16,6 +16,8 @@ A C source file is a description of a program. The computer cannot run that text
 
 In this course the file is called `main.c`. Preprocessing handles directives such as `#include`. Compilation checks the language rules and produces object code; linking resolves references such as a call to `printf`. On a Linux system, the result is a native executable. In this page, Clang and the linker produce a WebAssembly module that the browser can execute. These stages explain why a successful edit is not yet a running program.
 
+### main.c
+
 ```c
 #include <stdio.h>
 
@@ -49,7 +51,7 @@ Linking. The linker connects translated code with the functions and support it r
 
 **Try:** Change the greeting, run the program, and check that the console reflects the new text.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=first-program-1
@@ -60,6 +62,8 @@ make example EXAMPLE=first-program-1
 Execution begins in main for the small hosted C programs in this course. Read the function body from its opening brace to its closing brace: statements normally execute in order.
 
 `int main(void)` says that main returns an integer status and takes no arguments. The braces delimit its body. An expression statement such as a function call ends in a semicolon. A `//` comment continues to the end of its line; a `/* ... */` comment can span several lines. Comments help a reader understand intent but do not execute. Function definitions and return values get a fuller treatment in Chapter 4.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -96,7 +100,7 @@ No. Returning a status and writing output are separate operations.
 
 **Try:** Swap the two printf statements. Predict the new order before running.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=first-program-2
@@ -107,6 +111,8 @@ make example EXAMPLE=first-program-2
 printf writes formatted text. The first argument is a format string: ordinary characters are printed, while conversion specifications describe how to print later arguments.
 
 A string literal uses double quotes. Within it, `\n` represents a newline, `\t` a tab, `\\` a backslash, and `\"` a double quote. The specification `%d` expects an int; `%%` prints a literal percent sign and consumes no argument. The order and types of arguments must match the format. Chapter 2 introduces additional types and their formats.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -143,7 +149,7 @@ The first call substitutes 3 for %d and then starts a new line. The second print
 
 **Try:** Print two labeled integer values on separate lines. Include a literal percent sign in one line.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=first-program-3
@@ -154,6 +160,8 @@ make example EXAMPLE=first-program-3
 A diagnostic is evidence about where the compiler became unable to understand or accept your source. Read the first error, inspect its location, and make one small correction before compiling again.
 
 Consider `printf("Hello")` followed by `return 0;`. The call is missing its semicolon. The compiler may point at return because that is where it discovers the previous statement was not terminated. Warnings describe suspicious constructs that a compiler may still translate. Keep warnings visible: a successful build does not establish correct behavior. Linking failures, such as an undefined function reference, belong to a later stage.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -188,7 +196,7 @@ The preceding statement. The reported location is where parsing failed, which ca
 
 **Try:** Create the missing-semicolon error, read it, fix it, and explain why its location may be one line later.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=first-program-4
@@ -199,6 +207,8 @@ make example EXAMPLE=first-program-4
 The browser lab is a C environment with a limited operating-system interface. It is useful to know what belongs to the C language, what belongs to the runtime, and what the page itself provides.
 
 The editor contains source. Run code compiles and executes it in a worker so the page remains responsive. Console shows program output and diagnostics. Input supplies text before execution; it is not an interactive terminal that waits for you to type midway through the run. Later exercises will read it. Check output compares observable results with practice cases. It does not prove that an algorithm is appropriate or memory is managed correctly.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -232,7 +242,7 @@ Before pressing Run code. The runner passes the Input text at the start. It does
 
 **Try:** Open the chapter’s greeting exercise. Edit, run, check, and export your first C file.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=first-program-5
@@ -240,7 +250,7 @@ make example EXAMPLE=first-program-5
 
 ## Chapter practice
 
-Edit `native/exercises/hello.c`, then run:
+Edit `native/exercises/hello.c`.
 
 ```sh
 make exercise EXERCISE=hello
@@ -248,4 +258,4 @@ make exercise EXERCISE=hello
 
 Chapter workspace command: `make chapter CHAPTER=first-program`.
 
-Generated from dist/part1.js by tools/sync_part1.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/first-program
+Generated from dist/part1.js by tools/sync_readings.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/first-program

@@ -16,6 +16,8 @@ An array stores a fixed number of elements of one type in contiguous storage. It
 
 An array of five ints has valid indexes 0 through 4. Accessing element 5 is outside the array, even if the program appears to continue. C does not automatically check these bounds. When the actual array declaration is in scope, sizeof array divided by sizeof array[0] gives its element count. That technique does not recover a count from a function parameter that has adjusted to a pointer; pass lengths explicitly when Part 2 introduces those interfaces.
 
+### main.c
+
 ```c
 #include <stdio.h>
 
@@ -55,7 +57,7 @@ The initializer determines a five-element array. sizeof reports sizes in bytes a
 
 **Try:** Change the initializer to three values and confirm that count and the loop adapt without a hardcoded bound.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=arrays-strings-1
@@ -66,6 +68,8 @@ make example EXAMPLE=arrays-strings-1
 A C string is a sequence of characters terminated by a zero byte. A character array can hold a string, but an arbitrary character array is not automatically terminated.
 
 The initializer `char word[] = "cat";` reserves four elements: c, a, t, and the terminating zero. `strlen` counts characters before the first zero; sizeof word reports the storage size of this declared array. strlen requires a valid terminated string and may otherwise read outside the object. String length and available buffer capacity are different quantities that must be tracked deliberately.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -101,7 +105,7 @@ strlen returns 3 because the terminator is not part of the text. sizeof reports 
 
 **Try:** Set word[1] to '\0'. Predict strlen and sizeof before running the edited example.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=arrays-strings-2
@@ -112,6 +116,8 @@ make example EXAMPLE=arrays-strings-2
 Reading a complete line is often more useful than reading a whitespace-delimited word. fgets accepts a destination buffer and its capacity, limiting how much it writes.
 
 With a positive capacity of at least two, fgets reads at most capacity minus one characters, keeps a newline if it fits, and appends a zero terminator on success. It returns NULL when it cannot return a string, such as end-of-input before any characters. It can also return a partial line when the buffer fills first. Check its result before using the buffer, and do not assume every successful call consumed a whole logical line.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -152,7 +158,7 @@ Yes. The capacity bounds each read. A long logical line can need more than one r
 
 **Try:** Try an empty Input panel, then a line longer than 31 characters. Observe success, EOF, and the capacity limit.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=arrays-strings-3
@@ -163,6 +169,8 @@ make example EXAMPLE=arrays-strings-3
 String operations need both a valid terminator and an understanding of destination capacity. Use library functions according to their contracts rather than assuming the names imply safety.
 
 `strcmp` compares string contents and promises a negative, zero, or positive result. The == operator does not compare string contents. A copy also needs enough destination capacity, including the terminator. snprintf reports how many characters it would have written, so a result at least as large as the capacity signals truncation. For numeric text, strtol supplies both a long result and the location where conversion stopped. That location is stored in a pointer named end; Part 2 explains the address mechanics. Here, follow the library contract to detect empty conversions, unwanted suffixes, and range failures.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -218,7 +226,7 @@ They have equal contents. strcmp compares the characters, not whether both expre
 
 **Try:** Change text to "42x", an empty string, and a number too large for long. Explain which checks reject them. Then make the copied name too long for the destination.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=arrays-strings-4
@@ -229,6 +237,8 @@ make example EXAMPLE=arrays-strings-4
 The chapter project counts characters and words in the first line of input. Define those words precisely before writing the loop: otherwise output disagreements may come from an unclear specification rather than a faulty implementation.
 
 For this exercise, input is ASCII and the first line contains at most 127 bytes. Count every byte before a newline as a character, including spaces and tabs. A word is a maximal run of non-whitespace characters. Keep a Boolean in_word flag: when a non-whitespace character arrives while the flag is false, a new word begins. A whitespace character clears the flag. Passing an unsigned-char value to isspace avoids invalid negative char arguments.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -280,7 +290,7 @@ For C is fun, each first letter after a boundary increases the word count; lette
 
 **Try:** Open the text-statistics exercise and implement both counters. Explain the purpose of the in_word flag.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=arrays-strings-5
@@ -288,7 +298,7 @@ make example EXAMPLE=arrays-strings-5
 
 ## Chapter practice
 
-Edit `native/exercises/textstats.c`, then run:
+Edit `native/exercises/textstats.c`.
 
 ```sh
 make exercise EXERCISE=textstats
@@ -296,4 +306,4 @@ make exercise EXERCISE=textstats
 
 Chapter workspace command: `make chapter CHAPTER=arrays-strings`.
 
-Generated from dist/part1.js by tools/sync_part1.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/arrays-strings
+Generated from dist/part1.js by tools/sync_readings.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/arrays-strings

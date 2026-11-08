@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "test": "node tests/interface.cjs && node tests/execution.cjs && node tests/part1.cjs && node tests/smoke.cjs"
+    "test": "node tests/interface.cjs && node tests/execution.cjs && node tests/part1.cjs && node tests/part2.cjs && node tests/smoke.cjs"
   },
   "devDependencies": {
     "jsdom": "^31.0.0"

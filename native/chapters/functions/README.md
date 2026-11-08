@@ -16,6 +16,8 @@ A function packages a computation behind a name, parameter list, and return type
 
 A definition includes the body. A declaration or prototype describes the interface so a caller can be checked before the definition is encountered. In `int twice(int value)`, value is a parameter local to the function and the result type is int. The call `twice(21)` supplies 21 as an argument. A return expression computes the value delivered to the caller. Write void in the parameter list of a C17 function that accepts no arguments.
 
+### main.c
+
 ```c
 #include <stdio.h>
 
@@ -53,7 +55,7 @@ The argument 21 initializes the parameter value. The body computes 42 and return
 
 **Try:** Add a prototype above main and move the definition below main without changing the result.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=functions-1
@@ -64,6 +66,8 @@ make example EXAMPLE=functions-1
 C passes arguments by value: a parameter receives a value of its own. Assigning to that parameter does not replace the caller’s variable.
 
 Think of the call as initializing a new local parameter from the argument. The parameter and the caller’s object then have separate identities. If a caller needs a computed result, return it and assign it explicitly. Later, pointers let functions access objects through addresses, but those pointer arguments are also passed by value. That is an extension of this rule, not an exception to it.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -104,7 +108,7 @@ No. The increment changes the parameter copy. Only the returned result is given 
 
 **Try:** Assign the return directly into original, then compare the output with the original example.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=functions-2
@@ -115,6 +119,8 @@ make example EXAMPLE=functions-2
 Scope determines where a name can be used. Lifetime determines when its object exists. These ideas are related, but they answer different questions.
 
 An automatic local object normally exists for the execution of its block. A static local object keeps its stored value for the entire program while its name remains local to that scope. A name declared in an inner block can hide a name from an outer block, which is called shadowing. Use distinct names when hiding would confuse a reader. File-scope objects and linkage receive a fuller treatment in the multi-file chapter.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -157,7 +163,7 @@ The static object count is initialized once and survives the first return. The s
 
 **Try:** Compare the two versions and explain the difference without changing the call sites.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=functions-3
@@ -168,6 +174,8 @@ make example EXAMPLE=functions-3
 Decomposition separates a program into pieces with clear responsibilities. Begin with a computation that accepts values and returns a result, keeping input and printing outside it.
 
 A rectangle calculator can separate area from perimeter. Each function then has a small contract: nonnegative, suitably bounded dimensions enter, and a numeric result comes back. main can validate input, call the functions, and format the result. This is easier to reason about than a helper that reads input, changes unrelated state, calculates, and prints all at once. Splitting into functions is useful when it clarifies an interface, not merely to make every function tiny.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -211,7 +219,7 @@ Formatting the final output. Keeping I/O at the boundary leaves the computation 
 
 **Try:** Implement the chapter calculator exercise, then add perimeter as a second independent function.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=functions-4
@@ -222,6 +230,8 @@ make example EXAMPLE=functions-4
 Testing a function means checking its result against its contract for representative inputs. Include ordinary cases and the boundaries where a condition changes behavior.
 
 For a maximum-of-two function, try a first argument that is larger, a second argument that is larger, and equal arguments. Negative values and zero exercise cases that positive-only checks miss. `assert` from `<assert.h>` checks a programmer expectation while assertions are enabled. It is not a replacement for validating external input, and compiling with NDEBUG removes assertions. Never put required side effects into an assertion.
+
+### main.c
 
 ```c
 #include <stdio.h>
@@ -264,7 +274,7 @@ Assertions can be removed by NDEBUG. Removing assertions must not remove behavio
 
 **Try:** Add tests where both inputs are negative and where the first input is zero.
 
-Run the complete example:
+Run from the repository root:
 
 ```sh
 make example EXAMPLE=functions-5
@@ -272,7 +282,7 @@ make example EXAMPLE=functions-5
 
 ## Chapter practice
 
-Edit `native/exercises/functions.c`, then run:
+Edit `native/exercises/functions.c`.
 
 ```sh
 make exercise EXERCISE=functions
@@ -280,4 +290,4 @@ make exercise EXERCISE=functions
 
 Chapter workspace command: `make chapter CHAPTER=functions`.
 
-Generated from dist/part1.js by tools/sync_part1.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/functions
+Generated from dist/part1.js by tools/sync_readings.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/functions

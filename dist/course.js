@@ -240,23 +240,28 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Addresses, dereferencing, and null pointers"
+          "title": "Addresses, dereferencing, and null pointers",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Pointers as function arguments"
+          "title": "Pointers as function arguments",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Arrays, pointers, and pointer arithmetic"
+          "title": "Arrays, pointers, and pointer arithmetic",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "const and pointer declarations"
+          "title": "const and pointer declarations",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Swapping values through pointers"
+          "title": "Swapping values through pointers",
+          "status": "ready"
         }
       ],
       "project": "Exchange two caller-owned values through pointers.",
@@ -268,7 +273,8 @@ window.COURSE = {
         "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/pointers",
-      "command": "make chapter CHAPTER=pointers"
+      "command": "make chapter CHAPTER=pointers",
+      "status": "ready"
     },
     {
       "id": "allocation",
@@ -278,35 +284,42 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Stack storage and heap allocation"
+          "title": "Stack storage and heap allocation",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "malloc, calloc, realloc, and free"
+          "title": "malloc, calloc, realloc, and free",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Allocation failure and size calculations"
+          "title": "Allocation failure and size calculations",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Leaks, dangling pointers, and double frees"
+          "title": "Leaks, dangling pointers, and double frees",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "A growing array and string builder"
+          "title": "A growing array and string builder",
+          "status": "ready"
         }
       ],
       "project": "Build a growable collection with an explicit owner for each allocation.",
       "labs": [
-        "heap"
+        "heap",
+        "grow"
       ],
       "execution": {
         "mode": "browser",
         "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/allocation",
-      "command": "make chapter CHAPTER=allocation"
+      "command": "make chapter CHAPTER=allocation",
+      "status": "ready"
     },
     {
       "id": "structured-data",
@@ -316,35 +329,42 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Structs, initialization, and member access"
+          "title": "Structs, initialization, and member access",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "typedef, enums, and tagged unions"
+          "title": "typedef, enums, and tagged unions",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Padding, alignment, and sizeof"
+          "title": "Padding, alignment, and sizeof",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Pointers to structs and linked objects"
+          "title": "Pointers to structs and linked objects",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "An in-memory record collection"
+          "title": "An in-memory record collection",
+          "status": "ready"
         }
       ],
       "project": "Represent and inspect a collection of records.",
       "labs": [
-        "rows"
+        "rows",
+        "records"
       ],
       "execution": {
         "mode": "browser",
         "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/structured-data",
-      "command": "make chapter CHAPTER=structured-data"
+      "command": "make chapter CHAPTER=structured-data",
+      "status": "ready"
     },
     {
       "id": "larger-programs",
@@ -354,23 +374,28 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Header files and separate compilation"
+          "title": "Header files and separate compilation",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Declarations, definitions, linkage, and static"
+          "title": "Declarations, definitions, linkage, and static",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Include guards and the preprocessor"
+          "title": "Include guards and the preprocessor",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Function pointers and callbacks"
+          "title": "Function pointers and callbacks",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Interfaces, ownership contracts, and error reporting"
+          "title": "Interfaces, ownership contracts, and error reporting",
+          "status": "ready"
         }
       ],
       "project": "Divide a collection library into a public interface and an implementation.",
@@ -381,7 +406,9 @@ window.COURSE = {
       },
       "workspace": "native/chapters/larger-programs",
       "command": "make chapter CHAPTER=larger-programs",
-      "nativeDemo": "hello"
+      "nativeDemo": "hello",
+      "status": "ready",
+      "nativeProject": "record-store"
     },
     {
       "id": "files-bytes",
@@ -391,27 +418,33 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Text and binary file I/O"
+          "title": "Text and binary file I/O",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Fixed-width integers, bitwise operations, and masks"
+          "title": "Fixed-width integers, bitwise operations, and masks",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Endianness and explicit serialization"
+          "title": "Endianness and explicit serialization",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Undefined behavior, assertions, and debugging"
+          "title": "Undefined behavior, assertions, and debugging",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Testing, sanitizers, portability, and browser runtime limits"
+          "title": "Testing, sanitizers, portability, and browser runtime limits",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "A portable binary record format"
+          "title": "A portable binary record format",
+          "status": "ready"
         }
       ],
       "project": "Write and read a documented binary format without dumping raw structs.",
@@ -422,7 +455,9 @@ window.COURSE = {
       },
       "workspace": "native/chapters/files-bytes",
       "command": "make chapter CHAPTER=files-bytes",
-      "nativeDemo": "standards"
+      "nativeDemo": "standards",
+      "status": "ready",
+      "nativeProject": "binary-record"
     },
     {
       "id": "big-o",
