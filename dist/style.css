@@ -171,3 +171,11 @@ dialog::backdrop { background:#17241c88; }
   #search-comparison table { font-size:14px; }
 }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; } }
+
+/* Match assembly-lab’s repository star link. */
+.github-star { display:inline-flex; align-items:center; gap:.35rem; min-height:44px; padding-inline:4px; color:var(--muted); font-size:16px; white-space:nowrap; text-decoration:none; }
+.github-star:hover { text-decoration:underline; }
+.github-star>[aria-hidden] { font-size:20px; }
+@media(max-width:900px) {
+  .github-star-destination { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+}
