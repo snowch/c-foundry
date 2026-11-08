@@ -1,0 +1,11 @@
+{
+  "name": "c-foundry",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "test": "node tests/interface.cjs && node tests/smoke.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^31.0.0"
+  }
+}
