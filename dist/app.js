@@ -1,53 +1,72 @@
 (() => {
   const $ = id => document.getElementById(id);
-  let state = {drafts:{},inputs:{},completed:[],selected:'hello'};
-  try { const saved = JSON.parse(localStorage.getItem('c-foundry-v1')); if(saved && typeof saved === 'object') state = {...state,...saved}; } catch (_) {}
-  if (!state.drafts || typeof state.drafts !== 'object') state.drafts={};
-  if (!state.inputs || typeof state.inputs !== 'object') state.inputs={};
-  if (!Array.isArray(state.completed)) state.completed=[];
-  state.completed=state.completed.filter(id=>LESSONS.some(l=>l.id===id));
-  let selected = Math.max(0,LESSONS.findIndex(l=>l.id===state.selected));
-  let worker, timer, busy = false, mode = 'run', runLesson, toastTimer, view = 'lab';
   const escape = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  function save() { try { localStorage.setItem('c-foundry-v1',JSON.stringify(state)); $('save-state').textContent='◌ Saved on this device'; } catch (_) { $('save-state').textContent='Storage unavailable · export your code'; } }
-  function toast(message) { $('toast').textContent=message; $('toast').hidden=false; clearTimeout(toastTimer); toastTimer=setTimeout(()=>$('toast').hidden=true,4000); }
-  function nav() {
-    $('progress-text').textContent=`${state.completed.length} / ${LESSONS.length}`;
-    $('progress-fill').style.width=`${state.completed.length / LESSONS.length * 100}%`;
-    $('lesson-nav').innerHTML=SECTIONS.map((section,index)=>`<div class="section-label"><b>${section.icon}</b> ${section.title.toUpperCase()}</div>`+LESSONS.map((l,i)=>l.section===index?`<button class="lesson-link ${selected===i?'active':''}" data-lesson="${i}" ${selected===i?'aria-current="step"':''}><span class="lesson-bullet ${state.completed.includes(l.id)?'complete':''}">${state.completed.includes(l.id)?'✓':selected===i?'•':''}</span>${escape(l.title)}${selected===i?'<span class="arrow">›</span>':''}</button>`:'').join('')).join('');
-    $('drawer-nav').innerHTML=$('lesson-nav').innerHTML;
-    $('drawer-progress').textContent=`${state.completed.length} of ${LESSONS.length} lessons complete`;
-    document.querySelectorAll('[data-lesson]').forEach(b=>b.onclick=()=>{ if(busy){toast('Stop the running program before switching lessons.');return;} select(Number(b.dataset.lesson));closeCourseMenu(); });
+  let state={drafts:{},inputs:{},completed:[],selected:'hello'};
+  try { const saved=JSON.parse(localStorage.getItem('c-foundry-v1'));if(saved&&typeof saved==='object')state={...state,...saved}; } catch(_){}
+  if(!state.drafts||typeof state.drafts!=='object')state.drafts={};
+  if(!state.inputs||typeof state.inputs!=='object')state.inputs={};
+  if(!Array.isArray(state.completed))state.completed=[];
+  state.completed=state.completed.filter(id=>LESSONS.some(l=>l.id===id));
+  let selected=Math.max(0,LESSONS.findIndex(l=>l.id===state.selected));
+  let worker,timer,busy=false,mode='run',runLesson,toastTimer,view='lab',currentRoute='';
+  const assessments={hello:'Explain what main and printf each do.',loops:'Explain why the loop includes n and what happens for n = 0.',pointers:'Explain why temp must keep its own copy of the first value.',heap:'Output checks cannot verify ownership. Confirm that every successful allocation is freed exactly once, including error paths.',search:'Output checks cannot establish that you used binary search. Explain the sorted-input requirement and how every iteration shrinks the interval.',sort:'Output checks cannot establish insertion sort or its complexity. Explain the sorted-prefix invariant and why shifting can take quadratic time.',rows:'Explain the width limit and the zero terminator in the name field.',query:'Explain why find_row returns an index, how duplicates are detected, and what happens when the table is full.'};
+  function save(){try{localStorage.setItem('c-foundry-v1',JSON.stringify(state));$('save-state').textContent='Saved on this device';}catch(_){$('save-state').textContent='Storage unavailable. Export your code to keep a copy.';}}
+  function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4000);}
+  function nav(){
+    $('drawer-progress').textContent=`${state.completed.length} of ${LESSONS.length} available exercises checked`;
+    $('drawer-nav').innerHTML='<p class="menu-label">Available practice</p>'+LESSONS.map((l,i)=>`<a class="lesson-link ${i===selected&&view==='lab'?'active':''}" href="#/lesson/${l.id}" ${i===selected&&view==='lab'?'aria-current="page"':''}>${state.completed.includes(l.id)?'✓ ':''}${escape(l.title)}</a>`).join('')+'<p class="menu-label">Complete syllabus</p>'+COURSE.parts.map((part,i)=>`<details><summary>Part ${i+1}: ${escape(part)}</summary>${COURSE.chapters.filter(c=>c.part===i).map(c=>`<a href="#/chapter/${c.id}">${c.number}. ${escape(c.title)}</a>`).join('')}</details>`).join('');
   }
-  function lines() { $('line-numbers').textContent=Array.from({length:$('editor').value.split('\n').length},(_,i)=>i+1).join('\n'); $('line-numbers').scrollTop=$('editor').scrollTop; }
-  function select(index) {
-    if (busy) { toast('Stop the running program before switching lessons.'); return; }
-    selected=index; state.selected=LESSONS[index].id; const l=LESSONS[index];
-    $('section-name').textContent=SECTIONS[l.section].title.toUpperCase();
-    $('lesson-number').textContent=`LESSON ${String(index+1).padStart(2,'0')} · ${l.tag.toUpperCase()}`;
-    $('duration').textContent=l.time; $('lesson-title').textContent=l.title; $('lesson-concept').textContent=l.concept;
-    $('lesson-body').innerHTML=l.body; $('lesson-detail').innerHTML=l.detail; $('lesson-task').innerHTML=l.task; $('lesson-hint').textContent=l.hint;
-    $('expected-output').textContent=l.tests[0].expected; $('lesson-status').textContent=state.completed.includes(l.id)?'✓ COMPLETE':'';
-    $('editor').value=state.drafts[l.id] ?? l.code; $('stdin').value=state.inputs[l.id] ?? l.input;
-    $('input-dot').textContent=$('stdin').value?'•':''; $('lesson-counter').textContent=`${String(index+1).padStart(2,'0')} / ${String(LESSONS.length).padStart(2,'0')} LESSONS`;
-    $('previous-button').disabled=index===0; $('next-button').disabled=index===LESSONS.length-1;
-    $('output').textContent='Your next idea starts here.\nRun your code to see its output.'; $('output').className=''; $('test-results').textContent='Run Check solution to test your code.'; $('test-count').textContent='';
-    window.lessonVisuals.show(l.id);
-    document.querySelector('.hint').open=false; consoleTab('output'); lines();nav();save();showView('lab');
+  function lines(){$('line-numbers').textContent=Array.from({length:$('editor').value.split('\n').length},(_,i)=>i+1).join('\n');$('line-numbers').scrollTop=$('editor').scrollTop;}
+  function showView(next){view=next;['lab','curriculum','capstone','preview','complexity'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===next||(b.dataset.view==='curriculum'&&['preview','complexity'].includes(next));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});nav();}
+  function select(index){
+    selected=index;const l=LESSONS[index];state.selected=l.id;
+    const chapter=COURSE.chapters.find(c=>c.labs.includes(l.id));
+    $('lesson-number').textContent=`Practice · Chapter ${chapter.number}`;$('duration').textContent=l.time;
+    $('lesson-title').textContent=l.title;$('lesson-concept').textContent=l.concept;
+    $('lesson-body').innerHTML=l.body;$('lesson-detail').innerHTML=l.detail;$('lesson-task').innerHTML=l.task;$('lesson-hint').textContent=l.hint;
+    $('sample-input').textContent=l.input||'(no input)';$('expected-output').textContent=l.tests[0].expected;
+    $('lesson-status').textContent=state.completed.includes(l.id)?'✓ Output checked':'';
+    $('editor').value=state.drafts[l.id]??l.code;$('stdin').value=state.inputs[l.id]??l.input;
+    $('input-dot').textContent=$('stdin').value?'•':'';$('lesson-counter').innerHTML=`<a href="#/chapter/${chapter.id}">Chapter ${chapter.number}: ${escape(chapter.title)}</a>`;
+    $('previous-button').disabled=index===0;$('next-button').disabled=index===LESSONS.length-1;
+    $('assessment-note').textContent='These checks compare output. '+assessments[l.id];
+    $('reference-code').textContent=l.solution;
+    $('output').textContent='Run your program to see its output.';$('output').className='';$('test-results').textContent='Use Check output to run the practice cases.';$('test-count').textContent='';
+    window.lessonVisuals.show(l.id);document.querySelector('.hint').open=false;document.querySelector('.reference-solution').open=false;consoleTab('output');lines();save();showView('lab');
   }
-  function showView(next) {
-    view=next; ['lab','curriculum','capstone'].forEach(v=>$(v+'-view').hidden=v!==next);
-    document.querySelectorAll('[data-view]').forEach(b=>{b.classList.toggle('active',b.dataset.view===next);b.setAttribute('aria-current',b.dataset.view===next?'page':'false');});
-    if(next==='curriculum') { renderMap(); window.lessonVisuals.updateComplexity(); }
+  function renderMap(){
+    $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)}</h2><ol start="${i*5+1}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}"><strong>${escape(c.title)}</strong><span>${c.topics.length} planned topics${c.labs.length?' · practice available':c.id==='big-o'?' · explorer available':' · preview'}</span></a></li>`).join('')}</ol></section>`).join('');
   }
-  function renderMap() {
-    $('course-cards').innerHTML=SECTIONS.map((s,idx)=>`<article class="course-card"><div class="description"><span class="eyebrow accent">${s.icon} / ${s.subtitle.toUpperCase()}</span><h2>${s.title}</h2><p>${s.description}</p><small>Full syllabus: ${s.topics}</small></div><div class="links">${idx===1?'<button class="big-o-link" data-explore-complexity><span>Big O: time &amp; space</span><small>EXPLORE ↗</small></button>':''}${LESSONS.map((l,i)=>l.section===idx?`<button data-open="${i}"><span>${state.completed.includes(l.id)?'✓ ':''}${l.title}</span><small>${l.time} →</small></button>`:'').join('')}</div></article>`).join('');
-    document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>select(Number(b.dataset.open)));
+  function preview(chapter,topic){
+    const prev=COURSE.chapters[chapter.number-2];const next=COURSE.chapters[chapter.number];
+    const topicIndex=topic?chapter.topics.indexOf(topic):-1;
+    const title=topic?topic.title:chapter.title;
+    const back=topic?`<a href="#/chapter/${chapter.id}">← ${escape(chapter.title)}</a>`:'<a href="#/course">← Complete course</a>';
+    const labs=chapter.labs.map(id=>LESSONS.find(l=>l.id===id));
+    $('preview-content').innerHTML=`${back}<p class="eyebrow">Part ${chapter.part+1} · Chapter ${chapter.number}${topic?'.'+topic.id:''} · Planned content</p><h1 tabindex="-1">${escape(title)}</h1><p class="preview-status">Preview page. The full ${topic?'lesson':'chapter'}, worked examples, and assessments are being developed.</p>${topic?`<h2>Planned lesson</h2><p>This lesson will cover <strong>${escape(topic.title)}</strong> as part of ${escape(chapter.title.toLowerCase())}.</p>`:'<h2>Topics in this chapter</h2><ol>'+chapter.topics.map(t=>`<li><a href="#/chapter/${chapter.id}/${t.id}">${escape(t.title)}</a><span class="status-label">Planned</span></li>`).join('')+'</ol>'}<h2>Practice goal</h2><p>${escape(chapter.project)}</p><p class="supporting">This is the planned chapter outcome, not a completed exercise.</p><h2>Before you start</h2><p>${prev?`Work through <a href="#/chapter/${prev.id}">Chapter ${prev.number}: ${escape(prev.title)}</a> and the preceding topics. Chapter links may lead to previews while the course is being built.`:'No prior C experience is assumed. Later lessons build on this introduction.'}</p>${labs.length?`<section class="available-practice"><h2>Try available practice</h2><p>These prototype exercises cover part of this chapter. They do not replace the full planned lessons.</p>${labs.map(l=>`<p><a href="#/lesson/${l.id}">${escape(l.title)} →</a></p>`).join('')}</section>`:''}${chapter.id==='big-o'?'<p><a class="primary-link" href="#/big-o">Explore counted search comparisons →</a></p>':''}<nav class="page-navigation" aria-label="Course sequence">${topic?(topicIndex>0?`<a href="#/chapter/${chapter.id}/${chapter.topics[topicIndex-1].id}">← Previous topic</a>`:'')+(topicIndex<chapter.topics.length-1?`<a href="#/chapter/${chapter.id}/${chapter.topics[topicIndex+1].id}">Next topic →</a>`:next?`<a href="#/chapter/${next.id}">Next chapter →</a>`:'<a href="#/course">Return to course map →</a>'):(prev?`<a href="#/chapter/${prev.id}">← Previous chapter</a>`:'')+(next?`<a href="#/chapter/${next.id}">Next chapter →</a>`:'<a href="#/course">Return to course map →</a>')}</nav>`;
+    showView('preview');
   }
-  function consoleTab(tab) { document.querySelectorAll('[data-console]').forEach(b=>b.classList.toggle('active',b.dataset.console===tab)); ['output','input','tests'].forEach(p=>$(p+'-pane').hidden=p!==tab); }
-  function setBusy(value) { busy=value; $('run-button').disabled=value; $('check-button').disabled=value; $('stop-button').hidden=!value; $('editor').readOnly=value; $('reset-button').disabled=value; $('solution-button').disabled=value; $('previous-button').disabled=value||selected===0; $('next-button').disabled=value||selected===LESSONS.length-1; }
-  function finish() { clearTimeout(timer); setBusy(false); $('engine-status').innerHTML='<span class="green-dot"></span> Browser compiler'; }
-  function stop(reason='Stopped. Your code and progress are saved.') { worker?.terminate();worker=null;finish();$('output').textContent=reason;consoleTab('output'); }
+  function renderRoute(){
+    const raw=location.hash.slice(1)||'/lesson/'+state.selected;
+    if(busy){history.replaceState(null,'','#'+currentRoute);toast('Stop the program before leaving this lesson.');return;}
+    const parts=raw.split('/').filter(Boolean);
+    if(parts[0]==='lesson'&&LESSONS.some(l=>l.id===parts[1]))select(LESSONS.findIndex(l=>l.id===parts[1]));
+    else if(parts[0]==='course'){renderMap();showView('curriculum');}
+    else if(parts[0]==='capstone')showView('capstone');
+    else if(parts[0]==='big-o'){window.lessonVisuals.updateComplexity();showView('complexity');}
+    else if(parts[0]==='chapter'){
+      const chapter=COURSE.chapters.find(c=>c.id===parts[1]),topic=chapter?.topics.find(t=>t.id===parts[2]);
+      if(!chapter||(parts[2]&&!topic)){notFound();}else preview(chapter,topic);
+    }else{notFound();}
+    currentRoute=raw;document.title=(document.querySelector('main > section:not([hidden]) h1')?.textContent||'Course')+' · C Foundry';
+    closeCourseMenu();const heading=document.querySelector('main > section:not([hidden]) h1');heading?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
+  }
+  function notFound(){$('preview-content').innerHTML='<h1 tabindex="-1">Page not found</h1><p><a href="#/course">Return to the course map</a></p>';showView('preview');}
+  function go(path,replace=false){if(busy){toast('Stop the program before leaving this lesson.');return;}history[replace?'replaceState':'pushState'](null,'','#'+path);renderRoute();}
+  function consoleTab(tab){document.querySelectorAll('[data-console]').forEach(b=>b.classList.toggle('active',b.dataset.console===tab));['output','input','tests'].forEach(p=>$(p+'-pane').hidden=p!==tab);}
+  function setBusy(value){busy=value;$('run-button').disabled=value;$('check-button').disabled=value;$('stop-button').hidden=!value;$('editor').readOnly=value;$('reset-button').disabled=value;$('solution-button').disabled=value;$('previous-button').disabled=value||selected===0;$('next-button').disabled=value||selected===LESSONS.length-1;}
+  function finish(){clearTimeout(timer);setBusy(false);$('engine-status').textContent='Browser compiler';}
+  function stop(reason='Stopped. Your code and progress are saved.'){worker?.terminate();worker=null;finish();$('output').textContent=reason;consoleTab('output');}
   function getWorker() {
     if(worker)return worker;
     worker = new Worker('compiler/worker.js');
@@ -67,7 +86,7 @@
           consoleTab('tests');
           if(passed===results.length) {
             if(!state.completed.includes(runLesson.id))state.completed.push(runLesson.id);
-            save();nav();$('lesson-status').textContent='✓ COMPLETE';toast('All checks passed. A little more C, a little more confidence.');
+            save();nav();$('lesson-status').textContent='✓ Output checked';toast('Output checks passed. Review your approach with the note below the editor.');
           }
         }
       } else if(data.type==='error') {
@@ -80,35 +99,37 @@
     return worker;
   }
   function run(check=false) {
-    if(busy)return;
+    if(busy || view !== 'lab')return;
     mode=check?'check':'run';runLesson=LESSONS[selected];setBusy(true);
     $('output').className='';$('output').textContent='Preparing the browser compiler…\nThe first run downloads about 19 MB. Later runs reuse the compiler.';
-    $('test-results').textContent=check?'Compiling and running the checks…':'Run Check solution to test this version of your code.'; $('test-count').textContent=''; consoleTab('output');
+    $('test-results').textContent=check?'Compiling and running the checks…':'Run Check output to test this version of your code.'; $('test-count').textContent=''; consoleTab('output');
     timer=setTimeout(()=>stop('Compiler preparation timed out. Check your connection and try again.'),120000);
     try { getWorker().postMessage({code:$('editor').value,input:$('stdin').value,tests:check?runLesson.tests:undefined}); }
     catch(error){stop('Unable to start the compiler: '+error.message);}
   }
+
   $('editor').addEventListener('input',()=>{state.drafts[LESSONS[selected].id]=$('editor').value;lines();save();});
   $('editor').addEventListener('scroll',()=>{$('line-numbers').scrollTop=$('editor').scrollTop;});
   $('editor').addEventListener('keydown',event=>{if(event.key==='Tab'){event.preventDefault();if(busy)return;const el=event.target;el.setRangeText('    ',el.selectionStart,el.selectionEnd,'end');el.dispatchEvent(new Event('input'));}});
   $('stdin').oninput=()=>{state.inputs[LESSONS[selected].id]=$('stdin').value;$('input-dot').textContent=$('stdin').value?'•':'';save();};
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&view==='lab'){e.preventDefault();run(e.shiftKey);}});
-  document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>showView(b.dataset.view));
+  document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view==='lab'?'/lesson/'+state.selected:'/course'));
   document.querySelectorAll('[data-console]').forEach(b=>b.onclick=()=>consoleTab(b.dataset.console));
   $('run-button').onclick=()=>run();$('check-button').onclick=()=>run(true);$('stop-button').onclick=()=>stop();
-  $('previous-button').onclick=()=>select(Math.max(0,selected-1));$('next-button').onclick=()=>select(Math.min(LESSONS.length-1,selected+1));
-  $('reset-button').onclick=()=>{if(confirm('Restore the starter code for this lesson? Your current edits will be replaced.')){delete state.drafts[LESSONS[selected].id];delete state.inputs[LESSONS[selected].id];select(selected);toast('Starter code restored.');}};
-  $('solution-button').onclick=()=>{if(confirm('Load the worked example? This replaces your current code.')){$('editor').value=LESSONS[selected].solution;$('editor').dispatchEvent(new Event('input'));toast('Worked example loaded. Run it, then change it to explore.');}};
+  $('previous-button').onclick=()=>go('/lesson/'+LESSONS[Math.max(0,selected-1)].id);$('next-button').onclick=()=>go('/lesson/'+LESSONS[Math.min(LESSONS.length-1,selected+1)].id);
+  $('reset-button').onclick=()=>{if(confirm('Restore starter code? Your current edits will be replaced.')){delete state.drafts[LESSONS[selected].id];delete state.inputs[LESSONS[selected].id];select(selected);toast('Starter code restored.');}};
+  $('solution-button').onclick=()=>{if(confirm('Replace your code with the reference solution?')){$('editor').value=LESSONS[selected].solution;$('editor').dispatchEvent(new Event('input'));toast('Reference loaded. Compare it with your own approach.');}};
   $('download-button').onclick=()=>{const url=URL.createObjectURL(new Blob([$('editor').value],{type:'text/x-c'}));const a=document.createElement('a');a.href=url;a.download='main.c';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   $('clear-button').onclick=()=>{$('output').textContent='Console cleared.';$('output').className='';};
-  $('start-db').onclick=()=>select(7);
-  document.addEventListener('click',e=>{if(e.target.closest('[data-explore-complexity]')){showView('curriculum');$('complexity-lab').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}});
-  $('about-button').onclick=()=>$('about-dialog').showModal();$('close-about').onclick=()=>$('about-dialog').close();
-  function closeCourseMenu(){ if($('course-drawer').open)$('course-drawer').close(); $('course-menu-button').setAttribute('aria-expanded','false'); }
+  $('start-db').onclick=()=>go('/chapter/database-foundations');
+  document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#/"]');if(a&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey&&e.button===0){e.preventDefault();go(a.getAttribute('href').slice(1));}});
+  $('about-button')?.addEventListener('click',()=>$('about-dialog').showModal());$('close-about').onclick=()=>$('about-dialog').close();
+  function closeCourseMenu(){if($('course-drawer').open)$('course-drawer').close();$('course-menu-button').setAttribute('aria-expanded','false');}
   $('course-menu-button').onclick=()=>{$('course-drawer').showModal();$('course-menu-button').setAttribute('aria-expanded','true');};
   $('close-course-menu').onclick=closeCourseMenu;
   $('course-drawer').addEventListener('close',()=>{$('course-menu-button').setAttribute('aria-expanded','false');$('course-menu-button').focus();});
   $('course-drawer').addEventListener('click',e=>{if(e.target===$('course-drawer')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeCourseMenu();}});
-  $('drawer-course-map').onclick=()=>{closeCourseMenu();showView('curriculum');};
-  select(selected);
+  $('drawer-course-map').onclick=()=>go('/course');
+  window.addEventListener('hashchange',renderRoute);
+  if(!location.hash)go('/lesson/'+LESSONS[selected].id,true);else renderRoute();
 })();
