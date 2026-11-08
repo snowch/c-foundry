@@ -18,7 +18,7 @@
     }).catch(()=>{unsaved=true;storage('Save failed — download files to keep these changes.');});
   }
   function unique(name,items=files){const dot=name.lastIndexOf('.'),base=dot>0?name.slice(0,dot):name,ext=dot>0?name.slice(dot):'';let candidate=name,i=2;while(items.some(f=>f.name===candidate))candidate=base.slice(0,65)+'-'+(i++)+ext;return candidate;}
-  function setBusy(value){busy=value;document.querySelectorAll('[data-ws-mutate]').forEach(el=>el.disabled=value);$('stop').hidden=!value;$('run').disabled=value;$('command').disabled=value;}
+  function setBusy(value){busy=value;document.querySelectorAll('[data-ws-mutate], #ws-files button').forEach(el=>el.disabled=value);$('stop').hidden=!value;$('run').disabled=value;$('command').disabled=value;}
   function render(){
     $('files').replaceChildren();
     for(const file of files){const li=document.createElement('li'),button=document.createElement('button');button.type='button';button.textContent=file.name+' · '+file.data.length.toLocaleString()+' B';button.setAttribute('aria-pressed',String(file.name===selected));button.onclick=()=>select(file.name);button.disabled=busy;li.append(button);$('files').append(li);}
