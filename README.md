@@ -1,8 +1,10 @@
 # C Foundry
 
-[Open the course](https://snowch.github.io/c-foundry/)
+[Open the course](https://snowch.github.io/c-foundry/#/course) · [Codespaces setup guide](docs/codespaces.md)
 
-A browser-only prototype of a C, algorithms, and database course. Eight interactive exercises compile real C17 into WebAssembly and execute it in a dedicated worker. Standard input, output checks, compiler diagnostics, cancellation, local progress, code export, a syllabus map, and a TinyDB capstone are included.
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/snowch/c-foundry?quickstart=1)
+
+A browser-first prototype of a C, algorithms, and database course, with Linux execution through GitHub Codespaces where native facilities are needed. Eight interactive exercises compile real C17 into WebAssembly and execute it in a dedicated worker. Standard input, output checks, compiler diagnostics, cancellation, local progress, code export, a syllabus map, and a TinyDB capstone are included.
 
 ## Serve
 
@@ -18,22 +20,45 @@ The available exercises follow explanation → compact worked example → one pr
 
 Lessons use a single reading column with 18 px prose and a full-width 17 px editor. The course menu opens as a drawer on every screen size. No persistent sidebar, complexity badges in introductory C, or mandatory visualization panel precedes the explanation.
 
-`dist/course.js` defines the complete six-part, 30-chapter syllabus and 165 planned topic pages. Chapter and topic previews have stable hash URLs (for example `#/chapter/recovery/4`), explicit planned-content labels, prerequisites, chapter practice goals, available related exercises, and previous/next navigation. Preview pages do not expose a runnable editor or claim completion. The eight available exercises keep their original IDs, saved drafts, and output-check progress.
+`dist/course.js` defines the complete nine-part, 44-chapter syllabus and 211 planned topic pages. Chapter and topic previews have stable hash URLs (for example `#/chapter/recovery/4`), explicit planned-content labels, prerequisites, chapter practice goals, available related exercises, and previous/next navigation. Preview pages do not expose a runnable editor or claim completion. The eight available exercises keep their original IDs, saved drafts, and output-check progress.
 
 The Big O activity at `#/big-o` compares counted linear and binary search inspections on a sorted list, before and after doubling its size. It does not report real timings or use a logarithmic chart. Other growth classes and formal notation are optional detail.
 
+## Native C and Codespaces
+
+Following parquet-book’s launch-and-copy pattern, chapter pages label their execution needs and provide **Open in Codespaces**, a visible command, **Copy command**, source-file links, setup instructions, and account-allowance information. No Codespace is created automatically. Reading and previews always work in the browser. Multi-file builds and diagnostics use Linux; parts 7–9 add standards, portability, concurrency, and advanced TinyDB.
+
+The dev container builds from GCC 14.3 / Debian Trixie plus Node 24 and installs Clang 19, GDB, CMake, Ninja, Python, and Make. `npm ci && make check-native` prepares it after creation. A Codespace is not needed for the existing eight Wasm exercises. Local dev containers use the same configuration.
+
+Five runnable foundations live in `native/demos/`: a greeting, explicit byte encoding and compiler probe, mutex/atomic counters, a bounded producer–consumer queue, and a coarse-lock in-memory TinyDB table. All 44 chapters have workspace README stubs in `native/chapters/`, and the eight existing exercise starters have native copies and output checks. Full chapter instruction and advanced database features are still planned; the foundations do not implement persistence, MVCC, checkpoints, or a SQL engine.
+
+```sh
+make chapter CHAPTER=coordination
+make queue
+make check-native
+make check-native-clang
+make standards-matrix
+make sanitize
+```
+
+Use your own fork or branch to retain changes. Codespaces consumes your GitHub account’s compute/storage allowance; [see current terms](https://docs.github.com/en/billing/concepts/product-billing/github-codespaces). See [the setup guide](docs/codespaces.md) for saving work, copying browser drafts, and reusing an existing Codespace.
+
 ## Verify
 
-Run `npm ci` and `npm test`. The interface tests use jsdom. The compiler tests execute the actual worker under a Node adapter and check all 23 lesson cases, diagnostics, arbitrary C, nonzero exits, wrong answers, and worker cancellation. DOM tests also cover all 30 chapter and 165 topic preview routes, prediction feedback, optional example steps, routing during execution, draft preservation, and direct deep links.
+Run `npm ci` and `npm test`. The interface tests use jsdom. The compiler tests execute the actual worker under a Node adapter and check all 23 lesson cases, diagnostics, arbitrary C, nonzero exits, wrong answers, and worker cancellation. DOM tests also cover all 44 chapter and 211 topic preview routes, prediction feedback, optional example steps, routing during execution, draft preservation, and direct deep links.
 
 ## Architecture
 
-`dist/lessons.js` contains lesson briefs, starter code, worked examples, and input/output checks. `dist/app.js` manages hash routing, the UI, and local storage. `dist/course.js` contains the chapter and topic previews. `dist/visuals.js` renders worked examples, predictions, optional steps, and the search comparison. `dist/compiler/worker.js` loads the compiler, creates a virtual filesystem, compiles C, links a Wasm module, and executes each case. Execution is limited to five seconds and output to 100 KB; compiler initialization is limited to two minutes. Worker termination handles cancellation and infinite loops.
+`dist/lessons.js` contains lesson briefs, starter code, worked examples, and input/output checks. `dist/app.js` manages hash routing, the UI, and local storage. `dist/course.js` contains the chapter and topic previews and execution metadata; `native/course.json` mirrors it for the command-line workspace helper. `dist/execution.js` renders launch/copy controls. `dist/visuals.js` renders worked examples, predictions, optional steps, and the search comparison. `dist/compiler/worker.js` loads the compiler, creates a virtual filesystem, compiles C, links a Wasm module, and executes each case. Execution is limited to five seconds and output to 100 KB; compiler initialization is limited to two minutes. Worker termination handles cancellation and infinite loops.
 
 The compiler is the experimental [binji/wasm-clang](https://github.com/binji/wasm-clang) Clang 8 / LLD toolchain, retrieved for this prototype. Its runtime is modified to compile C17 with warnings, no common symbols, and no optimization. Original runtime and LLVM licenses are distributed under `dist/compiler/`. Compressed binaries and sysroot are preserved from that project. This is an older experimental toolchain with incomplete WASI support, not a current production C development environment.
 
 Source, standard input, and completion are stored in browser localStorage. Program files and TinyDB rows are temporary and reset on each run. Tests check observable output and do not prove algorithm complexity, correct allocation, or absence of undefined behavior. TinyDB accepts simple insert/select commands; persistent storage, SQL, indexes, and transactions are planned, not implemented. The course map distinguishes those future topics from the eight available lessons.
 
+Native CI builds the dev container and checks the foundations with GCC, Clang, and AddressSanitizer/UndefinedBehaviorSanitizer before Pages deployment. `make tsan` is available separately because ThreadSanitizer depends on kernel/runtime support. A standards-matrix command probes compiler support rather than assuming full C23 conformance.
+
 ## Verification limits
 
 The redesigned lesson and Big O pages were tested in headless Chromium at 390, 768, 1024, and 1440 px. Phone and tablet screenshots were inspected. Checks covered overflow, reading and code font sizes, course navigation, deep-linked previews, step-to-editor focus, page errors, and an actual browser compilation/output check. This does not establish behavior on every browser or physical tablet.
+
+The Codespaces image was built and exercised locally with Docker: Node 24, GCC 14.3, Clang 19, native checks, the standards matrix, sanitizers, and the post-create commands. Hosted Codespace creation was not performed. Launch/copy controls (with the external creation URL intercepted), advanced routes, reloads, setup, and overflow were checked in Chromium at 390, 768, and 1024 px.

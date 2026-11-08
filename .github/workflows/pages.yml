@@ -36,7 +36,7 @@ jobs:
           path: dist
 
   deploy:
-    needs: test-and-package
+    needs: [test-and-package, native]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -49,3 +49,17 @@ jobs:
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Build the Codespaces toolchain image
+        run: docker build -f .devcontainer/Dockerfile -t c-foundry-native .
+      - name: Test native foundations with GCC, Clang, and sanitizers
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" \
+            -v "$GITHUB_WORKSPACE:/workspaces/c-foundry" -w /workspaces/c-foundry \
+            c-foundry-native sh -c 'make check-native && make check-native-clang && make standards-matrix && make sanitize'

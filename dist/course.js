@@ -5,7 +5,10 @@ window.COURSE = {
     "Learn to reason about algorithms",
     "Build data structures in C",
     "Build TinyDB",
-    "Make the database faster and more reliable"
+    "Make the database faster and more reliable",
+    "C standards and portable systems programming",
+    "Concurrency in C",
+    "Advanced TinyDB"
   ],
   "chapters": [
     {
@@ -38,7 +41,13 @@ window.COURSE = {
       "project": "Print a greeting and explain how it reaches the console.",
       "labs": [
         "hello"
-      ]
+      ],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/first-program",
+      "command": "make chapter CHAPTER=first-program"
     },
     {
       "id": "values",
@@ -68,7 +77,13 @@ window.COURSE = {
         }
       ],
       "project": "Inspect numeric expressions and handle values at the limits of their types.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/values",
+      "command": "make chapter CHAPTER=values"
     },
     {
       "id": "control-flow",
@@ -100,7 +115,13 @@ window.COURSE = {
       "project": "Build a number-guessing program with validated input.",
       "labs": [
         "loops"
-      ]
+      ],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/control-flow",
+      "command": "make chapter CHAPTER=control-flow"
     },
     {
       "id": "functions",
@@ -130,7 +151,13 @@ window.COURSE = {
         }
       ],
       "project": "Split a small program into functions with clear inputs and outputs.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/functions",
+      "command": "make chapter CHAPTER=functions"
     },
     {
       "id": "arrays-strings",
@@ -160,7 +187,13 @@ window.COURSE = {
         }
       ],
       "project": "Count words and characters without reading past array boundaries.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/arrays-strings",
+      "command": "make chapter CHAPTER=arrays-strings"
     },
     {
       "id": "pointers",
@@ -192,7 +225,13 @@ window.COURSE = {
       "project": "Exchange two caller-owned values through pointers.",
       "labs": [
         "pointers"
-      ]
+      ],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/pointers",
+      "command": "make chapter CHAPTER=pointers"
     },
     {
       "id": "allocation",
@@ -224,7 +263,13 @@ window.COURSE = {
       "project": "Build a growable collection with an explicit owner for each allocation.",
       "labs": [
         "heap"
-      ]
+      ],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/allocation",
+      "command": "make chapter CHAPTER=allocation"
     },
     {
       "id": "structured-data",
@@ -256,7 +301,13 @@ window.COURSE = {
       "project": "Represent and inspect a collection of records.",
       "labs": [
         "rows"
-      ]
+      ],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/structured-data",
+      "command": "make chapter CHAPTER=structured-data"
     },
     {
       "id": "larger-programs",
@@ -286,7 +337,14 @@ window.COURSE = {
         }
       ],
       "project": "Divide a collection library into a public interface and an implementation.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+      },
+      "workspace": "native/chapters/larger-programs",
+      "command": "make chapter CHAPTER=larger-programs",
+      "nativeDemo": "hello"
     },
     {
       "id": "files-bytes",
@@ -320,7 +378,14 @@ window.COURSE = {
         }
       ],
       "project": "Write and read a documented binary format without dumping raw structs.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+      },
+      "workspace": "native/chapters/files-bytes",
+      "command": "make chapter CHAPTER=files-bytes",
+      "nativeDemo": "standards"
     },
     {
       "id": "big-o",
@@ -358,7 +423,13 @@ window.COURSE = {
         }
       ],
       "project": "Compare counted search operations, then explain how doubling the input changes the work.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/big-o",
+      "command": "make chapter CHAPTER=big-o"
     },
     {
       "id": "searching",
@@ -390,7 +461,13 @@ window.COURSE = {
       "project": "Find records while maintaining a shrinking search interval.",
       "labs": [
         "search"
-      ]
+      ],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/searching",
+      "command": "make chapter CHAPTER=searching"
     },
     {
       "id": "sorting",
@@ -426,7 +503,13 @@ window.COURSE = {
       "project": "Implement and compare sorting algorithms on different input orders.",
       "labs": [
         "sort"
-      ]
+      ],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/sorting",
+      "command": "make chapter CHAPTER=sorting"
     },
     {
       "id": "recursion",
@@ -456,7 +539,13 @@ window.COURSE = {
         }
       ],
       "project": "Traverse a tree and account for the recursive call stack.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/recursion",
+      "command": "make chapter CHAPTER=recursion"
     },
     {
       "id": "strategies",
@@ -486,7 +575,13 @@ window.COURSE = {
         }
       ],
       "project": "Choose and justify a strategy for a small optimization problem.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/strategies",
+      "command": "make chapter CHAPTER=strategies"
     },
     {
       "id": "lists",
@@ -516,7 +611,13 @@ window.COURSE = {
         }
       ],
       "project": "Implement list operations and compare them with a dynamic array.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/lists",
+      "command": "make chapter CHAPTER=lists"
     },
     {
       "id": "queues",
@@ -546,7 +647,13 @@ window.COURSE = {
         }
       ],
       "project": "Build a circular queue and use a stack to evaluate expressions.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/queues",
+      "command": "make chapter CHAPTER=queues"
     },
     {
       "id": "hash-tables",
@@ -580,7 +687,13 @@ window.COURSE = {
         }
       ],
       "project": "Build a hash table that remains correct through collisions and resizing.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/hash-tables",
+      "command": "make chapter CHAPTER=hash-tables"
     },
     {
       "id": "trees-heaps",
@@ -614,7 +727,13 @@ window.COURSE = {
         }
       ],
       "project": "Schedule tasks with a priority queue and investigate tree balance.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/trees-heaps",
+      "command": "make chapter CHAPTER=trees-heaps"
     },
     {
       "id": "graphs",
@@ -648,7 +767,13 @@ window.COURSE = {
         }
       ],
       "project": "Find routes in a graph and explain the cost of its representation.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "browser",
+        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+      },
+      "workspace": "native/chapters/graphs",
+      "command": "make chapter CHAPTER=graphs"
     },
     {
       "id": "database-foundations",
@@ -678,7 +803,14 @@ window.COURSE = {
         }
       ],
       "project": "Define TinyDB’s first commands and test their observable behavior.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "both",
+        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+      },
+      "workspace": "native/chapters/database-foundations",
+      "command": "make chapter CHAPTER=database-foundations",
+      "nativeDemo": "tinydb"
     },
     {
       "id": "tables",
@@ -710,7 +842,14 @@ window.COURSE = {
       "project": "Insert records, reject duplicates, and find rows by ID.",
       "labs": [
         "query"
-      ]
+      ],
+      "execution": {
+        "mode": "both",
+        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+      },
+      "workspace": "native/chapters/tables",
+      "command": "make chapter CHAPTER=tables",
+      "nativeDemo": "tinydb"
     },
     {
       "id": "parsing",
@@ -740,7 +879,14 @@ window.COURSE = {
         }
       ],
       "project": "Parse a small SQL subset and explain malformed statements.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "both",
+        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+      },
+      "workspace": "native/chapters/parsing",
+      "command": "make chapter CHAPTER=parsing",
+      "nativeDemo": "tinydb"
     },
     {
       "id": "execution",
@@ -774,7 +920,14 @@ window.COURSE = {
         }
       ],
       "project": "Execute validated statements over an in-memory table.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "both",
+        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+      },
+      "workspace": "native/chapters/execution",
+      "command": "make chapter CHAPTER=execution",
+      "nativeDemo": "tinydb"
     },
     {
       "id": "persistence",
@@ -808,7 +961,14 @@ window.COURSE = {
         }
       ],
       "project": "Persist rows through a pager and reject corrupt database input.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "both",
+        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+      },
+      "workspace": "native/chapters/persistence",
+      "command": "make chapter CHAPTER=persistence",
+      "nativeDemo": "tinydb"
     },
     {
       "id": "pages",
@@ -842,7 +1002,14 @@ window.COURSE = {
         }
       ],
       "project": "Locate and manage records inside slotted storage pages.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "both",
+        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+      },
+      "workspace": "native/chapters/pages",
+      "command": "make chapter CHAPTER=pages",
+      "nativeDemo": "tinydb"
     },
     {
       "id": "bplus-trees",
@@ -876,7 +1043,14 @@ window.COURSE = {
         }
       ],
       "project": "Implement an ordered index that remains valid when pages split.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "both",
+        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+      },
+      "workspace": "native/chapters/bplus-trees",
+      "command": "make chapter CHAPTER=bplus-trees",
+      "nativeDemo": "tinydb"
     },
     {
       "id": "planning",
@@ -910,7 +1084,14 @@ window.COURSE = {
         }
       ],
       "project": "Compare query plans using page reads and a simple cost model.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "both",
+        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+      },
+      "workspace": "native/chapters/planning",
+      "command": "make chapter CHAPTER=planning",
+      "nativeDemo": "tinydb"
     },
     {
       "id": "recovery",
@@ -944,7 +1125,14 @@ window.COURSE = {
         }
       ],
       "project": "Recover committed changes after simulated interruptions.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Native file operations and recovery tooling are used for the database project."
+      },
+      "workspace": "native/chapters/recovery",
+      "command": "make chapter CHAPTER=recovery",
+      "nativeDemo": "tinydb"
     },
     {
       "id": "ship",
@@ -982,7 +1170,436 @@ window.COURSE = {
         }
       ],
       "project": "Ship a documented TinyDB build with tests, benchmarks, and exportable files.",
-      "labs": []
+      "labs": [],
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Native file operations and recovery tooling are used for the database project."
+      },
+      "workspace": "native/chapters/ship",
+      "command": "make chapter CHAPTER=ship",
+      "nativeDemo": "tinydb"
+    },
+    {
+      "id": "standards-evolution",
+      "title": "How C has evolved",
+      "part": 6,
+      "number": 31,
+      "topics": [
+        {
+          "id": "1",
+          "title": "C89/C90, C99, C11, C17, and C23"
+        },
+        {
+          "id": "2",
+          "title": "Language standards versus compiler extensions"
+        },
+        {
+          "id": "3",
+          "title": "Choosing a baseline and checking feature support"
+        }
+      ],
+      "project": "Compile a feature probe under different language standards.",
+      "labs": [],
+      "nativeDemo": "standards",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+      },
+      "workspace": "native/chapters/standards-evolution",
+      "command": "make chapter CHAPTER=standards-evolution"
+    },
+    {
+      "id": "c-guarantees",
+      "title": "What C guarantees",
+      "part": 6,
+      "number": 32,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Defined, implementation-defined, unspecified, and undefined behavior"
+        },
+        {
+          "id": "2",
+          "title": "Integer representation, alignment, object lifetime, and aliasing"
+        },
+        {
+          "id": "3",
+          "title": "Why code can behave differently under optimization"
+        }
+      ],
+      "project": "Audit a short program and distinguish guarantees from assumptions.",
+      "labs": [],
+      "nativeDemo": "standards",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+      },
+      "workspace": "native/chapters/c-guarantees",
+      "command": "make chapter CHAPTER=c-guarantees"
+    },
+    {
+      "id": "portable-c",
+      "title": "Writing portable C",
+      "part": 6,
+      "number": 33,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Standard library versus operating-system APIs"
+        },
+        {
+          "id": "2",
+          "title": "Fixed-width types, endianness, and binary compatibility"
+        },
+        {
+          "id": "3",
+          "title": "Feature detection and conditional compilation"
+        },
+        {
+          "id": "4",
+          "title": "Native platforms versus WebAssembly/WASI"
+        }
+      ],
+      "project": "Compare GCC and Clang builds and inspect platform-dependent properties.",
+      "labs": [],
+      "nativeDemo": "standards",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+      },
+      "workspace": "native/chapters/portable-c",
+      "command": "make chapter CHAPTER=portable-c"
+    },
+    {
+      "id": "hardening-tinydb",
+      "title": "Hardening TinyDB",
+      "part": 6,
+      "number": 34,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Auditing assumptions about types and memory"
+        },
+        {
+          "id": "2",
+          "title": "Versioning the database format"
+        },
+        {
+          "id": "3",
+          "title": "Multiple compilers and warning settings"
+        },
+        {
+          "id": "4",
+          "title": "Sanitizers and portability checks"
+        }
+      ],
+      "project": "Run the TinyDB baseline under stricter compiler and sanitizer checks.",
+      "labs": [],
+      "nativeDemo": "tinydb",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+      },
+      "workspace": "native/chapters/hardening-tinydb",
+      "command": "make chapter CHAPTER=hardening-tinydb"
+    },
+    {
+      "id": "threads",
+      "title": "Processes, threads, and shared state",
+      "part": 7,
+      "number": 35,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Concurrency versus parallelism"
+        },
+        {
+          "id": "2",
+          "title": "Thread lifetimes and shared memory"
+        },
+        {
+          "id": "3",
+          "title": "Data races and reproducible interleavings"
+        }
+      ],
+      "project": "Run joined threads and distinguish safe shared state from a data race.",
+      "labs": [],
+      "nativeDemo": "counter",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/threads",
+      "command": "make chapter CHAPTER=threads"
+    },
+    {
+      "id": "coordination",
+      "title": "Locks and coordination",
+      "part": 7,
+      "number": 36,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Mutexes and condition variables"
+        },
+        {
+          "id": "2",
+          "title": "Producer–consumer queues"
+        },
+        {
+          "id": "3",
+          "title": "Lock ordering, deadlocks, and starvation"
+        }
+      ],
+      "project": "Explore a bounded queue that coordinates a producer and consumer.",
+      "labs": [],
+      "nativeDemo": "queue",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/coordination",
+      "command": "make chapter CHAPTER=coordination"
+    },
+    {
+      "id": "atomics",
+      "title": "Atomics and the C memory model",
+      "part": 7,
+      "number": 37,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Atomic operations and happens-before relationships"
+        },
+        {
+          "id": "2",
+          "title": "Sequential consistency first"
+        },
+        {
+          "id": "3",
+          "title": "Acquire/release through concrete examples"
+        },
+        {
+          "id": "4",
+          "title": "Why volatile does not provide thread synchronization"
+        }
+      ],
+      "project": "Compare a mutex-protected counter with a C11 atomic counter.",
+      "labs": [],
+      "nativeDemo": "counter",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/atomics",
+      "command": "make chapter CHAPTER=atomics"
+    },
+    {
+      "id": "concurrent-storage",
+      "title": "Build a concurrent storage service",
+      "part": 7,
+      "number": 38,
+      "topics": [
+        {
+          "id": "1",
+          "title": "C11 threading facilities versus POSIX threads"
+        },
+        {
+          "id": "2",
+          "title": "A bounded work queue"
+        },
+        {
+          "id": "3",
+          "title": "A single writer processing requests"
+        },
+        {
+          "id": "4",
+          "title": "Shutdown, cancellation, and concurrency testing"
+        }
+      ],
+      "project": "Use the queue as a foundation for a single-writer storage service.",
+      "labs": [],
+      "nativeDemo": "queue",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/concurrent-storage",
+      "command": "make chapter CHAPTER=concurrent-storage"
+    },
+    {
+      "id": "multi-client",
+      "title": "Multiple clients, one safe writer",
+      "part": 8,
+      "number": 39,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Request scheduling"
+        },
+        {
+          "id": "2",
+          "title": "Transaction boundaries"
+        },
+        {
+          "id": "3",
+          "title": "Contention and backpressure"
+        }
+      ],
+      "project": "Extend the native TinyDB baseline with a serialized request path.",
+      "labs": [],
+      "nativeDemo": "tinydb",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/multi-client",
+      "command": "make chapter CHAPTER=multi-client"
+    },
+    {
+      "id": "isolation",
+      "title": "Concurrent readers and isolation",
+      "part": 8,
+      "number": 40,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Reader/writer locking"
+        },
+        {
+          "id": "2",
+          "title": "Lost updates and inconsistent reads"
+        },
+        {
+          "id": "3",
+          "title": "Defining and testing an isolation contract"
+        }
+      ],
+      "project": "Specify the behavior of concurrent reads before changing the locking strategy.",
+      "labs": [],
+      "nativeDemo": "tinydb",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/isolation",
+      "command": "make chapter CHAPTER=isolation"
+    },
+    {
+      "id": "snapshots",
+      "title": "Snapshots and versioned records",
+      "part": 8,
+      "number": 41,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Snapshot reads"
+        },
+        {
+          "id": "2",
+          "title": "An introduction to MVCC"
+        },
+        {
+          "id": "3",
+          "title": "Visibility rules and reclaiming old versions"
+        }
+      ],
+      "project": "Design version visibility tests before implementing snapshot reads.",
+      "labs": [],
+      "nativeDemo": "tinydb",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/snapshots",
+      "command": "make chapter CHAPTER=snapshots"
+    },
+    {
+      "id": "maintenance",
+      "title": "Recovery and maintenance",
+      "part": 8,
+      "number": 42,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Extending the write-ahead log"
+        },
+        {
+          "id": "2",
+          "title": "Checkpoints and log truncation"
+        },
+        {
+          "id": "3",
+          "title": "Free-page reuse, compaction, and integrity checking"
+        }
+      ],
+      "project": "Extend the earlier pager and log with a tested checkpoint protocol.",
+      "labs": [],
+      "nativeDemo": "tinydb",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/maintenance",
+      "command": "make chapter CHAPTER=maintenance"
+    },
+    {
+      "id": "richer-queries",
+      "title": "Richer queries",
+      "part": 8,
+      "number": 43,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Joins, composite indexes, and prepared statements"
+        },
+        {
+          "id": "2",
+          "title": "Better statistics and query planning"
+        },
+        {
+          "id": "3",
+          "title": "Explaining and measuring execution choices"
+        }
+      ],
+      "project": "Compare richer query plans using correctness tests and measured work.",
+      "labs": [],
+      "nativeDemo": "tinydb",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/richer-queries",
+      "command": "make chapter CHAPTER=richer-queries"
+    },
+    {
+      "id": "reliability",
+      "title": "Performance and reliability",
+      "part": 8,
+      "number": 44,
+      "topics": [
+        {
+          "id": "1",
+          "title": "Concurrent workloads and contention measurements"
+        },
+        {
+          "id": "2",
+          "title": "Cache behavior and allocation costs"
+        },
+        {
+          "id": "3",
+          "title": "Fault injection, fuzzing, and recovery testing"
+        }
+      ],
+      "project": "Evaluate an advanced TinyDB implementation against concurrent and fault-injected workloads.",
+      "labs": [],
+      "nativeDemo": "tinydb",
+      "execution": {
+        "mode": "codespaces",
+        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+      },
+      "workspace": "native/chapters/reliability",
+      "command": "make chapter CHAPTER=reliability"
     }
   ]
 };

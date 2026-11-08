@@ -179,3 +179,14 @@ dialog::backdrop { background:#17241c88; }
 @media(max-width:900px) {
   .github-star-destination { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
 }
+
+.execution-panel { margin:24px 0; padding:18px; border:1px solid var(--line); border-radius:5px; background:#f1f4eb; }
+.execution-panel h2 { margin-top:0!important; }
+.execution-panel p { font-size:16px; }
+.launch-command { background:#fff; padding:12px; margin:14px 0; }
+.launch-actions { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+.launch-actions a { font-size:16px; }
+.launch-feedback { color:#365e36; margin-top:12px; }
+.execution-panel .codespaces-cost { font-size:14px; color:var(--muted); }
+#setup-view h2 { margin-top:28px; }
+#setup-view pre { background:#edf1e5; padding:14px; }

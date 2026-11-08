@@ -4,7 +4,7 @@ function setup(hash=''){
  w.confirm=()=>true;w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
  w.Worker=class{constructor(){worker=this;}postMessage(data){this.request=data;}terminate(){this.terminated=true;}emit(data){this.onmessage({data});}};
- for(const f of ['lessons','course','visuals','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
+ for(const f of ['lessons','course','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
  return {dom,w,$:id=>w.document.getElementById(id),worker:()=>worker,click:q=>{const el=w.document.querySelector(q);assert.ok(el,'Missing '+q);el.click();}};
 }
 const {dom,w,$,click,worker}=setup();
@@ -25,13 +25,13 @@ $('prediction-check').click();assert.match($('prediction-feedback').textContent,
 go('/lesson/search');assert.match($('assessment-note').textContent,/cannot establish/);$('run-button').click();assert.equal(worker().request.input,'23');$('stop-button').click();assert.ok(worker().terminated);assert.ok(!$('editor').readOnly);
 $('run-button').click();worker().emit({type:'error',message:'Compile failed',diagnostics:'expected semicolon'});assert.match($('output').textContent,/expected semicolon/);
 $('course-menu-button').click();assert.ok($('course-drawer').open);click('#drawer-nav a[href="#/lesson/heap"]');assert.ok(!$('course-drawer').open);assert.equal($('lesson-title').textContent,'Allocate & release');
-go('/course');assert.equal(w.document.querySelectorAll('.course-part').length,6);assert.equal(w.document.querySelectorAll('.course-part li').length,30);
+go('/course');assert.equal(w.document.querySelectorAll('.course-part').length,9);assert.equal(w.document.querySelectorAll('.course-part li').length,44);
 let count=0;
 for(const chapter of w.COURSE.chapters){go('/chapter/'+chapter.id);assert.ok(!$('preview-view').hidden);assert.match($('preview-content').textContent,/Preview page/);assert.equal(w.document.querySelectorAll('#preview-content ol li').length,chapter.topics.length);for(const topic of chapter.topics){go('/chapter/'+chapter.id+'/'+topic.id);assert.equal(w.document.querySelector('#preview-content h1').textContent,topic.title);assert.match($('preview-content').textContent,/Planned lesson/);assert.ok($('lab-view').hidden);count++;}}
-assert.equal(count,165);go('/chapter/big-o');click('a[href="#/big-o"]');assert.ok(!$('complexity-view').hidden);assert.match($('search-comparison').textContent,/Linear comparisons/);$('complexity-size').value=3;$('complexity-size').dispatchEvent(new w.Event('input'));assert.match($('search-comparison').textContent,/16 \(doubled\)/);assert.match($('doubling-note').textContent,/binary adds 1/);
+assert.equal(count,211);go('/chapter/big-o');click('a[href="#/big-o"]');assert.ok(!$('complexity-view').hidden);assert.match($('search-comparison').textContent,/Linear comparisons/);$('complexity-size').value=3;$('complexity-size').dispatchEvent(new w.Event('input'));assert.match($('search-comparison').textContent,/16 \(doubled\)/);assert.match($('doubling-note').textContent,/binary adds 1/);
 go('/chapter/not-found');assert.match($('preview-content').textContent,/Page not found/);
 for(const l of w.LESSONS){go('/lesson/'+l.id);assert.ok(l.solution.split('\n').length>5);assert.ok($('reference-code').textContent.includes('\n'));assert.ok($('worked-code').textContent);}
 console.log('PASS lesson sequence, selective examples, predictions, single changed value, and accessible step-to-exercise transition');
 console.log('PASS drafts, output checks, cancellation, errors, and course drawer');
-console.log('PASS all 30 chapter and 165 topic routes, preview labels, unknown route, and Big O comparison');dom.window.close();
+console.log('PASS all 44 chapter and 211 topic routes, preview labels, unknown route, and Big O comparison');dom.window.close();
 const deep=setup('#/chapter/recovery/4');assert.equal(deep.w.document.querySelector('#preview-content h1').textContent,'Write-ahead logging');assert.ok(deep.$('lab-view').hidden);deep.dom.window.close();console.log('PASS direct topic deep link');
