@@ -63,7 +63,7 @@
     updateCompletion();
   }
   function lines(){$('line-numbers').textContent=Array.from({length:$('editor').value.split('\n').length},(_,i)=>i+1).join('\n');$('line-numbers').scrollTop=$('editor').scrollTop;}
-  function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const readingTopic=next==='preview'&&!!document.querySelector('#preview-content .topic-content');const active=(b.dataset.view==='lab'&&(next==='lab'||readingTopic))||(b.dataset.view==='curriculum'&&(next==='curriculum'||(!readingTopic&&['preview','complexity','setup'].includes(next))));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});nav();}
+  function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup','workspace'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const readingTopic=next==='preview'&&!!document.querySelector('#preview-content .topic-content');const active=(b.dataset.view==='lab'&&(next==='lab'||readingTopic))||(b.dataset.view==='curriculum'&&(next==='curriculum'||(!readingTopic&&['preview','complexity','setup'].includes(next))));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});const cliNav=document.querySelector('.topbar a[href="#/workspace"]');cliNav?.classList.toggle('active',next==='workspace');cliNav?.setAttribute('aria-current',next==='workspace'?'page':'false');nav();}
   function select(index){
     selected=index;const l=LESSONS[index];state.selected=l.id;
     const chapter=COURSE.chapters.find(c=>c.id===l.chapterId||c.labs.includes(l.id));
@@ -127,6 +127,7 @@
     }
     else if(parts[0]==='course'){renderMap();showView('curriculum');}
     else if(parts[0]==='capstone')showView('capstone');
+    else if(parts[0]==='workspace'){showView('workspace');window.commandWorkspace?.init();}
     else if(parts[0]==='setup')showView('setup');
     else if(parts[0]==='big-o'){window.lessonVisuals.updateComplexity();showView('complexity');}
     else if(parts[0]==='chapter'){
@@ -204,6 +205,7 @@
   $('next-button').onclick=()=>{const l=LESSONS[selected],seq=practiceSequence();go(l.isExample?'/chapter/'+l.chapterId:'/lesson/'+seq[Math.min(seq.length-1,seq.indexOf(l.id)+1)]);};
   $('reset-button').onclick=()=>{if(confirm('Restore starter code? Your current edits will be replaced.')){delete state.drafts[LESSONS[selected].id];delete state.inputs[LESSONS[selected].id];const previousView=view;select(selected);if(inlineActive)showView(previousView);toast('Starter code restored.');}};
   $('solution-button').onclick=()=>{if(confirm('Replace your code with the reference solution?')){$('editor').value=LESSONS[selected].solution;$('editor').dispatchEvent(new Event('input'));toast('Reference loaded. Compare it with your own approach.');}};
+  $('workspace-button').onclick=async()=>{try{if(busy){toast('Stop the program first.');return;}await window.commandWorkspace.acceptSource($('editor').value,$('stdin').value);go('/workspace');}catch(error){toast(error.message);}};
   $('download-button').onclick=()=>{const url=URL.createObjectURL(new Blob([$('editor').value],{type:'text/x-c'}));const a=document.createElement('a');a.href=url;a.download='main.c';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   $('clear-button').onclick=()=>{$('output').textContent='Console cleared.';$('output').className='';};
   $('start-db').onclick=()=>go('/chapter/database-foundations');

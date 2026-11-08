@@ -67,6 +67,7 @@ serve:
 
 test:
 	npm test
+	$(MAKE) check-cli
 	$(MAKE) check-native
 	$(MAKE) check-examples
 	$(MAKE) check-structures
@@ -74,3 +75,14 @@ test:
 
 clean:
 	rm -rf .build
+
+# Same C source as the browser's bundled command; keeps the earlier tinydb demo.
+.PHONY: tinydb-cli check-cli
+$(NATIVE_BUILD)/tinydb-cli: native/cli/tinydb.c | $(NATIVE_BUILD)
+	$(CC) $(CFLAGS) $< -o $@
+
+tinydb-cli: $(NATIVE_BUILD)/tinydb-cli
+	$< $(if $(DB),"$(DB)",people.db)
+
+check-cli: $(NATIVE_BUILD)/tinydb-cli
+	python3 tools/check_cli.py $<

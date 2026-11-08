@@ -1,0 +1,9 @@
+// Build the browser's bundled CLI from the same C source used by native builds.
+const fs=require('fs'),path=require('path'),{Worker}=require('worker_threads'),crypto=require('crypto');
+const hash=data=>crypto.createHash('sha256').update(data).digest('hex');
+(async()=>{const source=fs.readFileSync('native/cli/tinydb.c'),worker=new Worker(path.resolve('tests/worker-shim.cjs'),{workerData:{script:'workspace-worker.js'}});
+try{const result=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Browser CLI build timed out')),120000);worker.on('error',reject);worker.on('message',r=>{if(r.type==='output'&&r.diagnostic)process.stderr.write(r.text);if(r.type==='done'||r.type==='error'){clearTimeout(timer);r.type==='error'?reject(Error(r.message)):resolve(r);}});worker.postMessage({kind:'build',files:[{name:'tinydb.c',data:new Uint8Array(source)}],sources:['tinydb.c'],output:'tinydb'});});
+const binary=result.files.find(f=>f.name==='tinydb').data,manifest={source:'native/cli/tinydb.c',sourceSha256:hash(source),wasmSha256:hash(binary),bytes:binary.length};
+if(process.argv.includes('--check')){if(hash(fs.readFileSync('dist/programs/tinydb.c'))!==manifest.sourceSha256||hash(fs.readFileSync('dist/programs/tinydb.wasm'))!==manifest.wasmSha256||JSON.stringify(JSON.parse(fs.readFileSync('dist/programs/manifest.json')))!==JSON.stringify(manifest))throw Error('Rebuild bundled TinyDB with node tools/build_browser_programs.cjs');console.log('PASS bundled TinyDB matches its C source and reproducible Wasm build');}
+else{fs.mkdirSync('dist/programs',{recursive:true});fs.writeFileSync('dist/programs/tinydb.wasm',binary);fs.writeFileSync('dist/programs/tinydb.c',source);fs.writeFileSync('dist/programs/manifest.json',JSON.stringify(manifest,null,2)+'\n');console.log('Built TinyDB:',binary.length,'bytes');}
+}finally{await worker.terminate();}})().catch(e=>{console.error(e);process.exitCode=1});

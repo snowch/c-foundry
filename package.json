@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "test": "node tests/interface.cjs && node tests/execution.cjs && node tests/part1.cjs && node tests/part2.cjs && node tests/completion.cjs && node tests/course.cjs && node tests/smoke.cjs"
+    "test": "node tests/interface.cjs && node tests/execution.cjs && node tests/part1.cjs && node tests/part2.cjs && node tests/completion.cjs && node tests/course.cjs && node tests/smoke.cjs && node tests/workspace-ui.cjs && node tests/workspace.cjs && node tools/build_browser_programs.cjs --check"
   },
   "devDependencies": {
+    "fake-indexeddb": "^6.2.7",
     "jsdom": "^31.0.0"
   }
 }

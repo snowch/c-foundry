@@ -4,3 +4,6 @@ node_modules/
 .build/
 
 __pycache__/
+
+/people.db
+/people.db.tmp

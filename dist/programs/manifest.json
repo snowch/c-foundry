@@ -1,0 +1,6 @@
+{
+  "source": "native/cli/tinydb.c",
+  "sourceSha256": "17d3636f3c4bdba37356b1d43e14bb0a828163d1cdff2965f4c6a18b2c73482d",
+  "wasmSha256": "b9d192af02d02d83d317090fdc21dc3b13b2bf5b62c4d9e03115d3359e90aebf",
+  "bytes": 62859
+}

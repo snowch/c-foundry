@@ -135,7 +135,7 @@ gcc -std=c17 -Wall -Wextra -Wpedantic -Werror native/examples/persistence-5/main
 .build/transfer import path/to/downloaded.tdb
 ```
 
-Imports validate magic/version, lengths, rows, uniqueness, and clean end-of-input before assigning a new table. Browser runner files are still temporary; browser download and native fsync are distinct host operations with different guarantees. The checkpoint example uses Linux/POSIX file and directory synchronization and a stopped writer; it is not a tested power-failure guarantee for every filesystem.
+Imports validate magic/version, lengths, rows, uniqueness, and clean end-of-input before assigning a new table. Lesson runner files are temporary; the browser command workspace saves its files independently in IndexedDB; browser download and native fsync are distinct host operations with different guarantees. The checkpoint example uses Linux/POSIX file and directory synchronization and a stopped writer; it is not a tested power-failure guarantee for every filesystem.
 
 Retained files under `.build/` are build artifacts: copy or download the files you want to keep before `make clean`.
 
@@ -154,3 +154,19 @@ make check-numeric SANITIZE=1
 ```
 
 The manifest supplies `-lm` automatically. The floating examples state their format, subnormal, rounding, and non-fast-math requirements. The arithmetic exercise derives guards from INT_MIN/INT_MAX; its provided output fixtures target the 32-bit int range of the supported native and Wasm toolchains. The numeric oracle validates the checked-in reference against arbitrary-precision expectations and tests finite-value parsing and tolerance nontransitivity; it does not grade edits in the student starter.
+
+## TinyDB CLI and browser file exchange
+
+The [browser CLI](https://snowch.github.io/c-foundry/#/workspace) can compile portable C programs and run the bundled `tinydb people.db`. Download `people.db` from Files, upload it into Codespaces, and open it with the same C program:
+
+```sh
+make tinydb-cli DB=people.db
+# .help lists SQL commands; .quit leaves the stdin REPL.
+# A single statement, useful from a script:
+.build/native/tinydb-cli people.db --execute "SELECT * FROM people;"
+make check-cli
+```
+
+Upload a native TDB1 file back through the browser workspace’s Import control, then run `tinydb filename.db`. Imports preserve colliding existing filenames by renaming the incoming file. The CLI supports 128 rows; the earlier transfer lesson supports eight. Both use eight-byte headers and forty-byte rows. The CLI validates the file before changing it. Browser and Codespaces files are not automatically synchronized.
+
+`native/cli/tinydb.c` is the canonical source; the included browser program is a reproducible Wasm build of it. It supports one table, autocommit CRUD and COUNT, and table scans. No indexes, transactions, concurrent writers, or crash-durability guarantee are implied. Run native thread, sanitizer, and POSIX storage examples using their chapter commands.

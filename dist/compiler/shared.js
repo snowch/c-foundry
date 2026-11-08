@@ -127,16 +127,16 @@ class Memory {
 
   // Null-terminated string.
   writeStr(o, str) {
-    o += this.write(o, str);
-    this.write8(o, 0);
-    return str.length + 1;
+    const length = this.write(o, str);
+    this.write8(o + length, 0);
+    return length + 1;
   }
 
   write(o, buf) {
     if (buf instanceof ArrayBuffer) {
       return this.write(o, new Uint8Array(buf));
     } else if (typeof buf === 'string') {
-      return this.write(o, buf.split('').map(x => x.charCodeAt(0)));
+      return this.write(o, new TextEncoder().encode(buf));
     } else {
       const dst = new Uint8Array(this.buffer, o, buf.length);
       dst.set(buf);
@@ -151,6 +151,8 @@ class MemFS {
     this.hostWrite = options.hostWrite;
     this.stdinStr = options.stdinStr || "";
     this.stdinStrPos = 0;
+    this.stdinBytes = new TextEncoder().encode(this.stdinStr);
+    this.decoders = new Map();
     this.memfsFilename = options.memfsFilename;
 
     this.hostMem_ = null;  // Set later when wired up to application.
@@ -175,6 +177,7 @@ class MemFS {
 
   setStdinStr(str) {
     this.stdinStr = str;
+    this.stdinBytes = new TextEncoder().encode(str);
     this.stdinStrPos = 0;
   }
 
@@ -185,6 +188,7 @@ class MemFS {
   }
 
   addFile(path, contents) {
+    if (typeof contents === 'string') contents = new TextEncoder().encode(contents);
     const length =
         contents instanceof ArrayBuffer ? contents.byteLength : contents.length;
     this.mem.check();
@@ -216,12 +220,21 @@ class MemFS {
       iovs += 4;
       const len = this.hostMem_.read32(iovs);
       iovs += 4;
-      str += this.hostMem_.readStr(buf, len);
+      if (!this.decoders.has(fd)) this.decoders.set(fd, new TextDecoder());
+      str += this.decoders.get(fd).decode(this.hostMem_.u8.subarray(buf, buf + len), {stream:true});
       size += len;
     }
     this.hostMem_.write32(nwritten_out, size);
     this.hostWrite(str);
     return ESUCCESS;
+  }
+
+  flushOutput() {
+    for (const decoder of this.decoders.values()) {
+      const tail = decoder.decode();
+      if (tail) this.hostWrite(tail);
+    }
+    this.decoders.clear();
   }
 
   host_read(fd, iovs, iovs_len, nread) {
@@ -233,11 +246,11 @@ class MemFS {
       iovs += 4;
       const len = this.hostMem_.read32(iovs);
       iovs += 4;
-      const lenToWrite = Math.min(len, (this.stdinStr.length - this.stdinStrPos));
+      const lenToWrite = Math.min(len, (this.stdinBytes.length - this.stdinStrPos));
       if(lenToWrite === 0){
         break;
       }
-      this.hostMem_.write(buf, this.stdinStr.substr(this.stdinStrPos, lenToWrite));
+      this.hostMem_.write(buf, this.stdinBytes.subarray(this.stdinStrPos, this.stdinStrPos + lenToWrite));
       size += lenToWrite;
       this.stdinStrPos += lenToWrite;
       if(lenToWrite !== len){
@@ -343,6 +356,65 @@ class App {
 
     // Fill in some WASI implementations from memfs.
     Object.assign(wasi_unstable, this.memfs.exports);
+    // The bundled memfs ReadIovec has an inverted end-of-file bound and does
+    // not advance between vectors. Use bounded reads over its real file bytes.
+    wasi_unstable.fd_read = (fd, iovs, count, out) => this.readFile(fd, iovs, count, out);
+    wasi_unstable.fd_tell = (fd, pointer) => this.memfs.exports.fd_seek(fd, 0n, 0, pointer);
+    wasi_unstable.fd_pread = (fd, iovs, count, offset, out) => this.readFile(fd, iovs, count, out, offset);
+    // memfs traps on O_APPEND. Track that flag and seek before each write,
+    // while leaving its file allocation and normal write implementation intact.
+    const appendFDs = new Set(), open = wasi_unstable.path_open;
+    wasi_unstable.path_open = (...args) => {
+      const append = !!(args[7] & 1);
+      args[7] &= ~1;
+      const result = open(...args);
+      if (result === 0) {
+        this.mem.check();
+        const fd = this.mem.read32(args[8]);
+        appendFDs.delete(fd);
+        if (append) appendFDs.add(fd);
+      }
+      return result;
+    };
+    const write = wasi_unstable.fd_write;
+    wasi_unstable.fd_write = (fd, ...args) => {
+      if (appendFDs.has(fd)) {
+        this.mem.check();
+        const saved = this.mem.u8.slice(0, 8);
+        let error;
+        try { error = this.memfs.exports.fd_seek(fd, 0n, 1, 0); }
+        finally { this.mem.u8.set(saved, 0); }
+        if (error !== 0) return error;
+      }
+      return write(fd, ...args);
+    };
+    const fdstat = wasi_unstable.fd_fdstat_get;
+    wasi_unstable.fd_fdstat_get = (fd, pointer) => {
+      const result = fdstat(fd, pointer);
+      if (result === 0 && appendFDs.has(fd)) this.mem.write8(pointer + 2, this.mem.read8(pointer + 2) | 1);
+      return result;
+    };
+    // Workspace observers see only successful path operations. Lesson runs do not
+    // install an observer and retain their original runtime behavior.
+    if (this.memfs.onPathOperation) {
+      for (const operation of ['path_open', 'path_unlink_file', 'path_rename']) {
+        const original = wasi_unstable[operation];
+        wasi_unstable[operation] = (...args) => {
+          this.mem.check();
+          const path = (pointer, length) => {
+            if (length < 0 || length > 4096 || pointer < 0 || pointer > this.mem.u8.length - length)
+              throw new Error('Invalid workspace file path.');
+            return this.mem.readStr(pointer, length);
+          };
+          const first = path(args[operation === 'path_open' ? 2 : 1],
+                             args[operation === 'path_open' ? 3 : 2]);
+          const second = operation === 'path_rename' ? path(args[4], args[5]) : null;
+          const result = original(...args);
+          if (result === 0) this.memfs.onPathOperation(operation, first, second);
+          return result;
+        };
+      }
+    }
 
     this.ready = getInstance(module, {wasi_unstable, env}).then(instance => {
       this.instance = instance;
@@ -378,11 +450,59 @@ class App {
         msg = msg + `\n${exn.stack}`;
       }
       msg += '\x1b[0m\n';
-      this.memfs.hostWrite(msg);
+      if (!this.memfs.silentErrors) this.memfs.hostWrite(msg);
 
       // Propagate error.
       throw exn;
     }
+  }
+
+  readFile(fd, iovs, count, out, explicitOffset) {
+    const fs = this.memfs.exports, memory = this.mem;
+    memory.check();
+    const fits = (at, size) => at >= 0 && size >= 0 && at <= memory.u8.length - size;
+    if (count < 0 || count > 65536 || !fits(iovs, count * 8) || !fits(out, 4)) return 21;
+    if (fd === 0 && explicitOffset === undefined) return fs.fd_read(fd, iovs, count, out);
+    const saved = memory.u8.slice(0, 64);
+    let error, inode, size, type, position;
+    try {
+      error = fs.fd_filestat_get(fd, 0);
+      if (error !== 0) return error;
+      inode = memory.read32(8); type = memory.read8(16);
+      if (type !== 4) return type === 3 ? 31 : 8;
+      size = this.memfs.exports.GetFileNodeSize(inode) >>> 0;
+      if (explicitOffset === undefined) {
+        error = fs.fd_seek(fd, 0n, 0, 0);
+        if (error !== 0) return error;
+        position = memory.read32(0) + memory.read32(4) * 4294967296;
+      } else {
+        const offset = BigInt.asUintN(64, explicitOffset);
+        position = offset > BigInt(Number.MAX_SAFE_INTEGER) ? Number.MAX_SAFE_INTEGER : Number(offset);
+      }
+    } finally { memory.u8.set(saved, 0); }
+    const vectors = [];
+    for (let i = 0; i < count; ++i) {
+      const address = memory.read32(iovs + i * 8), length = memory.read32(iovs + i * 8 + 4);
+      if (!fits(address, length)) return 21;
+      vectors.push([address, length]);
+    }
+    this.memfs.mem.check();
+    const address = fs.GetFileNodeAddress(inode);
+    let read = 0;
+    for (const [destination, wanted] of vectors) {
+      const length = Math.min(wanted, Math.max(0, size - position - read));
+      if (length) memory.write(destination, this.memfs.mem.u8.subarray(address + position + read, address + position + read + length));
+      read += length;
+      if (length < wanted) break;
+    }
+    if (explicitOffset === undefined) {
+      const scratch = memory.u8.slice(0, 8);
+      try { error = fs.fd_seek(fd, BigInt(position + read), 2, 0); }
+      finally { memory.u8.set(scratch, 0); }
+      if (error !== 0) return error;
+    }
+    memory.write32(out, read);
+    return 0;
   }
 
   proc_exit(code) {
@@ -396,10 +516,10 @@ class App {
     for (const name of names) {
       const value = this.environ[name];
       // +2 to account for = and \0 in "name=value\0".
-      size += name.length + value.length + 2;
+      size += new TextEncoder().encode(name).length + new TextEncoder().encode(value).length + 2;
     }
-    this.mem.write64(environ_count_out, names.length);
-    this.mem.write64(environ_buf_size_out, size);
+    this.mem.write32(environ_count_out, names.length);
+    this.mem.write32(environ_buf_size_out, size);
     return ESUCCESS;
   }
 
@@ -420,10 +540,10 @@ class App {
     this.mem.check();
     let size = 0;
     for (let arg of this.argv) {
-      size += arg.length + 1;  // "arg\0".
+      size += new TextEncoder().encode(arg).length + 1;  // "arg\0".
     }
-    this.mem.write64(argc_out, this.argv.length);
-    this.mem.write64(argv_buf_size_out, size);
+    this.mem.write32(argc_out, this.argv.length);
+    this.mem.write32(argv_buf_size_out, size);
     return ESUCCESS;
   }
 
@@ -661,6 +781,7 @@ class API {
     this.lldFilename = options.lld || 'lld';
     this.sysrootFilename = options.sysroot || 'sysroot.tar';
     this.showTiming = options.showTiming || false;
+    this.silentRunFooter = options.silentRunFooter || false;
 
     this.clangCommonArgs = [
       '-disable-free',
@@ -679,7 +800,7 @@ class API {
       memfsFilename : options.memfs || 'memfs',
     });
     this.ready = this.memfs.ready.then(
-        () => { return this.untar(this.memfs, this.sysrootFilename); });
+        () => options.loadSysroot === false ? undefined : this.untar(this.memfs, this.sysrootFilename));
   }
 
   hostLog(message) {
@@ -726,7 +847,7 @@ class API {
     const opt = options.opt || '2';
 
     await this.ready;
-    this.memfs.addFile(input, contents);
+    if (!options.preloaded) this.memfs.addFile(input, contents);
     const clang = await this.getModule(this.clangFilename);
     return await this.run(clang, 'clang', '-cc1', '-emit-obj',
                           ...this.clangCommonArgs, '-O0', '-std=c17', '-o', obj, '-x',
@@ -774,7 +895,7 @@ class API {
     return await this.run(
         lld, 'wasm-ld', '--no-threads',
         '--export-dynamic',  // TODO required?
-        '-z', `stack-size=${stackSize}`, `-L${libdir}`, crt1, obj, '-lc',
+        '-z', `stack-size=${stackSize}`, `-L${libdir}`, crt1, ...(Array.isArray(obj) ? obj : [obj]), '-lc',
         '-lc++', '-lc++abi', '-lcanvas', '-o', wasm)
   }
 
@@ -783,9 +904,10 @@ class API {
     const start = +new Date();
     const app = new App(module, this.memfs, ...args);
     const instantiate = +new Date();
-    const stillRunning = await app.run();
+    let stillRunning;
+    try { stillRunning = await app.run(); } finally { this.memfs.flushOutput(); }
     const end = +new Date();
-    this.hostWrite('\n');
+    if (!this.silentRunFooter) this.hostWrite('\n');
     if (this.showTiming) {
       const green = '\x1b[92m';
       const normal = '\x1b[0m';
