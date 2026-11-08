@@ -28,7 +28,7 @@ The Big O activity at `#/big-o` compares counted linear and binary search inspec
 
 The five authored chapters cover the first program; values, types, and expressions; decisions and repetition; functions; and arrays and strings. Their 25 topic pages include explanations, complete runnable C17 programs, output walkthroughs, pitfalls, answer feedback, and suggested experiments. Chapter projects are a greeting, numeric-expression calculation, guessing game, rectangle calculator, and ASCII text statistics. The existing loop exercise is available as a follow-up after functions have been introduced.
 
-`dist/part1.js` holds the authored readings and renders their chapter/topic pages. It adds 25 ungraded example programs to the editor without counting them as completed practice. Editable example drafts and the original exercise drafts use separate stable IDs. Available practice follows chapter order.
+`dist/part1.js` holds the authored readings and renders their chapter/topic pages. It mounts the shared editable compiler panel directly inside each of the 25 topic pages, with Run, Stop, Reset, Export, input, and console output. Expected output for the original program is an optional disclosure. Examples do not count as completed practice. Editable example drafts and the original exercise drafts use separate stable IDs. The previous standalone example links redirect to the matching topic and retain those drafts. Available practice follows chapter order.
 
 Part 1 has native equivalents too. `node tools/sync_part1.cjs` regenerates its five chapter readings and complete examples from the authored source; it deliberately does not overwrite editable exercise starters. Run an example with `make example EXAMPLE=values-4` and check every example with `make check-part1` (or `make check-part1 CC=clang`).
 
@@ -73,4 +73,6 @@ The redesigned lesson and Big O pages were tested in headless Chromium at 390, 7
 
 The Codespaces image was built and exercised locally with Docker: Node 24, GCC 14.3, Clang 19, native checks, the standards matrix, sanitizers, and the post-create commands. Hosted Codespace creation was not performed. Launch/copy controls (with the external creation URL intercepted), advanced routes, reloads, setup, and overflow were checked in Chromium at 390, 768, and 1024 px.
 
-Part 1 browser QA covered chapter reading, question feedback, previous/next topics and browser back, editable examples, chapter practice, and layout at 390, 768, and 1024 px. A real browser fgets example and all six text-statistics output cases passed. The 25 complete programs also pass with native GCC and Clang.
+Part 1 browser QA covered chapter reading, question feedback, previous/next topics and browser back, inline editable examples, chapter practice, and layout at 390, 768, and 1024 px. A real browser fgets example and all six text-statistics output cases passed. The 25 complete programs also pass with native GCC and Clang.
+
+Inline editor checks cover all 25 mounts, preserving the shared DOM node and its listeners, running without changing the topic URL, drafts and input across navigation, Reset without leaving the lesson, errors, Stop, and legacy example redirects.

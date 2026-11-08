@@ -9,7 +9,7 @@
   state.completed=state.completed.filter(id=>LESSONS.some(l=>l.id===id&&!l.isExample));
   const PRACTICE=COURSE.chapters.flatMap(c=>c.labs).map(id=>LESSONS.find(l=>l.id===id&&!l.isExample));
   let selected=Math.max(0,LESSONS.findIndex(l=>l.id===state.selected));
-  let worker,timer,busy=false,mode='run',runLesson,toastTimer,view='lab',currentRoute='';
+  let worker,timer,busy=false,mode='run',runLesson,toastTimer,view='lab',currentRoute='',inlineActive=false;
   const assessments={hello:'Explain what main and printf each do.',loops:'Explain why the loop includes n and what happens for n = 0.',pointers:'Explain why temp must keep its own copy of the first value.',heap:'Output checks cannot verify ownership. Confirm that every successful allocation is freed exactly once, including error paths.',search:'Output checks cannot establish that you used binary search. Explain the sorted-input requirement and how every iteration shrinks the interval.',sort:'Output checks cannot establish insertion sort or its complexity. Explain the sorted-prefix invariant and why shifting can take quadratic time.',rows:'Explain the width limit and the zero terminator in the name field.',query:'Explain why find_row returns an index, how duplicates are detected, and what happens when the table is full.'};
   function save(){try{localStorage.setItem('c-foundry-v1',JSON.stringify(state));$('save-state').textContent='Saved on this device';}catch(_){$('save-state').textContent='Storage unavailable. Export your code to keep a copy.';}}
   function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4000);}
@@ -18,7 +18,7 @@
     $('drawer-nav').innerHTML='<p class="menu-label">Available practice</p>'+PRACTICE.map((l)=>`<a class="lesson-link ${l.id===LESSONS[selected].id&&view==='lab'?'active':''}" href="#/lesson/${l.id}" ${l.id===LESSONS[selected].id&&view==='lab'?'aria-current="page"':''}>${state.completed.includes(l.id)?'✓ ':''}${escape(l.title)}</a>`).join('')+'<p class="menu-label">Complete syllabus</p>'+COURSE.parts.map((part,i)=>`<details><summary>Part ${i+1}: ${escape(part)}</summary>${COURSE.chapters.filter(c=>c.part===i).map(c=>`<a href="#/chapter/${c.id}">${c.number}. ${escape(c.title)}</a>`).join('')}</details>`).join('');
   }
   function lines(){$('line-numbers').textContent=Array.from({length:$('editor').value.split('\n').length},(_,i)=>i+1).join('\n');$('line-numbers').scrollTop=$('editor').scrollTop;}
-  function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===next||(b.dataset.view==='curriculum'&&['preview','complexity','setup'].includes(next));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});nav();}
+  function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const readingTopic=next==='preview'&&!!$('inline-editor-host');const active=(b.dataset.view==='lab'&&(next==='lab'||readingTopic))||(b.dataset.view==='curriculum'&&(next==='curriculum'||(!readingTopic&&['preview','complexity','setup'].includes(next))));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});nav();}
   function select(index){
     selected=index;const l=LESSONS[index];state.selected=l.id;
     const chapter=COURSE.chapters.find(c=>c.id===l.chapterId||c.labs.includes(l.id));
@@ -39,7 +39,11 @@
     $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)}</h2><ol start="${COURSE.chapters.find(c=>c.part===i).number}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}"><strong>${escape(c.title)}</strong><span>${c.topics.length} ${c.status==='ready'?'lessons ready':'planned topics'} · ${courseExecution.label(c)}${c.labs.length?' · practice available':c.id==='big-o'?' · explorer available':' · preview'}</span></a></li>`).join('')}</ol></section>`).join('');
   }
   function preview(chapter,topic){
-    if(chapter.status==='ready'){$('preview-content').innerHTML=partOne.render(chapter,topic);showView('preview');return;}
+    if(chapter.status==='ready'){
+      $('preview-content').innerHTML=partOne.render(chapter,topic);
+      if(topic)mountInlineExample(chapter,topic);
+      showView('preview');return;
+    }
     const prev=COURSE.chapters[chapter.number-2];const next=COURSE.chapters[chapter.number];
     const topicIndex=topic?chapter.topics.indexOf(topic):-1;
     const title=topic?topic.title:chapter.title;
@@ -48,11 +52,34 @@
     $('preview-content').innerHTML=`${back}<p class="eyebrow">Part ${chapter.part+1} · Chapter ${chapter.number}${topic?'.'+topic.id:''} · Planned content</p><h1 tabindex="-1">${escape(title)}</h1><p class="preview-status">Preview page. The full ${topic?'lesson':'chapter'}, worked examples, and assessments are being developed.</p>${topic?`<h2>Planned lesson</h2><p>This lesson will cover <strong>${escape(topic.title)}</strong> as part of ${escape(chapter.title.toLowerCase())}.</p>`:'<h2>Topics in this chapter</h2><ol>'+chapter.topics.map(t=>`<li><a href="#/chapter/${chapter.id}/${t.id}">${escape(t.title)}</a><span class="status-label">Planned</span></li>`).join('')+'</ol>'}<h2>Practice goal</h2><p>${escape(chapter.project)}</p><p class="supporting">This is the planned chapter outcome, not a completed exercise.</p>${courseExecution.panel(chapter)}<h2>Before you start</h2><p>${prev?`Work through <a href="#/chapter/${prev.id}">Chapter ${prev.number}: ${escape(prev.title)}</a> and the preceding topics. Chapter links may lead to previews while the course is being built.`:'No prior C experience is assumed. Later lessons build on this introduction.'}</p>${labs.length?`<section class="available-practice"><h2>Try available practice</h2><p>These prototype exercises cover part of this chapter. They do not replace the full planned lessons.</p>${labs.map(l=>`<p><a href="#/lesson/${l.id}">${escape(l.title)} →</a></p>`).join('')}</section>`:''}${chapter.id==='big-o'?'<p><a class="primary-link" href="#/big-o">Explore counted search comparisons →</a></p>':''}<nav class="page-navigation" aria-label="Course sequence">${topic?(topicIndex>0?`<a href="#/chapter/${chapter.id}/${chapter.topics[topicIndex-1].id}">← Previous topic</a>`:'')+(topicIndex<chapter.topics.length-1?`<a href="#/chapter/${chapter.id}/${chapter.topics[topicIndex+1].id}">Next topic →</a>`:next?`<a href="#/chapter/${next.id}">Next chapter →</a>`:'<a href="#/course">Return to course map →</a>'):(prev?`<a href="#/chapter/${prev.id}">← Previous chapter</a>`:'')+(next?`<a href="#/chapter/${next.id}">Next chapter →</a>`:'<a href="#/course">Return to course map →</a>')}</nav>`;
     showView('preview');
   }
+  function restoreEditor(){
+    const panel=document.querySelector('.coding-panel');
+    $('practice-editor-host').append(panel);
+    panel.classList.remove('inline-editor');
+    panel.querySelector('.editor-wrap').style.height='';
+    inlineActive=false;
+  }
+  function mountInlineExample(chapter,topic){
+    const id=`example-${chapter.id}-${topic.id}`;
+    select(LESSONS.findIndex(l=>l.id===id));
+    const panel=document.querySelector('.coding-panel');
+    panel.classList.add('inline-editor');
+    const lines=LESSONS[selected].code.split('\n').length;
+    panel.querySelector('.editor-wrap').style.height=`${Math.min(16,Math.max(8,lines))*28.05+36}px`;
+    $('inline-editor-host').append(panel);
+    inlineActive=true;
+    $('output').textContent='Run the program to see its actual output here.';
+  }
   function renderRoute(){
     const raw=location.hash.slice(1)||'/lesson/'+state.selected;
     if(busy){history.replaceState(null,'','#'+currentRoute);toast('Stop the program before leaving this lesson.');return;}
+    restoreEditor();
     const parts=raw.split('/').filter(Boolean);
-    if(parts[0]==='lesson'&&LESSONS.some(l=>l.id===parts[1]))select(LESSONS.findIndex(l=>l.id===parts[1]));
+    if(parts[0]==='lesson'&&LESSONS.some(l=>l.id===parts[1])){
+      const l=LESSONS.find(l=>l.id===parts[1]);
+      if(l.isExample){go(`/chapter/${l.chapterId}/${l.topicId}`,true);return;}
+      select(LESSONS.indexOf(l));
+    }
     else if(parts[0]==='course'){renderMap();showView('curriculum');}
     else if(parts[0]==='capstone')showView('capstone');
     else if(parts[0]==='setup')showView('setup');
@@ -82,6 +109,10 @@
         finish();
         const results=data.results;
         $('output').textContent=(data.diagnostics ? 'Compiler diagnostics:\n'+data.diagnostics+'\n\n':'')+results[0].actual+(results[0].actual?'\n\n':'')+'Process finished successfully.';
+        if(inlineActive){
+          $('output').textContent=(data.diagnostics?'Compiler diagnostics:\n'+data.diagnostics+'\n\n':'')+(results[0].actual||'(no output)');
+          $('engine-status').textContent='Finished';
+        }
         if(mode==='check') {
           const passed=results.filter(r=>r.pass).length;
           $('test-count').textContent=`${passed}/${results.length}`;
@@ -102,7 +133,8 @@
     return worker;
   }
   function run(check=false) {
-    if(busy || view !== 'lab')return;
+    if(busy || (view !== 'lab'&&!inlineActive))return;
+    if(inlineActive)check=false;
     mode=check?'check':'run';runLesson=LESSONS[selected];setBusy(true);
     $('output').className='';$('output').textContent='Preparing the browser compiler…\nThe first run downloads about 19 MB. Later runs reuse the compiler.';
     $('test-results').textContent=check?'Compiling and running the checks…':'Run Check output to test this version of your code.'; $('test-count').textContent=''; consoleTab('output');
@@ -115,7 +147,7 @@
   $('editor').addEventListener('scroll',()=>{$('line-numbers').scrollTop=$('editor').scrollTop;});
   $('editor').addEventListener('keydown',event=>{if(event.key==='Tab'){event.preventDefault();if(busy)return;const el=event.target;el.setRangeText('    ',el.selectionStart,el.selectionEnd,'end');el.dispatchEvent(new Event('input'));}});
   $('stdin').oninput=()=>{state.inputs[LESSONS[selected].id]=$('stdin').value;$('input-dot').textContent=$('stdin').value?'•':'';save();};
-  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&view==='lab'){e.preventDefault();run(e.shiftKey);}});
+  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&(view==='lab'||inlineActive)){e.preventDefault();run(e.shiftKey);}});
   document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view==='lab'?'/lesson/'+state.selected:'/course'));
   document.querySelectorAll('[data-console]').forEach(b=>b.onclick=()=>consoleTab(b.dataset.console));
   $('run-button').onclick=()=>run();$('check-button').onclick=()=>run(true);$('stop-button').onclick=()=>stop();
@@ -123,7 +155,7 @@
   function updateExerciseNavigation(){const l=LESSONS[selected],sequence=practiceSequence(),i=sequence.indexOf(l.id);$('previous-button').disabled=busy||(!l.isExample&&i<=0);$('next-button').disabled=busy||(!l.isExample&&i===sequence.length-1);$('previous-button').textContent=l.isExample?'← Topic explanation':'← Previous exercise';$('next-button').textContent=l.isExample?'Chapter overview →':'Next exercise →';}
   $('previous-button').onclick=()=>{const l=LESSONS[selected],seq=practiceSequence();go(l.isExample?'/chapter/'+l.chapterId+'/'+l.topicId:'/lesson/'+seq[Math.max(0,seq.indexOf(l.id)-1)]);};
   $('next-button').onclick=()=>{const l=LESSONS[selected],seq=practiceSequence();go(l.isExample?'/chapter/'+l.chapterId:'/lesson/'+seq[Math.min(seq.length-1,seq.indexOf(l.id)+1)]);};
-  $('reset-button').onclick=()=>{if(confirm('Restore starter code? Your current edits will be replaced.')){delete state.drafts[LESSONS[selected].id];delete state.inputs[LESSONS[selected].id];select(selected);toast('Starter code restored.');}};
+  $('reset-button').onclick=()=>{if(confirm('Restore starter code? Your current edits will be replaced.')){delete state.drafts[LESSONS[selected].id];delete state.inputs[LESSONS[selected].id];const previousView=view;select(selected);if(inlineActive)showView(previousView);toast('Starter code restored.');}};
   $('solution-button').onclick=()=>{if(confirm('Replace your code with the reference solution?')){$('editor').value=LESSONS[selected].solution;$('editor').dispatchEvent(new Event('input'));toast('Reference loaded. Compare it with your own approach.');}};
   $('download-button').onclick=()=>{const url=URL.createObjectURL(new Blob([$('editor').value],{type:'text/x-c'}));const a=document.createElement('a');a.href=url;a.download='main.c';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   $('clear-button').onclick=()=>{$('output').textContent='Console cleared.';$('output').className='';};

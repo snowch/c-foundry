@@ -201,3 +201,17 @@ dialog::backdrop { background:#17241c88; }
 .chapter-practice { margin:24px 0; padding:18px; background:var(--panel); border-radius:5px; }
 .topic-list li { margin-block:10px; }
 #topic-feedback { color:#365e36; margin-top:12px; }
+
+/* Keep experimentation beside its explanation, using the existing compiler/editor. */
+#inline-editor-host { min-width:0; }
+.inline-editor { margin-top:12px; }
+.inline-editor .console-content { height:150px; }
+.inline-editor [data-console="tests"] { display:none; }
+.topic-content .inline-editor pre { background:transparent; border:0; border-radius:0; padding:0; }
+.topic-content .inline-editor .editor-wrap pre { padding-right:14px; }
+.topic-content .inline-editor .console-content pre { font:17px/1.65 var(--mono); color:#c5dbc7; }
+.topic-content .inline-editor .console-content pre.error { color:#ffc5a7; }
+.original-output { margin-top:14px; border-top:1px solid var(--line); }
+.original-output pre { margin-block:8px; }
+
+.inline-editor textarea { resize:none; }
