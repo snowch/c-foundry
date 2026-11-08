@@ -13,13 +13,54 @@
   const assessments={hello:'Explain what main and printf each do.',loops:'Explain why the loop includes n and what happens for n = 0.',pointers:'Explain why temp must keep its own copy of the first value.',heap:'Output checks cannot verify ownership. Confirm that every successful allocation is freed exactly once, including error paths.',search:'Output checks cannot establish that you used binary search. Explain the sorted-input requirement and how every iteration shrinks the interval.',sort:'Output checks cannot establish insertion sort or its complexity. Explain the sorted-prefix invariant and why shifting can take quadratic time.',rows:'Explain the width limit and the zero terminator in the name field.',query:'Explain why find_row returns an index, how duplicates are detected, and what happens when the table is full.'};
   function save(){try{localStorage.setItem('c-foundry-v1',JSON.stringify(state));$('save-state').textContent='Saved on this device';}catch(_){$('save-state').textContent='Storage unavailable. Export your code to keep a copy.';}}
   function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4000);}
+  function chapterProgress(chapter){return chapter.status==='ready'?`<span class="chapter-progress" data-chapter-progress="${chapter.id}"></span>`:'';}
+  function updateCompletion(){
+    const progress=lessonCompletion.total();
+    document.querySelectorAll('[data-reading-progress]').forEach(node=>{node.textContent=`${progress.done} of ${progress.available} lessons marked done · ${progress.unsaved?'some changes apply to this session only':'saved in this browser'}`;});
+    document.querySelectorAll('[data-chapter-progress]').forEach(node=>{
+      const chapter=COURSE.chapters.find(c=>c.id===node.dataset.chapterProgress),count=lessonCompletion.count(chapter);
+      node.textContent=`${count===chapter.topics.length?'✓ ':''}${count}/${chapter.topics.length} done`;
+      node.dataset.completed=String(count===chapter.topics.length);
+      node.setAttribute('aria-label',`${count} of ${chapter.topics.length} lessons marked done`);
+    });
+    document.querySelectorAll('[data-part-progress]').forEach(node=>{
+      const chapters=COURSE.chapters.filter(c=>c.part===Number(node.dataset.partProgress)&&c.status==='ready');
+      const count=chapters.reduce((total,c)=>total+lessonCompletion.count(c),0),available=chapters.reduce((total,c)=>total+c.topics.length,0);
+      node.textContent=available?`${count}/${available} done`:'';
+    });
+    document.querySelectorAll('a[href^="#/chapter/"]').forEach(link=>{
+      const route=link.getAttribute('href').slice(10),valid=lessonCompletion.valid(route),done=valid&&lessonCompletion.isDone(route);
+      // Chapter-entry links open topic 1 but represent the whole chapter.
+      if(link.classList.contains('chapter-entry')||link.closest('#course-cards'))return;
+      if(valid&&!link.querySelector('.completion-title')){
+        const title=document.createElement('span');title.className='completion-title';
+        while(link.firstChild)title.append(link.firstChild);
+        link.append(title);link.classList.add('completion-link');
+      }
+      link.dataset.completed=String(done);
+      link.querySelector('.completion-tick')?.remove();
+      if(done){const tick=document.createElement('span');tick.className='completion-tick';tick.innerHTML='<span aria-hidden="true">✓</span><span class="sr-only"> · Completed</span>';link.append(tick);}
+    });
+    document.querySelectorAll('#chapter-jump option').forEach(option=>{
+      const id=option.value.replace(/^\/chapter\//,'');
+      if(!option.dataset.originalLabel)option.dataset.originalLabel=option.textContent;
+      option.textContent=option.dataset.originalLabel+(lessonCompletion.isDone(id)?' · ✓ Done':'');
+    });
+    const control=document.querySelector('[data-lesson-complete]');
+    if(control){
+      const id=control.dataset.lessonComplete;control.checked=lessonCompletion.isDone(id);
+      const note=$('completion-save-note'),failed=lessonCompletion.isUnsaved(id);
+      note.textContent=failed?'Couldn’t save this change. It applies in this session only. Toggle the checkbox twice to retry.':control.checked?'Lesson marked done. Saved in this browser.':'Your progress stays in this browser.';
+      note.classList.toggle('completion-unsaved',failed);
+    }
+  }
   function nav(){
     $('drawer-progress').textContent=`${state.completed.length} of ${PRACTICE.length} available exercises checked`;
     const route=location.hash.split('/');
     const activeChapter=route[1]==='chapter'?COURSE.chapters.find(c=>c.id===route[2]):view==='lab'?COURSE.chapters.find(c=>c.id===LESSONS[selected].chapterId||c.labs.includes(LESSONS[selected].id)):null;
     const topicId=route[1]==='chapter'?route[3]:null;
-    $('drawer-nav').innerHTML=COURSE.parts.map((part,i)=>`<details ${activeChapter?.part===i?'open':''}><summary><span class="part-number">${i+1}</span>${escape(part)}</summary>${COURSE.chapters.filter(c=>c.part===i).map(c=>`<div class="drawer-chapter"><a class="chapter-entry" href="#/chapter/${c.id}${c.status==='ready'?'/1':''}" ${activeChapter?.id===c.id?'aria-current="location"':''}><span>${c.number}. ${escape(c.title)}</span><small>${c.topics.length} ${c.status==='ready'?'lessons':'planned topics'}</small></a>${activeChapter?.id===c.id?`<div class="drawer-topics"><a href="#/chapter/${c.id}" ${!topicId&&route[1]==='chapter'?'aria-current="page"':''}>Chapter overview</a>${c.topics.map(t=>`<a href="#/chapter/${c.id}/${t.id}" ${topicId===t.id?'aria-current="page"':''}>${escape(t.title)}</a>`).join('')}${c.labs.map(id=>`<a href="#/lesson/${id}" ${route[1]==='lesson'&&route[2]===id?'aria-current="page"':''}>Practice: ${escape(LESSONS.find(l=>l.id===id).title)}</a>`).join('')}</div>`:''}</div>`).join('')}</details>`).join('');
-
+    $('drawer-nav').innerHTML=COURSE.parts.map((part,i)=>`<details ${activeChapter?.part===i?'open':''}><summary><span class="part-number">${i+1}</span><span class="part-title">${escape(part)}</span><span class="part-progress" data-part-progress="${i}"></span></summary>${COURSE.chapters.filter(c=>c.part===i).map(c=>`<div class="drawer-chapter"><a class="chapter-entry" href="#/chapter/${c.id}${c.status==='ready'?'/1':''}" ${activeChapter?.id===c.id?'aria-current="location"':''}><span>${c.number}. ${escape(c.title)}</span><small>${c.topics.length} ${c.status==='ready'?'lessons':'planned topics'} ${chapterProgress(c)}</small></a>${activeChapter?.id===c.id?`<div class="drawer-topics"><a href="#/chapter/${c.id}" ${!topicId&&route[1]==='chapter'?'aria-current="page"':''}>Chapter overview</a>${c.topics.map(t=>`<a href="#/chapter/${c.id}/${t.id}" ${topicId===t.id?'aria-current="page"':''}>${escape(t.title)}</a>`).join('')}${c.labs.map(id=>`<a href="#/lesson/${id}" ${route[1]==='lesson'&&route[2]===id?'aria-current="page"':''}>Practice: ${escape(LESSONS.find(l=>l.id===id).title)}</a>`).join('')}</div>`:''}</div>`).join('')}</details>`).join('');
+    updateCompletion();
   }
   function lines(){$('line-numbers').textContent=Array.from({length:$('editor').value.split('\n').length},(_,i)=>i+1).join('\n');$('line-numbers').scrollTop=$('editor').scrollTop;}
   function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const readingTopic=next==='preview'&&!!document.querySelector('#preview-content .topic-content');const active=(b.dataset.view==='lab'&&(next==='lab'||readingTopic))||(b.dataset.view==='curriculum'&&(next==='curriculum'||(!readingTopic&&['preview','complexity','setup'].includes(next))));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});nav();}
@@ -40,7 +81,7 @@
     window.lessonVisuals.show(l.id);document.querySelector('.worked-example').hidden=!!l.isExample;document.querySelector('#lab-view .prediction').hidden=!!l.isExample;document.querySelector('.hint').open=false;document.querySelector('.reference-solution').open=false;consoleTab('output');lines();save();showView('lab');
   }
   function renderMap(){
-    $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)}</h2><ol start="${COURSE.chapters.find(c=>c.part===i).number}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}${c.status==='ready'?'/1':''}"><strong>${escape(c.title)}</strong><span>${c.topics.length} ${c.status==='ready'?'lessons ready':'planned topics'} · ${courseExecution.label(c)}${c.labs.length?' · practice available':c.id==='big-o'?' · explorer available':c.status==='ready'?' · native project':' · preview'}</span></a></li>`).join('')}</ol></section>`).join('');
+    $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)} <span class="part-progress" data-part-progress="${i}"></span></h2><ol start="${COURSE.chapters.find(c=>c.part===i).number}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}${c.status==='ready'?'/1':''}"><strong>${escape(c.title)} ${chapterProgress(c)}</strong><span>${c.topics.length} ${c.status==='ready'?'lessons ready':'planned topics'} · ${courseExecution.label(c)}${c.labs.length?' · practice available':c.id==='big-o'?' · explorer available':c.status==='ready'?' · native project':' · preview'}</span></a></li>`).join('')}</ol></section>`).join('');
   }
   function preview(chapter,topic){
     if(chapter.status==='ready'){
@@ -153,7 +194,8 @@
   $('stdin').oninput=()=>{state.inputs[LESSONS[selected].id]=$('stdin').value;$('input-dot').textContent=$('stdin').value?'•':'';save();};
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&(view==='lab'||inlineActive)){e.preventDefault();run(e.shiftKey);}});
   document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view==='lab'?'/lesson/'+state.selected:'/course'));
-  document.addEventListener('change',event=>{if(event.target.id==='chapter-jump')go(event.target.value);});
+  document.addEventListener('change',event=>{if(event.target.id==='chapter-jump')go(event.target.value);if(event.target.matches('[data-lesson-complete]'))lessonCompletion.mark(event.target.dataset.lessonComplete,event.target.checked);});
+  window.addEventListener('lessoncompletionchange',updateCompletion);
   document.querySelectorAll('[data-console]').forEach(b=>b.onclick=()=>consoleTab(b.dataset.console));
   $('run-button').onclick=()=>run();$('check-button').onclick=()=>run(true);$('stop-button').onclick=()=>stop();
   function practiceSequence(){return COURSE.chapters.flatMap(c=>c.labs).filter(id=>PRACTICE.some(l=>l.id===id));}

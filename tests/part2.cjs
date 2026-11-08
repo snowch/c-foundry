@@ -2,7 +2,7 @@ const fs=require('fs'),assert=require('assert/strict'),{JSDOM}=require('jsdom');
 const dom=new JSDOM(fs.readFileSync('dist/index.html','utf8'),{url:'https://example.test/#/chapter/pointers/1',runScripts:'outside-only'}),w=dom.window;
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.confirm=()=>true;w.Worker=class{postMessage(){}terminate(){}};
 w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};
-for(const f of ['lessons','course','part1','part2','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
+for(const f of ['lessons','course','completion','part1','part2','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
 const $=id=>w.document.getElementById(id),go=route=>{w.history.pushState(null,'','#'+route);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
 const fixtures=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));
 let browser=0,native=0;

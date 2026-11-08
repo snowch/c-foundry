@@ -2,7 +2,7 @@ const fs=require('fs'),assert=require('assert/strict'),{JSDOM}=require('jsdom');
 const dom=new JSDOM(fs.readFileSync('dist/index.html','utf8'),{url:'https://example.test/#/chapter/first-program',runScripts:'outside-only'}),w=dom.window;let worker;
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.confirm=()=>true;w.Worker=class{constructor(){worker=this;}postMessage(data){this.request=data;}terminate(){}emit(data){this.onmessage({data});}};
 w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};
-for(const f of ['lessons','course','part1','part2','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
+for(const f of ['lessons','course','completion','part1','part2','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
 const $=id=>w.document.getElementById(id),go=route=>{w.history.pushState(null,'','#'+route);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
 const chapters=w.COURSE.chapters.filter(c=>c.part===0);assert.equal(chapters.length,5);assert.ok(chapters.every(c=>c.part===0));assert.equal(w.LESSONS.filter(l=>l.isExample&&chapters.some(c=>c.id===l.chapterId)).length,25);assert.equal(w.LESSONS.filter(l=>!l.isExample).length,14);
 const originalPanel=w.document.querySelector('.coding-panel');

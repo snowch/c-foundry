@@ -22,6 +22,10 @@ Lessons use a single reading column with 18 px prose and a full-width 17 px edit
 
 `dist/course.js` defines the complete nine-part, 44-chapter syllabus and 211 topic pages: 51 authored lessons across Parts 1–2 and 160 planned lessons. Chapter and topic previews have stable hash URLs (for example `#/chapter/recovery/4`), explicit planned-content labels, prerequisites, chapter practice goals, available related exercises, and previous/next navigation. Preview pages do not expose a runnable editor or claim completion. Existing exercises keep their IDs, saved drafts, and output-check progress. Four chapter projects complete Part 1 practice; Part 2 adds growing arrays and record validation.
 
+Lesson completion follows video-lab’s explicit reading-mark pattern. At the end of each authored topic, use **Mark lesson as done**; uncheck it to undo. Completed topics have accessible checkmarks in Contents, chapter outlines, and the topic selector. Chapter and part totals appear in Contents and the course map. These marks are separate from exercise output checks and are never awarded automatically by visiting, running code, or answering a question. Preview topics cannot be marked done.
+
+Reading marks use separate localStorage keys per topic, so independent browser tabs reconcile individual changes without overwriting other marks. They persist on this browser/device; clearing site storage removes them. If storage fails, the choice remains for the current session and the page explains that it was not saved. Existing code drafts and exercise progress retain their original storage format.
+
 The Big O activity at `#/big-o` compares counted linear and binary search inspections on a sorted list, before and after doubling its size. It does not report real timings or use a logarithmic chart. Other growth classes and formal notation are optional detail.
 
 ## Part 1: Learn the language
