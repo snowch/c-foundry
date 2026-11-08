@@ -6,7 +6,7 @@ for(const f of ['lessons','course','completion','part1','part2','part3','part4',
 const $=id=>w.document.getElementById(id),go=route=>{w.history.pushState(null,'','#'+route);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
 const chapters=w.COURSE.chapters.filter(c=>c.part===0);assert.equal(chapters.length,5);assert.ok(chapters.every(c=>c.part===0));assert.equal(w.LESSONS.filter(l=>l.isExample&&chapters.some(c=>c.id===l.chapterId)).length,25);assert.equal(w.LESSONS.filter(l=>!l.isExample).length,15);
 const originalPanel=w.document.querySelector('.coding-panel');
-const fixtures=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));assert.equal(Object.keys(fixtures).length,218);
+const fixtures=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));assert.equal(Object.keys(fixtures).length,220);
 for(const c of chapters){
  go('/chapter/'+c.id);assert.match($('preview-content').textContent,/What you will learn/);assert.ok(!$('preview-content').textContent.includes('Preview page.'));
  for(const t of c.topics){

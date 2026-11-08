@@ -445,6 +445,12 @@
           "id": "6",
           "title": "A portable binary record format",
           "status": "ready"
+        },
+        {
+          "id": "7",
+          "title": "Optional lab: Debugging C with GDB",
+          "status": "ready",
+          "optional": true
         }
       ],
       "project": "Write and read a documented binary format without dumping raw structs.",
@@ -1372,6 +1378,12 @@
           "id": "7",
           "title": "Exportable database files and a browser demonstration",
           "status": "ready"
+        },
+        {
+          "id": "8",
+          "title": "Optional workshop: Repair a broken TinyDB with GDB",
+          "status": "ready",
+          "optional": true
         }
       ],
       "project": "Ship a documented TinyDB build with tests, benchmarks, and exportable files.",

@@ -67,6 +67,7 @@ serve:
 
 test:
 	npm test
+	$(MAKE) check-debugging
 	$(MAKE) check-cli
 	$(MAKE) check-native
 	$(MAKE) check-examples
@@ -86,3 +87,16 @@ tinydb-cli: $(NATIVE_BUILD)/tinydb-cli
 
 check-cli: $(NATIVE_BUILD)/tinydb-cli
 	python3 tools/check_cli.py $<
+
+.PHONY: debug-lab debug-gdb debug-check check-debugging
+debug-lab:
+	python3 tools/debug_lab.py build --lab '$(LAB)' --compiler '$(CC)' $(if $(filter 1,$(REFERENCE)),--reference,)
+
+debug-gdb:
+	python3 tools/debug_lab.py gdb --case '$(if $(CASE),$(CASE),update)' --lab '$(LAB)' --compiler '$(CC)' $(if $(filter 1,$(REFERENCE)),--reference,)
+
+debug-check:
+	python3 tools/debug_lab.py check --lab '$(LAB)' --compiler '$(CC)' $(if $(filter 1,$(REFERENCE)),--reference,)
+
+check-debugging:
+	python3 tools/check_debugging.py '$(CC)'

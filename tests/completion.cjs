@@ -23,7 +23,7 @@ assert.match($('#drawer-nav [data-chapter-progress="pointers"]').textContent,/1\
 assert.deepEqual(JSON.parse(w.localStorage.getItem('c-foundry-v1')).completed,['hello']);
 go('/chapter/larger-programs/1');assert.equal(mark().checked,false);mark().click();assert.equal(w.localStorage.getItem(prefix+'larger-programs/1'),'true');
 go('/chapter/pointers');assert.equal($('#preview-content .topic-list a').dataset.completed,'true');assert.equal(mark(),null);
-go('/course');assert.match($('#course-cards [data-chapter-progress="pointers"]').textContent,/1\/5 done/);assert.match($('#course-cards [data-part-progress="1"]').textContent,/2\/26 done/);
+go('/course');assert.match($('#course-cards [data-chapter-progress="pointers"]').textContent,/1\/5 done/);assert.match($('#course-cards [data-part-progress="1"]').textContent,/2\/27 done/);
 go('/chapter/pointers/1');assert.equal(mark().checked,true);mark().click();assert.equal(w.localStorage.getItem(prefix+'pointers/1'),'false');assert.equal($('#drawer-nav a[href="#/chapter/pointers/1"]:not(.chapter-entry)').dataset.completed,'false');
 for(let n=1;n<=5;n++){go('/chapter/pointers/'+n);mark().click();}assert.match($('#drawer-nav [data-chapter-progress="pointers"]').textContent,/✓ 5\/5 done/);
 // Reconcile just the changed key; retain independent marks and an editor's draft.

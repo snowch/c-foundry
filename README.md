@@ -4,16 +4,16 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/snowch/c-foundry?quickstart=1)
 
-A C, algorithms, and database course with **nine parts, 44 chapters, and 218 authored topic lessons**. Every topic includes an explanation, complete worked program, expected output and walkthrough, pitfall, understanding question with feedback, and an experiment. There are **139 inline browser examples**, **79 native examples**, and **15 separate practice exercises** with 82 output cases.
+A C, algorithms, and database course with **nine parts, 44 chapters, and 220 authored topic lessons**. Every topic includes an explanation, complete worked program, expected output and walkthrough, pitfall, understanding question with feedback, and an experiment. There are **139 inline browser examples**, **81 native examples**, and **15 separate practice exercises** with 82 output cases.
 
 | Part | Chapters | Lessons | Focus |
 | --- | ---: | ---: | --- |
 | 1 | 5 | 25 | The C language |
-| 2 | 5 | 26 | Memory and practical C |
+| 2 | 5 | 27 | Memory and practical C |
 | 3 | 5 | 28 | Big O, correctness, searching, sorting, recursion, strategies |
 | 4 | 5 | 28 | Lists, queues, hashing, balanced trees, heaps, graphs |
 | 5 | 5 | 27 | TinyDB tables, a SQL subset, execution, persistence |
-| 6 | 5 | 31 | Pages, B+ trees, planning, transactions, recovery, release work |
+| 6 | 5 | 32 | Pages, B+ trees, planning, transactions, recovery, release work |
 | 7 | 4 | 21 | C standards, numeric boundaries, guarantees, portability, hardening |
 | 8 | 4 | 14 | Threads, coordination, atomics, storage ownership |
 | 9 | 6 | 18 | Multi-client contracts, isolation, snapshots, maintenance, richer queries, reliability |
@@ -56,6 +56,26 @@ make .build/native/tinydb-cli
 .build/native/tinydb-cli people.db --execute "SELECT * FROM people;"
 make check-cli
 ```
+
+## Optional GDB investigations
+
+The browser course remains usable without a native debugger. Two optional lessons provide real GDB sessions in Codespaces, the local dev container, or Linux/WSL:
+
+- [End of Part 2: Debugging C with GDB](https://snowch.github.io/c-foundry/#/chapter/files-bytes/7) — reproduce a logical failure, inspect variables and arrays, step through calls, inspect the call stack, and watch a value change. Fix the editable starter and verify ordinary, single, empty, and negative cases.
+- [End of Part 6: Repair a broken TinyDB](https://snowch.github.io/c-foundry/#/chapter/ship/8) — investigate wrong-row UPDATE and lost-row DELETE failures in an isolated copy of the real CLI. Each launch seeds a new database. Regression checks reopen the saved file and verify neighbor/survivor preservation.
+
+```sh
+make debug-lab LAB=basics       # build and show the guide
+make debug-gdb LAB=basics       # real GDB; stops inside sum_values
+make debug-check LAB=basics     # initially fails until you repair the starter
+make debug-gdb LAB=tinydb
+make debug-gdb LAB=tinydb CASE=delete
+make debug-check LAB=tinydb
+```
+
+Edit `native/debugging/<lab>/main.c`. Separate references live under `.reference/`; `make debug-check LAB=basics REFERENCE=1` checks the reference rather than the student copy. Lab artifacts and unique fixture sessions live under `.build/debugging/`. These labs do not alter the browser CLI, its files, or the canonical `native/cli/tinydb.c`. Compiler warnings, logging, assertions, hypothesis testing, and regressions remain part of the browser learning path; GDB sessions are an optional extension. No GDB-in-Wasm runtime is loaded by the site.
+
+Maintainers run `make check-debugging` (also with `CC=clang`) to verify frozen fault reproductions, the repaired reference contracts, and actual GDB breakpoint, stepping, stack, and software-watchpoint observations. Acceptance fixtures are built separately so repairing a student copy does not invalidate these maintainer checks. This is distinct from the student `debug-check` command. The course dev container already includes GDB; GitHub Actions runs these checks before deployment.
 
 ## Numeric boundaries
 
@@ -123,7 +143,7 @@ Use your own fork/branch and commit and push work you want to retain before dele
 ```sh
 npm ci
 npm test                       # all page routes and the actual Wasm compiler
-make check-examples            # all 218 complete programs, strict GCC
+make check-examples            # all 220 complete programs, strict GCC
 make check-examples CC=clang
 make check-examples PART=8      # one part
 make check-examples SANITIZE=1
@@ -132,6 +152,7 @@ make check-structures SANITIZE=1
 make check-numeric              # numeric reference oracle and floating policies
 make check-projects             # the two native project references
 make check-projects SANITIZE=1
+make check-debugging           # real GDB and the two repair lab contracts
 make check-cli                 # native CLI persistence and boundary tests
 make check-native
 make check-native-clang
@@ -140,7 +161,7 @@ make sanitize
 make tsan                       # optional; runtime/kernel support required
 ```
 
-Browser tests execute 139 worked examples and 82 practice cases through the real compiler worker, plus diagnostics, nonzero exits, malformed input, rejected starters, cancellation, and recovery. Command tests additionally compile multiple files and check argv/stdin UTF-8, shared file append/EOF, nonzero exits, failed builds, TinyDB CRUD, corrupt-file preservation, and the bundled binary’s reproducibility. DOM checks cover all 44 chapters and 218 topics, answer feedback, inline editor state, explicit completion, per-key tab reconciliation, unsaved feedback, native commands, and the downloadable fixture. Independent native workloads check 32,000 mixed B+ operations and 32 AVL insertion permutations against ordering, occupancy, reachability, height, and ownership properties.
+Browser tests execute 139 worked examples and 82 practice cases through the real compiler worker, plus diagnostics, nonzero exits, malformed input, rejected starters, cancellation, and recovery. Command tests additionally compile multiple files and check argv/stdin UTF-8, shared file append/EOF, nonzero exits, failed builds, TinyDB CRUD, corrupt-file preservation, and the bundled binary’s reproducibility. DOM checks cover all 44 chapters and 220 topics, answer feedback, inline editor state, explicit completion, per-key tab reconciliation, unsaved feedback, native commands, and the downloadable fixture. Independent native workloads check 32,000 mixed B+ operations and 32 AVL insertion permutations against ordering, occupancy, reachability, height, and ownership properties.
 
 GitHub Actions deploys `dist/` on pushes to `main` only after the browser/interface and native jobs pass. Native CI builds the dev container, runs all examples under GCC and Clang, checks structural workloads, and runs the existing native foundations/project references with sanitizer checks.
 
@@ -148,7 +169,7 @@ GitHub Actions deploys `dist/` on pushes to `main` only after the browser/interf
 
 `dist/part1.js` through `part9.js` hold the authored content. `dist/course.js` defines the syllabus/execution metadata and mirrors `native/course.json`. `dist/readings.js` renders readings and registers portable examples; `dist/completion.js` stores reading marks; `dist/app.js` handles routing/editor state; `dist/execution.js` renders native launch controls. `dist/workspace.js`, `dist/command-model.js`, and `dist/compiler/workspace-worker.js` implement the CLI; `native/cli/tinydb.c` is its canonical database source. Run `node tools/build_browser_programs.cjs` after editing that source, then commit the generated source copy, Wasm, and manifest in `dist/programs/`. `npm test` checks reproducibility. `dist/visuals.js` retains the optional original exercise traces and counted-search comparison.
 
-Run `node tools/sync_readings.cjs` after content edits to regenerate all chapter READMEs, 218 native examples, the checked-output/source/flag manifest, and the sample file. It does not overwrite student exercise/project modules. Multi-file or native examples have their own directories; portable examples have flat `.c` exports.
+Run `node tools/sync_readings.cjs` after content edits to regenerate all chapter READMEs, 220 native examples, the checked-output/source/flag manifest, and the sample file. It does not overwrite student exercise/project modules. Multi-file or native examples have their own directories; portable examples have flat `.c` exports.
 
 The browser compiler is the experimental [binji/wasm-clang](https://github.com/binji/wasm-clang) Clang 8 / LLD toolchain with incomplete older WASI support. The runtime bridge corrects legacy file-read/EOF bounds and append handling, and encodes argv/stdin/output as UTF-8. Original runtime and LLVM licenses are distributed in `dist/compiler/`. Compilation and execution happen locally in a worker; no compilation server is involved. Runs have a five-second execution limit and 100 KB output cap; compiler initialization has a two-minute limit. Native threads, arbitrary host files, and native sanitizer runtimes require the Linux toolchain.
 
@@ -156,4 +177,4 @@ The browser compiler is the experimental [binji/wasm-clang](https://github.com/b
 
 Phone/tablet Chromium checks cover 390, 768, and 1024 px, representative lessons from every later part, actual inline B+ tree compilation, native launch/copy controls, sample downloads, completion persistence, and overflow. Earlier navigation/completion checks also covered 320 px. Screenshots were inspected. This does not establish behavior on every physical device or browser.
 
-All 218 programs pass strict GCC, Clang, and native ASan/UBSan checks in the selected Codespaces image. Threaded examples check deterministic contracts while allowing schedule-dependent contention metrics. Hosted Codespace creation and real power-loss/device-failure recovery were not exercised. A green finite suite is not proof of algorithm complexity, memory safety for all inputs, race freedom under every schedule, durable behavior on every filesystem, or a production-ready database.
+All 220 programs pass strict GCC, Clang, and native ASan/UBSan checks in the selected Codespaces image. Threaded examples check deterministic contracts while allowing schedule-dependent contention metrics. Hosted Codespace creation and real power-loss/device-failure recovery were not exercised. A green finite suite is not proof of algorithm complexity, memory safety for all inputs, race freedom under every schedule, durable behavior on every filesystem, or a production-ready database.

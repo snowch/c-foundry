@@ -540,6 +540,63 @@ window.PART_TWO = {
         "tryit": "Implement the native binary-record project and explain every byte in its test fixture.",
         "input": "",
         "runtime": "native"
+      },
+      "7": {
+        "intro": "Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Codespaces or local Linux.",
+        "explanation": "A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with <code>-g -O0</code> so source locations and variables are easier to follow. Browser-only learners can skip the native session and continue to algorithms.",
+        "code": "/* Deliberately faulty lab starter. All accesses stay within the array. */\n#include <stddef.h>\n#include <stdio.h>\n#include <string.h>\n\n/* The caller supplies a live array and values whose sum fits in int. */\nint sum_values(const int *values, size_t count) {\n    int total = 0;\n    for (size_t i = 1; i < count; ++i) {\n        total += values[i];\n    }\n    return total;\n}\n\nint main(int argc, char **argv) {\n    const int ordinary[] = {4, 8, 12};\n    const int single[] = {7};\n    const int negative[] = {-5, 2, 1};\n    const int *values = ordinary;\n    size_t count = sizeof ordinary / sizeof ordinary[0];\n    if (argc > 1 && strcmp(argv[1], \"single\") == 0) {\n        values = single;\n        count = 1;\n    } else if (argc > 1 && strcmp(argv[1], \"empty\") == 0) {\n        count = 0;\n    } else if (argc > 1 && strcmp(argv[1], \"negative\") == 0) {\n        values = negative;\n        count = sizeof negative / sizeof negative[0];\n    }\n    int result = sum_values(values, count);\n    printf(\"total=%d\\n\", result);\n    return 0;\n}\n",
+        "expected": "total=20",
+        "runtime": "native",
+        "input": "",
+        "exampleTitle": "Reproduce the original failure",
+        "walkthrough": "This is the intentionally faulty starter: the loop begins at element 1 and skips element 0. The original-output command confirms the reproducible value 20; it does not check a repair. Use the separate debug-check command to require 24 and exercise single, empty, and negative inputs.",
+        "pitfall": "A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Native GDB is not running inside the browser Wasm workspace.",
+        "question": "You use GDB to set total to 24 and the output becomes correct. What still needs doing?",
+        "choices": [
+          "Mark the defect fixed because this run passed",
+          "Fix the source, rebuild, and add a regression test"
+        ],
+        "answer": 1,
+        "why": "The debugger changed one live process. The faulty loop remains in the source until you edit it and verify the rebuilt program.",
+        "tryit": "Use the optional guided GDB session in this lesson, repair the editable starter, and run all four regression cases. Explain why the empty-array case passed even before the fix.",
+        "lab": {
+          "id": "basics",
+          "title": "Optional GDB lab: investigate, repair, verify",
+          "workspace": "native/debugging/basics",
+          "command": "make debug-lab LAB=basics",
+          "steps": [
+            {
+              "title": "Reproduce and state a hypothesis",
+              "body": "The editable copy is native/debugging/basics/main.c. The check command initially fails; expected totals are 24, 7, 0, and -2. Write down which input you suspect is skipped.",
+              "command": "make debug-lab LAB=basics\nmake debug-check LAB=basics"
+            },
+            {
+              "title": "Open real GDB",
+              "body": "Run this in the Codespaces or local Linux terminal, not the browser CLI. GDB stops inside sum_values before the total initializer.",
+              "command": "make debug-gdb LAB=basics"
+            },
+            {
+              "title": "Observe the call and the first write",
+              "body": "At the (gdb) prompt, run these one at a time. count is 3, the array is {4, 8, 12}, and the first change to total is 0 → 8 with i = 1. The software watchpoint works without hardware watchpoint slots.",
+              "command": "list\ninfo args\nprint count\nprint *values@count\nbacktrace\nnext\nprint total\nset can-use-hw-watchpoints 0\nwatch total\nstep\ncontinue\nprint i"
+            },
+            {
+              "title": "Practice stepping and call frames",
+              "body": "next steps over calls; step can enter them; Disable this session’s watchpoint 2 before using finish to run until the selected function returns. backtrace shows the call chain, and frame 1 selects the caller. Observe variables only while their scope exists. Quit GDB before rebuilding.",
+              "command": "disable 2\nfinish\nbacktrace\nquit"
+            },
+            {
+              "title": "Repair the source and keep the regression",
+              "body": "Edit the starter and rebuild. All four cases must pass. Add another bounded case and record the symptom, hypothesis, observation, source fix, and test.",
+              "command": "make debug-check LAB=basics"
+            }
+          ],
+          "skip": {
+            "href": "#/chapter/big-o/1",
+            "label": "Continue to Part 3: Correctness and Big O"
+          },
+          "hint": "Compare the first visited index with the array’s first element. After trying, the separate reference is available with make debug-check LAB=basics REFERENCE=1. A reference pass does not grade the student copy."
+        }
       }
     }
   }

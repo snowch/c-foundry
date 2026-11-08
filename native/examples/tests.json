@@ -391,6 +391,16 @@
       ]
     }
   ],
+  "files-bytes-7": [
+    {
+      "name": "Optional lab: Debugging C with GDB",
+      "input": "",
+      "expected": "total=20",
+      "sources": [
+        "files-bytes-7/main.c"
+      ]
+    }
+  ],
   "big-o-1": [
     {
       "name": "Input size and counting work",
@@ -1243,6 +1253,16 @@
       "expected": "release fixture: two validated rows",
       "sources": [
         "ship-7/main.c"
+      ]
+    }
+  ],
+  "ship-8": [
+    {
+      "name": "Optional workshop: Repair a broken TinyDB with GDB",
+      "input": "",
+      "expected": "id=1 score=90\nid=2 score=99\nid=3 score=70",
+      "sources": [
+        "ship-8/main.c"
       ]
     }
   ],

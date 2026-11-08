@@ -2,7 +2,7 @@ const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),{spawnSy
 (async()=>{
 const s={};s.window=s;vm.createContext(s);vm.runInContext(fs.readFileSync('dist/course.js','utf8'),s);
 const course=JSON.parse(JSON.stringify(s.COURSE));assert.deepEqual(course,JSON.parse(fs.readFileSync('native/course.json','utf8')));
-assert.equal(course.chapters.length,44);assert.equal(course.parts.length,9);assert.equal(course.chapters.reduce((n,c)=>n+c.topics.length,0),218);
+assert.equal(course.chapters.length,44);assert.equal(course.parts.length,9);assert.equal(course.chapters.reduce((n,c)=>n+c.topics.length,0),220);
 assert.equal(new Set(course.chapters.map(c=>c.id)).size,44);
 for(const [i,c] of course.chapters.entries()){
  assert.equal(c.number,i+1);assert.ok(/^[a-z0-9-]+$/.test(c.id));assert.ok(['browser','both','codespaces'].includes(c.execution.mode));

@@ -1,6 +1,6 @@
 # C Foundry in Codespaces
 
-The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 218 topic lessons. There are 139 inline browser examples, 79 native examples, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
+The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 220 topic lessons. There are 139 inline browser examples, 81 native examples, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
 
 ## Start or reuse a workspace
 
@@ -114,7 +114,7 @@ make check-structures
 make check-structures SANITIZE=1
 ```
 
-All 218 topic lessons can be explicitly marked done in the web course. Those marks remain in that browser’s storage, separately from example results and native project work.
+All 220 topic lessons can be explicitly marked done in the web course. Those marks remain in that browser’s storage, separately from example results and native project work.
 
 ## Retain and download program files
 
@@ -170,3 +170,27 @@ make check-cli
 Upload a native TDB1 file back through the browser workspace’s Import control, then run `tinydb filename.db`. Imports preserve colliding existing filenames by renaming the incoming file. The CLI supports 128 rows; the earlier transfer lesson supports eight. Both use eight-byte headers and forty-byte rows. The CLI validates the file before changing it. Browser and Codespaces files are not automatically synchronized.
 
 `native/cli/tinydb.c` is the canonical source; the included browser program is a reproducible Wasm build of it. It supports one table, autocommit CRUD and COUNT, and table scans. No indexes, transactions, concurrent writers, or crash-durability guarantee are implied. Run native thread, sanitizer, and POSIX storage examples using their chapter commands.
+
+## Optional GDB labs
+
+These sessions extend the course; they are not required for reading or using the browser labs. GDB is already installed in this repository's Codespaces/dev-container image. For local execution use Linux/WSL with GDB, a C compiler, Make, and Python 3.
+
+```sh
+make debug-lab LAB=basics
+make debug-check LAB=basics      # intentional initial failures
+make debug-gdb LAB=basics
+```
+
+Follow the [Part 2 lesson](https://snowch.github.io/c-foundry/#/chapter/files-bytes/7) or `native/debugging/basics/README.md`. The guided launch stops inside `sum_values`. Commands in the `(gdb)` examples go in GDB; `make` commands go in the native terminal. Quit GDB, edit the source, rebuild, and repeat the checks. A GDB variable assignment does not repair the source.
+
+After building TinyDB, use the [Part 6 repair workshop](https://snowch.github.io/c-foundry/#/chapter/ship/8):
+
+```sh
+make debug-gdb LAB=tinydb
+make debug-gdb LAB=tinydb CASE=delete
+make debug-check LAB=tinydb
+```
+
+Edit `native/debugging/tinydb/main.c`, a deliberately broken, frozen copy of the CLI. Each guided launch gets a newly seeded database under `.build/debugging/tinydb/session-*`; existing files are not overwritten. The checks verify row identity, survivor order, and saved-file reopening. Source references are separate under `.reference/`; `REFERENCE=1` checks those, not your changes. The real browser TinyDB remains independent.
+
+These are native GDB sessions; typing `gdb` into the browser command workspace does not start one. If a custom container blocks tracing child processes, use the supplied Codespaces container or local Linux with debugging permitted. Native ASan/UBSan remain separate tools and do not generally detect these logical wrong-row bugs.
