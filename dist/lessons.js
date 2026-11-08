@@ -604,8 +604,159 @@ window.LESSONS = [
       "answer": 1,
       "why": "The zero terminator needs a further element; at most 31 text chars fit."
     }
+  },
+  {
+    "id": "arithmetic",
+    "section": 0,
+    "chapterId": "c-guarantees",
+    "title": "Build a checked integer calculator",
+    "time": "35 min",
+    "tag": "Numeric boundaries",
+    "concept": "Reject unrepresentable results before evaluating them.",
+    "body": "Implement calculate for +, -, *, /, and %. It accepts int operands and a valid output pointer. Return false for zero divisors, an unrepresentable quotient or result, and unknown operations. Leave the output unchanged on every rejection.",
+    "detail": "The scaffold reads an operator and two integer lines using checked strtol parsing. Fixtures use the 32-bit int range of the supported native and Wasm targets. Your implementation should derive guards from INT_MIN and INT_MAX rather than hardcoded bounds. A successful guard must itself avoid invalid arithmetic.",
+    "task": "Implement the five operations. Guard addition, subtraction, and all product-sign combinations before evaluating them. Reject the exceptional INT_MIN/-1 quotient and remainder when the positive result cannot fit. Use return values to distinguish rejection from a legitimate zero.",
+    "hint": "For addition, compare a against INT_MAX-b or INT_MIN-b only in the corresponding safe sign branch. Split multiplication by operand signs. For / and %, test zero and an unrepresentable quotient first; % shares the exceptional quotient rule.",
+    "code": "#include <stdio.h>\n#include <stdlib.h>\n#include <stdbool.h>\n#include <string.h>\n#include <errno.h>\n#include <limits.h>\n\nbool calculate(char operation,int a,int b,int *out){\n    (void)operation;(void)a;(void)b;(void)out;\n    // TODO: reject an invalid result before evaluating the arithmetic.\n    return false;\n}\n\nbool read_integer(int *out){\n    char line[64],*end;\n    if(!fgets(line,sizeof line,stdin)||(!strchr(line,'\\n')&&!feof(stdin)))return false;\n    line[strcspn(line,\"\\r\\n\")]=0;errno=0;long value=strtol(line,&end,10);\n    if(errno==ERANGE||end==line||*end||value<INT_MIN||value>INT_MAX)return false;\n    *out=(int)value;return true;\n}\nint main(void){\n    char operation[16];int a,b,result=0;\n    if(!fgets(operation,sizeof operation,stdin)){puts(\"invalid\");return 0;}\n    operation[strcspn(operation,\"\\r\\n\")]=0;\n    if(strlen(operation)!=1||!strchr(\"+-*/%\",operation[0])||!read_integer(&a)||!read_integer(&b)){\n        puts(\"invalid\");return 0;\n    }\n    if(calculate(operation[0],a,b,&result))printf(\"result=%d\\n\",result);\n    else puts(\"rejected\");\n    return 0;\n}\n",
+    "solution": "#include <stdio.h>\n#include <stdlib.h>\n#include <stdbool.h>\n#include <string.h>\n#include <errno.h>\n#include <limits.h>\n\nbool checked_add(int a,int b,int *out){\n    if((b>0&&a>INT_MAX-b)||(b<0&&a<INT_MIN-b))return false;\n    *out=a+b;return true;\n}\nbool checked_subtract(int a,int b,int *out){\n    if((b>0&&a<INT_MIN+b)||(b<0&&a>INT_MAX+b))return false;\n    *out=a-b;return true;\n}\nbool checked_multiply(int a,int b,int *out){\n    if(a>0){if((b>0&&a>INT_MAX/b)||(b<0&&b<INT_MIN/a))return false;}\n    else if(a<0){if((b>0&&a<INT_MIN/b)||(b<0&&a<INT_MAX/b))return false;}\n    *out=a*b;return true;\n}\nbool checked_negate(int value,int *out){\n    if(value < -INT_MAX)return false;\n    *out=-value;return true;\n}\nbool checked_divrem(int a,int b,int *quotient,int *remainder){\n    if(b==0||(b==-1&&a < -INT_MAX))return false;\n    int q=a/b,r=a%b;\n    *quotient=q;*remainder=r;return true;\n}\nbool calculate(char operation,int a,int b,int *out){\n    switch(operation){\n        case '+':return checked_add(a,b,out);\n        case '-':return checked_subtract(a,b,out);\n        case '*':return checked_multiply(a,b,out);\n        case '/':case '%':{\n            int quotient,remainder;\n            if(!checked_divrem(a,b,&quotient,&remainder))return false;\n            *out=operation=='/'?quotient:remainder;return true;\n        }\n        default:return false;\n    }\n}\n\nbool read_integer(int *out){\n    char line[64],*end;\n    if(!fgets(line,sizeof line,stdin)||(!strchr(line,'\\n')&&!feof(stdin)))return false;\n    line[strcspn(line,\"\\r\\n\")]=0;errno=0;long value=strtol(line,&end,10);\n    if(errno==ERANGE||end==line||*end||value<INT_MIN||value>INT_MAX)return false;\n    *out=(int)value;return true;\n}\nint main(void){\n    char operation[16];int a,b,result=0;\n    if(!fgets(operation,sizeof operation,stdin)){puts(\"invalid\");return 0;}\n    operation[strcspn(operation,\"\\r\\n\")]=0;\n    if(strlen(operation)!=1||!strchr(\"+-*/%\",operation[0])||!read_integer(&a)||!read_integer(&b)){\n        puts(\"invalid\");return 0;\n    }\n    if(calculate(operation[0],a,b,&result))printf(\"result=%d\\n\",result);\n    else puts(\"rejected\");\n    return 0;\n}\n",
+    "input": "*\n-7\n6",
+    "tests": [
+      {
+        "name": "Addition endpoint",
+        "input": "+\n2147483647\n0",
+        "expected": "result=2147483647"
+      },
+      {
+        "name": "Positive addition overflow",
+        "input": "+\n2147483647\n1",
+        "expected": "rejected"
+      },
+      {
+        "name": "Negative addition overflow",
+        "input": "+\n-2147483648\n-1",
+        "expected": "rejected"
+      },
+      {
+        "name": "Mixed-sign sum",
+        "input": "+\n-2147483648\n2147483647",
+        "expected": "result=-1"
+      },
+      {
+        "name": "Subtraction below minimum",
+        "input": "-\n-2147483648\n1",
+        "expected": "rejected"
+      },
+      {
+        "name": "Subtraction above maximum",
+        "input": "-\n2147483647\n-1",
+        "expected": "rejected"
+      },
+      {
+        "name": "Subtract minimum from itself",
+        "input": "-\n-2147483648\n-2147483648",
+        "expected": "result=0"
+      },
+      {
+        "name": "Product at maximum",
+        "input": "*\n2147483647\n1",
+        "expected": "result=2147483647"
+      },
+      {
+        "name": "Positive product fits",
+        "input": "*\n46340\n46340",
+        "expected": "result=2147395600"
+      },
+      {
+        "name": "Positive product overflows",
+        "input": "*\n46341\n46341",
+        "expected": "rejected"
+      },
+      {
+        "name": "Negative product fits",
+        "input": "*\n-46340\n46340",
+        "expected": "result=-2147395600"
+      },
+      {
+        "name": "Negative product overflows",
+        "input": "*\n-46341\n46341",
+        "expected": "rejected"
+      },
+      {
+        "name": "Both-negative product overflows",
+        "input": "*\n-2147483648\n-1",
+        "expected": "rejected"
+      },
+      {
+        "name": "Zero product",
+        "input": "*\n-2147483648\n0",
+        "expected": "result=0"
+      },
+      {
+        "name": "Truncating quotient",
+        "input": "/\n7\n-3",
+        "expected": "result=-2"
+      },
+      {
+        "name": "Minimum divided by one",
+        "input": "/\n-2147483648\n1",
+        "expected": "result=-2147483648"
+      },
+      {
+        "name": "Exceptional quotient",
+        "input": "/\n-2147483648\n-1",
+        "expected": "rejected"
+      },
+      {
+        "name": "Zero divisor",
+        "input": "/\n7\n0",
+        "expected": "rejected"
+      },
+      {
+        "name": "Dividend-signed remainder",
+        "input": "%\n-7\n3",
+        "expected": "result=-1"
+      },
+      {
+        "name": "Exceptional remainder",
+        "input": "%\n-2147483648\n-1",
+        "expected": "rejected"
+      },
+      {
+        "name": "Remainder by zero",
+        "input": "%\n7\n0",
+        "expected": "rejected"
+      },
+      {
+        "name": "Malformed number",
+        "input": "+\n1x\n2",
+        "expected": "invalid"
+      },
+      {
+        "name": "Number out of range",
+        "input": "+\n2147483648\n0",
+        "expected": "invalid"
+      },
+      {
+        "name": "Unknown operator",
+        "input": "?\n1\n2",
+        "expected": "invalid"
+      }
+    ],
+    "assessment": "Output checks exercise supported-target boundaries but do not prove the absence of undefined behavior. Review each guard’s own arithmetic and output preservation. Native oracle checks additionally compare cross-products with arbitrary-precision results under sanitizers.",
+    "example": {
+      "code": "// Safe subtraction keeps the check before the operation.\n// For b > 0: reject if a < INT_MIN + b.\n// Only then evaluate a - b.",
+      "html": "<pre>INT_MIN - 1 → rejected\n7 - 3 → result=4</pre>",
+      "question": "May a rejected calculation overwrite its output?",
+      "choices": [
+        "No; keep the earlier value",
+        "Yes; the Boolean result makes any overwrite harmless"
+      ],
+      "answer": 0,
+      "why": "The documented interface preserves its caller’s output on rejection."
+    }
   }
 ];
+
 window.SECTIONS = [
   {
     "title": "The language",

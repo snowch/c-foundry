@@ -78,11 +78,14 @@ window.PART_SEVEN = {
     }
   },
   "c-guarantees": {
-    "intro": "Distinguish language guarantees from platform choices and invalid operations before using optimization results as evidence.",
+    "intro": "Audit C’s behavior and numeric boundaries: conversions, checked arithmetic, exceptional integer operations, and finite floating-point calculations.",
     "outcomes": [
       "Classify defined, implementation-defined, unspecified, and undefined behavior.",
       "Respect object lifetime, effective types, and alignment.",
-      "Compare optimized builds only on valid programs."
+      "Compare optimized builds only on valid programs.",
+      "Validate signed/unsigned comparisons and narrowing before values change meaning.",
+      "Reject overflow, invalid division/remainder, and unrepresentable negation before evaluating them.",
+      "Choose a floating-point error policy for rounding, NaN, infinity, and underflow."
     ],
     "topics": {
       "1": {
@@ -141,22 +144,158 @@ window.PART_SEVEN = {
         "flags": [
           "-O2"
         ]
+      },
+      "4": {
+        "intro": "Before evaluating a mixed-type expression, determine the promoted operand types. A negative signed value can become a large unsigned value before comparison.",
+        "explanation": "For operands of type int and unsigned int, the usual arithmetic conversions convert the int operand to unsigned int. Thus the mathematical comparison −1 < 1 differs from its mixed-type C counterpart. The program makes that conversion explicit so strict compiler warnings remain enabled. For index validation, first reject negatives, then compare in an unsigned type that can represent both nonnegative operands. Small integer types are promoted too: uint8_t operands commonly add as int, so a later narrowing cast is a separate operation.",
+        "code": "#include <stdio.h>\n#include <stdbool.h>\n#include <limits.h>\n#include <stdint.h>\n#include <stddef.h>\n\n\nint main(void) {\n    int negative=-1;unsigned limit=1;\n    unsigned converted=(unsigned)negative;\n    bool mathematical_less=negative<0||(uintmax_t)negative<(uintmax_t)limit;\n    size_t count=3;bool valid_index=negative>=0&&(uintmax_t)negative<(uintmax_t)count;\n    uint8_t a=250,b=10;int promoted=a+b;\n    printf(\"converted_less=%d mathematical_less=%d valid_index=%d\\n\",converted<limit,mathematical_less,valid_index);\n    printf(\"promoted_sum=%d narrowed_sum=%u\\n\",promoted,(unsigned)(uint8_t)promoted);\n    return 0;\n}\n",
+        "expected": "converted_less=0 mathematical_less=1 valid_index=0\npromoted_sum=260 narrowed_sum=4",
+        "walkthrough": "Converting −1 to unsigned produces UINT_MAX, which is not less than one. The guarded mathematical comparison correctly says a negative integer is smaller than an unsigned nonnegative value, while the index check rejects it. The two uint8_t operands promote to int and sum to 260; casting that result to uint8_t then reduces it modulo 256 to four.",
+        "pitfall": "Casting a negative index to size_t does not validate it. Also, signed/unsigned rules depend on rank and representability; a wider signed type can sometimes represent every value of the unsigned operand.",
+        "question": "On these targets, what is the type of the sum of two uint8_t operands?",
+        "choices": [
+          "uint8_t, so addition itself must wrap at 255",
+          "int after integer promotion"
+        ],
+        "answer": 1,
+        "why": "An int can represent every uint8_t value on the supported targets, so both operands promote to int before addition.",
+        "tryit": "Compare indices −1, 0, count−1, and count with the guarded index predicate. Then predict and run uint8_t sums around 255 before and after narrowing.",
+        "input": "",
+        "runtime": "browser"
+      },
+      "5": {
+        "intro": "A cast asks for a conversion; it does not promise that the converted value retains the original meaning. Validate a destination’s range before narrowing.",
+        "explanation": "Converting an integer to an unsigned type reduces it modulo that type’s range. In the course’s C17 baseline, an out-of-range conversion to a signed integer type instead has an implementation-defined result or can raise an implementation-defined signal. C23 changes integer conversion rules, but wrapping still may violate the application’s intent. Signed arithmetic overflow remains undefined: conversion rules do not make overflowing signed arithmetic valid. This helper accepts only values in SCHAR_MIN..SCHAR_MAX, assigns after validation, and leaves the output unchanged on rejection. Exact-width uint8_t is an explicit supported-target requirement.",
+        "code": "#include <stdio.h>\n#include <stdbool.h>\n#include <limits.h>\n#include <stdint.h>\n#include <stddef.h>\n\nbool to_signed_char(int value,signed char *out){\n    if(value<SCHAR_MIN||value>SCHAR_MAX)return false;\n    *out=(signed char)value;return true;\n}\n\nint main(void) {\n    _Static_assert(CHAR_BIT==8,\"This fixture requires eight-bit bytes\");\n    signed char out=7;bool accepted=to_signed_char(130,&out);\n    printf(\"unsigned_narrow=%u signed_rejected=%d output=%d\\n\",(unsigned)(uint8_t)260,!accepted,(int)out);\n    bool low=to_signed_char(SCHAR_MIN,&out),high=to_signed_char(SCHAR_MAX,&out);\n    printf(\"endpoints_accepted=%d\\n\",low&&high);\n    return 0;\n}\n",
+        "expected": "unsigned_narrow=4 signed_rejected=1 output=7\nendpoints_accepted=1",
+        "walkthrough": "The unsigned conversion is defined and yields four. The signed conversion of 130 is never attempted on these eight-bit-byte targets: the guard rejects it and retains seven. Both representable signed endpoints are accepted. The example does not assume a particular implementation-defined out-of-range signed result.",
+        "pitfall": "Checking whether a value fits after casting it checks the already changed value. Unsigned-to-signed, integer-to-floating, and floating-to-integer conversions also have distinct rules; the integer narrowing rule is not a universal conversion policy.",
+        "question": "When should a range check for a narrowing conversion run?",
+        "choices": [
+          "Before converting, using the original value",
+          "After converting, using only the narrowed value"
+        ],
+        "answer": 0,
+        "why": "The original information may be lost or the conversion may already have triggered an invalid or implementation-defined result.",
+        "tryit": "Test SCHAR_MIN−1, SCHAR_MIN, SCHAR_MAX, and SCHAR_MAX+1 on the supported targets. Require the destination to retain its earlier value after every rejection.",
+        "input": "",
+        "runtime": "browser"
+      },
+      "6": {
+        "intro": "Reject an unrepresentable signed result before evaluating the operation. Checking for wrap after signed overflow is too late.",
+        "explanation": "The helpers compare operands against safe rearrangements of INT_MIN and INT_MAX. Addition and subtraction split by the second operand’s sign. Multiplication splits by both signs and avoids dividing by zero through short-circuit conditions. Every guard calculation is itself representable, including the most-negative operand. Callers supply a valid int output object; rejection leaves it unchanged. These are portable C17 checks, not reliance on a compiler’s observed wrap behavior or a cast to a merely assumed wider type.",
+        "code": "#include <stdio.h>\n#include <stdbool.h>\n#include <limits.h>\n#include <stdint.h>\n#include <stddef.h>\n\nbool checked_add(int a,int b,int *out){\n    if((b>0&&a>INT_MAX-b)||(b<0&&a<INT_MIN-b))return false;\n    *out=a+b;return true;\n}\nbool checked_subtract(int a,int b,int *out){\n    if((b>0&&a<INT_MIN+b)||(b<0&&a>INT_MAX+b))return false;\n    *out=a-b;return true;\n}\nbool checked_multiply(int a,int b,int *out){\n    if(a>0){if((b>0&&a>INT_MAX/b)||(b<0&&b<INT_MIN/a))return false;}\n    else if(a<0){if((b>0&&a<INT_MIN/b)||(b<0&&a<INT_MAX/b))return false;}\n    *out=a*b;return true;\n}\n\nint main(void) {\n    int value=77;bool added=checked_add(INT_MAX,1,&value);\n    printf(\"add_rejected=%d preserved=%d\\n\",!added,value==77);\n    bool subtracted=checked_subtract(INT_MIN,1,&value);\n    printf(\"subtract_rejected=%d preserved=%d\\n\",!subtracted,value==77);\n    bool multiplied=checked_multiply(-7,6,&value);\n    printf(\"multiply_accepted=%d result=%d\\n\",multiplied,value);\n    return 0;\n}\n",
+        "expected": "add_rejected=1 preserved=1\nsubtract_rejected=1 preserved=1\nmultiply_accepted=1 result=-42",
+        "walkthrough": "INT_MAX+1 and INT_MIN−1 are rejected without evaluation, retaining the sentinel 77. The valid product −42 is then stored. The sign branches also handle multiplication by zero without dividing by zero. Boundary tests must cover all operand-sign combinations, not only two positive operands.",
+        "pitfall": "A test such as a+b<a may itself already execute undefined signed overflow. A larger integer type is useful only when its range is actually sufficient for the operands and intermediate result.",
+        "question": "Can a signed-overflow check safely evaluate a+b first and inspect the result?",
+        "choices": [
+          "Yes, if the result is stored immediately",
+          "No, the guard must run before the overflowing expression"
+        ],
+        "answer": 1,
+        "why": "Undefined behavior has already occurred once the unrepresentable signed operation is evaluated.",
+        "tryit": "Attempt the checked-arithmetic chapter exercise. Add tests for both endpoints, zero, all sign combinations, and failed operations retaining an existing output value.",
+        "input": "",
+        "runtime": "browser"
+      },
+      "7": {
+        "intro": "Zero is not the only dangerous divisor. On two’s-complement targets, INT_MIN / -1 and -INT_MIN also require an unrepresentable positive result.",
+        "explanation": "C17 integer division truncates toward zero, and a nonzero remainder has the dividend’s sign. Division or remainder by zero is invalid. If the quotient is not representable, both / and % have undefined behavior, even when the mathematical remainder would be zero. Negating INT_MIN is invalid when its positive counterpart exceeds INT_MAX. The guards use value < -INT_MAX, which is itself safe and respects C17 implementations with a symmetric signed range; the supplied native and Wasm targets have an asymmetric two’s-complement range. The division helper borrows two distinct live int output objects and writes neither on rejection.",
+        "code": "#include <stdio.h>\n#include <stdbool.h>\n#include <limits.h>\n#include <stdint.h>\n#include <stddef.h>\n\nbool checked_negate(int value,int *out){\n    if(value < -INT_MAX)return false;\n    *out=-value;return true;\n}\nbool checked_divrem(int a,int b,int *quotient,int *remainder){\n    if(b==0||(b==-1&&a < -INT_MAX))return false;\n    int q=a/b,r=a%b;\n    *quotient=q;*remainder=r;return true;\n}\n\nint main(void) {\n    int quotient=77,remainder=88,negated=99;\n    bool zero=checked_divrem(7,0,&quotient,&remainder);\n    bool edge=checked_divrem(INT_MIN,-1,&quotient,&remainder);\n    bool negation=checked_negate(INT_MIN,&negated);\n    printf(\"zero_rejected=%d min_div_rejected=%d min_negate_rejected=%d\\n\",!zero,!edge,!negation);\n    if(!checked_divrem(-7,3,&quotient,&remainder))return 1;\n    printf(\"quotient=%d remainder=%d\\n\",quotient,remainder);\n    return 0;\n}\n",
+        "expected": "zero_rejected=1 min_div_rejected=1 min_negate_rejected=1\nquotient=-2 remainder=-1",
+        "walkthrough": "All three hazardous cases are rejected on the supported two’s-complement targets. The valid division produces quotient −2 and remainder −1: −7 = (−2)·3 + (−1). No demonstration deliberately performs an undefined negation, division, or remainder.",
+        "pitfall": "Replacing division with remainder does not make the INT_MIN/-1 case safe. Also, abs(INT_MIN) has the same representability problem when the positive result cannot fit in int.",
+        "question": "On these targets, is INT_MIN % -1 valid just because the mathematical remainder is zero?",
+        "choices": [
+          "No: the unrepresentable quotient also makes % invalid",
+          "Yes: only division can overflow"
+        ],
+        "answer": 0,
+        "why": "C defines both operations in terms of a representable quotient; the exceptional pair invalidates both.",
+        "tryit": "Test ±7 with divisors ±3 and verify the quotient/remainder identity. Then test zero and the extreme divisor pair without evaluating a rejected operation.",
+        "input": "",
+        "runtime": "browser"
+      },
+      "8": {
+        "intro": "Floating-point arithmetic approximates many real-number operations. A type with more precision still cannot represent every decimal fraction exactly.",
+        "explanation": "This native experiment explicitly requires binary64 double and round-to-nearest. It adds stored approximations of 0.1 and 0.2, prints enough digits to reveal their result, and compares with a combined absolute/relative tolerance. Absolute tolerance matters near zero; relative tolerance scales with magnitude. The small nearly_equal helper rejects nonfinite values and restricts its domain so its own subtraction and multiplication cannot overflow. A tolerance is an application error budget, not a universal replacement for equality or a sorting comparator. The repository command links the native math library with -lm; headers alone do not provide that linker step on Linux.",
+        "code": "#include <stdio.h>\n#include <stdbool.h>\n#include <limits.h>\n#include <stdint.h>\n#include <stddef.h>\n#include <math.h>\n#include <float.h>\n#include <fenv.h>\n_Static_assert(FLT_RADIX==2&&DBL_MANT_DIG==53&&DBL_MAX_EXP==1024,\n               \"This native demonstration requires binary64 double\");\n\nbool nearly_equal(double a,double b,double absolute,double relative){\n    if(!isfinite(a)||!isfinite(b)||!isfinite(absolute)||!isfinite(relative)||\n       absolute<0.0||relative<0.0)return false;\n    /* Domain for this teaching helper: finite |a|,|b|,relative <= 1. */\n    if(fabs(a)>1.0||fabs(b)>1.0||relative>1.0)return false;\n    double scale=fmax(fabs(a),fabs(b));\n    return fabs(a-b)<=fmax(absolute,relative*scale);\n}\n\nint main(void) {\n    int previous=fegetround();if(previous<0||fesetround(FE_TONEAREST)!=0)return 1;\n    volatile double a=0.1,b=0.2,big=0x1p53,one=1.0;\n    double sum=a+b;double lost=(big+one)-big;\n    printf(\"sum=%.17g exact=%d close=%d\\n\",sum,sum==0.3,nearly_equal(sum,0.3,1e-15,1e-12));\n    printf(\"small_increment_lost=%d\\n\",lost==0.0);\n    if(fesetround(previous)!=0)return 1;\n    return 0;\n}\n",
+        "expected": "sum=0.30000000000000004 exact=0 close=1\nsmall_increment_lost=1",
+        "walkthrough": "The stored sum differs from the stored 0.3 value but falls inside the stated tolerance. At 2^53, adding one rounds back to the same binary64 value under round-to-nearest, so subtracting the large value returns zero. Printing more decimal places exposes approximation; it does not restore lost information.",
+        "pitfall": "Near-equality is generally not transitive and must not define qsort ordering. The safe domain of this helper is deliberately narrower than all finite doubles; a general-purpose comparison must handle overflow in its own calculations.",
+        "question": "Should one fixed epsilon be used for every magnitude and application?",
+        "choices": [
+          "Yes, DBL_EPSILON is a universal error allowance",
+          "No, choose absolute/relative tolerances from the problem’s error budget"
+        ],
+        "answer": 1,
+        "why": "DBL_EPSILON describes spacing near one, not every accumulated error or acceptable application difference.",
+        "tryit": "Change the increment near 2^53, compare numbers near zero, and vary each tolerance independently. Predict which error budget accepts each result before running.",
+        "input": "",
+        "runtime": "native",
+        "flags": [
+          "-lm"
+        ]
+      },
+      "9": {
+        "intro": "A floating-point result can be finite, infinite, or NaN on the supported IEEE-style targets. Test the category you require rather than relying on ordinary comparisons.",
+        "explanation": "The example obtains special values from the standard NAN and INFINITY macros, not from invalid integer arithmetic or an assumed floating divide-by-zero extension. A quiet NaN is unordered: comparisons such as x==x are false, so x==NAN is not a NaN test. Use isnan, isinf, and isfinite. strtod accepts spellings such as nan and inf; a database field that requires finite numbers must reject them explicitly. This strict parser also rejects ERANGE, no conversion, and trailing input before assigning its output.",
+        "code": "#include <stdio.h>\n#include <stdbool.h>\n#include <limits.h>\n#include <stdint.h>\n#include <stddef.h>\n#include <math.h>\n#include <float.h>\n#include <fenv.h>\n_Static_assert(FLT_RADIX==2&&DBL_MANT_DIG==53&&DBL_MAX_EXP==1024,\n               \"This native demonstration requires binary64 double\");\n#include <stdlib.h>\n#include <errno.h>\n#if !defined(NAN)||!defined(INFINITY)\n#error \"This example requires NaN and infinity support\"\n#endif\n\nbool parse_finite(const char *text,double *out){\n    char *end;errno=0;double value=strtod(text,&end);\n    if(end==text||*end!='\\0'||errno==ERANGE||!isfinite(value))return false;\n    *out=value;return true;\n}\n\nint main(void) {\n    double quiet=NAN,infinite=INFINITY,value=7.0;\n    printf(\"nan_self_equal=%d nan_classified=%d infinity_classified=%d\\n\",quiet==quiet,isnan(quiet)!=0,isinf(infinite)!=0);\n    bool bad=parse_finite(\"nan\",&value);printf(\"nan_rejected=%d preserved=%d\\n\",!bad,value==7.0);\n    bool good=parse_finite(\"-1.25\",&value);printf(\"finite_accepted=%d value=%.2f\\n\",good,value);\n    return 0;\n}\n",
+        "expected": "nan_self_equal=0 nan_classified=1 infinity_classified=1\nnan_rejected=1 preserved=1\nfinite_accepted=1 value=-1.25",
+        "walkthrough": "The classification macros return nonzero for the matching category. Rejecting nan retains the earlier value seven; the valid finite literal then replaces it with −1.25. Parse success is not the same as meeting a finite-only schema or fitting a later integer conversion.",
+        "pitfall": "A check such as value < minimum || value > maximum can miss NaN because both ordered comparisons are false. Do not compile these classification examples with -ffast-math, whose assumptions can invalidate NaN/infinity reasoning.",
+        "question": "Which check establishes a finite value for a finite-only field?",
+        "choices": [
+          "isfinite(value)",
+          "value == value, which also accepts infinity"
+        ],
+        "answer": 0,
+        "why": "Self-equality excludes quiet NaN but still permits infinities; isfinite excludes both categories.",
+        "tryit": "Test inf, -inf, nan, 1e9999, empty input, and a valid prefix followed by junk. Confirm rejected parses preserve the output and report the intended error category.",
+        "input": "",
+        "runtime": "native",
+        "flags": [
+          "-lm"
+        ]
+      },
+      "10": {
+        "intro": "Floating-point underflow is a loss of tiny-magnitude range or precision, not unsigned integer wraparound. Gradual subnormals can extend the range below the smallest normal value.",
+        "explanation": "DBL_MIN is the smallest positive normal double, not the most negative value and not the smallest positive subnormal. On the explicitly required binary64 target with gradual underflow, nextafter(0,1) produces the smallest positive representable value. This experiment uses specified math-library functions to scale values, establishes round-to-nearest, and classifies results. A sufficiently small result rounds to zero; subnormals are finite but have less relative precision. errno and floating exceptions have math_errhandling-dependent contracts, so classification and application policy must not assume every implementation reports them identically.",
+        "code": "#include <stdio.h>\n#include <stdbool.h>\n#include <limits.h>\n#include <stdint.h>\n#include <stddef.h>\n#include <math.h>\n#include <float.h>\n#include <fenv.h>\n_Static_assert(FLT_RADIX==2&&DBL_MANT_DIG==53&&DBL_MAX_EXP==1024,\n               \"This native demonstration requires binary64 double\");\n#include <errno.h>\n\n\nint main(void) {\n    _Static_assert(DBL_HAS_SUBNORM==1,\"This fixture requires gradual subnormals\");\n    int previous=fegetround();if(previous<0||fesetround(FE_TONEAREST)!=0)return 1;\n    double below_normal=scalbn(DBL_MIN,-1);\n    double smallest=nextafter(0.0,1.0);errno=0;\n    volatile double source=smallest;double lost=scalbn(source,-1);\n    printf(\"below_min_is_subnormal=%d smallest_positive=%d\\n\",fpclassify(below_normal)==FP_SUBNORMAL,smallest>0.0);\n    printf(\"scaled_to_zero=%d finite_subnormal=%d\\n\",lost==0.0,isfinite(below_normal)!=0);\n    if(fesetround(previous)!=0)return 1;\n    return 0;\n}\n",
+        "expected": "below_min_is_subnormal=1 smallest_positive=1\nscaled_to_zero=1 finite_subnormal=1",
+        "walkthrough": "Half of DBL_MIN remains a finite subnormal on these targets. Halving the smallest subnormal through scalbn rounds to zero under the chosen rounding mode. The value does not wrap to a large positive number. This example intentionally checks portable classification interfaces under a stated floating-format contract instead of asserting one exact errno or exception-flag result.",
+        "pitfall": "A finite check alone does not detect every underflow because a tiny result may be a finite subnormal or zero. Decide whether tiny values are acceptable; rejecting every ERANGE in a parser is one strict policy, not the only valid numerical policy.",
+        "question": "What does DBL_MIN describe?",
+        "choices": [
+          "The most negative finite double",
+          "The smallest positive normal double"
+        ],
+        "answer": 1,
+        "why": "Use -DBL_MAX for the negative finite endpoint; subnormal values may exist between zero and DBL_MIN.",
+        "tryit": "Compare scalbn(DBL_MIN,-1), nextafter(0,1), and further halvings. Then test a strict strtod parser with 1e-9999 and decide whether your application should reject or retain tiny finite values.",
+        "input": "",
+        "runtime": "native",
+        "flags": [
+          "-lm"
+        ]
       }
     },
     "practicePlan": {
-      "goal": "Audit a short program and distinguish guarantees from assumptions.",
+      "goal": "Audit numeric assumptions and implement a checked arithmetic interface with boundary and rejection tests.",
       "tasks": [
-        "Distinguish language guarantees from platform choices and invalid operations before using optimization results as evidence.",
-        "Compile with GCC and Clang at -O0 and -O2, then run the same independent fixtures.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Implement the checked-arithmetic exercise and preserve the output object after rejection.",
+        "Test endpoints, all operand signs, zero divisors, the exceptional quotient, and narrowing limits.",
+        "Run the floating-point probes in Codespaces and document target, rounding mode, finite-value policy, and tolerance assumptions."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Compare integer results against an independent arbitrary-precision oracle before accepting a boundary result.",
+        "Verify that rejected operations never evaluate invalid arithmetic and do not change caller output.",
+        "Check finite values, NaN/infinity rejection, and subnormal/zero classification under the stated floating target contract."
       ],
-      "example": "c-guarantees-3"
-    }
+      "example": "c-guarantees-10"
+    },
+    "practice": "arithmetic"
   },
   "portable-c": {
     "intro": "State the target requirements and isolate host APIs from portable C data and algorithms.",

@@ -1309,6 +1309,73 @@
       ]
     }
   ],
+  "c-guarantees-4": [
+    {
+      "name": "Signed/unsigned comparisons and integer promotions",
+      "input": "",
+      "expected": "converted_less=0 mathematical_less=1 valid_index=0\npromoted_sum=260 narrowed_sum=4"
+    }
+  ],
+  "c-guarantees-5": [
+    {
+      "name": "Narrowing conversions and range-checked casts",
+      "input": "",
+      "expected": "unsigned_narrow=4 signed_rejected=1 output=7\nendpoints_accepted=1"
+    }
+  ],
+  "c-guarantees-6": [
+    {
+      "name": "Checked addition, subtraction, and multiplication",
+      "input": "",
+      "expected": "add_rejected=1 preserved=1\nsubtract_rejected=1 preserved=1\nmultiply_accepted=1 result=-42"
+    }
+  ],
+  "c-guarantees-7": [
+    {
+      "name": "Division, remainder, and negating INT_MIN",
+      "input": "",
+      "expected": "zero_rejected=1 min_div_rejected=1 min_negate_rejected=1\nquotient=-2 remainder=-1"
+    }
+  ],
+  "c-guarantees-8": [
+    {
+      "name": "Floating-point rounding, cancellation, and tolerances",
+      "input": "",
+      "expected": "sum=0.30000000000000004 exact=0 close=1\nsmall_increment_lost=1",
+      "flags": [
+        "-lm"
+      ],
+      "sources": [
+        "c-guarantees-8/main.c"
+      ]
+    }
+  ],
+  "c-guarantees-9": [
+    {
+      "name": "NaN, infinity, and finite numeric input",
+      "input": "",
+      "expected": "nan_self_equal=0 nan_classified=1 infinity_classified=1\nnan_rejected=1 preserved=1\nfinite_accepted=1 value=-1.25",
+      "flags": [
+        "-lm"
+      ],
+      "sources": [
+        "c-guarantees-9/main.c"
+      ]
+    }
+  ],
+  "c-guarantees-10": [
+    {
+      "name": "Floating-point underflow, subnormals, and range errors",
+      "input": "",
+      "expected": "below_min_is_subnormal=1 smallest_positive=1\nscaled_to_zero=1 finite_subnormal=1",
+      "flags": [
+        "-lm"
+      ],
+      "sources": [
+        "c-guarantees-10/main.c"
+      ]
+    }
+  ],
   "portable-c-1": [
     {
       "name": "Standard library versus operating-system APIs",

@@ -5,8 +5,8 @@ w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialog
 w.localStorage.setItem('c-foundry:lesson-done:v1:pointers/1','true');
 for(const file of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+file+'.js','utf8'));
 const $=s=>w.document.querySelector(s),go=route=>{w.history.pushState(null,'','#'+route);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
-assert.equal(w.COURSE.chapters.filter(c=>c.status==='ready').length,44);assert.equal(w.lessonCompletion.total().available,211);assert.equal(w.lessonCompletion.total().done,1);
-const manifest=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));assert.equal(Object.keys(manifest).length,211);assert.equal(w.LESSONS.filter(l=>l.isExample).length,135);
+assert.equal(w.COURSE.chapters.filter(c=>c.status==='ready').length,44);assert.equal(w.lessonCompletion.total().available,218);assert.equal(w.lessonCompletion.total().done,1);
+const manifest=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));assert.equal(Object.keys(manifest).length,218);assert.equal(w.LESSONS.filter(l=>l.isExample).length,139);
 let newTopics=0,browser=0,native=0,marked=0;
 for(const chapter of w.COURSE.chapters.filter(c=>c.part>=2)){
  go('/chapter/'+chapter.id);assert.ok(!$('#preview-content').textContent.includes('Preview page'));assert.ok($('#preview-content').textContent.includes(chapter.project));assert.ok($('#preview-content').textContent.includes('Build it yourself'));
@@ -25,8 +25,8 @@ for(const chapter of w.COURSE.chapters.filter(c=>c.part>=2)){
   if(topic.id===chapter.topics[0].id||topic.id===chapter.topics.at(-1).id){$('[data-lesson-complete]').click();marked++;assert.equal($('#drawer-nav .drawer-topics a[href="#/chapter/'+chapter.id+'/'+topic.id+'"]').dataset.completed,'true');}
  }
 }
-assert.equal(newTopics,160);assert.equal(browser,95);assert.equal(native,65);assert.equal(w.lessonCompletion.total().done,marked+1);
+assert.equal(newTopics,167);assert.equal(browser,99);assert.equal(native,68);assert.equal(w.lessonCompletion.total().done,marked+1);
 go('/chapter/persistence/5');const artifact=$('a[download]');assert.equal(artifact.getAttribute('href'),'assets/tinydb-sample.tdb');const sample=fs.readFileSync('dist/'+artifact.getAttribute('href'));assert.equal(sample.length,88);assert.equal(sample.subarray(0,4).toString(),'TDB1');assert.equal(sample[6],2);assert.equal(sample.readUInt32LE(8),1);assert.equal(sample.readUInt32LE(48),2);
 go('/chapter/reliability/3');assert.ok($('.page-navigation').textContent.includes('Course map'));assert.ok($('#preview-content').textContent.includes('Build it yourself'));
 go('/course');assert.equal(w.document.querySelectorAll('.course-part li').length,44);assert.ok(!$('#course-cards').textContent.includes('planned topics'));assert.match($('#course-cards [data-chapter-progress="reliability"]').textContent,/2\/3 done/);
-console.log('PASS remaining 160 authored routes, questions, 95 inline/65 native examples, source/command parity, all chapter workshops, expanded completion tracking and downloadable database fixture');dom.window.close();
+console.log('PASS remaining 167 authored routes, questions, 99 inline/68 native examples, source/command parity, all chapter workshops, expanded completion tracking and downloadable database fixture');dom.window.close();

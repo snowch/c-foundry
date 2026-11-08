@@ -28,7 +28,7 @@ for(const chapter of w.COURSE.chapters.filter(c=>c.part===1)){
   }else{browser++;assert.equal($('editor').value,t.code);assert.ok(w.document.querySelector('#inline-editor-host .coding-panel'));assert.equal(fs.readFileSync(`native/examples/${id}.c`,'utf8'),t.code);}
  }
 }
-assert.equal(browser,15);assert.equal(native,11);assert.equal(w.LESSONS.filter(l=>l.isExample).length,135);
+assert.equal(browser,15);assert.equal(native,11);assert.equal(w.LESSONS.filter(l=>l.isExample).length,139);
 go('/chapter/pointers/1');$('chapter-jump').value='/chapter/pointers/4';$('chapter-jump').dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(w.location.hash,'#/chapter/pointers/4');
 $('course-menu-button').click();assert.ok($('course-drawer').open);w.document.querySelector('#drawer-nav a[href="#/chapter/pointers/2"]').click();assert.equal(w.location.hash,'#/chapter/pointers/2');assert.ok(!$('course-drawer').open);
 go('/chapter/allocation');for(const id of ['heap','grow'])assert.ok(w.document.querySelector(`#preview-content a[href="#/lesson/${id}"]`));

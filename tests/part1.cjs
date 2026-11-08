@@ -4,9 +4,9 @@ w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.confirm=
 w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};
 for(const f of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
 const $=id=>w.document.getElementById(id),go=route=>{w.history.pushState(null,'','#'+route);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
-const chapters=w.COURSE.chapters.filter(c=>c.part===0);assert.equal(chapters.length,5);assert.ok(chapters.every(c=>c.part===0));assert.equal(w.LESSONS.filter(l=>l.isExample&&chapters.some(c=>c.id===l.chapterId)).length,25);assert.equal(w.LESSONS.filter(l=>!l.isExample).length,14);
+const chapters=w.COURSE.chapters.filter(c=>c.part===0);assert.equal(chapters.length,5);assert.ok(chapters.every(c=>c.part===0));assert.equal(w.LESSONS.filter(l=>l.isExample&&chapters.some(c=>c.id===l.chapterId)).length,25);assert.equal(w.LESSONS.filter(l=>!l.isExample).length,15);
 const originalPanel=w.document.querySelector('.coding-panel');
-const fixtures=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));assert.equal(Object.keys(fixtures).length,211);
+const fixtures=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));assert.equal(Object.keys(fixtures).length,218);
 for(const c of chapters){
  go('/chapter/'+c.id);assert.match($('preview-content').textContent,/What you will learn/);assert.ok(!$('preview-content').textContent.includes('Preview page.'));
  for(const t of c.topics){

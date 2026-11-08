@@ -165,7 +165,7 @@ make example EXAMPLE=values-3
 
 C converts values when types differ, but the point at which a conversion happens matters. Converting a completed integer result cannot recover a fraction that integer division already discarded.
 
-In a mixed expression involving double and an ordinary integer, the integer can be converted to double before arithmetic. A cast explicitly requests a conversion. Thus `(double)7 / 2` performs floating-point division, whereas `(double)(7 / 2)` first computes the integer quotient. Smaller integer types commonly undergo integer promotion in expressions. Signed/unsigned combinations have additional conversion rules, so avoid mixing them casually when testing ranges.
+In a mixed expression involving double and an ordinary integer, the integer can be converted to double before arithmetic. A cast explicitly requests a conversion. Thus `(double)7 / 2` performs floating-point division, whereas `(double)(7 / 2)` first computes the integer quotient. Smaller integer types commonly undergo integer promotion in expressions. Signed/unsigned combinations have additional conversion rules, so avoid mixing them casually when testing ranges. Part 7’s numeric-boundary lessons revisit promotions and signed/unsigned comparisons with checked interfaces after functions and pointers have been introduced.
 
 ### main.c
 
@@ -213,7 +213,7 @@ make example EXAMPLE=values-4
 
 C’s numeric types have finite ranges. Correct code distinguishes unsigned arithmetic, which wraps modulo its type’s range, from signed overflow, whose behavior is undefined.
 
-Use `<limits.h>` for bounds such as INT_MAX, INT_MIN, and UINT_MAX. Do not assume int is exactly 32 bits merely because this browser target uses that size. A signed addition must be checked before it overflows, not afterward. Unsigned wrap is defined, but it can still be a bug in sizes or indexes. Floating-point types have separate limits and precision characteristics described by `<float.h>`.
+Use `<limits.h>` for bounds such as INT_MAX, INT_MIN, and UINT_MAX. Do not assume int is exactly 32 bits merely because this browser target uses that size. A signed addition must be checked before it overflows, not afterward. Unsigned wrap is defined, but it can still be a bug in sizes or indexes. Floating-point types have separate limits and precision characteristics described by `<float.h>`. Part 7’s What C guarantees chapter extends this introduction with checked arithmetic, exceptional division and negation, rounding, NaN/infinity, and underflow.
 
 ### main.c
 

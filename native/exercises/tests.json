@@ -316,5 +316,127 @@
       "input": "bad\nName\n",
       "expected": "invalid id"
     }
+  ],
+  "arithmetic": [
+    {
+      "name": "Addition endpoint",
+      "input": "+\n2147483647\n0",
+      "expected": "result=2147483647"
+    },
+    {
+      "name": "Positive addition overflow",
+      "input": "+\n2147483647\n1",
+      "expected": "rejected"
+    },
+    {
+      "name": "Negative addition overflow",
+      "input": "+\n-2147483648\n-1",
+      "expected": "rejected"
+    },
+    {
+      "name": "Mixed-sign sum",
+      "input": "+\n-2147483648\n2147483647",
+      "expected": "result=-1"
+    },
+    {
+      "name": "Subtraction below minimum",
+      "input": "-\n-2147483648\n1",
+      "expected": "rejected"
+    },
+    {
+      "name": "Subtraction above maximum",
+      "input": "-\n2147483647\n-1",
+      "expected": "rejected"
+    },
+    {
+      "name": "Subtract minimum from itself",
+      "input": "-\n-2147483648\n-2147483648",
+      "expected": "result=0"
+    },
+    {
+      "name": "Product at maximum",
+      "input": "*\n2147483647\n1",
+      "expected": "result=2147483647"
+    },
+    {
+      "name": "Positive product fits",
+      "input": "*\n46340\n46340",
+      "expected": "result=2147395600"
+    },
+    {
+      "name": "Positive product overflows",
+      "input": "*\n46341\n46341",
+      "expected": "rejected"
+    },
+    {
+      "name": "Negative product fits",
+      "input": "*\n-46340\n46340",
+      "expected": "result=-2147395600"
+    },
+    {
+      "name": "Negative product overflows",
+      "input": "*\n-46341\n46341",
+      "expected": "rejected"
+    },
+    {
+      "name": "Both-negative product overflows",
+      "input": "*\n-2147483648\n-1",
+      "expected": "rejected"
+    },
+    {
+      "name": "Zero product",
+      "input": "*\n-2147483648\n0",
+      "expected": "result=0"
+    },
+    {
+      "name": "Truncating quotient",
+      "input": "/\n7\n-3",
+      "expected": "result=-2"
+    },
+    {
+      "name": "Minimum divided by one",
+      "input": "/\n-2147483648\n1",
+      "expected": "result=-2147483648"
+    },
+    {
+      "name": "Exceptional quotient",
+      "input": "/\n-2147483648\n-1",
+      "expected": "rejected"
+    },
+    {
+      "name": "Zero divisor",
+      "input": "/\n7\n0",
+      "expected": "rejected"
+    },
+    {
+      "name": "Dividend-signed remainder",
+      "input": "%\n-7\n3",
+      "expected": "result=-1"
+    },
+    {
+      "name": "Exceptional remainder",
+      "input": "%\n-2147483648\n-1",
+      "expected": "rejected"
+    },
+    {
+      "name": "Remainder by zero",
+      "input": "%\n7\n0",
+      "expected": "rejected"
+    },
+    {
+      "name": "Malformed number",
+      "input": "+\n1x\n2",
+      "expected": "invalid"
+    },
+    {
+      "name": "Number out of range",
+      "input": "+\n2147483648\n0",
+      "expected": "invalid"
+    },
+    {
+      "name": "Unknown operator",
+      "input": "?\n1\n2",
+      "expected": "invalid"
+    }
   ]
 }

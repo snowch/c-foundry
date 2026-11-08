@@ -3,7 +3,7 @@ CFLAGS ?= -std=c17 -Wall -Wextra -Wpedantic -Werror -g -O1
 NATIVE_BUILD ?= .build/native
 NATIVE_DEMOS = hello standards counter queue tinydb
 
-.PHONY: help check-native check-native-clang sanitize tsan standards-matrix chapter exercise example check-part1 check-part2 check-examples check-structures project check-projects serve test clean $(NATIVE_DEMOS)
+.PHONY: help check-native check-native-clang sanitize tsan standards-matrix chapter exercise example check-part1 check-part2 check-examples check-structures check-numeric project check-projects serve test clean $(NATIVE_DEMOS)
 help:
 	@python3 tools/lab.py
 
@@ -59,6 +59,9 @@ check-examples:
 check-structures:
 	python3 tools/check_structures.py --compiler '$(CC)' $(if $(filter 1,$(SANITIZE)),--sanitize,)
 
+check-numeric:
+	python3 tools/check_numeric.py --compiler '$(CC)' $(if $(filter 1,$(SANITIZE)),--sanitize,)
+
 serve:
 	python3 -m http.server 8000 --directory dist
 
@@ -67,6 +70,7 @@ test:
 	$(MAKE) check-native
 	$(MAKE) check-examples
 	$(MAKE) check-structures
+	$(MAKE) check-numeric
 
 clean:
 	rm -rf .build

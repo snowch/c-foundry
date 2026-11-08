@@ -2,14 +2,14 @@ const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),{spawnSy
 (async()=>{
 const s={};s.window=s;vm.createContext(s);vm.runInContext(fs.readFileSync('dist/course.js','utf8'),s);
 const course=JSON.parse(JSON.stringify(s.COURSE));assert.deepEqual(course,JSON.parse(fs.readFileSync('native/course.json','utf8')));
-assert.equal(course.chapters.length,44);assert.equal(course.parts.length,9);assert.equal(course.chapters.reduce((n,c)=>n+c.topics.length,0),211);
+assert.equal(course.chapters.length,44);assert.equal(course.parts.length,9);assert.equal(course.chapters.reduce((n,c)=>n+c.topics.length,0),218);
 assert.equal(new Set(course.chapters.map(c=>c.id)).size,44);
 for(const [i,c] of course.chapters.entries()){
  assert.equal(c.number,i+1);assert.ok(/^[a-z0-9-]+$/.test(c.id));assert.ok(['browser','both','codespaces'].includes(c.execution.mode));
  assert.equal(c.command,'make chapter CHAPTER='+c.id);assert.equal(c.workspace,'native/chapters/'+c.id);
  assert.ok(fs.readFileSync(c.workspace+'/README.md','utf8').includes(c.command));
  const result=spawnSync('python3',['tools/lab.py','--chapter',c.id],{encoding:'utf8'});assert.equal(result.status,0,result.stderr);assert.ok(result.stdout.includes(c.title));
- if(i>=30)assert.equal(c.execution.mode,'codespaces');
+ if(i>=30)assert.ok(['both','codespaces'].includes(c.execution.mode));
 }
 assert.equal(spawnSync('python3',['tools/lab.py','--chapter','not-real']).status,2);
 const config=JSON.parse(fs.readFileSync('.devcontainer/devcontainer.json','utf8'));assert.equal(config.build.dockerfile,'Dockerfile');assert.equal(config.remoteUser,'vscode');assert.equal(config.hostRequirements.cpus,2);assert.ok(config.postCreateCommand.includes('make check-native'));

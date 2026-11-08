@@ -1,6 +1,6 @@
 # C Foundry in Codespaces
 
-The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 211 topic lessons. There are 135 inline browser examples, 76 native examples, fourteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
+The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 218 topic lessons. There are 139 inline browser examples, 79 native examples, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
 
 ## Start or reuse a workspace
 
@@ -40,7 +40,7 @@ The queue uses predicate loops and drains before shutdown. The original TinyDB f
 
 ## Existing exercises
 
-Starter files for the fourteen browser exercises are in `native/exercises/`. Edit a file, then run its output checks:
+Starter files for the fifteen browser exercises are in `native/exercises/`. Edit a file, then run its output checks:
 
 ```sh
 make exercise EXERCISE=pointers
@@ -114,7 +114,7 @@ make check-structures
 make check-structures SANITIZE=1
 ```
 
-All 211 topic lessons can be explicitly marked done in the web course. Those marks remain in that browser’s storage, separately from example results and native project work.
+All 218 topic lessons can be explicitly marked done in the web course. Those marks remain in that browser’s storage, separately from example results and native project work.
 
 ## Retain and download program files
 
@@ -138,3 +138,19 @@ gcc -std=c17 -Wall -Wextra -Wpedantic -Werror native/examples/persistence-5/main
 Imports validate magic/version, lengths, rows, uniqueness, and clean end-of-input before assigning a new table. Browser runner files are still temporary; browser download and native fsync are distinct host operations with different guarantees. The checkpoint example uses Linux/POSIX file and directory synchronization and a stopped writer; it is not a tested power-failure guarantee for every filesystem.
 
 Retained files under `.build/` are build artifacts: copy or download the files you want to keep before `make clean`.
+
+## Numeric pitfalls and floating-point probes
+
+Chapter 32 now includes four portable integer-boundary examples directly in its reading pages and three native floating-point lessons. Use the chapter’s commands for the native math-library probes:
+
+```sh
+make example EXAMPLE=c-guarantees-8
+make example EXAMPLE=c-guarantees-9
+make example EXAMPLE=c-guarantees-10
+make exercise EXERCISE=arithmetic
+make check-numeric
+make check-numeric CC=clang
+make check-numeric SANITIZE=1
+```
+
+The manifest supplies `-lm` automatically. The floating examples state their format, subnormal, rounding, and non-fast-math requirements. The arithmetic exercise derives guards from INT_MIN/INT_MAX; its provided output fixtures target the 32-bit int range of the supported native and Wasm toolchains. The numeric oracle validates the checked-in reference against arbitrary-precision expectations and tests finite-value parsing and tolerance nontransitivity; it does not grade edits in the student starter.

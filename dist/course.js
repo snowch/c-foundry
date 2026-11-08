@@ -1438,14 +1438,51 @@ window.COURSE = {
           "id": "3",
           "title": "Why code can behave differently under optimization",
           "status": "ready"
+        },
+        {
+          "id": "4",
+          "title": "Signed/unsigned comparisons and integer promotions",
+          "status": "ready"
+        },
+        {
+          "id": "5",
+          "title": "Narrowing conversions and range-checked casts",
+          "status": "ready"
+        },
+        {
+          "id": "6",
+          "title": "Checked addition, subtraction, and multiplication",
+          "status": "ready"
+        },
+        {
+          "id": "7",
+          "title": "Division, remainder, and negating INT_MIN",
+          "status": "ready"
+        },
+        {
+          "id": "8",
+          "title": "Floating-point rounding, cancellation, and tolerances",
+          "status": "ready"
+        },
+        {
+          "id": "9",
+          "title": "NaN, infinity, and finite numeric input",
+          "status": "ready"
+        },
+        {
+          "id": "10",
+          "title": "Floating-point underflow, subnormals, and range errors",
+          "status": "ready"
         }
       ],
-      "project": "Audit a short program and distinguish guarantees from assumptions.",
-      "labs": [],
+      "project": "Audit numeric assumptions and implement a checked arithmetic interface with boundary and rejection tests.",
+      "labs": [
+        "arithmetic"
+      ],
       "nativeDemo": "standards",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+        "mode": "both",
+        "reason": "Portable integer checks run inline; native floating-point and optimization probes use the Linux toolchain."
       },
       "workspace": "native/chapters/c-guarantees",
       "command": "make chapter CHAPTER=c-guarantees",

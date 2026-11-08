@@ -18,7 +18,7 @@ go('/lesson/loops');go('/lesson/hello');assert.equal($('editor').value,'// draft
 $('solution-button').click();$('check-button').click();assert.ok(worker().request.tests);assert.ok($('editor').readOnly);
 // Navigating while a program runs keeps the lesson and route intact.
 go('/course');assert.equal(w.location.hash,'#/lesson/hello');assert.ok(!$('lab-view').hidden);
-worker().emit({type:'done',results:[{actual:'Hello, C!',expected:'Hello, C!',name:'Greeting',pass:true}],diagnostics:''});assert.match($('drawer-progress').textContent,/1 of 14/);
+worker().emit({type:'done',results:[{actual:'Hello, C!',expected:'Hello, C!',name:'Greeting',pass:true}],diagnostics:''});assert.match($('drawer-progress').textContent,/1 of 15/);
 go('/lesson/pointers');assert.match($('worked-code').textContent,/int temp = \*a/);assert.ok(!$('step-details').hidden);assert.ok(!$('step-details').open);
 $('step-details').open=true;$('step-next').click();assert.equal(w.document.querySelectorAll('#step-state .changed').length,1);assert.match(w.document.querySelector('#step-state .changed th').textContent,/\*a/);$('step-next').click();assert.equal($('step-next').textContent,'Try it yourself ↓');$('step-next').click();assert.ok(!$('step-details').open);assert.equal(w.document.activeElement.id,'editor');
 $('prediction-check').click();assert.match($('prediction-feedback').textContent,/Choose/);click('input[name="prediction"][value="1"]');$('prediction-check').click();assert.match($('prediction-feedback').textContent,/Not quite/);click('input[name="prediction"][value="0"]');$('prediction-check').click();assert.match($('prediction-feedback').textContent,/Correct/);
@@ -28,10 +28,10 @@ $('course-menu-button').click();assert.ok($('course-drawer').open);click('#drawe
 go('/course');assert.equal(w.document.querySelectorAll('.course-part').length,9);assert.equal(w.document.querySelectorAll('.course-part li').length,44);
 let count=0;
 for(const chapter of w.COURSE.chapters){go('/chapter/'+chapter.id);assert.ok(!$('preview-view').hidden);assert.match($('preview-content').textContent,chapter.status==='ready'?/What you will learn/:/Preview page/);assert.equal(w.document.querySelectorAll('#preview-content > ol.topic-list > li').length,chapter.topics.length);for(const topic of chapter.topics){go('/chapter/'+chapter.id+'/'+topic.id);assert.equal(w.document.querySelector('#preview-content h1').textContent,topic.title);assert.match($('preview-content').textContent,chapter.status==='ready'?/Watch for this/:/Planned lesson/);assert.ok($('lab-view').hidden);count++;}}
-assert.equal(count,211);go('/chapter/big-o');click('a[href="#/big-o"]');assert.ok(!$('complexity-view').hidden);assert.match($('search-comparison').textContent,/Linear comparisons/);$('complexity-size').value=3;$('complexity-size').dispatchEvent(new w.Event('input'));assert.match($('search-comparison').textContent,/16 \(doubled\)/);assert.match($('doubling-note').textContent,/binary adds 1/);
+assert.equal(count,218);go('/chapter/big-o');click('a[href="#/big-o"]');assert.ok(!$('complexity-view').hidden);assert.match($('search-comparison').textContent,/Linear comparisons/);$('complexity-size').value=3;$('complexity-size').dispatchEvent(new w.Event('input'));assert.match($('search-comparison').textContent,/16 \(doubled\)/);assert.match($('doubling-note').textContent,/binary adds 1/);
 go('/chapter/not-found');assert.match($('preview-content').textContent,/Page not found/);
 for(const l of w.LESSONS){go('/lesson/'+l.id);assert.ok(l.solution.split('\n').length>5);assert.ok($('reference-code').textContent.includes('\n'));assert.ok($('worked-code').textContent);}
 console.log('PASS lesson sequence, selective examples, predictions, single changed value, and accessible step-to-exercise transition');
 console.log('PASS drafts, output checks, cancellation, errors, and course drawer');
-console.log('PASS all 44 chapter and 211 topic routes, preview labels, unknown route, and Big O comparison');dom.window.close();
+console.log('PASS all 44 chapter and 218 topic routes, preview labels, unknown route, and Big O comparison');dom.window.close();
 const deep=setup('#/chapter/recovery/4');assert.equal(deep.w.document.querySelector('#preview-content h1').textContent,'Write-ahead logging');assert.ok(deep.$('lab-view').hidden);deep.dom.window.close();console.log('PASS direct topic deep link');
