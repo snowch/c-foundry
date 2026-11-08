@@ -49,7 +49,7 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/first-program",
       "command": "make chapter CHAPTER=first-program",
@@ -93,7 +93,7 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/values",
       "command": "make chapter CHAPTER=values",
@@ -137,7 +137,7 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/control-flow",
       "command": "make chapter CHAPTER=control-flow",
@@ -182,7 +182,7 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/functions",
       "command": "make chapter CHAPTER=functions",
@@ -226,7 +226,7 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/arrays-strings",
       "command": "make chapter CHAPTER=arrays-strings",
@@ -270,7 +270,7 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/pointers",
       "command": "make chapter CHAPTER=pointers",
@@ -315,7 +315,7 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/allocation",
       "command": "make chapter CHAPTER=allocation",
@@ -360,7 +360,7 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/structured-data",
       "command": "make chapter CHAPTER=structured-data",
@@ -467,41 +467,49 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Input size and counting work"
+          "title": "Input size and counting work",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "O, Θ, and Ω notation"
+          "title": "O, Θ, and Ω notation",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Constant, logarithmic, linear, linearithmic, and quadratic growth"
+          "title": "Constant, logarithmic, linear, linearithmic, and quadratic growth",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Best, average, and worst cases"
+          "title": "Best, average, and worst cases",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Time, auxiliary space, and amortized analysis"
+          "title": "Time, auxiliary space, and amortized analysis",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "Loop invariants and correctness arguments"
+          "title": "Loop invariants and correctness arguments",
+          "status": "ready"
         },
         {
           "id": "7",
-          "title": "Predict growth before measuring it"
+          "title": "Predict growth before measuring it",
+          "status": "ready"
         }
       ],
       "project": "Compare counted search operations, then explain how doubling the input changes the work.",
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/big-o",
-      "command": "make chapter CHAPTER=big-o"
+      "command": "make chapter CHAPTER=big-o",
+      "status": "ready"
     },
     {
       "id": "searching",
@@ -511,23 +519,28 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Linear search"
+          "title": "Linear search",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Binary search and its sorted-input requirement"
+          "title": "Binary search and its sorted-input requirement",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Inclusive versus half-open search intervals"
+          "title": "Inclusive versus half-open search intervals",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Lower bounds, upper bounds, and duplicate values"
+          "title": "Lower bounds, upper bounds, and duplicate values",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Searching a sorted record collection"
+          "title": "Searching a sorted record collection",
+          "status": "ready"
         }
       ],
       "project": "Find records while maintaining a shrinking search interval.",
@@ -536,10 +549,11 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/searching",
-      "command": "make chapter CHAPTER=searching"
+      "command": "make chapter CHAPTER=searching",
+      "status": "ready"
     },
     {
       "id": "sorting",
@@ -549,27 +563,33 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Selection sort and insertion sort"
+          "title": "Selection sort and insertion sort",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Merge sort"
+          "title": "Merge sort",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Quicksort and pivot selection"
+          "title": "Quicksort and pivot selection",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Stability, in-place algorithms, and memory costs"
+          "title": "Stability, in-place algorithms, and memory costs",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Using qsort safely"
+          "title": "Using qsort safely",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "Comparisons, moves, and input order"
+          "title": "Comparisons, moves, and input order",
+          "status": "ready"
         }
       ],
       "project": "Implement and compare sorting algorithms on different input orders.",
@@ -578,10 +598,11 @@ window.COURSE = {
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/sorting",
-      "command": "make chapter CHAPTER=sorting"
+      "command": "make chapter CHAPTER=sorting",
+      "status": "ready"
     },
     {
       "id": "recursion",
@@ -591,33 +612,39 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Base cases and recursive progress"
+          "title": "Base cases and recursive progress",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Drawing the call stack"
+          "title": "Drawing the call stack",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Recursive versus iterative implementations"
+          "title": "Recursive versus iterative implementations",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Recursion trees and simple recurrences"
+          "title": "Recursion trees and simple recurrences",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Recursive directory-like tree traversal"
+          "title": "Recursive directory-like tree traversal",
+          "status": "ready"
         }
       ],
       "project": "Traverse a tree and account for the recursive call stack.",
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/recursion",
-      "command": "make chapter CHAPTER=recursion"
+      "command": "make chapter CHAPTER=recursion",
+      "status": "ready"
     },
     {
       "id": "strategies",
@@ -627,33 +654,39 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Brute force and backtracking"
+          "title": "Brute force and backtracking",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Greedy choices and counterexamples"
+          "title": "Greedy choices and counterexamples",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Memoization and dynamic programming"
+          "title": "Memoization and dynamic programming",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "One-dimensional and two-dimensional state"
+          "title": "One-dimensional and two-dimensional state",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Coin change, grid paths, and knapsack"
+          "title": "Coin change, grid paths, and knapsack",
+          "status": "ready"
         }
       ],
       "project": "Choose and justify a strategy for a small optimization problem.",
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/strategies",
-      "command": "make chapter CHAPTER=strategies"
+      "command": "make chapter CHAPTER=strategies",
+      "status": "ready"
     },
     {
       "id": "lists",
@@ -663,33 +696,39 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Capacity growth and amortized append"
+          "title": "Capacity growth and amortized append",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Singly and doubly linked lists"
+          "title": "Singly and doubly linked lists",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Insertion, removal, and traversal"
+          "title": "Insertion, removal, and traversal",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Ownership and iterator invalidation"
+          "title": "Ownership and iterator invalidation",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Locality, memory overhead, and operation costs"
+          "title": "Locality, memory overhead, and operation costs",
+          "status": "ready"
         }
       ],
       "project": "Implement list operations and compare them with a dynamic array.",
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/lists",
-      "command": "make chapter CHAPTER=lists"
+      "command": "make chapter CHAPTER=lists",
+      "status": "ready"
     },
     {
       "id": "queues",
@@ -699,33 +738,39 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Array-backed and linked implementations"
+          "title": "Array-backed and linked implementations",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Circular buffers"
+          "title": "Circular buffers",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Overflow, underflow, and resizing"
+          "title": "Overflow, underflow, and resizing",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Bracket matching"
+          "title": "Bracket matching",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Expression evaluation"
+          "title": "Expression evaluation",
+          "status": "ready"
         }
       ],
       "project": "Build a circular queue and use a stack to evaluate expressions.",
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/queues",
-      "command": "make chapter CHAPTER=queues"
+      "command": "make chapter CHAPTER=queues",
+      "status": "ready"
     },
     {
       "id": "hash-tables",
@@ -735,37 +780,44 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Hash functions for integers and strings"
+          "title": "Hash functions for integers and strings",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Separate chaining and open addressing"
+          "title": "Separate chaining and open addressing",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Collisions, load factor, and resizing"
+          "title": "Collisions, load factor, and resizing",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Deletion and tombstones"
+          "title": "Deletion and tombstones",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Average versus worst-case complexity"
+          "title": "Average versus worst-case complexity",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "A word-frequency index"
+          "title": "A word-frequency index",
+          "status": "ready"
         }
       ],
       "project": "Build a hash table that remains correct through collisions and resizing.",
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/hash-tables",
-      "command": "make chapter CHAPTER=hash-tables"
+      "command": "make chapter CHAPTER=hash-tables",
+      "status": "ready"
     },
     {
       "id": "trees-heaps",
@@ -775,37 +827,44 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Binary trees and traversals"
+          "title": "Binary trees and traversals",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Binary search trees"
+          "title": "Binary search trees",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Why balancing matters"
+          "title": "Why balancing matters",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Rotations and a balanced-tree implementation"
+          "title": "Rotations and a balanced-tree implementation",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Binary heaps and priority queues"
+          "title": "Binary heaps and priority queues",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "A task scheduler"
+          "title": "A task scheduler",
+          "status": "ready"
         }
       ],
       "project": "Schedule tasks with a priority queue and investigate tree balance.",
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/trees-heaps",
-      "command": "make chapter CHAPTER=trees-heaps"
+      "command": "make chapter CHAPTER=trees-heaps",
+      "status": "ready"
     },
     {
       "id": "graphs",
@@ -815,37 +874,44 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Adjacency matrices and adjacency lists"
+          "title": "Adjacency matrices and adjacency lists",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Breadth-first and depth-first search"
+          "title": "Breadth-first and depth-first search",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Connected components and cycle detection"
+          "title": "Connected components and cycle detection",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Topological sorting"
+          "title": "Topological sorting",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Dijkstra’s shortest-path algorithm"
+          "title": "Dijkstra’s shortest-path algorithm",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "Route finding with a priority queue"
+          "title": "Route finding with a priority queue",
+          "status": "ready"
         }
       ],
       "project": "Find routes in a graph and explain the cost of its representation.",
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
+        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/graphs",
-      "command": "make chapter CHAPTER=graphs"
+      "command": "make chapter CHAPTER=graphs",
+      "status": "ready"
     },
     {
       "id": "database-foundations",
@@ -855,23 +921,28 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Records, tables, schemas, and keys"
+          "title": "Records, tables, schemas, and keys",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Storage, indexes, and query execution"
+          "title": "Storage, indexes, and query execution",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Designing a deliberately small database"
+          "title": "Designing a deliberately small database",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Building a command loop"
+          "title": "Building a command loop",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Defining behavior and writing acceptance tests"
+          "title": "Defining behavior and writing acceptance tests",
+          "status": "ready"
         }
       ],
       "project": "Define TinyDB’s first commands and test their observable behavior.",
@@ -882,7 +953,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/database-foundations",
       "command": "make chapter CHAPTER=database-foundations",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "tables",
@@ -892,23 +964,28 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Representing rows with structs"
+          "title": "Representing rows with structs",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Inserting and selecting records"
+          "title": "Inserting and selecting records",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Duplicate IDs and capacity limits"
+          "title": "Duplicate IDs and capacity limits",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Updating and deleting rows"
+          "title": "Updating and deleting rows",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "A working in-memory database"
+          "title": "A working in-memory database",
+          "status": "ready"
         }
       ],
       "project": "Insert records, reject duplicates, and find rows by ID.",
@@ -921,7 +998,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/tables",
       "command": "make chapter CHAPTER=tables",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "parsing",
@@ -931,23 +1009,28 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Tokens, keywords, identifiers, and literals"
+          "title": "Tokens, keywords, identifiers, and literals",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Whitespace, quoted strings, and malformed input"
+          "title": "Whitespace, quoted strings, and malformed input",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "A small SQL grammar"
+          "title": "A small SQL grammar",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Building a statement representation"
+          "title": "Building a statement representation",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Clear syntax and validation errors"
+          "title": "Clear syntax and validation errors",
+          "status": "ready"
         }
       ],
       "project": "Parse a small SQL subset and explain malformed statements.",
@@ -958,7 +1041,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/parsing",
       "command": "make chapter CHAPTER=parsing",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "execution",
@@ -968,27 +1052,33 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Table scans"
+          "title": "Table scans",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Filtering with WHERE"
+          "title": "Filtering with WHERE",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Selecting columns"
+          "title": "Selecting columns",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Ordering and limiting results"
+          "title": "Ordering and limiting results",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Simple aggregation"
+          "title": "Simple aggregation",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "Separating parsing, validation, and execution"
+          "title": "Separating parsing, validation, and execution",
+          "status": "ready"
         }
       ],
       "project": "Execute validated statements over an in-memory table.",
@@ -999,7 +1089,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/execution",
       "command": "make chapter CHAPTER=execution",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "persistence",
@@ -1009,27 +1100,33 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Encoding a file header and schema"
+          "title": "Encoding a file header and schema",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Serializing rows without dumping raw structs"
+          "title": "Serializing rows without dumping raw structs",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Reading and writing fixed-size pages"
+          "title": "Reading and writing fixed-size pages",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Building a pager abstraction"
+          "title": "Building a pager abstraction",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Browser-backed files, import, and export"
+          "title": "Browser-backed files, import, and export",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "Testing truncated and corrupt input"
+          "title": "Testing truncated and corrupt input",
+          "status": "ready"
         }
       ],
       "project": "Persist rows through a pager and reject corrupt database input.",
@@ -1040,7 +1137,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/persistence",
       "command": "make chapter CHAPTER=persistence",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "pages",
@@ -1050,27 +1148,33 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Page IDs, headers, and record offsets"
+          "title": "Page IDs, headers, and record offsets",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Fixed-length and variable-length records"
+          "title": "Fixed-length and variable-length records",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Slotted pages"
+          "title": "Slotted pages",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Free space and deleted records"
+          "title": "Free space and deleted records",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "A bounded page cache"
+          "title": "A bounded page cache",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "Inspecting a database file visually"
+          "title": "Inspecting a database file visually",
+          "status": "ready"
         }
       ],
       "project": "Locate and manage records inside slotted storage pages.",
@@ -1081,7 +1185,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/pages",
       "command": "make chapter CHAPTER=pages",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "bplus-trees",
@@ -1091,27 +1196,33 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Why databases use page-oriented trees"
+          "title": "Why databases use page-oriented trees",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Leaf pages and internal pages"
+          "title": "Leaf pages and internal pages",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Searching and ordered traversal"
+          "title": "Searching and ordered traversal",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Inserting keys and splitting pages"
+          "title": "Inserting keys and splitting pages",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Range queries and linked leaves"
+          "title": "Range queries and linked leaves",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "Deletion, redistribution, and merging"
+          "title": "Deletion, redistribution, and merging",
+          "status": "ready"
         }
       ],
       "project": "Implement an ordered index that remains valid when pages split.",
@@ -1122,7 +1233,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/bplus-trees",
       "command": "make chapter CHAPTER=bplus-trees",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "planning",
@@ -1132,27 +1244,33 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Table scans versus index lookups"
+          "title": "Table scans versus index lookups",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Simple cost estimates and selectivity"
+          "title": "Simple cost estimates and selectivity",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Index-assisted filtering and ordering"
+          "title": "Index-assisted filtering and ordering",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Implementing EXPLAIN"
+          "title": "Implementing EXPLAIN",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Measuring page reads and comparisons"
+          "title": "Measuring page reads and comparisons",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "Optional: nested-loop joins"
+          "title": "Optional: nested-loop joins",
+          "status": "ready"
         }
       ],
       "project": "Compare query plans using page reads and a simple cost model.",
@@ -1163,7 +1281,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/planning",
       "command": "make chapter CHAPTER=planning",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "recovery",
@@ -1173,27 +1292,33 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Atomicity, consistency, isolation, and durability"
+          "title": "Atomicity, consistency, isolation, and durability",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "A single-writer transaction model"
+          "title": "A single-writer transaction model",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "BEGIN, COMMIT, and ROLLBACK"
+          "title": "BEGIN, COMMIT, and ROLLBACK",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Write-ahead logging"
+          "title": "Write-ahead logging",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Recovery after an interrupted write"
+          "title": "Recovery after an interrupted write",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "Browser storage guarantees and their limits"
+          "title": "Browser storage guarantees and their limits",
+          "status": "ready"
         }
       ],
       "project": "Recover committed changes after simulated interruptions.",
@@ -1204,7 +1329,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/recovery",
       "command": "make chapter CHAPTER=recovery",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "ship",
@@ -1214,31 +1340,38 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "End-to-end SQL tests"
+          "title": "End-to-end SQL tests",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Property tests and fuzzing the parser"
+          "title": "Property tests and fuzzing the parser",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Fault injection and recovery tests"
+          "title": "Fault injection and recovery tests",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Benchmarks across growing datasets"
+          "title": "Benchmarks across growing datasets",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Memory and resource audits"
+          "title": "Memory and resource audits",
+          "status": "ready"
         },
         {
           "id": "6",
-          "title": "File-format documentation and compatibility"
+          "title": "File-format documentation and compatibility",
+          "status": "ready"
         },
         {
           "id": "7",
-          "title": "Exportable database files and a browser demonstration"
+          "title": "Exportable database files and a browser demonstration",
+          "status": "ready"
         }
       ],
       "project": "Ship a documented TinyDB build with tests, benchmarks, and exportable files.",
@@ -1249,7 +1382,8 @@ window.COURSE = {
       },
       "workspace": "native/chapters/ship",
       "command": "make chapter CHAPTER=ship",
-      "nativeDemo": "tinydb"
+      "nativeDemo": "tinydb",
+      "status": "ready"
     },
     {
       "id": "standards-evolution",
@@ -1259,15 +1393,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "C89/C90, C99, C11, C17, and C23"
+          "title": "C89/C90, C99, C11, C17, and C23",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Language standards versus compiler extensions"
+          "title": "Language standards versus compiler extensions",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Choosing a baseline and checking feature support"
+          "title": "Choosing a baseline and checking feature support",
+          "status": "ready"
         }
       ],
       "project": "Compile a feature probe under different language standards.",
@@ -1278,7 +1415,8 @@ window.COURSE = {
         "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
       },
       "workspace": "native/chapters/standards-evolution",
-      "command": "make chapter CHAPTER=standards-evolution"
+      "command": "make chapter CHAPTER=standards-evolution",
+      "status": "ready"
     },
     {
       "id": "c-guarantees",
@@ -1288,15 +1426,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Defined, implementation-defined, unspecified, and undefined behavior"
+          "title": "Defined, implementation-defined, unspecified, and undefined behavior",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Integer representation, alignment, object lifetime, and aliasing"
+          "title": "Integer representation, alignment, object lifetime, and aliasing",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Why code can behave differently under optimization"
+          "title": "Why code can behave differently under optimization",
+          "status": "ready"
         }
       ],
       "project": "Audit a short program and distinguish guarantees from assumptions.",
@@ -1307,7 +1448,8 @@ window.COURSE = {
         "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
       },
       "workspace": "native/chapters/c-guarantees",
-      "command": "make chapter CHAPTER=c-guarantees"
+      "command": "make chapter CHAPTER=c-guarantees",
+      "status": "ready"
     },
     {
       "id": "portable-c",
@@ -1317,19 +1459,23 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Standard library versus operating-system APIs"
+          "title": "Standard library versus operating-system APIs",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Fixed-width types, endianness, and binary compatibility"
+          "title": "Fixed-width types, endianness, and binary compatibility",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Feature detection and conditional compilation"
+          "title": "Feature detection and conditional compilation",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Native platforms versus WebAssembly/WASI"
+          "title": "Native platforms versus WebAssembly/WASI",
+          "status": "ready"
         }
       ],
       "project": "Compare GCC and Clang builds and inspect platform-dependent properties.",
@@ -1340,7 +1486,8 @@ window.COURSE = {
         "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
       },
       "workspace": "native/chapters/portable-c",
-      "command": "make chapter CHAPTER=portable-c"
+      "command": "make chapter CHAPTER=portable-c",
+      "status": "ready"
     },
     {
       "id": "hardening-tinydb",
@@ -1350,19 +1497,23 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Auditing assumptions about types and memory"
+          "title": "Auditing assumptions about types and memory",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Versioning the database format"
+          "title": "Versioning the database format",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Multiple compilers and warning settings"
+          "title": "Multiple compilers and warning settings",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Sanitizers and portability checks"
+          "title": "Sanitizers and portability checks",
+          "status": "ready"
         }
       ],
       "project": "Run the TinyDB baseline under stricter compiler and sanitizer checks.",
@@ -1373,7 +1524,8 @@ window.COURSE = {
         "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
       },
       "workspace": "native/chapters/hardening-tinydb",
-      "command": "make chapter CHAPTER=hardening-tinydb"
+      "command": "make chapter CHAPTER=hardening-tinydb",
+      "status": "ready"
     },
     {
       "id": "threads",
@@ -1383,15 +1535,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Concurrency versus parallelism"
+          "title": "Concurrency versus parallelism",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Thread lifetimes and shared memory"
+          "title": "Thread lifetimes and shared memory",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Data races and reproducible interleavings"
+          "title": "Data races and reproducible interleavings",
+          "status": "ready"
         }
       ],
       "project": "Run joined threads and distinguish safe shared state from a data race.",
@@ -1402,7 +1557,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/threads",
-      "command": "make chapter CHAPTER=threads"
+      "command": "make chapter CHAPTER=threads",
+      "status": "ready"
     },
     {
       "id": "coordination",
@@ -1412,15 +1568,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Mutexes and condition variables"
+          "title": "Mutexes and condition variables",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Producer–consumer queues"
+          "title": "Producer–consumer queues",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Lock ordering, deadlocks, and starvation"
+          "title": "Lock ordering, deadlocks, and starvation",
+          "status": "ready"
         }
       ],
       "project": "Explore a bounded queue that coordinates a producer and consumer.",
@@ -1431,7 +1590,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/coordination",
-      "command": "make chapter CHAPTER=coordination"
+      "command": "make chapter CHAPTER=coordination",
+      "status": "ready"
     },
     {
       "id": "atomics",
@@ -1441,19 +1601,23 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Atomic operations and happens-before relationships"
+          "title": "Atomic operations and happens-before relationships",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Sequential consistency first"
+          "title": "Sequential consistency first",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Acquire/release through concrete examples"
+          "title": "Acquire/release through concrete examples",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Why volatile does not provide thread synchronization"
+          "title": "Why volatile does not provide thread synchronization",
+          "status": "ready"
         }
       ],
       "project": "Compare a mutex-protected counter with a C11 atomic counter.",
@@ -1464,7 +1628,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/atomics",
-      "command": "make chapter CHAPTER=atomics"
+      "command": "make chapter CHAPTER=atomics",
+      "status": "ready"
     },
     {
       "id": "concurrent-storage",
@@ -1474,19 +1639,23 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "C11 threading facilities versus POSIX threads"
+          "title": "C11 threading facilities versus POSIX threads",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "A bounded work queue"
+          "title": "A bounded work queue",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "A single writer processing requests"
+          "title": "A single writer processing requests",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Shutdown, cancellation, and concurrency testing"
+          "title": "Shutdown, cancellation, and concurrency testing",
+          "status": "ready"
         }
       ],
       "project": "Use the queue as a foundation for a single-writer storage service.",
@@ -1497,7 +1666,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/concurrent-storage",
-      "command": "make chapter CHAPTER=concurrent-storage"
+      "command": "make chapter CHAPTER=concurrent-storage",
+      "status": "ready"
     },
     {
       "id": "multi-client",
@@ -1507,15 +1677,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Request scheduling"
+          "title": "Request scheduling",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Transaction boundaries"
+          "title": "Transaction boundaries",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Contention and backpressure"
+          "title": "Contention and backpressure",
+          "status": "ready"
         }
       ],
       "project": "Extend the native TinyDB baseline with a serialized request path.",
@@ -1526,7 +1699,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/multi-client",
-      "command": "make chapter CHAPTER=multi-client"
+      "command": "make chapter CHAPTER=multi-client",
+      "status": "ready"
     },
     {
       "id": "isolation",
@@ -1536,15 +1710,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Reader/writer locking"
+          "title": "Reader/writer locking",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Lost updates and inconsistent reads"
+          "title": "Lost updates and inconsistent reads",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Defining and testing an isolation contract"
+          "title": "Defining and testing an isolation contract",
+          "status": "ready"
         }
       ],
       "project": "Specify the behavior of concurrent reads before changing the locking strategy.",
@@ -1555,7 +1732,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/isolation",
-      "command": "make chapter CHAPTER=isolation"
+      "command": "make chapter CHAPTER=isolation",
+      "status": "ready"
     },
     {
       "id": "snapshots",
@@ -1565,15 +1743,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Snapshot reads"
+          "title": "Snapshot reads",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "An introduction to MVCC"
+          "title": "An introduction to MVCC",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Visibility rules and reclaiming old versions"
+          "title": "Visibility rules and reclaiming old versions",
+          "status": "ready"
         }
       ],
       "project": "Design version visibility tests before implementing snapshot reads.",
@@ -1584,7 +1765,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/snapshots",
-      "command": "make chapter CHAPTER=snapshots"
+      "command": "make chapter CHAPTER=snapshots",
+      "status": "ready"
     },
     {
       "id": "maintenance",
@@ -1594,15 +1776,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Extending the write-ahead log"
+          "title": "Extending the write-ahead log",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Checkpoints and log truncation"
+          "title": "Checkpoints and log truncation",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Free-page reuse, compaction, and integrity checking"
+          "title": "Free-page reuse, compaction, and integrity checking",
+          "status": "ready"
         }
       ],
       "project": "Extend the earlier pager and log with a tested checkpoint protocol.",
@@ -1613,7 +1798,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/maintenance",
-      "command": "make chapter CHAPTER=maintenance"
+      "command": "make chapter CHAPTER=maintenance",
+      "status": "ready"
     },
     {
       "id": "richer-queries",
@@ -1623,15 +1809,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Joins, composite indexes, and prepared statements"
+          "title": "Joins, composite indexes, and prepared statements",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Better statistics and query planning"
+          "title": "Better statistics and query planning",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Explaining and measuring execution choices"
+          "title": "Explaining and measuring execution choices",
+          "status": "ready"
         }
       ],
       "project": "Compare richer query plans using correctness tests and measured work.",
@@ -1642,7 +1831,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/richer-queries",
-      "command": "make chapter CHAPTER=richer-queries"
+      "command": "make chapter CHAPTER=richer-queries",
+      "status": "ready"
     },
     {
       "id": "reliability",
@@ -1652,15 +1842,18 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Concurrent workloads and contention measurements"
+          "title": "Concurrent workloads and contention measurements",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Cache behavior and allocation costs"
+          "title": "Cache behavior and allocation costs",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Fault injection, fuzzing, and recovery testing"
+          "title": "Fault injection, fuzzing, and recovery testing",
+          "status": "ready"
         }
       ],
       "project": "Evaluate an advanced TinyDB implementation against concurrent and fault-injected workloads.",
@@ -1671,7 +1864,8 @@ window.COURSE = {
         "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
       },
       "workspace": "native/chapters/reliability",
-      "command": "make chapter CHAPTER=reliability"
+      "command": "make chapter CHAPTER=reliability",
+      "status": "ready"
     }
   ]
 };

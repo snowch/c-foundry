@@ -282,7 +282,7 @@ make example EXAMPLE=functions-5
 
 ## Chapter practice
 
-Edit `native/exercises/functions.c`.
+Edit `native/exercises/functions.c`, then run:
 
 ```sh
 make exercise EXERCISE=functions

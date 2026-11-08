@@ -260,7 +260,7 @@ make example EXAMPLE=values-5
 
 ## Chapter practice
 
-Edit `native/exercises/numbers.c`.
+Edit `native/exercises/numbers.c`, then run:
 
 ```sh
 make exercise EXERCISE=numbers

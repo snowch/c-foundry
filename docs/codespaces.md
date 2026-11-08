@@ -1,6 +1,6 @@
 # C Foundry in Codespaces
 
-The web course is at https://snowch.github.io/c-foundry/#/course. The nine-part syllabus has 44 chapters and 211 topics. Parts 1–2 contain ten authored chapters and 51 topic lessons; later content is labeled as planned. Fourteen browser exercises, 40 inline browser examples, 11 native examples, and five native foundations are runnable. Part 2 also includes two unfinished native projects with executable checks and references.
+The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 211 topic lessons. There are 135 inline browser examples, 76 native examples, fourteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
 
 ## Start or reuse a workspace
 
@@ -19,7 +19,7 @@ make chapter CHAPTER=coordination
 make queue
 ```
 
-`make chapter` shows the chapter workspace README: complete readings for Parts 1–2, and planned topics, practice goals, execution needs, and available foundations for later parts. It does not claim the chapter’s advanced implementation is complete. All 44 chapter workspaces are in `native/chapters/`.
+`make chapter` shows the chapter workspace README: complete readings, source examples, questions, experiments, project goals, and commands for all nine parts. The advanced examples document their bounds and remaining assembly work. All 44 chapter workspaces are in `native/chapters/`.
 
 ## Available native foundations
 
@@ -36,7 +36,7 @@ make sanitize          # AddressSanitizer + UndefinedBehaviorSanitizer
 make tsan              # ThreadSanitizer; needs compatible runtime/kernel support
 ```
 
-The queue uses predicate loops and drains before shutdown. TinyDB currently uses one coarse mutex for each operation. It has no persistence, transaction protocol, SQL parser, MVCC, checkpointing, or reader/writer locking; those are tasks in the planned syllabus. The demonstrations use POSIX threads and C11 atomics, not the separate C11 `<threads.h>` interface.
+The queue uses predicate loops and drains before shutdown. The original TinyDB foundation uses one coarse mutex per operation and has no persistence or transaction protocol. Later topic examples separately implement the documented SQL subset, file codec, recovery and checkpoint sequences, version visibility, and reader/writer locking. The foundation should not be mistaken for their assembled result. The foundations use pthreads and C11 atomics; topic concurrent-storage-1 also exercises the separate C11 threads.h interface.
 
 ## Existing exercises
 
@@ -96,3 +96,45 @@ make project PROJECT=binary-record
 The student starters intentionally fail. After attempting them, compare the separate `.reference/` implementations using `REFERENCE=1`. `make check-projects` checks both references; it does not mark student work complete. Tests run outside the repository tree and include ownership, validation, exact-format fixtures, error paths, and temporary-file I/O. They are evidence for exercised cases rather than a proof of memory safety or crash durability.
 
 Maintainers regenerate all authored native readings and examples with `node tools/sync_readings.cjs`. This leaves editable student exercises and project modules untouched.
+
+## Parts 3–9 and complete example checks
+
+Portable algorithm, data-structure, table/query, and page/index models run inline. Native filesystem, standards, and threading examples show a Codespaces command on the lesson page. All examples also have native exports:
+
+```sh
+make example EXAMPLE=graphs-6
+make example EXAMPLE=bplus-trees-6
+make example EXAMPLE=recovery-4
+make example EXAMPLE=snapshots-3
+make check-examples
+make check-examples CC=clang
+make check-examples PART=8
+make check-examples SANITIZE=1
+make check-structures
+make check-structures SANITIZE=1
+```
+
+All 211 topic lessons can be explicitly marked done in the web course. Those marks remain in that browser’s storage, separately from example results and native project work.
+
+## Retain and download program files
+
+By default example checks use a temporary working directory. To inspect or export the examples that write named files, opt into a dedicated retained directory:
+
+```sh
+make example EXAMPLE=persistence-5 KEEP_FILES=1
+make example EXAMPLE=maintenance-2 KEEP_FILES=1
+```
+
+The first produces `.build/files/persistence-5/people.tdb`; the second produces checkpoint/log artifacts under `.build/files/maintenance-2/`. Right-click a file in the Codespaces explorer to download it. The persistence lesson also provides a downloadable 88-byte two-row sample.
+
+To validate an uploaded file with the transfer tool, compile its complete source and pass the import path:
+
+```sh
+mkdir -p .build
+gcc -std=c17 -Wall -Wextra -Wpedantic -Werror native/examples/persistence-5/main.c -o .build/transfer
+.build/transfer import path/to/downloaded.tdb
+```
+
+Imports validate magic/version, lengths, rows, uniqueness, and clean end-of-input before assigning a new table. Browser runner files are still temporary; browser download and native fsync are distinct host operations with different guarantees. The checkpoint example uses Linux/POSIX file and directory synchronization and a stopped writer; it is not a tested power-failure guarantee for every filesystem.
+
+Retained files under `.build/` are build artifacts: copy or download the files you want to keep before `make clean`.

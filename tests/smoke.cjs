@@ -1,5 +1,5 @@
 const {Worker}=require('node:worker_threads');const vm=require('node:vm');const fs=require('node:fs');const assert=require('node:assert/strict');
-const sandbox={document:{addEventListener(){}}};sandbox.window=sandbox;vm.createContext(sandbox);for(const file of ['lessons','course','part1','part2','readings'])vm.runInContext(fs.readFileSync('dist/'+file+'.js','utf8'),sandbox);
+const sandbox={document:{addEventListener(){}}};sandbox.window=sandbox;vm.createContext(sandbox);for(const file of ['lessons','course','part1','part2','part3','part4','part5','part6','part7','part8','part9','readings'])vm.runInContext(fs.readFileSync('dist/'+file+'.js','utf8'),sandbox);
 let worker=new Worker(require('node:path').resolve('tests/worker-shim.cjs'));
 function run(data){return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{worker.terminate();reject(new Error('Timeout'));},60000);function handler(result){if(result.type==='done'||result.type==='error'){clearTimeout(timer);worker.off('message',handler);resolve(result);}}worker.on('message',handler);worker.postMessage(data);});}
 (async()=>{try{

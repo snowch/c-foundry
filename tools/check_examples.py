@@ -8,12 +8,13 @@ import tempfile
 from pathlib import Path
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--part', type=int, choices=[1, 2], required=True)
+parser.add_argument('--part', type=int, choices=range(1, 10))
+parser.add_argument('--sanitize', action='store_true')
 parser.add_argument('--compiler', default='gcc')
 args = parser.parse_args()
 root = Path(__file__).resolve().parent.parent
 chapters = json.loads((root / 'native/course.json').read_text())['chapters']
-ids = {c['id'] for c in chapters if c['part'] == args.part - 1}
+ids = {c['id'] for c in chapters if args.part is None or c['part'] == args.part - 1}
 tests = json.loads((root / 'native/examples/tests.json').read_text())
 build = root / '.build/examples' / Path(shlex.split(args.compiler)[0]).name
 build.mkdir(parents=True, exist_ok=True)
@@ -22,9 +23,12 @@ for name, cases in tests.items():
         continue
     sources = cases[0].get('sources', [name + '.c'])
     binary = build / name
-    subprocess.run(shlex.split(args.compiler) + ['-std=c17', '-Wall', '-Wextra', '-Wpedantic', '-Werror', '-g', '-O1'] + [str(root / 'native/examples' / s) for s in sources] + ['-o', str(binary)], check=True)
+    flags = cases[0].get('flags', [])
+    if args.sanitize:
+        flags += ['-fsanitize=address,undefined', '-fno-omit-frame-pointer']
+    subprocess.run(shlex.split(args.compiler) + ['-std=c17', '-Wall', '-Wextra', '-Wpedantic', '-Werror', '-g', '-O1'] + [str(root / 'native/examples' / s) for s in sources] + ['-o', str(binary)] + flags, check=True)
     with tempfile.TemporaryDirectory() as work:
         for case in cases:
             run = subprocess.run([str(binary)], input=case['input'], text=True, capture_output=True, timeout=5, check=True, cwd=work)
             assert run.stdout.strip() == case['expected'].strip(), (name, run.stdout, case['expected'])
-    print('PASS Part', args.part, 'native example', name)
+    print('PASS native example', name)

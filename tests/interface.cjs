@@ -4,7 +4,7 @@ function setup(hash=''){
  w.confirm=()=>true;w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
  w.Worker=class{constructor(){worker=this;}postMessage(data){this.request=data;}terminate(){this.terminated=true;}emit(data){this.onmessage({data});}};
- for(const f of ['lessons','course','completion','part1','part2','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
+ for(const f of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
  return {dom,w,$:id=>w.document.getElementById(id),worker:()=>worker,click:q=>{const el=w.document.querySelector(q);assert.ok(el,'Missing '+q);el.click();}};
 }
 const {dom,w,$,click,worker}=setup();
@@ -27,7 +27,7 @@ $('run-button').click();worker().emit({type:'error',message:'Compile failed',dia
 $('course-menu-button').click();assert.ok($('course-drawer').open);click('#drawer-nav .chapter-entry[href="#/chapter/allocation/1"]');go('/chapter/allocation');click('#preview-content a[href="#/lesson/heap"]');assert.ok(!$('course-drawer').open);assert.equal($('lesson-title').textContent,'Allocate & release');
 go('/course');assert.equal(w.document.querySelectorAll('.course-part').length,9);assert.equal(w.document.querySelectorAll('.course-part li').length,44);
 let count=0;
-for(const chapter of w.COURSE.chapters){go('/chapter/'+chapter.id);assert.ok(!$('preview-view').hidden);assert.match($('preview-content').textContent,chapter.status==='ready'?/What you will learn/:/Preview page/);assert.equal(w.document.querySelectorAll('#preview-content ol li').length,chapter.topics.length);for(const topic of chapter.topics){go('/chapter/'+chapter.id+'/'+topic.id);assert.equal(w.document.querySelector('#preview-content h1').textContent,topic.title);assert.match($('preview-content').textContent,chapter.status==='ready'?/Watch for this/:/Planned lesson/);assert.ok($('lab-view').hidden);count++;}}
+for(const chapter of w.COURSE.chapters){go('/chapter/'+chapter.id);assert.ok(!$('preview-view').hidden);assert.match($('preview-content').textContent,chapter.status==='ready'?/What you will learn/:/Preview page/);assert.equal(w.document.querySelectorAll('#preview-content > ol.topic-list > li').length,chapter.topics.length);for(const topic of chapter.topics){go('/chapter/'+chapter.id+'/'+topic.id);assert.equal(w.document.querySelector('#preview-content h1').textContent,topic.title);assert.match($('preview-content').textContent,chapter.status==='ready'?/Watch for this/:/Planned lesson/);assert.ok($('lab-view').hidden);count++;}}
 assert.equal(count,211);go('/chapter/big-o');click('a[href="#/big-o"]');assert.ok(!$('complexity-view').hidden);assert.match($('search-comparison').textContent,/Linear comparisons/);$('complexity-size').value=3;$('complexity-size').dispatchEvent(new w.Event('input'));assert.match($('search-comparison').textContent,/16 \(doubled\)/);assert.match($('doubling-note').textContent,/binary adds 1/);
 go('/chapter/not-found');assert.match($('preview-content').textContent,/Page not found/);
 for(const l of w.LESSONS){go('/lesson/'+l.id);assert.ok(l.solution.split('\n').length>5);assert.ok($('reference-code').textContent.includes('\n'));assert.ok($('worked-code').textContent);}

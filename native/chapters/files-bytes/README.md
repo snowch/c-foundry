@@ -367,7 +367,7 @@ make example EXAMPLE=files-bytes-6
 
 ## Chapter practice
 
-Complete the TODOs in `native/projects/binary-record`. The initial student code intentionally fails its checks; consult the project README for requirements.
+Complete the TODOs in `native/projects/binary-record`. Initial failure is expected; see the project README.
 
 ```sh
 make project PROJECT=binary-record

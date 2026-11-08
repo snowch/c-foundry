@@ -16,7 +16,7 @@ const config=JSON.parse(fs.readFileSync('.devcontainer/devcontainer.json','utf8'
 const dom=new JSDOM('<section id="mount"></section>',{url:'https://example.test',runScripts:'outside-only'}),w=dom.window;w.eval(fs.readFileSync('dist/execution.js','utf8'));
 assert.equal(w.courseExecution.url,'https://codespaces.new/snowch/c-foundry?quickstart=1');
 const chapter=course.chapters.find(c=>c.id==='coordination');w.document.getElementById('mount').innerHTML=w.courseExecution.panel(chapter);
-const a=w.document.querySelector('[data-codespaces-command]');assert.equal(a.href,w.courseExecution.url);assert.equal(a.target,'_blank');assert.ok(a.rel.includes('noopener'));assert.match(w.document.body.textContent,/chapter is still a preview/);
+const a=w.document.querySelector('[data-codespaces-command]');assert.equal(a.href,w.courseExecution.url);assert.equal(a.target,'_blank');assert.ok(a.rel.includes('noopener'));assert.match(w.document.body.textContent,/source files and command are ready/);
 let copied;Object.defineProperty(w.navigator,'clipboard',{value:{writeText:async text=>{copied=text;}},configurable:true});
 w.document.querySelector('[data-copy-command]').click();await new Promise(r=>setTimeout(r,0));assert.equal(copied,chapter.command);assert.match(w.document.querySelector('.launch-feedback').textContent,/Command copied/);
 Object.defineProperty(w.navigator,'clipboard',{value:{writeText:async()=>{throw new Error('denied');}},configurable:true});w.document.querySelector('[data-copy-command]').click();await new Promise(r=>setTimeout(r,0));assert.match(w.document.querySelector('.launch-feedback').textContent,/Copy the command shown above/);

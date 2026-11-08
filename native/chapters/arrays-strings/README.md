@@ -298,7 +298,7 @@ make example EXAMPLE=arrays-strings-5
 
 ## Chapter practice
 
-Edit `native/exercises/textstats.c`.
+Edit `native/exercises/textstats.c`, then run:
 
 ```sh
 make exercise EXERCISE=textstats

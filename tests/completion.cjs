@@ -7,7 +7,7 @@ function setup({saved={},fail=false}={}){
  w.Worker=class{constructor(){worker=this;}postMessage(request){this.request=request;}terminate(){}emit(data){this.onmessage({data});}};
  for(const [key,value] of Object.entries(saved))w.localStorage.setItem(key,value);
  if(fail){const original=w.Storage.prototype.setItem;w.Storage.prototype.setItem=function(key,value){if(key.startsWith(prefix))throw new w.DOMException('Full','QuotaExceededError');return original.call(this,key,value);};}
- for(const name of ['lessons','course','completion','part1','part2','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+name+'.js','utf8'));
+ for(const name of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+name+'.js','utf8'));
  const go=path=>{w.history.pushState(null,'','#'+path);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
  return {w,dom,go,worker:()=>worker,$:selector=>w.document.querySelector(selector),mark:()=>w.document.querySelector('[data-lesson-complete]')};
 }
@@ -29,9 +29,9 @@ for(let n=1;n<=5;n++){go('/chapter/pointers/'+n);mark().click();}assert.match($(
 // Reconcile just the changed key; retain independent marks and an editor's draft.
 w.localStorage.setItem(prefix+'pointers/5','false');w.dispatchEvent(new w.StorageEvent('storage',{key:prefix+'pointers/5',storageArea:w.localStorage}));assert.equal(mark().checked,false);assert.equal(w.lessonCompletion.isDone('pointers/1'),true);assert.equal(w.lessonCompletion.isDone('larger-programs/1'),true);
 w.localStorage.clear();w.dispatchEvent(new w.StorageEvent('storage',{key:null,storageArea:w.localStorage}));assert.equal(w.lessonCompletion.total().done,0);
-for(const route of ['/chapter/big-o/1','/chapter/larger-programs','/lesson/hello','/chapter/not-real/1']){go(route);assert.equal(mark(),null);}
-w.lessonCompletion.mark('big-o/1',true);assert.equal(w.localStorage.getItem(prefix+'big-o/1'),null);assert.equal(w.lessonCompletion.total().done,0);
+for(const route of ['/chapter/big-o/99','/chapter/larger-programs','/lesson/hello','/chapter/not-real/1']){go(route);assert.equal(mark(),null);}
+w.lessonCompletion.mark('not-real/1',true);assert.equal(w.localStorage.getItem(prefix+'not-real/1'),null);assert.equal(w.lessonCompletion.total().done,0);
 t.dom.window.close();
-const persisted=setup({saved:{[prefix+'pointers/1']:'true',[prefix+'larger-programs/1']:'true',[prefix+'big-o/1']:'true'}});assert.equal(persisted.mark().checked,true);assert.equal(persisted.w.lessonCompletion.total().done,2);persisted.dom.window.close();
+const persisted=setup({saved:{[prefix+'pointers/1']:'true',[prefix+'larger-programs/1']:'true',[prefix+'not-real/1']:'true'}});assert.equal(persisted.mark().checked,true);assert.equal(persisted.w.lessonCompletion.total().done,2);persisted.dom.window.close();
 const failed=setup({fail:true});failed.mark().click();assert.equal(failed.mark().checked,true);assert.match(failed.$('#completion-save-note').textContent,/session only/);assert.match(failed.$('[data-reading-progress]').textContent,/session only/);failed.go('/course');failed.go('/chapter/pointers/1');assert.equal(failed.mark().checked,true);assert.match(failed.$('#completion-save-note').textContent,/Couldn’t save/);failed.mark().click();assert.equal(failed.mark().checked,false);assert.match(failed.$('#completion-save-note').textContent,/session only/);failed.dom.window.close();
 console.log('PASS explicit/reversible reading completion, native lessons, persistence, per-key tab reconciliation, TOC and chapter counts, unsaved feedback, preserved drafts/focus/quiz, and independent exercise checks');

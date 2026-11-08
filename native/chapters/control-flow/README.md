@@ -291,7 +291,7 @@ make example EXAMPLE=control-flow-5
 
 ## Chapter practice
 
-Edit `native/exercises/guess.c`.
+Edit `native/exercises/guess.c`, then run:
 
 ```sh
 make exercise EXERCISE=guess

@@ -323,7 +323,7 @@ make example EXAMPLE=allocation-5
 
 ## Chapter practice
 
-Edit `native/exercises/grow.c`.
+Edit `native/exercises/grow.c`, then run:
 
 ```sh
 make exercise EXERCISE=grow

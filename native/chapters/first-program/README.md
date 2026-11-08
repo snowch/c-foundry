@@ -250,7 +250,7 @@ make example EXAMPLE=first-program-5
 
 ## Chapter practice
 
-Edit `native/exercises/hello.c`.
+Edit `native/exercises/hello.c`, then run:
 
 ```sh
 make exercise EXERCISE=hello

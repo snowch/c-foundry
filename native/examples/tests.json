@@ -390,5 +390,1377 @@
         "files-bytes-6/main.c"
       ]
     }
+  ],
+  "big-o-1": [
+    {
+      "name": "Input size and counting work",
+      "input": "",
+      "expected": "comparisons=4"
+    }
+  ],
+  "big-o-2": [
+    {
+      "name": "O, Θ, and Ω notation",
+      "input": "",
+      "expected": "n=1 count=5 upper=5\nn=2 count=8 upper=10\nn=4 count=14 upper=20"
+    }
+  ],
+  "big-o-3": [
+    {
+      "name": "Constant, logarithmic, linear, linearithmic, and quadratic growth",
+      "input": "",
+      "expected": "n=4 constant=1 log=2 linear=4 nlog=8 square=16\nn=8 constant=1 log=3 linear=8 nlog=24 square=64"
+    }
+  ],
+  "big-o-4": [
+    {
+      "name": "Best, average, and worst cases",
+      "input": "",
+      "expected": "first=1 last=4 absent=4"
+    }
+  ],
+  "big-o-5": [
+    {
+      "name": "Time, auxiliary space, and amortized analysis",
+      "input": "",
+      "expected": "appends=8 copied=7 capacity=8"
+    }
+  ],
+  "big-o-6": [
+    {
+      "name": "Loop invariants and correctness arguments",
+      "input": "",
+      "expected": "before i=0 sum=0\nbefore i=1 sum=3\nbefore i=2 sum=4\ntotal=8"
+    }
+  ],
+  "big-o-7": [
+    {
+      "name": "Predict growth before measuring it",
+      "input": "",
+      "expected": "small=4 large=8 ratio=2"
+    }
+  ],
+  "searching-1": [
+    {
+      "name": "Linear search",
+      "input": "",
+      "expected": "first=0"
+    }
+  ],
+  "searching-2": [
+    {
+      "name": "Binary search and its sorted-input requirement",
+      "input": "",
+      "expected": "position=3 found=1"
+    }
+  ],
+  "searching-3": [
+    {
+      "name": "Inclusive versus half-open search intervals",
+      "input": "",
+      "expected": "empty=0\nbefore=0 after=1"
+    }
+  ],
+  "searching-4": [
+    {
+      "name": "Lower bounds, upper bounds, and duplicate values",
+      "input": "",
+      "expected": "range=[1,4) count=3"
+    }
+  ],
+  "searching-5": [
+    {
+      "name": "Searching a sorted record collection",
+      "input": "",
+      "expected": "5 Grace"
+    }
+  ],
+  "sorting-1": [
+    {
+      "name": "Selection sort and insertion sort",
+      "input": "",
+      "expected": "1 2 3 4\n1 2 3 4"
+    }
+  ],
+  "sorting-2": [
+    {
+      "name": "Merge sort",
+      "input": "",
+      "expected": "1 1 3 4 5"
+    }
+  ],
+  "sorting-3": [
+    {
+      "name": "Quicksort and pivot selection",
+      "input": "",
+      "expected": "1 2 3 4 5"
+    }
+  ],
+  "sorting-4": [
+    {
+      "name": "Stability, in-place algorithms, and memory costs",
+      "input": "",
+      "expected": "1B 2A 2C"
+    }
+  ],
+  "sorting-5": [
+    {
+      "name": "Using qsort safely",
+      "input": "",
+      "expected": "ordered=1 extremes=1"
+    }
+  ],
+  "sorting-6": [
+    {
+      "name": "Comparisons, moves, and input order",
+      "input": "",
+      "expected": "sorted shifts=0 reverse shifts=6"
+    }
+  ],
+  "recursion-1": [
+    {
+      "name": "Base cases and recursive progress",
+      "input": "",
+      "expected": "zero=1 five=120"
+    }
+  ],
+  "recursion-2": [
+    {
+      "name": "Drawing the call stack",
+      "input": "",
+      "expected": "enter 2\nenter 1\nenter 0\nleave 0\nleave 1\nleave 2"
+    }
+  ],
+  "recursion-3": [
+    {
+      "name": "Recursive versus iterative implementations",
+      "input": "",
+      "expected": "recursive=720 iterative=720"
+    }
+  ],
+  "recursion-4": [
+    {
+      "name": "Recursion trees and simple recurrences",
+      "input": "",
+      "expected": "nodes=15 leaves=8"
+    }
+  ],
+  "recursion-5": [
+    {
+      "name": "Recursive directory-like tree traversal",
+      "input": "",
+      "expected": "src\n  main.c\n  db.c"
+    }
+  ],
+  "strategies-1": [
+    {
+      "name": "Brute force and backtracking",
+      "input": "",
+      "expected": "target6=1 target5=0"
+    }
+  ],
+  "strategies-2": [
+    {
+      "name": "Greedy choices and counterexamples",
+      "input": "",
+      "expected": "greedy=3 better=2"
+    }
+  ],
+  "strategies-3": [
+    {
+      "name": "Memoization and dynamic programming",
+      "input": "",
+      "expected": "optimal=2"
+    }
+  ],
+  "strategies-4": [
+    {
+      "name": "One-dimensional and two-dimensional state",
+      "input": "",
+      "expected": "1 1 1\n1 2 3\n1 3 6"
+    }
+  ],
+  "strategies-5": [
+    {
+      "name": "Coin change, grid paths, and knapsack",
+      "input": "",
+      "expected": "capacity5=7"
+    }
+  ],
+  "lists-1": [
+    {
+      "name": "Capacity growth and amortized append",
+      "input": "",
+      "expected": "length=5 capacity=8 last=5"
+    }
+  ],
+  "lists-2": [
+    {
+      "name": "Singly and doubly linked lists",
+      "input": "",
+      "expected": "forward=1,9,2 backward=9"
+    }
+  ],
+  "lists-3": [
+    {
+      "name": "Insertion, removal, and traversal",
+      "input": "",
+      "expected": "1 3"
+    }
+  ],
+  "lists-4": [
+    {
+      "name": "Ownership and iterator invalidation",
+      "input": "",
+      "expected": "reacquired=20"
+    }
+  ],
+  "lists-5": [
+    {
+      "name": "Locality, memory overhead, and operation costs",
+      "input": "",
+      "expected": "value=6 link_steps=2 indexed=6"
+    }
+  ],
+  "queues-1": [
+    {
+      "name": "Array-backed and linked implementations",
+      "input": "",
+      "expected": "popped=20 remaining=1"
+    }
+  ],
+  "queues-2": [
+    {
+      "name": "Circular buffers",
+      "input": "",
+      "expected": "2 3 4 5"
+    }
+  ],
+  "queues-3": [
+    {
+      "name": "Overflow, underflow, and resizing",
+      "input": "",
+      "expected": "empty_ok=0 output=99 full_ok=0 count=4"
+    }
+  ],
+  "queues-4": [
+    {
+      "name": "Bracket matching",
+      "input": "",
+      "expected": "balanced=1 crossed=0"
+    }
+  ],
+  "queues-5": [
+    {
+      "name": "Expression evaluation",
+      "input": "",
+      "expected": "ok=1 result=7"
+    }
+  ],
+  "hash-tables-1": [
+    {
+      "name": "Hash functions for integers and strings",
+      "input": "",
+      "expected": "bucket1=1 bucket9=1 same_text=1"
+    }
+  ],
+  "hash-tables-2": [
+    {
+      "name": "Separate chaining and open addressing",
+      "input": "",
+      "expected": "one=1 nine=2 missing=-1"
+    }
+  ],
+  "hash-tables-3": [
+    {
+      "name": "Collisions, load factor, and resizing",
+      "input": "",
+      "expected": "key=1 old=1 new=1\nkey=9 old=1 new=9\nkey=17 old=1 new=1"
+    }
+  ],
+  "hash-tables-4": [
+    {
+      "name": "Deletion and tombstones",
+      "input": "",
+      "expected": "removed=-1 survivor=2 tombstone=2"
+    }
+  ],
+  "hash-tables-5": [
+    {
+      "name": "Average versus worst-case complexity",
+      "input": "",
+      "expected": "absent_probes=4"
+    }
+  ],
+  "hash-tables-6": [
+    {
+      "name": "A word-frequency index",
+      "input": "",
+      "expected": "red=3 blue=1 absent=0"
+    }
+  ],
+  "trees-heaps-1": [
+    {
+      "name": "Binary trees and traversals",
+      "input": "",
+      "expected": "1 2 3"
+    }
+  ],
+  "trees-heaps-2": [
+    {
+      "name": "Binary search trees",
+      "input": "",
+      "expected": "three=1 missing=1"
+    }
+  ],
+  "trees-heaps-3": [
+    {
+      "name": "Why balancing matters",
+      "input": "",
+      "expected": "chain_height=3 balanced_height=2"
+    }
+  ],
+  "trees-heaps-4": [
+    {
+      "name": "Rotations and a balanced-tree implementation",
+      "input": "",
+      "expected": "root=2 height=2 order=1 2 3"
+    }
+  ],
+  "trees-heaps-5": [
+    {
+      "name": "Binary heaps and priority queues",
+      "input": "",
+      "expected": "2 5 7"
+    }
+  ],
+  "trees-heaps-6": [
+    {
+      "name": "A task scheduler",
+      "input": "",
+      "expected": "priority=1 sequence=1\npriority=1 sequence=2\npriority=2 sequence=0"
+    }
+  ],
+  "graphs-1": [
+    {
+      "name": "Adjacency matrices and adjacency lists",
+      "input": "",
+      "expected": "vertices=4 undirected_edges=3 matrix_cells=16"
+    }
+  ],
+  "graphs-2": [
+    {
+      "name": "Breadth-first and depth-first search",
+      "input": "",
+      "expected": "0 1 2 3"
+    }
+  ],
+  "graphs-3": [
+    {
+      "name": "Connected components and cycle detection",
+      "input": "",
+      "expected": "components=2"
+    }
+  ],
+  "graphs-4": [
+    {
+      "name": "Topological sorting",
+      "input": "",
+      "expected": "0 1 2 3\nacyclic=1"
+    }
+  ],
+  "graphs-5": [
+    {
+      "name": "Dijkstra’s shortest-path algorithm",
+      "input": "",
+      "expected": "distances=0,1,3,4"
+    }
+  ],
+  "graphs-6": [
+    {
+      "name": "Route finding with a priority queue",
+      "input": "",
+      "expected": "cost=4 reverse_path=3,2,1,0"
+    }
+  ],
+  "database-foundations-1": [
+    {
+      "name": "Records, tables, schemas, and keys",
+      "input": "",
+      "expected": "1 | Ada | 90"
+    }
+  ],
+  "database-foundations-2": [
+    {
+      "name": "Storage, indexes, and query execution",
+      "input": "",
+      "expected": "position=1 id=2"
+    }
+  ],
+  "database-foundations-3": [
+    {
+      "name": "Designing a deliberately small database",
+      "input": "",
+      "expected": "inserted=1 duplicate=1 rows=1"
+    }
+  ],
+  "database-foundations-4": [
+    {
+      "name": "Building a command loop",
+      "input": "insert-demo\nselect\nwat\n",
+      "expected": "inserted\n1 | Ada | 90\nunknown command"
+    }
+  ],
+  "database-foundations-5": [
+    {
+      "name": "Defining behavior and writing acceptance tests",
+      "input": "",
+      "expected": "acceptance: insert duplicate preserve passed"
+    }
+  ],
+  "tables-1": [
+    {
+      "name": "Representing rows with structs",
+      "input": "",
+      "expected": "count=1 stored=Ada source=Xda"
+    }
+  ],
+  "tables-2": [
+    {
+      "name": "Inserting and selecting records",
+      "input": "",
+      "expected": "2 | Grace | 80\n1 | Ada | 90\nmissing=1"
+    }
+  ],
+  "tables-3": [
+    {
+      "name": "Duplicate IDs and capacity limits",
+      "input": "",
+      "expected": "duplicate=1 full=1 count=8"
+    }
+  ],
+  "tables-4": [
+    {
+      "name": "Updating and deleting rows",
+      "input": "",
+      "expected": "2 | Grace | 99\nmissing=1"
+    }
+  ],
+  "tables-5": [
+    {
+      "name": "A working in-memory database",
+      "input": "",
+      "expected": "2 | Grace | 88\ntable contract passed"
+    }
+  ],
+  "parsing-1": [
+    {
+      "name": "Tokens, keywords, identifiers, and literals",
+      "input": "",
+      "expected": "words=3 punctuation=2"
+    }
+  ],
+  "parsing-2": [
+    {
+      "name": "Whitespace, quoted strings, and malformed input",
+      "input": "",
+      "expected": "Ada Lovelace\nO'Brien\nunterminated=1"
+    }
+  ],
+  "parsing-3": [
+    {
+      "name": "A small SQL grammar",
+      "input": "",
+      "expected": "valid=1 missing_semicolon=1 trailing=1"
+    }
+  ],
+  "parsing-4": [
+    {
+      "name": "Building a statement representation",
+      "input": "",
+      "expected": "select=1 filtered=1 id=7"
+    }
+  ],
+  "parsing-5": [
+    {
+      "name": "Clear syntax and validation errors",
+      "input": "",
+      "expected": "parsed=1 value_rejected=1\nsyntax_rejected=1"
+    }
+  ],
+  "execution-1": [
+    {
+      "name": "Table scans",
+      "input": "",
+      "expected": "1 | Ada | 90\n2 | Grace | 80\n3 | Ken | 90"
+    }
+  ],
+  "execution-2": [
+    {
+      "name": "Filtering with WHERE",
+      "input": "",
+      "expected": "Ada\nKen\nexamined=3 matched=2"
+    }
+  ],
+  "execution-3": [
+    {
+      "name": "Selecting columns",
+      "input": "",
+      "expected": "1 | Ada\n2 | Grace\n3 | Ken"
+    }
+  ],
+  "execution-4": [
+    {
+      "name": "Ordering and limiting results",
+      "input": "",
+      "expected": "Grace 80\nAda 90"
+    }
+  ],
+  "execution-5": [
+    {
+      "name": "Simple aggregation",
+      "input": "",
+      "expected": "count=3 sum=260 average=86.67"
+    }
+  ],
+  "execution-6": [
+    {
+      "name": "Separating parsing, validation, and execution",
+      "input": "",
+      "expected": "1 | Ada | 90\nrows=1"
+    }
+  ],
+  "persistence-1": [
+    {
+      "name": "Encoding a file header and schema",
+      "input": "",
+      "expected": "version=1 record_bytes=40 rows=2 reserved=0",
+      "sources": [
+        "persistence-1/main.c"
+      ]
+    }
+  ],
+  "persistence-2": [
+    {
+      "name": "Serializing rows without dumping raw structs",
+      "input": "",
+      "expected": "id_bytes=1,2,0,0 row=513:Ada:90",
+      "sources": [
+        "persistence-2/main.c"
+      ]
+    }
+  ],
+  "persistence-3": [
+    {
+      "name": "Reading and writing fixed-size pages",
+      "input": "",
+      "expected": "pages=1 byte7=42 missing=1",
+      "sources": [
+        "persistence-3/main.c"
+      ]
+    }
+  ],
+  "persistence-4": [
+    {
+      "name": "Building a pager abstraction",
+      "input": "",
+      "expected": "gap_rejected=1 valid=1 marker=9",
+      "sources": [
+        "persistence-4/main.c"
+      ]
+    }
+  ],
+  "persistence-5": [
+    {
+      "name": "Browser-backed files, import, and export",
+      "input": "",
+      "expected": "exported=1 imported=1 rows=2",
+      "sources": [
+        "persistence-5/main.c"
+      ]
+    }
+  ],
+  "persistence-6": [
+    {
+      "name": "Testing truncated and corrupt input",
+      "input": "",
+      "expected": "rejected=1 retained=Keep count=1",
+      "sources": [
+        "persistence-6/main.c"
+      ]
+    }
+  ],
+  "pages-1": [
+    {
+      "name": "Page IDs, headers, and record offsets",
+      "input": "",
+      "expected": "slot=0 offset=61 length=3 text=Ada"
+    }
+  ],
+  "pages-2": [
+    {
+      "name": "Fixed-length and variable-length records",
+      "input": "",
+      "expected": "lengths=1,5 used=6"
+    }
+  ],
+  "pages-3": [
+    {
+      "name": "Slotted pages",
+      "input": "",
+      "expected": "slot=1 text=Ken"
+    }
+  ],
+  "pages-4": [
+    {
+      "name": "Free space and deleted records",
+      "input": "",
+      "expected": "live_bytes=5 surviving_slot=1 offset=59"
+    }
+  ],
+  "pages-5": [
+    {
+      "name": "A bounded page cache",
+      "input": "",
+      "expected": "reads=3 writes=0 cached1=1"
+    }
+  ],
+  "pages-6": [
+    {
+      "name": "Inspecting a database file visually",
+      "input": "",
+      "expected": "slot0 deleted [61,61)\nslot1 live [58,61)"
+    }
+  ],
+  "bplus-trees-1": [
+    {
+      "name": "Why databases use page-oriented trees",
+      "input": "",
+      "expected": "root_children=3 leaf_capacity=4"
+    }
+  ],
+  "bplus-trees-2": [
+    {
+      "name": "Leaf pages and internal pages",
+      "input": "",
+      "expected": "leaf0 min=1 count=2\nleaf1 min=3 count=2\nleaf2 min=5 count=3"
+    }
+  ],
+  "bplus-trees-3": [
+    {
+      "name": "Searching and ordered traversal",
+      "input": "",
+      "expected": "found=1 value=60 missing=1"
+    }
+  ],
+  "bplus-trees-4": [
+    {
+      "name": "Inserting keys and splitting pages",
+      "input": "",
+      "expected": "leaves=2 left=2 right=3 boundary=3"
+    }
+  ],
+  "bplus-trees-5": [
+    {
+      "name": "Range queries and linked leaves",
+      "input": "",
+      "expected": "2 3 4 5 6 7"
+    }
+  ],
+  "bplus-trees-6": [
+    {
+      "name": "Deletion, redistribution, and merging",
+      "input": "",
+      "expected": "leaves=1 remaining=3 4 5"
+    }
+  ],
+  "planning-1": [
+    {
+      "name": "Table scans versus index lookups",
+      "input": "",
+      "expected": "narrow=index cost=4 wide=scan cost=101"
+    }
+  ],
+  "planning-2": [
+    {
+      "name": "Simple cost estimates and selectivity",
+      "input": "",
+      "expected": "selectivity=0.01 expected_rows=10"
+    }
+  ],
+  "planning-3": [
+    {
+      "name": "Index-assisted filtering and ordering",
+      "input": "",
+      "expected": "4 6"
+    }
+  ],
+  "planning-4": [
+    {
+      "name": "Implementing EXPLAIN",
+      "input": "",
+      "expected": "PLAN index estimated_matches=2 estimated_pages=5"
+    }
+  ],
+  "planning-5": [
+    {
+      "name": "Measuring page reads and comparisons",
+      "input": "",
+      "expected": "comparisons=8 emitted=2"
+    }
+  ],
+  "planning-6": [
+    {
+      "name": "Optional: nested-loop joins",
+      "input": "",
+      "expected": "Ada 20\nAda 30\nGrace 50\npairs=6"
+    }
+  ],
+  "recovery-1": [
+    {
+      "name": "Atomicity, consistency, isolation, and durability",
+      "input": "",
+      "expected": "after_rollback=90",
+      "sources": [
+        "recovery-1/main.c"
+      ]
+    }
+  ],
+  "recovery-2": [
+    {
+      "name": "A single-writer transaction model",
+      "input": "",
+      "expected": "first=1 nested=0 live_rows=0",
+      "sources": [
+        "recovery-2/main.c"
+      ]
+    }
+  ],
+  "recovery-3": [
+    {
+      "name": "BEGIN, COMMIT, and ROLLBACK",
+      "input": "",
+      "expected": "committed_score=95 invalid_commit=1",
+      "sources": [
+        "recovery-3/main.c"
+      ]
+    }
+  ],
+  "recovery-4": [
+    {
+      "name": "Write-ahead logging",
+      "input": "",
+      "expected": "durable_log_order_checked value=42",
+      "sources": [
+        "recovery-4/main.c"
+      ]
+    }
+  ],
+  "recovery-5": [
+    {
+      "name": "Recovery after an interrupted write",
+      "input": "",
+      "expected": "committed=10 torn=0",
+      "sources": [
+        "recovery-5/main.c"
+      ]
+    }
+  ],
+  "recovery-6": [
+    {
+      "name": "Browser storage guarantees and their limits",
+      "input": "",
+      "expected": "before_commit=0 after_commit=7",
+      "sources": [
+        "recovery-6/main.c"
+      ]
+    }
+  ],
+  "ship-1": [
+    {
+      "name": "End-to-end SQL tests",
+      "input": "",
+      "expected": "7 | Ada | 90\nSQL contract passed",
+      "sources": [
+        "ship-1/main.c"
+      ]
+    }
+  ],
+  "ship-2": [
+    {
+      "name": "Property tests and fuzzing the parser",
+      "input": "",
+      "expected": "fuzz_cases=256 completed",
+      "sources": [
+        "ship-2/main.c"
+      ]
+    }
+  ],
+  "ship-3": [
+    {
+      "name": "Fault injection and recovery tests",
+      "input": "",
+      "expected": "25 interruption boundaries passed",
+      "sources": [
+        "ship-3/main.c"
+      ]
+    }
+  ],
+  "ship-4": [
+    {
+      "name": "Benchmarks across growing datasets",
+      "input": "",
+      "expected": "rows=8 absent_scan_comparisons=8\nrows=32 absent_scan_comparisons=32",
+      "sources": [
+        "ship-4/main.c"
+      ]
+    }
+  ],
+  "ship-5": [
+    {
+      "name": "Memory and resource audits",
+      "input": "",
+      "expected": "stream_closed=1 rows=1",
+      "sources": [
+        "ship-5/main.c"
+      ]
+    }
+  ],
+  "ship-6": [
+    {
+      "name": "File-format documentation and compatibility",
+      "input": "",
+      "expected": "unknown_version_rejected=1",
+      "sources": [
+        "ship-6/main.c"
+      ]
+    }
+  ],
+  "ship-7": [
+    {
+      "name": "Exportable database files and a browser demonstration",
+      "input": "",
+      "expected": "release fixture: two validated rows",
+      "sources": [
+        "ship-7/main.c"
+      ]
+    }
+  ],
+  "standards-evolution-1": [
+    {
+      "name": "C89/C90, C99, C11, C17, and C23",
+      "input": "",
+      "expected": "C17_or_later=1 C11_or_later=1",
+      "sources": [
+        "standards-evolution-1/main.c"
+      ]
+    }
+  ],
+  "standards-evolution-2": [
+    {
+      "name": "Language standards versus compiler extensions",
+      "input": "",
+      "expected": "wide_at_least64=1",
+      "sources": [
+        "standards-evolution-2/main.c"
+      ]
+    }
+  ],
+  "standards-evolution-3": [
+    {
+      "name": "Choosing a baseline and checking feature support",
+      "input": "",
+      "expected": "mode=C17 fallback_selected",
+      "sources": [
+        "standards-evolution-3/main.c"
+      ]
+    }
+  ],
+  "c-guarantees-1": [
+    {
+      "name": "Defined, implementation-defined, unspecified, and undefined behavior",
+      "input": "",
+      "expected": "char_bits_at_least8=1 unsigned_wrap=0",
+      "sources": [
+        "c-guarantees-1/main.c"
+      ]
+    }
+  ],
+  "c-guarantees-2": [
+    {
+      "name": "Integer representation, alignment, object lifetime, and aliasing",
+      "input": "",
+      "expected": "roundtrip=1 bytes=4",
+      "sources": [
+        "c-guarantees-2/main.c"
+      ]
+    }
+  ],
+  "c-guarantees-3": [
+    {
+      "name": "Why code can behave differently under optimization",
+      "input": "",
+      "expected": "wrapped=0 sum=10",
+      "flags": [
+        "-O2"
+      ],
+      "sources": [
+        "c-guarantees-3/main.c"
+      ]
+    }
+  ],
+  "portable-c-1": [
+    {
+      "name": "Standard library versus operating-system APIs",
+      "input": "",
+      "expected": "clock_read=1 ordered=1",
+      "sources": [
+        "portable-c-1/main.c"
+      ]
+    }
+  ],
+  "portable-c-2": [
+    {
+      "name": "Fixed-width types, endianness, and binary compatibility",
+      "input": "",
+      "expected": "bytes=4,3,2,1 value_ok=1",
+      "sources": [
+        "portable-c-2/main.c"
+      ]
+    }
+  ],
+  "portable-c-3": [
+    {
+      "name": "Feature detection and conditional compilation",
+      "input": "",
+      "expected": "atomic_probe=1",
+      "sources": [
+        "portable-c-3/main.c"
+      ]
+    }
+  ],
+  "portable-c-4": [
+    {
+      "name": "Native platforms versus WebAssembly/WASI",
+      "input": "",
+      "expected": "target=native host_adapter_required",
+      "sources": [
+        "portable-c-4/main.c"
+      ]
+    }
+  ],
+  "hardening-tinydb-1": [
+    {
+      "name": "Auditing assumptions about types and memory",
+      "input": "",
+      "expected": "oversize_rejected=1",
+      "sources": [
+        "hardening-tinydb-1/main.c"
+      ]
+    }
+  ],
+  "hardening-tinydb-2": [
+    {
+      "name": "Versioning the database format",
+      "input": "",
+      "expected": "rejected=1 retained=9",
+      "sources": [
+        "hardening-tinydb-2/main.c"
+      ]
+    }
+  ],
+  "hardening-tinydb-3": [
+    {
+      "name": "Multiple compilers and warning settings",
+      "input": "",
+      "expected": "strict compiler fixture passed",
+      "sources": [
+        "hardening-tinydb-3/main.c"
+      ]
+    }
+  ],
+  "hardening-tinydb-4": [
+    {
+      "name": "Sanitizers and portability checks",
+      "input": "",
+      "expected": "short_rejected=1 output_preserved=1",
+      "sources": [
+        "hardening-tinydb-4/main.c"
+      ]
+    }
+  ],
+  "threads-1": [
+    {
+      "name": "Concurrency versus parallelism",
+      "input": "",
+      "expected": "joined=4 sum=20",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "threads-1/main.c"
+      ]
+    }
+  ],
+  "threads-2": [
+    {
+      "name": "Thread lifetimes and shared memory",
+      "input": "",
+      "expected": "input=21 result=42",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "threads-2/main.c"
+      ]
+    }
+  ],
+  "threads-3": [
+    {
+      "name": "Data races and reproducible interleavings",
+      "input": "",
+      "expected": "final=1 expected_atomic_increment=2",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "threads-3/main.c"
+      ]
+    }
+  ],
+  "coordination-1": [
+    {
+      "name": "Mutexes and condition variables",
+      "input": "",
+      "expected": "received=8 sum=36",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "coordination-1/main.c"
+      ]
+    }
+  ],
+  "coordination-2": [
+    {
+      "name": "Producer–consumer queues",
+      "input": "",
+      "expected": "capacity=4 exactly_once=8",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "coordination-2/main.c"
+      ]
+    }
+  ],
+  "coordination-3": [
+    {
+      "name": "Lock ordering, deadlocks, and starvation",
+      "input": "",
+      "expected": "completed=2",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "coordination-3/main.c"
+      ]
+    }
+  ],
+  "atomics-1": [
+    {
+      "name": "Atomic operations and happens-before relationships",
+      "input": "",
+      "expected": "atomic_total=4000",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "atomics-1/main.c"
+      ]
+    }
+  ],
+  "atomics-2": [
+    {
+      "name": "Sequential consistency first",
+      "input": "",
+      "expected": "previous=0 current=7",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "atomics-2/main.c"
+      ]
+    }
+  ],
+  "atomics-3": [
+    {
+      "name": "Acquire/release through concrete examples",
+      "input": "",
+      "expected": "published=42",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "atomics-3/main.c"
+      ]
+    }
+  ],
+  "atomics-4": [
+    {
+      "name": "Why volatile does not provide thread synchronization",
+      "input": "",
+      "expected": "local_volatile=3 atomic_total=4000",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "atomics-4/main.c"
+      ]
+    }
+  ],
+  "concurrent-storage-1": [
+    {
+      "name": "C11 threading facilities versus POSIX threads",
+      "input": "",
+      "expected": "joined_result=42",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "concurrent-storage-1/main.c"
+      ]
+    }
+  ],
+  "concurrent-storage-2": [
+    {
+      "name": "A bounded work queue",
+      "input": "",
+      "expected": "accepted_and_drained=8 total=36",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "concurrent-storage-2/main.c"
+      ]
+    }
+  ],
+  "concurrent-storage-3": [
+    {
+      "name": "A single writer processing requests",
+      "input": "",
+      "expected": "writer_state=36 processed=8",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "concurrent-storage-3/main.c"
+      ]
+    }
+  ],
+  "concurrent-storage-4": [
+    {
+      "name": "Shutdown, cancellation, and concurrency testing",
+      "input": "",
+      "expected": "20 start-drain-join cycles passed",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "concurrent-storage-4/main.c"
+      ]
+    }
+  ],
+  "multi-client-1": [
+    {
+      "name": "Request scheduling",
+      "input": "",
+      "expected": "scheduled=8 owner_total=36",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "multi-client-1/main.c"
+      ]
+    }
+  ],
+  "multi-client-2": [
+    {
+      "name": "Transaction boundaries",
+      "input": "",
+      "expected": "other_rejected=1 owner_committed=1 value=42",
+      "sources": [
+        "multi-client-2/main.c"
+      ]
+    }
+  ],
+  "multi-client-3": [
+    {
+      "name": "Contention and backpressure",
+      "input": "",
+      "expected": "queue_bound=4 processed=8",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "multi-client-3/main.c"
+      ]
+    }
+  ],
+  "isolation-1": [
+    {
+      "name": "Reader/writer locking",
+      "input": "",
+      "expected": "consistent=1 final_total=100",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "isolation-1/main.c"
+      ]
+    }
+  ],
+  "isolation-2": [
+    {
+      "name": "Lost updates and inconsistent reads",
+      "input": "",
+      "expected": "first=1 stale_rejected=1 value=11 version=2",
+      "sources": [
+        "isolation-2/main.c"
+      ]
+    }
+  ],
+  "isolation-3": [
+    {
+      "name": "Defining and testing an isolation contract",
+      "input": "",
+      "expected": "statement_reads=10,20 repeatable=0",
+      "sources": [
+        "isolation-3/main.c"
+      ]
+    }
+  ],
+  "snapshots-1": [
+    {
+      "name": "Snapshot reads",
+      "input": "",
+      "expected": "snapshot2=10 snapshot3=20",
+      "sources": [
+        "snapshots-1/main.c"
+      ]
+    }
+  ],
+  "snapshots-2": [
+    {
+      "name": "An introduction to MVCC",
+      "input": "",
+      "expected": "snapshot=2 old=1 new=0\nsnapshot=3 old=0 new=1",
+      "sources": [
+        "snapshots-2/main.c"
+      ]
+    }
+  ],
+  "snapshots-3": [
+    {
+      "name": "Visibility rules and reclaiming old versions",
+      "input": "",
+      "expected": "old_reader_keeps=2 horizon3_keeps=1",
+      "sources": [
+        "snapshots-3/main.c"
+      ]
+    }
+  ],
+  "maintenance-1": [
+    {
+      "name": "Extending the write-ahead log",
+      "input": "",
+      "expected": "value=20 applied=6",
+      "sources": [
+        "maintenance-1/main.c"
+      ]
+    }
+  ],
+  "maintenance-2": [
+    {
+      "name": "Checkpoints and log truncation",
+      "input": "",
+      "expected": "checkpoint=10 applied_lsn=3 wal_truncated=1",
+      "sources": [
+        "maintenance-2/main.c"
+      ]
+    }
+  ],
+  "maintenance-3": [
+    {
+      "name": "Free-page reuse, compaction, and integrity checking",
+      "input": "",
+      "expected": "valid=1 overlap_rejected=1",
+      "sources": [
+        "maintenance-3/main.c"
+      ]
+    }
+  ],
+  "richer-queries-1": [
+    {
+      "name": "Joins, composite indexes, and prepared statements",
+      "input": "",
+      "expected": "prepared=Grace\njoin=Ada:20\njoin=Ada:30\njoin=Ken:40",
+      "sources": [
+        "richer-queries-1/main.c"
+      ]
+    }
+  ],
+  "richer-queries-2": [
+    {
+      "name": "Better statistics and query planning",
+      "input": "",
+      "expected": "uniform=0.80 histogram=7 actual=7",
+      "sources": [
+        "richer-queries-2/main.c"
+      ]
+    }
+  ],
+  "richer-queries-3": [
+    {
+      "name": "Explaining and measuring execution choices",
+      "input": "",
+      "expected": "nested=24 indexed=13 results=3",
+      "sources": [
+        "richer-queries-3/main.c"
+      ]
+    }
+  ],
+  "reliability-1": [
+    {
+      "name": "Concurrent workloads and contention measurements",
+      "input": "",
+      "expected": "requests=4000 wait_count_bounded=1",
+      "flags": [
+        "-pthread"
+      ],
+      "sources": [
+        "reliability-1/main.c"
+      ]
+    }
+  ],
+  "reliability-2": [
+    {
+      "name": "Cache behavior and allocation costs",
+      "input": "",
+      "expected": "individual_allocations=8 pooled_allocations=1 cache_reads=2",
+      "sources": [
+        "reliability-2/main.c"
+      ]
+    }
+  ],
+  "reliability-3": [
+    {
+      "name": "Fault injection, fuzzing, and recovery testing",
+      "input": "",
+      "expected": "recovery_prefixes=25 parser_cases=256 short_records=40",
+      "sources": [
+        "reliability-3/main.c"
+      ]
+    }
   ]
 }

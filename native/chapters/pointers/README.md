@@ -282,7 +282,7 @@ make example EXAMPLE=pointers-5
 
 ## Chapter practice
 
-Edit `native/exercises/pointers.c`.
+Edit `native/exercises/pointers.c`, then run:
 
 ```sh
 make exercise EXERCISE=pointers

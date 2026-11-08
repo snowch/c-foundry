@@ -296,7 +296,7 @@ make example EXAMPLE=structured-data-5
 
 ## Chapter practice
 
-Edit `native/exercises/records.c`.
+Edit `native/exercises/records.c`, then run:
 
 ```sh
 make exercise EXERCISE=records
