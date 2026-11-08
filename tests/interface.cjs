@@ -4,7 +4,7 @@ function setup(hash=''){
  w.confirm=()=>true;w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
  w.Worker=class{constructor(){worker=this;}postMessage(data){this.request=data;}terminate(){this.terminated=true;}emit(data){this.onmessage({data});}};
- for(const f of ['lessons','course','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
+ for(const f of ['lessons','course','part1','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
  return {dom,w,$:id=>w.document.getElementById(id),worker:()=>worker,click:q=>{const el=w.document.querySelector(q);assert.ok(el,'Missing '+q);el.click();}};
 }
 const {dom,w,$,click,worker}=setup();
@@ -18,7 +18,7 @@ go('/lesson/loops');go('/lesson/hello');assert.equal($('editor').value,'// draft
 $('solution-button').click();$('check-button').click();assert.ok(worker().request.tests);assert.ok($('editor').readOnly);
 // Navigating while a program runs keeps the lesson and route intact.
 go('/course');assert.equal(w.location.hash,'#/lesson/hello');assert.ok(!$('lab-view').hidden);
-worker().emit({type:'done',results:[{actual:'Hello, C!',expected:'Hello, C!',name:'Greeting',pass:true}],diagnostics:''});assert.match($('drawer-progress').textContent,/1 of 8/);
+worker().emit({type:'done',results:[{actual:'Hello, C!',expected:'Hello, C!',name:'Greeting',pass:true}],diagnostics:''});assert.match($('drawer-progress').textContent,/1 of 12/);
 go('/lesson/pointers');assert.match($('worked-code').textContent,/int temp = \*a/);assert.ok(!$('step-details').hidden);assert.ok(!$('step-details').open);
 $('step-details').open=true;$('step-next').click();assert.equal(w.document.querySelectorAll('#step-state .changed').length,1);assert.match(w.document.querySelector('#step-state .changed th').textContent,/\*a/);$('step-next').click();assert.equal($('step-next').textContent,'Try it yourself ↓');$('step-next').click();assert.ok(!$('step-details').open);assert.equal(w.document.activeElement.id,'editor');
 $('prediction-check').click();assert.match($('prediction-feedback').textContent,/Choose/);click('input[name="prediction"][value="1"]');$('prediction-check').click();assert.match($('prediction-feedback').textContent,/Not quite/);click('input[name="prediction"][value="0"]');$('prediction-check').click();assert.match($('prediction-feedback').textContent,/Correct/);
@@ -27,7 +27,7 @@ $('run-button').click();worker().emit({type:'error',message:'Compile failed',dia
 $('course-menu-button').click();assert.ok($('course-drawer').open);click('#drawer-nav a[href="#/lesson/heap"]');assert.ok(!$('course-drawer').open);assert.equal($('lesson-title').textContent,'Allocate & release');
 go('/course');assert.equal(w.document.querySelectorAll('.course-part').length,9);assert.equal(w.document.querySelectorAll('.course-part li').length,44);
 let count=0;
-for(const chapter of w.COURSE.chapters){go('/chapter/'+chapter.id);assert.ok(!$('preview-view').hidden);assert.match($('preview-content').textContent,/Preview page/);assert.equal(w.document.querySelectorAll('#preview-content ol li').length,chapter.topics.length);for(const topic of chapter.topics){go('/chapter/'+chapter.id+'/'+topic.id);assert.equal(w.document.querySelector('#preview-content h1').textContent,topic.title);assert.match($('preview-content').textContent,/Planned lesson/);assert.ok($('lab-view').hidden);count++;}}
+for(const chapter of w.COURSE.chapters){go('/chapter/'+chapter.id);assert.ok(!$('preview-view').hidden);assert.match($('preview-content').textContent,chapter.status==='ready'?/What you will learn/:/Preview page/);assert.equal(w.document.querySelectorAll('#preview-content ol li').length,chapter.topics.length);for(const topic of chapter.topics){go('/chapter/'+chapter.id+'/'+topic.id);assert.equal(w.document.querySelector('#preview-content h1').textContent,topic.title);assert.match($('preview-content').textContent,chapter.status==='ready'?/Watch for this/:/Planned lesson/);assert.ok($('lab-view').hidden);count++;}}
 assert.equal(count,211);go('/chapter/big-o');click('a[href="#/big-o"]');assert.ok(!$('complexity-view').hidden);assert.match($('search-comparison').textContent,/Linear comparisons/);$('complexity-size').value=3;$('complexity-size').dispatchEvent(new w.Event('input'));assert.match($('search-comparison').textContent,/16 \(doubled\)/);assert.match($('doubling-note').textContent,/binary adds 1/);
 go('/chapter/not-found');assert.match($('preview-content').textContent,/Page not found/);
 for(const l of w.LESSONS){go('/lesson/'+l.id);assert.ok(l.solution.split('\n').length>5);assert.ok($('reference-code').textContent.includes('\n'));assert.ok($('worked-code').textContent);}

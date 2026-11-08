@@ -1,5 +1,5 @@
 const {Worker}=require('node:worker_threads');const vm=require('node:vm');const fs=require('node:fs');const assert=require('node:assert/strict');
-const sandbox={};sandbox.window=sandbox;vm.createContext(sandbox);vm.runInContext(fs.readFileSync('dist/lessons.js','utf8'),sandbox);
+const sandbox={document:{addEventListener(){}}};sandbox.window=sandbox;vm.createContext(sandbox);for(const file of ['lessons','course','part1'])vm.runInContext(fs.readFileSync('dist/'+file+'.js','utf8'),sandbox);
 let worker=new Worker(require('node:path').resolve('tests/worker-shim.cjs'));
 function run(data){return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{worker.terminate();reject(new Error('Timeout'));},60000);function handler(result){if(result.type==='done'||result.type==='error'){clearTimeout(timer);worker.off('message',handler);resolve(result);}}worker.on('message',handler);worker.postMessage(data);});}
 (async()=>{try{
@@ -8,5 +8,8 @@ let r=await run({code:'#include <stdio.h>\nint main(void){ printf("broken") retu
 r=await run({code:'#include <stdio.h>\nint main(void){puts("custom code works");return 0;}'});assert.equal(r.type,'done');assert.equal(r.results[0].actual,'custom code works');console.log('PASS arbitrary C after compile failure');
 r=await run({code:'int main(void){return 7;}'});assert.equal(r.type,'error');console.log('PASS nonzero exit status');
 r=await run({code:sandbox.LESSONS[1].code,tests:sandbox.LESSONS[1].tests});assert.equal(r.type,'done');assert.ok(r.results.some(t=>!t.pass));console.log('PASS incorrect solution is rejected');
+const parseExample=sandbox.LESSONS.find(l=>l.id==='example-arrays-strings-4');
+for(const text of ['42x','','999999999999999999999999999999']){const code=parseExample.code.replace('char text[] = \"42\";', 'char text[] = '+JSON.stringify(text)+';');const result=await run({code});assert.equal(result.type,'done');assert.equal(result.results[0].actual,'same=1 copy=Ada\ninvalid integer');console.log('PASS checked string parsing rejects '+JSON.stringify(text));}
+for(const id of ['numbers','guess','functions','textstats']){const lesson=sandbox.LESSONS.find(l=>l.id===id);const result=await run({code:lesson.code,tests:lesson.tests});assert.ok(result.type==='error'||result.results.some(t=>!t.pass),'Unfinished '+id+' must fail a check');console.log('PASS unfinished '+id+' is rejected');}
 await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('No running stage')),60000);worker.on('message',function handler(r){if(r.type==='stage'&&r.stage==='running'){worker.off('message',handler);clearTimeout(timer);setTimeout(async()=>{await worker.terminate();console.log('PASS infinite program can be terminated');resolve();},200);}});worker.postMessage({code:'int main(void){volatile int x=0;while(1){x=1;}}'});});
 }catch(e){console.error(e);process.exitCode=1;}finally{await worker.terminate();}})();

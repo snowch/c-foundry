@@ -23,7 +23,7 @@
   };
   let current, step=0;
   function renderStep(){const frames=current.steps,frame=frames[step];$('step-caption').textContent=frame.caption;$('step-state').innerHTML=frame.html;$('step-code').textContent=frame.code;$('step-position').textContent=`${step+1} / ${frames.length}`;$('step-back').disabled=step===0;$('step-next').textContent=step===frames.length-1?'Try it yourself ↓':'Next step →';}
-  function show(id){current=examples[id];step=0;$('worked-code').textContent=current.code;$('worked-diagram').innerHTML=current.html;$('step-details').open=false;$('step-details').hidden=!current.steps;if(current.steps)renderStep();$('prediction-options').innerHTML=`<legend>${escape(current.question)}</legend>${current.choices.map((c,i)=>`<label><input type="radio" name="prediction" value="${i}"> ${escape(c)}</label>`).join('')}`;$('prediction-feedback').textContent='';}
+  function show(id){current=examples[id]||LESSONS.find(l=>l.id===id).example;step=0;$('worked-code').textContent=current.code;$('worked-diagram').innerHTML=current.html;$('step-details').open=false;$('step-details').hidden=!current.steps;if(current.steps)renderStep();$('prediction-options').innerHTML=`<legend>${escape(current.question)}</legend>${current.choices.map((c,i)=>`<label><input type="radio" name="prediction" value="${i}"> ${escape(c)}</label>`).join('')}`;$('prediction-feedback').textContent='';}
   $('step-back').onclick=()=>{step=Math.max(0,step-1);renderStep();};
   $('step-reset').onclick=()=>{step=0;renderStep();};
   $('step-next').onclick=()=>{if(step===current.steps.length-1){$('step-details').open=false;$('exercise-title').scrollIntoView({block:'start'});$('editor').focus({preventScroll:true});}else{step++;renderStep();}};

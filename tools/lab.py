@@ -11,6 +11,7 @@ course = json.loads((ROOT / 'native/course.json').read_text())
 parser = argparse.ArgumentParser()
 parser.add_argument('--chapter')
 parser.add_argument('--exercise')
+parser.add_argument('--example')
 parser.add_argument('--compiler', default='gcc')
 args = parser.parse_args()
 if args.chapter:
@@ -18,16 +19,18 @@ if args.chapter:
     if not chapter:
         parser.error('Unknown chapter. Run make help for the valid IDs.')
     print((ROOT / chapter['workspace'] / 'README.md').read_text())
-elif args.exercise:
-    exercises = json.loads((ROOT / 'native/exercises/tests.json').read_text())
-    if args.exercise not in exercises:
+elif args.exercise or args.example:
+    selected = args.example or args.exercise
+    folder = 'examples' if args.example else 'exercises'
+    exercises = json.loads((ROOT / 'native' / folder / 'tests.json').read_text())
+    if selected not in exercises:
         parser.error('Unknown exercise.')
-    build = ROOT / '.build/exercises'
+    build = ROOT / '.build' / folder
     build.mkdir(parents=True, exist_ok=True)
-    binary = build / args.exercise
-    subprocess.run(shlex.split(args.compiler) + ['-std=c17', '-Wall', '-Wextra', '-g', str(ROOT / 'native/exercises' / (args.exercise + '.c')), '-o', str(binary)], check=True)
+    binary = build / selected
+    subprocess.run(shlex.split(args.compiler) + ['-std=c17', '-Wall', '-Wextra', '-g', str(ROOT / 'native' / folder / (selected + '.c')), '-o', str(binary)], check=True)
     failed = False
-    for test in exercises[args.exercise]:
+    for test in exercises[selected]:
         run = subprocess.run([str(binary)], input=test['input'], capture_output=True, text=True, timeout=5)
         passed = run.returncode == 0 and run.stdout.strip() == test['expected'].strip()
         print(('PASS ' if passed else 'TRY AGAIN ') + test['name'])
@@ -43,6 +46,7 @@ else:
     print('make sanitize              AddressSanitizer and UndefinedBehaviorSanitizer')
     print('make tsan                  ThreadSanitizer (requires runtime/kernel support)')
     print('make exercise EXERCISE=hello  Compile your editable exercise and check output')
+    print('make example EXAMPLE=values-1  Run a complete Part 1 example')
     print('make serve                 Preview the course on port 8000\n')
     for c in course['chapters']:
         print(f"{c['number']:2}. {c['id']}: {c['title']}")

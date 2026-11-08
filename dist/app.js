@@ -6,38 +6,40 @@
   if(!state.drafts||typeof state.drafts!=='object')state.drafts={};
   if(!state.inputs||typeof state.inputs!=='object')state.inputs={};
   if(!Array.isArray(state.completed))state.completed=[];
-  state.completed=state.completed.filter(id=>LESSONS.some(l=>l.id===id));
+  state.completed=state.completed.filter(id=>LESSONS.some(l=>l.id===id&&!l.isExample));
+  const PRACTICE=COURSE.chapters.flatMap(c=>c.labs).map(id=>LESSONS.find(l=>l.id===id&&!l.isExample));
   let selected=Math.max(0,LESSONS.findIndex(l=>l.id===state.selected));
   let worker,timer,busy=false,mode='run',runLesson,toastTimer,view='lab',currentRoute='';
   const assessments={hello:'Explain what main and printf each do.',loops:'Explain why the loop includes n and what happens for n = 0.',pointers:'Explain why temp must keep its own copy of the first value.',heap:'Output checks cannot verify ownership. Confirm that every successful allocation is freed exactly once, including error paths.',search:'Output checks cannot establish that you used binary search. Explain the sorted-input requirement and how every iteration shrinks the interval.',sort:'Output checks cannot establish insertion sort or its complexity. Explain the sorted-prefix invariant and why shifting can take quadratic time.',rows:'Explain the width limit and the zero terminator in the name field.',query:'Explain why find_row returns an index, how duplicates are detected, and what happens when the table is full.'};
   function save(){try{localStorage.setItem('c-foundry-v1',JSON.stringify(state));$('save-state').textContent='Saved on this device';}catch(_){$('save-state').textContent='Storage unavailable. Export your code to keep a copy.';}}
   function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4000);}
   function nav(){
-    $('drawer-progress').textContent=`${state.completed.length} of ${LESSONS.length} available exercises checked`;
-    $('drawer-nav').innerHTML='<p class="menu-label">Available practice</p>'+LESSONS.map((l,i)=>`<a class="lesson-link ${i===selected&&view==='lab'?'active':''}" href="#/lesson/${l.id}" ${i===selected&&view==='lab'?'aria-current="page"':''}>${state.completed.includes(l.id)?'✓ ':''}${escape(l.title)}</a>`).join('')+'<p class="menu-label">Complete syllabus</p>'+COURSE.parts.map((part,i)=>`<details><summary>Part ${i+1}: ${escape(part)}</summary>${COURSE.chapters.filter(c=>c.part===i).map(c=>`<a href="#/chapter/${c.id}">${c.number}. ${escape(c.title)}</a>`).join('')}</details>`).join('');
+    $('drawer-progress').textContent=`${state.completed.length} of ${PRACTICE.length} available exercises checked`;
+    $('drawer-nav').innerHTML='<p class="menu-label">Available practice</p>'+PRACTICE.map((l)=>`<a class="lesson-link ${l.id===LESSONS[selected].id&&view==='lab'?'active':''}" href="#/lesson/${l.id}" ${l.id===LESSONS[selected].id&&view==='lab'?'aria-current="page"':''}>${state.completed.includes(l.id)?'✓ ':''}${escape(l.title)}</a>`).join('')+'<p class="menu-label">Complete syllabus</p>'+COURSE.parts.map((part,i)=>`<details><summary>Part ${i+1}: ${escape(part)}</summary>${COURSE.chapters.filter(c=>c.part===i).map(c=>`<a href="#/chapter/${c.id}">${c.number}. ${escape(c.title)}</a>`).join('')}</details>`).join('');
   }
   function lines(){$('line-numbers').textContent=Array.from({length:$('editor').value.split('\n').length},(_,i)=>i+1).join('\n');$('line-numbers').scrollTop=$('editor').scrollTop;}
   function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===next||(b.dataset.view==='curriculum'&&['preview','complexity','setup'].includes(next));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});nav();}
   function select(index){
     selected=index;const l=LESSONS[index];state.selected=l.id;
-    const chapter=COURSE.chapters.find(c=>c.labs.includes(l.id));
-    $('lesson-number').textContent=`Practice · Chapter ${chapter.number}`;$('duration').textContent=l.time;
+    const chapter=COURSE.chapters.find(c=>c.id===l.chapterId||c.labs.includes(l.id));
+    $('lesson-number').textContent=`${l.isExample?'Worked example':'Practice'} · Chapter ${chapter.number}`;$('duration').textContent=l.time;
     $('lesson-title').textContent=l.title;$('lesson-concept').textContent=l.concept;
     $('lesson-body').innerHTML=l.body;$('lesson-detail').innerHTML=l.detail;$('lesson-task').innerHTML=l.task;$('lesson-hint').textContent=l.hint;
     $('sample-input').textContent=l.input||'(no input)';$('expected-output').textContent=l.tests[0].expected;
     $('lesson-status').textContent=state.completed.includes(l.id)?'✓ Output checked':'';
     $('editor').value=state.drafts[l.id]??l.code;$('stdin').value=state.inputs[l.id]??l.input;
     $('input-dot').textContent=$('stdin').value?'•':'';$('lesson-counter').innerHTML=`<a href="#/chapter/${chapter.id}">Chapter ${chapter.number}: ${escape(chapter.title)}</a>`;
-    $('previous-button').disabled=index===0;$('next-button').disabled=index===LESSONS.length-1;
-    $('assessment-note').textContent='These checks compare output. '+assessments[l.id];
+    updateExerciseNavigation();
+    $('assessment-note').textContent='These checks compare output. '+(l.assessment||assessments[l.id]);
     $('reference-code').textContent=l.solution;
     $('output').textContent='Run your program to see its output.';$('output').className='';$('test-results').textContent='Use Check output to run the practice cases.';$('test-count').textContent='';
-    window.lessonVisuals.show(l.id);document.querySelector('.hint').open=false;document.querySelector('.reference-solution').open=false;consoleTab('output');lines();save();showView('lab');
+    window.lessonVisuals.show(l.id);document.querySelector('.worked-example').hidden=!!l.isExample;document.querySelector('#lab-view .prediction').hidden=!!l.isExample;document.querySelector('.hint').open=false;document.querySelector('.reference-solution').open=false;consoleTab('output');lines();save();showView('lab');
   }
   function renderMap(){
-    $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)}</h2><ol start="${COURSE.chapters.find(c=>c.part===i).number}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}"><strong>${escape(c.title)}</strong><span>${c.topics.length} planned topics · ${courseExecution.label(c)}${c.labs.length?' · practice available':c.id==='big-o'?' · explorer available':' · preview'}</span></a></li>`).join('')}</ol></section>`).join('');
+    $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)}</h2><ol start="${COURSE.chapters.find(c=>c.part===i).number}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}"><strong>${escape(c.title)}</strong><span>${c.topics.length} ${c.status==='ready'?'lessons ready':'planned topics'} · ${courseExecution.label(c)}${c.labs.length?' · practice available':c.id==='big-o'?' · explorer available':' · preview'}</span></a></li>`).join('')}</ol></section>`).join('');
   }
   function preview(chapter,topic){
+    if(chapter.status==='ready'){$('preview-content').innerHTML=partOne.render(chapter,topic);showView('preview');return;}
     const prev=COURSE.chapters[chapter.number-2];const next=COURSE.chapters[chapter.number];
     const topicIndex=topic?chapter.topics.indexOf(topic):-1;
     const title=topic?topic.title:chapter.title;
@@ -65,7 +67,7 @@
   function notFound(){$('preview-content').innerHTML='<h1 tabindex="-1">Page not found</h1><p><a href="#/course">Return to the course map</a></p>';showView('preview');}
   function go(path,replace=false){if(busy){toast('Stop the program before leaving this lesson.');return;}history[replace?'replaceState':'pushState'](null,'','#'+path);renderRoute();}
   function consoleTab(tab){document.querySelectorAll('[data-console]').forEach(b=>b.classList.toggle('active',b.dataset.console===tab));['output','input','tests'].forEach(p=>$(p+'-pane').hidden=p!==tab);}
-  function setBusy(value){busy=value;$('run-button').disabled=value;$('check-button').disabled=value;$('stop-button').hidden=!value;$('editor').readOnly=value;$('reset-button').disabled=value;$('solution-button').disabled=value;$('previous-button').disabled=value||selected===0;$('next-button').disabled=value||selected===LESSONS.length-1;}
+  function setBusy(value){busy=value;$('run-button').disabled=value;$('check-button').disabled=value;$('stop-button').hidden=!value;$('editor').readOnly=value;$('reset-button').disabled=value;$('solution-button').disabled=value;updateExerciseNavigation();}
   function finish(){clearTimeout(timer);setBusy(false);$('engine-status').textContent='Browser compiler';}
   function stop(reason='Stopped. Your code and progress are saved.'){worker?.terminate();worker=null;finish();$('output').textContent=reason;consoleTab('output');}
   function getWorker() {
@@ -86,8 +88,8 @@
           $('test-results').innerHTML=results.map(r=>`<div class="test-row ${r.pass?'pass':'fail'}"><span>${r.pass?'✓':'×'}</span><span>${escape(r.name)}</span><span style="margin-left:auto">${r.pass?'PASSED':'TRY AGAIN'}</span>${r.pass?'':`<pre>Expected: ${escape(r.expected)}\nReceived: ${escape(r.actual||'(empty output)')}</pre>`}</div>`).join('');
           consoleTab('tests');
           if(passed===results.length) {
-            if(!state.completed.includes(runLesson.id))state.completed.push(runLesson.id);
-            save();nav();$('lesson-status').textContent='✓ Output checked';toast('Output checks passed. Review your approach with the note below the editor.');
+            if(!runLesson.isExample&&!state.completed.includes(runLesson.id))state.completed.push(runLesson.id);
+            save();nav();$('lesson-status').textContent=runLesson.isExample?'Example output checked':'✓ Output checked';toast('Output checks passed. Review your approach with the note below the editor.');
           }
         }
       } else if(data.type==='error') {
@@ -117,7 +119,10 @@
   document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view==='lab'?'/lesson/'+state.selected:'/course'));
   document.querySelectorAll('[data-console]').forEach(b=>b.onclick=()=>consoleTab(b.dataset.console));
   $('run-button').onclick=()=>run();$('check-button').onclick=()=>run(true);$('stop-button').onclick=()=>stop();
-  $('previous-button').onclick=()=>go('/lesson/'+LESSONS[Math.max(0,selected-1)].id);$('next-button').onclick=()=>go('/lesson/'+LESSONS[Math.min(LESSONS.length-1,selected+1)].id);
+  function practiceSequence(){return COURSE.chapters.flatMap(c=>c.labs).filter(id=>PRACTICE.some(l=>l.id===id));}
+  function updateExerciseNavigation(){const l=LESSONS[selected],sequence=practiceSequence(),i=sequence.indexOf(l.id);$('previous-button').disabled=busy||(!l.isExample&&i<=0);$('next-button').disabled=busy||(!l.isExample&&i===sequence.length-1);$('previous-button').textContent=l.isExample?'← Topic explanation':'← Previous exercise';$('next-button').textContent=l.isExample?'Chapter overview →':'Next exercise →';}
+  $('previous-button').onclick=()=>{const l=LESSONS[selected],seq=practiceSequence();go(l.isExample?'/chapter/'+l.chapterId+'/'+l.topicId:'/lesson/'+seq[Math.max(0,seq.indexOf(l.id)-1)]);};
+  $('next-button').onclick=()=>{const l=LESSONS[selected],seq=practiceSequence();go(l.isExample?'/chapter/'+l.chapterId:'/lesson/'+seq[Math.min(seq.length-1,seq.indexOf(l.id)+1)]);};
   $('reset-button').onclick=()=>{if(confirm('Restore starter code? Your current edits will be replaced.')){delete state.drafts[LESSONS[selected].id];delete state.inputs[LESSONS[selected].id];select(selected);toast('Starter code restored.');}};
   $('solution-button').onclick=()=>{if(confirm('Replace your code with the reference solution?')){$('editor').value=LESSONS[selected].solution;$('editor').dispatchEvent(new Event('input'));toast('Reference loaded. Compare it with your own approach.');}};
   $('download-button').onclick=()=>{const url=URL.createObjectURL(new Blob([$('editor').value],{type:'text/x-c'}));const a=document.createElement('a');a.href=url;a.download='main.c';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};

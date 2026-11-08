@@ -19,23 +19,28 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Source code, compilation, linking, and execution"
+          "title": "Source code, compilation, linking, and execution",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "main, statements, comments, and return values"
+          "title": "main, statements, comments, and return values",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Printing with printf"
+          "title": "Printing with printf",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Reading compiler errors"
+          "title": "Reading compiler errors",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "C, WebAssembly, and standard input/output"
+          "title": "C, WebAssembly, and standard input/output",
+          "status": "ready"
         }
       ],
       "project": "Print a greeting and explain how it reaches the console.",
@@ -47,7 +52,8 @@ window.COURSE = {
         "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/first-program",
-      "command": "make chapter CHAPTER=first-program"
+      "command": "make chapter CHAPTER=first-program",
+      "status": "ready"
     },
     {
       "id": "values",
@@ -57,33 +63,41 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Integers, floating-point numbers, characters, and Boolean values"
+          "title": "Integers, floating-point numbers, characters, and Boolean values",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Variables, initialization, and constants"
+          "title": "Variables, initialization, and constants",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Operators and precedence"
+          "title": "Operators and precedence",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Conversions, casts, and integer promotions"
+          "title": "Conversions, casts, and integer promotions",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Integer ranges, signed overflow, and unsigned arithmetic"
+          "title": "Integer ranges, signed overflow, and unsigned arithmetic",
+          "status": "ready"
         }
       ],
       "project": "Inspect numeric expressions and handle values at the limits of their types.",
-      "labs": [],
+      "labs": [
+        "numbers"
+      ],
       "execution": {
         "mode": "browser",
         "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/values",
-      "command": "make chapter CHAPTER=values"
+      "command": "make chapter CHAPTER=values",
+      "status": "ready"
     },
     {
       "id": "control-flow",
@@ -93,35 +107,41 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "if, else, and switch"
+          "title": "if, else, and switch",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Logical expressions and short-circuit evaluation"
+          "title": "Logical expressions and short-circuit evaluation",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "while, do, and for"
+          "title": "while, do, and for",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "break and continue"
+          "title": "break and continue",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Number guessing and input validation"
+          "title": "Number guessing and input validation",
+          "status": "ready"
         }
       ],
       "project": "Build a number-guessing program with validated input.",
       "labs": [
-        "loops"
+        "guess"
       ],
       "execution": {
         "mode": "browser",
         "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/control-flow",
-      "command": "make chapter CHAPTER=control-flow"
+      "command": "make chapter CHAPTER=control-flow",
+      "status": "ready"
     },
     {
       "id": "functions",
@@ -131,33 +151,42 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Parameters, return values, and prototypes"
+          "title": "Parameters, return values, and prototypes",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Passing arguments by value"
+          "title": "Passing arguments by value",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Scope, lifetime, and storage duration"
+          "title": "Scope, lifetime, and storage duration",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "Decomposing a problem into functions"
+          "title": "Decomposing a problem into functions",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Testing functions independently"
+          "title": "Testing functions independently",
+          "status": "ready"
         }
       ],
       "project": "Split a small program into functions with clear inputs and outputs.",
-      "labs": [],
+      "labs": [
+        "functions",
+        "loops"
+      ],
       "execution": {
         "mode": "browser",
         "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/functions",
-      "command": "make chapter CHAPTER=functions"
+      "command": "make chapter CHAPTER=functions",
+      "status": "ready"
     },
     {
       "id": "arrays-strings",
@@ -167,33 +196,41 @@ window.COURSE = {
       "topics": [
         {
           "id": "1",
-          "title": "Array indexing and bounds"
+          "title": "Array indexing and bounds",
+          "status": "ready"
         },
         {
           "id": "2",
-          "title": "Character arrays and zero termination"
+          "title": "Character arrays and zero termination",
+          "status": "ready"
         },
         {
           "id": "3",
-          "title": "Reading lines with fgets"
+          "title": "Reading lines with fgets",
+          "status": "ready"
         },
         {
           "id": "4",
-          "title": "String comparison, copying, and parsing"
+          "title": "String comparison, copying, and parsing",
+          "status": "ready"
         },
         {
           "id": "5",
-          "title": "Text statistics and word counting"
+          "title": "Text statistics and word counting",
+          "status": "ready"
         }
       ],
       "project": "Count words and characters without reading past array boundaries.",
-      "labs": [],
+      "labs": [
+        "textstats"
+      ],
       "execution": {
         "mode": "browser",
         "reason": "The planned core exercises fit the browser C runtime. Codespaces is optional."
       },
       "workspace": "native/chapters/arrays-strings",
-      "command": "make chapter CHAPTER=arrays-strings"
+      "command": "make chapter CHAPTER=arrays-strings",
+      "status": "ready"
     },
     {
       "id": "pointers",

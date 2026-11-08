@@ -1,6 +1,6 @@
 # C Foundry in Codespaces
 
-The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts, 44 chapters, and 211 topics have preview pages. Eight browser exercises and five native foundations are runnable. Full chapter lessons and graded advanced projects are still being developed.
+The web course is at https://snowch.github.io/c-foundry/#/course. The nine-part syllabus has 44 chapters and 211 topics. Part 1 now contains five authored chapters and 25 topic lessons; the remaining content is labeled as planned. Twelve browser exercises, 25 ungraded examples, and five native foundations are runnable.
 
 ## Start or reuse a workspace
 
@@ -19,7 +19,7 @@ make chapter CHAPTER=coordination
 make queue
 ```
 
-`make chapter` shows the chapter workspace README: planned topics, practice goal, execution needs, and available foundations. It does not claim the chapter’s advanced implementation is complete. All 44 workspace plans are in `native/chapters/`.
+`make chapter` shows the chapter workspace README: complete readings for Part 1, and planned topics, practice goals, execution needs, and available foundations for later parts. It does not claim the chapter’s advanced implementation is complete. All 44 chapter workspaces are in `native/chapters/`.
 
 ## Available native foundations
 
@@ -40,7 +40,7 @@ The queue uses predicate loops and drains before shutdown. TinyDB currently uses
 
 ## Existing exercises
 
-Starter files for the eight browser exercises are in `native/exercises/`. Edit a file, then run its output checks:
+Starter files for the twelve browser exercises are in `native/exercises/`. Edit a file, then run its output checks:
 
 ```sh
 make exercise EXERCISE=pointers
@@ -59,3 +59,14 @@ make check-native
 ```
 
 You can use this dev container locally too, or install the named tools yourself. Native demonstrations default to C17 with warnings as errors. Codespaces is an optional execution environment, not a requirement to read any part of the course.
+
+## Part 1 readings and examples
+
+```sh
+make chapter CHAPTER=arrays-strings
+make example EXAMPLE=arrays-strings-3
+make check-part1
+make check-part1 CC=clang
+```
+
+The complete Part 1 examples are in `native/examples/`. They are demonstrations, not unfinished exercise starters. Running or modifying one does not mark a browser practice exercise as completed.

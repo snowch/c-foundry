@@ -62,4 +62,4 @@ jobs:
         run: |
           docker run --rm --user "$(id -u):$(id -g)" \
             -v "$GITHUB_WORKSPACE:/workspaces/c-foundry" -w /workspaces/c-foundry \
-            c-foundry-native sh -c 'make check-native && make check-native-clang && make standards-matrix && make sanitize'
+            c-foundry-native sh -c 'make check-native && make check-native-clang && make standards-matrix && make sanitize && make check-part1 && make check-part1 CC=clang'

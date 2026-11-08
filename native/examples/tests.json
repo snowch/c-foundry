@@ -1,0 +1,177 @@
+{
+  "first-program-1": [
+    {
+      "name": "Source code, compilation, linking, and execution",
+      "input": "",
+      "expected": "Hello, C!"
+    }
+  ],
+  "first-program-2": [
+    {
+      "name": "main, statements, comments, and return values",
+      "input": "",
+      "expected": "First\nSecond"
+    }
+  ],
+  "first-program-3": [
+    {
+      "name": "Printing with printf",
+      "input": "",
+      "expected": "Count: 3\nProgress: 100%"
+    }
+  ],
+  "first-program-4": [
+    {
+      "name": "Reading compiler errors",
+      "input": "",
+      "expected": "Hello"
+    }
+  ],
+  "first-program-5": [
+    {
+      "name": "C, WebAssembly, and standard input/output",
+      "input": "",
+      "expected": "This program runs in the browser."
+    }
+  ],
+  "values-1": [
+    {
+      "name": "Integers, floating-point numbers, characters, and Boolean values",
+      "input": "",
+      "expected": "7 2.5 A 1"
+    }
+  ],
+  "values-2": [
+    {
+      "name": "Variables, initialization, and constants",
+      "input": "",
+      "expected": "21 4"
+    }
+  ],
+  "values-3": [
+    {
+      "name": "Operators and precedence",
+      "input": "",
+      "expected": "3 1\n14 20"
+    }
+  ],
+  "values-4": [
+    {
+      "name": "Conversions, casts, and integer promotions",
+      "input": "",
+      "expected": "3.5 3.0"
+    }
+  ],
+  "values-5": [
+    {
+      "name": "Integer ranges, signed overflow, and unsigned arithmetic",
+      "input": "",
+      "expected": "1"
+    }
+  ],
+  "control-flow-1": [
+    {
+      "name": "if, else, and switch",
+      "input": "",
+      "expected": "pass\nstop"
+    }
+  ],
+  "control-flow-2": [
+    {
+      "name": "Logical expressions and short-circuit evaluation",
+      "input": "",
+      "expected": "not evaluated or too small"
+    }
+  ],
+  "control-flow-3": [
+    {
+      "name": "while, do, and for",
+      "input": "",
+      "expected": "0\n1\n2\nremaining=0"
+    }
+  ],
+  "control-flow-4": [
+    {
+      "name": "break and continue",
+      "input": "",
+      "expected": "0\n1\n3\n4"
+    }
+  ],
+  "control-flow-5": [
+    {
+      "name": "Number guessing and input validation",
+      "input": "7",
+      "expected": "correct"
+    }
+  ],
+  "functions-1": [
+    {
+      "name": "Parameters, return values, and prototypes",
+      "input": "",
+      "expected": "42"
+    }
+  ],
+  "functions-2": [
+    {
+      "name": "Passing arguments by value",
+      "input": "",
+      "expected": "10 11"
+    }
+  ],
+  "functions-3": [
+    {
+      "name": "Scope, lifetime, and storage duration",
+      "input": "",
+      "expected": "1\n2"
+    }
+  ],
+  "functions-4": [
+    {
+      "name": "Decomposing a problem into functions",
+      "input": "",
+      "expected": "area=12 perimeter=14"
+    }
+  ],
+  "functions-5": [
+    {
+      "name": "Testing functions independently",
+      "input": "",
+      "expected": "checks passed"
+    }
+  ],
+  "arrays-strings-1": [
+    {
+      "name": "Array indexing and bounds",
+      "input": "",
+      "expected": "15"
+    }
+  ],
+  "arrays-strings-2": [
+    {
+      "name": "Character arrays and zero termination",
+      "input": "",
+      "expected": "length=3 capacity=4"
+    }
+  ],
+  "arrays-strings-3": [
+    {
+      "name": "Reading lines with fgets",
+      "input": "Ada Lovelace\n",
+      "expected": "Read: Ada Lovelace"
+    }
+  ],
+  "arrays-strings-4": [
+    {
+      "name": "String comparison, copying, and parsing",
+      "input": "",
+      "expected": "same=1 copy=Ada\nnumber=42"
+    }
+  ],
+  "arrays-strings-5": [
+    {
+      "name": "Text statistics and word counting",
+      "input": "C is fun\n",
+      "expected": "words=3"
+    }
+  ]
+}

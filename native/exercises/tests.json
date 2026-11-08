@@ -129,5 +129,113 @@
       "input": "insert 1 Ada\ninsert 2 Grace\nselect 2",
       "expected": "inserted\ninserted\n2 | Grace"
     }
+  ],
+  "numbers": [
+    {
+      "name": "Integer total and fractional share",
+      "input": "",
+      "expected": "28 3.5"
+    }
+  ],
+  "guess": [
+    {
+      "name": "Higher, lower, correct",
+      "input": "2 9 7",
+      "expected": "higher\nlower\ncorrect"
+    },
+    {
+      "name": "Correct first guess",
+      "input": "7 1",
+      "expected": "correct"
+    },
+    {
+      "name": "Range checks then correct",
+      "input": "0 11 7",
+      "expected": "out of range\nout of range\ncorrect"
+    },
+    {
+      "name": "End of input",
+      "input": "2",
+      "expected": "higher\nno more guesses"
+    },
+    {
+      "name": "No guesses",
+      "input": "",
+      "expected": "no more guesses"
+    },
+    {
+      "name": "Invalid token",
+      "input": "x",
+      "expected": "invalid input"
+    },
+    {
+      "name": "Range boundaries",
+      "input": "1 10 7",
+      "expected": "higher\nlower\ncorrect"
+    }
+  ],
+  "functions": [
+    {
+      "name": "Rectangle",
+      "input": "3 4",
+      "expected": "12 14"
+    },
+    {
+      "name": "Smallest dimensions",
+      "input": "1 1",
+      "expected": "1 4"
+    },
+    {
+      "name": "Largest dimensions",
+      "input": "100 100",
+      "expected": "10000 400"
+    },
+    {
+      "name": "Unequal sides",
+      "input": "2 9",
+      "expected": "18 22"
+    },
+    {
+      "name": "Invalid dimension",
+      "input": "0 4",
+      "expected": "invalid"
+    },
+    {
+      "name": "Missing input",
+      "input": "",
+      "expected": "invalid"
+    }
+  ],
+  "textstats": [
+    {
+      "name": "Three words",
+      "input": "C is fun\n",
+      "expected": "8 3"
+    },
+    {
+      "name": "Repeated and edge spaces",
+      "input": "  hi  C  \n",
+      "expected": "9 2"
+    },
+    {
+      "name": "Tab separators",
+      "input": "\tC\tlab\n",
+      "expected": "6 2"
+    },
+    {
+      "name": "Whitespace only",
+      "input": " \t \n",
+      "expected": "3 0"
+    },
+    {
+      "name": "Empty input",
+      "input": "",
+      "expected": "0 0"
+    },
+    {
+      "name": "Line without final newline",
+      "input": "abc",
+      "expected": "3 1"
+    }
   ]
 }

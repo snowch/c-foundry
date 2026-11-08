@@ -190,3 +190,14 @@ dialog::backdrop { background:#17241c88; }
 .execution-panel .codespaces-cost { font-size:14px; color:var(--muted); }
 #setup-view h2 { margin-top:28px; }
 #setup-view pre { background:#edf1e5; padding:14px; }
+
+.topic-content>p { max-width:72ch; }
+.topic-content h2 { margin-top:28px; }
+.topic-content .worked-example h2 { margin-top:0; }
+.topic-content .worked-example p { font-size:17px; }
+.topic-content .worked-example pre { padding:12px; background:#fff; border:1px solid var(--line); border-radius:4px; }
+.example-output-heading { margin-top:18px; }
+.example-walkthrough { margin-top:16px; }
+.chapter-practice { margin:24px 0; padding:18px; background:var(--panel); border-radius:5px; }
+.topic-list li { margin-block:10px; }
+#topic-feedback { color:#365e36; margin-top:12px; }
