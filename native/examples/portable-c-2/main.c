@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+_Static_assert(CHAR_BIT == 8, "This file format uses octets");
+
 enum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };
 void put32(unsigned char *out, uint32_t value) {
   for (unsigned i = 0; i < 4; ++i)

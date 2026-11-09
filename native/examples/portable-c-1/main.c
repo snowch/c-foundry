@@ -1,19 +1,13 @@
-#define _POSIX_C_SOURCE 200809L
-#include <limits.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 
 int main(void) {
-  struct timespec a, b;
-  if (clock_gettime(CLOCK_MONOTONIC, &a) || clock_gettime(CLOCK_MONOTONIC, &b))
-    return 1;
-  printf("clock_read=1 ordered=%d\n",
-         b.tv_sec > a.tv_sec ||
-             (b.tv_sec == a.tv_sec && b.tv_nsec >= a.tv_nsec));
-  return 0;
+    FILE *file = tmpfile();
+    if (!file) return 1;
+    int ok = fputs("portable\n", file) >= 0 && fflush(file) == 0 && fseek(file, 0, SEEK_SET) == 0;
+    char line[32];
+    if (ok) ok = fgets(line, sizeof line, file) != NULL;
+    if (fclose(file) != 0) ok = 0;
+    if (!ok) return 1;
+    printf("%s", line);
+    return 0;
 }

@@ -11,6 +11,6 @@ for(const [chapter,topic,lab,next] of [['files-bytes','7','basics','big-o'],['sh
  $('input[name="topic-check"][value="'+w.authoredLessons.content[chapter].topics[topic].answer+'"]').click();$('[data-topic-check]').click();assert.match($('#topic-feedback').textContent,/Correct/);
  assert(fs.readFileSync('native/debugging/'+lab+'/README.md','utf8').includes('make debug-check LAB='+lab));assert(fs.existsSync('native/debugging/'+lab+'/.reference/main.c'));assert(fs.readFileSync('native/chapters/'+chapter+'/README.md','utf8').includes('make debug-gdb LAB='+lab));
 }
-go('/chapter/files-bytes/7');assert.match($('#preview-content .worked-example h2').textContent,/Reproduce the original failure/);assert.match($('.original-output').textContent,/total=20/);go('/chapter/ship/8');assert.match($('.page-navigation').textContent,/How C has evolved/);assert.equal(w.lessonCompletion.total().available,220);
+go('/chapter/files-bytes/7');assert.match($('#preview-content .worked-example h2').textContent,/Reproduce the original failure/);assert.match($('.original-output').textContent,/total=20/);go('/chapter/ship/8');assert.match($('.page-navigation').textContent,/How C has evolved/);assert.equal(w.lessonCompletion.total().available,226);
 assert(fs.existsSync('native/debugging/basics/main.c'));assert(fs.existsSync('native/debugging/tinydb/main.c'));
 console.log('PASS optional GDB lesson placement, native commands/source guides, skip links, editable/reference separation, questions and TOC completion');dom.window.close();

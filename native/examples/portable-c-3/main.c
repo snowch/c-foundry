@@ -1,19 +1,17 @@
-#include <limits.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#if defined(__STDC_NO_ATOMICS__)
-#error "This example requires standard atomics"
+#ifndef CF_HAVE_MONOTONIC
+#define CF_HAVE_MONOTONIC 0
 #endif
-#include <stdatomic.h>
+#if CF_HAVE_MONOTONIC
+#define _POSIX_C_SOURCE 200809L
+#include <time.h>
+#endif
+#include <stdio.h>
 
 int main(void) {
-  atomic_uint value;
-  atomic_init(&value, 0);
-  atomic_fetch_add(&value, 1);
-  printf("atomic_probe=%u\n", atomic_load(&value));
-  return 0;
+#if CF_HAVE_MONOTONIC
+    struct timespec now;
+    if (clock_gettime(CLOCK_MONOTONIC, &now) != 0) return 1;
+#endif
+    printf("monotonic_configured=%d\n", CF_HAVE_MONOTONIC);
+    return 0;
 }

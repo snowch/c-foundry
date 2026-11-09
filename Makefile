@@ -67,6 +67,7 @@ serve:
 
 test:
 	npm test
+	$(MAKE) check-portability
 	$(MAKE) check-debugging
 	$(MAKE) check-cli
 	$(MAKE) check-native
@@ -100,3 +101,7 @@ debug-check:
 
 check-debugging:
 	python3 tools/check_debugging.py '$(CC)'
+
+.PHONY: check-portability
+check-portability:
+	python3 tools/check_portability.py --compiler '$(CC)' $(if $(filter 1,$(SANITIZE)),--sanitize,)

@@ -6,7 +6,7 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 Sanitizers observe executed behavior and catch selected invalid operations. Combine them with strict builds, input validation, and independent expectations.
 
-The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. Run with SANITIZE=1 to add AddressSanitizer and UndefinedBehaviorSanitizer in native builds. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support.
+The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. Run with SANITIZE=1 to add AddressSanitizer and UndefinedBehaviorSanitizer in native builds. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support. A clean sanitizer run does not prove encoding compatibility, correct row identity, filesystem case behavior, or safe replacement of an existing file. Keep exact-byte, invalid-input, and failure-preservation assertions in the portability suite. The audit adapter deliberately creates new files exclusively; it does not claim portable atomic replacement.
 
 ### main.c
 

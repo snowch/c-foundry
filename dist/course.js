@@ -6,7 +6,7 @@ window.COURSE = {
     "Build data structures in C",
     "Build TinyDB",
     "Make the database faster and more reliable",
-    "C standards and portable systems programming",
+    "Writing portable C",
     "Concurrency in C",
     "Advanced TinyDB"
   ],
@@ -1502,7 +1502,7 @@ window.COURSE = {
     },
     {
       "id": "portable-c",
-      "title": "Writing portable C",
+      "title": "Portable files, text, and platform interfaces",
       "part": 6,
       "number": 33,
       "topics": [
@@ -1523,16 +1523,41 @@ window.COURSE = {
         },
         {
           "id": "4",
-          "title": "Native platforms versus WebAssembly/WASI",
+          "title": "A portable core and explicit host adapters",
+          "status": "ready"
+        },
+        {
+          "id": "5",
+          "title": "Text and binary streams, LF and CRLF",
+          "status": "ready"
+        },
+        {
+          "id": "6",
+          "title": "Paths, filenames, case, and bounded construction",
+          "status": "ready"
+        },
+        {
+          "id": "7",
+          "title": "Encodings, locale, and safe byte classification",
+          "status": "ready"
+        },
+        {
+          "id": "8",
+          "title": "Bounded records and reliable numeric parsing",
+          "status": "ready"
+        },
+        {
+          "id": "9",
+          "title": "Stream errors, EOF, and saved positions",
           "status": "ready"
         }
       ],
-      "project": "Compare GCC and Clang builds and inspect platform-dependent properties.",
+      "project": "Build portable file and text interfaces, then test their contracts across operating systems.",
       "labs": [],
       "nativeDemo": "standards",
       "execution": {
         "mode": "codespaces",
-        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+        "reason": "Run these C17 examples in Codespaces or locally; the portability matrix also builds them on Linux, macOS, and Windows."
       },
       "workspace": "native/chapters/portable-c",
       "command": "make chapter CHAPTER=portable-c",
@@ -1540,7 +1565,7 @@ window.COURSE = {
     },
     {
       "id": "hardening-tinydb",
-      "title": "Hardening TinyDB",
+      "title": "TinyDB portability audit",
       "part": 6,
       "number": 34,
       "topics": [
@@ -1563,14 +1588,19 @@ window.COURSE = {
           "id": "4",
           "title": "Sanitizers and portability checks",
           "status": "ready"
+        },
+        {
+          "id": "5",
+          "title": "Audit and exchange TinyDB files across platforms",
+          "status": "ready"
         }
       ],
-      "project": "Run the TinyDB baseline under stricter compiler and sanitizer checks.",
+      "project": "Audit TinyDB assumptions, separate its codec from file access, and exchange validated database files across Linux, macOS, and Windows.",
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {
         "mode": "codespaces",
-        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+        "reason": "Use the checked C17 audit target and cross-platform Actions matrix; native filesystem publication and concurrency need separate adapters."
       },
       "workspace": "native/chapters/hardening-tinydb",
       "command": "make chapter CHAPTER=hardening-tinydb",

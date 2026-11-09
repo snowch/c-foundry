@@ -6,7 +6,7 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 An assumption audit checks where input sizes, arithmetic ranges, alignment, and lifetimes cross API boundaries.
 
-For an array allocation, validate count≤SIZE_MAX/element_size before multiplication. Also define a zero-element policy and who owns the result. The fixture rejects an impossible int-array size without attempting memory exhaustion. Similar checks belong in page offsets, slot lengths, result buffers, and log record counts.
+For an array allocation, validate count≤SIZE_MAX/element_size before multiplication. Also define a zero-element policy and who owns the result. The fixture rejects an impossible int-array size without attempting memory exhaustion. Similar checks belong in page offsets, slot lengths, result buffers, and log record counts. Include sizeof(long), size_t and printf formats, char signedness, execution character set, eight-bit-byte requirements, optional exact-width types, and alignment in the audit. Record each as guaranteed by C17, required of supported targets, validated at an input boundary, or delegated to a host adapter. A compiler accepting the source does not discharge the remaining assumptions.
 
 ### main.c
 

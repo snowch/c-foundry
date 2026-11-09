@@ -21,7 +21,7 @@ for(const chapter of context.COURSE.chapters.filter(c=>c.status==='ready')){
  }
  if(content.practice){markdown+=`## Chapter practice\n\nEdit \`native/exercises/${content.practice}.c\`, then run:\n\n\`\`\`sh\nmake exercise EXERCISE=${content.practice}\n\`\`\`\n\n`;}
  else if(content.nativePractice){markdown+=`## Chapter practice\n\nComplete the TODOs in \`native/projects/${content.nativePractice.id}\`. Initial failure is expected; see the project README.\n\n\`\`\`sh\nmake project PROJECT=${content.nativePractice.id}\n\`\`\`\n\n`;}
- if(content.practicePlan){const p=content.practicePlan;markdown+=`## Build it yourself\n\n${p.goal}\n\n`+p.tasks.map((x,i)=>`${i+1}. ${x}`).join('\n')+'\n\n### Check your work\n\n'+p.checks.map(x=>'- '+x).join('\n')+`\n\nBaseline command (checks original output, not every extension):\n\n\`\`\`sh\nmake example EXAMPLE=${p.example}\n\`\`\`\n\n`;}
+ if(content.practicePlan){const p=content.practicePlan;markdown+=`## Build it yourself\n\n${p.goal}\n\n`+p.tasks.map((x,i)=>`${i+1}. ${x}`).join('\n')+'\n\n### Check your work\n\n'+p.checks.map(x=>'- '+x).join('\n')+`\n\n${p.command?'Audit command (checks the documented portable target, not every extension)':'Baseline command (checks original output, not every extension)'}:\n\n\`\`\`sh\n${p.command||`make example EXAMPLE=${p.example}`}\n\`\`\`\n\n`;}
  markdown+=`Chapter workspace command: \`${chapter.command}\`.\n\nGenerated from dist/part${chapter.part+1}.js by tools/sync_readings.cjs. Full reading: https://snowch.github.io/c-foundry/#/chapter/${chapter.id}\n`;
  fs.writeFileSync(path.join(chapter.workspace,'README.md'),markdown);
 }

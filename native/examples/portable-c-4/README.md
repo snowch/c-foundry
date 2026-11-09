@@ -1,56 +1,89 @@
-# Native platforms versus WebAssembly/WASI
+# A portable core and explicit host adapters
 
 Complete native example, ready to edit and run in Codespaces or locally.
 
-## 33.4 Native platforms versus WebAssembly/WASI
+## 33.4 A portable core and explicit host adapters
 
-WebAssembly/WASI is a host contract, not an emulation of every native operating-system facility. Algorithmic C can be portable while system integrations differ.
+Separate portable data operations from the host that stores their bytes. A small interface makes dependencies and unsupported guarantees visible.
 
-This native example reports its compilation target using a target macro. The course’s Wasm toolchain provides a limited older WASI runtime, not native pthreads, sockets, arbitrary host filesystem access, or sanitizer runtimes. Keep portable encoders and data structures separate from adapters for persistence, threads, and process facilities.
+The core below emits four specified bytes through a ByteSink interface. It knows nothing about FILE, paths, file descriptors, native handles, or durability. The ISO C adapter checks fwrite, while main checks flush, repositioning, the read, and close. A future POSIX or Win32 adapter can implement a stronger publication contract without leaking those APIs into the codec. Name the guarantee carefully: buffered stream acceptance is not a claim that a record survives power loss.
 
 ### main.c
 
 ```c
-#include <limits.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
+#include "sink.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 int main(void) {
-#if defined(__wasi__)
-  puts("target=WASI host_adapter_required");
-#else
-  puts("target=native host_adapter_required");
+    FILE *file = tmpfile();
+    if (!file) return 1;
+    ByteSink sink = {file_write, file};
+    int ok = emit_header(&sink) && fflush(file) == 0 && fseek(file, 0, SEEK_SET) == 0;
+    unsigned char bytes[4];
+    size_t n = ok ? fread(bytes, 1, sizeof bytes, file) : 0;
+    if (fclose(file) != 0) ok = 0;
+    if (!ok || n != sizeof bytes || bytes[0] != 0x54 || bytes[3] != 0x31) return 1;
+    printf("portable_bytes=%zu\n", n);
+    return 0;
+}
+```
+
+### sink.h
+
+```c
+#ifndef CF_SINK_H
+#define CF_SINK_H
+#include <stdbool.h>
+#include <stddef.h>
+typedef struct { bool (*write)(void *, const unsigned char *, size_t); void *context; } ByteSink;
+bool emit_header(const ByteSink *sink);
+bool file_write(void *context, const unsigned char *bytes, size_t size);
 #endif
-  return 0;
+```
+
+### core.c
+
+```c
+#include "sink.h"
+bool emit_header(const ByteSink *sink) {
+    static const unsigned char bytes[] = {0x54, 0x44, 0x42, 0x31};
+    return sink->write(sink->context, bytes, sizeof bytes);
+}
+```
+
+### host.c
+
+```c
+#include "sink.h"
+#include <stdio.h>
+bool file_write(void *context, const unsigned char *bytes, size_t size) {
+    FILE *file = context;
+    return fwrite(bytes, 1, size, file) == size;
 }
 ```
 
 Output:
 
 ```text
-target=native host_adapter_required
+portable_bytes=4
 ```
 
-Codespaces executes the native path. Merely changing the target triple cannot supply a missing host integration.
+The same core can send bytes to another implementation of the callback. This fixture exercises a real temporary binary stream and confirms its contents without putting stdio in the core module.
 
-**Watch for:** Browser reading availability and browser execution support are separate product capabilities.
+**Watch for:** An adapter should report its actual capabilities. A function named durable_save implemented only with fflush would hide a portability and correctness defect.
 
-**Check:** Can every native POSIX program run unchanged in the current page runner?
+**Check:** Which component should decide how a file is replaced on a particular OS?
 
-1. Yes
-2. No
+1. The platform adapter with a documented replacement contract
+2. The byte encoder by assuming rename has identical semantics everywhere
 
 <details><summary>Answer</summary>
 
-No. The runner exposes a restricted host API and toolchain.
+The platform adapter with a documented replacement contract. Replacement semantics belong to the filesystem boundary; portable byte serialization can remain independent.
 
 </details>
 
-**Try:** List every OS dependency in your assembled database and place each behind an explicit platform adapter.
+**Try:** Add a rejecting ByteSink and verify that emit_header reports failure. Then sketch separate POSIX and Win32 publication adapters without claiming they offer identical crash guarantees.
 
 Run from the repository root:
 

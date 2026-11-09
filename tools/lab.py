@@ -64,10 +64,11 @@ else:
     print('make exercise EXERCISE=hello  Compile your editable exercise and check output')
     print('make example EXAMPLE=values-1  Run a complete authored example')
     print('make project PROJECT=record-store  Run your Part 2 project checks')
-    print('make check-examples        Compile and run all 220 authored programs')
+    print('make check-examples        Compile and run all 226 authored programs')
     print('make debug-lab LAB=basics   Optional GDB investigation; use LAB=tinydb for repair')
     print('make debug-gdb LAB=basics   Launch the guided GDB session')
     print('make debug-check LAB=basics  Run student regression checks (initially fail)')
+    print('make check-portability     Native C17 fixtures across GCC/Clang/MSVC hosts')
     print('make serve                 Preview the course on port 8000\n')
     for c in course['chapters']:
         print(f"{c['number']:2}. {c['id']}: {c['title']}")

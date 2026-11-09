@@ -6,7 +6,7 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 Version checks are part of the decoder’s public contract. Unknown formats must not partially replace existing data.
 
-The fixture writes a header with an unsupported version and confirms rejection. A compatibility suite should include known valid older fixtures, unsupported future versions, reserved-bit violations, and size mismatches. A migration must preserve a verified old file until the new file is safely published under the target platform’s rules.
+The fixture writes a header with an unsupported version and confirms rejection. A compatibility suite should include known valid older fixtures, unsupported future versions, reserved-bit violations, and size mismatches. A migration must preserve a verified old file until the new file is safely published under the target platform’s rules. The audit target also requires canonical zero padding and valid UTF-8 names. Its eight-row limit is explicit; the CLI supports 128, so files outside the shared subset are rejected rather than silently truncated. Exact fixture bytes catch a shared encoder/decoder mistake that a round trip alone misses.
 
 ### main.c
 

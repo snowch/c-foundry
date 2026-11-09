@@ -1,6 +1,6 @@
 # Chapter 31: How C has evolved
 
-Part 7: C standards and portable systems programming. Teaching baseline: C17.
+Part 7: Writing portable C. Teaching baseline: C17.
 
 Choose a language baseline and verify features with the actual compiler instead of assuming that a modern compiler name implies complete conformance.
 

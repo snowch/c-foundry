@@ -4,56 +4,50 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 ## 33.1 Standard library versus operating-system APIs
 
-The C standard library and an operating-system API are different portability layers. POSIX facilities require a POSIX target and their own contracts.
+Know which contract an API belongs to before calling it. Portable C is a language-and-library baseline, not a promise that every operating system offers the same services.
 
-This native example uses clock_gettime with CLOCK_MONOTONIC, exposed through the POSIX feature-test macro before any headers. It checks both calls and compares timestamps without claiming a measurable workload duration. A different host needs an adapter or another supported API; ISO C alone does not require this exact interface.
+ISO C includes streams such as fopen/fread, string processing, allocation, time interfaces, and the limited signal() facility. POSIX adds facilities such as fork, sigaction, and clock_gettime; Win32 has different process, handle, and synchronization interfaces. ioctl requests are device/platform specific, /proc is a host-specific pseudo-filesystem, and shared-memory APIs and guarantees depend on the platform. Keep parsing and byte codecs independent of those services. This example uses only ISO C streams and checks each operation; tmpfile can still fail because a hosted library operation can depend on permissions or resources.
 
 ### main.c
 
 ```c
-#define _POSIX_C_SOURCE 200809L
-#include <limits.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 
 int main(void) {
-  struct timespec a, b;
-  if (clock_gettime(CLOCK_MONOTONIC, &a) || clock_gettime(CLOCK_MONOTONIC, &b))
-    return 1;
-  printf("clock_read=1 ordered=%d\n",
-         b.tv_sec > a.tv_sec ||
-             (b.tv_sec == a.tv_sec && b.tv_nsec >= a.tv_nsec));
-  return 0;
+    FILE *file = tmpfile();
+    if (!file) return 1;
+    int ok = fputs("portable\n", file) >= 0 && fflush(file) == 0 && fseek(file, 0, SEEK_SET) == 0;
+    char line[32];
+    if (ok) ok = fgets(line, sizeof line, file) != NULL;
+    if (fclose(file) != 0) ok = 0;
+    if (!ok) return 1;
+    printf("%s", line);
+    return 0;
 }
 ```
 
 Output:
 
 ```text
-clock_read=1 ordered=1
+portable
 ```
 
-Both reads succeed on the Codespaces Linux target. Two adjacent observations are used only for an ordering property, not a performance claim.
+The temporary stream receives one line and is repositioned before reading. Every path after a successful open closes the stream. The language interface is portable; successful access is still something the program checks.
 
-**Watch for:** A POSIX feature macro requests declarations; it does not make the API exist on every platform.
+**Watch for:** ISO C signal() exists, but POSIX signal masks, delivery rules, process groups, and signal-safe operations are additional contracts. Do not label all signal handling either universally available or universally Linux-only.
 
-**Check:** Does ISO C require CLOCK_MONOTONIC?
+**Check:** Which dependency belongs outside a portable parser?
 
-1. No
-2. Yes
+1. An explicit byte buffer and its length
+2. Reading Linux /proc to discover process state
 
 <details><summary>Answer</summary>
 
-No. It belongs to a host API with a narrower platform contract.
+Reading Linux /proc to discover process state. The parser can operate on supplied bytes without depending on a particular host filesystem layout.
 
 </details>
 
-**Try:** Define a small clock abstraction and test its Linux implementation separately from algorithmic counters.
+**Try:** Inventory the APIs in your TinyDB build. Label each ISO C, POSIX, Win32, or another target-specific contract, and identify its failure policy.
 
 Run from the repository root:
 

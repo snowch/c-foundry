@@ -1,6 +1,6 @@
 # Chapter 32: What C guarantees
 
-Part 7: C standards and portable systems programming. Teaching baseline: C17.
+Part 7: Writing portable C. Teaching baseline: C17.
 
 Audit C’s behavior and numeric boundaries: conversions, checked arithmetic, exceptional integer operations, and finite floating-point calculations.
 

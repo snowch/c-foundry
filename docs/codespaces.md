@@ -1,6 +1,6 @@
 # C Foundry in Codespaces
 
-The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 220 topic lessons. There are 139 inline browser examples, 81 native examples, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
+The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 226 topic lessons. There are 139 inline browser examples, 87 native examples, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
 
 ## Start or reuse a workspace
 
@@ -114,7 +114,7 @@ make check-structures
 make check-structures SANITIZE=1
 ```
 
-All 220 topic lessons can be explicitly marked done in the web course. Those marks remain in that browser’s storage, separately from example results and native project work.
+All 226 topic lessons can be explicitly marked done in the web course. Those marks remain in that browser’s storage, separately from example results and native project work.
 
 ## Retain and download program files
 
@@ -194,3 +194,23 @@ make debug-check LAB=tinydb
 Edit `native/debugging/tinydb/main.c`, a deliberately broken, frozen copy of the CLI. Each guided launch gets a newly seeded database under `.build/debugging/tinydb/session-*`; existing files are not overwritten. The checks verify row identity, survivor order, and saved-file reopening. Source references are separate under `.reference/`; `REFERENCE=1` checks those, not your changes. The real browser TinyDB remains independent.
 
 These are native GDB sessions; typing `gdb` into the browser command workspace does not start one. If a custom container blocks tracing child processes, use the supplied Codespaces container or local Linux with debugging permitted. Native ASan/UBSan remain separate tools and do not generally detect these logical wrong-row bugs.
+
+## Writing portable C and the TinyDB audit
+
+[Part 7](https://snowch.github.io/c-foundry/#/chapter/portable-c/1) covers ISO C versus host APIs, fixed-width encodings, capability probes, adapters, binary/text modes and line endings, filename policy, locale and UTF-8, bounded parsing, and stream errors/positions. Codespaces provides Linux; comparing GCC and Clang there is useful compiler evidence but is not a Windows or macOS test.
+
+```sh
+make check-portability
+make check-portability CC=clang
+make check-portability SANITIZE=1
+```
+
+For local Windows, use an MSVC developer terminal and Python 3:
+
+```powershell
+python tools/check_portability.py --compiler cl
+```
+
+The final [TinyDB audit](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/5) includes a complete small codec and file adapter in `native/portability/`. Its README lists the exact supported widths, encoding, capacity, filename, and creation contracts, and the larger CLI's remaining replacement, path, synchronization, and concurrency assumptions. It tests new-file creation rather than claiming portable replacement of an existing database.
+
+Actions builds the same target on Linux with GCC/Clang, macOS with Clang, and Windows with MSVC. Each host produces database artifacts; every consumer host validates and copies all producer files byte-for-byte before Pages deployment. Read the reports in Actions instead of inferring cross-platform support from a successful Codespaces run. The audited eight-row file subset is distinct from the CLI's 128-row capacity and from later POSIX/Linux-specific recovery examples.

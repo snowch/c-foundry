@@ -1400,7 +1400,7 @@
     {
       "name": "Standard library versus operating-system APIs",
       "input": "",
-      "expected": "clock_read=1 ordered=1",
+      "expected": "portable",
       "sources": [
         "portable-c-1/main.c"
       ]
@@ -1420,7 +1420,7 @@
     {
       "name": "Feature detection and conditional compilation",
       "input": "",
-      "expected": "atomic_probe=1",
+      "expected": "monotonic_configured=0",
       "sources": [
         "portable-c-3/main.c"
       ]
@@ -1428,11 +1428,63 @@
   ],
   "portable-c-4": [
     {
-      "name": "Native platforms versus WebAssembly/WASI",
+      "name": "A portable core and explicit host adapters",
       "input": "",
-      "expected": "target=native host_adapter_required",
+      "expected": "portable_bytes=4",
       "sources": [
-        "portable-c-4/main.c"
+        "portable-c-4/main.c",
+        "portable-c-4/core.c",
+        "portable-c-4/host.c"
+      ]
+    }
+  ],
+  "portable-c-5": [
+    {
+      "name": "Text and binary streams, LF and CRLF",
+      "input": "",
+      "expected": "lf=3 crlf=3 equal=1 lone_cr=4",
+      "sources": [
+        "portable-c-5/main.c"
+      ]
+    }
+  ],
+  "portable-c-6": [
+    {
+      "name": "Paths, filenames, case, and bounded construction",
+      "input": "",
+      "expected": "path=data/people.tdb truncated_rejected=1 names_differ=1",
+      "sources": [
+        "portable-c-6/main.c"
+      ]
+    }
+  ],
+  "portable-c-7": [
+    {
+      "name": "Encodings, locale, and safe byte classification",
+      "input": "",
+      "expected": "utf8_bytes=6 ascii_letters=4",
+      "sources": [
+        "portable-c-7/main.c"
+      ]
+    }
+  ],
+  "portable-c-8": [
+    {
+      "name": "Bounded records and reliable numeric parsing",
+      "input": "",
+      "expected": "maximum=1 value=4294967295\noverflow_rejected=1 retained=7 sign_rejected=1",
+      "sources": [
+        "portable-c-8/main.c"
+      ]
+    }
+  ],
+  "portable-c-9": [
+    {
+      "name": "Stream errors, EOF, and saved positions",
+      "input": "",
+      "expected": "revisited=1 clean_eof=1",
+      "sources": [
+        "portable-c-9/main.c"
       ]
     }
   ],
@@ -1473,6 +1525,18 @@
       "expected": "short_rejected=1 output_preserved=1",
       "sources": [
         "hardening-tinydb-4/main.c"
+      ]
+    }
+  ],
+  "hardening-tinydb-5": [
+    {
+      "name": "Audit and exchange TinyDB files across platforms",
+      "input": "",
+      "expected": "rows=2 bytes=88",
+      "sources": [
+        "hardening-tinydb-5/main.c",
+        "hardening-tinydb-5/codec.c",
+        "hardening-tinydb-5/files.c"
       ]
     }
   ],
