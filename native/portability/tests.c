@@ -17,7 +17,8 @@ int main(void) {
     memcpy(before, bytes, sizeof bytes);
     live.count = 2; live.rows[1] = live.rows[0]; size = 123;
     CHECK(!port_encode(&live, bytes, sizeof bytes, &size)); CHECK(size == 123 && memcmp(bytes, before, sizeof bytes) == 0);
-    live.rows[1].id = 10; live.rows[1].name[0] = (char)0xc0; live.rows[1].name[1] = (char)0x80; live.rows[1].name[2] = 0;
+    live.rows[1].id = 10; unsigned char *invalid_name = (unsigned char *)live.rows[1].name;
+    invalid_name[0] = 0xc0; invalid_name[1] = 0x80; live.rows[1].name[2] = 0;
     CHECK(!port_encode(&live, bytes, sizeof bytes, &size));
     CHECK(memcmp(bytes, before, sizeof bytes) == 0);
     CHECK(port_name("people-1.tdb")); CHECK(!port_name("../people.tdb")); CHECK(!port_name("CON.txt"));
