@@ -289,3 +289,5 @@ dialog::backdrop { background:#17241c88; }
 
 .debugging-lab{margin:28px 0;padding:0 0 0 20px;border-left:3px solid var(--line)}.debugging-lab>.execution-panel{margin:20px 0}.debugging-steps{padding-left:24px}.debugging-steps li{margin:24px 0}.debugging-steps h4{font-size:1.05em;margin-bottom:8px}.debugging-steps pre{max-width:100%;overflow:auto;white-space:pre}.debugging-lab details{margin:20px 0}
 @media(max-width:520px){.debugging-lab{padding-left:12px}.debugging-steps{padding-left:20px}}
+
+.copyright-notice{padding:1.25rem clamp(1rem,4vw,4rem);font-size:0.875rem;line-height:1.6;border-top:1px solid currentColor}.copyright-notice a{color:inherit}
