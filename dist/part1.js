@@ -9,20 +9,20 @@ window.PART_ONE = {
     "practice": "hello",
     "topics": {
       "1": {
-        "intro": "A C source file is a description of a program. The computer cannot run that text directly: a compiler translates it, and a linker combines the translated code with the support it needs.",
-        "explanation": "In this course the file is called <code>main.c</code>. Preprocessing handles directives such as <code>#include</code>. Compilation checks the language rules and produces object code; linking resolves references such as a call to <code>printf</code>. On a Linux system, the result is a native executable. In this page, Clang and the linker produce a WebAssembly module that the browser can execute. These stages explain why a successful edit is not yet a running program.",
+        "intro": "Your main.c file is text. Before it can run, tools prepare it, translate it, and connect it to library code.",
+        "explanation": "<strong>Preprocessing</strong> handles lines such as <code>#include &lt;stdio.h&gt;</code>, which brings in descriptions of available functions. The <strong>compiler</strong> checks your C and translates it into an object file, one piece of the program. The <strong>linker</strong> connects that piece to library code such as <code>printf</code>. Together, these steps <strong>build</strong> the program. Here the result is <strong>WebAssembly</strong>: a binary program format the browser can run. A local build can instead produce an executable for your computer. <strong>Run code</strong> builds and runs the program for you.",
         "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello, C!\\n\");\n    return 0;\n}\n",
         "expected": "Hello, C!",
         "walkthrough": "The header declares printf so the compiler can check its use. The call asks the runtime to write a line. The final return ends main successfully. The browser lab performs the compile, link, and run stages when you choose Run code; you do not need to install a compiler for Part 1.",
         "pitfall": "A compiler error prevents the new program from running. A runtime error happens after compilation and linking have succeeded. Treat these as different points in the process.",
-        "question": "Which stage resolves a reference to a library function such as printf?",
+        "question": "Which stage connects your program to the library code for printf?",
         "choices": [
           "Editing",
           "Linking",
           "Running"
         ],
         "answer": 1,
-        "why": "The linker connects translated code with the functions and support it references.",
+        "why": "The linker connects the translated program with the library code it needs.",
         "tryit": "Change the greeting, run the program, and check that the console reflects the new text.",
         "input": ""
       },

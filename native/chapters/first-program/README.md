@@ -12,9 +12,9 @@ Write, run, and diagnose a complete C program. You will learn which parts of the
 
 ## 1.1 Source code, compilation, linking, and execution
 
-A C source file is a description of a program. The computer cannot run that text directly: a compiler translates it, and a linker combines the translated code with the support it needs.
+Your main.c file is text. Before it can run, tools prepare it, translate it, and connect it to library code.
 
-In this course the file is called `main.c`. Preprocessing handles directives such as `#include`. Compilation checks the language rules and produces object code; linking resolves references such as a call to `printf`. On a Linux system, the result is a native executable. In this page, Clang and the linker produce a WebAssembly module that the browser can execute. These stages explain why a successful edit is not yet a running program.
+<strong>Preprocessing</strong> handles lines such as `#include <stdio.h>`, which brings in descriptions of available functions. The <strong>compiler</strong> checks your C and translates it into an object file, one piece of the program. The <strong>linker</strong> connects that piece to library code such as `printf`. Together, these steps <strong>build</strong> the program. Here the result is <strong>WebAssembly</strong>: a binary program format the browser can run. A local build can instead produce an executable for your computer. <strong>Run code</strong> builds and runs the program for you.
 
 ### main.c
 
@@ -37,7 +37,7 @@ The header declares printf so the compiler can check its use. The call asks the 
 
 **Watch for:** A compiler error prevents the new program from running. A runtime error happens after compilation and linking have succeeded. Treat these as different points in the process.
 
-**Check:** Which stage resolves a reference to a library function such as printf?
+**Check:** Which stage connects your program to the library code for printf?
 
 1. Editing
 2. Linking
@@ -45,7 +45,7 @@ The header declares printf so the compiler can check its use. The call asks the 
 
 <details><summary>Answer</summary>
 
-Linking. The linker connects translated code with the functions and support it references.
+Linking. The linker connects the translated program with the library code it needs.
 
 </details>
 

@@ -1,5 +1,5 @@
 const {JSDOM}=require('jsdom'),fs=require('node:fs'),assert=require('node:assert/strict');
-function setup(hash=''){
+function setup(hash='#/lesson/hello'){
  const dom=new JSDOM(fs.readFileSync('dist/index.html','utf8'),{url:'https://example.test/c-foundry/'+hash,runScripts:'outside-only'}),w=dom.window;let worker;
  w.confirm=()=>true;w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};

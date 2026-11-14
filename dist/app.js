@@ -14,8 +14,24 @@
   function save(){try{localStorage.setItem('c-foundry-v1',JSON.stringify(state));$('save-state').textContent='Saved on this device';}catch(_){$('save-state').textContent='Storage unavailable. Export your code to keep a copy.';}}
   function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4000);}
   function chapterProgress(chapter){return chapter.status==='ready'?`<span class="chapter-progress" data-chapter-progress="${chapter.id}"></span>`:'';}
+  function updateCover(){
+    const link=$('course-start-link'),context=$('course-start-context');
+    const topics=COURSE.chapters.filter(c=>c.status==='ready').flatMap(chapter=>chapter.topics.filter(topic=>!topic.optional).map(topic=>({chapter,topic,id:chapter.id+'/'+topic.id})));
+    const first=topics[0],next=topics.find(item=>!lessonCompletion.isDone(item.id));
+    const progress=lessonCompletion.total();
+    let target=next||first,label=progress.done?'Continue learning →':'Start learning →';
+    let path='/chapter/'+target.id,note=`${progress.done?'Next unmarked lesson':'Begin with Chapter '+target.chapter.number} · ${target.topic.title}`;
+    if(!next){label='Review from the beginning →';note='Core lessons marked done. Revisit a lesson or explore the optional labs below.';}
+    else if(!progress.done){
+      const draft=LESSONS.find(l=>l.id===state.selected&&typeof state.drafts[l.id]==='string');
+      const practice=state.completed.length?PRACTICE.find(l=>!state.completed.includes(l.id)):null;
+      if(draft||practice){const lesson=draft||practice;label='Continue learning →';path=lesson.isExample?`/chapter/${lesson.chapterId}/${lesson.topicId}`:'/lesson/'+lesson.id;note=`${draft?'Continue your draft':'Next practice exercise'} · ${lesson.title}`;}
+    }
+    link.textContent=label;link.setAttribute('href','#'+path);context.textContent=note;
+  }
   function updateCompletion(){
     const progress=lessonCompletion.total();
+    updateCover();
     document.querySelectorAll('[data-reading-progress]').forEach(node=>{node.textContent=`${progress.done} of ${progress.available} lessons marked done · ${progress.unsaved?'some changes apply to this session only':'saved in this browser'}`;});
     document.querySelectorAll('[data-chapter-progress]').forEach(node=>{
       const chapter=COURSE.chapters.find(c=>c.id===node.dataset.chapterProgress),count=lessonCompletion.count(chapter);
@@ -31,7 +47,7 @@
     document.querySelectorAll('a[href^="#/chapter/"]').forEach(link=>{
       const route=link.getAttribute('href').slice(10),valid=lessonCompletion.valid(route),done=valid&&lessonCompletion.isDone(route);
       // Chapter-entry links open topic 1 but represent the whole chapter.
-      if(link.classList.contains('chapter-entry')||link.closest('#course-cards'))return;
+      if(link.id==='course-start-link'||link.classList.contains('chapter-entry')||link.closest('#course-cards'))return;
       if(valid&&!link.querySelector('.completion-title')){
         const title=document.createElement('span');title.className='completion-title';
         while(link.firstChild)title.append(link.firstChild);
@@ -217,6 +233,7 @@
   $('course-drawer').addEventListener('close',()=>{$('course-menu-button').setAttribute('aria-expanded','false');$('course-menu-button').focus();});
   $('course-drawer').addEventListener('click',e=>{if(e.target===$('course-drawer')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeCourseMenu();}});
   $('drawer-course-map').onclick=()=>go('/course');
+  $('course-outline-button').onclick=()=>{const heading=$('course-outline-title');heading.focus({preventScroll:true});heading.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
   window.addEventListener('hashchange',renderRoute);
-  if(!location.hash)go('/lesson/'+LESSONS[selected].id,true);else renderRoute();
+  if(!location.hash)go('/course',true);else renderRoute();
 })();
