@@ -107,7 +107,7 @@ bool load(FILE *f, Table *out) {
   if (memcmp(header, (const unsigned char[]){0x54, 0x44, 0x42, 0x31}, 4) || header[4] != 1 || header[5] != ROW_BYTES ||
       header[6] > TABLE_CAP || header[7] != 0)
     return false;
-  Table table = {0};
+  Table table = {.count = 0};
   for (unsigned i = 0; i < header[6]; ++i) {
     unsigned char bytes[ROW_BYTES];
     Row row;
@@ -122,7 +122,7 @@ bool load(FILE *f, Table *out) {
 }
 
 int main(void) {
-  Table source = {0}, copy = {0};
+  Table source = {.count = 0}, copy = {.count = 0};
   insert_row(&source, (Row){1, "Ada", 90});
   insert_row(&source, (Row){2, "Grace", 80});
   FILE *f = tmpfile();

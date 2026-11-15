@@ -95,8 +95,8 @@ void rollback(Transaction *tx) {
 }
 
 int main(void) {
-  Table live = {0};
-  Transaction tx = {0};
+  Table live = {.count = 0};
+  Transaction tx = {.active = false};
   bool first = begin(&tx, &live), nested = begin(&tx, &live);
   printf("first=%d nested=%d live_rows=%zu\n", first, nested, live.count);
   rollback(&tx);

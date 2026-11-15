@@ -77,7 +77,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   if (insert_row(&t, (Row){1, "Ada", 90}) != OK)
     return 1;
   display(&t);
@@ -181,7 +181,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   insert_row(&t, (Row){1, "Ada", 90});
   insert_row(&t, (Row){2, "Grace", 80});
   int i = find_row(&t, 2);
@@ -286,7 +286,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   Status first = insert_row(&t, (Row){1, "Ada", 90}),
          again = insert_row(&t, (Row){1, "Other", 0});
   printf("inserted=%d duplicate=%d rows=%zu\n", first == OK, again == DUPLICATE,
@@ -399,7 +399,7 @@ void command(Table *t, const char *line) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   char line[64];
   while (fgets(line, sizeof line, stdin)) {
     if (!strchr(line, '\n') && !feof(stdin)) {
@@ -520,7 +520,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   if (insert_row(&t, (Row){1, "Ada", 90}) != OK)
     return 1;
   if (insert_row(&t, (Row){1, "Other", 0}) != DUPLICATE || t.count != 1 ||

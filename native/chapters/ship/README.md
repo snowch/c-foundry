@@ -225,7 +225,7 @@ bool execute(Table *t, const Statement *s) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   Statement s = {0};
   if (!parse("INSERT INTO people VALUES (7, 'Ada', 90);", &s) ||
       !execute(&t, &s))
@@ -809,7 +809,7 @@ bool load(FILE *f, Table *out) {
   if (memcmp(header, (const unsigned char[]){0x54, 0x44, 0x42, 0x31}, 4) || header[4] != 1 || header[5] != ROW_BYTES ||
       header[6] > TABLE_CAP || header[7] != 0)
     return false;
-  Table table = {0};
+  Table table = {.count = 0};
   for (unsigned i = 0; i < header[6]; ++i) {
     unsigned char bytes[ROW_BYTES];
     Row row;
@@ -827,7 +827,7 @@ int main(void) {
   FILE *f = tmpfile();
   if (!f)
     return 1;
-  Table source = {0}, copy = {0};
+  Table source = {.count = 0}, copy = {.count = 0};
   insert_row(&source, (Row){1, "Ada", 90});
   bool ok = save(f, &source) && fseek(f, 0, SEEK_SET) == 0 && load(f, &copy);
   int closed = fclose(f);
@@ -985,7 +985,7 @@ bool load(FILE *f, Table *out) {
   if (memcmp(header, (const unsigned char[]){0x54, 0x44, 0x42, 0x31}, 4) || header[4] != 1 || header[5] != ROW_BYTES ||
       header[6] > TABLE_CAP || header[7] != 0)
     return false;
-  Table table = {0};
+  Table table = {.count = 0};
   for (unsigned i = 0; i < header[6]; ++i) {
     unsigned char bytes[ROW_BYTES];
     Row row;
@@ -1008,7 +1008,7 @@ int main(void) {
     fclose(f);
     return 1;
   }
-  Table live = {0};
+  Table live = {.count = 0};
   bool rejected = !load(f, &live);
   if (fclose(f) != 0 || !rejected)
     return 1;
@@ -1164,7 +1164,7 @@ bool load(FILE *f, Table *out) {
   if (memcmp(header, (const unsigned char[]){0x54, 0x44, 0x42, 0x31}, 4) || header[4] != 1 || header[5] != ROW_BYTES ||
       header[6] > TABLE_CAP || header[7] != 0)
     return false;
-  Table table = {0};
+  Table table = {.count = 0};
   for (unsigned i = 0; i < header[6]; ++i) {
     unsigned char bytes[ROW_BYTES];
     Row row;
@@ -1179,7 +1179,7 @@ bool load(FILE *f, Table *out) {
 }
 
 int main(void) {
-  Table source = {0}, copy = {0};
+  Table source = {.count = 0}, copy = {.count = 0};
   insert_row(&source, (Row){1, "Ada", 90});
   insert_row(&source, (Row){2, "Grace", 80});
   FILE *f = tmpfile();

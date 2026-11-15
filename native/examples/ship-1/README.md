@@ -217,7 +217,7 @@ bool execute(Table *t, const Statement *s) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   Statement s = {0};
   if (!parse("INSERT INTO people VALUES (7, 'Ada', 90);", &s) ||
       !execute(&t, &s))

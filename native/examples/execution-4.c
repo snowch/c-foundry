@@ -62,7 +62,7 @@ int by_score(const void *pa, const void *pb) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   insert_row(&t, (Row){1, "Ada", 90});
   insert_row(&t, (Row){2, "Grace", 80});
   insert_row(&t, (Row){3, "Ken", 90});

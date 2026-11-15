@@ -56,7 +56,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   Row source = {7, "Ada", 95};
   insert_row(&t, source);
   source.name[0] = 'X';

@@ -56,7 +56,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   if (insert_row(&t, (Row){1, "Ada", 90}) != OK)
     return 1;
   if (insert_row(&t, (Row){1, "Other", 0}) != DUPLICATE || t.count != 1 ||

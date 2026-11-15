@@ -577,7 +577,7 @@ unsigned frequency(const Word *table, const char *word) {
 }
 
 int main(void) {
-  Word table[HCAP] = {0};
+  Word table[HCAP] = {{0}};
   const char *tokens[] = {"red", "blue", "red", "green", "red"};
   for (size_t i = 0; i < 5; ++i)
     if (!increment(table, tokens[i]))

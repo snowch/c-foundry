@@ -64,7 +64,7 @@ void command(Table *t, const char *line) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   char line[64];
   while (fgets(line, sizeof line, stdin)) {
     if (!strchr(line, '\n') && !feof(stdin)) {

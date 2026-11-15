@@ -77,7 +77,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   insert_row(&t, (Row){1, "Ada", 90});
   insert_row(&t, (Row){2, "Grace", 80});
   insert_row(&t, (Row){3, "Ken", 90});
@@ -184,7 +184,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   insert_row(&t, (Row){1, "Ada", 90});
   insert_row(&t, (Row){2, "Grace", 80});
   insert_row(&t, (Row){3, "Ken", 90});
@@ -299,7 +299,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   insert_row(&t, (Row){1, "Ada", 90});
   insert_row(&t, (Row){2, "Grace", 80});
   insert_row(&t, (Row){3, "Ken", 90});
@@ -413,7 +413,7 @@ int by_score(const void *pa, const void *pb) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   insert_row(&t, (Row){1, "Ada", 90});
   insert_row(&t, (Row){2, "Grace", 80});
   insert_row(&t, (Row){3, "Ken", 90});
@@ -523,7 +523,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   insert_row(&t, (Row){1, "Ada", 90});
   insert_row(&t, (Row){2, "Grace", 80});
   insert_row(&t, (Row){3, "Ken", 90});
@@ -778,7 +778,7 @@ bool execute(Table *t, const Statement *s) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   const char *sql[] = {"INSERT INTO people VALUES (1, 'Ada', 90);",
                        "SELECT * FROM people WHERE id = 1;"};
   for (size_t i = 0; i < 2; ++i) {

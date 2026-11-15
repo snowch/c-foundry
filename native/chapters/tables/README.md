@@ -77,7 +77,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   Row source = {7, "Ada", 95};
   insert_row(&t, source);
   source.name[0] = 'X';
@@ -183,7 +183,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   insert_row(&t, (Row){2, "Grace", 80});
   insert_row(&t, (Row){1, "Ada", 90});
   display(&t);
@@ -290,7 +290,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   for (unsigned i = 1; i <= TABLE_CAP; ++i)
     if (insert_row(&t, (Row){i, "row", 0}) != OK)
       return 1;
@@ -397,7 +397,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   insert_row(&t, (Row){1, "Ada", 90});
   insert_row(&t, (Row){2, "Grace", 80});
   update_score(&t, 2, 99);
@@ -505,7 +505,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   if (insert_row(&t, (Row){1, "Ada", 90}) != OK ||
       insert_row(&t, (Row){2, "Grace", 80}) != OK)
     return 1;

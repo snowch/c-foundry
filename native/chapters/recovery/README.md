@@ -103,9 +103,9 @@ void rollback(Transaction *tx) {
 }
 
 int main(void) {
-  Table live = {0};
+  Table live = {.count = 0};
   insert_row(&live, (Row){1, "Ada", 90});
-  Transaction tx = {0};
+  Transaction tx = {.active = false};
   begin(&tx, &live);
   update_score(&tx.working, 1, 1);
   rollback(&tx);
@@ -236,8 +236,8 @@ void rollback(Transaction *tx) {
 }
 
 int main(void) {
-  Table live = {0};
-  Transaction tx = {0};
+  Table live = {.count = 0};
+  Transaction tx = {.active = false};
   bool first = begin(&tx, &live), nested = begin(&tx, &live);
   printf("first=%d nested=%d live_rows=%zu\n", first, nested, live.count);
   rollback(&tx);
@@ -367,9 +367,9 @@ void rollback(Transaction *tx) {
 }
 
 int main(void) {
-  Table live = {0};
+  Table live = {.count = 0};
   insert_row(&live, (Row){1, "Ada", 90});
-  Transaction tx = {0};
+  Transaction tx = {.active = false};
   begin(&tx, &live);
   update_score(&tx.working, 1, 95);
   commit(&tx);

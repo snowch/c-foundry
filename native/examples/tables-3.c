@@ -56,7 +56,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   for (unsigned i = 1; i <= TABLE_CAP; ++i)
     if (insert_row(&t, (Row){i, "row", 0}) != OK)
       return 1;

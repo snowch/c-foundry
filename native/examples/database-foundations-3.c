@@ -56,7 +56,7 @@ void display(const Table *t) {
 }
 
 int main(void) {
-  Table t = {0};
+  Table t = {.count = 0};
   Status first = insert_row(&t, (Row){1, "Ada", 90}),
          again = insert_row(&t, (Row){1, "Other", 0});
   printf("inserted=%d duplicate=%d rows=%zu\n", first == OK, again == DUPLICATE,
