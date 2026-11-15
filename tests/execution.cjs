@@ -21,6 +21,7 @@ let copied;Object.defineProperty(w.navigator,'clipboard',{value:{writeText:async
 w.document.querySelector('[data-copy-command]').click();await new Promise(r=>setTimeout(r,0));assert.equal(copied,chapter.command);assert.match(w.document.querySelector('.launch-feedback').textContent,/Command copied/);
 Object.defineProperty(w.navigator,'clipboard',{value:{writeText:async()=>{throw new Error('denied');}},configurable:true});w.document.querySelector('[data-copy-command]').click();await new Promise(r=>setTimeout(r,0));assert.match(w.document.querySelector('.launch-feedback').textContent,/Copy the command shown above/);
 assert.ok(!w.courseExecution.panel(course.chapters[0]).includes('data-codespaces-command'));
-assert.equal(w.courseExecution.label(course.chapters[43]),'Native tools');
+assert.equal(w.courseExecution.label(chapter),'Native tools');
+assert.equal(w.courseExecution.label(course.chapters[43]),'Browser + native tools');
 console.log('PASS full syllabus, native workspace commands, container configuration, execution labels, and clipboard success/fallback');dom.window.close();
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -14,6 +14,8 @@ Add query capabilities with explicit key ordering, typed parameters, and evidenc
 
 Composite indexes order tuples lexicographically; prepared statements separate a fixed query shape from typed parameters; joins can use the same key lookup.
 
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+
 The fixture supports one exact prepared query shape, deliberately not a general SQL preparer. It binds tenant and ID as unsigned values and executes a composite-key binary search. The same lookup serves an indexed join from orders to customers, preserving one output per matching order. Adding these capabilities to the earlier SQL grammar is an assembly exercise with new parser and validation tests.
 
 ### main.c
@@ -131,6 +133,8 @@ make example EXAMPLE=richer-queries-1
 
 Better statistics model the distribution that predicates actually encounter. Histograms can represent skew that a uniform estimate misses.
 
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+
 The fixture has seven score-one rows and one score-nine row. A ten-value uniform model estimates 0.8 matches for score one, while a per-value histogram records seven. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns.
 
 ### main.c
@@ -189,6 +193,8 @@ make example EXAMPLE=richer-queries-2
 ## 43.3 Explaining and measuring execution choices
 
 An optimized plan must first return the same logical result. Instrument matching units when comparing its work with a baseline.
+
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
 
 The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate.
 

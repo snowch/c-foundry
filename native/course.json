@@ -1774,8 +1774,8 @@
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "both",
+        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
       },
       "workspace": "native/chapters/multi-client",
       "command": "make chapter CHAPTER=multi-client",
@@ -1807,8 +1807,8 @@
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "both",
+        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
       },
       "workspace": "native/chapters/isolation",
       "command": "make chapter CHAPTER=isolation",
@@ -1840,8 +1840,8 @@
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "both",
+        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
       },
       "workspace": "native/chapters/snapshots",
       "command": "make chapter CHAPTER=snapshots",
@@ -1873,8 +1873,8 @@
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "both",
+        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
       },
       "workspace": "native/chapters/maintenance",
       "command": "make chapter CHAPTER=maintenance",
@@ -1906,8 +1906,8 @@
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "both",
+        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
       },
       "workspace": "native/chapters/richer-queries",
       "command": "make chapter CHAPTER=richer-queries",
@@ -1939,8 +1939,8 @@
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "both",
+        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
       },
       "workspace": "native/chapters/reliability",
       "command": "make chapter CHAPTER=reliability",

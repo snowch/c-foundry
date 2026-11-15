@@ -14,6 +14,8 @@ Retain committed versions so readers can use a stable visibility boundary. Recla
 
 A snapshot read chooses versions according to a stable committed-time boundary, not according to the latest value at each statement.
 
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+
 The one-key model has value ten created at time one and superseded at time three; value twenty becomes visible at time three. A snapshot at time two continues to see ten. Timestamps here are bounded committed sequence numbers, not wall-clock time. Concurrent publication of version metadata needs synchronization in an assembled engine.
 
 ### main.c
@@ -94,6 +96,8 @@ make example EXAMPLE=snapshots-1
 
 MVCC stores multiple committed versions and uses a visibility rule to decide which one a reader sees. It does not by itself solve write conflicts or serializability.
 
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+
 The model tests created≤snapshot and either no deletion or snapshot<deleted. It searches newest to oldest and returns a copied value. A real implementation also needs transaction status for uncommitted versions, atomic publication of multi-row commits, conflict handling, indexes that respect visibility, and safe version lifetimes. The fixture deliberately contains only committed immutable version records.
 
 ### main.c
@@ -173,6 +177,8 @@ make example EXAMPLE=snapshots-2
 ## 41.3 Visibility rules and reclaiming old versions
 
 Old versions can be reclaimed only when no active snapshot may still need them. Version retention is a concurrency and lifetime problem.
+
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
 
 For exclusive deletion time d, a version is no longer visible to snapshots at or after d. If the oldest active snapshot is at least d, the version can be removed under this model. Protect the active-reader registry and reclamation decision with synchronization, and prevent raw version pointers from escaping their protected lifetime. Timestamp wrap and abandoned reader handling need explicit policies.
 

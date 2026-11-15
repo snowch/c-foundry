@@ -1,6 +1,6 @@
 # C Foundry in Codespaces
 
-The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 226 topic lessons. There are 177 inline browser examples and 49 examples requiring native tools, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
+The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 226 topic lessons. There are 190 inline browser examples and 36 examples requiring native tools, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
 
 ## Start or reuse a workspace
 

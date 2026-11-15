@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 Better statistics model the distribution that predicates actually encounter. Histograms can represent skew that a uniform estimate misses.
 
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+
 The fixture has seven score-one rows and one score-nine row. A ten-value uniform model estimates 0.8 matches for score one, while a per-value histogram records seven. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns.
 
 ### main.c

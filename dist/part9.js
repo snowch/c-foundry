@@ -44,7 +44,10 @@ window.PART_NINE = {
         "why": "The transaction handle is associated with a session identity.",
         "tryit": "Add disconnect rollback and reject stale requests from a session whose transaction has already ended.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "3": {
         "intro": "Backpressure makes overload behavior explicit. A system must decide whether a full queue blocks, rejects, or sheds work under a documented policy.",
@@ -128,7 +131,10 @@ window.PART_NINE = {
         "why": "Another writer must not slip between validation and publication.",
         "tryit": "Protect compare_commit with a lock, then test two sessions synchronized to read the same initial version.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "3": {
         "intro": "An isolation contract states which anomalies are allowed across a transaction’s sequence of operations. Protecting each statement does not automatically provide repeatable reads.",
@@ -146,7 +152,10 @@ window.PART_NINE = {
         "why": "Another transaction may commit between statements after each lock is released.",
         "tryit": "Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       }
     },
     "practicePlan": {
@@ -188,7 +197,10 @@ window.PART_NINE = {
         "why": "Its visibility boundary remains fixed rather than advancing between reads.",
         "tryit": "Add a later committed version and verify that repeated reads at snapshot two remain unchanged.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "2": {
         "intro": "MVCC stores multiple committed versions and uses a visibility rule to decide which one a reader sees. It does not by itself solve write conflicts or serializability.",
@@ -206,7 +218,10 @@ window.PART_NINE = {
         "why": "Visibility, conflict rules, and transaction coordination jointly determine isolation.",
         "tryit": "Add transaction-status metadata for tentative versions and reject their visibility until commit publication.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "3": {
         "intro": "Old versions can be reclaimed only when no active snapshot may still need them. Version retention is a concurrency and lifetime problem.",
@@ -224,7 +239,10 @@ window.PART_NINE = {
         "why": "That reader still requires the value visible before deletion time three.",
         "tryit": "Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       }
     },
     "practicePlan": {
@@ -266,7 +284,10 @@ window.PART_NINE = {
         "why": "A committed applied boundary identifies what the snapshot already contains.",
         "tryit": "Serialize explicit LSNs with checksums and test missing, duplicated, reordered, and torn records.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "2": {
         "intro": "A checkpoint permits old log removal only after the snapshot is safely published. Reversing that order can erase the only recoverable copy.",
@@ -303,7 +324,10 @@ window.PART_NINE = {
         "why": "Logical unlinking does not automatically end every reader or recovery dependency.",
         "tryit": "Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       }
     },
     "practicePlan": {
@@ -345,7 +369,10 @@ window.PART_NINE = {
         "why": "Typed binding retains the query structure while validating values separately.",
         "tryit": "Generalize preparation through the real parser, add parameter types and lifetime rules, and test composite-prefix queries.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "2": {
         "intro": "Better statistics model the distribution that predicates actually encounter. Histograms can represent skew that a uniform estimate misses.",
@@ -363,7 +390,10 @@ window.PART_NINE = {
         "why": "The distribution assumption disagrees with the stored data.",
         "tryit": "Collect a bounded histogram from a consistent snapshot and compare planner decisions before and after a skewed update workload.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "3": {
         "intro": "An optimized plan must first return the same logical result. Instrument matching units when comparing its work with a baseline.",
@@ -381,7 +411,10 @@ window.PART_NINE = {
         "why": "A faster plan that drops or duplicates rows is incorrect.",
         "tryit": "Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       }
     },
     "practicePlan": {
@@ -444,7 +477,10 @@ window.PART_NINE = {
         "why": "It measures one possible cost component rather than the whole workload.",
         "tryit": "Instrument your assembled database’s allocation sites and page reads, then benchmark verified workloads with and without pooling.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "3": {
         "intro": "A release suite should combine targeted regressions, generated input, and failure-boundary tests while stating what remains untested.",
@@ -462,7 +498,10 @@ window.PART_NINE = {
         "why": "A preserved fixture prevents the same defect from quietly returning.",
         "tryit": "Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       }
     },
     "practicePlan": {

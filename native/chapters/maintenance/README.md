@@ -14,6 +14,8 @@ Make recovery work with snapshots, log positions, and reusable storage without f
 
 A log sequence number identifies a position in a stable ordered log. Recovery must know which committed position a checkpoint already includes.
 
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+
 The typed-record model skips records at or before the checkpoint’s applied LSN, requires a contiguous suffix, and updates the checkpoint only on a matching COMMIT. It retains the one-value single-writer transaction restriction. An on-disk log needs explicit record encoding, checksums, and torn-record framing; this struct is not a file format.
 
 ### main.c
@@ -253,6 +255,8 @@ make example EXAMPLE=maintenance-2 KEEP_FILES=1
 ## 42.3 Free-page reuse, compaction, and integrity checking
 
 Free-page reuse and compaction require a reachability and identity policy. An unlinked physical page may still be needed by a snapshot or recovery log.
+
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
 
 The fixture checks a slotted-page model for bounds and overlapping live ranges before compaction. It then constructs an overlapping corruption and verifies rejection. A full storage allocator must also track roots, index references, active snapshots, and log dependencies before placing a page on the reusable free list. A generation number can help reject stale external page handles.
 

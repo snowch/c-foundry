@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 Old versions can be reclaimed only when no active snapshot may still need them. Version retention is a concurrency and lifetime problem.
 
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+
 For exclusive deletion time d, a version is no longer visible to snapshots at or after d. If the oldest active snapshot is at least d, the version can be removed under this model. Protect the active-reader registry and reclamation decision with synchronization, and prevent raw version pointers from escaping their protected lifetime. Timestamp wrap and abandoned reader handling need explicit policies.
 
 ### main.c
