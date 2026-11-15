@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 A single-writer transaction model serializes mutations and simplifies conflict handling. The restriction must be enforced by the caller or service.
 
+Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+
 begin refuses to start another transaction using the same active handle, but the model has no global lock. A real multi-client service must route all writers through one owner or protect admission with synchronization. Readers also need a contract about whether they see committed state or a working copy.
 
 ### main.c

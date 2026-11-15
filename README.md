@@ -4,7 +4,7 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/snowch/c-foundry?quickstart=1)
 
-A C, algorithms, and database course with **nine parts, 44 chapters, and 226 authored topic lessons**. Every topic includes an explanation, complete worked program, expected output and walkthrough, pitfall, understanding question with feedback, and an experiment. There are **152 inline browser examples**, **74 examples requiring native tools**, and **15 separate practice exercises** with 82 output cases.
+A C, algorithms, and database course with **nine parts, 44 chapters, and 226 authored topic lessons**. Every topic includes an explanation, complete worked program, expected output and walkthrough, pitfall, understanding question with feedback, and an experiment. There are **161 inline browser examples**, **65 examples requiring native tools**, and **15 separate practice exercises** with 82 output cases.
 
 | Part | Chapters | Lessons | Focus |
 | --- | ---: | ---: | --- |
@@ -180,7 +180,7 @@ make sanitize
 make tsan                       # optional; runtime/kernel support required
 ```
 
-Browser tests execute 152 worked examples and 82 practice cases through the real compiler worker, plus diagnostics, nonzero exits, malformed input, rejected starters, cancellation, and recovery. Command tests additionally compile multiple files and check argv/stdin UTF-8, shared file append/EOF, nonzero exits, failed builds, TinyDB CRUD, corrupt-file preservation, and the bundled binary’s reproducibility. DOM checks cover all 44 chapters and 226 topics, answer feedback, inline editor state, explicit completion, per-key tab reconciliation, unsaved feedback, native commands, and the downloadable fixture. Independent native workloads check 32,000 mixed B+ operations and 32 AVL insertion permutations against ordering, occupancy, reachability, height, and ownership properties.
+Browser tests execute 161 worked examples and 82 practice cases through the real compiler worker, plus diagnostics, nonzero exits, malformed input, rejected starters, cancellation, and recovery. Command tests additionally compile multiple files and check argv/stdin UTF-8, shared file append/EOF, nonzero exits, failed builds, TinyDB CRUD, corrupt-file preservation, and the bundled binary’s reproducibility. DOM checks cover all 44 chapters and 226 topics, answer feedback, inline editor state, explicit completion, per-key tab reconciliation, unsaved feedback, native commands, and the downloadable fixture. Independent native workloads check 32,000 mixed B+ operations and 32 AVL insertion permutations against ordering, occupancy, reachability, height, and ownership properties.
 
 GitHub Actions deploys `dist/` on pushes to `main` only after the browser/interface, native, and cross-platform file-exchange jobs pass. Native CI builds the dev container, runs all examples under GCC and Clang, checks structural workloads, and runs the existing native foundations/project references with sanitizer checks.
 

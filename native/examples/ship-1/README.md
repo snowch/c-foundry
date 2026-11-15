@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 End-to-end tests cross parser, validation, executor, and storage boundaries. Keep earlier unit tests to localize failures.
 
+Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+
 The fixture inserts through the implemented SQL grammar, selects by key, and rejects an invalid statement before execution. A useful suite checks output rows, status, and persistent logical state after rejected operations. Operators not yet added to the parser grammar remain separate extension exercises rather than silently supported SQL syntax.
 
 ### main.c

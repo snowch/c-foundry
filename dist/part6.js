@@ -419,7 +419,10 @@ window.PART_SIX = {
         "why": "Process memory can disappear without a persistent recovery protocol.",
         "tryit": "Write a guarantee table for each ACID property and identify the mechanism or missing work for each.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "2": {
         "intro": "A single-writer transaction model serializes mutations and simplifies conflict handling. The restriction must be enforced by the caller or service.",
@@ -437,7 +440,10 @@ window.PART_SIX = {
         "why": "The same live state must not be concurrently mutated through independent handles.",
         "tryit": "Add an admission lock or a request queue and test two competing transaction starts.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "3": {
         "intro": "BEGIN establishes a working state, COMMIT publishes it under the model’s contract, and ROLLBACK discards it. Repeated or out-of-order commands need defined failures.",
@@ -455,7 +461,10 @@ window.PART_SIX = {
         "why": "Rollback never publishes its private working table.",
         "tryit": "Define session ownership and behavior for COMMIT without BEGIN, nested BEGIN, and disconnect during a transaction.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "4": {
         "intro": "Write-ahead logging records enough information for recovery before acknowledging a durable commit or persisting dependent data pages.",
@@ -491,11 +500,14 @@ window.PART_SIX = {
         "why": "Tentative state remains separate until the commit boundary.",
         "tryit": "Replay every prefix of this log and verify values against an independently listed set of committed boundaries.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       },
       "6": {
         "intro": "Browser persistence APIs have their own atomicity and completion contracts. A native filesystem protocol cannot simply be assumed to transfer to browser storage.",
-        "explanation": "The executable model illustrates a complete versus interrupted commit boundary. In a browser host, IndexedDB transactions or OPFS operations need an explicit integration layer, quota/error handling, and documented acknowledgement rules. localStorage lesson marks and downloadable files are useful product features but are not a write-ahead-log durability mechanism for the C program. The course’s current runner keeps program files temporary.",
+        "explanation": "The executable model illustrates a complete versus interrupted commit boundary. In a browser host, IndexedDB transactions or OPFS operations need an explicit integration layer, quota/error handling, and documented acknowledgement rules. localStorage lesson marks and downloadable files are useful product features but are not a write-ahead-log durability mechanism for the C program. Inline lesson runs keep program files temporary. The command workspace saves files between successful runs through its browser storage layer; that file transfer does not implement a C write-ahead log or prove recovery after power loss.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };\nvoid put32(unsigned char *out, uint32_t value) {\n  for (unsigned i = 0; i < 4; ++i)\n    out[i] = (unsigned char)(value >> (8 * i));\n}\nuint32_t get32(const unsigned char *in) {\n  uint32_t value = 0;\n  for (unsigned i = 0; i < 4; ++i)\n    value |= (uint32_t)in[i] << (8 * i);\n  return value;\n}\nenum { BEGIN_REC = 1, SET_REC = 2, COMMIT_REC = 3, LOG_BYTES = 8 };\nvoid log_record(unsigned char *out, unsigned kind, unsigned tx,\n                uint32_t value) {\n  memset(out, 0, LOG_BYTES);\n  out[0] = (unsigned char)kind;\n  out[1] = (unsigned char)tx;\n  put32(out + 4, value);\n}\nuint32_t recover(const unsigned char *log, size_t length, uint32_t base) {\n  unsigned active = 0;\n  uint32_t pending = base;\n  for (size_t at = 0; at <= length && length - at >= LOG_BYTES;\n       at += LOG_BYTES) {\n    const unsigned char *r = log + at;\n    if (!r[1] || r[2] || r[3])\n      break;\n    if (r[0] == BEGIN_REC) {\n      if (active)\n        break;\n      active = r[1];\n      pending = base;\n    } else if (r[0] == SET_REC) {\n      if (active != r[1])\n        break;\n      pending = get32(r + 4);\n    } else if (r[0] == COMMIT_REC) {\n      if (active != r[1])\n        break;\n      base = pending;\n      active = 0;\n    } else\n      break;\n  }\n  return base;\n}\n\nint main(void) {\n  unsigned char log[24];\n  log_record(log, BEGIN_REC, 1, 0);\n  log_record(log + 8, SET_REC, 1, 7);\n  log_record(log + 16, COMMIT_REC, 1, 0);\n  printf(\"before_commit=%u after_commit=%u\\n\", (unsigned)recover(log, 16, 0),\n         (unsigned)recover(log, 24, 0));\n  return 0;\n}\n",
         "expected": "before_commit=0 after_commit=7",
         "walkthrough": "The boundary model is portable C, but the host mechanism that persists and acknowledges those bytes is environment-specific.",
@@ -509,7 +521,10 @@ window.PART_SIX = {
         "why": "The two stores have different owners, data, and failure contracts.",
         "tryit": "Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+        }
       }
     },
     "practicePlan": {
@@ -551,7 +566,10 @@ window.PART_SIX = {
         "why": "The observed result depends on the complete request path.",
         "tryit": "Add tests for each supported statement and maintain a table of intentionally unsupported syntax.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below."
+        }
       },
       "2": {
         "intro": "Property tests compare many generated operation sequences with a simpler reference model. Parser fuzzing asks whether arbitrary bounded input is handled safely.",
@@ -569,7 +587,10 @@ window.PART_SIX = {
         "why": "Only finitely many generated paths were exercised.",
         "tryit": "Run with SANITIZE=1, add token-length boundaries, and retain every discovered failure as a deterministic regression case.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below."
+        }
       },
       "3": {
         "intro": "Fault injection makes rare failure paths repeatable. Test exactly where the protocol permits acknowledged state to survive.",
@@ -587,7 +608,10 @@ window.PART_SIX = {
         "why": "Uncommitted records cannot establish acknowledged transaction state.",
         "tryit": "Add two committed transactions, an incomplete third, invalid headers, and repeated replay checks.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below."
+        }
       },
       "4": {
         "intro": "Benchmark across growing data while retaining correctness checks and separating setup from the measured operation.",
@@ -605,7 +629,10 @@ window.PART_SIX = {
         "why": "Preparation and reporting answer different performance questions.",
         "tryit": "Compare cold and warm page-cache runs with verified equal results and recorded environment details.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below."
+        }
       },
       "5": {
         "intro": "A resource audit assigns an owner and cleanup path to every allocation, file, lock, and borrowed pointer.",

@@ -1330,8 +1330,8 @@ window.COURSE = {
       "project": "Recover committed changes after simulated interruptions.",
       "labs": [],
       "execution": {
-        "mode": "codespaces",
-        "reason": "Native file operations and recovery tooling are used for the database project."
+        "mode": "both",
+        "reason": "Single-threaded recovery models and deterministic test fixtures run inline. Native tools provide sanitizer runs, host timing, durability experiments, and optional GDB."
       },
       "workspace": "native/chapters/recovery",
       "command": "make chapter CHAPTER=recovery",
@@ -1389,8 +1389,8 @@ window.COURSE = {
       "project": "Ship a documented TinyDB build with tests, benchmarks, and exportable files.",
       "labs": [],
       "execution": {
-        "mode": "codespaces",
-        "reason": "Native file operations and recovery tooling are used for the database project."
+        "mode": "both",
+        "reason": "Single-threaded recovery models and deterministic test fixtures run inline. Native tools provide sanitizer runs, host timing, durability experiments, and optional GDB."
       },
       "workspace": "native/chapters/ship",
       "command": "make chapter CHAPTER=ship",

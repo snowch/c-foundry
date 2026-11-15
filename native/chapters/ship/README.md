@@ -14,6 +14,8 @@ Turn the small database into a reproducible learning release with contract tests
 
 End-to-end tests cross parser, validation, executor, and storage boundaries. Keep earlier unit tests to localize failures.
 
+Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+
 The fixture inserts through the implemented SQL grammar, selects by key, and rejects an invalid statement before execution. A useful suite checks output rows, status, and persistent logical state after rejected operations. Operators not yet added to the parser grammar remain separate extension exercises rather than silently supported SQL syntax.
 
 ### main.c
@@ -271,6 +273,8 @@ make example EXAMPLE=ship-1
 
 Property tests compare many generated operation sequences with a simpler reference model. Parser fuzzing asks whether arbitrary bounded input is handled safely.
 
+Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+
 The fixture generates bounded strings with a fixed seed and passes them to the parser. It checks memory-safe completion under the selected compiler and can be rerun under sanitizers. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found.
 
 ### main.c
@@ -521,6 +525,8 @@ make example EXAMPLE=ship-2
 
 Fault injection makes rare failure paths repeatable. Test exactly where the protocol permits acknowledged state to survive.
 
+Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+
 For each possible byte cut in a single transaction log, the reference expectation is zero before the full COMMIT record and 42 afterward. The loop tests every prefix from zero through 24 bytes. This is an interruption model; it does not simulate all filesystem reorderings, device failures, or checksum-valid corruption.
 
 ### main.c
@@ -628,6 +634,8 @@ make example EXAMPLE=ship-3
 ## 30.4 Benchmarks across growing datasets
 
 Benchmark across growing data while retaining correctness checks and separating setup from the measured operation.
+
+Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
 
 The deterministic fixture counts absent-key scan comparisons for two sizes. A native timing harness should create data before timing, use a monotonic clock where available, repeat sufficiently, and report distributions with compiler and machine details. The current eight-row table is a teaching bound, so larger benchmark datasets require an intentionally expanded storage implementation.
 
