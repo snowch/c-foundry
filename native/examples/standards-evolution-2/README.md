@@ -55,6 +55,11 @@ A guarded interface with a documented fallback or requirement. Centralizing the 
 
 **Try:** Compile with -Wpedantic -Werror, then write a feature probe that checks the exact extension your project needs.
 
+### References and help
+
+- [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
+- [GCC manual: C dialect options](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html) — Check -std modes and distinguish standard language facilities from GNU extensions.
+
 Run from the repository root:
 
 ```sh

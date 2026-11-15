@@ -41,6 +41,11 @@ window.COURSE = {
           "id": "5",
           "title": "C, WebAssembly, and standard input/output",
           "status": "ready"
+        },
+        {
+          "id": "6",
+          "title": "Finding and reading C documentation",
+          "status": "ready"
         }
       ],
       "project": "Print a greeting and explain how it reaches the console.",

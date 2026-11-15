@@ -56,6 +56,11 @@ p first holds an address that reaches value. The assignment through *p changes v
 
 **Try:** Change the write to 21, then compare value and *p before setting p to NULL.
 
+### References and help
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+
 Run from the repository root:
 
 ```sh
@@ -117,6 +122,11 @@ int **. The helper needs access to the pointer object itself, through its addres
 
 **Try:** Remove point_to and pass &p to a helper that sets p to NULL. Do not dereference p afterward.
 
+### References and help
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+
 Run from the repository root:
 
 ```sh
@@ -166,6 +176,19 @@ No: it is one past the array. The one-past position supports iteration boundarie
 </details>
 
 **Try:** Write a loop from values to end that prints each value while p != end.
+
+### References and help
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Use the documentation (optional):** May you form a pointer one past an array, and may you dereference it?
+
+<details><summary>Compare your answer</summary>
+
+A one-past pointer can be formed and used within the permitted comparison/arithmetic rules for that array. It does not designate an array element and must not be dereferenced.
+
+</details>
 
 Run from the repository root:
 
@@ -217,6 +240,11 @@ read = &b;. The pointer may change, but this access path does not permit modifyi
 </details>
 
 **Try:** Introduce one forbidden assignment at a time, read the diagnostic, and restore the valid version.
+
+### References and help
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
 Run from the repository root:
 
@@ -273,6 +301,11 @@ It stores its own int value. The initializer copies the integer into a separate 
 </details>
 
 **Try:** Complete the pointer exercise, then add a same-object call and explain the result.
+
+### References and help
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
 Run from the repository root:
 

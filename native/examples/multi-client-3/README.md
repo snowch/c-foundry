@@ -146,6 +146,19 @@ Whether admission or completion is known. The client needs enough state to make 
 
 **Try:** Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.
 
+### References and help
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
+**Use the documentation (optional):** Does a thread-safe queue guarantee that a transaction composed of several requests is isolated?
+
+<details><summary>Compare your answer</summary>
+
+No. Queue synchronization protects its own operations. Transaction admission, ownership, visibility, and commit boundaries require their own contract and implementation.
+
+</details>
+
 Run from the repository root:
 
 ```sh

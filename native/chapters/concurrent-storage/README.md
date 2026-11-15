@@ -70,6 +70,11 @@ No. They belong to distinct APIs and contracts.
 
 **Try:** Wrap create/join behind a small project interface and add platform-specific adapters only where tested.
 
+### References and help
+
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+- [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
+
 Run from the repository root:
 
 ```sh
@@ -220,6 +225,11 @@ Ownership on successful and failed enqueue. The asynchronous consumer may run af
 
 **Try:** Replace integer requests with owned command objects and verify cleanup on rejected enqueue and successful processing.
 
+### References and help
+
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+
 Run from the repository root:
 
 ```sh
@@ -369,6 +379,11 @@ No. The request has not necessarily been processed or synchronized to storage.
 </details>
 
 **Try:** Add per-request responses with separate accepted, executed, and durable statuses, and document their wait boundaries.
+
+### References and help
+
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
 
 Run from the repository root:
 
@@ -523,6 +538,19 @@ After every accessing worker has finished. A woken or draining worker may still 
 </details>
 
 **Try:** Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks; run ThreadSanitizer where supported.
+
+### References and help
+
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+
+**Use the documentation (optional):** What must remain valid until workers have finished using the queue and shared state?
+
+<details><summary>Compare your answer</summary>
+
+The shared objects, synchronization primitives, and storage they access. Signal shutdown, let workers finish, join them, then destroy or free resources according to the API contracts.
+
+</details>
 
 Run from the repository root:
 

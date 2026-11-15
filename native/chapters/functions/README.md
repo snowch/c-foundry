@@ -55,6 +55,19 @@ The argument 21 initializes the parameter value. The body computes 42 and return
 
 **Try:** Add a prototype above main and move the definition below main without changing the result.
 
+### References and help
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Use the documentation (optional):** Does a function’s return type tell you every error condition or ownership rule?
+
+<details><summary>Compare your answer</summary>
+
+No. The type states the returned value’s type. The function’s documented contract must explain error results, ownership, preconditions, and any side effects.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -107,6 +120,11 @@ No. The increment changes the parameter copy. Only the returned result is given 
 </details>
 
 **Try:** Assign the return directly into original, then compare the output with the original example.
+
+### References and help
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
 Run from the repository root:
 
@@ -162,6 +180,11 @@ The static object count is initialized once and survives the first return. The s
 </details>
 
 **Try:** Compare the two versions and explain the difference without changing the call sites.
+
+### References and help
+
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
 Run from the repository root:
 
@@ -219,6 +242,11 @@ Formatting the final output. Keeping I/O at the boundary leaves the computation 
 
 **Try:** Implement the chapter calculator exercise, then add perimeter as a second independent function.
 
+### References and help
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+
 Run from the repository root:
 
 ```sh
@@ -273,6 +301,11 @@ Assertions can be removed by NDEBUG. Removing assertions must not remove behavio
 </details>
 
 **Try:** Add tests where both inputs are negative and where the first input is zero.
+
+### References and help
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
 Run from the repository root:
 

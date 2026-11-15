@@ -67,6 +67,11 @@ isfinite(value). Self-equality excludes quiet NaN but still permits infinities; 
 
 **Try:** Test inf, -inf, nan, 1e9999, empty input, and a valid prefix followed by junk. Confirm rejected parses preserve the output and report the intended error category.
 
+### References and help
+
+- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
+- [C reference: strtof, strtod, strtold](https://en.cppreference.com/w/c/string/byte/strtof.html) — Check endptr, range errors, and acceptance of infinity/NaN before enforcing a finite-input policy.
+
 Run from the repository root:
 
 ```sh

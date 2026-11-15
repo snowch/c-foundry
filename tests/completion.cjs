@@ -7,7 +7,7 @@ function setup({saved={},fail=false}={}){
  w.Worker=class{constructor(){worker=this;}postMessage(request){this.request=request;}terminate(){}emit(data){this.onmessage({data});}};
  for(const [key,value] of Object.entries(saved))w.localStorage.setItem(key,value);
  if(fail){const original=w.Storage.prototype.setItem;w.Storage.prototype.setItem=function(key,value){if(key.startsWith(prefix))throw new w.DOMException('Full','QuotaExceededError');return original.call(this,key,value);};}
- for(const name of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+name+'.js','utf8'));
+ for(const name of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+name+'.js','utf8'));
  const go=path=>{w.history.pushState(null,'','#'+path);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
  return {w,dom,go,worker:()=>worker,$:selector=>w.document.querySelector(selector),mark:()=>w.document.querySelector('[data-lesson-complete]')};
 }

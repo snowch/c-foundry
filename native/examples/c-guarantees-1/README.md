@@ -52,6 +52,11 @@ No, it is undefined behavior in standard C. Standard unsigned and signed arithme
 
 **Try:** Classify five expressions from TinyDB and cite the exact assumption or guarantee each relies on.
 
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+
 Run from the repository root:
 
 ```sh

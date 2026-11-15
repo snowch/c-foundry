@@ -65,6 +65,11 @@ The conversion type may have a wider range than the destination. Conversion succ
 
 **Try:** Add zero, empty input, plus/minus signs, whitespace, a suffix, embedded zero bytes, leading zeros, and an extremely long number; verify output preservation for every rejection.
 
+### References and help
+
+- [C reference: strtol family](https://en.cppreference.com/w/c/string/byte/strtol.html) — Check endptr, accepted syntax, range errors, and full-input validation.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
+
 Run from the repository root:
 
 ```sh

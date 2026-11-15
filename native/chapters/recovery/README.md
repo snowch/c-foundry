@@ -137,6 +137,11 @@ No. Process memory can disappear without a persistent recovery protocol.
 
 **Try:** Write a guarantee table for each ACID property and identify the mechanism or missing work for each.
 
+### References and help
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+
 Run from the repository root:
 
 ```sh
@@ -267,6 +272,11 @@ Exclusive mutation ownership. The same live state must not be concurrently mutat
 </details>
 
 **Try:** Add an admission lock or a request queue and test two competing transaction starts.
+
+### References and help
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 
 Run from the repository root:
 
@@ -405,6 +415,11 @@ The earlier committed 95. Rollback never publishes its private working table.
 
 **Try:** Define session ownership and behavior for COMMIT without BEGIN, nested BEGIN, and disconnect during a transaction.
 
+### References and help
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+
 Run from the repository root:
 
 ```sh
@@ -522,6 +537,20 @@ After its required log synchronization succeeds. Recovery must be able to find a
 
 **Try:** Use a named log under KEEP_FILES=1, inject sync failures, and add a checked data-page write only after the write-ahead condition holds.
 
+### References and help
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+- [Linux/POSIX manual: fsync(2)](https://man7.org/linux/man-pages/man2/fsync.2.html) — Compare an OS synchronization request with C stream flushing; read filesystem-specific limitations.
+
+**Use the documentation (optional):** Does a successful fflush alone establish that a committed record survives power loss?
+
+<details><summary>Compare your answer</summary>
+
+No. fflush addresses C stream buffering. Durable commit needs a host/storage protocol and explicit failure assumptions; read how the reference separates these layers.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -630,6 +659,11 @@ No, a valid matching COMMIT is required. Tentative state remains separate until 
 
 **Try:** Replay every prefix of this log and verify values against an independently listed set of committed boundaries.
 
+### References and help
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+
 Run from the repository root:
 
 ```sh
@@ -735,6 +769,11 @@ No. The two stores have different owners, data, and failure contracts.
 </details>
 
 **Try:** Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.
+
+### References and help
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 
 Run from the repository root:
 

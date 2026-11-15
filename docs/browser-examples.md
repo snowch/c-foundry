@@ -1,10 +1,10 @@
 # Browser and native execution
 
-All 226 topic readings are available in the browser. **190 worked examples run directly in their lesson page; 36 require native tools.** The fifteen graded practice exercises are separate from these counts.
+All 227 topic readings are available in the browser. **191 worked examples run directly in their lesson page; 36 require native tools.** The fifteen graded practice exercises are separate from these counts.
 
 | Part | Inline examples | Native tools required | Scope |
 | --- | ---: | ---: | --- |
-| 1. Language | 25 | 0 | All worked examples |
+| 1. Language | 26 | 0 | All worked examples |
 | 2. Memory and practical C | 25 | 2 | Includes editable headers and separate source files; temporary streams and GDB remain native |
 | 3. Algorithms | 28 | 0 | All worked examples |
 | 4. Data structures | 28 | 0 | All worked examples |
@@ -13,7 +13,7 @@ All 226 topic readings are available in the browser. **190 worked examples run d
 | 7. Standards and portable C | 20 | 7 | Compatible probes and portable operations; selected stream and floating-point environment experiments remain native |
 | 8. Concurrency | 0 | 14 | Real C11/POSIX threads and synchronization require native tools |
 | 9. Advanced TinyDB | 13 | 5 | Single-threaded models run inline; threaded and host-specific examples remain native |
-| **Total** | **190** | **36** | |
+| **Total** | **191** | **36** | |
 
 ## Using inline examples
 

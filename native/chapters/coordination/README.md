@@ -154,6 +154,19 @@ The predicate may still be false. A wake is permission to re-evaluate state unde
 
 **Try:** Add two consumers and verify exactly-once consumption with a protected item-count reference.
 
+### References and help
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
+**Use the documentation (optional):** Why should a condition-variable wait be inside a loop that rechecks a predicate?
+
+<details><summary>Compare your answer</summary>
+
+A wakeup does not establish that the desired state currently holds. Recheck the shared predicate while holding the associated mutex; the wait releases and reacquires that mutex.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -306,6 +319,11 @@ The producer waits for space or closure. Blocking admission preserves accepted w
 
 **Try:** Track every request ID in a bitmap, then test multiple producers and repeated queue wraparound.
 
+### References and help
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
 Run from the repository root:
 
 ```sh
@@ -389,6 +407,11 @@ No. It addresses circular wait, not every scheduling policy.
 </details>
 
 **Try:** Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.
+
+### References and help
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
 Run from the repository root:
 

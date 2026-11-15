@@ -88,6 +88,11 @@ No. Joined results establish completed work, not simultaneous scheduling.
 
 **Try:** Compare sequential and threaded versions on a larger verified workload without assuming a speedup.
 
+### References and help
+
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+- [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
+
 Run from the repository root:
 
 ```sh
@@ -164,6 +169,19 @@ After its worker has finished and been joined. Creation does not imply the worke
 </details>
 
 **Try:** Give each of several workers its own argument object and verify every result after joining.
+
+### References and help
+
+- [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
+**Use the documentation (optional):** Does creating a thread copy or transfer ownership of every object its start argument points to?
+
+<details><summary>Compare your answer</summary>
+
+No. The argument is a pointer value. The referenced storage needs a suitable lifetime and a documented ownership/synchronization contract.
+
+</details>
 
 Run from the repository root:
 
@@ -253,6 +271,11 @@ The complete read-modify-write operation. Both workers must not base their commi
 </details>
 
 **Try:** Move the entire increment under one lock and verify final two; use ThreadSanitizer separately rather than relying on a data-race output.
+
+### References and help
+
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+- [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
 
 Run from the repository root:
 

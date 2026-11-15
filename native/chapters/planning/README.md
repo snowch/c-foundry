@@ -66,6 +66,11 @@ Yes, especially for many scattered matches. Lookup and row-fetch costs can excee
 
 **Try:** Change cache and clustering assumptions and describe when the preferred plan changes.
 
+### References and help
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+
 Run from the repository root:
 
 ```sh
@@ -119,6 +124,11 @@ The fraction of rows passing a predicate. It is a cardinality estimate relative 
 </details>
 
 **Try:** Build a skewed score distribution and compare uniform estimates with observed matches.
+
+### References and help
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 
 Run from the repository root:
 
@@ -184,6 +194,11 @@ After enough qualifying rows are emitted in the requested order. Residual predic
 
 **Try:** Add a residual predicate that rejects the first candidate and verify the limit still returns two qualifying rows.
 
+### References and help
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+
 Run from the repository root:
 
 ```sh
@@ -247,6 +262,19 @@ No. It reports the selected model; actual execution needs a separate explicit pa
 
 **Try:** Represent plans with an enum and structured fields before rendering text, then snapshot-test the renderer.
 
+### References and help
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+
+**Use the documentation (optional):** Does an EXPLAIN plan by itself establish how many pages the execution actually reads?
+
+<details><summary>Compare your answer</summary>
+
+No. It describes a chosen plan. Actual reads depend on execution, input, and caching; instrument and measure the operation counts separately.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -305,6 +333,11 @@ No. They measure different work and may differ greatly under selective filters.
 </details>
 
 **Try:** Attach counters to scan and index baselines and assert equal results before comparing work.
+
+### References and help
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 
 Run from the repository root:
 
@@ -374,6 +407,11 @@ N times M. Every outer row scans all inner rows.
 </details>
 
 **Try:** Add an inner-key index and verify the same multiset of join rows, including duplicate keys.
+
+### References and help
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 
 Run from the repository root:
 

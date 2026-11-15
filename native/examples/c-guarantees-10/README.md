@@ -61,6 +61,11 @@ The smallest positive normal double. Use -DBL_MAX for the negative finite endpoi
 
 **Try:** Compare scalbn(DBL_MIN,-1), nextafter(0,1), and further halvings. Then test a strict strtod parser with 1e-9999 and decide whether your application should reject or retain tiny finite values.
 
+### References and help
+
+- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
+- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
+
 Run from the repository root:
 
 ```sh

@@ -115,6 +115,10 @@ length ≤ page_size - offset after validating offset. Subtraction is safe only 
 
 **Try:** Encode the slot directory into the page itself and include its bytes in the free-space calculation.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
 Run from the repository root:
 
 ```sh
@@ -222,6 +226,10 @@ Its size cannot be inferred from a fixed row width. The reader needs an explicit
 </details>
 
 **Try:** Compare payload and metadata overhead for many one-byte records versus fewer long records.
+
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
 Run from the repository root:
 
@@ -334,6 +342,18 @@ A slot identity under a documented reuse policy. Relocation can change offsets e
 
 **Try:** Compact a page and verify that each live slot still resolves to the same bytes.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Use the documentation (optional):** Which information must a reader have before it can safely interpret a page’s record offsets?
+
+<details><summary>Compare your answer</summary>
+
+It needs the page size, header/layout version, offset encoding, and validated record bounds. Compare the reference’s page and cell rules with the smaller course format.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -444,6 +464,11 @@ Not necessarily; compaction may be required. The byte placement of remaining liv
 
 **Try:** Add a reusable-slot policy with generations and test that stale locators are rejected.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
+
 Run from the repository root:
 
 ```sh
@@ -532,6 +557,10 @@ No. Doing so loses the only modified page contents.
 </details>
 
 **Try:** Connect the cache to the checked pager and inject a write failure during dirty eviction.
+
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
 Run from the repository root:
 
@@ -643,6 +672,10 @@ Yes. Displaying bytes still requires safe, bounded reads.
 </details>
 
 **Try:** Add a hex dump with highlighted validated ranges, then reject overlapping live slots.
+
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
 Run from the repository root:
 

@@ -192,6 +192,11 @@ No. The runtime resets its virtual filesystem; a host transfer/storage step is s
 
 **Try:** Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Codespaces.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh

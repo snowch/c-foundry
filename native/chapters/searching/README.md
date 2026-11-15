@@ -63,6 +63,10 @@ No. It checks each candidate directly rather than discarding an ordered interval
 
 **Try:** Search for 99 and print missing when the returned index equals n.
 
+### References and help
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) — Check the ordering precondition and how the candidate interval shrinks.
+
 Run from the repository root:
 
 ```sh
@@ -139,6 +143,18 @@ The array is sorted under the same ordering. An ordering comparison constrains e
 </details>
 
 **Try:** Search for 1, 9, and 11 and explain every insertion position.
+
+### References and help
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) — Check the ordering precondition and how the candidate interval shrinks.
+
+**Use the documentation (optional):** Which input property does binary search require, and what must remain true of the candidate interval?
+
+<details><summary>Compare your answer</summary>
+
+The searched sequence must be ordered consistently with the comparison. The candidate interval must contain any remaining possible match, and every unsuccessful step must shrink it.
+
+</details>
 
 Run from the repository root:
 
@@ -218,6 +234,10 @@ lo == hi. The number of candidate positions is hi−lo.
 
 **Try:** Trace lo, hi, and mid for a missing key in a two-element array.
 
+### References and help
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) — Check the ordering precondition and how the candidate interval shrinks.
+
 Run from the repository root:
 
 ```sh
@@ -295,6 +315,10 @@ hi - lo. The endpoint hi is excluded.
 
 **Try:** Test a value below all elements, above all elements, and an array containing only duplicates.
 
+### References and help
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) — Check the ordering precondition and how the candidate interval shrinks.
+
 Run from the repository root:
 
 ```sh
@@ -365,6 +389,10 @@ Ascending ID order. Every comparison is against rows[mid].id.
 </details>
 
 **Try:** Insert an ID between 2 and 5 while preserving order, then implement find-or-missing cases.
+
+### References and help
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) — Check the ordering precondition and how the candidate interval shrinks.
 
 Run from the repository root:
 

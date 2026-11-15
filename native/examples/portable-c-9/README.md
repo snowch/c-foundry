@@ -53,6 +53,20 @@ Save and restore it with fgetpos/fsetpos. The position representation can carry 
 
 **Try:** Add a final line without a newline, test a failed open, and audit the code paths that check read, write, flush, reposition, and close errors.
 
+### References and help
+
+- [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) — Distinguish a stream error from ordinary end-of-file.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
+**Use the documentation (optional):** When a stream read returns EOF, how do you tell ordinary end-of-file from an I/O error?
+
+<details><summary>Compare your answer</summary>
+
+Inspect the stream indicators: feof identifies end-of-file and ferror identifies an error. A returned EOF value alone does not distinguish them.
+
+</details>
+
 Run from the repository root:
 
 ```sh

@@ -170,6 +170,19 @@ No. Its forty bytes are specified by offsets, independent of struct padding.
 
 **Try:** Add fixture-byte tests for zero, maximum score, maximum ID, and a 31-byte name.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
+**Use the documentation (optional):** Why does an on-disk format document field widths and byte order rather than sizeof a host struct?
+
+<details><summary>Compare your answer</summary>
+
+Readers on different targets must interpret the same bytes. Host padding, alignment, integer widths, and byte order can differ; an explicit format separates those choices from the C object layout.
+
+</details>
+
 Run from the repository root:
 
 ```sh

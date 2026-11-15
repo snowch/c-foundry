@@ -154,6 +154,11 @@ Successful admission order. The queue’s protected enqueue operation provides t
 
 **Try:** Add session/request IDs, copy-out responses, and tests that every response matches one accepted request.
 
+### References and help
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
 Run from the repository root:
 
 ```sh
@@ -241,6 +246,11 @@ No. The transaction handle is associated with a session identity.
 </details>
 
 **Try:** Add disconnect rollback and reject stale requests from a session whose transaction has already ended.
+
+### References and help
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 
 Run from the repository root:
 
@@ -391,6 +401,19 @@ Whether admission or completion is known. The client needs enough state to make 
 </details>
 
 **Try:** Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.
+
+### References and help
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
+**Use the documentation (optional):** Does a thread-safe queue guarantee that a transaction composed of several requests is isolated?
+
+<details><summary>Compare your answer</summary>
+
+No. Queue synchronization protects its own operations. Transaction admission, ownership, visibility, and commit boundaries require their own contract and implementation.
+
+</details>
 
 Run from the repository root:
 

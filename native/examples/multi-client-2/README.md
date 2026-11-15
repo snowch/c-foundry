@@ -84,6 +84,11 @@ No. The transaction handle is associated with a session identity.
 
 **Try:** Add disconnect rollback and reject stale requests from a session whose transaction has already ended.
 
+### References and help
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
 Run from the repository root:
 
 ```sh

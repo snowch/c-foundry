@@ -55,6 +55,11 @@ The explicit extraction and reconstruction rules. The representation is specifie
 
 **Try:** Try zero and the largest uint32_t, checking round trips without changing the byte order.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh

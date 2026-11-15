@@ -64,6 +64,18 @@ The unsigned argument for n≥2. Each recursive call receives n−1 only when n 
 
 **Try:** Add a checked public wrapper that rejects values above the documented domain.
 
+### References and help
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
+
+**Use the documentation (optional):** Which two parts of a recursive algorithm prevent the same subproblem from recurring forever?
+
+<details><summary>Compare your answer</summary>
+
+A terminating base case and recursive steps that make progress toward it. A base case alone is insufficient if reachable steps never approach it.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -128,6 +140,10 @@ The base-case call with n=0. The caller waits for the child’s result.
 
 **Try:** Draw one box per active call and mark the point where the maximum number of boxes is live.
 
+### References and help
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
+
 Run from the repository root:
 
 ```sh
@@ -187,6 +203,10 @@ No. An implementation may preserve a call frame for each recursive call.
 </details>
 
 **Try:** Compare both versions for every input from zero through ten and add overflow checks before multiplication.
+
+### References and help
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
 
 Run from the repository root:
 
@@ -251,6 +271,11 @@ The subproblem sizes shrink by about half. A recurrence must describe sizes and 
 </details>
 
 **Try:** Repeat with n=7, draw the uneven leaves, and explain why the asymptotic merge-sort bound is unchanged.
+
+### References and help
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Run from the repository root:
 
@@ -320,6 +345,10 @@ The tree’s height. Calls remain active along the current root-to-node path.
 </details>
 
 **Try:** Add a nested directory and then implement the traversal with an explicit bounded stack.
+
+### References and help
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
 
 Run from the repository root:
 

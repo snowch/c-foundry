@@ -108,6 +108,19 @@ The table insertion operation. The type limits numeric representation, not relat
 
 **Try:** Write the schema contract, including name length, empty names, key zero, and duplicate behavior.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Use the documentation (optional):** Does SQLite’s full SQL reference imply that the course’s TinyDB parser accepts every documented clause?
+
+<details><summary>Compare your answer</summary>
+
+No. SQLite is a comparison reference. TinyDB accepts only its explicitly implemented and tested grammar; unsupported syntax must be rejected.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -213,6 +226,11 @@ The logical row ID. Identity belongs to the schema contract rather than the curr
 
 **Try:** Delete the first row and confirm that ID two remains the same even though its position changes.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
 Run from the repository root:
 
 ```sh
@@ -317,6 +335,11 @@ It remains unchanged. The initial insertion contract rejects duplicate IDs.
 </details>
 
 **Try:** Write acceptance cases for missing rows, invalid rows, a full table, and an empty selection.
+
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
 Run from the repository root:
 
@@ -447,6 +470,12 @@ To prevent its tail being treated as a new command. Input framing must remain al
 
 **Try:** Add a quit command and test an overlong line followed by a valid command.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [C reference: fgets](https://en.cppreference.com/w/c/io/fgets.html) — Check the buffer-size argument, newline retention, terminator, and failure result.
+- [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) — Distinguish a stream error from ordinary end-of-file.
+
 Run from the repository root:
 
 ```sh
@@ -553,6 +582,11 @@ No, unless the public behavior is intentionally revised. Contracts allow impleme
 </details>
 
 **Try:** Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.
+
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
 Run from the repository root:
 

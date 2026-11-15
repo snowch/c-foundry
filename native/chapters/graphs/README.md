@@ -107,6 +107,18 @@ An adjacency list. It stores actual edges rather than every possible pair.
 
 **Try:** Represent the same graph as neighbor lists and compare neighbor-iteration work.
 
+### References and help
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
+
+**Use the documentation (optional):** Does an adjacency matrix use space proportional to the number of edges or to all possible vertex pairs?
+
+<details><summary>Compare your answer</summary>
+
+A full matrix has a position for every vertex pair, using quadratic space in the vertex count. A sparse adjacency list can instead use space proportional to vertices plus edges.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -203,6 +215,10 @@ When it is enqueued. Early marking prevents duplicate pending copies.
 </details>
 
 **Try:** Record parent and distance arrays, then reconstruct a minimum-edge path from zero to three.
+
+### References and help
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
 
 Run from the repository root:
 
@@ -308,6 +324,10 @@ An unseen vertex after earlier traversals finish. A completed traversal already 
 
 **Try:** Add an isolated vertex in a larger fixed graph and implement parent-aware cycle detection.
 
+### References and help
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
+
 Run from the repository root:
 
 ```sh
@@ -377,6 +397,10 @@ Fewer than V emitted vertices. A cycle retains positive indegrees after removabl
 </details>
 
 **Try:** Add an edge from three to zero and check that the algorithm rejects the graph.
+
+### References and help
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
 
 Run from the repository root:
 
@@ -476,6 +500,10 @@ No. A settled distance may later decrease through a negative edge, breaking the 
 </details>
 
 **Try:** Record predecessors and verify the reconstructed path’s cost against its edge weights.
+
+### References and help
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
 
 Run from the repository root:
 
@@ -627,6 +655,10 @@ Its distance differs from the current best distance. A newer relaxation establis
 </details>
 
 **Try:** Replace matrix rows with adjacency lists and benchmark only after verifying route costs against the simpler implementation.
+
+### References and help
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
 
 Run from the repository root:
 

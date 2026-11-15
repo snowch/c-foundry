@@ -303,3 +303,13 @@ dialog::backdrop { background:#17241c88; }
 .source-files button{font-family:var(--mono);color:#dce4d9;background:transparent;border:1px solid #687875;padding:.55rem .75rem}
 .source-files button[aria-pressed="true"]{background:#395545;color:white;border-color:#a1b49b}
 .native-alternative{margin-block:1.5rem}
+
+/* Lesson references remain compact until requested. */
+.lesson-resources{margin-top:32px;border-top:1px solid var(--line)}
+.lesson-resources>details{padding:18px 0;border-bottom:1px solid var(--line)}
+.lesson-resources>details>summary{font-weight:600;cursor:pointer;min-height:44px;align-content:center}
+.lesson-resources li{margin:18px 0}.lesson-resources li p{margin:6px 0 0}
+.reference-new-tab{font-size:.85em;font-weight:400}
+.lesson-resources pre,.reading-guide pre{max-width:100%;overflow:auto}
+.lesson-resources a{overflow-wrap:anywhere}.documentation-answer{margin:20px 0}
+.reading-guide h2{font-size:1.2em}

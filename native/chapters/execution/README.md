@@ -111,6 +111,11 @@ The initialized row count. Unused capacity is reserved storage, not query input.
 
 **Try:** Implement a cursor with next and exhausted results, including an empty table.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
 Run from the repository root:
 
 ```sh
@@ -226,6 +231,11 @@ No. This operator must inspect the predicate for every scanned row.
 
 **Try:** Add equality and range predicates and compare result sets with a simple reference loop.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
 Run from the repository root:
 
 ```sh
@@ -333,6 +343,11 @@ No. It controls the result representation, not the underlying row schema.
 </details>
 
 **Try:** Represent the selected columns as an enum array and reject unknown or repeated columns according to a stated policy.
+
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
 Run from the repository root:
 
@@ -450,6 +465,12 @@ Establish score order, then choose two rows. The limit applies to the ordered re
 
 **Try:** Implement top-k with a heap and compare it against this full-sort baseline.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [C reference: qsort](https://en.cppreference.com/w/c/algorithm/qsort.html) — Check comparator results, element widths, and the absence of a stability guarantee.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
 Run from the repository root:
 
 ```sh
@@ -558,6 +579,19 @@ When the input count is nonzero. Empty input requires a separate result policy.
 </details>
 
 **Try:** Add min and max with explicit no-value results for empty input and test maximum score values.
+
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
+**Use the documentation (optional):** Is a query’s specified result order the same thing as the order in which a scan happens to visit rows?
+
+<details><summary>Compare your answer</summary>
+
+No. Read the reference’s ORDER BY contract. A current scan order is an implementation detail unless the query contract explicitly specifies ordering.
+
+</details>
 
 Run from the repository root:
 
@@ -814,6 +848,11 @@ Execution after successful parsing and validation. Malformed or invalid statemen
 </details>
 
 **Try:** Extend the grammar with one earlier operator, add end-to-end tests, and preserve all existing rejection behavior.
+
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
 Run from the repository root:
 

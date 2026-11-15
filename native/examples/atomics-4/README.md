@@ -80,6 +80,19 @@ No. It supplies neither the required atomic update nor the inter-thread ordering
 
 **Try:** Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.
 
+### References and help
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
+**Use the documentation (optional):** Does volatile make ordinary shared accesses atomic or establish inter-thread synchronization?
+
+<details><summary>Compare your answer</summary>
+
+No. volatile is not a substitute for atomic operations or synchronization. Use documented atomic ordering or mutex-based rules to establish the required relationships.
+
+</details>
+
 Run from the repository root:
 
 ```sh

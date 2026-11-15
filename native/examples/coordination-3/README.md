@@ -80,6 +80,11 @@ No. It addresses circular wait, not every scheduling policy.
 
 **Try:** Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.
 
+### References and help
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
 Run from the repository root:
 
 ```sh

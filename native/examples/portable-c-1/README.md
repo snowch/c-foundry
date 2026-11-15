@@ -49,6 +49,12 @@ Reading Linux /proc to discover process state. The parser can operate on supplie
 
 **Try:** Inventory the APIs in your TinyDB build. Label each ISO C, POSIX, Win32, or another target-specific contract, and identify its failure policy.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fopen](https://en.cppreference.com/w/c/io/fopen.html) — Read text/binary modes, creation behavior, and the failure result.
+- [C reference: fread](https://en.cppreference.com/w/c/io/fread.html) — Check the difference between bytes and complete elements, and detect short reads.
+
 Run from the repository root:
 
 ```sh

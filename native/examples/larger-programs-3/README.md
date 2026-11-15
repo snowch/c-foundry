@@ -58,6 +58,19 @@ No. It prevents repetition within one translation unit; separate translation uni
 
 **Try:** Change the default factor, then inspect the preprocessed source with gcc -E main.c in the example folder.
 
+### References and help
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) — Find inclusion, conditional compilation, and macro replacement rules.
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
+
+**Use the documentation (optional):** Does an include guard stop duplicate external function definitions in different source files?
+
+<details><summary>Compare your answer</summary>
+
+No. It prevents repeated inclusion within a translation unit. Each source file is preprocessed separately; shared external definitions still need one definition and compatible declarations.
+
+</details>
+
 Run from the repository root:
 
 ```sh

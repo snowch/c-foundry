@@ -52,6 +52,11 @@ Before multiplying. An overflowed size may request a small allocation and later 
 
 **Try:** Audit every size calculation in the pager, index, parser, and vector with a stated maximum.
 
+### References and help
+
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+
 Run from the repository root:
 
 ```sh

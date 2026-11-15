@@ -1,6 +1,6 @@
 # C Foundry in Codespaces
 
-The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 226 topic lessons. There are 190 inline browser examples and 36 examples requiring native tools, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
+The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 227 topic lessons. There are 191 inline browser examples and 36 examples requiring native tools, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
 
 ## Start or reuse a workspace
 
@@ -114,7 +114,7 @@ make check-structures
 make check-structures SANITIZE=1
 ```
 
-All 226 topic lessons can be explicitly marked done in the web course. Those marks remain in that browser’s storage, separately from example results and native project work.
+All 227 topic lessons can be explicitly marked done in the web course. Those marks remain in that browser’s storage, separately from example results and native project work.
 
 ## Retain and download program files
 
@@ -214,3 +214,16 @@ python tools/check_portability.py --compiler cl
 The final [TinyDB audit](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/5) includes a complete small codec and file adapter in `native/portability/`. Its README lists the exact supported widths, encoding, capacity, filename, and creation contracts, and the larger CLI's remaining replacement, path, synchronization, and concurrency assumptions. It tests new-file creation rather than claiming portable replacement of an existing database.
 
 Actions builds the same target on Linux with GCC/Clang, macOS with Clang, and Windows with MSVC. Each host produces database artifacts; every consumer host validates and copies all producer files byte-for-byte before Pages deployment. Read the reports in Actions instead of inferring cross-platform support from a successful Codespaces run. The audited eight-row file subset is distinct from the CLI's 128-row capacity and from later POSIX/Linux-specific recovery examples.
+
+## Finding and reading documentation
+
+The [Chapter 1 help lesson](https://snowch.github.io/c-foundry/#/chapter/first-program/6) teaches how to read SYNOPSIS, argument types, RETURN VALUE, ERRORS, and STANDARDS. The dev container includes `man-db`, `manpages-dev`, `less`, and the command manuals. Rebuild an existing Codespace’s container to install new packages.
+
+```sh
+man 3 printf   # C library function
+man 1 printf   # command-line utility
+man -k printf  # search installed manual descriptions
+make check-help
+```
+
+The default `less` pager supports `/RETURN VALUE`, `n` for the next match, and `q` to quit. The course browser CLI supports builds and program execution; use each lesson’s online references when staying in that workspace or reading on a tablet. Check whether a reference describes ISO C, POSIX, or Linux-specific behavior.

@@ -62,6 +62,11 @@ pass. The >= comparison includes equality. Boundary values belong in your tests.
 
 **Try:** Change score to 49 and command to an unmatched value. Predict both output lines.
 
+### References and help
+
+- [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html) — Distinguish sequencing rules from operator precedence.
+- [C reference: if](https://en.cppreference.com/w/c/language/if.html) — Read how the controlling expression selects a branch.
+
 Run from the repository root:
 
 ```sh
@@ -113,6 +118,19 @@ No. The false left operand of && skips its right operand.
 </details>
 
 **Try:** Try divisor = 2 and then divisor = 5. Explain why one reaches the true branch and the other does not.
+
+### References and help
+
+- [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html) — Distinguish sequencing rules from operator precedence.
+- [C reference: if](https://en.cppreference.com/w/c/language/if.html) — Read how the controlling expression selects a branch.
+
+**Use the documentation (optional):** Does && evaluate its right operand when the left operand is zero? How does that help guard a division?
+
+<details><summary>Compare your answer</summary>
+
+It does not: && short-circuits after a false left operand. Put the nonzero-divisor check on the left before evaluating the division on the right.
+
+</details>
 
 Run from the repository root:
 
@@ -171,6 +189,10 @@ The for body sees i equal to 0, 1, and 2. After the update makes it 3, the condi
 
 **Try:** Rewrite the countdown using for. Keep the output and final value the same.
 
+### References and help
+
+- [C reference: statements](https://en.cppreference.com/w/c/language/statements.html) — Compare selection, iteration, and jump statements and the control flow each permits.
+
 Run from the repository root:
 
 ```sh
@@ -224,6 +246,10 @@ At i = 2, continue skips printf but the for update still increments i. At i = 5,
 </details>
 
 **Try:** Move the break condition to i == 4. Predict which final value disappears from the output.
+
+### References and help
+
+- [C reference: statements](https://en.cppreference.com/w/c/language/statements.html) — Compare selection, iteration, and jump statements and the control flow each permits.
 
 Run from the repository root:
 
@@ -282,6 +308,11 @@ No. No assignment was made by that failed conversion. Handle the failure before 
 </details>
 
 **Try:** Open the guessing-game exercise and add the loop, range checks, and higher/lower responses.
+
+### References and help
+
+- [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html) — Distinguish sequencing rules from operator precedence.
+- [C reference: if](https://en.cppreference.com/w/c/language/if.html) — Read how the controlling expression selects a branch.
 
 Run from the repository root:
 

@@ -54,6 +54,11 @@ No. Assertions can disappear; external input still needs a runtime error-handlin
 
 **Try:** Use GDB on the example and inspect the valid index rather than deliberately executing an out-of-bounds access.
 
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: assert](https://en.cppreference.com/w/c/error/assert.html) — Check what the diagnostic macro does and how NDEBUG changes its behavior.
+
 Run from the repository root:
 
 ```sh

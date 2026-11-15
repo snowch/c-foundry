@@ -133,6 +133,11 @@ The earlier committed 95. Rollback never publishes its private working table.
 
 **Try:** Define session ownership and behavior for COMMIT without BEGIN, nested BEGIN, and disconnect during a transaction.
 
+### References and help
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+
 Run from the repository root:
 
 ```sh

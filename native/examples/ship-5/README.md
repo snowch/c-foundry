@@ -172,6 +172,11 @@ No. Ownership remains until the resource is released.
 
 **Try:** Enumerate every exit path in the pager, parser, and index; inject failures at each acquired resource boundary.
 
+### References and help
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
+
 Run from the repository root:
 
 ```sh

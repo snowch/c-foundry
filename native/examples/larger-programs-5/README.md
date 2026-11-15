@@ -67,6 +67,11 @@ Only after OK. The status determines whether the returned owner was established.
 
 **Try:** Implement the native record-store project and test its failure and cleanup paths.
 
+### References and help
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+
 Run from the repository root:
 
 ```sh

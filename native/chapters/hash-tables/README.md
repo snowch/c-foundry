@@ -104,6 +104,10 @@ Yes. A finite bucket set generally has fewer positions than possible keys.
 
 **Try:** Find three integer keys that collide and test that all three remain independently retrievable.
 
+### References and help
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
+
 Run from the repository root:
 
 ```sh
@@ -207,6 +211,10 @@ A colliding key may be farther along the probe chain. An occupied slot is eviden
 
 **Try:** Implement the same fixture with bucket-linked chains and compare ownership and memory layout.
 
+### References and help
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
+
 Run from the repository root:
 
 ```sh
@@ -262,6 +270,10 @@ No, reinsert live entries under the new capacity. The bucket calculation depends
 </details>
 
 **Try:** Implement rehash into a temporary allocation, then swap owners only after every live entry is inserted.
+
+### References and help
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
 
 Run from the repository root:
 
@@ -366,6 +378,10 @@ No. A collision chain may continue beyond a deleted entry.
 </details>
 
 **Try:** Insert key 17 after the deletion and verify both slot reuse and key nine’s survival.
+
+### References and help
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
 
 Run from the repository root:
 
@@ -475,6 +491,18 @@ An absent colliding key examines three live entries and then an empty slot. The 
 </details>
 
 **Try:** Compare probe counts for clustered keys and distinct home buckets at the same load.
+
+### References and help
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
+
+**Use the documentation (optional):** Is constant-time hash lookup an unconditional worst-case guarantee?
+
+<details><summary>Compare your answer</summary>
+
+No. Expected performance depends on hashing and occupancy assumptions. Collisions can make individual operations or a workload substantially more expensive.
+
+</details>
 
 Run from the repository root:
 
@@ -610,6 +638,10 @@ While their immutable storage outlives the table. A valid address today does not
 </details>
 
 **Try:** Read bounded tokens, allocate owned copies for new words, and free all owners when the index is destroyed.
+
+### References and help
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
 
 Run from the repository root:
 

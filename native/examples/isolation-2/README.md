@@ -66,6 +66,10 @@ Version validation and publication of the new value/version. Another writer must
 
 **Try:** Protect compare_commit with a lock, then test two sessions synchronized to read the same initial version.
 
+### References and help
+
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
 Run from the repository root:
 
 ```sh

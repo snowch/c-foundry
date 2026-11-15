@@ -56,6 +56,20 @@ The formats match the arguments: %d for int, %.1f for a double printed with one 
 
 **Try:** Change the values and predict the complete line before you run the example.
 
+### References and help
+
+- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
+- [C reference: arithmetic types](https://en.cppreference.com/w/c/language/arithmetic_types.html) — Compare integer ranges, signedness, and floating-point types.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+
+**Use the documentation (optional):** Which argument type does printf expect for %d, and which type does %f receive?
+
+<details><summary>Compare your answer</summary>
+
+%d receives int. printf’s %f receives double; a float argument is promoted to double. Input functions such as scanf have different contracts.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -106,6 +120,11 @@ No. An initializer is evaluated once at that point in execution. C does not main
 
 **Try:** Recalculate total after changing quantity. Check that the first number now becomes 28.
 
+### References and help
+
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
+- [C reference: arithmetic types](https://en.cppreference.com/w/c/language/arithmetic_types.html) — Compare integer ranges, signedness, and floating-point types.
+
 Run from the repository root:
 
 ```sh
@@ -155,6 +174,10 @@ The first line divides seven into two groups with one left over. On the second l
 
 **Try:** Add expressions for 9 / 4 and 9 % 4. Explain each result rather than only matching the output.
 
+### References and help
+
+- [C reference: operator precedence](https://en.cppreference.com/w/c/language/operator_precedence.html) — Use the precedence table, then check the operator’s own semantics.
+
 Run from the repository root:
 
 ```sh
@@ -202,6 +225,10 @@ fractional receives 3.5 because conversion happens before division. truncated re
 </details>
 
 **Try:** Rewrite fractional using 7.0 instead of a cast. Explain why the result is unchanged.
+
+### References and help
+
+- [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) — Check integer promotions, usual arithmetic conversions, and narrowing.
 
 Run from the repository root:
 
@@ -251,6 +278,11 @@ No; signed overflow has undefined behavior. Unsigned arithmetic has defined modu
 </details>
 
 **Try:** Use the chapter’s numeric-expression exercise to practice type choice and conversion without invoking overflow.
+
+### References and help
+
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 
 Run from the repository root:
 

@@ -55,6 +55,11 @@ Lifetime, bounds, aliasing, initialization, and synchronization. A valid source 
 
 **Try:** Compile with GCC and Clang at -O0 and -O2, then run the same independent fixtures.
 
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+
 Run from the repository root:
 
 ```sh

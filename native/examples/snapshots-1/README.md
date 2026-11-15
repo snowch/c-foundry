@@ -78,6 +78,11 @@ Ten. Its visibility boundary remains fixed rather than advancing between reads.
 
 **Try:** Add a later committed version and verify that repeated reads at snapshot two remain unchanged.
 
+### References and help
+
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+
 Run from the repository root:
 
 ```sh

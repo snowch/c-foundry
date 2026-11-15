@@ -54,6 +54,11 @@ It can overflow. A comparator should handle every supported int pair without und
 
 **Try:** Reverse the comparison’s sign to sort descending and predict the new output.
 
+### References and help
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
+
 Run from the repository root:
 
 ```sh

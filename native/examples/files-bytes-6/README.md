@@ -75,6 +75,11 @@ Encoder and decoder could share the same mistake. A fixed independently defined 
 
 **Try:** Implement the native binary-record project and explain every byte in its test fixture.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh

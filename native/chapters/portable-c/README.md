@@ -59,6 +59,12 @@ Reading Linux /proc to discover process state. The parser can operate on supplie
 
 **Try:** Inventory the APIs in your TinyDB build. Label each ISO C, POSIX, Win32, or another target-specific contract, and identify its failure policy.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fopen](https://en.cppreference.com/w/c/io/fopen.html) — Read text/binary modes, creation behavior, and the failure result.
+- [C reference: fread](https://en.cppreference.com/w/c/io/fread.html) — Check the difference between bytes and complete elements, and detect short reads.
+
 Run from the repository root:
 
 ```sh
@@ -130,6 +136,11 @@ No. Layout, padding, byte order, and other representation choices remain.
 
 **Try:** Decode independently specified bytes and test all integer extremes without consulting sizeof(Row).
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh
@@ -188,6 +199,11 @@ Report that the required service is unavailable. A fallback may preserve a contr
 </details>
 
 **Try:** Run python3 tools/check_portability.py --compiler gcc and inspect the capability report. Compare the result with Windows MSVC in the Actions matrix.
+
+### References and help
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) — Find inclusion, conditional compilation, and macro replacement rules.
+- [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
 
 Run from the repository root:
 
@@ -278,6 +294,11 @@ The platform adapter with a documented replacement contract. Replacement semanti
 
 **Try:** Add a rejecting ByteSink and verify that emit_header reports failure. Then sketch separate POSIX and Win32 publication adapters without claiming they offer identical crash guarantees.
 
+### References and help
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh
@@ -339,6 +360,11 @@ Binary mode, such as rb and wb. Binary mode avoids text-stream translations; the
 
 **Try:** Add empty, CRLF-only, final-record-without-newline, and truncated-buffer cases. State separately how your parser rejects an incomplete record.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh
@@ -397,6 +423,12 @@ No, filesystem case and identity rules are a separate contract. Names can compar
 
 **Try:** Run the audit project’s filename-policy tests for CON.txt, COM1.tdb, traversal, trailing dots, and a valid basename; document which otherwise valid OS names the project intentionally excludes.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: strcmp](https://en.cppreference.com/w/c/string/byte/strcmp.html) — Check the meaning of negative, zero, and positive results.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh
@@ -451,6 +483,11 @@ It makes any byte a valid classification argument. The cast satisfies the ctype 
 </details>
 
 **Try:** Compare the byte length of an ASCII name and a multibyte name, and test invalid UTF-8 rejection separately from name length and locale classification.
+
+### References and help
+
+- [C reference: locales](https://en.cppreference.com/w/c/locale.html) — Check which operations depend on the active locale.
+- [C reference: isspace](https://en.cppreference.com/w/c/string/byte/isspace.html) — Check which argument values are valid and how locale affects classification.
 
 Run from the repository root:
 
@@ -521,6 +558,11 @@ The conversion type may have a wider range than the destination. Conversion succ
 
 **Try:** Add zero, empty input, plus/minus signs, whitespace, a suffix, embedded zero bytes, leading zeros, and an extremely long number; verify output preservation for every rejection.
 
+### References and help
+
+- [C reference: strtol family](https://en.cppreference.com/w/c/string/byte/strtol.html) — Check endptr, accepted syntax, range errors, and full-input validation.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
+
 Run from the repository root:
 
 ```sh
@@ -577,6 +619,20 @@ Save and restore it with fgetpos/fsetpos. The position representation can carry 
 </details>
 
 **Try:** Add a final line without a newline, test a failed open, and audit the code paths that check read, write, flush, reposition, and close errors.
+
+### References and help
+
+- [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) — Distinguish a stream error from ordinary end-of-file.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
+**Use the documentation (optional):** When a stream read returns EOF, how do you tell ordinary end-of-file from an I/O error?
+
+<details><summary>Compare your answer</summary>
+
+Inspect the stream indicators: feof identifies end-of-file and ferror identifies an error. A returned EOF value alone does not distinguish them.
+
+</details>
 
 Run from the repository root:
 

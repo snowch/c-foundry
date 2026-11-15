@@ -67,6 +67,11 @@ No. Layout, padding, byte order, and other representation choices remain.
 
 **Try:** Decode independently specified bytes and test all integer extremes without consulting sizeof(Row).
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh

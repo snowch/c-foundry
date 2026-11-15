@@ -263,6 +263,11 @@ Parsing, validation, and execution/storage. The observed result depends on the c
 
 **Try:** Add tests for each supported statement and maintain a table of intentionally unsupported syntax.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+
 Run from the repository root:
 
 ```sh
@@ -515,6 +520,11 @@ No. Only finitely many generated paths were exercised.
 
 **Try:** Run with SANITIZE=1, add token-length boundaries, and retain every discovered failure as a deterministic regression case.
 
+### References and help
+
+- [LLVM documentation: libFuzzer](https://llvm.org/docs/LibFuzzer.html) — Compare a native coverage-guided fuzzing engine with the bounded deterministic parser fixture.
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
+
 Run from the repository root:
 
 ```sh
@@ -625,6 +635,19 @@ Only the prefix containing the full commit record. Uncommitted records cannot es
 
 **Try:** Add two committed transactions, an incomplete third, invalid headers, and repeated replay checks.
 
+### References and help
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+
+**Use the documentation (optional):** Can a finite fault-injection test prove durability for every filesystem and device?
+
+<details><summary>Compare your answer</summary>
+
+No. It checks modeled failures on selected targets. Publish the tested failure model and retain independent invariants; stronger storage guarantees need additional evidence.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -684,6 +707,11 @@ Dataset construction and result formatting. Preparation and reporting answer dif
 </details>
 
 **Try:** Compare cold and warm page-cache runs with verified equal results and recorded environment details.
+
+### References and help
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
 Run from the repository root:
 
@@ -860,6 +888,11 @@ No. Ownership remains until the resource is released.
 </details>
 
 **Try:** Enumerate every exit path in the pager, parser, and index; inject failures at each acquired resource boundary.
+
+### References and help
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
 
 Run from the repository root:
 
@@ -1040,6 +1073,11 @@ A separate verified new-format file. The old valid state should remain available
 
 **Try:** Publish a format document with offsets, ranges, validation, version policy, and independently specified sample bytes.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh
@@ -1216,6 +1254,11 @@ Format documentation, validation tests, and execution limits. A recipient needs 
 
 **Try:** Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh
@@ -1327,6 +1370,11 @@ The in-memory table alone cannot establish that the saved rows are correct. Reop
 </details>
 
 **Try:** Repair both defects in the isolated CLI copy, pass all four checks, and add missing-ID, sole-row deletion, and duplicate-rejection regressions. Record the GDB evidence for each source fix.
+
+### References and help
+
+- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
 
 Run from the repository root:
 

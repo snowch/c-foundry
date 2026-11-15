@@ -63,6 +63,11 @@ No, it is undefined behavior in standard C. Standard unsigned and signed arithme
 
 **Try:** Classify five expressions from TinyDB and cite the exact assumption or guarantee each relies on.
 
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+
 Run from the repository root:
 
 ```sh
@@ -120,6 +125,12 @@ Alignment and object-type requirements may not be satisfied. memcpy transfers re
 </details>
 
 **Try:** Replace a raw pointer cast in a decoder with explicit byte assembly and test it with unaligned input offsets.
+
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
+- [C reference: memcpy](https://en.cppreference.com/w/c/string/byte/memcpy.html) — Check byte counts, valid object ranges, and the non-overlap requirement.
 
 Run from the repository root:
 
@@ -180,6 +191,11 @@ Lifetime, bounds, aliasing, initialization, and synchronization. A valid source 
 
 **Try:** Compile with GCC and Clang at -O0 and -O2, then run the same independent fixtures.
 
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+
 Run from the repository root:
 
 ```sh
@@ -237,6 +253,20 @@ int after integer promotion. An int can represent every uint8_t value on the sup
 </details>
 
 **Try:** Compare indices −1, 0, count−1, and count with the guarded index predicate. Then predict and run uint8_t sums around 255 before and after narrowing.
+
+### References and help
+
+- [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) — Check integer promotions, usual arithmetic conversions, and narrowing.
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+
+**Use the documentation (optional):** Does an unsigned operand always convert a signed operand to unsigned, regardless of their ranks and ranges?
+
+<details><summary>Compare your answer</summary>
+
+No. Integer promotions and the usual arithmetic conversions depend on rank and representable range. Work through the types and values before deciding how the comparison is evaluated.
+
+</details>
 
 Run from the repository root:
 
@@ -297,6 +327,11 @@ Before converting, using the original value. The original information may be los
 </details>
 
 **Try:** Test SCHAR_MIN−1, SCHAR_MIN, SCHAR_MAX, and SCHAR_MAX+1 on the supported targets. Require the destination to retain its earlier value after every rejection.
+
+### References and help
+
+- [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) — Check integer promotions, usual arithmetic conversions, and narrowing.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 
 Run from the repository root:
 
@@ -369,6 +404,11 @@ No, the guard must run before the overflowing expression. Undefined behavior has
 
 **Try:** Attempt the checked-arithmetic chapter exercise. Add tests for both endpoints, zero, all sign combinations, and failed operations retaining an existing output value.
 
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+
 Run from the repository root:
 
 ```sh
@@ -435,6 +475,11 @@ No: the unrepresentable quotient also makes % invalid. C defines both operations
 </details>
 
 **Try:** Test ±7 with divisors ±3 and verify the quotient/remainder identity. Then test zero and the extreme divisor pair without evaluating a rejected operation.
+
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 
 Run from the repository root:
 
@@ -505,6 +550,11 @@ No, choose absolute/relative tolerances from the problem’s error budget. DBL_E
 </details>
 
 **Try:** Change the increment near 2^53, compare numbers near zero, and vary each tolerance independently. Predict which error budget accepts each result before running.
+
+### References and help
+
+- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
+- [C reference: floating-point environment](https://en.cppreference.com/w/c/numeric/fenv.html) — Check rounding modes and implementation support before relying on them.
 
 Run from the repository root:
 
@@ -577,6 +627,11 @@ isfinite(value). Self-equality excludes quiet NaN but still permits infinities; 
 
 **Try:** Test inf, -inf, nan, 1e9999, empty input, and a valid prefix followed by junk. Confirm rejected parses preserve the output and report the intended error category.
 
+### References and help
+
+- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
+- [C reference: strtof, strtod, strtold](https://en.cppreference.com/w/c/string/byte/strtof.html) — Check endptr, range errors, and acceptance of infinity/NaN before enforcing a finite-input policy.
+
 Run from the repository root:
 
 ```sh
@@ -641,6 +696,11 @@ The smallest positive normal double. Use -DBL_MAX for the negative finite endpoi
 </details>
 
 **Try:** Compare scalbn(DBL_MIN,-1), nextafter(0,1), and further halvings. Then test a strict strtod parser with 1e-9999 and decide whether your application should reject or retain tiny finite values.
+
+### References and help
+
+- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
+- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
 
 Run from the repository root:
 

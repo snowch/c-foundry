@@ -57,6 +57,11 @@ The initializer determines a five-element array. sizeof reports sizes in bytes a
 
 **Try:** Change the initializer to three values and confirm that count and the loop adapt without a hardcoded bound.
 
+### References and help
+
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) — Check array bounds, element types, and array-to-pointer conversion.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
+
 Run from the repository root:
 
 ```sh
@@ -104,6 +109,11 @@ strlen returns 3 because the terminator is not part of the text. sizeof reports 
 </details>
 
 **Try:** Set word[1] to '\0'. Predict strlen and sizeof before running the edited example.
+
+### References and help
+
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) — Check array bounds, element types, and array-to-pointer conversion.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
 Run from the repository root:
 
@@ -157,6 +167,20 @@ Yes. The capacity bounds each read. A long logical line can need more than one r
 </details>
 
 **Try:** Try an empty Input panel, then a line longer than 31 characters. Observe success, EOF, and the capacity limit.
+
+### References and help
+
+- [C reference: fgets](https://en.cppreference.com/w/c/io/fgets.html) — Check the buffer-size argument, newline retention, terminator, and failure result.
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) — Check array bounds, element types, and array-to-pointer conversion.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
+
+**Use the documentation (optional):** If fgets has room for eight characters including its terminator, how many input characters can it store, and does it retain a newline?
+
+<details><summary>Compare your answer</summary>
+
+At most seven input characters plus the terminating null character. A newline is retained if it is read before the limit. A successful call does not prove the whole logical line fit.
+
+</details>
 
 Run from the repository root:
 
@@ -226,6 +250,12 @@ They have equal contents. strcmp compares the characters, not whether both expre
 
 **Try:** Change text to "42x", an empty string, and a number too large for long. Explain which checks reject them. Then make the copied name too long for the destination.
 
+### References and help
+
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) — Check array bounds, element types, and array-to-pointer conversion.
+- [C reference: strtol family](https://en.cppreference.com/w/c/string/byte/strtol.html) — Check endptr, accepted syntax, range errors, and full-input validation.
+- [C reference: strcmp](https://en.cppreference.com/w/c/string/byte/strcmp.html) — Check the meaning of negative, zero, and positive results.
+
 Run from the repository root:
 
 ```sh
@@ -289,6 +319,11 @@ For C is fun, each first letter after a boundary increases the word count; lette
 </details>
 
 **Try:** Open the text-statistics exercise and implement both counters. Explain the purpose of the in_word flag.
+
+### References and help
+
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) — Check array bounds, element types, and array-to-pointer conversion.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
 Run from the repository root:
 

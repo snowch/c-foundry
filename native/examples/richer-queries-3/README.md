@@ -75,6 +75,11 @@ The query’s logical results. A faster plan that drops or duplicates rows is in
 
 **Try:** Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.
 
+### References and help
+
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
 Run from the repository root:
 
 ```sh

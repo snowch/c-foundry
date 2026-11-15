@@ -56,6 +56,11 @@ No. Pointer members are copied as values; the pointed-to allocation is not dupli
 
 **Try:** Change a character in copy.name and confirm that row.name remains unchanged.
 
+### References and help
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
+
 Run from the repository root:
 
 ```sh
@@ -120,6 +125,11 @@ The tag. The program’s invariant associates each Kind value with an establishe
 
 **Try:** Add a third enum case with a suitable payload and update every switch handling it.
 
+### References and help
+
+- [C reference: enumerations](https://en.cppreference.com/w/c/language/enum.html) — Check enumeration constants and how a tagged union can identify its active representation.
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+
 Run from the repository root:
 
 ```sh
@@ -170,6 +180,19 @@ No. Padding can make the complete object larger.
 </details>
 
 **Try:** Reorder the fields and print actual sizes and offsets. Keep those observations separate from your file-format design.
+
+### References and help
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
+
+**Use the documentation (optional):** Does the order of struct members guarantee that sizeof(struct) equals the sum of their sizes?
+
+<details><summary>Compare your answer</summary>
+
+No. Members preserve their declared order, but an implementation may insert internal and trailing padding. External file formats need an explicit encoding.
+
+</details>
 
 Run from the repository root:
 
@@ -230,6 +253,11 @@ Before freeing the current node. Accessing a member requires the current node to
 
 **Try:** Add a third node, update the sum, and ensure the same cleanup loop releases every allocation.
 
+### References and help
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
+
 Run from the repository root:
 
 ```sh
@@ -287,6 +315,11 @@ No. It designates an element inside an existing array, not an independently owne
 </details>
 
 **Try:** Implement the record-update project and test an absent ID and an overlong name.
+
+### References and help
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
 
 Run from the repository root:
 

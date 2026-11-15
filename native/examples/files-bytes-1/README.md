@@ -49,6 +49,20 @@ No. Buffering and persistence are different stages; even flush is not a universa
 
 **Try:** Inspect feof and ferror after deliberately attempting another read at end-of-file.
 
+### References and help
+
+- [C reference: fread](https://en.cppreference.com/w/c/io/fread.html) — Check the difference between bytes and complete elements, and detect short reads.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) — Distinguish a stream error from ordinary end-of-file.
+
+**Use the documentation (optional):** How can fread return fewer complete elements than requested, and how do you distinguish EOF from an I/O error?
+
+<details><summary>Compare your answer</summary>
+
+Both EOF and an I/O error can cause a short read. Inspect the stream’s feof and ferror indicators; do not treat every short read as ordinary EOF.
+
+</details>
+
 Run from the repository root:
 
 ```sh

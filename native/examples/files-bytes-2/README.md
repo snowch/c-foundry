@@ -52,6 +52,12 @@ flags &= ~mask. The AND limits the change to bits selected by the inverted mask.
 
 **Try:** Add a third flag and toggle it twice with XOR; verify that the original flags are restored.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh

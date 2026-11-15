@@ -62,6 +62,11 @@ Before multiplying. An overflowed size may request a small allocation and later 
 
 **Try:** Audit every size calculation in the pager, index, parser, and vector with a stated maximum.
 
+### References and help
+
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+
 Run from the repository root:
 
 ```sh
@@ -242,6 +247,11 @@ The previous state remains. The loader commits its temporary state only after fu
 
 **Try:** Add version fixtures to your release suite and document the intended upgrade and downgrade policy.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh
@@ -416,6 +426,11 @@ No. Undiagnosed undefined behavior remains possible.
 
 **Try:** Run python3 tools/check_portability.py --compiler gcc, inspect all four Actions matrix entries, and distinguish compiler diagnostics from operating-system coverage.
 
+### References and help
+
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
+
 Run from the repository root:
 
 ```sh
@@ -588,6 +603,19 @@ No selected violation was detected on exercised paths. The scope is the actual i
 </details>
 
 **Try:** Run this example with SANITIZE=1, then add short inputs at every length below the full record size.
+
+### References and help
+
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
+
+**Use the documentation (optional):** Does a sanitizer report establish that every possible memory bug has been found?
+
+<details><summary>Compare your answer</summary>
+
+No. Instrumentation checks selected classes of behavior in executed paths. Read the chosen sanitizer’s contract, retain independent fixtures, and test other toolchains and targets.
+
+</details>
 
 Run from the repository root:
 
@@ -794,6 +822,12 @@ Every tested host validates and copies files from all producers against an indep
 </details>
 
 **Try:** Run the audit, extend its assumptions table, and design a separately tested replacement interface for your target OS. Add failure injection before claiming stronger publication guarantees.
+
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
 
 Run from the repository root:
 

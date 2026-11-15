@@ -146,6 +146,11 @@ Successful admission order. The queue’s protected enqueue operation provides t
 
 **Try:** Add session/request IDs, copy-out responses, and tests that every response matches one accepted request.
 
+### References and help
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
 Run from the repository root:
 
 ```sh

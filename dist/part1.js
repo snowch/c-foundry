@@ -4,7 +4,8 @@ window.PART_ONE = {
     "outcomes": [
       "Trace source through compilation, linking, and execution.",
       "Write a valid main and format a short output message.",
-      "Use diagnostics to fix a missing-semicolon error and export a file."
+      "Use diagnostics to fix a missing-semicolon error and export a file.",
+      "Find a function reference, identify its contract, and verify a documented result."
     ],
     "practice": "hello",
     "topics": {
@@ -94,6 +95,40 @@ window.PART_ONE = {
         "answer": 0,
         "why": "The runner passes the Input text at the start. It does not offer an interactive stdin prompt.",
         "tryit": "Open the chapter’s greeting exercise. Edit, run, check, and export your first C file.",
+        "input": ""
+      },
+      "6": {
+        "intro": "Find an answer in C documentation, turn it into a prediction, and check it with a small program.",
+        "explanation": "A function reference describes a contract: the header to include, the arguments to supply, the result it returns, and conditions you must handle. Start with one concrete question. For <code>printf</code>, ask “What does it return?” before trying to memorize the complete format table. C17 is this course’s baseline; a reference can also describe newer C revisions, POSIX facilities, or Linux extensions. Check those labels before assuming an API or format is available in the browser.",
+        "guide": [
+          {
+            "title": "Choose the right entry",
+            "body": "On a tablet, open the online references below. In Codespaces or a local Linux terminal, section 3 documents C library functions; section 1 documents commands. A shell can also have its own printf builtin and help text. The commands below are for that Linux terminal, rather than this course’s browser CLI.",
+            "command": "man 3 printf\nman 1 printf\nman -k printf"
+          },
+          {
+            "title": "Read the contract before the examples",
+            "body": "In SYNOPSIS, find stdio.h and the function’s int return type. DESCRIPTION explains conversion specifiers and the types they require. RETURN VALUE gives the success and failure results. ERRORS and STANDARDS add failure conditions and portability details. You do not need to understand every pointer annotation yet; pointers are covered later.",
+            "command": "int printf(const char *restrict format, ...);"
+          },
+          {
+            "title": "Search, predict, then verify",
+            "body": "With the usual less pager, type /RETURN VALUE and press Enter; n finds the next match, and q quits. The man -k command searches descriptions, and its results depend on the installed manuals. On the online page, use your browser’s Find feature. Read that printf returns the transmitted character count on success and a negative value on output or encoding failure. Predict the result for Hi! followed by a newline, then run the example."
+          }
+        ],
+        "code": "#include <stdio.h>\n\nint main(void) {\n    int written = printf(\"Hi!\\n\");\n    printf(\"count=%d\\n\", written);\n    return 0;\n}\n",
+        "expected": "Hi!\ncount=4",
+        "walkthrough": "The first call writes H, i, !, and a newline: four characters. The terminating null byte in the C string is not transmitted. int written stores that return value; the next chapter develops variables and types. The second call prints the stored count using %d. Read printf’s own return contract, rather than assuming every C function uses zero to mean success.",
+        "pitfall": "Do not confuse printf(1), the command-line utility, with printf(3), the C library function. Match format specifiers to argument types, and check whether a documented facility belongs to ISO C, POSIX, or a particular implementation. A reference describing a feature does not establish support in every compiler or runtime.",
+        "question": "After printf(\"Hi!\\n\") succeeds, which return value does its documentation specify?",
+        "choices": [
+          "4: three visible characters and the newline",
+          "5: including the string’s terminating null byte",
+          "0: every C function returns zero on success"
+        ],
+        "answer": 0,
+        "why": "printf counts characters transmitted, including the newline and excluding the terminating null byte. Its failure result is negative.",
+        "tryit": "Use the printf reference to predict the count for \"C\\n\", change the first call, and run it. Then find how to print a literal percent sign, include one in the message, and explain why the source spelling and output length differ.",
         "input": ""
       }
     }

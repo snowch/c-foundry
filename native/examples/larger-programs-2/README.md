@@ -70,6 +70,11 @@ Exactly one. The extern declaration can be repeated; the object needs one progra
 
 **Try:** Make operations private too and replace the public object declaration with a read function.
 
+### References and help
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) — Find inclusion, conditional compilation, and macro replacement rules.
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
+
 Run from the repository root:
 
 ```sh

@@ -1,9 +1,12 @@
 const {Worker}=require('node:worker_threads');const vm=require('node:vm');const fs=require('node:fs');const assert=require('node:assert/strict');
-const sandbox={document:{addEventListener(){}}};sandbox.window=sandbox;vm.createContext(sandbox);for(const file of ['lessons','course','part1','part2','part3','part4','part5','part6','part7','part8','part9','readings'])vm.runInContext(fs.readFileSync('dist/'+file+'.js','utf8'),sandbox);
+const sandbox={document:{addEventListener(){}}};sandbox.window=sandbox;vm.createContext(sandbox);for(const file of ['lessons','course','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','readings'])vm.runInContext(fs.readFileSync('dist/'+file+'.js','utf8'),sandbox);
 let worker=new Worker(require('node:path').resolve('tests/worker-shim.cjs'));
 function run(data){return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{worker.terminate();reject(new Error('Timeout'));},60000);function handler(result){if(result.type==='done'||result.type==='error'){clearTimeout(timer);worker.off('message',handler);resolve(result);}}worker.on('message',handler);worker.postMessage(data);});}
 (async()=>{try{
 for(const lesson of sandbox.LESSONS){const r=await run({code:lesson.solution,files:lesson.files,tests:lesson.tests});assert.equal(r.type,'done',JSON.stringify(r));assert.equal(r.diagnostics,'',lesson.id+' should compile without diagnostics');assert.ok(r.results.every(t=>t.pass),JSON.stringify(r));console.log('PASS '+lesson.title+' ('+r.results.length+' cases)');}
+const helpLesson=sandbox.LESSONS.find(l=>l.id==='example-first-program-6');
+for(const [message,expected] of [['C\\n','C\ncount=2'],['100%%\\n','100%\ncount=5']]){const result=await run({code:helpLesson.code.replace('Hi!\\n',message)});assert.equal(result.type,'done',JSON.stringify(result));assert.equal(result.diagnostics,'');assert.equal(result.results[0].actual,expected);}
+console.log('PASS documentation predictions: newline, literal percent, and printf return counts');
 let r=await run({code:'#warning \"visible warning regression\"\nint main(void){return 0;}'});assert.equal(r.type,'done');assert.match(r.diagnostics,/warning:.*visible warning regression/);console.log('PASS learner compiler warnings remain visible');
 r=await run({code:'#include <stdio.h>\nint main(void){ printf("broken") return 0; }'});assert.equal(r.type,'error');assert.match(r.diagnostics,/error:/);console.log('PASS compiler diagnostics');
 r=await run({code:'#include <stdio.h>\nint main(void){puts("custom code works");return 0;}'});assert.equal(r.type,'done');assert.equal(r.results[0].actual,'custom code works');console.log('PASS arbitrary C after compile failure');

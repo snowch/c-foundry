@@ -54,6 +54,19 @@ A compile/link probe of that actual facility. Language and library support can v
 
 **Try:** Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.
 
+### References and help
+
+- [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
+- [GCC manual: C dialect options](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html) — Check -std modes and distinguish standard language facilities from GNU extensions.
+
+**Use the documentation (optional):** Does selecting a newer -std mode prove that every facility from that C revision is implemented?
+
+<details><summary>Compare your answer</summary>
+
+No. Check the compiler’s documented mode and probe the exact language/library facility needed. A revision macro or an accepted flag is not complete conformance evidence.
+
+</details>
+
 Run from the repository root:
 
 ```sh

@@ -104,6 +104,11 @@ No, a valid matching COMMIT is required. Tentative state remains separate until 
 
 **Try:** Replay every prefix of this log and verify values against an independently listed set of committed boundaries.
 
+### References and help
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+
 Run from the repository root:
 
 ```sh

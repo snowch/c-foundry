@@ -123,6 +123,19 @@ To keep data separate from the prepared syntax. Typed binding retains the query 
 
 **Try:** Generalize preparation through the real parser, add parameter types and lifetime rules, and test composite-prefix queries.
 
+### References and help
+
+- [SQLite C interface: prepared statements](https://www.sqlite.org/c3ref/prepare.html) — Read preparation and statement lifecycle contracts; these are design comparisons, not TinyDB APIs.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
+**Use the documentation (optional):** Does preparing a statement automatically mean every value is a safe parameter, or that the program can ignore its lifecycle?
+
+<details><summary>Compare your answer</summary>
+
+No. Read the API’s prepare, bind, step, reset, and finalize contracts. Preparation, parameter binding, and resource ownership are distinct responsibilities.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -183,6 +196,11 @@ The values are heavily skewed. The distribution assumption disagrees with the st
 </details>
 
 **Try:** Collect a bounded histogram from a consistent snapshot and compare planner decisions before and after a skewed update workload.
+
+### References and help
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite C interface: prepared statements](https://www.sqlite.org/c3ref/prepare.html) — Read preparation and statement lifecycle contracts; these are design comparisons, not TinyDB APIs.
 
 Run from the repository root:
 
@@ -262,6 +280,11 @@ The query’s logical results. A faster plan that drops or duplicates rows is in
 </details>
 
 **Try:** Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.
+
+### References and help
+
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
 Run from the repository root:
 

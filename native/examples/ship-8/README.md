@@ -108,6 +108,11 @@ The in-memory table alone cannot establish that the saved rows are correct. Reop
 
 **Try:** Repair both defects in the isolated CLI copy, pass all four checks, and add missing-ID, sole-row deletion, and duplicate-rejection regressions. Record the GDB evidence for each source fix.
 
+### References and help
+
+- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+
 Run from the repository root:
 
 ```sh

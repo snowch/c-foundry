@@ -72,6 +72,11 @@ operations.h. The public header describes the interface; the implementation is a
 
 **Try:** Change twice in operations.c and rebuild the same multi-file example.
 
+### References and help
+
+- [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
+
 Run from the repository root:
 
 ```sh
@@ -146,6 +151,11 @@ Exactly one. The extern declaration can be repeated; the object needs one progra
 
 **Try:** Make operations private too and replace the public object declaration with a read function.
 
+### References and help
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) — Find inclusion, conditional compilation, and macro replacement rules.
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
+
 Run from the repository root:
 
 ```sh
@@ -208,6 +218,19 @@ No. It prevents repetition within one translation unit; separate translation uni
 
 **Try:** Change the default factor, then inspect the preprocessed source with gcc -E main.c in the example folder.
 
+### References and help
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) — Find inclusion, conditional compilation, and macro replacement rules.
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
+
+**Use the documentation (optional):** Does an include guard stop duplicate external function definitions in different source files?
+
+<details><summary>Compare your answer</summary>
+
+No. It prevents repeated inclusion within a translation unit. Each source file is preprocessed separately; shared external definitions still need one definition and compatible declarations.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -265,6 +288,11 @@ It can overflow. A comparator should handle every supported int pair without und
 </details>
 
 **Try:** Reverse the comparison’s sign to sort descending and predict the new output.
+
+### References and help
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
 
 Run from the repository root:
 
@@ -336,6 +364,11 @@ Only after OK. The status determines whether the returned owner was established.
 </details>
 
 **Try:** Implement the native record-store project and test its failure and cleanup paths.
+
+### References and help
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
 Run from the repository root:
 

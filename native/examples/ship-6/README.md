@@ -175,6 +175,11 @@ A separate verified new-format file. The old valid state should remain available
 
 **Try:** Publish a format document with offsets, ranges, validation, version policy, and independently specified sample bytes.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh

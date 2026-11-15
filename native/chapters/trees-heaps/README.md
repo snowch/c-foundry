@@ -120,6 +120,10 @@ When the BST ordering invariant holds. The left and right subtree key constraint
 
 **Try:** Print preorder and postorder for the same tree, then explain a use for each order.
 
+### References and help
+
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+
 Run from the repository root:
 
 ```sh
@@ -235,6 +239,10 @@ Tree height. Each step follows one level of the tree.
 </details>
 
 **Try:** Implement deletion for a leaf and a one-child node before handling the two-child case.
+
+### References and help
+
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
 Run from the repository root:
 
@@ -354,6 +362,18 @@ Yes, their shapes may differ. Ordering constrains key placement relative to ance
 </details>
 
 **Try:** Build a naive BST from ascending keys and count comparisons for the final key.
+
+### References and help
+
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+
+**Use the documentation (optional):** What happens to search cost when a binary search tree degenerates into a chain?
+
+<details><summary>Compare your answer</summary>
+
+Its height can become linear in the number of nodes, and a search may visit that many nodes. The ordering invariant alone does not guarantee logarithmic height.
+
+</details>
 
 Run from the repository root:
 
@@ -475,6 +495,10 @@ The inorder key sequence. Reparenting is the mechanism; ordering is the preserve
 
 **Try:** Exercise all four AVL imbalance cases and check both inorder output and every stored height.
 
+### References and help
+
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+
 Run from the repository root:
 
 ```sh
@@ -568,6 +592,10 @@ The root. Only the ancestor-to-descendant ordering invariant is required.
 </details>
 
 **Try:** Test duplicates, an empty heap, full capacity, and alternating insertions and removals.
+
+### References and help
+
+- [NIST DADS: binary heaps](https://xlinux.nist.gov/dads/HTML/binaryheap.html) — Read the heap-order and complete-tree properties used by a priority queue.
 
 Run from the repository root:
 
@@ -664,6 +692,10 @@ No. It implements the ordering rule, which may permit starvation.
 </details>
 
 **Try:** Replace encoded integers with a Task struct and comparator, then add an explicit fairness policy.
+
+### References and help
+
+- [NIST DADS: binary heaps](https://xlinux.nist.gov/dads/HTML/binaryheap.html) — Read the heap-order and complete-tree properties used by a priority queue.
 
 Run from the repository root:
 

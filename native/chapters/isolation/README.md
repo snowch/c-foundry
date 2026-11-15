@@ -113,6 +113,10 @@ Holding the shared lock across both field reads. The invariant spans both fields
 
 **Try:** Define a lock hierarchy for accounts and tables, then measure contention with verified invariant checks.
 
+### References and help
+
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
 Run from the repository root:
 
 ```sh
@@ -182,6 +186,10 @@ Version validation and publication of the new value/version. Another writer must
 </details>
 
 **Try:** Protect compare_commit with a lock, then test two sessions synchronized to read the same initial version.
+
+### References and help
+
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 
 Run from the repository root:
 
@@ -253,6 +261,18 @@ No. Another transaction may commit between statements after each lock is release
 </details>
 
 **Try:** Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.
+
+### References and help
+
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
+**Use the documentation (optional):** Can a reader infer a database’s isolation guarantee merely because each individual access uses a lock?
+
+<details><summary>Compare your answer</summary>
+
+No. The isolation contract concerns the visibility and ordering of complete operations or transactions. Lock scope, publication, and the permitted schedules determine the guarantee.
+
+</details>
 
 Run from the repository root:
 

@@ -127,6 +127,11 @@ Exclusive mutation ownership. The same live state must not be concurrently mutat
 
 **Try:** Add an admission lock or a request queue and test two competing transaction starts.
 
+### References and help
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+
 Run from the repository root:
 
 ```sh

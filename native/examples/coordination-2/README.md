@@ -148,6 +148,11 @@ The producer waits for space or closure. Blocking admission preserves accepted w
 
 **Try:** Track every request ID in a bitmap, then test multiple producers and repeated queue wraparound.
 
+### References and help
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
 Run from the repository root:
 
 ```sh

@@ -197,6 +197,11 @@ Exactly the current page count. This pager rejects gaps and tracks contiguous in
 
 **Try:** Write two pages with distinct markers, close and reopen a named file, and verify offsets from its checked length.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh

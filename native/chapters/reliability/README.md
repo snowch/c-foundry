@@ -97,6 +97,11 @@ The total processed requests. Correctness is deterministic even when the schedul
 
 **Try:** Record wait distributions and request latency under several client counts while preserving per-request correctness checks.
 
+### References and help
+
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+
 Run from the repository root:
 
 ```sh
@@ -254,6 +259,11 @@ No. It measures one possible cost component rather than the whole workload.
 </details>
 
 **Try:** Instrument your assembled database’s allocation sites and page reads, then benchmark verified workloads with and without pooling.
+
+### References and help
+
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 
 Run from the repository root:
 
@@ -619,6 +629,19 @@ Minimize it and retain it as a deterministic regression. A preserved fixture pre
 </details>
 
 **Try:** Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
+
+### References and help
+
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+
+**Use the documentation (optional):** What does a structural integrity check add beyond comparing one SELECT result?
+
+<details><summary>Compare your answer</summary>
+
+It can check reachability, ordering, ownership, page relationships, and other representation invariants. Passing it still covers only its documented scope and the inspected state.
+
+</details>
 
 Run from the repository root:
 

@@ -105,6 +105,10 @@ Holding the shared lock across both field reads. The invariant spans both fields
 
 **Try:** Define a lock hierarchy for accounts and tables, then measure contention with verified invariant checks.
 
+### References and help
+
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
 Run from the repository root:
 
 ```sh

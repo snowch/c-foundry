@@ -57,6 +57,11 @@ Binary mode, such as rb and wb. Binary mode avoids text-stream translations; the
 
 **Try:** Add empty, CRLF-only, final-record-without-newline, and truncated-buffer cases. State separately how your parser rejects an incomplete record.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh

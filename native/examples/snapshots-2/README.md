@@ -78,6 +78,19 @@ No. Visibility, conflict rules, and transaction coordination jointly determine i
 
 **Try:** Add transaction-status metadata for tentative versions and reject their visibility until commit publication.
 
+### References and help
+
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+
+**Use the documentation (optional):** How can a snapshot reader keep seeing an older committed view while another transaction changes data?
+
+<details><summary>Compare your answer</summary>
+
+The implementation retains or reconstructs the reader’s visible version. Read SQLite’s snapshot example as a comparison; the bounded course model has its own visibility and reclamation rules.
+
+</details>
+
 Run from the repository root:
 
 ```sh

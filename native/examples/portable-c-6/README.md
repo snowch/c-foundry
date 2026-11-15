@@ -54,6 +54,12 @@ No, filesystem case and identity rules are a separate contract. Names can compar
 
 **Try:** Run the audit project’s filename-policy tests for CON.txt, COM1.tdb, traversal, trailing dots, and a valid basename; document which otherwise valid OS names the project intentionally excludes.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: strcmp](https://en.cppreference.com/w/c/string/byte/strcmp.html) — Check the meaning of negative, zero, and positive results.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh

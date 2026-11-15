@@ -150,6 +150,19 @@ After every accessing worker has finished. A woken or draining worker may still 
 
 **Try:** Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks; run ThreadSanitizer where supported.
 
+### References and help
+
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+
+**Use the documentation (optional):** What must remain valid until workers have finished using the queue and shared state?
+
+<details><summary>Compare your answer</summary>
+
+The shared objects, synchronization primitives, and storage they access. Signal shutdown, let workers finish, join them, then destroy or free resources according to the API contracts.
+
+</details>
+
 Run from the repository root:
 
 ```sh

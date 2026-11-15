@@ -102,6 +102,11 @@ No. The two stores have different owners, data, and failure contracts.
 
 **Try:** Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.
 
+### References and help
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+
 Run from the repository root:
 
 ```sh

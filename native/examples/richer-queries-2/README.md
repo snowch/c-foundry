@@ -57,6 +57,11 @@ The values are heavily skewed. The distribution assumption disagrees with the st
 
 **Try:** Collect a bounded histogram from a consistent snapshot and compare planner decisions before and after a skewed update workload.
 
+### References and help
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite C interface: prepared statements](https://www.sqlite.org/c3ref/prepare.html) — Read preparation and statement lifecycle contracts; these are design comparisons, not TinyDB APIs.
+
 Run from the repository root:
 
 ```sh

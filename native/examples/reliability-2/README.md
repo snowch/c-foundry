@@ -154,6 +154,11 @@ No. It measures one possible cost component rather than the whole workload.
 
 **Try:** Instrument your assembled database’s allocation sites and page reads, then benchmark verified workloads with and without pooling.
 
+### References and help
+
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+
 Run from the repository root:
 
 ```sh

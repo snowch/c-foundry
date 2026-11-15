@@ -176,6 +176,11 @@ The previous state remains. The loader commits its temporary state only after fu
 
 **Try:** Add version fixtures to your release suite and document the intended upgrade and downgrade policy.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh

@@ -57,6 +57,20 @@ No. Buffering and persistence are different stages; even flush is not a universa
 
 **Try:** Inspect feof and ferror after deliberately attempting another read at end-of-file.
 
+### References and help
+
+- [C reference: fread](https://en.cppreference.com/w/c/io/fread.html) — Check the difference between bytes and complete elements, and detect short reads.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) — Distinguish a stream error from ordinary end-of-file.
+
+**Use the documentation (optional):** How can fread return fewer complete elements than requested, and how do you distinguish EOF from an I/O error?
+
+<details><summary>Compare your answer</summary>
+
+Both EOF and an I/O error can cause a short read. Inspect the stream’s feof and ferror indicators; do not treat every short read as ordinary EOF.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -112,6 +126,12 @@ flags &= ~mask. The AND limits the change to bits selected by the inverted mask.
 </details>
 
 **Try:** Add a third flag and toggle it twice with XOR; verify that the original flags are restored.
+
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
 Run from the repository root:
 
@@ -172,6 +192,11 @@ The explicit extraction and reconstruction rules. The representation is specifie
 
 **Try:** Try zero and the largest uint32_t, checking round trips without changing the byte order.
 
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
+
 Run from the repository root:
 
 ```sh
@@ -229,6 +254,11 @@ No. Assertions can disappear; external input still needs a runtime error-handlin
 </details>
 
 **Try:** Use GDB on the example and inspect the valid index rather than deliberately executing an out-of-bounds access.
+
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: assert](https://en.cppreference.com/w/c/error/assert.html) — Check what the diagnostic macro does and how NDEBUG changes its behavior.
 
 Run from the repository root:
 
@@ -289,6 +319,12 @@ No. It checks the executed behavior for the classes of problems that sanitizer c
 </details>
 
 **Try:** Run make example EXAMPLE=files-bytes-5 SANITIZE=1, then add a destination-capacity boundary case.
+
+### References and help
+
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 
 Run from the repository root:
 
@@ -368,6 +404,11 @@ Encoder and decoder could share the same mistake. A fixed independently defined 
 </details>
 
 **Try:** Implement the native binary-record project and explain every byte in its test fixture.
+
+### References and help
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
 Run from the repository root:
 
@@ -510,6 +551,10 @@ Fix the source, rebuild, and add a regression test. The debugger changed one liv
 </details>
 
 **Try:** Use the optional guided GDB session in this lesson, repair the editable starter, and run all four regression cases. Explain why the empty-array case passed even before the fix.
+
+### References and help
+
+- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
 
 Run from the repository root:
 

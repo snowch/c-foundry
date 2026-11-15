@@ -64,6 +64,11 @@ operations.h. The public header describes the interface; the implementation is a
 
 **Try:** Change twice in operations.c and rebuild the same multi-file example.
 
+### References and help
+
+- [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
+
 Run from the repository root:
 
 ```sh

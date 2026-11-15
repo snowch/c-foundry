@@ -227,6 +227,11 @@ It reduces the number of page levels visited. Many routing choices fit within ea
 
 **Try:** Calculate leaf and child capacities for a real page format including headers, key widths, and row references.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+
 Run from the repository root:
 
 ```sh
@@ -452,6 +457,19 @@ To that next child. This model uses the child’s minimum as an inclusive lower 
 </details>
 
 **Try:** Test keys immediately below, equal to, and immediately above every separator.
+
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+
+**Use the documentation (optional):** Does SQLite’s documented B-tree page layout define the exact layout of the course’s B+ tree?
+
+<details><summary>Compare your answer</summary>
+
+No. Use it to compare interior/leaf pages, keys, and page references. The course’s own explicit format and invariants define its B+ tree.
+
+</details>
 
 Run from the repository root:
 
@@ -679,6 +697,11 @@ No. The Boolean result must be checked before treating the output as a match.
 
 **Try:** Cross-check every lookup against a sorted-array reference after each insertion.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+
 Run from the repository root:
 
 ```sh
@@ -903,6 +926,12 @@ Root-child capacity and a free leaf page. A split needs both a new leaf and a ne
 
 **Try:** Generalize root splitting with stable page IDs and test failure preservation at every allocation boundary.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+
 Run from the repository root:
 
 ```sh
@@ -1125,6 +1154,11 @@ No. The API uses a half-open [lo,hi) range.
 </details>
 
 **Try:** Test empty ranges, missing boundary keys, and a range spanning every split; make the endpoint in code match your prediction.
+
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
 Run from the repository root:
 
@@ -1350,6 +1384,11 @@ When it is the sole root leaf. The root has a special occupancy exception.
 </details>
 
 **Try:** Generate insert/delete sequences and check ordering, uniqueness, occupancy, reachability, and pool ownership after each step.
+
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
 Run from the repository root:
 

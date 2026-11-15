@@ -169,6 +169,19 @@ No selected violation was detected on exercised paths. The scope is the actual i
 
 **Try:** Run this example with SANITIZE=1, then add short inputs at every length below the full record size.
 
+### References and help
+
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
+
+**Use the documentation (optional):** Does a sanitizer report establish that every possible memory bug has been found?
+
+<details><summary>Compare your answer</summary>
+
+No. Instrumentation checks selected classes of behavior in executed paths. Read the chosen sanitizer’s contract, retain independent fixtures, and test other toolchains and targets.
+
+</details>
+
 Run from the repository root:
 
 ```sh

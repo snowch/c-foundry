@@ -54,6 +54,12 @@ Alignment and object-type requirements may not be satisfied. memcpy transfers re
 
 **Try:** Replace a raw pointer cast in a decoder with explicit byte assembly and test it with unaligned input offsets.
 
+### References and help
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
+- [C reference: memcpy](https://en.cppreference.com/w/c/string/byte/memcpy.html) — Check byte counts, valid object ranges, and the non-overlap requirement.
+
 Run from the repository root:
 
 ```sh

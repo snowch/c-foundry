@@ -4,11 +4,11 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/snowch/c-foundry?quickstart=1)
 
-A C, algorithms, and database course with **nine parts, 44 chapters, and 226 authored topic lessons**. Every topic includes an explanation, complete worked program, expected output and walkthrough, pitfall, understanding question with feedback, and an experiment. There are **190 inline browser examples**, **36 examples requiring native tools**, and **15 separate practice exercises** with 82 output cases.
+A C, algorithms, and database course with **nine parts, 44 chapters, and 227 authored topic lessons**. Every topic includes an explanation, complete worked program, expected output and walkthrough, pitfall, understanding question with feedback, and an experiment. There are **191 inline browser examples**, **36 examples requiring native tools**, and **15 separate practice exercises** with 82 output cases.
 
 | Part | Chapters | Lessons | Focus |
 | --- | ---: | ---: | --- |
-| 1 | 5 | 25 | The C language |
+| 1 | 5 | 26 | The C language |
 | 2 | 5 | 27 | Memory and practical C |
 | 3 | 5 | 28 | Big O, correctness, searching, sorting, recursion, strategies |
 | 4 | 5 | 28 | Lists, queues, hashing, balanced trees, heaps, graphs |
@@ -128,6 +128,14 @@ Every later chapter has a build-it-yourself goal, concrete extension tasks, and 
 
 The first five native foundations remain in `native/demos/`; they are independent demonstrations rather than the full assembled capstone. Lesson-run files reset between runs; CLI workspace files persist independently. Browser drafts and reading marks are not database durability mechanisms. The isolation, MVCC, recovery, statistics, and checkpoint pages state their model and host limits explicitly.
 
+## Finding help
+
+[Finding and reading C documentation](https://snowch.github.io/c-foundry/#/chapter/first-program/6) teaches manual sections, signatures, arguments, return values, errors, standards labels, and a predict-then-run lookup exercise. Every topic has a collapsed **References and help** section with one to three curated references and a purpose for each link. Selected topics include an optional documentation question with a locally available answer comparison. External references open in a new tab; opening external references does not gate code execution or lesson completion.
+
+The Linux dev container includes `man`, C library manual pages, command manuals, and `less`. Try `man 3 printf`, `man 1 printf`, and `man -k printf`; `make check-help` verifies those entries. In `less`, use `/RETURN VALUE`, `n`, and `q`. On a tablet, use the online references; the course browser CLI does not supply `man`. Existing Codespaces need a container rebuild to install these packages.
+
+Reference data and lookup questions live in `dist/references.js`. Run `node tools/sync_readings.cjs` after editing them so the native reading mirrors retain the same references.
+
 ## Run locally or in Codespaces
 
 Serve `dist/` using any static HTTP server; there is no app build step. Modern browsers need WebAssembly, Web Workers, and DecompressionStream. The first compiler run fetches about 19 MB of compressed assets from the same site.
@@ -161,7 +169,7 @@ Use your own fork/branch and commit and push work you want to retain before dele
 ```sh
 npm ci
 npm test                       # all page routes and the actual Wasm compiler
-make check-examples            # all 226 complete programs, strict GCC
+make check-examples            # all 227 complete programs, strict GCC
 make check-examples CC=clang
 make check-examples PART=8      # one part
 make check-examples SANITIZE=1
@@ -180,7 +188,7 @@ make sanitize
 make tsan                       # optional; runtime/kernel support required
 ```
 
-Browser tests execute 190 worked examples and 82 practice cases through the real compiler worker and require the supplied programs to compile without diagnostics. Learner warnings remain visible. The suite also checks diagnostics, nonzero exits, malformed input, rejected starters, cancellation, and recovery. Command tests additionally compile multiple files and check argv/stdin UTF-8, shared file append/EOF, nonzero exits, failed builds, TinyDB CRUD, corrupt-file preservation, and the bundled binary’s reproducibility. DOM checks cover all 44 chapters and 226 topics, answer feedback, inline editor state, explicit completion, per-key tab reconciliation, unsaved feedback, native commands, and the downloadable fixture. Independent native workloads check 32,000 mixed B+ operations and 32 AVL insertion permutations against ordering, occupancy, reachability, height, and ownership properties.
+Browser tests execute 191 worked examples and 82 practice cases through the real compiler worker and require the supplied programs to compile without diagnostics. Learner warnings remain visible. The suite also checks diagnostics, nonzero exits, malformed input, rejected starters, cancellation, and recovery. Command tests additionally compile multiple files and check argv/stdin UTF-8, shared file append/EOF, nonzero exits, failed builds, TinyDB CRUD, corrupt-file preservation, and the bundled binary’s reproducibility. DOM checks cover all 44 chapters and 227 topics, answer feedback, inline editor state, explicit completion, per-key tab reconciliation, unsaved feedback, native commands, and the downloadable fixture. Independent native workloads check 32,000 mixed B+ operations and 32 AVL insertion permutations against ordering, occupancy, reachability, height, and ownership properties.
 
 GitHub Actions deploys `dist/` on pushes to `main` only after the browser/interface, native, and cross-platform file-exchange jobs pass. Native CI builds the dev container, runs all examples under GCC and Clang, checks structural workloads, and runs the existing native foundations/project references with sanitizer checks.
 
@@ -188,7 +196,7 @@ GitHub Actions deploys `dist/` on pushes to `main` only after the browser/interf
 
 `dist/part1.js` through `part9.js` hold the authored content. `dist/course.js` defines the syllabus/execution metadata and mirrors `native/course.json`. `dist/readings.js` renders readings and registers portable examples; `dist/completion.js` stores reading marks; `dist/app.js` handles routing/editor state; `dist/execution.js` renders native launch controls. `dist/workspace.js`, `dist/command-model.js`, and `dist/compiler/workspace-worker.js` implement the CLI; `native/cli/tinydb.c` is its canonical database source. Run `node tools/build_browser_programs.cjs` after editing that source, then commit the generated source copy, Wasm, and manifest in `dist/programs/`. `npm test` checks reproducibility. `dist/visuals.js` retains the optional original exercise traces and counted-search comparison.
 
-Run `node tools/sync_readings.cjs` after content edits to regenerate all chapter READMEs, 226 native examples, the checked-output/source/flag manifest, and the sample file. It does not overwrite student exercise/project modules. Multi-file or native examples have their own directories; portable examples have flat `.c` exports.
+Run `node tools/sync_readings.cjs` after content edits to regenerate all chapter READMEs, 227 native examples, the checked-output/source/flag manifest, and the sample file. It does not overwrite student exercise/project modules. Multi-file or native examples have their own directories; portable examples have flat `.c` exports.
 
 The browser compiler is the experimental [binji/wasm-clang](https://github.com/binji/wasm-clang) Clang 8 / LLD toolchain with incomplete older WASI support. The runtime bridge corrects legacy file-read/EOF bounds and append handling, and encodes argv/stdin/output as UTF-8. Original runtime and LLVM licenses are distributed in `dist/compiler/`. Compilation and execution happen locally in a worker; no compilation server is involved. Runs have a five-second execution limit and 100 KB output cap; compiler initialization has a two-minute limit. Native threads, arbitrary host files, and native sanitizer runtimes require the Linux toolchain.
 
@@ -196,4 +204,4 @@ The browser compiler is the experimental [binji/wasm-clang](https://github.com/b
 
 Phone/tablet Chromium checks cover 390, 768, and 1024 px, representative lessons from every later part, actual inline B+ tree compilation, native launch/copy controls, sample downloads, completion persistence, and overflow. Earlier navigation/completion checks also covered 320 px. Screenshots were inspected. This does not establish behavior on every physical device or browser.
 
-All 226 programs pass strict GCC, Clang, and native ASan/UBSan checks in the selected Codespaces image. Threaded examples check deterministic contracts while allowing schedule-dependent contention metrics. Hosted Codespace creation and real power-loss/device-failure recovery were not exercised. A green finite suite is not proof of algorithm complexity, memory safety for all inputs, race freedom under every schedule, durable behavior on every filesystem, or a production-ready database.
+All 227 programs pass strict GCC, Clang, and native ASan/UBSan checks in the selected Codespaces image. Threaded examples check deterministic contracts while allowing schedule-dependent contention metrics. Hosted Codespace creation and real power-loss/device-failure recovery were not exercised. A green finite suite is not proof of algorithm complexity, memory safety for all inputs, race freedom under every schedule, durable behavior on every filesystem, or a production-ready database.

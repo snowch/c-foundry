@@ -64,6 +64,11 @@ No, it acts on its atomic object. The operation’s atomicity scope is the objec
 
 **Try:** Describe an invariant spanning two fields and choose a mutex or an explicit publication protocol that preserves it.
 
+### References and help
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
 Run from the repository root:
 
 ```sh

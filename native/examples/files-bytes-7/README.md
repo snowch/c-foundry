@@ -138,6 +138,10 @@ Fix the source, rebuild, and add a regression test. The debugger changed one liv
 
 **Try:** Use the optional guided GDB session in this lesson, repair the editable starter, and run all four regression cases. Explain why the empty-array case passed even before the fix.
 
+### References and help
+
+- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
+
 Run from the repository root:
 
 ```sh

@@ -75,6 +75,11 @@ The acquire load of ready. Synchronization depends on the matching atomic commun
 
 **Try:** Explain why reading payload before the acquire would violate the protocol, then design a generation-based repeated-publication version.
 
+### References and help
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
 Run from the repository root:
 
 ```sh

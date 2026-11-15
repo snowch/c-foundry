@@ -3,10 +3,10 @@ const dom=new JSDOM(fs.readFileSync('dist/index.html','utf8'),{url:'https://exam
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.confirm=()=>true;w.Worker=class{postMessage(){}terminate(){}};
 w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
 w.localStorage.setItem('c-foundry:lesson-done:v1:pointers/1','true');
-for(const file of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+file+'.js','utf8'));
+for(const file of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+file+'.js','utf8'));
 const $=s=>w.document.querySelector(s),go=route=>{w.history.pushState(null,'','#'+route);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
-assert.equal(w.COURSE.chapters.filter(c=>c.status==='ready').length,44);assert.equal(w.lessonCompletion.total().available,226);assert.equal(w.lessonCompletion.total().done,1);
-const manifest=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));assert.equal(Object.keys(manifest).length,226);assert.equal(w.LESSONS.filter(l=>l.isExample).length,Object.values(w.authoredLessons.content).flatMap(c=>Object.values(c.topics)).filter(t=>t.runtime!=='native'||t.browser).length);
+assert.equal(w.COURSE.chapters.filter(c=>c.status==='ready').length,44);assert.equal(w.lessonCompletion.total().available,227);assert.equal(w.lessonCompletion.total().done,1);
+const manifest=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));assert.equal(Object.keys(manifest).length,227);assert.equal(w.LESSONS.filter(l=>l.isExample).length,Object.values(w.authoredLessons.content).flatMap(c=>Object.values(c.topics)).filter(t=>t.runtime!=='native'||t.browser).length);
 let newTopics=0,browser=0,native=0,marked=0;
 for(const chapter of w.COURSE.chapters.filter(c=>c.part>=2)){
  go('/chapter/'+chapter.id);assert.ok(!$('#preview-content').textContent.includes('Preview page'));assert.ok($('#preview-content').textContent.includes(chapter.project));assert.ok($('#preview-content').textContent.includes('Build it yourself'));

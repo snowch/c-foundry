@@ -56,6 +56,11 @@ Dataset construction and result formatting. Preparation and reporting answer dif
 
 **Try:** Compare cold and warm page-cache runs with verified equal results and recorded environment details.
 
+### References and help
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
 Run from the repository root:
 
 ```sh

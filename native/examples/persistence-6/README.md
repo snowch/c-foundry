@@ -178,6 +178,11 @@ Only after complete validation succeeds. Later records or trailing input may sti
 
 **Try:** Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh

@@ -96,6 +96,10 @@ a[0..i). The next value at i has not yet been inserted.
 
 **Try:** Count shifts for sorted and reverse-sorted inputs of the same size.
 
+### References and help
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
+
 Run from the repository root:
 
 ```sh
@@ -200,6 +204,10 @@ O(n). The merge buffer has one slot per input element.
 </details>
 
 **Try:** Attach original-position tags to equal keys and verify that their order is preserved.
+
+### References and help
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
 
 Run from the repository root:
 
@@ -306,6 +314,10 @@ No. Sorted input repeatedly selects an extreme pivot in this version.
 
 **Try:** Add a partition counter and compare sorted, reversed, and duplicate-heavy inputs.
 
+### References and help
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
+
 Run from the repository root:
 
 ```sh
@@ -371,6 +383,10 @@ The original order among equal keys. Different keys must move; equal-key relativ
 </details>
 
 **Try:** Change > to >= in the shift condition and inspect the equal-key tags.
+
+### References and help
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
 
 Run from the repository root:
 
@@ -463,6 +479,19 @@ Signed subtraction can overflow. Only the sign is needed, and relational compari
 
 **Try:** Sort records with a tie-break on ID and document whether that total ordering matches your application.
 
+### References and help
+
+- [C reference: qsort](https://en.cppreference.com/w/c/algorithm/qsort.html) — Check comparator results, element widths, and the absence of a stability guarantee.
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
+
+**Use the documentation (optional):** What signs must a qsort comparator return, and does qsort promise stable ordering of equal elements?
+
+<details><summary>Compare your answer</summary>
+
+Return a negative value, zero, or a positive value for less than, equivalent, or greater than. qsort does not promise stability. Avoid subtraction that can overflow in a comparator.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -551,6 +580,10 @@ Rightward shifts of existing elements. The counter changes only inside the shift
 </details>
 
 **Try:** Build a comparison table for insertion and merge sort on four input orders, retaining correctness checks.
+
+### References and help
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
 
 Run from the repository root:
 

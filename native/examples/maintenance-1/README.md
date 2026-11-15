@@ -141,6 +141,11 @@ Those already covered by the applied checkpoint LSN. A committed applied boundar
 
 **Try:** Serialize explicit LSNs with checksums and test missing, duplicated, reordered, and torn records.
 
+### References and help
+
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+
 Run from the repository root:
 
 ```sh

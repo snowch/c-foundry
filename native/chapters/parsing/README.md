@@ -155,6 +155,11 @@ No. Lexing identifies categories and values; execution is a later stage.
 
 **Try:** Print each token category and source offset, then test invalid characters and an overflowing numeric literal.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
+
 Run from the repository root:
 
 ```sh
@@ -304,6 +309,11 @@ No, it represents one quote character. The lexer’s string state handles double
 </details>
 
 **Try:** Test an empty string, 31-byte and 32-byte strings, and whitespace around every punctuation token.
+
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
 Run from the repository root:
 
@@ -545,6 +555,19 @@ End of input. A single-statement parser must consume the entire statement.
 
 **Try:** Write the grammar in a small notation, then generate one malformed example for each required punctuation token.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
+
+**Use the documentation (optional):** Which SQL clauses on the reference page are deliberately absent from the lesson’s grammar?
+
+<details><summary>Compare your answer</summary>
+
+Compare the actual grammar in this lesson with the reference and list the differences. For example, supporting a small SELECT/WHERE subset does not add SQLite’s complete expression, join, grouping, or compound-query syntax.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -784,6 +807,11 @@ The lexer’s token buffer is reused. The statement needs stable data after subs
 </details>
 
 **Try:** Add an UPDATE production and a distinct statement variant without changing SELECT field meanings.
+
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
 Run from the repository root:
 
@@ -1025,6 +1053,11 @@ Schema validation. Zero is a valid numeric token but an invalid key under this s
 </details>
 
 **Try:** Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.
+
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
 Run from the repository root:
 

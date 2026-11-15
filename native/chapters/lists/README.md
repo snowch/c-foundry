@@ -82,6 +82,11 @@ No. Capacity reserves storage; length defines which elements belong to the seque
 
 **Try:** Add pop and reserve operations, documenting what they do on an empty vector and failed allocation.
 
+### References and help
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+
 Run from the repository root:
 
 ```sh
@@ -149,6 +154,11 @@ b.previous. Both neighboring relationships must agree.
 </details>
 
 **Try:** Write an invariant checker that walks forward and verifies every backward link.
+
+### References and help
+
+- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) — Compare representation, traversal, and insertion costs.
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 
 Run from the repository root:
 
@@ -246,6 +256,19 @@ The incoming link. No access to the node is valid after free.
 
 **Try:** Test removing the head, tail, only node, and a value that is absent.
 
+### References and help
+
+- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) — Compare representation, traversal, and insertion costs.
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+
+**Use the documentation (optional):** Why is deleting the node after a known node different from locating a node by value in a singly linked list?
+
+<details><summary>Compare your answer</summary>
+
+Relinking after a known node can take constant pointer work. Finding that predecessor or value can require traversing the list, so the complete operation may be linear.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -328,6 +351,11 @@ It does not contain an address into the old allocation. The guarantee is specifi
 
 **Try:** Document invalidation for append, insert, erase, and clear in both a vector and a list.
 
+### References and help
+
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
+
 Run from the repository root:
 
 ```sh
@@ -401,6 +429,11 @@ Access by arbitrary index. A list must follow links to find an index.
 </details>
 
 **Try:** Choose a representation for mostly indexed reads and for frequent splices with known neighboring nodes; justify both choices.
+
+### References and help
+
+- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) — Compare representation, traversal, and insertion costs.
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 
 Run from the repository root:
 

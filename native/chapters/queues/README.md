@@ -61,6 +61,11 @@ The most recently pushed item. LIFO is the defining removal order.
 
 **Try:** Wrap this fixture in checked push and pop functions and test all empty/full boundaries.
 
+### References and help
+
+- [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) — Check FIFO behavior separately from implementation and capacity policy.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
+
 Run from the repository root:
 
 ```sh
@@ -144,6 +149,18 @@ The count field. Both states may have the same head and tail positions.
 
 **Try:** Print physical indices while wrapping, then compare them with the logical output order.
 
+### References and help
+
+- [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) — Check FIFO behavior separately from implementation and capacity policy.
+
+**Use the documentation (optional):** Does FIFO behavior specify what a bounded queue should do when it is full?
+
+<details><summary>Compare your answer</summary>
+
+No. FIFO describes removal order. A bounded implementation must separately specify rejection, blocking, growth, or another explicit capacity policy.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -224,6 +241,10 @@ Leave it unchanged. The capacity invariant must remain true when the operation r
 
 **Try:** Implement resize with failure preservation and verify FIFO order across a wrapped resize.
 
+### References and help
+
+- [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) — Check FIFO behavior separately from implementation and capacity policy.
+
 Run from the repository root:
 
 ```sh
@@ -294,6 +315,10 @@ The first close does not match the most recent open. The top is [ when ) arrives
 </details>
 
 **Try:** Test empty input, a lone closing bracket, an unfinished open, and nesting beyond capacity.
+
+### References and help
+
+- [NIST DADS: stacks](https://xlinux.nist.gov/dads/HTML/stack.html) — Check LIFO behavior and how it differs from a FIFO queue.
 
 Run from the repository root:
 
@@ -379,6 +404,10 @@ The right operand. The left operand was pushed earlier and lies below the right.
 </details>
 
 **Try:** Extend tokenization to multi-digit integers and add checked arithmetic and division-by-zero handling.
+
+### References and help
+
+- [NIST DADS: stacks](https://xlinux.nist.gov/dads/HTML/stack.html) — Check LIFO behavior and how it differs from a FIFO queue.
 
 Run from the repository root:
 

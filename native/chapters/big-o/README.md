@@ -67,6 +67,10 @@ The four initialized elements. The search problem grows with the number of candi
 
 **Try:** Add four larger values, keep the target absent, and predict the count before running.
 
+### References and help
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+
 Run from the repository root:
 
 ```sh
@@ -121,6 +125,18 @@ The printed values illustrate the inequality; the algebra proves it for every n�
 </details>
 
 **Try:** Check the inequality for n=8, then write down why it holds for every n≥1.
+
+### References and help
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+
+**Use the documentation (optional):** Does an O(n) bound mean the program performs exactly n operations for every input?
+
+<details><summary>Compare your answer</summary>
+
+No. It gives an asymptotic upper bound up to constants beyond a threshold. State the input size, operation being counted, and the case or assumptions.
+
+</details>
 
 Run from the repository root:
 
@@ -180,6 +196,10 @@ It becomes four times as large. (2n)² equals 4n².
 </details>
 
 **Try:** Extend the table to 16 and compare the ratios rather than the absolute numbers.
+
+### References and help
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Run from the repository root:
 
@@ -245,6 +265,10 @@ Yes. An expectation is defined relative to probabilities over inputs.
 
 **Try:** Count all four successful target positions and calculate their mean.
 
+### References and help
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+
 Run from the repository root:
 
 ```sh
@@ -303,6 +327,11 @@ Yes, when it grows the buffer. The total sequence bound permits occasional expen
 </details>
 
 **Try:** Continue to nine appends and predict the new total copying cost.
+
+### References and help
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+- [C reference: realloc](https://en.cppreference.com/w/c/memory/realloc.html) — Check what happens to the original allocation on success and failure.
 
 Run from the repository root:
 
@@ -363,6 +392,10 @@ The prefix a[0..i). The next unread element is a[i], so it cannot already be inc
 </details>
 
 **Try:** Add an assertion for the invariant using a separately computed prefix in this small example.
+
+### References and help
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Run from the repository root:
 
@@ -427,6 +460,10 @@ Correctness checks and a stated workload. A fast incorrect program is not an imp
 </details>
 
 **Try:** Use the Big O explorer, then compare absent-key linear and binary search counts on powers of two.
+
+### References and help
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Run from the repository root:
 

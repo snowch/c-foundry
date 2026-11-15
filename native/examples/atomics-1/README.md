@@ -77,6 +77,11 @@ Not by itself. Atomicity for one object and synchronization of other objects are
 
 **Try:** Replace the relaxed operations with default sequentially consistent operations, then explain why both totals match this contract.
 
+### References and help
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
 Run from the repository root:
 
 ```sh

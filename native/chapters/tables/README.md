@@ -110,6 +110,19 @@ Yes. A compatible struct assignment copies its array members as part of the stru
 
 **Try:** Add an invariant checker for count≤capacity, terminated names, positive IDs, and unique IDs.
 
+### References and help
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+
+**Use the documentation (optional):** Does a C struct declaration serialize a portable database row by itself?
+
+<details><summary>Compare your answer</summary>
+
+No. It describes a C object layout that can include padding and target-specific representation. A portable stored row needs explicit field widths and byte encoding.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -216,6 +229,11 @@ No. The insertion operation appends rather than maintaining sorted order.
 </details>
 
 **Try:** Implement a selection by ID and compare it with the existing standalone query exercise.
+
+### References and help
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
 Run from the repository root:
 
@@ -324,6 +342,11 @@ DUPLICATE under this documented policy. Duplicate checking precedes the capacity
 
 **Try:** Try an invalid row in a full table and record the intended error priority.
 
+### References and help
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+
 Run from the repository root:
 
 ```sh
@@ -431,6 +454,11 @@ No. Shifting changes the position-to-row mapping.
 </details>
 
 **Try:** Test deletion from the beginning, middle, end, and a one-row table.
+
+### References and help
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
 Run from the repository root:
 
@@ -543,6 +571,11 @@ Public results and logical state against a reference. An independent model can d
 </details>
 
 **Try:** Generate bounded insert/update/delete sequences and check invariants after every operation.
+
+### References and help
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
 Run from the repository root:
 

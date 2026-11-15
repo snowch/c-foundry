@@ -34,6 +34,13 @@
       "expected": "This program runs in the browser."
     }
   ],
+  "first-program-6": [
+    {
+      "name": "Finding and reading C documentation",
+      "input": "",
+      "expected": "Hi!\ncount=4"
+    }
+  ],
   "values-1": [
     {
       "name": "Integers, floating-point numbers, characters, and Boolean values",

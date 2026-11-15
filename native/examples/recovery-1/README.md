@@ -129,6 +129,11 @@ No. Process memory can disappear without a persistent recovery protocol.
 
 **Try:** Write a guarantee table for each ACID property and identify the mechanism or missing work for each.
 
+### References and help
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+
 Run from the repository root:
 
 ```sh

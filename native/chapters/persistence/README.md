@@ -61,6 +61,11 @@ Explicit rejection or a defined migration path. Different layouts need deliberat
 
 **Try:** Write a byte-offset format table and test bad magic, version, record width, and reserved bytes.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh
@@ -234,6 +239,19 @@ No. Its forty bytes are specified by offsets, independent of struct padding.
 </details>
 
 **Try:** Add fixture-byte tests for zero, maximum score, maximum ID, and a 31-byte name.
+
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
+**Use the documentation (optional):** Why does an on-disk format document field widths and byte order rather than sizeof a host struct?
+
+<details><summary>Compare your answer</summary>
+
+Readers on different targets must interpret the same bytes. Host padding, alignment, integer widths, and byte order can differ; an explicit format separates those choices from the C object layout.
+
+</details>
 
 Run from the repository root:
 
@@ -436,6 +454,11 @@ Exactly the current page count. This pager rejects gaps and tracks contiguous in
 
 **Try:** Write two pages with distinct markers, close and reopen a named file, and verify offsets from its checked length.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh
@@ -633,6 +656,11 @@ The caller that owns it. The pager borrows the FILE rather than taking ownership
 
 **Try:** Add open/close functions with explicit ownership and tests for partial-page files and I/O failures.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh
@@ -829,6 +857,11 @@ No. The runtime resets its virtual filesystem; a host transfer/storage step is s
 
 **Try:** Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Codespaces.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh
@@ -1010,6 +1043,11 @@ Only after complete validation succeeds. Later records or trailing input may sti
 </details>
 
 **Try:** Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.
+
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
 Run from the repository root:
 

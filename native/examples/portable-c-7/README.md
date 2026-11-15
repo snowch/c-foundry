@@ -51,6 +51,11 @@ It makes any byte a valid classification argument. The cast satisfies the ctype 
 
 **Try:** Compare the byte length of an ASCII name and a multibyte name, and test invalid UTF-8 rejection separately from name length and locale classification.
 
+### References and help
+
+- [C reference: locales](https://en.cppreference.com/w/c/locale.html) — Check which operations depend on the active locale.
+- [C reference: isspace](https://en.cppreference.com/w/c/string/byte/isspace.html) — Check which argument values are valid and how locale affects classification.
+
 Run from the repository root:
 
 ```sh

@@ -9,6 +9,7 @@ Write, run, and diagnose a complete C program. You will learn which parts of the
 - Trace source through compilation, linking, and execution.
 - Write a valid main and format a short output message.
 - Use diagnostics to fix a missing-semicolon error and export a file.
+- Find a function reference, identify its contract, and verify a documented result.
 
 ## 1.1 Source code, compilation, linking, and execution
 
@@ -50,6 +51,11 @@ Linking. The linker connects the translated program with the library code it nee
 </details>
 
 **Try:** Change the greeting, run the program, and check that the console reflects the new text.
+
+### References and help
+
+- [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 
 Run from the repository root:
 
@@ -100,6 +106,11 @@ No. Returning a status and writing output are separate operations.
 
 **Try:** Swap the two printf statements. Predict the new order before running.
 
+### References and help
+
+- [C reference: main](https://en.cppreference.com/w/c/language/main_function.html) — Check the supported forms of main and what returning a status means.
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+
 Run from the repository root:
 
 ```sh
@@ -149,6 +160,19 @@ The first call substitutes 3 for %d and then starts a new line. The second print
 
 **Try:** Print two labeled integer values on separate lines. Include a literal percent sign in one line.
 
+### References and help
+
+- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
+- [Linux manual: printf(3)](https://man7.org/linux/man-pages/man3/printf.3.html) — Use SYNOPSIS, conversion specifications, RETURN VALUE, and STANDARDS; note POSIX extensions.
+
+**Use the documentation (optional):** What does printf return on success, and how many characters does printf("Hi!\n") report?
+
+<details><summary>Compare your answer</summary>
+
+On success printf returns the number of characters transmitted, excluding the terminating null byte. H, i, !, and the newline make four. A negative result reports an output or encoding error.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -196,6 +220,10 @@ The preceding statement. The reported location is where parsing failed, which ca
 
 **Try:** Create the missing-semicolon error, read it, fix it, and explain why its location may be one line later.
 
+### References and help
+
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
+
 Run from the repository root:
 
 ```sh
@@ -242,10 +270,92 @@ Before pressing Run code. The runner passes the Input text at the start. It does
 
 **Try:** Open the chapter’s greeting exercise. Edit, run, check, and export your first C file.
 
+### References and help
+
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh
 make example EXAMPLE=first-program-5
+```
+
+## 1.6 Finding and reading C documentation
+
+Find an answer in C documentation, turn it into a prediction, and check it with a small program.
+
+A function reference describes a contract: the header to include, the arguments to supply, the result it returns, and conditions you must handle. Start with one concrete question. For `printf`, ask “What does it return?” before trying to memorize the complete format table. C17 is this course’s baseline; a reference can also describe newer C revisions, POSIX facilities, or Linux extensions. Check those labels before assuming an API or format is available in the browser.
+
+### Choose the right entry
+
+On a tablet, open the online references below. In Codespaces or a local Linux terminal, section 3 documents C library functions; section 1 documents commands. A shell can also have its own printf builtin and help text. The commands below are for that Linux terminal, rather than this course’s browser CLI.
+
+```text
+man 3 printf
+man 1 printf
+man -k printf
+```
+
+### Read the contract before the examples
+
+In SYNOPSIS, find stdio.h and the function’s int return type. DESCRIPTION explains conversion specifiers and the types they require. RETURN VALUE gives the success and failure results. ERRORS and STANDARDS add failure conditions and portability details. You do not need to understand every pointer annotation yet; pointers are covered later.
+
+```text
+int printf(const char *restrict format, ...);
+```
+
+### Search, predict, then verify
+
+With the usual less pager, type /RETURN VALUE and press Enter; n finds the next match, and q quits. The man -k command searches descriptions, and its results depend on the installed manuals. On the online page, use your browser’s Find feature. Read that printf returns the transmitted character count on success and a negative value on output or encoding failure. Predict the result for Hi! followed by a newline, then run the example.
+
+### main.c
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    int written = printf("Hi!\n");
+    printf("count=%d\n", written);
+    return 0;
+}
+```
+
+Output:
+
+```text
+Hi!
+count=4
+```
+
+The first call writes H, i, !, and a newline: four characters. The terminating null byte in the C string is not transmitted. int written stores that return value; the next chapter develops variables and types. The second call prints the stored count using %d. Read printf’s own return contract, rather than assuming every C function uses zero to mean success.
+
+**Watch for:** Do not confuse printf(1), the command-line utility, with printf(3), the C library function. Match format specifiers to argument types, and check whether a documented facility belongs to ISO C, POSIX, or a particular implementation. A reference describing a feature does not establish support in every compiler or runtime.
+
+**Check:** After printf("Hi!\n") succeeds, which return value does its documentation specify?
+
+1. 4: three visible characters and the newline
+2. 5: including the string’s terminating null byte
+3. 0: every C function returns zero on success
+
+<details><summary>Answer</summary>
+
+4: three visible characters and the newline. printf counts characters transmitted, including the newline and excluding the terminating null byte. Its failure result is negative.
+
+</details>
+
+**Try:** Use the printf reference to predict the count for "C\n", change the first call, and run it. Then find how to print a literal percent sign, include one in the message, and explain why the source spelling and output length differ.
+
+### References and help
+
+- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
+- [Linux manual: printf(3)](https://man7.org/linux/man-pages/man3/printf.3.html) — Use SYNOPSIS, conversion specifications, RETURN VALUE, and STANDARDS; note POSIX extensions.
+- [Linux manual: printf(1)](https://man7.org/linux/man-pages/man1/printf.1.html) — Compare the command-line utility with the C library function in section 3.
+
+Run from the repository root:
+
+```sh
+make example EXAMPLE=first-program-6
 ```
 
 ## Chapter practice

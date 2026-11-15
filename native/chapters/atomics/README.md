@@ -85,6 +85,11 @@ Not by itself. Atomicity for one object and synchronization of other objects are
 
 **Try:** Replace the relaxed operations with default sequentially consistent operations, then explain why both totals match this contract.
 
+### References and help
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
 Run from the repository root:
 
 ```sh
@@ -152,6 +157,11 @@ No, it acts on its atomic object. The operation’s atomicity scope is the objec
 </details>
 
 **Try:** Describe an invariant spanning two fields and choose a mutex or an explicit publication protocol that preserves it.
+
+### References and help
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
 Run from the repository root:
 
@@ -231,6 +241,11 @@ The acquire load of ready. Synchronization depends on the matching atomic commun
 </details>
 
 **Try:** Explain why reading payload before the acquire would violate the protocol, then design a generation-based repeated-publication version.
+
+### References and help
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
 Run from the repository root:
 
@@ -315,6 +330,19 @@ No. It supplies neither the required atomic update nor the inter-thread ordering
 </details>
 
 **Try:** Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.
+
+### References and help
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+
+**Use the documentation (optional):** Does volatile make ordinary shared accesses atomic or establish inter-thread synchronization?
+
+<details><summary>Compare your answer</summary>
+
+No. volatile is not a substitute for atomic operations or synchronization. Use documented atomic ordering or mutex-based rules to establish the required relationships.
+
+</details>
 
 Run from the repository root:
 

@@ -55,6 +55,11 @@ Report that the required service is unavailable. A fallback may preserve a contr
 
 **Try:** Run python3 tools/check_portability.py --compiler gcc and inspect the capability report. Compare the result with Windows MSVC in the Actions matrix.
 
+### References and help
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) — Find inclusion, conditional compilation, and macro replacement rules.
+- [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
+
 Run from the repository root:
 
 ```sh

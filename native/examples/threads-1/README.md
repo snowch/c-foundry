@@ -80,6 +80,11 @@ No. Joined results establish completed work, not simultaneous scheduling.
 
 **Try:** Compare sequential and threaded versions on a larger verified workload without assuming a speedup.
 
+### References and help
+
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+- [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
+
 Run from the repository root:
 
 ```sh

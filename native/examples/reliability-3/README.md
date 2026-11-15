@@ -361,6 +361,19 @@ Minimize it and retain it as a deterministic regression. A preserved fixture pre
 
 **Try:** Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
 
+### References and help
+
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+
+**Use the documentation (optional):** What does a structural integrity check add beyond comparing one SELECT result?
+
+<details><summary>Compare your answer</summary>
+
+It can check reachability, ordering, ownership, page relationships, and other representation invariants. Passing it still covers only its documented scope and the inspected state.
+
+</details>
+
 Run from the repository root:
 
 ```sh

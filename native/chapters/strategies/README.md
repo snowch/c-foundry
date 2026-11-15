@@ -66,6 +66,10 @@ All input values are nonnegative. The remaining sum cannot be increased by inclu
 
 **Try:** Count recursive calls and compare pruning with full enumeration on the same small inputs.
 
+### References and help
+
+- [NIST DADS: backtracking](https://xlinux.nist.gov/dads/HTML/backtrack.html) — Identify the choices explored, rejected partial candidates, and restoration of state.
+
 Run from the repository root:
 
 ```sh
@@ -123,6 +127,10 @@ The greedy rule is not always optimal. It refutes this rule under the stated dom
 </details>
 
 **Try:** Find the smallest amount where this coin system’s greedy count differs from an optimal table.
+
+### References and help
+
+- [NIST DADS: greedy algorithms](https://xlinux.nist.gov/dads/HTML/greedyalgo.html) — Distinguish a locally attractive choice from a proof of global correctness.
 
 Run from the repository root:
 
@@ -184,6 +192,18 @@ x-c is an already solved smaller state. Positive coin values and increasing x es
 
 **Try:** Remove coin one, represent unreachable states explicitly, and test both reachable and impossible amounts.
 
+### References and help
+
+- [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) — Check how overlapping subproblems and stored results change the work.
+
+**Use the documentation (optional):** What does memoization retain, and how can it change repeated recursive work?
+
+<details><summary>Compare your answer</summary>
+
+It retains results for previously solved states. Reusing those results avoids recomputing overlapping subproblems; the state definition and dependency structure still determine correctness and space use.
+
+</details>
+
 Run from the repository root:
 
 ```sh
@@ -244,6 +264,11 @@ The cell above and the cell to the left. Every valid final move enters from one 
 
 **Try:** Add one blocked cell and set its count to zero before applying the recurrence.
 
+### References and help
+
+- [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) — Check how overlapping subproblems and stored results change the work.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
+
 Run from the repository root:
 
 ```sh
@@ -300,6 +325,10 @@ To avoid reusing the current item. The source state must exclude the current ite
 </details>
 
 **Try:** Record predecessor choices to reconstruct the selected items, then verify the total weight and value.
+
+### References and help
+
+- [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) — Check how overlapping subproblems and stored results change the work.
 
 Run from the repository root:
 

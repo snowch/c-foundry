@@ -53,6 +53,11 @@ Explicit rejection or a defined migration path. Different layouts need deliberat
 
 **Try:** Write a byte-offset format table and test bad magic, version, record width, and reserved bytes.
 
+### References and help
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+
 Run from the repository root:
 
 ```sh

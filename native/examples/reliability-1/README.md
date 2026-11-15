@@ -89,6 +89,11 @@ The total processed requests. Correctness is deterministic even when the schedul
 
 **Try:** Record wait distributions and request latency under several client counts while preserving per-request correctness checks.
 
+### References and help
+
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
+
 Run from the repository root:
 
 ```sh

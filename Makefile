@@ -105,3 +105,7 @@ check-debugging:
 .PHONY: check-portability
 check-portability:
 	python3 tools/check_portability.py --compiler '$(CC)' $(if $(filter 1,$(SANITIZE)),--sanitize,)
+
+.PHONY: check-help
+check-help:
+	python3 tools/check_help.py

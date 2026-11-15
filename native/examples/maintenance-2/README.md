@@ -93,6 +93,19 @@ After the covering checkpoint is durably published. Recovery needs at least one 
 
 **Try:** Use KEEP_FILES=1 to inspect the artifacts, then inject failure after each protocol step and verify a valid recovery source remains.
 
+### References and help
+
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+
+**Use the documentation (optional):** What is the role of a checkpoint, and can active readers affect reclaiming log data?
+
+<details><summary>Compare your answer</summary>
+
+A checkpoint transfers eligible log changes toward the main database representation. A live reader can still need an older view, so reclaiming log/version data must respect the implementation’s reader rules.
+
+</details>
+
 Run from the repository root:
 
 ```sh

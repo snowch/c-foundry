@@ -248,6 +248,11 @@ No. Only finitely many generated paths were exercised.
 
 **Try:** Run with SANITIZE=1, add token-length boundaries, and retain every discovered failure as a deterministic regression case.
 
+### References and help
+
+- [LLVM documentation: libFuzzer](https://llvm.org/docs/LibFuzzer.html) — Compare a native coverage-guided fuzzing engine with the bounded deterministic parser fixture.
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
+
 Run from the repository root:
 
 ```sh

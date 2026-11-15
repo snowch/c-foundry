@@ -129,6 +129,12 @@ No, snapshots or recovery may still reference it. Logical unlinking does not aut
 
 **Try:** Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.
 
+### References and help
+
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+
 Run from the repository root:
 
 ```sh

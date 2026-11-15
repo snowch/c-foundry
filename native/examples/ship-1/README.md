@@ -255,6 +255,11 @@ Parsing, validation, and execution/storage. The observed result depends on the c
 
 **Try:** Add tests for each supported statement and maintain a table of intentionally unsupported syntax.
 
+### References and help
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
+
 Run from the repository root:
 
 ```sh
