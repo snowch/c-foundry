@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 Undefined behavior is a broken language contract, not a particular error message. A program can appear to work while reading a dead object or crossing an array boundary.
 
+Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains.
+
 Validate external inputs before use, and use assertions to document internal invariants while developing. A debugger can show values, call stacks, and control flow, but an observed run cannot turn an invalid operation into a guarantee. Build with debug information and warnings. Keep required behavior outside assert, because NDEBUG can remove assertions. The example’s caller explicitly validates the index before calling the helper.
 
 ### main.c

@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 A portable record format starts with a written specification and a decoder that rejects malformed input. An exact-size record is a useful first step before the database introduces pages and variable-length values.
 
+Also editable and runnable inline in the browser course. Files created by this example last for this run only. Use the command workspace or a native build to keep program files.
+
 Our ten-byte format is: bytes 0–1 ASCII C and F, byte 2 version 1, byte 3 reserved zero, bytes 4–7 a little-endian uint32_t ID, and bytes 8–9 a little-endian uint16_t score. The API requires non-null pointers to valid objects, and eight-bit bytes. The decoder checks the length before inspecting fields and commits its output only after validation. IDs and scores may span their entire unsigned type ranges.
 
 ### main.c

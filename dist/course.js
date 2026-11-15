@@ -401,8 +401,8 @@ window.COURSE = {
       "project": "Divide a collection library into a public interface and an implementation.",
       "labs": [],
       "execution": {
-        "mode": "codespaces",
-        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+        "mode": "both",
+        "reason": "Worked examples run inline where supported. Native project checks, compiler diagnostics, sanitizers, and optional GDB sessions use Codespaces or a local toolchain."
       },
       "workspace": "native/chapters/larger-programs",
       "command": "make chapter CHAPTER=larger-programs",
@@ -456,8 +456,8 @@ window.COURSE = {
       "project": "Write and read a documented binary format without dumping raw structs.",
       "labs": [],
       "execution": {
-        "mode": "codespaces",
-        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+        "mode": "both",
+        "reason": "Worked examples run inline where supported. Native project checks, compiler diagnostics, sanitizers, and optional GDB sessions use Codespaces or a local toolchain."
       },
       "workspace": "native/chapters/files-bytes",
       "command": "make chapter CHAPTER=files-bytes",

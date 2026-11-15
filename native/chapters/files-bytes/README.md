@@ -67,6 +67,8 @@ make example EXAMPLE=files-bytes-1
 
 Bitwise operators manipulate the representation of unsigned values. Use them to define flags and packed fields deliberately, with shifts constrained to the type’s width.
 
+Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+
 OR sets mask bits, AND selects them, XOR toggles them, and complement inverts them. Fixed-width uint32_t is available on our target platforms; its existence is a format requirement, not a promise for every imaginable C implementation. Use a suitably typed unsigned left operand for shifts and keep the shift count below the width. inttypes.h supplies portable printf format macros for fixed-width types.
 
 ### main.c
@@ -120,6 +122,8 @@ make example EXAMPLE=files-bytes-2
 ## 10.3 Endianness and explicit serialization
 
 Serialization defines a byte representation independently of an object’s in-memory layout. Pick a byte order and widths explicitly, and make the decoder validate the format before constructing values.
+
+Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
 
 This format requires eight-bit bytes and a uint32_t. Encoding extracts the low-order byte first, defining little-endian order regardless of the host’s native order. Decoding casts each byte to uint32_t before shifting so the shift is performed in an appropriate unsigned type. A production decoder must also verify the available length before indexing its input.
 
@@ -178,6 +182,8 @@ make example EXAMPLE=files-bytes-3
 
 Undefined behavior is a broken language contract, not a particular error message. A program can appear to work while reading a dead object or crossing an array boundary.
 
+Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains.
+
 Validate external inputs before use, and use assertions to document internal invariants while developing. A debugger can show values, call stacks, and control flow, but an observed run cannot turn an invalid operation into a guarantee. Build with debug information and warnings. Keep required behavior outside assert, because NDEBUG can remove assertions. The example’s caller explicitly validates the index before calling the helper.
 
 ### main.c
@@ -233,6 +239,8 @@ make example EXAMPLE=files-bytes-4
 ## 10.5 Testing, sanitizers, portability, and browser runtime limits
 
 Combine tests with compiler diagnostics, sanitizers, and portability checks. Each tool detects a different set of mistakes; none is a proof that a program is correct.
+
+Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains.
 
 The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. Use them on native builds: the page’s Wasm runner is not providing these native sanitizer runtimes.
 
@@ -291,6 +299,8 @@ make example EXAMPLE=files-bytes-5
 ## 10.6 A portable binary record format
 
 A portable record format starts with a written specification and a decoder that rejects malformed input. An exact-size record is a useful first step before the database introduces pages and variable-length values.
+
+Also editable and runnable inline in the browser course. Files created by this example last for this run only. Use the command workspace or a native build to keep program files.
 
 Our ten-byte format is: bytes 0–1 ASCII C and F, byte 2 version 1, byte 3 reserved zero, bytes 4–7 a little-endian uint32_t ID, and bytes 8–9 a little-endian uint16_t score. The API requires non-null pointers to valid objects, and eight-bit bytes. The decoder checks the length before inspecting fields and commits its output only after validation. IDs and scores may span their entire unsigned type ranges.
 

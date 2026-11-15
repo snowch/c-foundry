@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 Combine tests with compiler diagnostics, sanitizers, and portability checks. Each tool detects a different set of mistakes; none is a proof that a program is correct.
 
+Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains.
+
 The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. Use them on native builds: the page’s Wasm runner is not providing these native sanitizer runtimes.
 
 ### main.c

@@ -2,7 +2,7 @@
   const CODESPACES='https://codespaces.new/snowch/c-foundry?quickstart=1';
   const BILLING='https://docs.github.com/en/billing/concepts/product-billing/github-codespaces';
   const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  function label(chapter){return {browser:'Browser lab',both:'Browser + Codespaces',codespaces:'Codespaces lab'}[chapter.execution.mode];}
+  function label(chapter){return {browser:'Browser lab',both:'Browser + native tools',codespaces:'Native tools'}[chapter.execution.mode];}
   function panel(chapter){
     const mode=chapter.execution.mode;
     if(mode==='browser')return `<section class="execution-panel"><h2>Where this lab runs</h2><p>Read and run these examples in your browser.</p><p>${escape(chapter.execution.reason)}</p></section>`;

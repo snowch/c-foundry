@@ -14,6 +14,9 @@ function report(stage) { phase = stage; postMessage({type:'stage', stage}); }
 self.onmessage = async ({data}) => {
   output = ''; diagnostics = ''; outputSize = 0;
   try {
+    const files=data.files||{'main.c':data.code};
+    const entries=Object.entries(files);
+    if(!Object.hasOwn(files,'main.c')||entries.length>16||entries.some(([name,code])=>!(/^[A-Za-z0-9_-]+\.[ch]$/).test(name)||typeof code!=='string'||new TextEncoder().encode(code).length>262144))throw new Error('Choose up to 16 C source/header files, at most 256 KB each, including main.c.');
     report('loading');
     const api = new API({readBuffer, compileStreaming, hostWrite(text) {
       text = text.replace(/\x1b\[[0-9;]*m/g, '');
@@ -25,8 +28,10 @@ self.onmessage = async ({data}) => {
     api.hostLogAsync = async (_label, promise) => promise;
     await Promise.all([api.ready, compileStreaming('clang'), compileStreaming('lld')]);
     report('compiling');
-    await api.compile({input:'main.c',obj:'main.o',contents:data.code});
-    await api.link('main.o','main.wasm');
+    for(const [name,code] of entries)api.memfs.addFile(name,new TextEncoder().encode(code));
+    const objects=[];
+    for(const [name] of entries){if(!name.endsWith('.c'))continue;const obj='example-'+objects.length+'.o';await api.compile({input:name,obj,preloaded:true});objects.push(obj);}
+    await api.link(objects,'main.wasm');
     const program = await WebAssembly.compile(api.memfs.getFileContents('main.wasm'));
     const results = [];
     for (const test of data.tests || [{input:data.input || ''}]) {

@@ -14,6 +14,8 @@ Build real module boundaries. Compile source files separately, control linkage, 
 
 Separate compilation lets an implementation change without placing every definition in the caller’s source file. The header states an interface; the source file provides its implementation.
 
+Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+
 Each .c file is preprocessed and compiled as its own translation unit. Include the module’s own header in its implementation as well as in callers, so incompatible declarations can be diagnosed. The linker then combines the object files. A declaration makes a name and type known; it does not by itself supply the function’s executable definition.
 
 ### operations.h
@@ -79,6 +81,8 @@ make example EXAMPLE=larger-programs-1
 ## 9.2 Declarations, definitions, linkage, and static
 
 Linkage determines whether declarations in different scopes or translation units can refer to the same entity. It is distinct from the lifetime of an object.
+
+Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
 
 This header declares operations with extern. One source file provides its initialized definition. The file-scope static private_count has internal linkage, so other translation units cannot access it by that name; they use the exported functions. A static local also has persistent storage duration, but its name remains block-scoped. The same keyword participates in different declaration contexts, so describe the effect rather than memorizing one slogan.
 
@@ -152,6 +156,8 @@ make example EXAMPLE=larger-programs-2
 
 The preprocessor transforms source before ordinary C compilation. Keep its role small and visible: header guards and explicit configuration are common uses.
 
+Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+
 An include guard wraps a header in a conditional so repeated inclusion in one translation unit does not repeat its contents. The separate FACTOR conditional supplies a default only when configuration has not already defined it. A static inline function keeps ordinary parameter evaluation rules, unlike an expression macro that may evaluate an argument more than once. Header guards do not prevent multiple external definitions across different translation units.
 
 ### scale.h
@@ -212,6 +218,8 @@ make example EXAMPLE=larger-programs-3
 
 A function pointer lets a caller supply behavior through a typed interface. A callback is a function passed for another component to call according to a documented contract.
 
+Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+
 qsort receives a comparison callback. Its two arguments designate elements, and its result must be negative, zero, or positive according to their ordering. The callback converts each void pointer back to the correct element type before reading it. The function signature and element-size argument must match the actual array. The standard does not promise a particular sorting algorithm or stability.
 
 ### main.c
@@ -267,6 +275,8 @@ make example EXAMPLE=larger-programs-4
 ## 9.5 Interfaces, ownership contracts, and error reporting
 
 A usable interface explains more than parameter types. State what it borrows, what it owns, how it reports failure, and what its outputs mean after failure.
+
+Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
 
 copy_name borrows a valid source string and returns a separately allocated owner through out on success. It sets a supplied output slot to NULL before a failure is possible, making the cleanup policy predictable. Distinct status values distinguish invalid arguments from allocation failure. The output slot must not already be the caller’s only owner of another allocation: overwriting that owner would leak it.
 

@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 Linkage determines whether declarations in different scopes or translation units can refer to the same entity. It is distinct from the lifetime of an object.
 
+Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+
 This header declares operations with extern. One source file provides its initialized definition. The file-scope static private_count has internal linkage, so other translation units cannot access it by that name; they use the exported functions. A static local also has persistent storage duration, but its name remains block-scoped. The same keyword participates in different declaration contexts, so describe the effect rather than memorizing one slogan.
 
 ### counter.h

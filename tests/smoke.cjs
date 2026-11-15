@@ -3,7 +3,7 @@ const sandbox={document:{addEventListener(){}}};sandbox.window=sandbox;vm.create
 let worker=new Worker(require('node:path').resolve('tests/worker-shim.cjs'));
 function run(data){return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{worker.terminate();reject(new Error('Timeout'));},60000);function handler(result){if(result.type==='done'||result.type==='error'){clearTimeout(timer);worker.off('message',handler);resolve(result);}}worker.on('message',handler);worker.postMessage(data);});}
 (async()=>{try{
-for(const lesson of sandbox.LESSONS){const r=await run({code:lesson.solution,tests:lesson.tests});assert.equal(r.type,'done',JSON.stringify(r));assert.ok(r.results.every(t=>t.pass),JSON.stringify(r));console.log('PASS '+lesson.title+' ('+r.results.length+' cases)');}
+for(const lesson of sandbox.LESSONS){const r=await run({code:lesson.solution,files:lesson.files,tests:lesson.tests});assert.equal(r.type,'done',JSON.stringify(r));assert.ok(r.results.every(t=>t.pass),JSON.stringify(r));console.log('PASS '+lesson.title+' ('+r.results.length+' cases)');}
 let r=await run({code:'#include <stdio.h>\nint main(void){ printf("broken") return 0; }'});assert.equal(r.type,'error');assert.match(r.diagnostics,/error:/);console.log('PASS compiler diagnostics');
 r=await run({code:'#include <stdio.h>\nint main(void){puts("custom code works");return 0;}'});assert.equal(r.type,'done');assert.equal(r.results[0].actual,'custom code works');console.log('PASS arbitrary C after compile failure');
 r=await run({code:'int main(void){return 7;}'});assert.equal(r.type,'error');console.log('PASS nonzero exit status');

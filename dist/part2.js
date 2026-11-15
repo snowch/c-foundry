@@ -336,6 +336,9 @@ window.PART_TWO = {
           "operations.h": "#ifndef OPERATIONS_H\n#define OPERATIONS_H\nint twice(int value);\n#endif\n",
           "operations.c": "#include \"operations.h\"\n\nint twice(int value) {\n    return value * 2;\n}\n",
           "main.c": "#include <stdio.h>\n#include \"operations.h\"\n\nint main(void) {\n    printf(\"%d\\n\", twice(21));\n    return 0;\n}\n"
+        },
+        "browser": {
+          "note": "Run here, or use the native command below with your own C toolchain."
         }
       },
       "2": {
@@ -359,6 +362,9 @@ window.PART_TWO = {
           "counter.h": "#ifndef COUNTER_H\n#define COUNTER_H\nextern int operations;\nvoid tick(void);\nint read_private(void);\n#endif\n",
           "counter.c": "#include \"counter.h\"\n\nint operations = 0;\nstatic int private_count;\n\nvoid tick(void) { operations++; private_count++; }\nint read_private(void) { return private_count; }\n",
           "main.c": "#include <stdio.h>\n#include \"counter.h\"\n\nint main(void) {\n    tick();\n    tick();\n    printf(\"calls=%d private=%d\\n\", operations, read_private());\n    return 0;\n}\n"
+        },
+        "browser": {
+          "note": "Run here, or use the native command below with your own C toolchain."
         }
       },
       "3": {
@@ -381,6 +387,9 @@ window.PART_TWO = {
         "files": {
           "scale.h": "#ifndef SCALE_H\n#define SCALE_H\n#ifndef FACTOR\n#define FACTOR 3\n#endif\nstatic inline int scale(int value) { return value * FACTOR; }\n#endif\n",
           "main.c": "#include <stdio.h>\n#include \"scale.h\"\n#include \"scale.h\"\n\nint main(void) {\n    printf(\"%d\\n\", scale(7));\n    return 0;\n}\n"
+        },
+        "browser": {
+          "note": "Run here, or use the native command below with your own C toolchain."
         }
       },
       "4": {
@@ -399,7 +408,10 @@ window.PART_TWO = {
         "why": "A comparator should handle every supported int pair without undefined signed overflow.",
         "tryit": "Reverse the comparison’s sign to sort descending and predict the new output.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run here, or use the native command below with your own C toolchain."
+        }
       },
       "5": {
         "intro": "A usable interface explains more than parameter types. State what it borrows, what it owns, how it reports failure, and what its outputs mean after failure.",
@@ -417,7 +429,10 @@ window.PART_TWO = {
         "why": "The status determines whether the returned owner was established.",
         "tryit": "Implement the native record-store project and test its failure and cleanup paths.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run here, or use the native command below with your own C toolchain."
+        }
       }
     }
   },
@@ -467,7 +482,10 @@ window.PART_TWO = {
         "why": "The AND limits the change to bits selected by the inverted mask.",
         "tryit": "Add a third flag and toggle it twice with XOR; verify that the original flags are restored.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run here, or use the native command below with your own C toolchain."
+        }
       },
       "3": {
         "intro": "Serialization defines a byte representation independently of an object’s in-memory layout. Pick a byte order and widths explicitly, and make the decoder validate the format before constructing values.",
@@ -485,7 +503,10 @@ window.PART_TWO = {
         "why": "The representation is specified by the algorithm rather than a raw memory dump.",
         "tryit": "Try zero and the largest uint32_t, checking round trips without changing the byte order.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run here, or use the native command below with your own C toolchain."
+        }
       },
       "4": {
         "intro": "Undefined behavior is a broken language contract, not a particular error message. A program can appear to work while reading a dead object or crossing an array boundary.",
@@ -503,7 +524,10 @@ window.PART_TWO = {
         "why": "Assertions can disappear; external input still needs a runtime error-handling policy.",
         "tryit": "Use GDB on the example and inspect the valid index rather than deliberately executing an out-of-bounds access.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains."
+        }
       },
       "5": {
         "intro": "Combine tests with compiler diagnostics, sanitizers, and portability checks. Each tool detects a different set of mistakes; none is a proof that a program is correct.",
@@ -521,7 +545,10 @@ window.PART_TWO = {
         "why": "It checks the executed behavior for the classes of problems that sanitizer can detect.",
         "tryit": "Run make example EXAMPLE=files-bytes-5 SANITIZE=1, then add a destination-capacity boundary case.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains."
+        }
       },
       "6": {
         "intro": "A portable record format starts with a written specification and a decoder that rejects malformed input. An exact-size record is a useful first step before the database introduces pages and variable-length values.",
@@ -539,7 +566,10 @@ window.PART_TWO = {
         "why": "A fixed independently defined representation catches errors that two mutually consistent functions can hide.",
         "tryit": "Implement the native binary-record project and explain every byte in its test fixture.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Files created by this example last for this run only. Use the command workspace or a native build to keep program files."
+        }
       },
       "7": {
         "intro": "Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Codespaces or local Linux.",
