@@ -17,6 +17,8 @@ Audit C’s behavior and numeric boundaries: conversions, checked arithmetic, ex
 
 Different kinds of latitude in C require different responses. Undefined behavior is not just another documented platform choice.
 
+Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+
 Defined behavior follows the language contract. Implementation-defined behavior requires an implementation’s documented choice, such as relevant integer characteristics. Unspecified behavior permits a set of allowed choices without requiring the same choice every time, such as many operand evaluation orders. Undefined behavior imposes no requirements. The executable uses defined operations and reports a guaranteed minimum property, avoiding deliberate invalid accesses.
 
 ### main.c
@@ -70,6 +72,8 @@ make example EXAMPLE=c-guarantees-1
 ## 32.2 Integer representation, alignment, object lifetime, and aliasing
 
 A pointer’s numeric appearance does not establish alignment, type compatibility, or object lifetime. Use character access and memcpy for representation transfers.
+
+Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
 
 The example copies an unsigned integer’s object representation into an unsigned-char array and back into a compatible object. Access through unsigned char may inspect object bytes; casting arbitrary byte storage to a wider pointer can violate alignment and effective-type rules. None of these operations extend an object’s lifetime or permit access after free.
 
@@ -127,6 +131,8 @@ make example EXAMPLE=c-guarantees-2
 
 Optimizers may transform valid programs while preserving their required observable behavior. They need not preserve a guessed result after undefined behavior.
 
+Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+
 The fixture uses unsigned fixed-width arithmetic with a defined wrap result and a bounded representable sum. Compile it at multiple optimization levels and compare those outputs. If a different program changes behavior under optimization, audit its language contracts, races, and uninitialized state before treating the difference as an optimizer bug.
 
 ### main.c
@@ -157,7 +163,7 @@ Output:
 wrapped=0 sum=10
 ```
 
-The required result remains zero and ten under valid optimizing transformations. The example is compiled with optimization enabled, not a deliberately invalid aliasing trick.
+The required result remains zero and ten under valid optimizing transformations. The native fixture requests -O2; the inline runner uses its fixed unoptimized C17 build. Compare native -O0 and -O2 builds to investigate optimization.
 
 **Watch for:** Turning optimization off can hide a defect without fixing it.
 

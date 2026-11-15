@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 Optimizers may transform valid programs while preserving their required observable behavior. They need not preserve a guessed result after undefined behavior.
 
+Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+
 The fixture uses unsigned fixed-width arithmetic with a defined wrap result and a bounded representable sum. Compile it at multiple optimization levels and compare those outputs. If a different program changes behavior under optimization, audit its language contracts, races, and uninitialized state before treating the difference as an optimizer bug.
 
 ### main.c
@@ -36,7 +38,7 @@ Output:
 wrapped=0 sum=10
 ```
 
-The required result remains zero and ten under valid optimizing transformations. The example is compiled with optimization enabled, not a deliberately invalid aliasing trick.
+The required result remains zero and ten under valid optimizing transformations. The native fixture requests -O2; the inline runner uses its fixed unoptimized C17 build. Compare native -O0 and -O2 builds to investigate optimization.
 
 **Watch for:** Turning optimization off can hide a defect without fixing it.
 

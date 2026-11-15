@@ -12,6 +12,12 @@ let p=page(),{$,w}=p;
 const file=name=>w.document.querySelector(`[data-source-file="${name}"]`),change=text=>{$('editor').value=text;$('editor').dispatchEvent(new w.Event('input'));};
 assert.equal(w.document.querySelectorAll('[data-source-file]').length,3);assert.equal($('source-files').hidden,false);
 const originalMain=$('editor').value,originalHeader=w.PART_TWO['larger-programs'].topics['1'].files['operations.h'];
+// A header-only edit is still a course draft for the landing-page Continue action.
+file('operations.h').click();change(originalHeader+'\n// header-only draft');
+w.history.pushState(null,'','#/course');w.dispatchEvent(new w.HashChangeEvent('hashchange'));
+assert.equal($('course-start-link').getAttribute('href'),'#/chapter/larger-programs/1');
+$('course-start-link').click();$('reset-button').click();
+
 change(originalMain+'\n// main draft');file('operations.h').click();change(originalHeader+'\n// header draft');file('operations.c').click();change($('editor').value+'\n// implementation draft');file('main.c').click();assert.equal($('editor').value,originalMain+'\n// main draft');
 file('operations.h').click();assert.equal(file('operations.h').getAttribute('aria-pressed'),'true');assert.equal($('editor-file-name').textContent,'operations.h');assert.match($('download-button').title,/operations.h/);
 let filename;w.URL.createObjectURL=()=> 'blob:export';w.URL.revokeObjectURL=()=>{};w.HTMLAnchorElement.prototype.click=function(){filename=this.download;};$('download-button').click();assert.equal(filename,'operations.h');

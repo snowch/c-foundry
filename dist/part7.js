@@ -23,7 +23,10 @@ window.PART_SEVEN = {
         "why": "A .c file can be compiled under several revisions and extension policies.",
         "tryit": "Run make standards-matrix and record actual accepted modes and diagnostics for both toolchains.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "2": {
         "intro": "Compiler extensions can be useful when isolated behind a checked interface, but they are not portable language guarantees.",
@@ -41,7 +44,10 @@ window.PART_SEVEN = {
         "why": "Centralizing the dependency makes supported targets and failures reviewable.",
         "tryit": "Compile with -Wpedantic -Werror, then write a feature probe that checks the exact extension your project needs.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "3": {
         "intro": "Feature detection should test the facility you need. A standard-version test alone cannot account for partial implementations or optional APIs.",
@@ -59,7 +65,10 @@ window.PART_SEVEN = {
         "why": "Language and library support can vary independently.",
         "tryit": "Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       }
     },
     "practicePlan": {
@@ -104,7 +113,10 @@ window.PART_SEVEN = {
         "why": "Standard unsigned and signed arithmetic have different overflow contracts.",
         "tryit": "Classify five expressions from TinyDB and cite the exact assumption or guarantee each relies on.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "2": {
         "intro": "A pointer’s numeric appearance does not establish alignment, type compatibility, or object lifetime. Use character access and memcpy for representation transfers.",
@@ -122,14 +134,17 @@ window.PART_SEVEN = {
         "why": "memcpy transfers representation bytes without requiring a misaligned typed access.",
         "tryit": "Replace a raw pointer cast in a decoder with explicit byte assembly and test it with unaligned input offsets.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "3": {
         "intro": "Optimizers may transform valid programs while preserving their required observable behavior. They need not preserve a guessed result after undefined behavior.",
         "explanation": "The fixture uses unsigned fixed-width arithmetic with a defined wrap result and a bounded representable sum. Compile it at multiple optimization levels and compare those outputs. If a different program changes behavior under optimization, audit its language contracts, races, and uninitialized state before treating the difference as an optimizer bug.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint main(void) {\n  uint32_t x = UINT32_MAX;\n  x += UINT32_C(1);\n  unsigned sum = 0;\n  for (unsigned i = 1; i <= 4; ++i)\n    sum += i;\n  printf(\"wrapped=%u sum=%u\\n\", (unsigned)x, sum);\n  return 0;\n}\n",
         "expected": "wrapped=0 sum=10",
-        "walkthrough": "The required result remains zero and ten under valid optimizing transformations. The example is compiled with optimization enabled, not a deliberately invalid aliasing trick.",
+        "walkthrough": "The required result remains zero and ten under valid optimizing transformations. The native fixture requests -O2; the inline runner uses its fixed unoptimized C17 build. Compare native -O0 and -O2 builds to investigate optimization.",
         "pitfall": "Turning optimization off can hide a defect without fixing it.",
         "question": "What should be checked first after an optimization-sensitive failure?",
         "choices": [
@@ -143,7 +158,10 @@ window.PART_SEVEN = {
         "runtime": "native",
         "flags": [
           "-O2"
-        ]
+        ],
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "4": {
         "intro": "Before evaluating a mixed-type expression, determine the promoted operand types. A negative signed value can become a large unsigned value before comparison.",
@@ -341,7 +359,10 @@ window.PART_SEVEN = {
         "why": "Layout, padding, byte order, and other representation choices remain.",
         "tryit": "Decode independently specified bytes and test all integer extremes without consulting sizeof(Row).",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "3": {
         "intro": "Probe the facility you need with the selected compiler and libraries. A platform name or accepted language-mode flag does not establish that an API can be linked.",
@@ -359,7 +380,10 @@ window.PART_SEVEN = {
         "why": "A fallback may preserve a contract or explicitly report unsupported behavior; it must not silently change the meaning.",
         "tryit": "Run python3 tools/check_portability.py --compiler gcc and inspect the capability report. Compare the result with Windows MSVC in the Actions matrix.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "4": {
         "intro": "Separate portable data operations from the host that stores their bytes. A small interface makes dependencies and unsupported guarantees visible.",
@@ -401,7 +425,10 @@ window.PART_SEVEN = {
         "why": "Binary mode avoids text-stream translations; the format still needs explicit widths, encoding, and validation.",
         "tryit": "Add empty, CRLF-only, final-record-without-newline, and truncated-buffer cases. State separately how your parser rejects an incomplete record.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "6": {
         "intro": "A path is interpreted by a host, not by the C language alone. Define filename policy and let callers supply locations instead of baking in Linux conventions.",
@@ -419,7 +446,10 @@ window.PART_SEVEN = {
         "why": "Names can compare differently while referring to the same object on a case-insensitive filesystem.",
         "tryit": "Run the audit project’s filename-policy tests for CON.txt, COM1.tdb, traversal, trailing dots, and a valid basename; document which otherwise valid OS names the project intentionally excludes.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "7": {
         "intro": "Distinguish bytes, encoded characters, and locale-dependent classification. Make the external text encoding part of the format.",
@@ -437,7 +467,10 @@ window.PART_SEVEN = {
         "why": "The cast satisfies the ctype argument requirement. It does not implement Unicode decoding.",
         "tryit": "Compare the byte length of an ASCII name and a multibyte name, and test invalid UTF-8 rejection separately from name length and locale classification.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "8": {
         "intro": "Parse a bounded decimal field with a stated grammar, range checks, and full consumption. Do not use a conversion’s numeric result as its success indicator.",
@@ -455,7 +488,10 @@ window.PART_SEVEN = {
         "why": "Conversion success establishes a uintmax_t value, not that it fits the database field.",
         "tryit": "Add zero, empty input, plus/minus signs, whitespace, a suffix, embedded zero bytes, leading zeros, and an extremely long number; verify output preservation for every rejection.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "9": {
         "intro": "Distinguish EOF from an I/O error, and treat a text-stream position as a saved cookie rather than an arithmetic byte offset.",
@@ -518,7 +554,10 @@ window.PART_SEVEN = {
         "why": "An overflowed size may request a small allocation and later cause an out-of-bounds write.",
         "tryit": "Audit every size calculation in the pager, index, parser, and vector with a stated maximum.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "2": {
         "intro": "Version checks are part of the decoder’s public contract. Unknown formats must not partially replace existing data.",
@@ -554,7 +593,10 @@ window.PART_SEVEN = {
         "why": "Undiagnosed undefined behavior remains possible.",
         "tryit": "Run python3 tools/check_portability.py --compiler gcc, inspect all four Actions matrix entries, and distinguish compiler diagnostics from operating-system coverage.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "4": {
         "intro": "Sanitizers observe executed behavior and catch selected invalid operations. Combine them with strict builds, input validation, and independent expectations.",
@@ -572,7 +614,10 @@ window.PART_SEVEN = {
         "why": "The scope is the actual instrumentation and executions.",
         "tryit": "Run this example with SANITIZE=1, then add short inputs at every length below the full record size.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+        }
       },
       "5": {
         "intro": "Finish with a concrete audit: publish the supported assumptions, compile a portable codec and file adapter separately, and verify database files produced by other hosts.",
@@ -600,6 +645,9 @@ window.PART_SEVEN = {
         "artifact": {
           "href": "assets/tinydb-sample.tdb",
           "label": "Download the shared two-row TDB1 fixture"
+        },
+        "browser": {
+          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
         }
       }
     },

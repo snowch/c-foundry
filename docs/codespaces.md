@@ -1,6 +1,6 @@
 # C Foundry in Codespaces
 
-The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 226 topic lessons. There are 139 inline browser examples, 87 native examples, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
+The web course is at https://snowch.github.io/c-foundry/#/course. All nine parts are authored: 44 chapters and 226 topic lessons. There are 177 inline browser examples and 49 examples requiring native tools, fifteen practice exercises, and two editable native Part 2 projects. Later chapter workshops assemble and extend checked components and bounded models; they do not imply a complete production SQL engine.
 
 ## Start or reuse a workspace
 
@@ -83,7 +83,7 @@ make check-part2
 make check-part2 CC=clang
 ```
 
-The browser still provides all readings and question feedback. For the first three Part 2 chapters, run and edit the examples directly in the reading page. Browser drafts do not synchronize into native examples automatically.
+The browser still provides all readings and question feedback. Twenty-five Part 2 examples run directly in the reading page, including separate source files and headers. The temporary-stream and GDB sessions still use native tools. Browser drafts do not synchronize into native examples automatically.
 
 Complete the TODOs in `native/projects/record-store/store.c` and `native/projects/binary-record/record.c`, guided by their headers and READMEs:
 
@@ -99,7 +99,7 @@ Maintainers regenerate all authored native readings and examples with `node tool
 
 ## Parts 3–9 and complete example checks
 
-Portable algorithm, data-structure, table/query, and page/index models run inline. Native filesystem, standards, and threading examples show a Codespaces command on the lesson page. All examples also have native exports:
+Portable algorithm, data-structure, table/query, and page/index models run inline. Compatible file, recovery, and portability examples also run inline. Native filesystem APIs, debugger/sanitizer sessions, standards-mode comparisons, and threading still use a native toolchain. Eligible examples keep a collapsed native build alternative. All examples also have native exports:
 
 ```sh
 make example EXAMPLE=graphs-6

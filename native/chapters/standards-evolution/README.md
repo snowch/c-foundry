@@ -14,6 +14,8 @@ Choose a language baseline and verify features with the actual compiler instead 
 
 C revisions add facilities while retaining compatibility rules and implementation choices. A course baseline should be explicit.
 
+Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+
 C89/C90 standardized the early language; C99 added facilities such as declarations in for loops and standard fixed-width integer interfaces; C11 added atomics and alignment facilities; C17 primarily corrected defects; C23 adds facilities including nullptr, typeof/typeof_unqual, constexpr objects, and inferred auto declarations; probe the exact facility before depending on it. __STDC_VERSION__ identifies the selected language revision when provided, but does not prove every optional library facility is available. This course uses C17 unless a feature probe says otherwise.
 
 ### main.c
@@ -66,6 +68,8 @@ make example EXAMPLE=standards-evolution-1
 ## 31.2 Language standards versus compiler extensions
 
 Compiler extensions can be useful when isolated behind a checked interface, but they are not portable language guarantees.
+
+Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
 
 The example guards a GNU-compatible extended integer type and supplies a standard fallback. __extension__ is itself a compiler-specific escape used only within that guard. The output checks a capability property rather than promising that every C target has a 128-bit integer. Prefer a standard baseline path unless the extended representation is part of a documented platform requirement.
 
@@ -123,6 +127,8 @@ make example EXAMPLE=standards-evolution-2
 ## 31.3 Choosing a baseline and checking feature support
 
 Feature detection should test the facility you need. A standard-version test alone cannot account for partial implementations or optional APIs.
+
+Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
 
 The example selects a conservative C17 fallback at the course’s default language mode. A separate compile probe can attempt a C23-only facility under -std=c23 and report whether that compiler/library combination accepts it. Treat a failed probe as a result to handle, not permission to silently change the project’s semantics.
 

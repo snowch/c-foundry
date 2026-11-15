@@ -24,7 +24,7 @@
     let path='/chapter/'+target.id,note=`${progress.done?'Next unmarked lesson':'Begin with Chapter '+target.chapter.number} · ${target.topic.title}`;
     if(!next){label='Review from the beginning →';note='Core lessons marked done. Revisit a lesson or explore the optional labs below.';}
     else if(!progress.done){
-      const draft=LESSONS.find(l=>l.id===state.selected&&typeof state.drafts[l.id]==='string'&&(l.isExample||!state.completed.includes(l.id)));
+      const draft=LESSONS.find(l=>l.id===state.selected&&(typeof state.drafts[l.id]==='string'||Object.values(state.fileDrafts[l.id]||{}).some(value=>typeof value==='string'))&&(l.isExample||!state.completed.includes(l.id)));
       const practice=state.completed.length?PRACTICE.find(l=>!state.completed.includes(l.id)):null;
       if(draft||practice){const lesson=draft||practice;label='Continue learning →';path=lesson.isExample?`/chapter/${lesson.chapterId}/${lesson.topicId}`:'/lesson/'+lesson.id;note=`${draft?'Continue your draft':'Next practice exercise'} · ${lesson.title}`;}
     }

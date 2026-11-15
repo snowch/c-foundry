@@ -1423,8 +1423,8 @@ window.COURSE = {
       "labs": [],
       "nativeDemo": "standards",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Multi-file builds, native diagnostics, or compiler features need the Linux toolchain."
+        "mode": "both",
+        "reason": "Compatible probes and portable C examples run inline with one fixed C17 toolchain. Use native tools for cross-compiler, standards-mode, optimization, and sanitizer experiments."
       },
       "workspace": "native/chapters/standards-evolution",
       "command": "make chapter CHAPTER=standards-evolution",
@@ -1494,7 +1494,7 @@ window.COURSE = {
       "nativeDemo": "standards",
       "execution": {
         "mode": "both",
-        "reason": "Portable integer checks run inline; native floating-point and optimization probes use the Linux toolchain."
+        "reason": "Compatible probes and portable C examples run inline with one fixed C17 toolchain. Use native tools for cross-compiler, standards-mode, optimization, and sanitizer experiments."
       },
       "workspace": "native/chapters/c-guarantees",
       "command": "make chapter CHAPTER=c-guarantees",
@@ -1556,8 +1556,8 @@ window.COURSE = {
       "labs": [],
       "nativeDemo": "standards",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Run these C17 examples in Codespaces or locally; the portability matrix also builds them on Linux, macOS, and Windows."
+        "mode": "both",
+        "reason": "Compatible probes and portable C examples run inline with one fixed C17 toolchain. Use native tools for cross-compiler, standards-mode, optimization, and sanitizer experiments."
       },
       "workspace": "native/chapters/portable-c",
       "command": "make chapter CHAPTER=portable-c",
@@ -1599,8 +1599,8 @@ window.COURSE = {
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Use the checked C17 audit target and cross-platform Actions matrix; native filesystem publication and concurrency need separate adapters."
+        "mode": "both",
+        "reason": "Compatible probes and portable C examples run inline with one fixed C17 toolchain. Use native tools for cross-compiler, standards-mode, optimization, and sanitizer experiments."
       },
       "workspace": "native/chapters/hardening-tinydb",
       "command": "make chapter CHAPTER=hardening-tinydb",
