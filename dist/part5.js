@@ -498,7 +498,10 @@ window.PART_FIVE = {
         "why": "Different layouts need deliberate compatibility handling.",
         "tryit": "Write a byte-offset format table and test bad magic, version, record width, and reserved bytes.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run and change the format example here. The same source also builds with a native C17 toolchain."
+        }
       },
       "2": {
         "intro": "Serialization must encode field widths and byte order explicitly. Raw struct dumps expose padding and native representation assumptions.",
@@ -516,7 +519,10 @@ window.PART_FIVE = {
         "why": "Its forty bytes are specified by offsets, independent of struct padding.",
         "tryit": "Add fixture-byte tests for zero, maximum score, maximum ID, and a 31-byte name.",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "browser": {
+          "note": "Run and change the format example here. The same source also builds with a native C17 toolchain."
+        }
       },
       "3": {
         "intro": "Fixed-size pages give storage a simple addressing unit. A page number maps to an offset only after range and multiplication checks.",
@@ -556,7 +562,7 @@ window.PART_FIVE = {
       },
       "5": {
         "intro": "A browser compiler’s virtual files are temporary unless explicitly transferred to persistent browser storage or exported to the user.",
-        "explanation": "This native transfer tool writes people.tdb and loads it back through the validated decoder. Use KEEP_FILES=1 with the repository runner to retain the named artifact under .build/files/persistence-5, then download it through the Codespaces file explorer. The browser page also supplies a matching sample file. Browser drafts and localStorage lesson marks are not database-file persistence, and a saved browser blob does not imply transaction durability.",
+        "explanation": "This transfer tool writes people.tdb and loads it back through the validated decoder. Run it inline to inspect the round trip; those files last for this run only. To keep the generated file in the browser, choose CLI, run the suggested cc command, then run <code>./program</code>. Download people.tdb from the workspace file list. Run <code>./program import people.tdb</code> to test import. With a native toolchain, KEEP_FILES=1 retains the named artifact under .build/files/persistence-5. The page also supplies a matching sample file. Browser drafts and lesson marks are separate from database-file persistence; downloading a file does not establish transaction durability.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\nenum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };\nvoid put32(unsigned char *out, uint32_t value) {\n  for (unsigned i = 0; i < 4; ++i)\n    out[i] = (unsigned char)(value >> (8 * i));\n}\nuint32_t get32(const unsigned char *in) {\n  uint32_t value = 0;\n  for (unsigned i = 0; i < 4; ++i)\n    value |= (uint32_t)in[i] << (8 * i);\n  return value;\n}\nbool encode_row(unsigned char *out, const Row *row) {\n  if (!row->id || !memchr(row->name, 0, 32) || !row->name[0])\n    return false;\n  memset(out, 0, ROW_BYTES);\n  put32(out, row->id);\n  memcpy(out + 4, row->name, strlen(row->name));\n  put32(out + 36, row->score);\n  return true;\n}\nbool decode_row(const unsigned char *in, size_t n, Row *out) {\n  if (n != ROW_BYTES || get32(in) == 0 || !memchr(in + 4, 0, 32) || in[4] == 0)\n    return false;\n  Row row = {0};\n  row.id = get32(in);\n  memcpy(row.name, in + 4, 32);\n  row.score = get32(in + 36);\n  *out = row;\n  return true;\n}\nbool save(FILE *f, const Table *table) {\n  unsigned char header[HEADER_BYTES] = {0x54, 0x44,      0x42, 0x31,\n                                        1,    ROW_BYTES, 0,    0};\n  if (table->count > TABLE_CAP)\n    return false;\n  header[6] = (unsigned char)table->count;\n  if (fwrite(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  for (size_t i = 0; i < table->count; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    if (!encode_row(bytes, &table->rows[i]) ||\n        fwrite(bytes, 1, sizeof bytes, f) != sizeof bytes)\n      return false;\n  }\n  return fflush(f) == 0;\n}\nbool load(FILE *f, Table *out) {\n  unsigned char header[HEADER_BYTES];\n  if (fread(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  if (memcmp(header, (const unsigned char[]){0x54, 0x44, 0x42, 0x31}, 4) || header[4] != 1 || header[5] != ROW_BYTES ||\n      header[6] > TABLE_CAP || header[7] != 0)\n    return false;\n  Table table = {0};\n  for (unsigned i = 0; i < header[6]; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    Row row;\n    if (fread(bytes, 1, sizeof bytes, f) != sizeof bytes ||\n        !decode_row(bytes, sizeof bytes, &row) || insert_row(&table, row) != OK)\n      return false;\n  }\n  if (fgetc(f) != EOF || ferror(f))\n    return false;\n  *out = table;\n  return true;\n}\n\nint main(int argc, char **argv) {\n  Table source = {0}, copy = {0};\n  insert_row(&source, (Row){1, \"Ada\", 90});\n  insert_row(&source, (Row){2, \"Grace\", 80});\n  if (argc == 3 && strcmp(argv[1], \"import\") == 0) {\n    FILE *in = fopen(argv[2], \"rb\");\n    if (!in)\n      return 1;\n    bool ok = load(in, &copy);\n    if (fclose(in) != 0 || !ok)\n      return 1;\n    display(&copy);\n    return 0;\n  }\n  if (argc != 1)\n    return 1;\n  FILE *out = fopen(\"people.tdb\", \"wb\");\n  if (!out)\n    return 1;\n  bool written = save(out, &source);\n  if (fclose(out) != 0 || !written)\n    return 1;\n  FILE *in = fopen(\"people.tdb\", \"rb\");\n  if (!in)\n    return 1;\n  bool read = load(in, &copy);\n  if (fclose(in) != 0 || !read)\n    return 1;\n  printf(\"exported=1 imported=1 rows=%zu\\n\", copy.count);\n  return 0;\n}\n",
         "expected": "exported=1 imported=1 rows=2",
         "walkthrough": "The default run exports and reimports two rows. The optional import argument loads an external file and prints its validated contents; no raw struct casts are used.",
@@ -568,13 +574,16 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "The runtime resets its virtual filesystem; a host transfer/storage step is separate.",
-        "tryit": "Retain and download people.tdb. Compile this source in Codespaces, then run the executable with import and the downloaded file path.",
+        "tryit": "Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Codespaces.",
         "input": "",
         "runtime": "native",
         "command": "make example EXAMPLE=persistence-5 KEEP_FILES=1",
         "artifact": {
           "href": "assets/tinydb-sample.tdb",
           "label": "Download the two-row TinyDB sample"
+        },
+        "browser": {
+          "note": "This example uses the browser’s temporary virtual files. Use CLI to keep and download program files, or use the native command below."
         }
       },
       "6": {

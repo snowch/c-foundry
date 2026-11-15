@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 A file header identifies a format and states how to interpret the remaining bytes. Unknown versions should fail clearly.
 
+Also editable and runnable inline in the browser course. Run and change the format example here. The same source also builds with a native C17 toolchain.
+
 The teaching format begins with ASCII TDB1, version byte one, record-size byte forty, a one-byte row count, and a reserved zero byte. It requires eight-bit bytes and exact-width uint32_t. The count is capped by the bounded table; a larger format would use wider lengths and checked offset calculations. Header bytes are a protocol, not the memory layout of a C header struct.
 
 ### main.c

@@ -1139,7 +1139,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+        "reason": "Compatible format and transfer examples run inline. The command workspace keeps browser files; native commands provide the full file and persistence experiments."
       },
       "workspace": "native/chapters/persistence",
       "command": "make chapter CHAPTER=persistence",

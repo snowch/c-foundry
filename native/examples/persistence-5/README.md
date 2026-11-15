@@ -6,7 +6,9 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 A browser compiler’s virtual files are temporary unless explicitly transferred to persistent browser storage or exported to the user.
 
-This native transfer tool writes people.tdb and loads it back through the validated decoder. Use KEEP_FILES=1 with the repository runner to retain the named artifact under .build/files/persistence-5, then download it through the Codespaces file explorer. The browser page also supplies a matching sample file. Browser drafts and localStorage lesson marks are not database-file persistence, and a saved browser blob does not imply transaction durability.
+Also editable and runnable inline in the browser course. This example uses the browser’s temporary virtual files. Use CLI to keep and download program files, or use the native command below.
+
+This transfer tool writes people.tdb and loads it back through the validated decoder. Run it inline to inspect the round trip; those files last for this run only. To keep the generated file in the browser, choose CLI, run the suggested cc command, then run `./program`. Download people.tdb from the workspace file list. Run `./program import people.tdb` to test import. With a native toolchain, KEEP_FILES=1 retains the named artifact under .build/files/persistence-5. The page also supplies a matching sample file. Browser drafts and lesson marks are separate from database-file persistence; downloading a file does not establish transaction durability.
 
 ### main.c
 
@@ -188,7 +190,7 @@ No. The runtime resets its virtual filesystem; a host transfer/storage step is s
 
 </details>
 
-**Try:** Retain and download people.tdb. Compile this source in Codespaces, then run the executable with import and the downloaded file path.
+**Try:** Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Codespaces.
 
 Run from the repository root:
 

@@ -14,6 +14,8 @@ Define bytes independently of structs, check every stream operation, and load un
 
 A file header identifies a format and states how to interpret the remaining bytes. Unknown versions should fail clearly.
 
+Also editable and runnable inline in the browser course. Run and change the format example here. The same source also builds with a native C17 toolchain.
+
 The teaching format begins with ASCII TDB1, version byte one, record-size byte forty, a one-byte row count, and a reserved zero byte. It requires eight-bit bytes and exact-width uint32_t. The count is capped by the bounded table; a larger format would use wider lengths and checked offset calculations. Header bytes are a protocol, not the memory layout of a C header struct.
 
 ### main.c
@@ -68,6 +70,8 @@ make example EXAMPLE=persistence-1
 ## 25.2 Serializing rows without dumping raw structs
 
 Serialization must encode field widths and byte order explicitly. Raw struct dumps expose padding and native representation assumptions.
+
+Also editable and runnable inline in the browser course. Run and change the format example here. The same source also builds with a native C17 toolchain.
 
 A record contains four little-endian ID bytes, 32 name bytes with a required terminator and a nonempty name, and four little-endian score bytes. The encoder clears spare name bytes for reproducible output. The decoder checks length and validity before assigning the output row. Numeric ranges and name ownership stay consistent with the in-memory schema.
 
@@ -639,7 +643,9 @@ make example EXAMPLE=persistence-4
 
 A browser compiler’s virtual files are temporary unless explicitly transferred to persistent browser storage or exported to the user.
 
-This native transfer tool writes people.tdb and loads it back through the validated decoder. Use KEEP_FILES=1 with the repository runner to retain the named artifact under .build/files/persistence-5, then download it through the Codespaces file explorer. The browser page also supplies a matching sample file. Browser drafts and localStorage lesson marks are not database-file persistence, and a saved browser blob does not imply transaction durability.
+Also editable and runnable inline in the browser course. This example uses the browser’s temporary virtual files. Use CLI to keep and download program files, or use the native command below.
+
+This transfer tool writes people.tdb and loads it back through the validated decoder. Run it inline to inspect the round trip; those files last for this run only. To keep the generated file in the browser, choose CLI, run the suggested cc command, then run `./program`. Download people.tdb from the workspace file list. Run `./program import people.tdb` to test import. With a native toolchain, KEEP_FILES=1 retains the named artifact under .build/files/persistence-5. The page also supplies a matching sample file. Browser drafts and lesson marks are separate from database-file persistence; downloading a file does not establish transaction durability.
 
 ### main.c
 
@@ -821,7 +827,7 @@ No. The runtime resets its virtual filesystem; a host transfer/storage step is s
 
 </details>
 
-**Try:** Retain and download people.tdb. Compile this source in Codespaces, then run the executable with import and the downloaded file path.
+**Try:** Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Codespaces.
 
 Run from the repository root:
 

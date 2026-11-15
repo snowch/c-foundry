@@ -15,6 +15,17 @@ files=[{name:'vector.txt',data:enc('abcde')},{name:'vectors.c',data:enc(`#define
 r=await request({kind:'build',sources:['vectors.c'],output:'vectors'});assert.equal(r.type,'done',r.message);r=await run('vectors');assert.equal(r.exitCode,0,r.message);assert.match(r.output,/5 ab cd e\n2 cd a/);assert.equal(dec(files.find(f=>f.name==='vector.txt').data),'abcdeZ');
 files=[{name:'trap.c',data:enc('#include <stdio.h>\nint main(void){FILE*f=fopen("lost.txt","wb");fputs("uncommitted",f);fclose(f);__builtin_trap();}')}];
 r=await request({kind:'build',sources:['trap.c'],output:'trap'});assert.equal(r.type,'done',r.message);const beforeTrap=files;r=await run('trap');assert.equal(r.type,'error');assert.deepEqual(files,beforeTrap);assert(!files.some(f=>f.name==='lost.txt'));
+// The Part 5 transfer source must retain its generated file in the browser CLI,
+// accept that file in a later process, and reject a damaged copy without rewriting it.
+const part5={window:{}};require('node:vm').runInNewContext(fs.readFileSync('dist/part5.js','utf8'),part5);
+files=[{name:'transfer.c',data:enc(part5.window.PART_FIVE.persistence.topics['5'].code)}];
+r=await request({kind:'build',sources:['transfer.c'],output:'transfer'});assert.equal(r.type,'done',r.message);
+r=await run('transfer');assert.equal(r.exitCode,0,r.message);assert.match(r.output,/exported=1 imported=1 rows=2/);
+const exported=files.find(f=>f.name==='people.tdb').data;assert.deepEqual(Buffer.from(exported),fs.readFileSync('dist/assets/tinydb-sample.tdb'));
+r=await run('transfer',['import','people.tdb']);assert.equal(r.exitCode,0);assert.match(r.output,/1 \| Ada \| 90\n2 \| Grace \| 80/);
+const damaged=exported.slice();damaged[0]=0;files.push({name:'damaged.tdb',data:damaged});
+r=await run('transfer',['import','damaged.tdb']);assert.equal(r.exitCode,1);assert.deepEqual(files.find(f=>f.name==='people.tdb').data,exported);assert.deepEqual(files.find(f=>f.name==='damaged.tdb').data,damaged);
+console.log('PASS Part 5 browser CLI export/import and damaged-file rejection');
 files=[];
 const sql=async(statement,code=0)=>{const r=await run('tinydb',['people.db','--execute',statement]);assert.equal(r.type,'done',r.message);assert.equal(r.exitCode,code,r.output);return r.output;};
 await sql("INSERT INTO people VALUES (1, 'Chloé', 90);");await sql("INSERT INTO people VALUES (2, 'O''Brien', 70);");assert.match(await sql('SELECT * FROM people;'),/Chloé.*\n2 \| O'Brien/s);await sql('INSERT INTO people VALUES (1, \'dup\', 1);',2);await sql('UPDATE people SET score=95 WHERE id=1;');assert.match(await sql('SELECT * FROM people WHERE id=1;'),/95/);assert.match(await sql('SELECT COUNT(*) FROM people;'),/2\n/);await sql('DELETE FROM people WHERE id=2;');assert.match(await sql('SELECT COUNT(*) FROM people;'),/1\n/);

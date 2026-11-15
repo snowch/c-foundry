@@ -6,6 +6,8 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 Serialization must encode field widths and byte order explicitly. Raw struct dumps expose padding and native representation assumptions.
 
+Also editable and runnable inline in the browser course. Run and change the format example here. The same source also builds with a native C17 toolchain.
+
 A record contains four little-endian ID bytes, 32 name bytes with a required terminator and a nonempty name, and four little-endian score bytes. The encoder clears spare name bytes for reproducible output. The decoder checks length and validity before assigning the output row. Numeric ranges and name ownership stay consistent with the in-memory schema.
 
 ### main.c
