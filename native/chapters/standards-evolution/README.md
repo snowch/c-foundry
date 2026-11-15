@@ -142,6 +142,12 @@ Also editable and runnable inline in the browser course. Run this probe with the
 
 The example selects a conservative C17 fallback at the course’s default language mode. A separate compile probe can attempt a C23-only facility under -std=c23 and report whether that compiler/library combination accepts it. Treat a failed probe as a result to handle, not permission to silently change the project’s semantics.
 
+### Select a facility using evidence from the actual toolchain
+
+A supported language mode and an available library API are separate checks.
+
+Start with a required facility and the chosen C language baseline. Compile and, where necessary, link a small probe against the actual compiler and libraries. If supported, use the documented feature path. Otherwise select a tested fallback or report an unsupported target. A compiler name or revision macro alone is not sufficient evidence.
+
 ### main.c
 
 ```c

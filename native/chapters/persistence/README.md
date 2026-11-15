@@ -18,6 +18,14 @@ Also editable and runnable inline in the browser course. Run and change the form
 
 The teaching format begins with ASCII TDB1, version byte one, record-size byte forty, a one-byte row count, and a reserved zero byte. It requires eight-bit bytes and exact-width uint32_t. The count is capped by the bounded table; a larger format would use wider lengths and checked offset calculations. Header bytes are a protocol, not the memory layout of a C header struct.
 
+### A header tells a decoder how to read the following bytes
+
+The course format uses an explicit eight-byte header before the rows.
+
+The example header has magic TDB1 at offsets 0 through 3, version 1 at offset 4, row width 40 at offset 5, row count 2 at offset 6, and reserved zero at offset 7. Two forty-byte rows follow the eight-byte header, giving an eighty-eight-byte example file. A decoder validates the header before loading rows.
+
+This is the course’s small TDB1 format with 8-bit bytes, not a raw C struct. Boxes are not proportional to field widths.
+
 ### main.c
 
 ```c
@@ -79,6 +87,14 @@ Serialization must encode field widths and byte order explicitly. Raw struct dum
 Also editable and runnable inline in the browser course. Run and change the format example here. The same source also builds with a native C17 toolchain.
 
 A record contains four little-endian ID bytes, 32 name bytes with a required terminator and a nonempty name, and four little-endian score bytes. The encoder clears spare name bytes for reproducible output. The decoder checks length and validity before assigning the output row. Numeric ranges and name ownership stay consistent with the in-memory schema.
+
+### A file format chooses its byte order
+
+The same unsigned value can be encoded independently of host layout.
+
+Encoding the value 513 as an unsigned four-byte little-endian field produces bytes 01, 02, 00, 00 in hexadecimal at offsets 0, 1, 2, and 3. The least significant byte is first. A decoder reconstructs 1 plus 2 times 256, giving 513; it does not copy a raw host struct.
+
+Illustrative uint32_t field in a format requiring 8-bit bytes. This is not the complete row or file header.
 
 ### main.c
 

@@ -87,6 +87,14 @@ A storage service should bound pending requests and define when ownership transf
 
 The integer request fixture copies values into queue slots. Successful admission transfers the queued value, while rejected admission leaves the caller responsible for any external payload owner. For pointer-bearing requests, define whether enqueue borrows, clones, or takes ownership. A caller must not hold a storage lock while blocking on queue capacity if the consumer needs that lock.
 
+### Wake up, reacquire, and recheck the predicate
+
+A condition-variable wakeup is not a stored promise that work is available.
+
+With the queue mutex held, check whether the queue has an item or is closed. If waiting is needed, the condition-variable wait releases that mutex and blocks. Before the wait returns it reacquires the mutex. Recheck the predicate in a loop, then consume an item or handle the closed state while still holding the mutex.
+
+Spurious wakeups and competing consumers are reasons to recheck. Closed-and-empty needs an explicit exit path.
+
 ### main.c
 
 ```c
@@ -241,6 +249,14 @@ make example EXAMPLE=concurrent-storage-2
 Single-writer ownership can replace fine-grained mutation locks with serialized request processing. Reads and acknowledgements still need an explicit protocol.
 
 The consumer alone updates its sum while producers only submit copied deltas. main reads the final state after joining the consumer. A database version would execute validated requests in that owner and return copied responses through a completion mechanism; it must not hand callers raw pointers into mutable storage. Durable acknowledgement still depends on the log protocol, not queue admission.
+
+### A bounded queue separates admission from execution
+
+A single writer can own database mutations while callers submit work.
+
+Producers submit requests to a queue with a fixed capacity. The single writer removes requests and performs database mutations. When the queue is full, the admission policy must block, reject, or otherwise apply a documented form of backpressure. Queue synchronization alone does not define transaction isolation or durable acknowledgement.
+
+The capacity policy and acknowledgement point must be explicit parts of the interface.
 
 ### main.c
 

@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The one-key model has value ten created at time one and superseded at time three; value twenty becomes visible at time three. A snapshot at time two continues to see ten. Timestamps here are bounded committed sequence numbers, not wall-clock time. Concurrent publication of version metadata needs synchronization in an assembled engine.
 
+### A snapshot chooses a visible committed version
+
+Creation is inclusive; deletion is exclusive in this model.
+
+An older committed version has value 10, created at timestamp 1 and deleted at 3. A newer committed version has value 42, created at 3 and not deleted. Snapshot 2 sees value 10. Snapshot 3 does not see the old version because 3 is not less than its deleted timestamp; it sees value 42.
+
+Only committed immutable versions are shown. Conflict handling and safe reclamation are separate responsibilities.
+
 ### main.c
 
 ```c

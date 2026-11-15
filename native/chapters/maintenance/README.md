@@ -18,6 +18,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The typed-record model skips records at or before the checkpoint’s applied LSN, requires a contiguous suffix, and updates the checkpoint only on a matching COMMIT. It retains the one-value single-writer transaction restriction. An on-disk log needs explicit record encoding, checksums, and torn-record framing; this struct is not a file format.
 
+### Recovery keeps committed work and ignores an incomplete tail
+
+A complete commit record separates published work from tentative work.
+
+Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
+
+These are logical records, not their byte encoding. Checksums and host write ordering require separate mechanisms.
+
 ### main.c
 
 ```c
@@ -165,6 +173,14 @@ make example EXAMPLE=maintenance-1
 A checkpoint permits old log removal only after the snapshot is safely published. Reversing that order can erase the only recoverable copy.
 
 This Linux/POSIX teaching fixture pauses writers, writes and syncs a temporary snapshot, renames it to the checkpoint path, syncs the directory, then truncates and syncs the older log. The fixed 16-byte snapshot encodes a small LSN and value with zero high bytes. A concurrent engine additionally needs a consistent snapshot boundary, complete page coverage, checksums, and a carefully defined log retention horizon.
+
+### Checkpoint before retiring recovery information
+
+Log retirement depends on persisted state and the readers that still need it.
+
+A checkpoint determines which logged changes are eligible, writes the required database state and recovery metadata, and establishes the host-specific persistence boundary. Only log or version data no longer needed for recovery or active readers can then be retired. A successful in-memory copy or stream flush alone does not establish this protocol.
+
+A high-level dependency model, not a complete filesystem durability algorithm.
 
 ### main.c
 

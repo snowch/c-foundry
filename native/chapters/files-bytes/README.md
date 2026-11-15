@@ -147,6 +147,14 @@ Also editable and runnable inline in the browser course. Run here, or use the na
 
 This format requires eight-bit bytes and a uint32_t. Encoding extracts the low-order byte first, defining little-endian order regardless of the host’s native order. Decoding casts each byte to uint32_t before shifting so the shift is performed in an appropriate unsigned type. A production decoder must also verify the available length before indexing its input.
 
+### A file format chooses its byte order
+
+The same unsigned value can be encoded independently of host layout.
+
+Encoding the value 513 as an unsigned four-byte little-endian field produces bytes 01, 02, 00, 00 in hexadecimal at offsets 0, 1, 2, and 3. The least significant byte is first. A decoder reconstructs 1 plus 2 times 256, giving 513; it does not copy a raw host struct.
+
+Illustrative uint32_t field in a format requiring 8-bit bytes. This is not the complete row or file header.
+
 ### main.c
 
 ```c
@@ -339,6 +347,14 @@ A portable record format starts with a written specification and a decoder that 
 Also editable and runnable inline in the browser course. Files created by this example last for this run only. Use the command workspace or a native build to keep program files.
 
 Our ten-byte format is: bytes 0–1 ASCII C and F, byte 2 version 1, byte 3 reserved zero, bytes 4–7 a little-endian uint32_t ID, and bytes 8–9 a little-endian uint16_t score. The API requires non-null pointers to valid objects, and eight-bit bytes. The decoder checks the length before inspecting fields and commits its output only after validation. IDs and scores may span their entire unsigned type ranges.
+
+### A file format chooses its byte order
+
+The same unsigned value can be encoded independently of host layout.
+
+Encoding the value 513 as an unsigned four-byte little-endian field produces bytes 01, 02, 00, 00 in hexadecimal at offsets 0, 1, 2, and 3. The least significant byte is first. A decoder reconstructs 1 plus 2 times 256, giving 513; it does not copy a raw host struct.
+
+Illustrative uint32_t field in a format requiring 8-bit bytes. This is not the complete row or file header.
 
 ### main.c
 

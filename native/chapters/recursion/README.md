@@ -16,6 +16,14 @@ A recursive function needs both a terminating base case and progress toward it o
 
 Factorial on the small domain 0..10 uses 0!=1 and n!=n·(n−1)!. The argument decreases until it is less than two. The domain restriction matters: machine integers are finite, so this is not an implementation for arbitrarily large mathematical factorials.
 
+### Recursive calls keep unfinished work
+
+Each call waits for the smaller subproblem to return.
+
+factorial(3) needs 3 times factorial(2). factorial(2) needs 2 times factorial(1). The base case factorial(1) returns 1. Unwinding returns 2 to the waiting outer call, which returns 6. Each active call has its own local state.
+
+This illustrates the course’s small checked factorial domain, not an arbitrary-precision calculation.
+
 ### main.c
 
 ```c
@@ -87,6 +95,14 @@ make example EXAMPLE=recursion-1
 Each recursive call has its own parameters and local state. Trace entry and return to distinguish the active call from its caller.
 
 The countdown prints before and after its recursive call. Its local n remains unchanged while the child runs. At the base case, the function returns without making another call. Stack depth grows linearly with the initial n; a huge input can exhaust implementation resources even when the recurrence terminates mathematically.
+
+### Recursive calls keep unfinished work
+
+Each call waits for the smaller subproblem to return.
+
+factorial(3) needs 3 times factorial(2). factorial(2) needs 2 times factorial(1). The base case factorial(1) returns 1. Unwinding returns 2 to the waiting outer call, which returns 6. Each active call has its own local state.
+
+This illustrates the course’s small checked factorial domain, not an arbitrary-precision calculation.
 
 ### main.c
 

@@ -8,6 +8,14 @@ Know which contract an API belongs to before calling it. Portable C is a languag
 
 ISO C includes streams such as fopen/fread, string processing, allocation, time interfaces, and the limited signal() facility. POSIX adds facilities such as fork, sigaction, and clock_gettime; Win32 has different process, handle, and synchronization interfaces. ioctl requests are device/platform specific, /proc is a host-specific pseudo-filesystem, and shared-memory APIs and guarantees depend on the platform. Keep parsing and byte codecs independent of those services. This example uses only ISO C streams and checks each operation; tmpfile can still fail because a hosted library operation can depend on permissions or resources.
 
+### Keep the portable rules behind an explicit host boundary
+
+The same data contract can have different storage adapters.
+
+A portable core defines encoding, validation, and data-operation rules. It calls an explicit host interface for storage and environment-dependent behavior. Separate adapters implement that interface for native files, browser storage, or a test fixture. Each adapter must document its actual failure and durability guarantees.
+
+Adapters do not make every OS API portable; their contracts must be implemented and tested for each target.
+
 ### main.c
 
 ```c

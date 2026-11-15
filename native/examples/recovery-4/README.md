@@ -8,6 +8,14 @@ Write-ahead logging records enough information for recovery before acknowledging
 
 The one-value redo log uses fixed eight-byte BEGIN, SET, and COMMIT records with transaction IDs. This native fixture flushes stdio and calls POSIX fsync on the log before treating the commit as durable. A real database also needs stable log naming, error handling, checksums, page/log ordering, and platform-specific file and directory guarantees. The example demonstrates the ordering, not a complete storage engine.
 
+### Recovery keeps committed work and ignores an incomplete tail
+
+A complete commit record separates published work from tentative work.
+
+Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
+
+These are logical records, not their byte encoding. Checksums and host write ordering require separate mechanisms.
+
 ### main.c
 
 ```c

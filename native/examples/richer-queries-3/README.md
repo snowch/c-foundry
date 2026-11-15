@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate.
 
+### A query passes through distinct responsibilities
+
+Parsing syntax is different from validating and executing it.
+
+A SQL source string is tokenized and parsed into a statement representation. Validation checks supported operations and schema rules. Planning chooses a strategy such as a scan or index lookup. Execution performs that strategy and produces rows or an error. These boxes name responsibilities; small implementations can combine some stages.
+
+A conceptual pipeline, not evidence that every SQL feature or optimizer transformation is implemented.
+
 ### main.c
 
 ```c

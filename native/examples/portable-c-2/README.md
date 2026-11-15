@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. Run this probe with the
 
 The byte codec extracts and assembles little-endian uint32_t values instead of writing native objects. Exact-width types are optional on some C implementations; this course’s supported targets provide uint32_t and eight-bit bytes. Schema and format compatibility also depend on string encoding, version rules, and validation, not only on integer width. State these requirements at the format boundary with compile-time checks. sizeof a struct includes padding, and sizeof(long), pointer width, alignment, and host byte order are not a portable file specification. Use fixed numeric magic bytes rather than assuming the execution character set defines an external encoding.
 
+### A file format chooses its byte order
+
+The same unsigned value can be encoded independently of host layout.
+
+Encoding the value 513 as an unsigned four-byte little-endian field produces bytes 01, 02, 00, 00 in hexadecimal at offsets 0, 1, 2, and 3. The least significant byte is first. A decoder reconstructs 1 plus 2 times 256, giving 513; it does not copy a raw host struct.
+
+Illustrative uint32_t field in a format requiring 8-bit bytes. This is not the complete row or file header.
+
 ### main.c
 
 ```c

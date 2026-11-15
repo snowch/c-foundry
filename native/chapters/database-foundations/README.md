@@ -16,6 +16,14 @@ A schema names the fields and constrains their values. A key identifies a row un
 
 Our teaching table has a positive 32-bit ID, a bounded terminated name, and a nonnegative 32-bit score. The struct is an in-memory representation, not a disk format. The ID uniqueness rule belongs to the table interface rather than to C’s type system. Define these choices before adding indexes or parsing syntax.
 
+### The row count identifies the valid prefix
+
+Capacity describes available slots; count describes rows actually stored.
+
+An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
+
+Row fields and the capacity limit follow the course’s bounded in-memory table model.
+
 ### main.c
 
 ```c
@@ -132,6 +140,14 @@ make example EXAMPLE=database-foundations-1
 Storage owns rows, an index locates candidates, and execution decides which candidates satisfy a query. Keep those roles separable.
 
 This initial table scan is both a correctness baseline and the fallback when no index exists. A later index can return candidate row positions, but execution must still honor the same row and predicate contract. Physical row positions may change after deletion or compaction; logical IDs should remain stable.
+
+### A query passes through distinct responsibilities
+
+Parsing syntax is different from validating and executing it.
+
+A SQL source string is tokenized and parsed into a statement representation. Validation checks supported operations and schema rules. Planning chooses a strategy such as a scan or index lookup. Execution performs that strategy and produces rows or an error. These boxes name responsibilities; small implementations can combine some stages.
+
+A conceptual pipeline, not evidence that every SQL feature or optimizer transformation is implemented.
 
 ### main.c
 

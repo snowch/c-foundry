@@ -8,6 +8,14 @@ Version checks are part of the decoder’s public contract. Unknown formats must
 
 The fixture writes a header with an unsupported version and confirms rejection. A compatibility suite should include known valid older fixtures, unsupported future versions, reserved-bit violations, and size mismatches. A migration must preserve a verified old file until the new file is safely published under the target platform’s rules. The audit target also requires canonical zero padding and valid UTF-8 names. Its eight-row limit is explicit; the CLI supports 128, so files outside the shared subset are rejected rather than silently truncated. Exact fixture bytes catch a shared encoder/decoder mistake that a round trip alone misses.
 
+### A file format chooses its byte order
+
+The same unsigned value can be encoded independently of host layout.
+
+Encoding the value 513 as an unsigned four-byte little-endian field produces bytes 01, 02, 00, 00 in hexadecimal at offsets 0, 1, 2, and 3. The least significant byte is first. A decoder reconstructs 1 plus 2 times 256, giving 513; it does not copy a raw host struct.
+
+Illustrative uint32_t field in a format requiring 8-bit bytes. This is not the complete row or file header.
+
 ### main.c
 
 ```c

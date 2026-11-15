@@ -79,6 +79,14 @@ Binary search discards half of the remaining candidates using an ordering guaran
 
 Keep the candidates in [lo,hi), initially [0,n). The lower-bound helper returns the first position whose value is at least key, which may equal n. Convert that position to a membership result only after checking both the bound and equality. The interval shrinks on every iteration, with O(log n) worst-case comparisons and O(1) auxiliary space.
 
+### Sorted order lets us discard a whole region
+
+When the middle value is too small, all earlier values are too small as well.
+
+Search the sorted values 2, 5, 8, 12, 16, 23, 38, 56 for 23. The first midpoint is index 3, value 12. Discard indices 0 through 3. Candidates at indices 4 through 7 are 16, 23, 38, and 56. Their next midpoint is index 5, value 23, which matches.
+
+The example uses an inclusive upper bound. Half-open bounds need their own consistent updates.
+
 ### main.c
 
 ```c
@@ -168,6 +176,14 @@ Choose one interval convention and make every update agree with it. Half-open in
 
 In [lo,hi), an empty interval has lo==hi. mid=lo+(hi−lo)/2 stays inside any nonempty interval and avoids adding two large endpoints. When a[mid] is too small, exclude it with lo=mid+1; otherwise keep mid as a possible lower bound with hi=mid. Never access a[hi] merely because hi is an endpoint.
 
+### A half-open range includes lo and excludes hi
+
+For [2, 5), the candidate indices are 2, 3, and 4.
+
+Six array positions are labelled 0 through 5. The half-open interval begins at lo equal to 2 and ends before hi equal to 5. Positions 2, 3, and 4 are candidates. Positions 0, 1, and 5 are outside this interval. The range contains hi minus lo, or three, elements.
+
+This marks a valid search interval within a six-element array; hi is not an index to dereference in this interval.
+
 ### main.c
 
 ```c
@@ -249,6 +265,14 @@ make example EXAMPLE=searching-3
 Finding any matching element does not locate every duplicate. Use two boundary searches to describe the full matching range.
 
 lower returns the first value ≥key; upper returns the first value >key. Their difference counts matches, and [lower,upper) is the duplicate range. Both searches use the same sorted input but differ in which equality case moves the left boundary. A missing key produces equal boundaries.
+
+### Bounds bracket every occurrence of an equal key
+
+Lower bound is the first not-less value; upper bound is the first greater value.
+
+In the sorted values 2, 5, 5, 5, 9, the lower bound for 5 is index 1 and the upper bound is index 4. The equal values occupy the half-open interval [1, 4), with three elements. A matching midpoint alone does not establish the first or last occurrence.
+
+For an absent value, equal lower and upper bounds describe an empty matching interval.
 
 ### main.c
 

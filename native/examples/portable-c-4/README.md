@@ -8,6 +8,14 @@ Separate portable data operations from the host that stores their bytes. A small
 
 The core below emits four specified bytes through a ByteSink interface. It knows nothing about FILE, paths, file descriptors, native handles, or durability. The ISO C adapter checks fwrite, while main checks flush, repositioning, the read, and close. A future POSIX or Win32 adapter can implement a stronger publication contract without leaking those APIs into the codec. Name the guarantee carefully: buffered stream acceptance is not a claim that a record survives power loss.
 
+### Keep the portable rules behind an explicit host boundary
+
+The same data contract can have different storage adapters.
+
+A portable core defines encoding, validation, and data-operation rules. It calls an explicit host interface for storage and environment-dependent behavior. Separate adapters implement that interface for native files, browser storage, or a test fixture. Each adapter must document its actual failure and durability guarantees.
+
+Adapters do not make every OS API portable; their contracts must be implemented and tested for each target.
+
 ### main.c
 
 ```c

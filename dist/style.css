@@ -313,3 +313,42 @@ dialog::backdrop { background:#17241c88; }
 .lesson-resources pre,.reading-guide pre{max-width:100%;overflow:auto}
 .lesson-resources a{overflow-wrap:anywhere}.documentation-answer{margin:20px 0}
 .reading-guide h2{font-size:1.2em}
+
+/* Original concept figures use live text, not scaled image lettering. */
+.concept-diagram{margin:24px 0;padding:20px;border:1px solid var(--line);border-radius:8px;background:#f2f5ee;min-width:0}
+.concept-diagram figcaption>strong{display:block;font-size:1.08em;line-height:1.4;color:#24382e}
+.concept-diagram figcaption>p{margin:8px 0 18px;line-height:1.55}
+.concept-art{color:#24382e;font-size:17px;line-height:1.45;min-width:0}
+.concept-cards{display:grid;grid-template-columns:repeat(var(--concept-count),minmax(0,1fr));gap:10px;min-width:0}
+.concept-node{min-width:0;padding:12px;border:1px solid #9fae9a;border-radius:6px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:6px;overflow-wrap:anywhere}
+.concept-node-label{font-size:15px;font-weight:600;color:#43533f}
+.concept-node-value{display:block;font:600 18px/1.4 var(--mono);color:#24382e}
+.concept-node-detail{font-size:16px;line-height:1.4}
+.concept-active{border:2px solid #466548;background:#e4eddf}
+.concept-boundary{border:2px dashed #8b5d31;background:#fff8ed}
+.concept-muted{background:#f1f1ef;border-style:dotted}
+.concept-flow>.concept-node:not(:last-child)>.concept-node-label::after{content:' →';font-weight:700}
+.concept-cells{grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:8px}
+.concept-cells .concept-node{padding:10px 6px;text-align:center}
+.concept-cells .concept-node-label{font:15px/1.4 var(--mono)}
+.concept-cells .concept-node-value{font-size:18px}
+.concept-linked{display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr);align-items:stretch;gap:10px}
+.concept-arrow{align-self:center;text-align:center;font-size:28px}
+.concept-arrow-narrow{display:none}
+.concept-root{width:min(100%,390px);margin-inline:auto}
+.concept-connector{text-align:center;font-size:24px;line-height:1.25;padding:4px 0;color:#43533f}
+.concept-children>.concept-node,.concept-sources>.concept-node{text-align:center}
+.concept-lane+.concept-lane{margin-top:14px}
+.concept-lane-label{display:block;font-weight:600;font-size:16px;margin-bottom:8px}
+.concept-bridge{text-align:center;font-size:16px;font-weight:600;padding:10px;border-inline:2px dashed #466548;margin:10px auto;max-width:420px}
+.concept-table-scroll{max-width:100%;overflow-x:auto}
+.concept-table{width:100%;table-layout:fixed;border-collapse:collapse;margin:0;font-size:17px}
+.concept-table th,.concept-table td{border:1px solid #a8b4a1;padding:10px;text-align:left;overflow-wrap:anywhere;vertical-align:top}
+.concept-table thead th{background:#e4eddf}.concept-table tbody th{font-weight:600}
+.concept-note{font-size:16px;line-height:1.5;margin:14px 0 0;color:#485542}
+.concept-text{margin-top:14px;font-size:16px}.concept-text>summary{cursor:pointer;min-height:44px;align-content:center}
+.concept-text>p{font-size:17px;line-height:1.6;margin:8px 0 0}
+@media(max-width:800px){.concept-flow{grid-template-columns:repeat(auto-fit,minmax(125px,1fr))}.concept-children{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}}
+@media(max-width:520px){.concept-diagram{padding:14px;margin-block:20px}.concept-node{padding:10px}.concept-node-value{font-size:17px}.concept-node-label{font-size:15px}.concept-node-detail{font-size:16px}.concept-linked{grid-template-columns:1fr;gap:3px}.concept-arrow-wide{display:none}.concept-arrow-narrow{display:inline}.concept-children,.concept-sources{grid-template-columns:1fr}.concept-segments{grid-template-columns:1fr}.concept-table th,.concept-table td{padding:8px 5px;font-size:16px}.concept-diagram figcaption>p{font-size:17px}}
+
+.concept-connector svg{display:block;width:100%;height:28px;overflow:visible}

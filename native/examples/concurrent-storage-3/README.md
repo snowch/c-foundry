@@ -8,6 +8,14 @@ Single-writer ownership can replace fine-grained mutation locks with serialized 
 
 The consumer alone updates its sum while producers only submit copied deltas. main reads the final state after joining the consumer. A database version would execute validated requests in that owner and return copied responses through a completion mechanism; it must not hand callers raw pointers into mutable storage. Durable acknowledgement still depends on the log protocol, not queue admission.
 
+### A bounded queue separates admission from execution
+
+A single writer can own database mutations while callers submit work.
+
+Producers submit requests to a queue with a fixed capacity. The single writer removes requests and performs database mutations. When the queue is full, the admission policy must block, reject, or otherwise apply a documented form of backpressure. Queue synchronization alone does not define transaction isolation or durable acknowledgement.
+
+The capacity policy and acknowledgement point must be explicit parts of the interface.
+
 ### main.c
 
 ```c

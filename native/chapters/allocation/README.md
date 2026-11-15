@@ -16,6 +16,14 @@ Automatic storage is tied to a block’s execution. Dynamically allocated storag
 
 malloc requests a byte count and returns either a suitably aligned allocation or NULL. The allocation is not initialized. Use sizeof on the pointed-to type when calculating space, check the result, and initialize each element before reading it. In C, the void * result converts to an object pointer without an explicit cast. The owner is the code responsible for eventually calling free.
 
+### Scope entry and object lifetime
+
+An ordinary automatic local object cannot be used after its lifetime ends.
+
+On entry to its associated block, an ordinary non-VLA automatic object’s lifetime begins. Its name follows C scope rules, and a value must be initialized before it is read. Leaving the block ends that object’s lifetime. Keeping a pointer does not extend it.
+
+This models non-VLA automatic objects, not a required physical stack layout. Static and allocated storage have different lifetime rules.
+
 ### main.c
 
 ```c
@@ -77,6 +85,14 @@ make example EXAMPLE=allocation-1
 calloc initializes its allocated bytes to zero. realloc changes an allocation’s size and may move it. Treat that possible move as an ownership transition rather than assuming the address stays fixed.
 
 For a nonzero requested size, a failed realloc leaves the original allocation valid. Store the result in a temporary pointer and replace the owner only after success. On success, old aliases must no longer be used, even if the numerical address appears unchanged. Newly added bytes are not initialized by realloc; establish values before reading them. Avoid zero-size allocation edge cases in this interface.
+
+### Reallocation has two different outcomes
+
+For a nonzero size, failure preserves the original allocation.
+
+Call realloc with an existing valid allocation p and a checked nonzero new size, storing the result in tmp. On success, tmp identifies the resized allocation, which may have moved; assign p = tmp and stop using old aliases. On failure, tmp is null and the original allocation is still owned through p.
+
+Check size arithmetic before the call. Zero-size requests have different rules and are excluded from this model.
 
 ### main.c
 
@@ -148,6 +164,14 @@ Allocation sizes need arithmetic checks before the allocator is called. Otherwis
 
 For count elements of type int, reject a count larger than SIZE_MAX / sizeof(int) before multiplying. Define your policy for zero elements explicitly. To study a failure path without depending on the operating system’s memory state, inject a deterministic allocator that can deliberately return NULL. Such a test is a model of failure, not evidence that a particular large allocation will fail on every machine.
 
+### Reallocation has two different outcomes
+
+For a nonzero size, failure preserves the original allocation.
+
+Call realloc with an existing valid allocation p and a checked nonzero new size, storing the result in tmp. On success, tmp identifies the resized allocation, which may have moved; assign p = tmp and stop using old aliases. On failure, tmp is null and the original allocation is still owned through p.
+
+Check size arithmetic before the call. Zero-size requests have different rules and are excluded from this model.
+
 ### main.c
 
 ```c
@@ -211,6 +235,12 @@ make example EXAMPLE=allocation-3
 Ownership is a program convention explaining who releases an allocation. Copying a pointer does not copy the allocation or create another independent owner.
 
 A helper that returns a newly allocated copy transfers ownership to its caller. A borrowed pointer permits use under a stated lifetime but does not transfer the obligation to free. Define whether a function borrows, takes, or returns ownership in its interface. After free, every alias into that allocation is invalid for access; setting one owner variable to NULL does not update other aliases.
+
+### Freeing storage does not clear every alias
+
+Once the allocation is released, both pointers lose their valid target.
+
+Before free(p), p and borrowed alias q designate the same live allocation. After free(p), that allocation’s lifetime has ended. Neither p nor q may be dereferenced. free does not automatically assign a null pointer to those variables.
 
 ### main.c
 
@@ -278,6 +308,14 @@ make example EXAMPLE=allocation-4
 A growable buffer separates length from capacity. Length describes initialized content in use; capacity describes how much storage is currently available.
 
 A string builder also needs one spare byte for its zero terminator. Before appending, compute the required size without overflow, grow through a temporary realloc result if necessary, and copy the new text including its terminator. This append interface borrows suffix and requires that it not point into the builder’s own allocation, since growth could invalidate such an alias. On failure, the caller still owns the previous buffer.
+
+### A string builder reserves space for its terminator
+
+Length counts content; capacity includes every allocated character position.
+
+A six-character allocation stores c, a, t, a zero terminator, and two spare positions. The string length is three and the capacity is six. Appending content must leave a position for the terminator, and uninitialized spare positions must not be read.
+
+Illustrative state: length = 3 and capacity = 6.
 
 ### main.c
 

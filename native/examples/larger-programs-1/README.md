@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. Run here, or use the na
 
 Each .c file is preprocessed and compiled as its own translation unit. Include the module’s own header in its implementation as well as in callers, so incompatible declarations can be diagnosed. The linker then combines the object files. A declaration makes a name and type known; it does not by itself supply the function’s executable definition.
 
+### Source becomes a runnable program
+
+Preprocessing, compilation, linking, and execution have different jobs.
+
+Start with main.c. Preprocessing expands includes and macros. Compilation translates the resulting C into object code. The linker resolves references between objects and libraries and produces a program. A native operating system or a Wasm runtime executes the result. A successful translation is separate from a successful run.
+
+The target determines whether the final program is native code or a WebAssembly module.
+
 ### operations.h
 
 ```c

@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The model tests created≤snapshot and either no deletion or snapshot<deleted. It searches newest to oldest and returns a copied value. A real implementation also needs transaction status for uncommitted versions, atomic publication of multi-row commits, conflict handling, indexes that respect visibility, and safe version lifetimes. The fixture deliberately contains only committed immutable version records.
 
+### A snapshot chooses a visible committed version
+
+Creation is inclusive; deletion is exclusive in this model.
+
+An older committed version has value 10, created at timestamp 1 and deleted at 3. A newer committed version has value 42, created at 3 and not deleted. Snapshot 2 sees value 10. Snapshot 3 does not see the old version because 3 is not less than its deleted timestamp; it sees value 42.
+
+Only committed immutable versions are shown. Conflict handling and safe reclamation are separate responsibilities.
+
 ### main.c
 
 ```c

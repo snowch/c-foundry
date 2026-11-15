@@ -16,6 +16,14 @@ A condition variable is a way to wait for a protected predicate to change, not a
 
 The queue waits in while loops for not-empty and not-full conditions. pthread_cond_wait releases the mutex while waiting and reacquires it before returning; spurious wakes and competition require a predicate recheck. Mutations and signals occur under the queue’s lock, and close broadcasts to both classes of waiter.
 
+### Mutual exclusion protects a complete critical section
+
+Every participating access must follow the same locking contract.
+
+Thread A locks mutex m, reads and updates shared state, then unlocks m. Thread B must acquire that same mutex before accessing the protected state. If A holds m, B waits to acquire it. The mutex must cover the complete invariant-changing operation, not just one convenient line.
+
+Mutual exclusion requires all relevant accesses to use the protocol. Unsynchronized ordinary C data races have undefined behavior.
+
 ### main.c
 
 ```c
@@ -179,6 +187,14 @@ A bounded producer–consumer queue turns overload into backpressure rather than
 
 This four-slot queue carries eight requests, so a producer may wait for space. Every successful enqueue has one corresponding dequeue, and close rejects later offers while allowing already queued work to drain. FIFO is defined by queue admission order, not by when producer threads started. The example uses one producer and consumer to make the basic contract easy to verify.
 
+### Wake up, reacquire, and recheck the predicate
+
+A condition-variable wakeup is not a stored promise that work is available.
+
+With the queue mutex held, check whether the queue has an item or is closed. If waiting is needed, the condition-variable wait releases that mutex and blocks. Before the wait returns it reacquires the mutex. Recheck the predicate in a loop, then consume an item or handle the closed state while still holding the mutex.
+
+Spurious wakeups and competing consumers are reasons to recheck. Closed-and-empty needs an explicit exit path.
+
 ### main.c
 
 ```c
@@ -335,6 +351,14 @@ make example EXAMPLE=coordination-2
 Lock ordering prevents circular wait when every path follows the same global order. It does not by itself guarantee fairness or eliminate every blocking failure.
 
 Both workers acquire first_lock before second_lock and release in reverse order. A conflicting path that acquires them in the opposite order could deadlock. Also avoid holding a database lock while waiting for queue space or an external callback that may need that same lock. POSIX mutexes do not generally promise a specific fairness order.
+
+### Opposite lock orders can form a wait cycle
+
+Both threads can wait forever while retaining the lock the other needs.
+
+Thread A holds lock L and waits for R. Thread B holds R and waits for L. Each thread needs the lock held by the other, forming a cycle. For these two locks, requiring all threads to acquire L before R prevents this opposite-order cycle.
+
+A global lock order addresses this cycle; shutdown, external resources, and other wait dependencies still need analysis.
 
 ### main.c
 

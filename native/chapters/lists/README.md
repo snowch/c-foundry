@@ -16,6 +16,14 @@ A vector keeps initialized length separate from allocated capacity. Spare capaci
 
 The append helper grows through a temporary owner, checks byte-size arithmetic, and updates the public state only after successful allocation. Doubling capacity gives O(1) amortized append over a sequence, although a growth operation copies or relocates Θ(n) elements. The caller frees the final allocation exactly once.
 
+### Length and capacity answer different questions
+
+Only the live prefix contains elements belonging to the vector.
+
+A vector has capacity four and length two. Positions 0 and 1 contain initialized elements 7 and 9. Positions 2 and 3 are spare capacity, not live vector elements. Appending can initialize a spare position; growing may reallocate the storage.
+
+Spare capacity is not permission to read uninitialized values.
+
 ### main.c
 
 ```c
@@ -99,6 +107,14 @@ A singly linked node names its successor; a doubly linked node also names its pr
 
 The fixture uses stack-allocated nodes so link changes can be inspected without adding allocation code. link_after sets both sides of each relationship. In a doubly linked list, if x->next is y then y->previous should be x. Ownership is separate from connectivity: these borrowed nodes must not be freed by the linking helper.
 
+### The links define the traversal order
+
+Nodes do not need to be adjacent in storage.
+
+The head pointer designates the first node, whose value is 4. Its next pointer designates a different node with value 9. That node’s next pointer is null, so traversal ends. The arrows represent stored pointers, not physical adjacency.
+
+Removal must repair the appropriate link before releasing a removed node.
+
 ### main.c
 
 ```c
@@ -171,6 +187,14 @@ make example EXAMPLE=lists-2
 Removal changes the owner of an incoming link. A pointer-to-pointer handles removing the head and an interior node with one pattern.
 
 Walk the address of the link that reaches the current node. On a match, replace that link with the successor before freeing the node. The helper owns the heap nodes it removes. Traversal is O(n); unlinking is O(1) once the incoming link is known. Returning immediately prevents using the freed node.
+
+### The links define the traversal order
+
+Nodes do not need to be adjacent in storage.
+
+The head pointer designates the first node, whose value is 4. Its next pointer designates a different node with value 9. That node’s next pointer is null, so traversal ends. The arrows represent stored pointers, not physical adjacency.
+
+Removal must repair the appropriate link before releasing a removed node.
 
 ### main.c
 
@@ -280,6 +304,12 @@ make example EXAMPLE=lists-3
 An iterator is a contract about which operations leave an access path valid. Capacity growth and node deletion have different invalidation rules.
 
 Save a logical index rather than an element pointer when the next operation may relocate a vector. After a successful append, reacquire the pointer from the current allocation. A linked-node pointer may survive insertion elsewhere but becomes invalid when that node is freed. Neither representation permits a borrowed result to outlive its owner.
+
+### Freeing storage does not clear every alias
+
+Once the allocation is released, both pointers lose their valid target.
+
+Before free(p), p and borrowed alias q designate the same live allocation. After free(p), that allocation’s lifetime has ended. Neither p nor q may be dereferenced. free does not automatically assign a null pointer to those variables.
 
 ### main.c
 

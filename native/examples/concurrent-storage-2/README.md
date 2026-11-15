@@ -8,6 +8,14 @@ A storage service should bound pending requests and define when ownership transf
 
 The integer request fixture copies values into queue slots. Successful admission transfers the queued value, while rejected admission leaves the caller responsible for any external payload owner. For pointer-bearing requests, define whether enqueue borrows, clones, or takes ownership. A caller must not hold a storage lock while blocking on queue capacity if the consumer needs that lock.
 
+### Wake up, reacquire, and recheck the predicate
+
+A condition-variable wakeup is not a stored promise that work is available.
+
+With the queue mutex held, check whether the queue has an item or is closed. If waiting is needed, the condition-variable wait releases that mutex and blocks. Before the wait returns it reacquires the mutex. Recheck the predicate in a loop, then consume an item or handle the closed state while still holding the mutex.
+
+Spurious wakeups and competing consumers are reasons to recheck. Closed-and-empty needs an explicit exit path.
+
 ### main.c
 
 ```c

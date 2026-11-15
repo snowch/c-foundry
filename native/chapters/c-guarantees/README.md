@@ -21,6 +21,14 @@ Also editable and runnable inline in the browser course. Run this probe with the
 
 Defined behavior follows the language contract. Implementation-defined behavior requires an implementation’s documented choice, such as relevant integer characteristics. Unspecified behavior permits a set of allowed choices without requiring the same choice every time, such as many operand evaluation orders. Undefined behavior imposes no requirements. The executable uses defined operations and reports a guaranteed minimum property, avoiding deliberate invalid accesses.
 
+### Unsigned wrap and signed overflow are different
+
+Only the unsigned result is defined to wrap modulo its type’s range.
+
+Adding unsigned 1 to UINT_MAX yields unsigned zero by modular arithmetic. Evaluating signed INT_MAX plus signed 1 exceeds the signed int range and has undefined behavior. Do not evaluate that signed expression to test whether it overflowed; check beforehand.
+
+No particular int width is assumed.
+
 ### main.c
 
 ```c
@@ -280,6 +288,14 @@ A cast asks for a conversion; it does not promise that the converted value retai
 
 Converting an integer to an unsigned type reduces it modulo that type’s range. In the course’s C17 baseline, an out-of-range conversion to a signed integer type instead has an implementation-defined result or can raise an implementation-defined signal. C23 changes integer conversion rules, but wrapping still may violate the application’s intent. Signed arithmetic overflow remains undefined: conversion rules do not make overflowing signed arithmetic valid. This helper accepts only values in SCHAR_MIN..SCHAR_MAX, assigns after validation, and leaves the output unchanged on rejection. Exact-width uint8_t is an explicit supported-target requirement.
 
+### Check the destination range before converting
+
+A defined conversion can still violate the application’s input policy.
+
+For an implementation providing uint8_t, the representable range is zero through 255. A checked conversion accepts input 200 and converts it. It rejects input 300 before casting. Converting 300 directly to uint8_t would produce 44 modulo 256; rejection is the checked API’s chosen contract.
+
+This assumes uint8_t exists. It is not a claim that every narrowing conversion is undefined.
+
 ### main.c
 
 ```c
@@ -344,6 +360,14 @@ make example EXAMPLE=c-guarantees-5
 Reject an unrepresentable signed result before evaluating the operation. Checking for wrap after signed overflow is too late.
 
 The helpers compare operands against safe rearrangements of INT_MIN and INT_MAX. Addition and subtraction split by the second operand’s sign. Multiplication splits by both signs and avoids dividing by zero through short-circuit conditions. Every guard calculation is itself representable, including the most-negative operand. Callers supply a valid int output object; rejection leaves it unchanged. These are portable C17 checks, not reliance on a compiler’s observed wrap behavior or a cast to a merely assumed wider type.
+
+### Unsigned wrap and signed overflow are different
+
+Only the unsigned result is defined to wrap modulo its type’s range.
+
+Adding unsigned 1 to UINT_MAX yields unsigned zero by modular arithmetic. Evaluating signed INT_MAX plus signed 1 exceeds the signed int range and has undefined behavior. Do not evaluate that signed expression to test whether it overflowed; check beforehand.
+
+No particular int width is assumed.
 
 ### main.c
 

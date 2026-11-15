@@ -16,6 +16,14 @@ A scan reads the table’s pages; an index lookup navigates the index and then o
 
 The teaching estimate charges one unit per page, assumes a cold cache and one distinct data-page fetch per match, and adds three index levels. These assumptions intentionally simplify clustering and caching. Both paths must return identical logical rows under the same visibility rules; cost never permits an incorrect result.
 
+### A query passes through distinct responsibilities
+
+Parsing syntax is different from validating and executing it.
+
+A SQL source string is tokenized and parsed into a statement representation. Validation checks supported operations and schema rules. Planning chooses a strategy such as a scan or index lookup. Execution performs that strategy and produces rows or an error. These boxes name responsibilities; small implementations can combine some stages.
+
+A conceptual pipeline, not evidence that every SQL feature or optimizer transformation is implemented.
+
 ### main.c
 
 ```c
@@ -210,6 +218,14 @@ make example EXAMPLE=planning-3
 EXPLAIN makes a planner’s assumptions and chosen operators visible. It should distinguish estimated work from actual execution statistics.
 
 The fixture prints a chosen access path, estimated matches, and its simplified page cost. It does not run a query. An EXPLAIN ANALYZE-like mode would execute and attach measured counters; that distinction matters for statements with side effects. Keep plan output stable enough for tests while avoiding promises about exact real-world runtime.
+
+### A query passes through distinct responsibilities
+
+Parsing syntax is different from validating and executing it.
+
+A SQL source string is tokenized and parsed into a statement representation. Validation checks supported operations and schema rules. Planning chooses a strategy such as a scan or index lookup. Execution performs that strategy and produces rows or an error. These boxes name responsibilities; small implementations can combine some stages.
+
+A conceptual pipeline, not evidence that every SQL feature or optimizer transformation is implemented.
 
 ### main.c
 

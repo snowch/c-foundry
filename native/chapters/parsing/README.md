@@ -580,6 +580,14 @@ A statement representation should retain semantic values rather than pointers in
 
 The parser copies the insert’s bounded name into the statement and stores numeric values in typed fields. A SELECT records whether it has a key predicate and the key itself. It does not store raw SQL fragments for execution to reinterpret. This tagged representation lets validation and execution dispatch on Kind.
 
+### A query passes through distinct responsibilities
+
+Parsing syntax is different from validating and executing it.
+
+A SQL source string is tokenized and parsed into a statement representation. Validation checks supported operations and schema rules. Planning chooses a strategy such as a scan or index lookup. Execution performs that strategy and produces rows or an error. These boxes name responsibilities; small implementations can combine some stages.
+
+A conceptual pipeline, not evidence that every SQL feature or optimizer transformation is implemented.
+
 ### main.c
 
 ```c

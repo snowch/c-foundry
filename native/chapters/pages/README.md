@@ -16,6 +16,14 @@ A page ID locates a page; a slot locates a logical record within that page. Vali
 
 The small page model keeps slot metadata in a separate C struct so pointer arithmetic and bounds can be inspected easily. An on-disk implementation must encode that metadata into a documented page header and reserve its space. Check offset≤page_size and length≤page_size−offset rather than adding two untrusted values that may overflow.
 
+### A slot is an indirection to record bytes
+
+Moving a live record changes its offset, not necessarily its slot number.
+
+Before compaction, live slot 0 points to record A at illustrative byte offset 96. After compaction moves A to offset 72, slot 0 is updated to point to the same record at 72. A locator using the page ID and live slot 0 can still find A. Deleting and reusing that slot is a separate identity problem.
+
+Offsets are illustrative. Slot reuse can make an old locator refer to a different record.
+
 ### main.c
 
 ```c
@@ -243,6 +251,14 @@ A slot directory decouples record identity within a page from the payload’s cu
 
 The example inserts two records and reads them through their slots. A future compaction can move bytes while preserving live slot indices. Once a slot is reused after deletion, an old locator may identify a different record; a stronger API can add a generation counter or avoid reuse while references exist.
 
+### A slot is an indirection to record bytes
+
+Moving a live record changes its offset, not necessarily its slot number.
+
+Before compaction, live slot 0 points to record A at illustrative byte offset 96. After compaction moves A to offset 72, slot 0 is updated to point to the same record at 72. A locator using the page ID and live slot 0 can still find A. Deleting and reusing that slot is a separate identity problem.
+
+Offsets are illustrative. Slot reuse can make an old locator refer to a different record.
+
 ### main.c
 
 ```c
@@ -366,6 +382,14 @@ Deletion can free logical membership before reclaiming contiguous bytes. Fragmen
 
 Marking a slot deleted sets its length to zero. The compactor copies only live payloads into a new bounded page while retaining slot indices, then replaces the old page. This implementation assumes an internally valid page; an imported page needs validation before any compaction reads. Deleted slots are not reused by this minimal insert routine.
 
+### A slot is an indirection to record bytes
+
+Moving a live record changes its offset, not necessarily its slot number.
+
+Before compaction, live slot 0 points to record A at illustrative byte offset 96. After compaction moves A to offset 72, slot 0 is updated to point to the same record at 72. A locator using the page ID and live slot 0 can still find A. Deleting and reusing that slot is a separate identity problem.
+
+Offsets are illustrative. Slot reuse can make an old locator refer to a different record.
+
 ### main.c
 
 ```c
@@ -480,6 +504,14 @@ make example EXAMPLE=pages-4
 A bounded cache trades memory for fewer backing reads. Dirty eviction and pinned users complicate replacement.
 
 The two-frame model counts logical reads and dirty writes while using a small LRU age counter. It does not perform file I/O or simulate failures; a real cache must check dirty write-back success before replacing a frame. Borrowed frame pointers become invalid or change meaning on eviction, so pinned frames need a separate lifetime policy.
+
+### A cache lookup has a hit path and a miss path
+
+The cache is a bounded copy of selected backing pages.
+
+Look up a page ID in the cache. A hit uses the resident copy. A miss must obtain the page from backing storage and install it in a cache slot, potentially evicting another page. Dirty pages need a writeback and error-handling policy before their storage is reused.
+
+A hit is not a durability guarantee. Dirty eviction and concurrency need additional protocols.
 
 ### main.c
 

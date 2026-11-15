@@ -142,6 +142,14 @@ A struct’s size may include padding between members and at its end. Its layout
 
 sizeof reports the storage required for an object of that type, including padding. offsetof from stddef.h reports a member’s byte offset, and _Alignof reports a type’s alignment requirement in C11 and later. Use these for inspection or deliberate low-level interfaces, not to hardcode one machine’s layout into a persistent format. A file format should specify byte order and field widths independently.
 
+### Object layout is not a portable file format
+
+Padding can separate members even when the source lists them together.
+
+One possible layout for a struct containing char tag followed by int value has tag at byte offset 0, padding at offsets 1 through 3, and value at offsets 4 through 7. Its size is eight bytes on this illustrative target. Other implementations can use different int sizes, alignment, and padding.
+
+Illustrative target: 8-bit bytes, a 4-byte int, and 4-byte int alignment. Inspect sizeof and offsetof on the actual target. Boxes are not to scale.
+
 ### main.c
 
 ```c
@@ -269,6 +277,14 @@ make example EXAMPLE=structured-data-4
 A collection interface should make lookup success, failure, and mutation explicit. Returning a borrowed pointer can be convenient while the collection remains in place and alive.
 
 The helper searches only the supplied count of initialized rows and returns either a row address or NULL. Its caller checks the result before modifying a field. The embedded name storage remains owned by each row. If the table were dynamically resized, a previously returned row pointer could become invalid; a larger interface must document that invalidation rule.
+
+### The row count identifies the valid prefix
+
+Capacity describes available slots; count describes rows actually stored.
+
+An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
+
+Row fields and the capacity limit follow the course’s bounded in-memory table model.
 
 ### main.c
 

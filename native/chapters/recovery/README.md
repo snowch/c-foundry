@@ -18,6 +18,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The copy-on-begin transaction model keeps uncommitted changes in a private working table, providing an all-or-nothing publication step for this single-threaded fixture. Table operations enforce schema consistency. It provides neither concurrent isolation nor crash durability by itself; those need synchronization and a persistence protocol. A process-local struct assignment is not a durable commit.
 
+### A private working copy can commit or roll back
+
+Uncommitted edits do not replace the live table in this model.
+
+The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
+
+An in-process, single-writer model. Publication alone provides neither crash durability nor concurrent isolation.
+
 ### main.c
 
 ```c
@@ -156,6 +164,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 begin refuses to start another transaction using the same active handle, but the model has no global lock. A real multi-client service must route all writers through one owner or protect admission with synchronization. Readers also need a contract about whether they see committed state or a working copy.
 
+### A private working copy can commit or roll back
+
+Uncommitted edits do not replace the live table in this model.
+
+The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
+
+An in-process, single-writer model. Publication alone provides neither crash durability nor concurrent isolation.
+
 ### main.c
 
 ```c
@@ -291,6 +307,14 @@ BEGIN establishes a working state, COMMIT publishes it under the model’s contr
 Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
 
 The fixture commits one score update and then rolls back another. In this bounded single-threaded model, readers of live state see only the committed value. A production commit must also handle log failures and durable acknowledgement; copying the table here teaches state transition semantics only.
+
+### A private working copy can commit or roll back
+
+Uncommitted edits do not replace the live table in this model.
+
+The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
+
+An in-process, single-writer model. Publication alone provides neither crash durability nor concurrent isolation.
 
 ### main.c
 
@@ -432,6 +456,14 @@ Write-ahead logging records enough information for recovery before acknowledging
 
 The one-value redo log uses fixed eight-byte BEGIN, SET, and COMMIT records with transaction IDs. This native fixture flushes stdio and calls POSIX fsync on the log before treating the commit as durable. A real database also needs stable log naming, error handling, checksums, page/log ordering, and platform-specific file and directory guarantees. The example demonstrates the ordering, not a complete storage engine.
 
+### Recovery keeps committed work and ignores an incomplete tail
+
+A complete commit record separates published work from tentative work.
+
+Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
+
+These are logical records, not their byte encoding. Checksums and host write ordering require separate mechanisms.
+
 ### main.c
 
 ```c
@@ -564,6 +596,14 @@ Recovery should apply committed transactions and ignore an incomplete final tran
 Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
 
 The bounded redo model scans complete eight-byte records, retains tentative state until a matching COMMIT, and stops at invalid structure. A short tail is ignored. SET stores the final value rather than an increment, making replay idempotent for the same log and base. This format has no checksum, so it cannot reliably detect every bit flip that still forms a valid record.
+
+### Recovery keeps committed work and ignores an incomplete tail
+
+A complete commit record separates published work from tentative work.
+
+Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
+
+These are logical records, not their byte encoding. Checksums and host write ordering require separate mechanisms.
 
 ### main.c
 

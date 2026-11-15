@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. Run the deterministic f
 
 For each possible byte cut in a single transaction log, the reference expectation is zero before the full COMMIT record and 42 afterward. The loop tests every prefix from zero through 24 bytes. This is an interruption model; it does not simulate all filesystem reorderings, device failures, or checksum-valid corruption.
 
+### Recovery keeps committed work and ignores an incomplete tail
+
+A complete commit record separates published work from tentative work.
+
+Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
+
+These are logical records, not their byte encoding. Checksums and host write ordering require separate mechanisms.
+
 ### main.c
 
 ```c

@@ -131,6 +131,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 Two logical sessions read version one. The first commits a new value and advances the version; the second is rejected when its observed version no longer matches. This deterministic sequential schedule models the conflict rule. A threaded implementation must guard compare_commit with a mutex or an appropriate atomic state protocol, including version-wrap handling.
 
+### Safe individual accesses can still lose a transaction’s update
+
+The full read–modify–write operation needs a suitable isolation contract.
+
+Two transactions both read balance 100. Transaction A computes 110 and later writes 110. Transaction B computes 120 from its stale value 100 and writes 120 after A. The final result is 120, so A’s addition of 10 has been lost; a correctly serialized pair of additions would yield 130.
+
+A conceptual schedule with individually safe accesses. It does not predict the result of an ordinary C data race, which has undefined behavior.
+
 ### main.c
 
 ```c
@@ -204,6 +212,14 @@ An isolation contract states which anomalies are allowed across a transaction’
 Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
 
 The fixture models a reader observing a committed value, another session committing a change, and the first reader observing the newer value on its next statement. That is compatible with a per-statement committed-read policy but not a repeatable snapshot. A complete implementation must specify multi-row reads, phantoms, write conflicts, and transaction boundaries rather than borrowing a label without its tests.
+
+### A snapshot chooses a visible committed version
+
+Creation is inclusive; deletion is exclusive in this model.
+
+An older committed version has value 10, created at timestamp 1 and deleted at 3. A newer committed version has value 42, created at 3 and not deleted. Snapshot 2 sees value 10. Snapshot 3 does not see the old version because 3 is not less than its deleted timestamp; it sees value 42.
+
+Only committed immutable versions are shown. Conflict handling and safe reclamation are separate responsibilities.
 
 ### main.c
 

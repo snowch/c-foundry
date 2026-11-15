@@ -8,6 +8,14 @@ A checkpoint permits old log removal only after the snapshot is safely published
 
 This Linux/POSIX teaching fixture pauses writers, writes and syncs a temporary snapshot, renames it to the checkpoint path, syncs the directory, then truncates and syncs the older log. The fixed 16-byte snapshot encodes a small LSN and value with zero high bytes. A concurrent engine additionally needs a consistent snapshot boundary, complete page coverage, checksums, and a carefully defined log retention horizon.
 
+### Checkpoint before retiring recovery information
+
+Log retirement depends on persisted state and the readers that still need it.
+
+A checkpoint determines which logged changes are eligible, writes the required database state and recovery metadata, and establishes the host-specific persistence boundary. Only log or version data no longer needed for recovery or active readers can then be retired. A successful in-memory copy or stream flush alone does not establish this protocol.
+
+A high-level dependency model, not a complete filesystem durability algorithm.
+
 ### main.c
 
 ```c

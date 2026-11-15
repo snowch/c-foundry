@@ -4,7 +4,7 @@ w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.confirm=
 w.fetch=()=>{throw Error('Reading help must not fetch external pages');};
 w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};
 w.Worker=class{postMessage(){}terminate(){}};
-for(const file of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+file+'.js','utf8'));
+for(const file of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+file+'.js','utf8'));
 const $=selector=>w.document.querySelector(selector),go=path=>{w.history.pushState(null,'','#'+path);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
 assert.equal($('#preview-content h1').textContent,'Finding and reading C documentation');assert.equal($('#chapter-jump').value,'/chapter/first-program/6');
 assert.equal($('#editor').value,w.PART_ONE['first-program'].topics['6'].code);assert.match($('.reading-guide').textContent,/man 3 printf/);assert.match($('.reading-guide').textContent,/man 1 printf/);assert.match($('.reading-guide').textContent,/man -k printf/);assert.match($('.reading-guide').textContent,/SYNOPSIS/);assert.match($('.reading-guide').textContent,/RETURN VALUE/);assert.match($('.reading-guide').textContent,/local Linux terminal/);

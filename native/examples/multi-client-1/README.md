@@ -8,6 +8,14 @@ Multiple clients need a request order that storage can enforce and responses can
 
 The bounded queue gives one consumer a serialized stream of copied requests. The fixture verifies all eight accepted requests reach the owner. A real protocol should attach request and session IDs and correlate responses; FIFO order is the order of successful queue admission, not a claim about wall-clock arrival across independent clients.
 
+### A bounded queue separates admission from execution
+
+A single writer can own database mutations while callers submit work.
+
+Producers submit requests to a queue with a fixed capacity. The single writer removes requests and performs database mutations. When the queue is full, the admission policy must block, reject, or otherwise apply a documented form of backpressure. Queue synchronization alone does not define transaction isolation or durable acknowledgement.
+
+The capacity policy and acknowledgement point must be explicit parts of the interface.
+
 ### main.c
 
 ```c

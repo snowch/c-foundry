@@ -8,6 +8,14 @@ A condition variable is a way to wait for a protected predicate to change, not a
 
 The queue waits in while loops for not-empty and not-full conditions. pthread_cond_wait releases the mutex while waiting and reacquires it before returning; spurious wakes and competition require a predicate recheck. Mutations and signals occur under the queue’s lock, and close broadcasts to both classes of waiter.
 
+### Mutual exclusion protects a complete critical section
+
+Every participating access must follow the same locking contract.
+
+Thread A locks mutex m, reads and updates shared state, then unlocks m. Thread B must acquire that same mutex before accessing the protected state. If A holds m, B waits to acquire it. The mutex must cover the complete invariant-changing operation, not just one convenient line.
+
+Mutual exclusion requires all relevant accesses to use the protocol. Unsynchronized ordinary C data races have undefined behavior.
+
 ### main.c
 
 ```c

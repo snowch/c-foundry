@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 For exclusive deletion time d, a version is no longer visible to snapshots at or after d. If the oldest active snapshot is at least d, the version can be removed under this model. Protect the active-reader registry and reclamation decision with synchronization, and prevent raw version pointers from escaping their protected lifetime. Timestamp wrap and abandoned reader handling need explicit policies.
 
+### A snapshot chooses a visible committed version
+
+Creation is inclusive; deletion is exclusive in this model.
+
+An older committed version has value 10, created at timestamp 1 and deleted at 3. A newer committed version has value 42, created at 3 and not deleted. Snapshot 2 sees value 10. Snapshot 3 does not see the old version because 3 is not less than its deleted timestamp; it sees value 42.
+
+Only committed immutable versions are shown. Conflict handling and safe reclamation are separate responsibilities.
+
 ### main.c
 
 ```c

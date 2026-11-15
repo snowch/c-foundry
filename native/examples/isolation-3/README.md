@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The fixture models a reader observing a committed value, another session committing a change, and the first reader observing the newer value on its next statement. That is compatible with a per-statement committed-read policy but not a repeatable snapshot. A complete implementation must specify multi-row reads, phantoms, write conflicts, and transaction boundaries rather than borrowing a label without its tests.
 
+### A snapshot chooses a visible committed version
+
+Creation is inclusive; deletion is exclusive in this model.
+
+An older committed version has value 10, created at timestamp 1 and deleted at 3. A newer committed version has value 42, created at 3 and not deleted. Snapshot 2 sees value 10. Snapshot 3 does not see the old version because 3 is not less than its deleted timestamp; it sees value 42.
+
+Only committed immutable versions are shown. Conflict handling and safe reclamation are separate responsibilities.
+
 ### main.c
 
 ```c

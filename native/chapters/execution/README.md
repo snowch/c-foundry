@@ -605,6 +605,14 @@ A clean query path parses syntax, validates meaning, and only then executes. Thi
 
 The parser returns a typed temporary statement. Validation enforces schema constraints before execute can mutate the table. SELECT uses a scan or filtered scan, while INSERT delegates uniqueness and capacity to the table API. The fixture exercises the complete implemented SQL subset; ordering and aggregation examples are operators to extend into its grammar, not syntax already accepted by this parser.
 
+### A query passes through distinct responsibilities
+
+Parsing syntax is different from validating and executing it.
+
+A SQL source string is tokenized and parsed into a statement representation. Validation checks supported operations and schema rules. Planning chooses a strategy such as a scan or index lookup. Execution performs that strategy and produces rows or an error. These boxes name responsibilities; small implementations can combine some stages.
+
+A conceptual pipeline, not evidence that every SQL feature or optimizer transformation is implemented.
+
 ### main.c
 
 ```c

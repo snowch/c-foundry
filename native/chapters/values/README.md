@@ -242,6 +242,14 @@ C’s numeric types have finite ranges. Correct code distinguishes unsigned arit
 
 Use `<limits.h>` for bounds such as INT_MAX, INT_MIN, and UINT_MAX. Do not assume int is exactly 32 bits merely because this browser target uses that size. A signed addition must be checked before it overflows, not afterward. Unsigned wrap is defined, but it can still be a bug in sizes or indexes. Floating-point types have separate limits and precision characteristics described by `<float.h>`. Part 7’s What C guarantees chapter extends this introduction with checked arithmetic, exceptional division and negation, rounding, NaN/infinity, and underflow.
 
+### Unsigned wrap and signed overflow are different
+
+Only the unsigned result is defined to wrap modulo its type’s range.
+
+Adding unsigned 1 to UINT_MAX yields unsigned zero by modular arithmetic. Evaluating signed INT_MAX plus signed 1 exceeds the signed int range and has undefined behavior. Do not evaluate that signed expression to test whether it overflowed; check beforehand.
+
+No particular int width is assumed.
+
 ### main.c
 
 ```c

@@ -8,6 +8,14 @@ Backpressure makes overload behavior explicit. A system must decide whether a fu
 
 The fixture uses blocking admission and draining close. Memory is bounded by four pending copied requests even while eight operations are processed. A production service may choose timeouts or immediate rejection, but it must define whether a timed-out request was never accepted, accepted but not completed, or committed with a lost response.
 
+### A bounded queue separates admission from execution
+
+A single writer can own database mutations while callers submit work.
+
+Producers submit requests to a queue with a fixed capacity. The single writer removes requests and performs database mutations. When the queue is full, the admission policy must block, reject, or otherwise apply a documented form of backpressure. Queue synchronization alone does not define transaction isolation or durable acknowledgement.
+
+The capacity policy and acknowledgement point must be explicit parts of the interface.
+
 ### main.c
 
 ```c

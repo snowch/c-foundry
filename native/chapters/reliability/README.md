@@ -116,6 +116,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The fixture performs eight separate row allocations and one allocation for an eight-row pool, checking every result and freeing every owner. It also exercises the small page-cache model and counts backing-read events. Fewer allocations or reads can motivate a design, but neither proves lower total runtime; fragmentation, contention, eviction, and workload patterns matter.
 
+### A cache lookup has a hit path and a miss path
+
+The cache is a bounded copy of selected backing pages.
+
+Look up a page ID in the cache. A hit uses the resident copy. A miss must obtain the page from backing storage and install it in a cache slot, potentially evicting another page. Dirty pages need a writeback and error-handling policy before their storage is reused.
+
+A hit is not a durability guarantee. Dirty eviction and concurrency need additional protocols.
+
 ### main.c
 
 ```c

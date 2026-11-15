@@ -79,6 +79,14 @@ Logical operators combine conditions. Use && for both conditions, || for either 
 
 C evaluates the left operand of && first and evaluates the right operand only if the left is true. For ||, the right operand is evaluated only if the left is false. This short-circuit behavior can protect a later operation: check that a divisor is nonzero before dividing. To test whether x is between two limits, write `x > 0 && x < 10`; the mathematical-looking `0 < x < 10` does not mean the same thing in C.
 
+### A guard can prevent an invalid operation
+
+&& evaluates its right operand only if its left operand is true.
+
+For divisor != 0 && total / divisor > 2, first test the divisor. If it is zero, the whole expression is false and the division is not evaluated. If it is nonzero, the division expression is evaluated next, so it must also be valid for those operand values.
+
+This guard addresses division by zero. Signed INT_MIN / -1 also needs its own range check.
+
 ### main.c
 
 ```c

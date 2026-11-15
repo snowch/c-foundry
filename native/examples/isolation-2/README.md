@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 Two logical sessions read version one. The first commits a new value and advances the version; the second is rejected when its observed version no longer matches. This deterministic sequential schedule models the conflict rule. A threaded implementation must guard compare_commit with a mutex or an appropriate atomic state protocol, including version-wrap handling.
 
+### Safe individual accesses can still lose a transaction’s update
+
+The full read–modify–write operation needs a suitable isolation contract.
+
+Two transactions both read balance 100. Transaction A computes 110 and later writes 110. Transaction B computes 120 from its stale value 100 and writes 120 after A. The final result is 120, so A’s addition of 10 has been lost; a correctly serialized pair of additions would yield 130.
+
+A conceptual schedule with individually safe accesses. It does not predict the result of an ordinary C data race, which has undefined behavior.
+
 ### main.c
 
 ```c

@@ -112,6 +112,12 @@ Merge sort sorts two halves and combines them by consuming their smallest remain
 
 During merging, the output prefix is sorted and contains exactly the consumed inputs. Selecting the left element on equality makes this merge stable. Each level handles O(n) values and there are O(log n) levels, giving Θ(n log n) time. This implementation borrows an n-element temporary array and uses O(log n) call-stack depth.
 
+### Merge consumes the smaller next value
+
+Two sorted inputs can be combined into one sorted output.
+
+The left input is 2, 7 and the right input is 3, 9. Compare their current first unconsumed values. Take 2, then 3, then 7, then the remaining 9. The output prefix stays sorted. On equality, choosing the left input first preserves relative order in a stable merge.
+
 ### main.c
 
 ```c
@@ -329,6 +335,12 @@ make example EXAMPLE=sorting-3
 Stable means equal keys retain their relative order. In-place describes auxiliary storage; these are independent properties.
 
 Sort records by key while keeping a distinguishing tag. The strict comparison in insertion sort moves only larger keys, preserving equal-key order. A common selection-sort swap can reverse equal records even when the final keys are sorted. Always specify whether stack storage is included when describing an algorithm as in-place.
+
+### Merge consumes the smaller next value
+
+Two sorted inputs can be combined into one sorted output.
+
+The left input is 2, 7 and the right input is 3, 9. Compare their current first unconsumed values. Take 2, then 3, then 7, then the remaining 9. The output prefix stays sorted. On equality, choosing the left input first preserves relative order in a stable merge.
 
 ### main.c
 

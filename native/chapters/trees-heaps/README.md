@@ -136,6 +136,14 @@ A binary search tree routes comparisons through its shape. Every left-subtree ke
 
 Search moves to one child after each comparison, using O(h) time for height h. The missing result is NULL and must be checked before dereferencing. Deleting a two-child node typically replaces its key with a successor or predecessor and then removes that replacement node while preserving ordering and ownership.
 
+### A search tree routes by ordered keys
+
+For this tree, smaller keys go left and larger keys go right.
+
+The root key is 20. Its left child has key 8 and its right child has key 32. Searching for 8 follows the less-than branch; searching for 32 follows the greater-than branch. This shows the ordering property, not a guarantee of balanced height.
+
+A plain binary search tree can become a chain; the ordering rule alone does not bound its height.
+
 ### main.c
 
 ```c
@@ -511,6 +519,14 @@ A min-heap promises that each parent is no greater than its children. It does no
 
 Store a complete binary tree in an array. Parent and child indices follow from the shape, while push sifts upward and pop repairs downward after replacing the root. Both cost O(log n); reading the minimum is O(1). The bounded implementation rejects overflow and underflow, and callers check those results.
 
+### A min-heap orders parents before children
+
+Sibling positions do not imply a fully sorted sequence.
+
+A three-element min-heap has root priority 2, left child priority 8, and right child priority 5. The root is no larger than either child. The siblings need not be ordered relative to one another. Removing the minimum requires repairing the heap after moving another element into the root.
+
+This is a priority-queue property, not the binary-search-tree ordering property.
+
 ### main.c
 
 ```c
@@ -608,6 +624,14 @@ make example EXAMPLE=trees-heaps-5
 A priority scheduler orders pending work by a documented priority key. Equal-priority behavior needs an explicit tie-break if it matters.
 
 This small scheduler encodes priority and insertion sequence into one bounded integer key, allowing the existing min-heap to break ties FIFO. The encoding is valid only for the stated fixture’s small values; a general scheduler should compare a struct with checked sequence handling. Scheduling priority does not imply that a task is safe to interrupt or run concurrently.
+
+### A min-heap orders parents before children
+
+Sibling positions do not imply a fully sorted sequence.
+
+A three-element min-heap has root priority 2, left child priority 8, and right child priority 5. The root is no larger than either child. The siblings need not be ordered relative to one another. Removing the minimum requires repairing the heap after moving another element into the root.
+
+This is a priority-queue property, not the binary-search-tree ordering property.
 
 ### main.c
 

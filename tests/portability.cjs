@@ -1,7 +1,7 @@
 const fs=require('node:fs'),assert=require('node:assert/strict'),{JSDOM}=require('jsdom');
 const dom=new JSDOM(fs.readFileSync('dist/index.html','utf8'),{url:'https://example.test/#/chapter/portable-c/1',runScripts:'outside-only'}),w=dom.window;
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.confirm=()=>true;w.Worker=class{postMessage(){}terminate(){}};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
-for(const name of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+name+'.js','utf8'));
+for(const name of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+name+'.js','utf8'));
 const $=q=>w.document.querySelector(q),go=path=>{w.history.pushState(null,'','#'+path);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
 assert.equal(w.COURSE.parts[6],'Writing portable C');assert.equal(w.COURSE.chapters.filter(c=>c.part===6).reduce((n,c)=>n+c.topics.length,0),27);
 for(const id of ['1','2','3','4','5','6','7','8','9']){go('/chapter/portable-c/'+id);assert($('.topic-content'));const lesson=w.authoredLessons.content['portable-c'].topics[id];assert.equal(!!$('#inline-editor-host .coding-panel'),!!lesson.browser);assert($('.native-example [data-copy-command]'));$('input[name="topic-check"][value="'+lesson.answer+'"]').click();$('[data-topic-check]').click();assert.match($('#topic-feedback').textContent,/Correct/);}

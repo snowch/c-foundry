@@ -16,6 +16,14 @@ An array stores a fixed number of elements of one type in contiguous storage. It
 
 An array of five ints has valid indexes 0 through 4. Accessing element 5 is outside the array, even if the program appears to continue. C does not automatically check these bounds. When the actual array declaration is in scope, sizeof array divided by sizeof array[0] gives its element count. That technique does not recover a count from a function parameter that has adjusted to a pointer; pass lengths explicitly when Part 2 introduces those interfaces.
 
+### A four-element array has indices 0 through 3
+
+Index 4 is the boundary, not another element.
+
+A four-element array has values 3, 6, 9, and 12 at indices 0, 1, 2, and 3. Index 4 lies just past its end and cannot be read or written as an element. The dashed boundary box is a marker, not additional allocated array storage.
+
+A one-past pointer may be formed for allowed operations, but it must not be dereferenced.
+
 ### main.c
 
 ```c
@@ -74,6 +82,14 @@ A C string is a sequence of characters terminated by a zero byte. A character ar
 
 The initializer `char word[] = "cat";` reserves four elements: c, a, t, and the terminating zero. `strlen` counts characters before the first zero; sizeof word reports the storage size of this declared array. strlen requires a valid terminated string and may otherwise read outside the object. String length and available buffer capacity are different quantities that must be tracked deliberately.
 
+### Length is different from storage size
+
+"cat" uses three character positions and one terminating zero.
+
+The array word initialized with the string cat has four elements. Indices 0, 1, and 2 contain c, a, and t. Index 3 contains the terminating zero byte. strlen(word) is 3. sizeof word is 4 for this declared char array.
+
+Here sizeof is applied to the actual array, not to a pointer parameter.
+
 ### main.c
 
 ```c
@@ -126,6 +142,14 @@ make example EXAMPLE=arrays-strings-2
 Reading a complete line is often more useful than reading a whitespace-delimited word. fgets accepts a destination buffer and its capacity, limiting how much it writes.
 
 With a positive capacity of at least two, fgets reads at most capacity minus one characters, keeps a newline if it fits, and appends a zero terminator on success. It returns NULL when it cannot return a string, such as end-of-input before any characters. It can also return a partial line when the buffer fills first. Check its result before using the buffer, and do not assume every successful call consumed a whole logical line.
+
+### Length is different from storage size
+
+"cat" uses three character positions and one terminating zero.
+
+The array word initialized with the string cat has four elements. Indices 0, 1, and 2 contain c, a, and t. Index 3 contains the terminating zero byte. strlen(word) is 3. sizeof word is 4 for this declared char array.
+
+Here sizeof is applied to the actual array, not to a pointer parameter.
 
 ### main.c
 

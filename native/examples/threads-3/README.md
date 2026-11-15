@@ -8,6 +8,14 @@ A C data race is conflicting unsynchronized access to a memory location with at 
 
 The fixture uses a barrier to ensure both workers read zero before either publishes one. Each read and write is mutex-protected, so the program avoids a C data race, yet the compound read-modify-write operation is not atomic. The final value is one rather than two. Removing the locks would introduce undefined behavior, not a reliable demonstration of a particular final result.
 
+### Mutual exclusion protects a complete critical section
+
+Every participating access must follow the same locking contract.
+
+Thread A locks mutex m, reads and updates shared state, then unlocks m. Thread B must acquire that same mutex before accessing the protected state. If A holds m, B waits to acquire it. The mutex must cover the complete invariant-changing operation, not just one convenient line.
+
+Mutual exclusion requires all relevant accesses to use the protocol. Unsynchronized ordinary C data races have undefined behavior.
+
 ### main.c
 
 ```c

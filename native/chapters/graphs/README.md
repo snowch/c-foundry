@@ -16,6 +16,14 @@ A graph representation determines which operations are cheap and how much memory
 
 A V×V adjacency matrix reserves Θ(V²) entries and tests one edge in O(1). An adjacency list uses Θ(V+E) storage and scans actual neighbors. This matrix fixture uses zero for absent edges, so it cannot represent a zero-weight edge; a more general format needs a separate presence flag or sentinel.
 
+### One graph can have several routes to a vertex
+
+Traversal tracks visited vertices so shared destinations are handled deliberately.
+
+The directed edges are A to B, A to C, B to D, and C to D. Breadth-first search from A reaches level zero A, level one B and C, then level two D. D has two incoming routes but is not two different vertices. The graph is acyclic, so A before B and C before D is also a valid dependency order.
+
+Edges point from each level to the next. B and C have no ordering edge between them.
+
 ### main.c
 
 ```c
@@ -130,6 +138,14 @@ make example EXAMPLE=graphs-1
 BFS explores by edge distance using a queue; DFS follows one path at a time using recursion or a stack.
 
 Mark a vertex discovered when adding it to the queue, not when removing it, so multiple incoming edges cannot enqueue it repeatedly. The queue then needs at most V entries. With adjacency lists, traversal is O(V+E); this matrix implementation scans V possible neighbors per visited vertex and is O(V²).
+
+### One graph can have several routes to a vertex
+
+Traversal tracks visited vertices so shared destinations are handled deliberately.
+
+The directed edges are A to B, A to C, B to D, and C to D. Breadth-first search from A reaches level zero A, level one B and C, then level two D. D has two incoming routes but is not two different vertices. The graph is acyclic, so A before B and C before D is also a valid dependency order.
+
+Edges point from each level to the next. B and C have no ordering edge between them.
 
 ### main.c
 
@@ -340,6 +356,14 @@ A topological order places every prerequisite before its dependents. It exists o
 
 Kahn’s algorithm repeatedly removes a zero-indegree vertex and decrements its outgoing neighbors. If fewer than V vertices are emitted, a cycle prevents completion. The fixed array queue is safe because each vertex enters only when its indegree becomes zero, once. Different available zero-indegree choices can produce different valid orders.
 
+### One graph can have several routes to a vertex
+
+Traversal tracks visited vertices so shared destinations are handled deliberately.
+
+The directed edges are A to B, A to C, B to D, and C to D. Breadth-first search from A reaches level zero A, level one B and C, then level two D. D has two incoming routes but is not two different vertices. The graph is acyclic, so A before B and C before D is also a valid dependency order.
+
+Edges point from each level to the next. B and C have no ordering edge between them.
+
 ### main.c
 
 ```c
@@ -516,6 +540,14 @@ make example EXAMPLE=graphs-5
 A heap can replace the linear minimum scan. A simple implementation inserts a new candidate whenever a shorter route is found.
 
 The lazy-duplicate approach leaves older candidates in the heap and skips them when their stored distance differs from the current best. This avoids a decrease-key API but needs enough queue capacity or dynamic growth. With adjacency lists, the usual bound is O((V+E) log(V+E)); this teaching fixture still scans matrix rows, so it does not achieve the sparse-graph bound.
+
+### A min-heap orders parents before children
+
+Sibling positions do not imply a fully sorted sequence.
+
+A three-element min-heap has root priority 2, left child priority 8, and right child priority 5. The root is no larger than either child. The siblings need not be ordered relative to one another. Removing the minimum requires repairing the heap after moving another element into the root.
+
+This is a priority-queue property, not the binary-search-tree ordering property.
 
 ### main.c
 

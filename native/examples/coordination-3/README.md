@@ -8,6 +8,14 @@ Lock ordering prevents circular wait when every path follows the same global ord
 
 Both workers acquire first_lock before second_lock and release in reverse order. A conflicting path that acquires them in the opposite order could deadlock. Also avoid holding a database lock while waiting for queue space or an external callback that may need that same lock. POSIX mutexes do not generally promise a specific fairness order.
 
+### Opposite lock orders can form a wait cycle
+
+Both threads can wait forever while retaining the lock the other needs.
+
+Thread A holds lock L and waits for R. Thread B holds R and waits for L. Each thread needs the lock held by the other, forming a cycle. For these two locks, requiring all threads to acquire L before R prevents this opposite-order cycle.
+
+A global lock order addresses this cycle; shutdown, external resources, and other wait dependencies still need analysis.
+
 ### main.c
 
 ```c

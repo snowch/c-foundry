@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The serialized-owner model tracks the active session ID. SET and COMMIT reject a different session without changing the active transaction. This fixture contains one value and an in-memory commit; integrating durable logging must retain the same ownership checks before acknowledgement. Define timeouts, disconnect rollback, and admission fairness separately.
 
+### A private working copy can commit or roll back
+
+Uncommitted edits do not replace the live table in this model.
+
+The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
+
+An in-process, single-writer model. Publication alone provides neither crash durability nor concurrent isolation.
+
 ### main.c
 
 ```c

@@ -16,6 +16,14 @@ Multiple clients need a request order that storage can enforce and responses can
 
 The bounded queue gives one consumer a serialized stream of copied requests. The fixture verifies all eight accepted requests reach the owner. A real protocol should attach request and session IDs and correlate responses; FIFO order is the order of successful queue admission, not a claim about wall-clock arrival across independent clients.
 
+### A bounded queue separates admission from execution
+
+A single writer can own database mutations while callers submit work.
+
+Producers submit requests to a queue with a fixed capacity. The single writer removes requests and performs database mutations. When the queue is full, the admission policy must block, reject, or otherwise apply a documented form of backpressure. Queue synchronization alone does not define transaction isolation or durable acknowledgement.
+
+The capacity policy and acknowledgement point must be explicit parts of the interface.
+
 ### main.c
 
 ```c
@@ -173,6 +181,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The serialized-owner model tracks the active session ID. SET and COMMIT reject a different session without changing the active transaction. This fixture contains one value and an in-memory commit; integrating durable logging must retain the same ownership checks before acknowledgement. Define timeouts, disconnect rollback, and admission fairness separately.
 
+### A private working copy can commit or roll back
+
+Uncommitted edits do not replace the live table in this model.
+
+The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
+
+An in-process, single-writer model. Publication alone provides neither crash durability nor concurrent isolation.
+
 ### main.c
 
 ```c
@@ -263,6 +279,14 @@ make example EXAMPLE=multi-client-2
 Backpressure makes overload behavior explicit. A system must decide whether a full queue blocks, rejects, or sheds work under a documented policy.
 
 The fixture uses blocking admission and draining close. Memory is bounded by four pending copied requests even while eight operations are processed. A production service may choose timeouts or immediate rejection, but it must define whether a timed-out request was never accepted, accepted but not completed, or committed with a lost response.
+
+### A bounded queue separates admission from execution
+
+A single writer can own database mutations while callers submit work.
+
+Producers submit requests to a queue with a fixed capacity. The single writer removes requests and performs database mutations. When the queue is full, the admission policy must block, reject, or otherwise apply a documented form of backpressure. Queue synchronization alone does not define transaction isolation or durable acknowledgement.
+
+The capacity policy and acknowledgement point must be explicit parts of the interface.
 
 ### main.c
 

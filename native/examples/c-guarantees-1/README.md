@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. Run this probe with the
 
 Defined behavior follows the language contract. Implementation-defined behavior requires an implementation’s documented choice, such as relevant integer characteristics. Unspecified behavior permits a set of allowed choices without requiring the same choice every time, such as many operand evaluation orders. Undefined behavior imposes no requirements. The executable uses defined operations and reports a guaranteed minimum property, avoiding deliberate invalid accesses.
 
+### Unsigned wrap and signed overflow are different
+
+Only the unsigned result is defined to wrap modulo its type’s range.
+
+Adding unsigned 1 to UINT_MAX yields unsigned zero by modular arithmetic. Evaluating signed INT_MAX plus signed 1 exceeds the signed int range and has undefined behavior. Do not evaluate that signed expression to test whether it overflowed; check beforehand.
+
+No particular int width is assumed.
+
 ### main.c
 
 ```c

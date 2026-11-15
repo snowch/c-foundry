@@ -16,6 +16,14 @@ A count is meaningful only after choosing an input size and a unit of work. Star
 
 Here n is the number of initialized array elements, not their byte size. Each inspected element contributes one comparison with the target. Searching for an absent value examines the entire array. Instrument that operation directly; do not infer comparison counts from elapsed time, which also includes compilation, scheduling, and unrelated work.
 
+### Doubling the input changes the amount of work
+
+This search trace illustrates linear growth versus logarithmic growth.
+
+Search a sorted array for its last element. At eight elements, linear search takes eight comparisons and this binary search takes four. At sixteen elements, linear search takes sixteen and binary search takes five. These are counts for this specified trace, not definitions of Big O or measured execution times.
+
+Counts use the course’s inclusive-bound binary search for the last element; other inputs can take fewer comparisons.
+
 ### main.c
 
 ```c
@@ -149,6 +157,14 @@ make example EXAMPLE=big-o-2
 Compare how common growth functions respond when the input doubles. Logarithms describe repeated halving, not a particular machine instruction.
 
 The example uses powers of two so repeated integer halving counts log₂ n exactly. A nested all-pairs loop performs n² visits; a linearithmic merge-sort bound combines log₂ n levels with O(n) work per level. These expressions are growth models with different units, not measured execution times.
+
+### Doubling the input changes the amount of work
+
+This search trace illustrates linear growth versus logarithmic growth.
+
+Search a sorted array for its last element. At eight elements, linear search takes eight comparisons and this binary search takes four. At sixteen elements, linear search takes sixteen and binary search takes five. These are counts for this specified trace, not definitions of Big O or measured execution times.
+
+Counts use the course’s inclusive-bound binary search for the last element; other inputs can take fewer comparisons.
 
 ### main.c
 
@@ -408,6 +424,14 @@ make example EXAMPLE=big-o-6
 Make a falsifiable prediction before collecting measurements. Use a workload that matches the case you are analyzing.
 
 For an absent key, doubling a linear-search array from four to eight elements should double comparisons. Count those inspections first; time a much larger repeated workload only after checking correctness. Keep setup, output, and compiler startup outside the measured region, and retain raw observations rather than claiming a universal hardware-independent speedup.
+
+### Doubling the input changes the amount of work
+
+This search trace illustrates linear growth versus logarithmic growth.
+
+Search a sorted array for its last element. At eight elements, linear search takes eight comparisons and this binary search takes four. At sixteen elements, linear search takes sixteen and binary search takes five. These are counts for this specified trace, not definitions of Big O or measured execution times.
+
+Counts use the course’s inclusive-bound binary search for the last element; other inputs can take fewer comparisons.
 
 ### main.c
 

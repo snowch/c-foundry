@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 The fixture commits one score update and then rolls back another. In this bounded single-threaded model, readers of live state see only the committed value. A production commit must also handle log failures and durable acknowledgement; copying the table here teaches state transition semantics only.
 
+### A private working copy can commit or roll back
+
+Uncommitted edits do not replace the live table in this model.
+
+The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
+
+An in-process, single-writer model. Publication alone provides neither crash durability nor concurrent isolation.
+
 ### main.c
 
 ```c

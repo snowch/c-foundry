@@ -17,6 +17,14 @@ Your main.c file is text. Before it can run, tools prepare it, translate it, and
 
 <strong>Preprocessing</strong> handles lines such as `#include <stdio.h>`, which brings in descriptions of available functions. The <strong>compiler</strong> checks your C and translates it into an object file, one piece of the program. The <strong>linker</strong> connects that piece to library code such as `printf`. Together, these steps <strong>build</strong> the program. Here the result is <strong>WebAssembly</strong>: a binary program format the browser can run. A local build can instead produce an executable for your computer. <strong>Run code</strong> builds and runs the program for you.
 
+### Source becomes a runnable program
+
+Preprocessing, compilation, linking, and execution have different jobs.
+
+Start with main.c. Preprocessing expands includes and macros. Compilation translates the resulting C into object code. The linker resolves references between objects and libraries and produces a program. A native operating system or a Wasm runtime executes the result. A successful translation is separate from a successful run.
+
+The target determines whether the final program is native code or a WebAssembly module.
+
 ### main.c
 
 ```c
@@ -235,6 +243,14 @@ make example EXAMPLE=first-program-4
 The browser lab is a C environment with a limited operating-system interface. It is useful to know what belongs to the C language, what belongs to the runtime, and what the page itself provides.
 
 The editor contains source. Run code compiles and executes it in a worker so the page remains responsive. Console shows program output and diagnostics. Input supplies text before execution; it is not an interactive terminal that waits for you to type midway through the run. Later exercises will read it. Check output compares observable results with practice cases. It does not prove that an algorithm is appropriate or memory is managed correctly.
+
+### Source becomes a runnable program
+
+Preprocessing, compilation, linking, and execution have different jobs.
+
+Start with main.c. Preprocessing expands includes and macros. Compilation translates the resulting C into object code. The linker resolves references between objects and libraries and produces a program. A native operating system or a Wasm runtime executes the result. A successful translation is separate from a successful run.
+
+The target determines whether the final program is native code or a WebAssembly module.
 
 ### main.c
 

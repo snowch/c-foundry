@@ -8,6 +8,14 @@ Release and acquire can publish initialized ordinary data when the acquiring loa
 
 The worker writes payload before a release store to ready. main waits for an acquire load that observes true, establishing a synchronizes-with relationship and making the earlier payload write visible. The object remains alive throughout, and no writer changes it afterward. Reusing this one-shot flag for repeated publications needs a new protocol.
 
+### Release/acquire can publish earlier writes
+
+The acquiring load must observe the value from the releasing store.
+
+A writer initializes payload, then stores true to ready with release ordering. A reader loads ready with acquire ordering. If that load reads the released true value, the release synchronizes with the acquire. The earlier payload write happens before the later reader access. Payload remains alive and is not changed again in this one-shot protocol.
+
+The ordering arrow between rows is conditional on that read-from relationship. Reusing the flag needs a new protocol.
+
 ### main.c
 
 ```c

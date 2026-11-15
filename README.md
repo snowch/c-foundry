@@ -128,6 +128,10 @@ Every later chapter has a build-it-yourself goal, concrete extension tasks, and 
 
 The first five native foundations remain in `native/demos/`; they are independent demonstrations rather than the full assembled capstone. Lesson-run files reset between runs; CLI workspace files persist independently. Browser drafts and reading marks are not database durability mechanisms. The isolation, MVCC, recovery, statistics, and checkpoint pages state their model and host limits explicitly.
 
+## Concept diagrams
+
+48 original, static diagrams support 102 selected lessons across all nine parts: source-to-execution stages, storage and pointers, array ranges, data structures, byte encodings, database pages, recovery, portability, and concurrency. They sit beside the conceptual explanation, with readable live text and a **Diagram in words** alternative. Diagrams describe the concept independently of the editor’s current code. No external artwork or copied reference-site diagrams are included. See the [figure inventory and provenance](docs/concept-diagrams.md).
+
 ## Finding help
 
 [Finding and reading C documentation](https://snowch.github.io/c-foundry/#/chapter/first-program/6) teaches manual sections, signatures, arguments, return values, errors, standards labels, and a predict-then-run lookup exercise. Every topic has a collapsed **References and help** section with one to three curated references and a purpose for each link. Selected topics include an optional documentation question with a locally available answer comparison. External references open in a new tab; opening external references does not gate code execution or lesson completion.

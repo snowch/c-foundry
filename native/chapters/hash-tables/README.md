@@ -120,6 +120,14 @@ Separate chaining stores multiple entries in a bucket’s list; open addressing 
 
 The fixture demonstrates linear probing: after a collision, try the next slot modulo capacity. Lookup follows the same sequence as insertion. Chaining instead follows links from a bucket head and can keep entries outside the bucket array. Both require a clear policy for duplicates, allocation failure, and key ownership.
 
+### Two keys can start at the same bucket
+
+A collision policy decides where the second key goes.
+
+In a five-slot linear-probing table with bucket(key) equal to key modulo five, keys 1 and 6 both start at slot 1. Insert 1 at slot 1. Probing forward puts 6 in slot 2. A later lookup for 6 must follow the same probe sequence rather than stopping at slot 1.
+
+Illustrative five-slot table; this does not promise constant worst-case lookup cost.
+
 ### main.c
 
 ```c
@@ -227,6 +235,14 @@ Load factor measures live entries divided by bucket capacity. Open-addressed tab
 
 Resizing means allocating a new empty table and recomputing every live entry’s bucket under the new capacity. Copying slots at their old indices is not sufficient when the modulus changes. The small fixture shows how capacity changes a key’s home bucket; a complete rehash must preserve all key/value pairs and leave the old owner intact on allocation failure.
 
+### Two keys can start at the same bucket
+
+A collision policy decides where the second key goes.
+
+In a five-slot linear-probing table with bucket(key) equal to key modulo five, keys 1 and 6 both start at slot 1. Insert 1 at slot 1. Probing forward puts 6 in slot 2. A later lookup for 6 must follow the same probe sequence rather than stopping at slot 1.
+
+Illustrative five-slot table; this does not promise constant worst-case lookup cost.
+
 ### main.c
 
 ```c
@@ -286,6 +302,12 @@ make example EXAMPLE=hash-tables-3
 Deletion must preserve the evidence that lookup should continue. A tombstone means formerly occupied, not never used.
 
 An empty slot can end a probe because insertion would have stopped there. A deleted slot cannot: a later colliding key may depend on passing it. Mark deletion DEAD and allow insertion to reuse it after checking the entire existing-key lookup, preventing duplicate keys from being accidentally created.
+
+### A deleted slot must not break a probe chain
+
+A tombstone keeps the search moving toward colliding keys.
+
+Keys 1 and 6 originally collided at slot 1 in a five-slot linear-probing table. After deleting 1, mark slot 1 as deleted. Searching for 6 continues through that tombstone and finds key 6 at slot 2. Changing slot 1 to never-used empty would incorrectly stop this lookup.
 
 ### main.c
 

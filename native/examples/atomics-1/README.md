@@ -8,6 +8,14 @@ An atomic read-modify-write updates one atomic object without lost increments. O
 
 The counter uses relaxed fetch-add because only the numeric total is shared through that atomic object; joins establish worker completion before main reads the total. Relaxed ordering would not be sufficient to publish an unrelated payload through a flag. All increments still participate in the counter’s atomic modification order.
 
+### Release/acquire can publish earlier writes
+
+The acquiring load must observe the value from the releasing store.
+
+A writer initializes payload, then stores true to ready with release ordering. A reader loads ready with acquire ordering. If that load reads the released true value, the release synchronizes with the acquire. The earlier payload write happens before the later reader access. Payload remains alive and is not changed again in this one-shot protocol.
+
+The ordering arrow between rows is conditional on that read-from relationship. Reusing the flag needs a new protocol.
+
 ### main.c
 
 ```c

@@ -80,6 +80,14 @@ C passes arguments by value: a parameter receives a value of its own. Assigning 
 
 Think of the call as initializing a new local parameter from the argument. The parameter and the caller’s object then have separate identities. If a caller needs a computed result, return it and assign it explicitly. Later, pointers let functions access objects through addresses, but those pointer arguments are also passed by value. That is an extension of this rule, not an exception to it.
 
+### A parameter is a separate object
+
+Changing a copied integer does not change the caller’s integer.
+
+Before the call, caller variable x contains 10. The function receives a copy, parameter n, also containing 10. Assigning 42 to n changes n alone; x remains 10.
+
+The arrow represents copying a value, not shared storage.
+
 ### main.c
 
 ```c
@@ -137,6 +145,14 @@ make example EXAMPLE=functions-2
 Scope determines where a name can be used. Lifetime determines when its object exists. These ideas are related, but they answer different questions.
 
 An automatic local object normally exists for the execution of its block. A static local object keeps its stored value for the entire program while its name remains local to that scope. A name declared in an inner block can hide a name from an outer block, which is called shadowing. Use distinct names when hiding would confuse a reader. File-scope objects and linkage receive a fuller treatment in the multi-file chapter.
+
+### Scope entry and object lifetime
+
+An ordinary automatic local object cannot be used after its lifetime ends.
+
+On entry to its associated block, an ordinary non-VLA automatic object’s lifetime begins. Its name follows C scope rules, and a value must be initialized before it is read. Leaving the block ends that object’s lifetime. Keeping a pointer does not extend it.
+
+This models non-VLA automatic objects, not a required physical stack layout. Static and allocated storage have different lifetime rules.
 
 ### main.c
 

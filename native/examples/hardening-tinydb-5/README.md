@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. Run this probe with the
 
 The native/portability target implements a bounded TDB1 codec with no FILE, path, locale, or operating-system calls in its core. Its separate ISO C adapter uses binary streams and exclusive creation of a new, restricted ASCII basename. The format requires uint32_t, eight-bit bytes, and UTF-8 row names; the target also explicitly requires an ASCII-compatible execution character set. The suite validates a known fixture, every truncated prefix, malformed headers, duplicate IDs, invalid names, and unchanged outputs on codec rejection. Each OS reads the same binary fixture and exports artifacts that all other matrix hosts must validate and copy byte-for-byte.
 
+### Keep the portable rules behind an explicit host boundary
+
+The same data contract can have different storage adapters.
+
+A portable core defines encoding, validation, and data-operation rules. It calls an explicit host interface for storage and environment-dependent behavior. Separate adapters implement that interface for native files, browser storage, or a test fixture. Each adapter must document its actual failure and durability guarantees.
+
+Adapters do not make every OS API portable; their contracts must be implemented and tested for each target.
+
 ### main.c
 
 ```c

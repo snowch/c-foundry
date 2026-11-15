@@ -16,6 +16,14 @@ A pointer is an object whose value can designate another object. Keep three thin
 
 `&x` produces the address of x. In an expression, `*p` accesses the object that p points to; in a declaration, the * is part of declaring a pointer. A null pointer designates no object. Test a pointer when its contract permits NULL, and never dereference it in that state. Being non-null alone does not prove that its target is alive or accessible.
 
+### A pointer stores an address
+
+Dereferencing p accesses the object designated by the address it holds.
+
+An int object x has value 42. Pointer object p holds the address of x, written as &x. Following that address makes *p designate x. The pointer object and its target are different objects. A null or dangling pointer has no valid target to access.
+
+Object boxes show relationships, not physical addresses or sizes.
+
 ### main.c
 
 ```c
@@ -72,6 +80,14 @@ make example EXAMPLE=pointers-1
 Passing a pointer still passes a value: the callee receives a copy of an address. That copy can reach a caller-owned object, so writing through it can change that object.
 
 A swap takes two int pointers and exchanges the pointed-to values. To change a caller’s pointer variable itself, a function instead needs the address of that pointer: an int ** parameter. Read the levels deliberately. `*destination = target` writes an int * into the caller’s pointer object; `**destination` would access the integer reached through it.
+
+### Copying a pointer can preserve a shared target
+
+The parameter has its own pointer value and still points to the caller’s object.
+
+The caller’s pointer p and the function’s pointer parameter a are separate pointer objects holding the same address &x. Both designate caller object x. Writing *a changes x. Assigning a different address to a alone does not reassign p.
+
+C still passes the pointer argument by value.
 
 ### main.c
 
@@ -138,6 +154,14 @@ make example EXAMPLE=pointers-2
 Pointer arithmetic moves in elements of the pointed-to type. It is constrained by the array object involved; it is not permission to inspect arbitrary neighboring memory.
 
 For an array with n elements, a pointer may designate an element or the one-past position used as an endpoint. A one-past pointer may be compared or subtracted within the appropriate array range, but not dereferenced. Subtracting pointers into the same array produces ptrdiff_t. Most array expressions convert to a pointer to their first element; an array parameter therefore needs an explicit length rather than sizeof on the parameter.
+
+### A half-open range includes lo and excludes hi
+
+For [2, 5), the candidate indices are 2, 3, and 4.
+
+Six array positions are labelled 0 through 5. The half-open interval begins at lo equal to 2 and ends before hi equal to 5. Positions 2, 3, and 4 are candidates. Positions 0, 1, and 5 are outside this interval. The range contains hi minus lo, or three, elements.
+
+This marks a valid search interval within a six-element array; hi is not an index to dereference in this interval.
 
 ### main.c
 
@@ -257,6 +281,14 @@ make example EXAMPLE=pointers-4
 Implementing swap is a small way to check your understanding of addresses, reads, and writes. Explain where the original value goes before either destination is overwritten.
 
 Save *a in an ordinary local int, assign *b into *a, then assign the saved int into *b. The saved value is a copy, so a later write through a cannot change it. This version also works when both pointers designate the same int. Aliasing means that multiple access paths can reach one object; do not assume different parameter names imply different storage.
+
+### Copying a pointer can preserve a shared target
+
+The parameter has its own pointer value and still points to the caller’s object.
+
+The caller’s pointer p and the function’s pointer parameter a are separate pointer objects holding the same address &x. Both designate caller object x. Writing *a changes x. Assigning a different address to a alone does not reassign p.
+
+C still passes the pointer argument by value.
 
 ### main.c
 

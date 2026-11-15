@@ -16,6 +16,14 @@ A stack removes the most recently added value; a queue removes the oldest. The o
 
 An array-backed stack keeps its next free position in count. Push checks capacity before writing; pop checks count before decrementing and reading. A linked implementation avoids a fixed array limit but introduces allocation failure and node ownership. Both can implement constant-time push/pop when their required node locations are known.
 
+### A queue removes the oldest waiting item
+
+FIFO behavior is independent of how the queue stores its elements.
+
+Three waiting items are shown in logical removal order: A first, then B, then C. The next dequeue returns A. If an enqueue accepts D, it joins after C. A ring-buffer implementation can store this order across the end of its physical array.
+
+These are logical positions. Array indices can wrap around in a circular buffer.
+
 ### main.c
 
 ```c
@@ -77,6 +85,14 @@ make example EXAMPLE=queues-1
 A circular queue reuses freed slots without shifting every remaining element. Keep a count to distinguish empty from full.
 
 The next write is at (head+count)%capacity. Pop advances head modulo capacity. The invariant 0≤count≤capacity makes both operations bounded. This fixed small implementation cannot overflow the index addition; a general size_t ring must account for large-capacity arithmetic. Neither function provides thread synchronization.
+
+### Logical queue order can wrap across array index zero
+
+With capacity 4, the next position after index 3 is index 0.
+
+A four-slot ring buffer has head index 3, count 3, and next insertion index 2. Item A at index 3 is removed first, then B at index 0, then C at index 1. Slot 2 is the free position for the next accepted enqueue. The index update is modulo the capacity.
+
+Logical order is 3 → 0 → 1. Here tail means the next insertion index; other APIs may choose different terminology.
 
 ### main.c
 

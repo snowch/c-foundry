@@ -18,6 +18,14 @@ Know which contract an API belongs to before calling it. Portable C is a languag
 
 ISO C includes streams such as fopen/fread, string processing, allocation, time interfaces, and the limited signal() facility. POSIX adds facilities such as fork, sigaction, and clock_gettime; Win32 has different process, handle, and synchronization interfaces. ioctl requests are device/platform specific, /proc is a host-specific pseudo-filesystem, and shared-memory APIs and guarantees depend on the platform. Keep parsing and byte codecs independent of those services. This example uses only ISO C streams and checks each operation; tmpfile can still fail because a hosted library operation can depend on permissions or resources.
 
+### Keep the portable rules behind an explicit host boundary
+
+The same data contract can have different storage adapters.
+
+A portable core defines encoding, validation, and data-operation rules. It calls an explicit host interface for storage and environment-dependent behavior. Separate adapters implement that interface for native files, browser storage, or a test fixture. Each adapter must document its actual failure and durability guarantees.
+
+Adapters do not make every OS API portable; their contracts must be implemented and tested for each target.
+
 ### main.c
 
 ```c
@@ -78,6 +86,14 @@ Fixed-width types simplify an external protocol only when their availability and
 Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
 
 The byte codec extracts and assembles little-endian uint32_t values instead of writing native objects. Exact-width types are optional on some C implementations; this course’s supported targets provide uint32_t and eight-bit bytes. Schema and format compatibility also depend on string encoding, version rules, and validation, not only on integer width. State these requirements at the format boundary with compile-time checks. sizeof a struct includes padding, and sizeof(long), pointer width, alignment, and host byte order are not a portable file specification. Use fixed numeric magic bytes rather than assuming the execution character set defines an external encoding.
+
+### A file format chooses its byte order
+
+The same unsigned value can be encoded independently of host layout.
+
+Encoding the value 513 as an unsigned four-byte little-endian field produces bytes 01, 02, 00, 00 in hexadecimal at offsets 0, 1, 2, and 3. The least significant byte is first. A decoder reconstructs 1 plus 2 times 256, giving 513; it does not copy a raw host struct.
+
+Illustrative uint32_t field in a format requiring 8-bit bytes. This is not the complete row or file header.
 
 ### main.c
 
@@ -155,6 +171,12 @@ Also editable and runnable inline in the browser course. Run this probe with the
 
 The build chooses CF_HAVE_MONOTONIC only after compiling and linking a clock_gettime/CLOCK_MONOTONIC probe. A conservative build defaults to zero and reports the service as unconfigured. Defining _POSIX_C_SOURCE before headers requests the POSIX declarations; it does not create an implementation. The check-portability runner exercises both the default path and the detected path. When monotonic timing is required, an unavailable result must remain unavailable: wall-clock time is not a semantics-preserving replacement.
 
+### Select a facility using evidence from the actual toolchain
+
+A supported language mode and an available library API are separate checks.
+
+Start with a required facility and the chosen C language baseline. Compile and, where necessary, link a small probe against the actual compiler and libraries. If supported, use the documented feature path. Otherwise select a tested fallback or report an unsupported target. A compiler name or revision macro alone is not sufficient evidence.
+
 ### main.c
 
 ```c
@@ -216,6 +238,14 @@ make example EXAMPLE=portable-c-3
 Separate portable data operations from the host that stores their bytes. A small interface makes dependencies and unsupported guarantees visible.
 
 The core below emits four specified bytes through a ByteSink interface. It knows nothing about FILE, paths, file descriptors, native handles, or durability. The ISO C adapter checks fwrite, while main checks flush, repositioning, the read, and close. A future POSIX or Win32 adapter can implement a stronger publication contract without leaking those APIs into the codec. Name the guarantee carefully: buffered stream acceptance is not a claim that a record survives power loss.
+
+### Keep the portable rules behind an explicit host boundary
+
+The same data contract can have different storage adapters.
+
+A portable core defines encoding, validation, and data-operation rules. It calls an explicit host interface for storage and environment-dependent behavior. Separate adapters implement that interface for native files, browser storage, or a test fixture. Each adapter must document its actual failure and durability guarantees.
+
+Adapters do not make every OS API portable; their contracts must be implemented and tested for each target.
 
 ### main.c
 

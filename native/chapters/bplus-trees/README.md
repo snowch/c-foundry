@@ -714,6 +714,14 @@ A leaf split redistributes an overflow set into two valid pages and adds a routi
 
 This model combines four existing entries with the new key in a five-entry temporary array, then keeps two in the left leaf and three in a fresh leaf. It repairs next links and inserts the right child into the root’s ordered array. Root capacity and free-leaf availability are checked first, so a rejected split does not destroy existing entries.
 
+### A leaf split creates two searchable key ranges
+
+Five entries become two in the left leaf and three in the right leaf.
+
+An illustrative overflowing leaf contains keys 4, 9, 15, 22, 31. Split it into left leaf 4, 9 and right leaf 15, 22, 31. A routing boundary at 15 sends keys below 15 left and keys at or above 15 right. The left leaf’s next link points to the right leaf for ordered scans.
+
+This illustrates one leaf split, not every internal split, root-growth, or deletion case.
+
 ### main.c
 
 ```c
@@ -943,6 +951,14 @@ make example EXAMPLE=bplus-trees-4
 Range lookup combines one routed start with sequential leaf traversal. Keep inclusive and exclusive endpoints explicit.
 
 The example prints keys in [2,7). After routing to the first relevant leaf, it follows next pointers until a key reaches the upper boundary. A balanced full B+ tree gives O(log n+k) logical work for k returned keys, with page costs depending on density and cache state. Linked-leaf order is an invariant worth checking independently of point lookups.
+
+### A leaf split creates two searchable key ranges
+
+Five entries become two in the left leaf and three in the right leaf.
+
+An illustrative overflowing leaf contains keys 4, 9, 15, 22, 31. Split it into left leaf 4, 9 and right leaf 15, 22, 31. A routing boundary at 15 sends keys below 15 left and keys at or above 15 right. The left leaf’s next link points to the right leaf for ordered scans.
+
+This illustrates one leaf split, not every internal split, root-growth, or deletion case.
 
 ### main.c
 

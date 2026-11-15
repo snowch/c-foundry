@@ -8,6 +8,14 @@ A bounded producer–consumer queue turns overload into backpressure rather than
 
 This four-slot queue carries eight requests, so a producer may wait for space. Every successful enqueue has one corresponding dequeue, and close rejects later offers while allowing already queued work to drain. FIFO is defined by queue admission order, not by when producer threads started. The example uses one producer and consumer to make the basic contract easy to verify.
 
+### Wake up, reacquire, and recheck the predicate
+
+A condition-variable wakeup is not a stored promise that work is available.
+
+With the queue mutex held, check whether the queue has an item or is closed. If waiting is needed, the condition-variable wait releases that mutex and blocks. Before the wait returns it reacquires the mutex. Recheck the predicate in a loop, then consume an item or handle the closed state while still holding the mutex.
+
+Spurious wakeups and competing consumers are reasons to recheck. Closed-and-empty needs an explicit exit path.
+
 ### main.c
 
 ```c

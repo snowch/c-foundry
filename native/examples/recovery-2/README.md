@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. This is a bounded, sing
 
 begin refuses to start another transaction using the same active handle, but the model has no global lock. A real multi-client service must route all writers through one owner or protect admission with synchronization. Readers also need a contract about whether they see committed state or a working copy.
 
+### A private working copy can commit or roll back
+
+Uncommitted edits do not replace the live table in this model.
+
+The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
+
+An in-process, single-writer model. Publication alone provides neither crash durability nor concurrent isolation.
+
 ### main.c
 
 ```c

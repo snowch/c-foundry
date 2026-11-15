@@ -10,6 +10,14 @@ Also editable and runnable inline in the browser course. Run and change the form
 
 The teaching format begins with ASCII TDB1, version byte one, record-size byte forty, a one-byte row count, and a reserved zero byte. It requires eight-bit bytes and exact-width uint32_t. The count is capped by the bounded table; a larger format would use wider lengths and checked offset calculations. Header bytes are a protocol, not the memory layout of a C header struct.
 
+### A header tells a decoder how to read the following bytes
+
+The course format uses an explicit eight-byte header before the rows.
+
+The example header has magic TDB1 at offsets 0 through 3, version 1 at offset 4, row width 40 at offset 5, row count 2 at offset 6, and reserved zero at offset 7. Two forty-byte rows follow the eight-byte header, giving an eighty-eight-byte example file. A decoder validates the header before loading rows.
+
+This is the course’s small TDB1 format with 8-bit bytes, not a raw C struct. Boxes are not proportional to field widths.
+
 ### main.c
 
 ```c

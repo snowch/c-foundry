@@ -16,6 +16,14 @@ A table’s initialized count is not its reserved capacity. Only rows below coun
 
 Table t={0} initializes an empty table. Row assignment copies embedded arrays as part of the struct, while pointer fields would require a separate ownership policy. The fixed array avoids allocation during table operations but imposes a deliberate capacity limit. The name field must contain a terminator within its 32 bytes.
 
+### The row count identifies the valid prefix
+
+Capacity describes available slots; count describes rows actually stored.
+
+An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
+
+Row fields and the capacity limit follow the course’s bounded in-memory table model.
+
 ### main.c
 
 ```c
@@ -135,6 +143,14 @@ Insertion and selection form the minimal useful table interface. Return an expli
 
 find_row performs a linear scan and returns −1 for absence. Its signed result is tested before conversion to an array index. Full-table selection preserves insertion order in this baseline. Both lookup and a full selection take O(n) worst-case time; selection necessarily visits every emitted row.
 
+### The row count identifies the valid prefix
+
+Capacity describes available slots; count describes rows actually stored.
+
+An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
+
+Row fields and the capacity limit follow the course’s bounded in-memory table model.
+
 ### main.c
 
 ```c
@@ -246,6 +262,14 @@ make example EXAMPLE=tables-2
 A failed insertion must leave existing rows intact. Define which error wins when more than one condition applies.
 
 This API checks row validity, then duplicate identity, then capacity. Therefore a duplicate in a full table reports DUPLICATE. That priority is observable behavior and belongs in tests. Appending occurs only after every check has passed, so count and existing records stay unchanged on rejection.
+
+### The row count identifies the valid prefix
+
+Capacity describes available slots; count describes rows actually stored.
+
+An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
+
+Row fields and the capacity limit follow the course’s bounded in-memory table model.
 
 ### main.c
 
