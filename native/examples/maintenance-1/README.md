@@ -147,16 +147,18 @@ Those already covered by the applied checkpoint LSN. A committed applied boundar
 
 </details>
 
-**Try:** Serialize explicit LSNs with checksums and test missing, duplicated, reordered, and torn records.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/maintenance/1). In main.c, change the SET_REC value for transaction 2 from 20 to 25, retaining the sequence numbers. Run code and compare value= and applied=. Which record publishes the new value, and what advances the applied checkpoint?
 
 ### References and help
 
 - [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 - [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
 
-Run from the repository root:
+Native source: `native/examples/maintenance-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=maintenance-1
+make example EXAMPLE=maintenance-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

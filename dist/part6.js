@@ -21,7 +21,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Subtraction is safe only after offset is known to be within the page.",
-        "tryit": "Encode the slot directory into the page itself and include its bytes in the free-space calculation.",
+        "tryit": "In main.c, change the page_insert text and length from \"Ada\", 3 to \"Grace\", 5. Run code and compare slot=, offset=, length=, and text=. Which address moves when the same page holds a longer payload?",
         "input": "",
         "runtime": "browser"
       },
@@ -39,7 +39,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "The reader needs an explicit bounded region to interpret.",
-        "tryit": "Compare payload and metadata overhead for many one-byte records versus fewer long records.",
+        "tryit": "In main.c, replace \"Grace\", 5 with \"Go\", 2 in the second page_insert. Run code and compare lengths= and used=. Which memory usage is counted by PSIZE - free_end?",
         "input": "",
         "runtime": "browser"
       },
@@ -57,7 +57,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Relocation can change offsets even when the logical record survives.",
-        "tryit": "Compact a page and verify that each live slot still resolves to the same bytes.",
+        "tryit": "In main.c, insert page_delete(&p, a); and compact(&p); before the page_read, using the provided operations. Run code and compare slot= and text=. Why can a stable slot still find Ken after compaction?",
         "input": "",
         "runtime": "browser"
       },
@@ -75,9 +75,10 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "The byte placement of remaining live records can leave holes.",
-        "tryit": "Add a reusable-slot policy with generations and test that stale locators are rejected.",
+        "tryit": "In main.c, replace \"Grace\", 5 with \"Ken\", 3 in the second page_insert. Run code after deletion and compaction. Compare live_bytes=, surviving_slot=, and offset=. Why does the payload change the offset but preserve the slot?",
         "input": "",
-        "runtime": "browser"
+        "runtime": "browser",
+        "extension": "A reusable slot needs a generation number if an older locator can outlive a delete. Sketch the invalid and valid locators for one deleted and reused slot."
       },
       "5": {
         "intro": "A bounded cache trades memory for fewer backing reads. Dirty eviction and pinned users complicate replacement.",
@@ -93,7 +94,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Doing so loses the only modified page contents.",
-        "tryit": "Connect the cache to the checked pager and inject a write failure during dirty eviction.",
+        "tryit": "In main.c, replace the final fetch(&c, 3) with fetch(&c, 2). Run code and compare reads=, writes=, and cached1=. Why does the repeated page need fewer backing reads?",
         "input": "",
         "runtime": "browser"
       },
@@ -111,7 +112,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "Displaying bytes still requires safe, bounded reads.",
-        "tryit": "Add a hex dump with highlighted validated ranges, then reject overlapping live slots.",
+        "tryit": "In main.c, remove page_delete(&p, a); and run. Compare the two slot state labels and their half-open byte ranges. Which endpoint marks the first byte outside each payload?",
         "input": "",
         "runtime": "browser"
       }
@@ -153,7 +154,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Many routing choices fit within each fetched page.",
-        "tryit": "Calculate leaf and child capacities for a real page format including headers, key widths, and row references.",
+        "tryit": "In main.c, change the final inserted key from 7 to 5. Run code and compare root_children= and leaf_capacity=. Which count depends on inserted keys and which is a fixed model parameter?",
         "input": "",
         "runtime": "browser"
       },
@@ -171,7 +172,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "This model uses the child’s minimum as an inclusive lower boundary.",
-        "tryit": "Test keys immediately below, equal to, and immediately above every separator.",
+        "tryit": "In main.c, change the final inserted key from 7 to 6. Run code and compare leaf min= and count= fields. Which separator remains associated with the start of the right child even if its count changes?",
         "input": "",
         "runtime": "browser"
       },
@@ -189,7 +190,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "The Boolean result must be checked before treating the output as a match.",
-        "tryit": "Cross-check every lookup against a sorted-array reference after each insertion.",
+        "tryit": "In main.c, change tree_find(&t, 6, &value) to tree_find(&t, 3, &value). Run code and compare found=, value=, and missing=. Why does an equal separator route to the leaf that begins with 3?",
         "input": "",
         "runtime": "browser"
       },
@@ -207,7 +208,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "A split needs both a new leaf and a new routing entry.",
-        "tryit": "Generalize root splitting with stable page IDs and test failure preservation at every allocation boundary.",
+        "tryit": "In main.c, change the final inserted key from 5 to 6. Run code and compare leaves=, left=, right=, and boundary=. Does appending one more key also change the boundary created during the first split?",
         "input": "",
         "runtime": "browser"
       },
@@ -225,7 +226,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "The API uses a half-open [lo,hi) range.",
-        "tryit": "Test empty ranges, missing boundary keys, and a range spanning every split; make the endpoint in code match your prediction.",
+        "tryit": "In main.c, replace range(&t, 2, 8) with range(&t, 3, 6). Run code and inspect the first and last returned keys. Which endpoint does this implementation include?",
         "input": "",
         "runtime": "browser"
       },
@@ -243,9 +244,10 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "The root has a special occupancy exception.",
-        "tryit": "Generate insert/delete sequences and check ordering, uniqueness, occupancy, reachability, and pool ownership after each step.",
+        "tryit": "In main.c, remove tree_erase(&t, 2); and run. Compare leaves= and remaining=. How does keeping key 2 affect whether entries need to move between leaves?",
         "input": "",
-        "runtime": "browser"
+        "runtime": "browser",
+        "extension": "In a separate test, replay alternating insertions and deletions against a sorted-array reference. Record ordering, uniqueness, page occupancy, reachability, and ownership after each operation."
       }
     },
     "practicePlan": {
@@ -274,8 +276,8 @@ window.PART_SIX = {
       "1": {
         "intro": "A scan reads the table’s pages; an index lookup navigates the index and then obtains matching rows. Neither access path is always cheaper.",
         "explanation": "The teaching estimate charges one unit per page, assumes a cold cache and one distinct data-page fetch per match, and adds three index levels. These assumptions intentionally simplify clustering and caching. Both paths must return identical logical rows under the same visibility rules; cost never permits an incorrect result.",
-        "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct {\n  unsigned table_pages, index_levels, matches;\n} Estimate;\nunsigned index_cost(Estimate e) { return e.index_levels + e.matches; }\nconst char *choose(Estimate e) {\n  return index_cost(e) < e.table_pages ? \"index\" : \"scan\";\n}\n\nint main(void) {\n  Estimate narrow = {100, 3, 1}, wide = {100, 3, 98};\n  printf(\"narrow=%s cost=%u wide=%s cost=%u\\n\", choose(narrow),\n         index_cost(narrow), choose(wide), index_cost(wide));\n  return 0;\n}\n",
-        "expected": "narrow=index cost=4 wide=scan cost=101",
+        "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct {\n  unsigned table_pages, index_levels, matches;\n} Estimate;\nunsigned index_cost(Estimate e) { return e.index_levels + e.matches; }\nconst char *choose(Estimate e) {\n  return index_cost(e) < e.table_pages ? \"index\" : \"scan\";\n}\n\nint main(void) {\n  Estimate narrow = {100, 3, 1}, wide = {100, 3, 98};\n  printf(\"narrow=%s narrow_index_pages=%u wide=%s wide_index_pages=%u scan_pages=%u\\n\", choose(narrow),\n         index_cost(narrow), choose(wide), index_cost(wide), wide.table_pages);\n  return 0;\n}\n",
+        "expected": "narrow=index narrow_index_pages=4 wide=scan wide_index_pages=101 scan_pages=100",
         "walkthrough": "One match costs four estimated page reads through the index. Ninety-eight random matches cost 101, exceeding the hundred-page scan.",
         "pitfall": "Treating index lookup as free after O(log n) navigation ignores row fetches.",
         "question": "Can an index be slower than a scan?",
@@ -285,7 +287,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Lookup and row-fetch costs can exceed a sequential scan.",
-        "tryit": "Change cache and clustering assumptions and describe when the preferred plan changes.",
+        "tryit": "In main.c, change the wide estimate’s last value from 98 to 20. Run code and compare wide=, wide_index_pages=, and scan_pages= with the starter. Which model input makes the estimated index work fall below the scan estimate?",
         "input": "",
         "runtime": "browser"
       },
@@ -303,7 +305,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "It is a cardinality estimate relative to the input size.",
-        "tryit": "Build a skewed score distribution and compare uniform estimates with observed matches.",
+        "tryit": "In main.c, change matches from 10 to 100. Run code and compare selectivity= and expected_rows=. Which quantity is a fraction and which counts rows?",
         "input": "",
         "runtime": "browser"
       },
@@ -321,7 +323,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Residual predicates can reject candidates before they count toward the limit.",
-        "tryit": "Add a residual predicate that rejects the first candidate and verify the limit still returns two qualifying rows.",
+        "tryit": "In main.c, change keys[mid] < 4 to keys[mid] < 5. Run code and compare the two returned keys. How does the lower bound change where the ordered scan starts?",
         "input": "",
         "runtime": "browser"
       },
@@ -339,7 +341,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "It reports the selected model; actual execution needs a separate explicit path.",
-        "tryit": "Represent plans with an enum and structured fields before rendering text, then snapshot-test the renderer.",
+        "tryit": "In main.c, change the last field in Estimate e from 2 to 99. Run code and inspect PLAN, estimated_matches=, and estimated_pages=. What causes the model to choose a scan for the widened estimate?",
         "input": "",
         "runtime": "browser"
       },
@@ -357,7 +359,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "They measure different work and may differ greatly under selective filters.",
-        "tryit": "Attach counters to scan and index baselines and assert equal results before comparing work.",
+        "tryit": "In main.c, change ids[i] >= 7 to ids[i] >= 5. Run code and compare comparisons= and emitted=. Which field confirms that this scan examines each record regardless of the filter?",
         "input": "",
         "runtime": "browser"
       },
@@ -375,9 +377,10 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "Every outer row scans all inner rows.",
-        "tryit": "Add an inner-key index and verify the same multiset of join rows, including duplicate keys.",
+        "tryit": "In main.c, change the last order’s person from 1 to 2, leaving its total 30. Run code and compare joined names and pairs=. Which output row changes partner while the candidate pair count stays fixed?",
         "input": "",
-        "runtime": "browser"
+        "runtime": "browser",
+        "extension": "For an independent join exercise, build an index on the inner key and compare the complete multiset of output rows, including duplicate keys, with this baseline."
       }
     },
     "practicePlan": {
@@ -417,7 +420,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Process memory can disappear without a persistent recovery protocol.",
-        "tryit": "Write a guarantee table for each ACID property and identify the mechanism or missing work for each.",
+        "tryit": "In main.c, change the tentative score from 1 to 50, leaving rollback(&tx) unchanged. Run code and compare after_rollback=. Which state did update_score edit, and which state does the printed value come from?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -438,7 +441,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "The same live state must not be concurrently mutated through independent handles.",
-        "tryit": "Add an admission lock or a request queue and test two competing transaction starts.",
+        "tryit": "In main.c, replace the declarations of first and nested with separate calls, inserting rollback(&tx) between them. Run code and compare first= and nested=. Why can the second begin succeed once the model has no active transaction?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -459,7 +462,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Rollback never publishes its private working table.",
-        "tryit": "Define session ownership and behavior for COMMIT without BEGIN, nested BEGIN, and disconnect during a transaction.",
+        "tryit": "In main.c, change the first transaction’s score from 95 to 50 and leave the second rollback in place. Run code and compare committed_score= and invalid_commit=. Which boundary made 50 observable in live?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -468,10 +471,10 @@ window.PART_SIX = {
       },
       "4": {
         "intro": "Write-ahead logging records enough information for recovery before acknowledging a durable commit or persisting dependent data pages.",
-        "explanation": "The one-value redo log uses fixed eight-byte BEGIN, SET, and COMMIT records with transaction IDs. This native fixture flushes stdio and calls POSIX fsync on the log before treating the commit as durable. A real database also needs stable log naming, error handling, checksums, page/log ordering, and platform-specific file and directory guarantees. The example demonstrates the ordering, not a complete storage engine.",
-        "code": "#define _POSIX_C_SOURCE 200809L\n#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n\nenum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };\nvoid put32(unsigned char *out, uint32_t value) {\n  for (unsigned i = 0; i < 4; ++i)\n    out[i] = (unsigned char)(value >> (8 * i));\n}\nuint32_t get32(const unsigned char *in) {\n  uint32_t value = 0;\n  for (unsigned i = 0; i < 4; ++i)\n    value |= (uint32_t)in[i] << (8 * i);\n  return value;\n}\nenum { BEGIN_REC = 1, SET_REC = 2, COMMIT_REC = 3, LOG_BYTES = 8 };\nvoid log_record(unsigned char *out, unsigned kind, unsigned tx,\n                uint32_t value) {\n  memset(out, 0, LOG_BYTES);\n  out[0] = (unsigned char)kind;\n  out[1] = (unsigned char)tx;\n  put32(out + 4, value);\n}\nuint32_t recover(const unsigned char *log, size_t length, uint32_t base) {\n  unsigned active = 0;\n  uint32_t pending = base;\n  for (size_t at = 0; at <= length && length - at >= LOG_BYTES;\n       at += LOG_BYTES) {\n    const unsigned char *r = log + at;\n    if (!r[1] || r[2] || r[3])\n      break;\n    if (r[0] == BEGIN_REC) {\n      if (active)\n        break;\n      active = r[1];\n      pending = base;\n    } else if (r[0] == SET_REC) {\n      if (active != r[1])\n        break;\n      pending = get32(r + 4);\n    } else if (r[0] == COMMIT_REC) {\n      if (active != r[1])\n        break;\n      base = pending;\n      active = 0;\n    } else\n      break;\n  }\n  return base;\n}\n\nint main(void) {\n  FILE *f = tmpfile();\n  if (!f)\n    return 1;\n  unsigned char bytes[24];\n  log_record(bytes, BEGIN_REC, 1, 0);\n  log_record(bytes + 8, SET_REC, 1, 42);\n  log_record(bytes + 16, COMMIT_REC, 1, 0);\n  bool ok = fwrite(bytes, 1, sizeof bytes, f) == sizeof bytes &&\n            fflush(f) == 0 && fsync(fileno(f)) == 0;\n  if (!ok) {\n    fclose(f);\n    return 1;\n  }\n  printf(\"durable_log_order_checked value=%u\\n\",\n         (unsigned)recover(bytes, sizeof bytes, 0));\n  if (fclose(f) != 0)\n    return 1;\n  return 0;\n}\n",
-        "expected": "durable_log_order_checked value=42",
-        "walkthrough": "Recovery can reconstruct 42 from the committed log. The success line follows the checked synchronization call. The temporary file is intentionally not a permanent database path.",
+        "explanation": "The one-value redo log uses eight-byte BEGIN, SET, and COMMIT records with transaction IDs. In this POSIX fixture, the program checks the write, flushes the library buffer, calls fsync on the temporary file and then runs recovery over the same prepared bytes. A database also needs a recovery-visible log path, error handling and an ordering contract for log and data files.",
+        "code": "#define _POSIX_C_SOURCE 200809L\n#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n\nenum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };\nvoid put32(unsigned char *out, uint32_t value) {\n  for (unsigned i = 0; i < 4; ++i)\n    out[i] = (unsigned char)(value >> (8 * i));\n}\nuint32_t get32(const unsigned char *in) {\n  uint32_t value = 0;\n  for (unsigned i = 0; i < 4; ++i)\n    value |= (uint32_t)in[i] << (8 * i);\n  return value;\n}\nenum { BEGIN_REC = 1, SET_REC = 2, COMMIT_REC = 3, LOG_BYTES = 8 };\nvoid log_record(unsigned char *out, unsigned kind, unsigned tx,\n                uint32_t value) {\n  memset(out, 0, LOG_BYTES);\n  out[0] = (unsigned char)kind;\n  out[1] = (unsigned char)tx;\n  put32(out + 4, value);\n}\nuint32_t recover(const unsigned char *log, size_t length, uint32_t base) {\n  unsigned active = 0;\n  uint32_t pending = base;\n  for (size_t at = 0; at <= length && length - at >= LOG_BYTES;\n       at += LOG_BYTES) {\n    const unsigned char *r = log + at;\n    if (!r[1] || r[2] || r[3])\n      break;\n    if (r[0] == BEGIN_REC) {\n      if (active)\n        break;\n      active = r[1];\n      pending = base;\n    } else if (r[0] == SET_REC) {\n      if (active != r[1])\n        break;\n      pending = get32(r + 4);\n    } else if (r[0] == COMMIT_REC) {\n      if (active != r[1])\n        break;\n      base = pending;\n      active = 0;\n    } else\n      break;\n  }\n  return base;\n}\n\nint main(void) {\n  FILE *f = tmpfile();\n  if (!f)\n    return 1;\n  unsigned char bytes[24];\n  log_record(bytes, BEGIN_REC, 1, 0);\n  log_record(bytes + 8, SET_REC, 1, 42);\n  log_record(bytes + 16, COMMIT_REC, 1, 0);\n  bool ok = fwrite(bytes, 1, sizeof bytes, f) == sizeof bytes &&\n            fflush(f) == 0 && fsync(fileno(f)) == 0;\n  if (!ok) {\n    fclose(f);\n    return 1;\n  }\n  printf(\"sync_calls_succeeded value=%u\\n\",\n         (unsigned)recover(bytes, sizeof bytes, 0));\n  if (fclose(f) != 0)\n    return 1;\n  return 0;\n}\n",
+        "expected": "sync_calls_succeeded value=42",
+        "walkthrough": "The prepared log decodes to 42. The success line follows the checked sync call. The fixture uses a temporary file and runs no crash or power-loss test.",
         "pitfall": "fflush alone moves bytes to the operating-system interface; it is not equivalent to a platform durable-sync operation.",
         "question": "When may a durable commit be acknowledged under this protocol?",
         "choices": [
@@ -480,7 +483,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "Recovery must be able to find a durable commit record before success is promised.",
-        "tryit": "Use a named log under KEEP_FILES=1, inject sync failures, and add a checked data-page write only after the write-ahead condition holds.",
+        "tryit": "In native/examples/recovery-4/main.c, change the value argument of the SET_REC log_record call from 42 to 17. Repeat the terminal command. Find sync_calls_succeeded and value=17. Which code checks the write, flush, and sync before the recovery result is printed?",
         "input": "",
         "runtime": "native"
       },
@@ -498,12 +501,13 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Tentative state remains separate until the commit boundary.",
-        "tryit": "Replay every prefix of this log and verify values against an independently listed set of committed boundaries.",
+        "tryit": "In main.c, change recover(log, 19, 0) to recover(log, 24, 0) and rename torn= to prefix24=. Run code and compare both values. Which complete record at byte 24 makes the first transaction eligible for replay?",
         "input": "",
         "runtime": "native",
         "browser": {
           "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        },
+        "extension": "Copy the prepared log into a separate fixture with a second commit and a third torn transaction. Record expected visible values independently before testing the byte prefixes."
       },
       "6": {
         "intro": "Browser persistence APIs have their own atomicity and completion contracts. A native filesystem protocol cannot simply be assumed to transfer to browser storage.",
@@ -519,7 +523,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "The two stores have different owners, data, and failure contracts.",
-        "tryit": "Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.",
+        "tryit": "In main.c, change the value 7 in the SET_REC call to 12. Run code and compare before_commit= and after_commit=. This replays a prepared log in memory. Which prefix contains the record that publishes the change?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -564,7 +568,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "The observed result depends on the complete request path.",
-        "tryit": "Add tests for each supported statement and maintain a table of intentionally unsupported syntax.",
+        "tryit": "In main.c, change Ada’s score from 90 to 95 in the INSERT text. Run code and compare the selected row and SQL contract passed. Which unsupported command continues to be rejected?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -585,7 +589,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "Only finitely many generated paths were exercised.",
-        "tryit": "Run with SANITIZE=1, add token-length boundaries, and retain every discovered failure as a deterministic regression case.",
+        "tryit": "In main.c, change the loop limit n < 256 to n < 512. Run code and compare fuzz_cases=. What does the count establish about this deterministic fixture? Run the native equivalent with SANITIZE=1 for memory diagnostics.",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -606,7 +610,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Uncommitted records cannot establish acknowledged transaction state.",
-        "tryit": "Add two committed transactions, an incomplete third, invalid headers, and repeated replay checks.",
+        "tryit": "In main.c, change the SET_REC value and the matching final expected value from 42 to 17. Run code and find 25 interruption boundaries passed. Which single prefix publishes the new value in this model?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -627,7 +631,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "Preparation and reporting answer different performance questions.",
-        "tryit": "Compare cold and warm page-cache runs with verified equal results and recorded environment details.",
+        "tryit": "In main.c, change n <= 32 to n <= 128. Run code. Compare rows= against absent_scan_comparisons= on every line and explain the pattern. The program counts loop iterations.",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -648,7 +652,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Ownership remains until the resource is released.",
-        "tryit": "Enumerate every exit path in the pager, parser, and index; inject failures at each acquired resource boundary.",
+        "tryit": "In native/examples/ship-5/main.c, add insert_row(&source, (Row){2, \"Grace\", 80}); before save. Repeat the terminal command. Which evidence shows the reopened fixture has two rows and the stream closed?",
         "input": "",
         "runtime": "native"
       },
@@ -666,7 +670,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "The old valid state should remain available if conversion fails.",
-        "tryit": "Publish a format document with offsets, ranges, validation, version policy, and independently specified sample bytes.",
+        "tryit": "In native/examples/ship-6/main.c, change the version byte in header from 2 to 3. Repeat the terminal command. Does the fixture still reject it? Which byte identifies the version rather than record width?",
         "input": "",
         "runtime": "native"
       },
@@ -684,7 +688,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "A recipient needs to reproduce and safely interpret the artifact.",
-        "tryit": "Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.",
+        "tryit": "In native/examples/ship-7/main.c, add a third row with ID 3, name Linus and score 70, change the response check copy.count != 2 to copy.count != 3, and update the printed line to release fixture: three validated rows. Repeat the terminal command. Why does the program check the loaded count before printing the line?",
         "input": "",
         "runtime": "native"
       },
@@ -704,7 +708,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Reopening checks the persistence boundary for this completed operation. It does not prove crash durability, transaction isolation, or correctness for every input.",
-        "tryit": "Repair both defects in the isolated CLI copy, pass all four checks, and add missing-ID, sole-row deletion, and duplicate-rejection regressions. Record the GDB evidence for each source fix.",
+        "tryit": "For the guided repair, edit native/debugging/tinydb/main.c using the optional GDB commands above. Run the four specified regression checks on the isolated copy. The separate terminal example below illustrates the correct UPDATE for ID 2.",
         "lab": {
           "id": "tinydb",
           "title": "Optional repair workshop: a broken TinyDB",
@@ -737,7 +741,8 @@ window.PART_SIX = {
             "label": "Continue to Part 7: How C has evolved"
           },
           "hint": "The correct slot returned by lookup must also select the destination of an update. Each successful deletion reduces the logical count by exactly one. After trying, inspect the separate .reference/main.c or run make debug-check LAB=tinydb REFERENCE=1."
-        }
+        },
+        "extension": "After the four guided checks pass, add regression cases in the isolated TinyDB lab for a missing ID, sole-row deletion, and duplicate rejection."
       }
     },
     "practicePlan": {

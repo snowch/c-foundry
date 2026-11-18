@@ -60,18 +60,20 @@ pass. The >= comparison includes equality. Boundary values belong in your tests.
 
 </details>
 
-**Try:** Change score to 49 and command to an unmatched value. Predict both output lines.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/control-flow/1). In main.c, change score from 72 to 49 and command from 2 to 9. Predict the first and second lines before you choose Run code. Which branch and switch case produced the new lines?
 
 ### References and help
 
 - [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html) — Distinguish sequencing rules from operator precedence.
 - [C reference: if](https://en.cppreference.com/w/c/language/if.html) — Read how the controlling expression selects a branch.
 
-Run from the repository root:
+Native source: `native/examples/control-flow-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=control-flow-1
+make example EXAMPLE=control-flow-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 3.2 Logical expressions and short-circuit evaluation
 
@@ -125,7 +127,7 @@ No. The false left operand of && skips its right operand.
 
 </details>
 
-**Try:** Try divisor = 2 and then divisor = 5. Explain why one reaches the true branch and the other does not.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/control-flow/2). In main.c, change divisor from 0 to 2, then to 5. Choose Run code after each change. Which Console message shows the right-hand comparison succeeded, and which runs actually evaluated the division?
 
 ### References and help
 
@@ -140,11 +142,13 @@ It does not: && short-circuits after a false left operand. Put the nonzero-divis
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/control-flow-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=control-flow-2
+make example EXAMPLE=control-flow-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 3.3 while, do, and for
 
@@ -195,17 +199,19 @@ The for body sees i equal to 0, 1, and 2. After the update makes it 3, the condi
 
 </details>
 
-**Try:** Rewrite the countdown using for. Keep the output and final value the same.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/control-flow/3). In main.c, replace the while loop with for (; remaining > 0; remaining--) { }. Choose Run code. Compare the numbers and remaining= line with the original and explain why the final value is the same.
 
 ### References and help
 
 - [C reference: statements](https://en.cppreference.com/w/c/language/statements.html) — Compare selection, iteration, and jump statements and the control flow each permits.
 
-Run from the repository root:
+Native source: `native/examples/control-flow-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=control-flow-3
+make example EXAMPLE=control-flow-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 3.4 break and continue
 
@@ -253,17 +259,19 @@ At i = 2, continue skips printf but the for update still increments i. At i = 5,
 
 </details>
 
-**Try:** Move the break condition to i == 4. Predict which final value disappears from the output.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/control-flow/4). In main.c, change if (i == 5) break; to if (i == 4) break;. Choose Run code. Which final number disappears, and why is number 2 absent from both runs?
 
 ### References and help
 
 - [C reference: statements](https://en.cppreference.com/w/c/language/statements.html) — Compare selection, iteration, and jump statements and the control flow each permits.
 
-Run from the repository root:
+Native source: `native/examples/control-flow-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=control-flow-4
+make example EXAMPLE=control-flow-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 3.5 Number guessing and input validation
 
@@ -315,18 +323,20 @@ No. No assignment was made by that failed conversion. Handle the failure before 
 
 </details>
 
-**Try:** Open the guessing-game exercise and add the loop, range checks, and higher/lower responses.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/control-flow/5). Open Input, replace its supplied 7 with 11, and choose Run code. Find out of range in Console. Replace 11 with abc and run again. Does scanf complete an integer conversion in both runs?
 
 ### References and help
 
 - [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html) — Distinguish sequencing rules from operator precedence.
 - [C reference: if](https://en.cppreference.com/w/c/language/if.html) — Read how the controlling expression selects a branch.
 
-Run from the repository root:
+Native source: `native/examples/control-flow-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=control-flow-5
+make example EXAMPLE=control-flow-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

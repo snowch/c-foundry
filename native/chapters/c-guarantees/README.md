@@ -69,18 +69,20 @@ No, it is undefined behavior in standard C. Standard unsigned and signed arithme
 
 </details>
 
-**Try:** Classify five expressions from TinyDB and cite the exact assumption or guarantee each relies on.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/1). In main.c, change wrapped += 1; to wrapped += 2;. Run code and compare unsigned_wrap=. Which bound gives the starting value? How does the rule for unsigned addition let you predict the result without knowing the exact width of unsigned?
 
 ### References and help
 
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 - [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-1
+make example EXAMPLE=c-guarantees-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 32.2 Integer representation, alignment, object lifetime, and aliasing
 
@@ -132,7 +134,7 @@ Alignment and object-type requirements may not be satisfied. memcpy transfers re
 
 </details>
 
-**Try:** Replace a raw pointer cast in a decoder with explicit byte assembly and test it with unaligned input offsets.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/2). In main.c, change the source from 0x12345678 to 0x12345679. Run code and compare roundtrip= and bytes=. What does copying the object representation establish on this target? A portable file format still needs an explicit byte order.
 
 ### References and help
 
@@ -140,11 +142,13 @@ Alignment and object-type requirements may not be satisfied. memcpy transfers re
 - [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
 - [C reference: memcpy](https://en.cppreference.com/w/c/string/byte/memcpy.html) — Check byte counts, valid object ranges, and the non-overlap requirement.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-2
+make example EXAMPLE=c-guarantees-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 32.3 Why code can behave differently under optimization
 
@@ -197,18 +201,20 @@ Lifetime, bounds, aliasing, initialization, and synchronization. A valid source 
 
 </details>
 
-**Try:** Compile with GCC and Clang at -O0 and -O2, then run the same independent fixtures.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/3). In main.c, change x += UINT32_C(1); to x += UINT32_C(2);. Run code. Compare wrapped= and sum=. Which value changes according to the defined uint32_t wrap rule, even if a native compiler later optimizes the loop?
 
 ### References and help
 
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 - [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-3
+make example EXAMPLE=c-guarantees-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 32.4 Signed/unsigned comparisons and integer promotions
 
@@ -260,7 +266,7 @@ int after integer promotion. An int can represent every uint8_t value on the sup
 
 </details>
 
-**Try:** Compare indices −1, 0, count−1, and count with the guarded index predicate. Then predict and run uint8_t sums around 255 before and after narrowing.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/4). In main.c, change negative from -1 to 1 and b from 10 to 5. Run code and compare converted_less=, mathematical_less=, valid_index=, promoted_sum=, and narrowed_sum=. Why do 255 and 260 differ when narrowed to uint8_t?
 
 ### References and help
 
@@ -276,11 +282,13 @@ No. Integer promotions and the usual arithmetic conversions depend on rank and r
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-4
+make example EXAMPLE=c-guarantees-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 32.5 Narrowing conversions and range-checked casts
 
@@ -342,18 +350,20 @@ Before converting, using the original value. The original information may be los
 
 </details>
 
-**Try:** Test SCHAR_MIN−1, SCHAR_MIN, SCHAR_MAX, and SCHAR_MAX+1 on the supported targets. Require the destination to retain its earlier value after every rejection.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/5). In main.c, change the first to_signed_char argument from 130 to SCHAR_MAX. Run code. Compare signed_rejected= and output= with the earlier rejected request. Which accepted boundary can safely overwrite the original 7?
 
 ### References and help
 
 - [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) — Check integer promotions, usual arithmetic conversions, and narrowing.
 - [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-5
+make example EXAMPLE=c-guarantees-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 32.6 Checked addition, subtraction, and multiplication
 
@@ -426,18 +436,20 @@ No, the guard must run before the overflowing expression. Undefined behavior has
 
 </details>
 
-**Try:** Attempt the checked-arithmetic chapter exercise. Add tests for both endpoints, zero, all sign combinations, and failed operations retaining an existing output value.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/6). In main.c, change the multiply arguments from -7 and 6 to INT_MAX and 2. Run code and compare multiply_accepted= and result=. Why does the output retain 77 after a rejected multiplication?
 
 ### References and help
 
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 - [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-6
+make example EXAMPLE=c-guarantees-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 32.7 Division, remainder, and negating INT_MIN
 
@@ -498,18 +510,20 @@ No: the unrepresentable quotient also makes % invalid. C defines both operations
 
 </details>
 
-**Try:** Test ±7 with divisors ±3 and verify the quotient/remainder identity. Then test zero and the extreme divisor pair without evaluating a rejected operation.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/7). In main.c, change checked_divrem(-7,3,&quotient,&remainder) to checked_divrem(7,-3,&quotient,&remainder). Run code and compare quotient= and remainder=. Check that divisor × quotient + remainder gives the input for each sign combination.
 
 ### References and help
 
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 - [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-7.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-7
+make example EXAMPLE=c-guarantees-7 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 32.8 Floating-point rounding, cancellation, and tolerances
 
@@ -573,18 +587,20 @@ No, choose absolute/relative tolerances from the problem’s error budget. DBL_E
 
 </details>
 
-**Try:** Change the increment near 2^53, compare numbers near zero, and vary each tolerance independently. Predict which error budget accepts each result before running.
+**Try:** Edit the example in your native checkout. In native/examples/c-guarantees-8/main.c, change one from 1.0 to 2.0 and repeat the terminal run. Compare small_increment_lost= with the first run while checking sum=, exact=, and close=. What does the observed spacing near 2^53 allow on this target?
 
 ### References and help
 
 - [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
 - [C reference: floating-point environment](https://en.cppreference.com/w/c/numeric/fenv.html) — Check rounding modes and implementation support before relying on them.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-8
+make example EXAMPLE=c-guarantees-8 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 32.9 NaN, infinity, and finite numeric input
 
@@ -649,18 +665,20 @@ isfinite(value). Self-equality excludes quiet NaN but still permits infinities; 
 
 </details>
 
-**Try:** Test inf, -inf, nan, 1e9999, empty input, and a valid prefix followed by junk. Confirm rejected parses preserve the output and report the intended error category.
+**Try:** Edit the example in your native checkout. In native/examples/c-guarantees-9/main.c, change the first parse_finite argument from "nan" to "inf" and rename nan_rejected= to inf_rejected=. Repeat the terminal run. Which fields show that the parser kept 7.0 after rejection and accepted the later finite value?
 
 ### References and help
 
 - [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
 - [C reference: strtof, strtod, strtold](https://en.cppreference.com/w/c/string/byte/strtof.html) — Check endptr, range errors, and acceptance of infinity/NaN before enforcing a finite-input policy.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-9/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-9
+make example EXAMPLE=c-guarantees-9 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 32.10 Floating-point underflow, subnormals, and range errors
 
@@ -719,18 +737,20 @@ The smallest positive normal double. Use -DBL_MAX for the negative finite endpoi
 
 </details>
 
-**Try:** Compare scalbn(DBL_MIN,-1), nextafter(0,1), and further halvings. Then test a strict strtod parser with 1e-9999 and decide whether your application should reject or retain tiny finite values.
+**Try:** Edit the example in your native checkout. In native/examples/c-guarantees-10/main.c, change double lost=scalbn(source,-1); to double lost=scalbn(source,0);. Repeat the terminal run. Compare scaled_to_zero= and finite_subnormal=. Which classifications depend on applying another halving?
 
 ### References and help
 
 - [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
 - [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-10/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-10
+make example EXAMPLE=c-guarantees-10 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

@@ -121,7 +121,7 @@ Output:
 total=20
 ```
 
-This is the intentionally faulty starter: the loop begins at element 1 and skips element 0. The original-output command confirms the reproducible value 20; it does not check a repair. Use the separate debug-check command to require 24 and exercise single, empty, and negative inputs.
+The faulty starter begins at element 1 and produces 20. The original-output check confirms that reproduction. Use debug-check on the repaired student file to require 24 and exercise single, empty, and negative inputs.
 
 **Watch for:** A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Native GDB is not running inside the browser Wasm workspace.
 
@@ -136,15 +136,17 @@ Fix the source, rebuild, and add a regression test. The debugger changed one liv
 
 </details>
 
-**Try:** Use the optional guided GDB session in this lesson, repair the editable starter, and run all four regression cases. Explain why the empty-array case passed even before the fix.
+**Try:** Edit the example in your native checkout. For the optional repair, edit native/debugging/basics/main.c as described in the GDB instructions. Run its four regression cases after the repair. The separate terminal command below reproduces the faulty starter output total=20.
 
 ### References and help
 
 - [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-7
+make example EXAMPLE=files-bytes-7 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

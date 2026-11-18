@@ -91,18 +91,20 @@ Not by itself. Atomicity for one object and synchronization of other objects are
 
 </details>
 
-**Try:** Replace the relaxed operations with default sequentially consistent operations, then explain why both totals match this contract.
+**Try:** Edit the example in your native checkout. In native/examples/atomics-1/main.c, find atomic_fetch_add_explicit with memory_order_relaxed in the worker. Replace the call with atomic_fetch_add using the same first two arguments. Repeat the terminal run. Which invariant about the atomic counter makes atomic_total= agree in both runs?
 
 ### References and help
 
 - [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/atomics-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=atomics-1
+make example EXAMPLE=atomics-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 37.2 Sequential consistency first
 
@@ -164,18 +166,20 @@ No, it acts on its atomic object. The operation’s atomicity scope is the objec
 
 </details>
 
-**Try:** Describe an invariant spanning two fields and choose a mutex or an explicit publication protocol that preserves it.
+**Try:** Edit the example in your native checkout. In native/examples/atomics-2/main.c, change the initial atomic value from 0 to 2 and the exchange value from 7 to 9. Repeat the terminal run. Which of previous= and current= belongs to the state before the exchange?
 
 ### References and help
 
 - [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/atomics-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=atomics-2
+make example EXAMPLE=atomics-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 37.3 Acquire/release through concrete examples
 
@@ -256,18 +260,20 @@ The acquire load of ready. Synchronization depends on the matching atomic commun
 
 </details>
 
-**Try:** Explain why reading payload before the acquire would violate the protocol, then design a generation-based repeated-publication version.
+**Try:** Edit the example in your native checkout. In native/examples/atomics-3/main.c, change the value assigned to payload by publish_payload from 42 to 17. Leave the release and acquire operations in place and repeat the terminal run. Which order lets the reader see published= safely?
 
 ### References and help
 
 - [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/atomics-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=atomics-3
+make example EXAMPLE=atomics-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 37.4 Why volatile does not provide thread synchronization
 
@@ -345,7 +351,7 @@ No. It supplies neither the required atomic update nor the inter-thread ordering
 
 </details>
 
-**Try:** Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.
+**Try:** Edit the example in your native checkout. In native/examples/atomics-4/main.c, change the local volatile loop bound from 3 to 5 and repeat the terminal run. Compare local_volatile= and atomic_total=. Which quantity is local and which receives updates from more than one worker?
 
 ### References and help
 
@@ -360,11 +366,13 @@ No. volatile is not a substitute for atomic operations or synchronization. Use d
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/atomics-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=atomics-4
+make example EXAMPLE=atomics-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

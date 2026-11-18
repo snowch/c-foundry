@@ -111,17 +111,19 @@ Holding the shared lock across both field reads. The invariant spans both fields
 
 </details>
 
-**Try:** Define a lock hierarchy for accounts and tables, then measure contention with verified invariant checks.
+**Try:** Edit the example in your native checkout. In native/examples/isolation-1/main.c, change Account account’s initial balances from 100, 0 to 90, 10. Repeat the terminal run. Why can consistent= and final_total= remain the same when the individual balances differ?
 
 ### References and help
 
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 
-Run from the repository root:
+Native source: `native/examples/isolation-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=isolation-1
+make example EXAMPLE=isolation-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 40.2 Lost updates and inconsistent reads
 
@@ -193,17 +195,19 @@ Version validation and publication of the new value/version. Another writer must
 
 </details>
 
-**Try:** Protect compare_commit with a lock, then test two sessions synchronized to read the same initial version.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/isolation/2). In main.c, assign second = db.version; before the second compare_commit, after the first call has returned. Split the declarations of a and b if needed. Run code and compare stale_rejected=, value=, and version=. Which version makes the second commit valid?
 
 ### References and help
 
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 
-Run from the repository root:
+Native source: `native/examples/isolation-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=isolation-2
+make example EXAMPLE=isolation-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 40.3 Defining and testing an isolation contract
 
@@ -276,7 +280,7 @@ No. Another transaction may commit between statements after each lock is release
 
 </details>
 
-**Try:** Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/isolation/3). In main.c, change compare_commit(&db, 1, 20) to compare_commit(&db, 1, 10). Run code and compare statement_reads= and repeatable=. What does equal output in this one schedule tell you about the fixture? What remains to demonstrate about repeated reads?
 
 ### References and help
 
@@ -290,11 +294,13 @@ No. The isolation contract concerns the visibility and ordering of complete oper
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/isolation-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=isolation-3
+make example EXAMPLE=isolation-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

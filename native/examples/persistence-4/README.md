@@ -191,16 +191,18 @@ The caller that owns it. The pager borrows the FILE rather than taking ownership
 
 </details>
 
-**Try:** Add open/close functions with explicit ownership and tests for partial-page files and I/O failures.
+**Try:** Edit the example in your native checkout. In native/examples/persistence-4/main.c, replace page[0] = 9; with page[0] = 17;. Repeat the terminal command and compare gap_rejected=, valid=, and marker=. Why does the rejected write to page 2 leave page 0 writable?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-4
+make example EXAMPLE=persistence-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

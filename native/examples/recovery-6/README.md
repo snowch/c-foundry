@@ -100,16 +100,18 @@ No. The two stores have different owners, data, and failure contracts.
 
 </details>
 
-**Try:** Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/6). In main.c, change the value 7 in the SET_REC call to 12. Run code and compare before_commit= and after_commit=. This replays a prepared log in memory. Which prefix contains the record that publishes the change?
 
 ### References and help
 
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 - [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 
-Run from the repository root:
+Native source: `native/examples/recovery-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-6
+make example EXAMPLE=recovery-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

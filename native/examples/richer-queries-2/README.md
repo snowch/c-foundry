@@ -55,16 +55,18 @@ The values are heavily skewed. The distribution assumption disagrees with the st
 
 </details>
 
-**Try:** Collect a bounded histogram from a consistent snapshot and compare planner decisions before and after a skewed update workload.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/richer-queries/2). In main.c, replace two of the seven 1s in scores with 9s and run. Compare uniform=, histogram=, and actual=. Which estimate can reflect the changed frequency of 1?
 
 ### References and help
 
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 - [SQLite C interface: prepared statements](https://www.sqlite.org/c3ref/prepare.html) — Read preparation and statement lifecycle contracts; these are design comparisons, not TinyDB APIs.
 
-Run from the repository root:
+Native source: `native/examples/richer-queries-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=richer-queries-2
+make example EXAMPLE=richer-queries-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

@@ -65,16 +65,20 @@ Only after OK. The status determines whether the returned owner was established.
 
 </details>
 
-**Try:** Implement the native record-store project and test its failure and cleanup paths.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/5). In main.c, change the first argument of copy_name from "Ada" to "Grace". Choose Run code and compare the first line with bad input=. Which call uses the success path that must free name?
+
+**Extend the example:** The chapter overview links the native record-store project. Its editable implementation and independent checks extend this example into a multi-file contract.
 
 ### References and help
 
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/larger-programs-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=larger-programs-5
+make example EXAMPLE=larger-programs-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

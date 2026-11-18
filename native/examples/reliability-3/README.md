@@ -359,7 +359,9 @@ Minimize it and retain it as a deterministic regression. A preserved fixture pre
 
 </details>
 
-**Try:** Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/reliability/3). In main.c, change the SET_REC value and the matching complete-prefix expected value from 42 to 17. Run code and compare recovery_prefixes=, parser_cases=, and short_records=. Which prefix checks the changed committed payload while the other fixtures remain independent?
+
+**Extend the example:** The repository’s native release tests also accept make check-examples SANITIZE=1 and make check-examples CC=clang. Use those runs to design and document a separate release suite for your own project.
 
 ### References and help
 
@@ -374,9 +376,11 @@ It can check reachability, ordering, ownership, page relationships, and other re
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/reliability-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=reliability-3
+make example EXAMPLE=reliability-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

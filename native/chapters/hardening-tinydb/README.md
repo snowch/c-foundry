@@ -60,18 +60,20 @@ Before multiplying. An overflowed size may request a small allocation and later 
 
 </details>
 
-**Try:** Audit every size calculation in the pager, index, parser, and vector with a stated maximum.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/1). In main.c, change count from SIZE_MAX to 8. Run code and compare oversize_rejected=. Which part of the division-based bound lets the smaller request pass without first multiplying?
 
 ### References and help
 
 - [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 
-Run from the repository root:
+Native source: `native/examples/hardening-tinydb-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hardening-tinydb-1
+make example EXAMPLE=hardening-tinydb-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 34.2 Versioning the database format
 
@@ -253,18 +255,20 @@ The previous state remains. The loader commits its temporary state only after fu
 
 </details>
 
-**Try:** Add version fixtures to your release suite and document the intended upgrade and downgrade policy.
+**Try:** Edit the example in your native checkout. In native/examples/hardening-tinydb-2/main.c, change the version byte in header from 99 to 2. Repeat the terminal run. What do rejected= and retained= say about the previously live row after an unknown version?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/hardening-tinydb-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hardening-tinydb-2
+make example EXAMPLE=hardening-tinydb-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 34.3 Multiple compilers and warning settings
 
@@ -432,18 +436,20 @@ No. Undiagnosed undefined behavior remains possible.
 
 </details>
 
-**Try:** Run python3 tools/check_portability.py --compiler gcc, inspect all four Actions matrix entries, and distinguish compiler diagnostics from operating-system coverage.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/3). With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at the root of your native checkout, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?
 
 ### References and help
 
 - [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
 - [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
 
-Run from the repository root:
+Native source: `native/examples/hardening-tinydb-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hardening-tinydb-3
+make example EXAMPLE=hardening-tinydb-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 34.4 Sanitizers and portability checks
 
@@ -610,7 +616,7 @@ No selected violation was detected on exercised paths. The scope is the actual i
 
 </details>
 
-**Try:** Run this example with SANITIZE=1, then add short inputs at every length below the full record size.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/4). In main.c, change unsigned char bytes[3] to bytes[7], leaving its bytes zero. Run code and compare short_rejected= and output_preserved=. The native example command also accepts SANITIZE=1 for memory diagnostics. Why can a short input preserve the output on both runs?
 
 ### References and help
 
@@ -625,11 +631,13 @@ No. Instrumentation checks selected classes of behavior in executed paths. Read 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/hardening-tinydb-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hardening-tinydb-4
+make example EXAMPLE=hardening-tinydb-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 34.5 Audit and exchange TinyDB files across platforms
 
@@ -837,7 +845,7 @@ Every tested host validates and copies files from all producers against an indep
 
 </details>
 
-**Try:** Run the audit, extend its assumptions table, and design a separately tested replacement interface for your target OS. Add failure injection before claiming stronger publication guarantees.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/5). In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability in a native checkout to validate independent fixtures.
 
 ### References and help
 
@@ -845,11 +853,13 @@ Every tested host validates and copies files from all producers against an indep
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
 
-Run from the repository root:
+Native source: `native/examples/hardening-tinydb-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hardening-tinydb-5
+make example EXAMPLE=hardening-tinydb-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

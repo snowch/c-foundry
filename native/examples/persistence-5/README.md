@@ -6,9 +6,9 @@ Complete native example, ready to edit and run in Codespaces or locally.
 
 A browser compiler’s virtual files are temporary unless explicitly transferred to persistent browser storage or exported to the user.
 
-Also editable and runnable inline in the browser course. This example uses the browser’s temporary virtual files. Use CLI to keep and download program files, or use the native command below.
+Also editable and runnable inline in the browser course. Inline runs use temporary files. Open the command workspace from Editor tools to keep a database between runs.
 
-This transfer tool writes people.tdb and loads it back through the validated decoder. Run it inline to inspect the round trip; those files last for this run only. To keep the generated file in the browser, choose CLI, run the suggested cc command, then run `./program`. Download people.tdb from the workspace file list. Run `./program import people.tdb` to test import. With a native toolchain, KEEP_FILES=1 retains the named artifact under .build/files/persistence-5. The page also supplies a matching sample file. Browser drafts and lesson marks are separate from database-file persistence; downloading a file does not establish transaction durability.
+This tool writes people.tdb and reads it back with the decoder. The inline run uses temporary files. The command workspace keeps files between runs, separately from lesson drafts and progress. Its Files list lets you download a copy. The native alternative can keep the named file when run with KEEP_FILES=1.
 
 ### main.c
 
@@ -177,7 +177,7 @@ exported=1 imported=1 rows=2
 
 The default run exports and reimports two rows. The optional import argument loads an external file and prints its validated contents; no raw struct casts are used.
 
-**Watch for:** Do not claim that the page’s current Wasm runner automatically persists its filesystem across executions.
+**Watch for:** Use the round-trip result to check this small format fixture. A successfully decoded file leaves crash durability and transaction guarantees to separate tests.
 
 **Check:** Does compiling in a browser automatically persist program files?
 
@@ -190,16 +190,18 @@ No. The runtime resets its virtual filesystem; a host transfer/storage step is s
 
 </details>
 
-**Try:** Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Codespaces.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/5). In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Run the prepared cc command. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-5 KEEP_FILES=1
+make example EXAMPLE=persistence-5 KEEP_FILES=1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

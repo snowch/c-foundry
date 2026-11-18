@@ -107,6 +107,6 @@ int main(void) {
   run_queue(&count, &sum);
   if (count != WORK_ITEMS || sum != 36)
     return 1;
-  printf("capacity=%d exactly_once=%u\n", WORK_CAP, count);
+  printf("capacity=%d received_count=%u\n", WORK_CAP, count);
   return 0;
 }

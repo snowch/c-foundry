@@ -73,7 +73,7 @@ No. Another transaction may commit between statements after each lock is release
 
 </details>
 
-**Try:** Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/isolation/3). In main.c, change compare_commit(&db, 1, 20) to compare_commit(&db, 1, 10). Run code and compare statement_reads= and repeatable=. What does equal output in this one schedule tell you about the fixture? What remains to demonstrate about repeated reads?
 
 ### References and help
 
@@ -87,9 +87,11 @@ No. The isolation contract concerns the visibility and ordering of complete oper
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/isolation-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=isolation-3
+make example EXAMPLE=isolation-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

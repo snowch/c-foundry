@@ -87,16 +87,18 @@ The total processed requests. Correctness is deterministic even when the schedul
 
 </details>
 
-**Try:** Record wait distributions and request latency under several client counts while preserving per-request correctness checks.
+**Try:** Edit the example in your native checkout. In native/examples/reliability-1/main.c, change the worker array and both loop bounds from 4 to 2 and change the expected processed count from 4000 to 2000. Repeat the terminal run. Compare requests= and wait_count_bounded=. Which scheduling quantities can vary while the request count remains deterministic?
 
 ### References and help
 
 - [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 
-Run from the repository root:
+Native source: `native/examples/reliability-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=reliability-1
+make example EXAMPLE=reliability-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

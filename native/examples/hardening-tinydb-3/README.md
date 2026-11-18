@@ -168,16 +168,18 @@ No. Undiagnosed undefined behavior remains possible.
 
 </details>
 
-**Try:** Run python3 tools/check_portability.py --compiler gcc, inspect all four Actions matrix entries, and distinguish compiler diagnostics from operating-system coverage.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/3). With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at the root of your native checkout, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?
 
 ### References and help
 
 - [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
 - [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
 
-Run from the repository root:
+Native source: `native/examples/hardening-tinydb-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hardening-tinydb-3
+make example EXAMPLE=hardening-tinydb-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

@@ -253,16 +253,18 @@ Parsing, validation, and execution/storage. The observed result depends on the c
 
 </details>
 
-**Try:** Add tests for each supported statement and maintain a table of intentionally unsupported syntax.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/ship/1). In main.c, change Ada’s score from 90 to 95 in the INSERT text. Run code and compare the selected row and SQL contract passed. Which unsupported command continues to be rejected?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
 
-Run from the repository root:
+Native source: `native/examples/ship-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-1
+make example EXAMPLE=ship-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

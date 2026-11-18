@@ -173,16 +173,18 @@ A separate verified new-format file. The old valid state should remain available
 
 </details>
 
-**Try:** Publish a format document with offsets, ranges, validation, version policy, and independently specified sample bytes.
+**Try:** Edit the example in your native checkout. In native/examples/ship-6/main.c, change the version byte in header from 2 to 3. Repeat the terminal command. Does the fixture still reject it? Which byte identifies the version rather than record width?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/ship-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-6
+make example EXAMPLE=ship-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

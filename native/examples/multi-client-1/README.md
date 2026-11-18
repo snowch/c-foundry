@@ -152,16 +152,18 @@ Successful admission order. The queue’s protected enqueue operation provides t
 
 </details>
 
-**Try:** Add session/request IDs, copy-out responses, and tests that every response matches one accepted request.
+**Try:** Edit the example in your native checkout. In native/examples/multi-client-1/main.c, reduce WORK_ITEMS from 8 to 6. Repeat the terminal run. Compare scheduled= and owner_total=. What evidence would let a caller match each response with its own request?
 
 ### References and help
 
 - [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 
-Run from the repository root:
+Native source: `native/examples/multi-client-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=multi-client-1
+make example EXAMPLE=multi-client-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

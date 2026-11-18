@@ -167,7 +167,7 @@ No selected violation was detected on exercised paths. The scope is the actual i
 
 </details>
 
-**Try:** Run this example with SANITIZE=1, then add short inputs at every length below the full record size.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/4). In main.c, change unsigned char bytes[3] to bytes[7], leaving its bytes zero. Run code and compare short_rejected= and output_preserved=. The native example command also accepts SANITIZE=1 for memory diagnostics. Why can a short input preserve the output on both runs?
 
 ### References and help
 
@@ -182,9 +182,11 @@ No. Instrumentation checks selected classes of behavior in executed paths. Read 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/hardening-tinydb-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hardening-tinydb-4
+make example EXAMPLE=hardening-tinydb-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

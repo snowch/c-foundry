@@ -57,18 +57,20 @@ The compiler invocation and supported mode. A .c file can be compiled under seve
 
 </details>
 
-**Try:** Run make standards-matrix and record actual accepted modes and diagnostics for both toolchains.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/1). After the browser run, open a native terminal at the repository root and run make standards-matrix. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?
 
 ### References and help
 
 - [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
 - [GCC manual: C dialect options](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html) — Check -std modes and distinguish standard language facilities from GNU extensions.
 
-Run from the repository root:
+Native source: `native/examples/standards-evolution-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=standards-evolution-1
+make example EXAMPLE=standards-evolution-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 31.2 Language standards versus compiler extensions
 
@@ -121,18 +123,20 @@ A guarded interface with a documented fallback or requirement. Centralizing the 
 
 </details>
 
-**Try:** Compile with -Wpedantic -Werror, then write a feature probe that checks the exact extension your project needs.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/2). In main.c, change >= 64 to >= 128 in both branches and wide_at_least64= to wide_at_least128=. Run code. Compare the browser flag with a native run of the same edit. Which branch can supply a 128-bit type?
 
 ### References and help
 
 - [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
 - [GCC manual: C dialect options](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html) — Check -std modes and distinguish standard language facilities from GNU extensions.
 
-Run from the repository root:
+Native source: `native/examples/standards-evolution-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=standards-evolution-2
+make example EXAMPLE=standards-evolution-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 31.3 Choosing a baseline and checking feature support
 
@@ -190,7 +194,7 @@ A compile/link probe of that actual facility. Language and library support can v
 
 </details>
 
-**Try:** Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/3). In main.c, change the fallback message from mode=C17 fallback_selected to mode=pre-C23 fallback_selected. Run code. Which condition selects the fallback? Use make standards-matrix in your native checkout to see accepted modes separately from feature support.
 
 ### References and help
 
@@ -205,11 +209,13 @@ No. Check the compiler’s documented mode and probe the exact language/library 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/standards-evolution-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=standards-evolution-3
+make example EXAMPLE=standards-evolution-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

@@ -208,7 +208,7 @@ Every tested host validates and copies files from all producers against an indep
 
 </details>
 
-**Try:** Run the audit, extend its assumptions table, and design a separately tested replacement interface for your target OS. Add failure injection before claiming stronger publication guarantees.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/5). In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability in a native checkout to validate independent fixtures.
 
 ### References and help
 
@@ -216,9 +216,11 @@ Every tested host validates and copies files from all producers against an indep
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
 
-Run from the repository root:
+Native source: `native/examples/hardening-tinydb-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hardening-tinydb-5
+make example EXAMPLE=hardening-tinydb-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

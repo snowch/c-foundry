@@ -99,7 +99,9 @@ After the covering checkpoint is durably published. Recovery needs at least one 
 
 </details>
 
-**Try:** Use KEEP_FILES=1 to inspect the artifacts, then inject failure after each protocol step and verify a valid recovery source remains.
+**Try:** Edit the example in your native checkout. In native/examples/maintenance-2/main.c, change snapshot[12] from 10 to 17 and update the checkpoint= value printed in puts. Repeat the terminal command, which retains checkpoint.db and wal.log. Compare checkpoint=, applied_lsn=, and wal_truncated=, then use wc -c on those files in the displayed directory. Which file still carries the checkpoint?
+
+**Extend the example:** For a separate fault-injection project, list each write, sync, rename, and truncation boundary. At each injected failure, check which file is a valid recovery source.
 
 ### References and help
 
@@ -114,9 +116,11 @@ A checkpoint transfers eligible log changes toward the main database representat
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/maintenance-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=maintenance-2 KEEP_FILES=1
+make example EXAMPLE=maintenance-2 KEEP_FILES=1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

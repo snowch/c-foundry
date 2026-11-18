@@ -170,16 +170,18 @@ No. Ownership remains until the resource is released.
 
 </details>
 
-**Try:** Enumerate every exit path in the pager, parser, and index; inject failures at each acquired resource boundary.
+**Try:** Edit the example in your native checkout. In native/examples/ship-5/main.c, add insert_row(&source, (Row){2, "Grace", 80}); before save. Repeat the terminal command. Which evidence shows the reopened fixture has two rows and the stream closed?
 
 ### References and help
 
 - [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 - [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
 
-Run from the repository root:
+Native source: `native/examples/ship-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-5
+make example EXAMPLE=ship-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

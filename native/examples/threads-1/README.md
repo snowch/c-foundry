@@ -78,16 +78,18 @@ No. Joined results establish completed work, not simultaneous scheduling.
 
 </details>
 
-**Try:** Compare sequential and threaded versions on a larger verified workload without assuming a speedup.
+**Try:** Edit the example in your native checkout. In native/examples/threads-1/main.c, change .input by assigning jobs[i] = (Job){i + 2, 0}; instead of the existing i + 1 initializer. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?
 
 ### References and help
 
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 - [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
 
-Run from the repository root:
+Native source: `native/examples/threads-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=threads-1
+make example EXAMPLE=threads-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

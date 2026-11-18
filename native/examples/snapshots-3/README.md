@@ -82,16 +82,18 @@ No. That reader still requires the value visible before deletion time three.
 
 </details>
 
-**Try:** Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/3). In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. When does the modeled horizon make the old version unnecessary?
 
 ### References and help
 
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 - [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 
-Run from the repository root:
+Native source: `native/examples/snapshots-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=snapshots-3
+make example EXAMPLE=snapshots-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

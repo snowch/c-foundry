@@ -67,18 +67,20 @@ The most recently pushed item. LIFO is the defining removal order.
 
 </details>
 
-**Try:** Wrap this fixture in checked push and pop functions and test all empty/full boundaries.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/queues/1). In main.c, add stack[count++] = 30; just before out = stack[--count];. Run code and compare popped= and remaining=. Why does 30 leave first even though it arrived last?
 
 ### References and help
 
 - [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) — Check FIFO behavior separately from implementation and capacity policy.
 - [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
 
-Run from the repository root:
+Native source: `native/examples/queues-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=queues-1
+make example EXAMPLE=queues-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 17.2 Circular buffers
 
@@ -163,7 +165,7 @@ The count field. Both states may have the same head and tail positions.
 
 </details>
 
-**Try:** Print physical indices while wrapping, then compare them with the logical output order.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/queues/2). In main.c, replace the final push value 5 with 9. Run code and read the logical order. Which slot changes its value, and why does wraparound leave the order of the other values intact?
 
 ### References and help
 
@@ -177,11 +179,13 @@ No. FIFO describes removal order. A bounded implementation must separately speci
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/queues-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=queues-2
+make example EXAMPLE=queues-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 17.3 Overflow, underflow, and resizing
 
@@ -255,17 +259,19 @@ Leave it unchanged. The capacity invariant must remain true when the operation r
 
 </details>
 
-**Try:** Implement resize with failure preservation and verify FIFO order across a wrapped resize.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/queues/3). In main.c, change the fill loop from i < 4 to i < 3, leaving push(&q, 8) unchanged. Run code. Which of empty_ok=, output=, full_ok=, and count= changes when the final push has room?
 
 ### References and help
 
 - [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) — Check FIFO behavior separately from implementation and capacity policy.
 
-Run from the repository root:
+Native source: `native/examples/queues-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=queues-3
+make example EXAMPLE=queues-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 17.4 Bracket matching
 
@@ -330,17 +336,19 @@ The first close does not match the most recent open. The top is [ when ) arrives
 
 </details>
 
-**Try:** Test empty input, a lone closing bracket, an unfinished open, and nesting beyond capacity.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/queues/4). In main.c, replace ([)] in the second balanced call with [()] and run. Compare crossed= with the starter. Which closing bracket matches the most recent unmatched opener in the new case?
 
 ### References and help
 
 - [NIST DADS: stacks](https://xlinux.nist.gov/dads/HTML/stack.html) — Check LIFO behavior and how it differs from a FIFO queue.
 
-Run from the repository root:
+Native source: `native/examples/queues-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=queues-4
+make example EXAMPLE=queues-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 17.5 Expression evaluation
 
@@ -419,17 +427,19 @@ The right operand. The left operand was pushed earlier and lies below the right.
 
 </details>
 
-**Try:** Extend tokenization to multi-digit integers and add checked arithmetic and division-by-zero handling.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/queues/5). In main.c, change the expression 8 3 - 2 + to 8 3 - 2 -. Run code. Which two values feed the last subtraction, and how does their order determine result=?
 
 ### References and help
 
 - [NIST DADS: stacks](https://xlinux.nist.gov/dads/HTML/stack.html) — Check LIFO behavior and how it differs from a FIFO queue.
 
-Run from the repository root:
+Native source: `native/examples/queues-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=queues-5
+make example EXAMPLE=queues-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

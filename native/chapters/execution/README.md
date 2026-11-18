@@ -109,18 +109,20 @@ The initialized row count. Unused capacity is reserved storage, not query input.
 
 </details>
 
-**Try:** Implement a cursor with next and exhausted results, including an empty table.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/execution/1). In main.c, swap the first and last insert_row calls. Run code and compare the row order. Is the scan ordered by keys or by the table’s current storage order?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
-Run from the repository root:
+Native source: `native/examples/execution-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=execution-1
+make example EXAMPLE=execution-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 24.2 Filtering with WHERE
 
@@ -229,18 +231,20 @@ No. This operator must inspect the predicate for every scanned row.
 
 </details>
 
-**Try:** Add equality and range predicates and compare result sets with a simple reference loop.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/execution/2). In main.c, change t.rows[i].score >= 90 to t.rows[i].score >= 80. Run code and compare the names, examined=, and matched=. Does matching more rows make this scan visit more rows?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
-Run from the repository root:
+Native source: `native/examples/execution-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=execution-2
+make example EXAMPLE=execution-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 24.3 Selecting columns
 
@@ -342,18 +346,20 @@ No. It controls the result representation, not the underlying row schema.
 
 </details>
 
-**Try:** Represent the selected columns as an enum array and reject unknown or repeated columns according to a stated policy.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/execution/3). In main.c, replace the id argument to printf with (unsigned)t.rows[i].score, leaving the %u format and name unchanged. Run code and compare the two displayed columns. Which data stays in the table even when its column is omitted?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
-Run from the repository root:
+Native source: `native/examples/execution-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=execution-3
+make example EXAMPLE=execution-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 24.4 Ordering and limiting results
 
@@ -463,7 +469,7 @@ Establish score order, then choose two rows. The limit applies to the ordered re
 
 </details>
 
-**Try:** Implement top-k with a heap and compare it against this full-sort baseline.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/execution/4). In main.c, change i < 2 to i < 3 in the display loop. Run code and compare all displayed names and scores. Which ordering rule keeps the tied score rows in this order?
 
 ### References and help
 
@@ -471,11 +477,13 @@ Establish score order, then choose two rows. The limit applies to the ordered re
 - [C reference: qsort](https://en.cppreference.com/w/c/algorithm/qsort.html) — Check comparator results, element widths, and the absence of a stability guarantee.
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
-Run from the repository root:
+Native source: `native/examples/execution-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=execution-4
+make example EXAMPLE=execution-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 24.5 Simple aggregation
 
@@ -578,7 +586,7 @@ When the input count is nonzero. Empty input requires a separate result policy.
 
 </details>
 
-**Try:** Add min and max with explicit no-value results for empty input and test maximum score values.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/execution/5). In main.c, replace Ken’s score of 90 with 100. Run code and compare count=, sum=, and average=. Which two change, and why can the remaining quantity stay fixed?
 
 ### References and help
 
@@ -593,11 +601,13 @@ No. Read the reference’s ORDER BY contract. A current scan order is an impleme
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/execution-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=execution-5
+make example EXAMPLE=execution-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 24.6 Separating parsing, validation, and execution
 
@@ -855,18 +865,20 @@ Execution after successful parsing and validation. Malformed or invalid statemen
 
 </details>
 
-**Try:** Extend the grammar with one earlier operator, add end-to-end tests, and preserve all existing rejection behavior.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/execution/6). In main.c, change the SELECT filter from id = 1 to id = 2. Run code and compare the printed result rows and rows=. What shows that a valid query can return nothing without removing the stored row?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
-Run from the repository root:
+Native source: `native/examples/execution-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=execution-6
+make example EXAMPLE=execution-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

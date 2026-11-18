@@ -97,15 +97,17 @@ bool keyword(Lexer *l, const char *word) {
 int main(void) {
   Lexer l = {"SELECT * FROM people;", {0}, 0};
   Token token;
-  unsigned words = 0, punctuation = 0;
+  unsigned words = 0, numbers = 0, punctuation = 0;
   while ((token = next(&l)) != END) {
     if (token == BAD)
       return 1;
     if (token == WORD)
       ++words;
-    else
+    else if (token == NUMBER)
+      ++numbers;
+    else if (token != STRING)
       ++punctuation;
   }
-  printf("words=%u punctuation=%u\n", words, punctuation);
+  printf("words=%u numbers=%u punctuation=%u\n", words, numbers, punctuation);
   return 0;
 }

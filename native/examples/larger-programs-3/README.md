@@ -56,7 +56,7 @@ No. It prevents repetition within one translation unit; separate translation uni
 
 </details>
 
-**Try:** Change the default factor, then inspect the preprocessed source with gcc -E main.c in the example folder.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/3). Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect the expanded source in a native checkout, change into native/examples/larger-programs-3 and run gcc -E main.c.
 
 ### References and help
 
@@ -71,9 +71,11 @@ No. It prevents repeated inclusion within a translation unit. Each source file i
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/larger-programs-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=larger-programs-3
+make example EXAMPLE=larger-programs-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

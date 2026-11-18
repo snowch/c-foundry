@@ -49,16 +49,18 @@ The compiler invocation and supported mode. A .c file can be compiled under seve
 
 </details>
 
-**Try:** Run make standards-matrix and record actual accepted modes and diagnostics for both toolchains.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/1). After the browser run, open a native terminal at the repository root and run make standards-matrix. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?
 
 ### References and help
 
 - [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
 - [GCC manual: C dialect options](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html) — Check -std modes and distinguish standard language facilities from GNU extensions.
 
-Run from the repository root:
+Native source: `native/examples/standards-evolution-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=standards-evolution-1
+make example EXAMPLE=standards-evolution-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

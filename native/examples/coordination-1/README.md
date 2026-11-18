@@ -152,7 +152,7 @@ The predicate may still be false. A wake is permission to re-evaluate state unde
 
 </details>
 
-**Try:** Add two consumers and verify exactly-once consumption with a protected item-count reference.
+**Try:** Edit the example in your native checkout. In native/examples/coordination-1/main.c, change WORK_CAP from 4 to 2. Repeat the terminal run and compare received= and sum=. Which condition can force the producer to wait while the work completed stays the same?
 
 ### References and help
 
@@ -167,9 +167,11 @@ A wakeup does not establish that the desired state currently holds. Recheck the 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/coordination-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=coordination-1
+make example EXAMPLE=coordination-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

@@ -118,17 +118,19 @@ When the BST ordering invariant holds. The left and right subtree key constraint
 
 </details>
 
-**Try:** Print preorder and postorder for the same tree, then explain a use for each order.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/trees-heaps/1). In main.c, change the root key from 2 to 7 while leaving both children fixed. Run code. Where does 7 appear in the inorder sequence, and why does traversal alone leave an arbitrary tree’s keys unsorted?
 
 ### References and help
 
 - [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
-Run from the repository root:
+Native source: `native/examples/trees-heaps-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=trees-heaps-1
+make example EXAMPLE=trees-heaps-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 19.2 Binary search trees
 
@@ -246,17 +248,19 @@ Tree height. Each step follows one level of the tree.
 
 </details>
 
-**Try:** Implement deletion for a leaf and a one-child node before handling the two-child case.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/trees-heaps/2). In main.c, change find(&root, 7) to find(&root, 2) in the missing= expression. Run code. How does the boolean change when the root itself matches?
 
 ### References and help
 
 - [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
-Run from the repository root:
+Native source: `native/examples/trees-heaps-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=trees-heaps-2
+make example EXAMPLE=trees-heaps-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 19.3 Why balancing matters
 
@@ -369,7 +373,7 @@ Yes, their shapes may differ. Ordering constrains key placement relative to ance
 
 </details>
 
-**Try:** Build a naive BST from ascending keys and count comparisons for the final key.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/trees-heaps/3). In main.c, add printf("subchain_height=%d\n", height(&middle)); before return. Run code and compare subchain_height= with chain_height= and balanced_height=. What does height count, and can the same height describe different shapes?
 
 ### References and help
 
@@ -383,11 +387,13 @@ Its height can become linear in the number of nodes, and a search may visit that
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/trees-heaps-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=trees-heaps-3
+make example EXAMPLE=trees-heaps-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 19.4 Rotations and a balanced-tree implementation
 
@@ -501,17 +507,19 @@ The inorder key sequence. Reparenting is the mechanism; ordering is the preserve
 
 </details>
 
-**Try:** Exercise all four AVL imbalance cases and check both inorder output and every stored height.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/trees-heaps/4). In main.c, change nodes’ key order from 3, 1, 2 to 1, 2, 3, retaining the other fields. Run code. Compare root=, height=, and order=. Can different insertion orders produce the same final tree?
 
 ### References and help
 
 - [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
-Run from the repository root:
+Native source: `native/examples/trees-heaps-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=trees-heaps-4
+make example EXAMPLE=trees-heaps-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 19.5 Binary heaps and priority queues
 
@@ -607,17 +615,19 @@ The root. Only the ancestor-to-descendant ordering invariant is required.
 
 </details>
 
-**Try:** Test duplicates, an empty heap, full capacity, and alternating insertions and removals.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/trees-heaps/5). In main.c, replace heap_push(&h, 5) with heap_push(&h, 2). Run code. Does each of the two equal priorities appear in the removal sequence?
 
 ### References and help
 
 - [NIST DADS: binary heaps](https://xlinux.nist.gov/dads/HTML/binaryheap.html) — Read the heap-order and complete-tree properties used by a priority queue.
 
-Run from the repository root:
+Native source: `native/examples/trees-heaps-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=trees-heaps-5
+make example EXAMPLE=trees-heaps-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 19.6 A task scheduler
 
@@ -715,17 +725,19 @@ No. It implements the ordering rule, which may permit starvation.
 
 </details>
 
-**Try:** Replace encoded integers with a Task struct and comparator, then add an explicit fairness policy.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/trees-heaps/6). In main.c, insert heap_push(&h, 10); before the removal loop. Run code. Compare priority= and sequence= for tasks with priority 1. How does the encoded sequence break the tie?
 
 ### References and help
 
 - [NIST DADS: binary heaps](https://xlinux.nist.gov/dads/HTML/binaryheap.html) — Read the heap-order and complete-tree properties used by a priority queue.
 
-Run from the repository root:
+Native source: `native/examples/trees-heaps-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=trees-heaps-6
+make example EXAMPLE=trees-heaps-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

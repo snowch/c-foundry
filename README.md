@@ -22,7 +22,7 @@ A C, algorithms, and database course with **nine parts, 44 chapters, and 227 aut
 
 Ready chapter links open the first lesson directly. Contents expands the current part and highlights the current topic. Breadcrumbs, a chapter selector, and Previous/Next links support moving through lessons without repeatedly visiting overview pages. A sidebar is not permanently reserved on tablets.
 
-Portable examples mount the shared editor directly in their reading page with Run, Stop, Reset, Export, input, and console output. Drafts have stable per-example IDs. Multi-file examples have source-file buttons; Run compiles every source file together. Each file has its own saved draft. Export downloads the selected file; Reset restores all files. Native alternatives are collapsed below eligible examples, with repository commands and source links. Examples that require native facilities retain their launch controls. Expected output is an optional disclosure. Examples are not graded practice and do not automatically mark a lesson done. See the [part-by-part execution coverage](docs/browser-examples.md) for the remaining native requirements.
+Portable examples open their editor in the reading page. Choose **Run code** and inspect **Console**. **Input** supplies text before execution, and **Stop** appears during a run. Choose a source file by name in a multi-file lesson. Run code builds every C source together. **Editor tools** lets you export the selected file, restore the starter files and input, and recover a replaced draft. The original output is available for comparison. Mark lesson as done records reading progress separately from practice checks. Native-only examples give the repository command and source path, and eligible browser examples include their native alternative. See the [part-by-part execution coverage](docs/browser-examples.md) for the remaining native requirements.
 
 At each topic’s end, **Mark lesson as done** explicitly records reading completion; uncheck to undo. Following video-lab’s pattern, independent per-topic localStorage keys reconcile updates across tabs. Ticks appear in Contents, chapter outlines, and the selector, with chapter and part counts. Marks persist in this browser/device until site storage is cleared. Failed saves retain the choice for the session and explain the limitation. Earlier drafts and exercise output-check progress retain their original storage format.
 
@@ -43,7 +43,7 @@ SELECT COUNT(*) FROM people;
 
 TinyDB is a bundled C17 program, not a JavaScript SQL simulation. Its browser prompt invokes the C executable once per statement against the same file. It implements a single `people` table with unique positive uint32 IDs, 1–31 UTF-8 byte names, uint32 scores, 128 rows, INSERT/SELECT/UPDATE/DELETE/COUNT, optional ID filters, and case-insensitive SQL keywords. It uses autocommit and scans; indexes, transactions, concurrency, and crash recovery remain course models/project extensions. Its TDB1 format accepts the course sample; the earlier transfer lesson accepts at most eight rows, so it cannot import a larger CLI database.
 
-Files save independently in IndexedDB, survive reloads, and can be imported or downloaded byte-for-byte. A stale tab cannot overwrite a newer saved snapshot. Storage failures leave files available for download and report unsaved status. Clearing browser site data removes saved work. Lesson editor **CLI** copies the current draft into a unique source file. **Add TinyDB source** provides the same source used for the bundled binary, ready to edit and compile. Use `./tinydb` to invoke your own file with that name; bare `tinydb` selects the included program.
+Files save independently in IndexedDB, survive reloads, and can be imported or downloaded byte-for-byte. A stale tab cannot overwrite a newer saved snapshot. Storage failures leave files available for download and report unsaved status. Clearing browser site data removes saved work. In the lesson’s **Editor tools**, **Open in command workspace** copies the current draft into a unique source file. **Add TinyDB source** provides the same source used for the bundled binary, ready to edit and compile. Use `./tinydb` to invoke your own file with that name; bare `tinydb` selects the included program.
 
 `cc` supports multiple C sources and local headers with fixed C17 flags. Quoted arguments and preloaded stdin work; shell expansion, pipes, native Linux binaries, networking, and threads require Codespaces. Compatible binaries must target this runtime’s older `wasi_unstable` ABI. Limits are 32 files, 2 MB per file, 8 MB total, 256 KB per source, 100 KB output, and five seconds per program. Failed builds, traps, and Stop retain the previous files; normal exits (including nonzero status) commit file changes. This is a teaching workspace, not a crash-durable database service.
 
@@ -149,13 +149,13 @@ The dev container provides GCC 14.3, Clang 19, GDB, Make, Python, and Node 24. A
 ```sh
 make serve
 make chapter CHAPTER=hash-tables
-make example EXAMPLE=graphs-6
+make example EXAMPLE=graphs-6 RUN_ONLY=1
 make example EXAMPLE=atomics-3
 make example EXAMPLE=hardening-tinydb-4 SANITIZE=1
 make project PROJECT=record-store
 ```
 
-All 44 chapter workspace READMEs contain complete exported readings. Student browser exercise starters also have native copies under `native/exercises/`.
+Use `RUN_ONLY=1` with `make example` to print the edited program’s output. Omit that setting to compare the starter against its expected output. All 44 chapter workspace READMEs contain complete exported readings. Student browser exercise starters also have native copies under `native/exercises/`.
 
 ## Export and inspect files
 

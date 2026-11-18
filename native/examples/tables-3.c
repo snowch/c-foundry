@@ -60,8 +60,9 @@ int main(void) {
   for (unsigned i = 1; i <= TABLE_CAP; ++i)
     if (insert_row(&t, (Row){i, "row", 0}) != OK)
       return 1;
+  Status duplicate = insert_row(&t, (Row){1, "other", 0});
+  Status extra = insert_row(&t, (Row){99, "extra", 0});
   printf("duplicate=%d full=%d count=%zu\n",
-         insert_row(&t, (Row){1, "other", 0}) == DUPLICATE,
-         insert_row(&t, (Row){99, "extra", 0}) == FULL, t.count);
+         duplicate == DUPLICATE, extra == FULL, t.count);
   return 0;
 }

@@ -21,7 +21,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "The queue’s protected enqueue operation provides the ordering point.",
-        "tryit": "Add session/request IDs, copy-out responses, and tests that every response matches one accepted request.",
+        "tryit": "In native/examples/multi-client-1/main.c, reduce WORK_ITEMS from 8 to 6. Repeat the terminal run. Compare scheduled= and owner_total=. What evidence would let a caller match each response with its own request?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -42,7 +42,7 @@ window.PART_NINE = {
         ],
         "answer": 1,
         "why": "The transaction handle is associated with a session identity.",
-        "tryit": "Add disconnect rollback and reject stale requests from a session whose transaction has already ended.",
+        "tryit": "In main.c, change the tx_set value from 42 to 17. Run code. Compare other_rejected=, owner_committed=, and value=. Which session can publish the new value?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -63,7 +63,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "The client needs enough state to make a safe retry decision.",
-        "tryit": "Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.",
+        "tryit": "In native/examples/multi-client-3/main.c, change WORK_CAP from 4 to 2. Repeat the terminal run. Compare queue_bound= and processed=. Which limit governs admission at any instant, and which count covers the whole run?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -108,7 +108,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "The invariant spans both fields and needs one consistent observation interval.",
-        "tryit": "Define a lock hierarchy for accounts and tables, then measure contention with verified invariant checks.",
+        "tryit": "In native/examples/isolation-1/main.c, change Account account’s initial balances from 100, 0 to 90, 10. Repeat the terminal run. Why can consistent= and final_total= remain the same when the individual balances differ?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -129,7 +129,7 @@ window.PART_NINE = {
         ],
         "answer": 1,
         "why": "Another writer must not slip between validation and publication.",
-        "tryit": "Protect compare_commit with a lock, then test two sessions synchronized to read the same initial version.",
+        "tryit": "In main.c, assign second = db.version; before the second compare_commit, after the first call has returned. Split the declarations of a and b if needed. Run code and compare stale_rejected=, value=, and version=. Which version makes the second commit valid?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -150,7 +150,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "Another transaction may commit between statements after each lock is released.",
-        "tryit": "Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.",
+        "tryit": "In main.c, change compare_commit(&db, 1, 20) to compare_commit(&db, 1, 10). Run code and compare statement_reads= and repeatable=. What does equal output in this one schedule tell you about the fixture? What remains to demonstrate about repeated reads?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -195,7 +195,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "Its visibility boundary remains fixed rather than advancing between reads.",
-        "tryit": "Add a later committed version and verify that repeated reads at snapshot two remain unchanged.",
+        "tryit": "In main.c, change the second version’s value from 20 to 25. Run code and compare snapshot2= and snapshot3=. Which snapshot falls before the new version becomes visible?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -216,7 +216,7 @@ window.PART_NINE = {
         ],
         "answer": 1,
         "why": "Visibility, conflict rules, and transaction coordination jointly determine isolation.",
-        "tryit": "Add transaction-status metadata for tentative versions and reject their visibility until commit publication.",
+        "tryit": "In main.c, start the snapshot loop at 1 rather than 2. Run code and compare the three old= and new= rows. Which boundary first changes the visible version?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -237,7 +237,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "That reader still requires the value visible before deletion time three.",
-        "tryit": "Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.",
+        "tryit": "In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. When does the modeled horizon make the old version unnecessary?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -282,7 +282,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "A committed applied boundary identifies what the snapshot already contains.",
-        "tryit": "Serialize explicit LSNs with checksums and test missing, duplicated, reordered, and torn records.",
+        "tryit": "In main.c, change the SET_REC value for transaction 2 from 20 to 25, retaining the sequence numbers. Run code and compare value= and applied=. Which record publishes the new value, and what advances the applied checkpoint?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -303,10 +303,11 @@ window.PART_NINE = {
         ],
         "answer": 1,
         "why": "Recovery needs at least one complete surviving representation of every acknowledged change.",
-        "tryit": "Use KEEP_FILES=1 to inspect the artifacts, then inject failure after each protocol step and verify a valid recovery source remains.",
+        "tryit": "In native/examples/maintenance-2/main.c, change snapshot[12] from 10 to 17 and update the checkpoint= value printed in puts. Repeat the terminal command, which retains checkpoint.db and wal.log. Compare checkpoint=, applied_lsn=, and wal_truncated=, then use wc -c on those files in the displayed directory. Which file still carries the checkpoint?",
         "input": "",
         "runtime": "native",
-        "command": "make example EXAMPLE=maintenance-2 KEEP_FILES=1"
+        "command": "make example EXAMPLE=maintenance-2 KEEP_FILES=1",
+        "extension": "For a separate fault-injection project, list each write, sync, rename, and truncation boundary. At each injected failure, check which file is a valid recovery source."
       },
       "3": {
         "intro": "Free-page reuse and compaction require a reachability and identity policy. An unlinked physical page may still be needed by a snapshot or recovery log.",
@@ -322,7 +323,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "Logical unlinking does not automatically end every reader or recovery dependency.",
-        "tryit": "Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.",
+        "tryit": "In main.c, remove bad.offset[b] = bad.offset[a]; and run. Compare valid= and overlap_rejected=. Why does a copied page without deliberate overlap pass the same integrity check?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -367,7 +368,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "Typed binding retains the query structure while validating values separately.",
-        "tryit": "Generalize preparation through the real parser, add parameter types and lifetime rules, and test composite-prefix queries.",
+        "tryit": "In main.c, change bind(&p, 1, 2) to bind(&p, 2, 1). Run code and compare prepared= with all join= lines. Which row changes when the known query’s two bound values change?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -388,7 +389,7 @@ window.PART_NINE = {
         ],
         "answer": 1,
         "why": "The distribution assumption disagrees with the stored data.",
-        "tryit": "Collect a bounded histogram from a consistent snapshot and compare planner decisions before and after a skewed update workload.",
+        "tryit": "In main.c, replace two of the seven 1s in scores with 9s and run. Compare uniform=, histogram=, and actual=. Which estimate can reflect the changed frequency of 1?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -409,12 +410,13 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "A faster plan that drops or duplicates rows is incorrect.",
-        "tryit": "Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.",
+        "tryit": "In main.c, replace the last query key 8 with 9 and run. Compare nested=, indexed=, and results=. What correctness evidence comes before interpreting the modeled comparison counts?",
         "input": "",
         "runtime": "native",
         "browser": {
           "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        },
+        "extension": "An index also has a build cost. A larger experiment can separately count comparisons to build the index and answer queries on the same dataset."
       }
     },
     "practicePlan": {
@@ -454,7 +456,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "Correctness is deterministic even when the schedule and contention metrics vary.",
-        "tryit": "Record wait distributions and request latency under several client counts while preserving per-request correctness checks.",
+        "tryit": "In native/examples/reliability-1/main.c, change the worker array and both loop bounds from 4 to 2 and change the expected processed count from 4000 to 2000. Repeat the terminal run. Compare requests= and wait_count_bounded=. Which scheduling quantities can vary while the request count remains deterministic?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -475,7 +477,7 @@ window.PART_NINE = {
         ],
         "answer": 1,
         "why": "It measures one possible cost component rather than the whole workload.",
-        "tryit": "Instrument your assembled database’s allocation sites and page reads, then benchmark verified workloads with and without pooling.",
+        "tryit": "In main.c, replace the final fetch(&c, 1) with fetch(&c, 3). Run code and compare individual_allocations=, pooled_allocations=, and cache_reads=. Which measure changes when only the last page request changes?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -496,12 +498,13 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "A preserved fixture prevents the same defect from quietly returning.",
-        "tryit": "Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
+        "tryit": "In main.c, change the SET_REC value and the matching complete-prefix expected value from 42 to 17. Run code and compare recovery_prefixes=, parser_cases=, and short_records=. Which prefix checks the changed committed payload while the other fixtures remain independent?",
         "input": "",
         "runtime": "native",
         "browser": {
           "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        },
+        "extension": "The repository’s native release tests also accept make check-examples SANITIZE=1 and make check-examples CC=clang. Use those runs to design and document a separate release suite for your own project."
       }
     },
     "practicePlan": {

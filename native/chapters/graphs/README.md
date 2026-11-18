@@ -113,7 +113,7 @@ An adjacency list. It stores actual edges rather than every possible pair.
 
 </details>
 
-**Try:** Represent the same graph as neighbor lists and compare neighbor-iteration work.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/graphs/1). In main.c, change edges[0][3] and edges[3][0] from 0 to 1 in the initializer. Run code. Compare vertices=, undirected_edges=, and matrix_cells=. Why does one new undirected edge use two entries but no extra cells?
 
 ### References and help
 
@@ -127,11 +127,13 @@ A full matrix has a position for every vertex pair, using quadratic space in the
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/graphs-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=graphs-1
+make example EXAMPLE=graphs-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 20.2 Breadth-first and depth-first search
 
@@ -230,17 +232,19 @@ When it is enqueued. Early marking prevents duplicate pending copies.
 
 </details>
 
-**Try:** Record parent and distance arrays, then reconstruct a minimum-edge path from zero to three.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/graphs/2). In main.c, call bfs(edges, 3) instead of bfs(edges, 0). Run code. Which vertex is printed first, and how does the queue order put vertices nearer to 3 ahead of more distant ones?
 
 ### References and help
 
 - [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
 
-Run from the repository root:
+Native source: `native/examples/graphs-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=graphs-2
+make example EXAMPLE=graphs-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 20.3 Connected components and cycle detection
 
@@ -338,17 +342,19 @@ An unseen vertex after earlier traversals finish. A completed traversal already 
 
 </details>
 
-**Try:** Add an isolated vertex in a larger fixed graph and implement parent-aware cycle detection.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/graphs/3). In main.c, join the two components by setting entries [1][2] and [2][1] to 1 in edges. Run code and compare components=. Which previously separate searches now meet?
 
 ### References and help
 
 - [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
 
-Run from the repository root:
+Native source: `native/examples/graphs-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=graphs-3
+make example EXAMPLE=graphs-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 20.4 Topological sorting
 
@@ -420,17 +426,19 @@ Fewer than V emitted vertices. A cycle retains positive indegrees after removabl
 
 </details>
 
-**Try:** Add an edge from three to zero and check that the algorithm rejects the graph.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/graphs/4). In main.c, put a 1 at column zero of the fourth matrix row to add edge 3 to 0. Run code and read acyclic=. Why is no full order possible once that edge closes the cycle?
 
 ### References and help
 
 - [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
 
-Run from the repository root:
+Native source: `native/examples/graphs-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=graphs-4
+make example EXAMPLE=graphs-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 20.5 Dijkstra’s shortest-path algorithm
 
@@ -523,17 +531,19 @@ No. A settled distance may later decrease through a negative edge, breaking the 
 
 </details>
 
-**Try:** Record predecessors and verify the reconstructed path’s cost against its edge weights.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/graphs/5). In main.c, raise the 1 at edges[0][1] to 6 and run. Inspect distances=. Why does the shortest path to vertex 2 now use the direct edge of cost 5?
 
 ### References and help
 
 - [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
 
-Run from the repository root:
+Native source: `native/examples/graphs-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=graphs-5
+make example EXAMPLE=graphs-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 20.6 Route finding with a priority queue
 
@@ -686,17 +696,21 @@ Its distance differs from the current best distance. A newer relaxation establis
 
 </details>
 
-**Try:** Replace matrix rows with adjacency lists and benchmark only after verifying route costs against the simpler implementation.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/graphs/6). In main.c, raise the 1 at edges[0][1] to 6 and run. Compare cost= and reverse_path=. Which earlier predecessor drops out of the reconstructed route?
+
+**Extend the example:** An adjacency list is a separate implementation. Track each vertex’s neighbours and compare shortest-path cost and reachability with the supplied matrix version before counting work.
 
 ### References and help
 
 - [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
 
-Run from the repository root:
+Native source: `native/examples/graphs-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=graphs-6
+make example EXAMPLE=graphs-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

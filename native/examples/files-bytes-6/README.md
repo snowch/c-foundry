@@ -81,16 +81,20 @@ Encoder and decoder could share the same mistake. A fixed independently defined 
 
 </details>
 
-**Try:** Implement the native binary-record project and explain every byte in its test fixture.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/6). In main.c, change Record original from {513, 90} to {514, 95}. Choose Run code and compare id=, score=, and bad version=. Which results depend on payload bytes and which depend on byte 2?
+
+**Extend the example:** Use the native binary-record project linked from the chapter overview to implement the format and verify its test fixture byte by byte.
 
 ### References and help
 
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-6
+make example EXAMPLE=files-bytes-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

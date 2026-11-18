@@ -135,16 +135,18 @@ No. Process memory can disappear without a persistent recovery protocol.
 
 </details>
 
-**Try:** Write a guarantee table for each ACID property and identify the mechanism or missing work for each.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/1). In main.c, change the tentative score from 1 to 50, leaving rollback(&tx) unchanged. Run code and compare after_rollback=. Which state did update_score edit, and which state does the printed value come from?
 
 ### References and help
 
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 - [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 
-Run from the repository root:
+Native source: `native/examples/recovery-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-1
+make example EXAMPLE=recovery-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

@@ -86,18 +86,20 @@ No. Joined results establish completed work, not simultaneous scheduling.
 
 </details>
 
-**Try:** Compare sequential and threaded versions on a larger verified workload without assuming a speedup.
+**Try:** Edit the example in your native checkout. In native/examples/threads-1/main.c, change .input by assigning jobs[i] = (Job){i + 2, 0}; instead of the existing i + 1 initializer. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?
 
 ### References and help
 
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 - [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
 
-Run from the repository root:
+Native source: `native/examples/threads-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=threads-1
+make example EXAMPLE=threads-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 35.2 Thread lifetimes and shared memory
 
@@ -168,7 +170,7 @@ After its worker has finished and been joined. Creation does not imply the worke
 
 </details>
 
-**Try:** Give each of several workers its own argument object and verify every result after joining.
+**Try:** Edit the example in your native checkout. In native/examples/threads-2/main.c, change the Job initializer’s input from 21 to 12. Repeat the terminal run. Find input= and result=. Which operation lets the owner read the worker’s completed result?
 
 ### References and help
 
@@ -183,11 +185,13 @@ No. The argument is a pointer value. The referenced storage needs a suitable lif
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/threads-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=threads-2
+make example EXAMPLE=threads-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 35.3 Data races and reproducible interleavings
 
@@ -278,18 +282,20 @@ The complete read-modify-write operation. Both workers must not base their commi
 
 </details>
 
-**Try:** Move the entire increment under one lock and verify final two; use ThreadSanitizer separately rather than relying on a data-race output.
+**Try:** Edit the example in your native checkout. In native/examples/threads-3/main.c, find stale_update. Remove the three lines that lock gate, read copy, and unlock gate before pthread_barrier_wait. In the remaining lock/unlock pair after the barrier, replace shared_value = copy + 1; with ++shared_value;. Repeat the terminal run. What changed in final= when both increments each hold the lock from read through write?
 
 ### References and help
 
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 - [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
 
-Run from the repository root:
+Native source: `native/examples/threads-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=threads-3
+make example EXAMPLE=threads-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

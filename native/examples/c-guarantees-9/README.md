@@ -65,16 +65,18 @@ isfinite(value). Self-equality excludes quiet NaN but still permits infinities; 
 
 </details>
 
-**Try:** Test inf, -inf, nan, 1e9999, empty input, and a valid prefix followed by junk. Confirm rejected parses preserve the output and report the intended error category.
+**Try:** Edit the example in your native checkout. In native/examples/c-guarantees-9/main.c, change the first parse_finite argument from "nan" to "inf" and rename nan_rejected= to inf_rejected=. Repeat the terminal run. Which fields show that the parser kept 7.0 after rejection and accepted the later finite value?
 
 ### References and help
 
 - [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
 - [C reference: strtof, strtod, strtold](https://en.cppreference.com/w/c/string/byte/strtof.html) — Check endptr, range errors, and acceptance of infinity/NaN before enforcing a finite-input policy.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-9/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-9
+make example EXAMPLE=c-guarantees-9 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

@@ -54,18 +54,20 @@ No. Pointer members are copied as values; the pointed-to allocation is not dupli
 
 </details>
 
-**Try:** Change a character in copy.name and confirm that row.name remains unchanged.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/structured-data/1). In main.c, insert copy.name[0] = 'E'; after copy.id = 2;. Choose Run code and compare the two rows. Did editing the copied array also edit row.name?
 
 ### References and help
 
 - [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
 - [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
 
-Run from the repository root:
+Native source: `native/examples/structured-data-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=structured-data-1
+make example EXAMPLE=structured-data-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 8.2 typedef, enums, and tagged unions
 
@@ -123,18 +125,20 @@ The tag. The program’s invariant associates each Kind value with an establishe
 
 </details>
 
-**Try:** Add a third enum case with a suitable payload and update every switch handling it.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/structured-data/2). In main.c, change value.data.text = "Ada"; to value.data.text = "Grace"; after assigning the TEXT tag. Choose Run code. Which of number= and text= changes, and which tag tells show how to read each value?
 
 ### References and help
 
 - [C reference: enumerations](https://en.cppreference.com/w/c/language/enum.html) — Check enumeration constants and how a tagged union can identify its active representation.
 - [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
 
-Run from the repository root:
+Native source: `native/examples/structured-data-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=structured-data-2
+make example EXAMPLE=structured-data-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 8.3 Padding, alignment, and sizeof
 
@@ -187,7 +191,7 @@ No. Padding can make the complete object larger.
 
 </details>
 
-**Try:** Reorder the fields and print actual sizes and offsets. Keep those observations separate from your file-format design.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/structured-data/3). In main.c, add printf("size=%zu offset=%zu alignment=%zu\n", sizeof(Row), offsetof(Row, count), _Alignof(int)); before return. Run code, then swap the two field declarations in Row and run again. Which size and position values change on this browser target?
 
 ### References and help
 
@@ -202,11 +206,13 @@ No. Members preserve their declared order, but an implementation may insert inte
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/structured-data-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=structured-data-3
+make example EXAMPLE=structured-data-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 8.4 Pointers to structs and linked objects
 
@@ -259,18 +265,20 @@ Before freeing the current node. Accessing a member requires the current node to
 
 </details>
 
-**Try:** Add a third node, update the sum, and ensure the same cleanup loop releases every allocation.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/structured-data/4). In main.c, change the second node’s .value from 2 to 20. Choose Run code and read sum=. Which dereference follows first->next, and where does the cleanup loop free that allocation?
 
 ### References and help
 
 - [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
 - [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
 
-Run from the repository root:
+Native source: `native/examples/structured-data-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=structured-data-4
+make example EXAMPLE=structured-data-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 8.5 An in-memory record collection
 
@@ -330,18 +338,20 @@ No. It designates an element inside an existing array, not an independently owne
 
 </details>
 
-**Try:** Implement the record-update project and test an absent ID and an overlong name.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/structured-data/5). In main.c, change find(rows, 2, 2) to find(rows, 2, 3). Choose Run code and read Grace’s score. Why is the original score still present when find returns NULL?
 
 ### References and help
 
 - [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
 - [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
 
-Run from the repository root:
+Native source: `native/examples/structured-data-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=structured-data-5
+make example EXAMPLE=structured-data-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 
