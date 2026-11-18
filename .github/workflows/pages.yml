@@ -83,7 +83,7 @@ jobs:
             os: ubuntu-latest
             compiler: clang
           - id: macos-clang
-            os: macos-latest
+            os: macos-15
             compiler: clang
           - id: windows-msvc
             os: windows-latest
@@ -118,7 +118,7 @@ jobs:
             os: ubuntu-latest
             compiler: clang
           - id: macos-clang
-            os: macos-latest
+            os: macos-15
             compiler: clang
           - id: windows-msvc
             os: windows-latest
