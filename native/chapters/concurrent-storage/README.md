@@ -68,18 +68,20 @@ No. They belong to distinct APIs and contracts.
 
 </details>
 
-**Try:** Wrap create/join behind a small project interface and add platform-specific adapters only where tested.
+**Try:** Edit the example in your native checkout. In native/examples/concurrent-storage-1/main.c, change return 42; in standard_worker to return 17;. Repeat the terminal run. Which join argument lets main observe the new joined_result=?
 
 ### References and help
 
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 - [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
 
-Run from the repository root:
+Native source: `native/examples/concurrent-storage-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=concurrent-storage-1
+make example EXAMPLE=concurrent-storage-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 38.2 A bounded work queue
 
@@ -231,18 +233,20 @@ Ownership on successful and failed enqueue. The asynchronous consumer may run af
 
 </details>
 
-**Try:** Replace integer requests with owned command objects and verify cleanup on rejected enqueue and successful processing.
+**Try:** Edit the example in your native checkout. In native/examples/concurrent-storage-2/main.c, change WORK_ITEMS from 8 to 6. Repeat the terminal run and compare accepted_and_drained= and total=. Which check would additionally distinguish duplicated request IDs from missing ones?
 
 ### References and help
 
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 - [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
 
-Run from the repository root:
+Native source: `native/examples/concurrent-storage-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=concurrent-storage-2
+make example EXAMPLE=concurrent-storage-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 38.3 A single writer processing requests
 
@@ -394,18 +398,20 @@ No. The request has not necessarily been processed or synchronized to storage.
 
 </details>
 
-**Try:** Add per-request responses with separate accepted, executed, and durable statuses, and document their wait boundaries.
+**Try:** Edit the example in your native checkout. In native/examples/concurrent-storage-3/main.c, change WORK_ITEMS from 8 to 6. Repeat the terminal run and compare writer_state= and processed=. Which result shows the owner executed the requests? The in-memory fixture supplies no durable acknowledgement.
 
 ### References and help
 
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 - [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
 
-Run from the repository root:
+Native source: `native/examples/concurrent-storage-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=concurrent-storage-3
+make example EXAMPLE=concurrent-storage-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 38.4 Shutdown, cancellation, and concurrency testing
 
@@ -553,7 +559,7 @@ After every accessing worker has finished. A woken or draining worker may still 
 
 </details>
 
-**Try:** Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks; run ThreadSanitizer where supported.
+**Try:** Edit the example in your native checkout. In native/examples/concurrent-storage-4/main.c, change run < 20 to run < 25 and update the success message to 25 start-drain-join cycles passed. Repeat the terminal run. Which count and sum are checked in every cycle, and which schedule properties would you need separate tests to cover?
 
 ### References and help
 
@@ -568,11 +574,13 @@ The shared objects, synchronization primitives, and storage they access. Signal 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/concurrent-storage-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=concurrent-storage-4
+make example EXAMPLE=concurrent-storage-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

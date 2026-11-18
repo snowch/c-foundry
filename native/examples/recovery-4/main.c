@@ -69,7 +69,7 @@ int main(void) {
     fclose(f);
     return 1;
   }
-  printf("durable_log_order_checked value=%u\n",
+  printf("sync_calls_succeeded value=%u\n",
          (unsigned)recover(bytes, sizeof bytes, 0));
   if (fclose(f) != 0)
     return 1;

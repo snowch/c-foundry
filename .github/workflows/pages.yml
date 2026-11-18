@@ -3,13 +3,15 @@ name: Test and deploy GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: github-pages
+  group: c-foundry-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -29,13 +31,16 @@ jobs:
       - name: Test interface and WebAssembly compiler
         run: npm test
       - name: Configure GitHub Pages
+        if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
       - name: Upload site
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: [test-and-package, native, portable-exchange]
     runs-on: ubuntu-latest
     timeout-minutes: 10

@@ -81,16 +81,20 @@ The query’s logical results. A faster plan that drops or duplicates rows is in
 
 </details>
 
-**Try:** Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/richer-queries/3). In main.c, replace the last query key 8 with 9 and run. Compare nested=, indexed=, and results=. What correctness evidence comes before interpreting the modeled comparison counts?
+
+**Extend the example:** An index also has a build cost. A larger experiment can separately count comparisons to build the index and answer queries on the same dataset.
 
 ### References and help
 
 - [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
-Run from the repository root:
+Native source: `native/examples/richer-queries-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=richer-queries-3
+make example EXAMPLE=richer-queries-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

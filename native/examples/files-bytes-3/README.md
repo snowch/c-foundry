@@ -61,16 +61,18 @@ The explicit extraction and reconstruction rules. The representation is specifie
 
 </details>
 
-**Try:** Try zero and the largest uint32_t, checking round trips without changing the byte order.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/3). In main.c, replace 0x12345678 with 0x00000102. Choose Run code and compare the four printed bytes and round trip=. Which byte appears first, and what does the check say about decoding?
 
 ### References and help
 
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-3
+make example EXAMPLE=files-bytes-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

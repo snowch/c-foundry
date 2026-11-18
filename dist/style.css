@@ -70,8 +70,11 @@ input[type=radio] { width:20px; height:20px; accent-color:#557346; flex-shrink:0
 .file-tab { display:flex; align-items:center; gap:10px; font:16px var(--mono); }
 .file-tab>span { color:#c7dab8; }
 .file-tab i { display:none; }
-.editor-toolbar>div { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
-.language-badge { font:14px var(--mono); color:#b8c8ba; padding:4px; }
+#editor-tools { margin:0; }
+#editor-tools summary { cursor:pointer; color:#d6e6d8; }
+#editor-tools div { display:flex; flex-wrap:wrap; align-items:center; gap:6px; }
+#editor-save-warning,#output-context { margin:0; padding:8px 14px; color:#ffdfc0; font-size:15px; }
+#output-context { padding:0 0 10px; }
 .editor-toolbar button { background:transparent; color:#ccdbcf; border:1px solid transparent; }
 .editor-toolbar button:hover { background:#35473a; }
 .editor-wrap { display:flex; height:360px; padding:18px 0; }
@@ -88,7 +91,6 @@ input[type=radio] { width:20px; height:20px; accent-color:#557346; flex-shrink:0
 .console-tabs { display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px; padding:6px 14px 0; border-bottom:1px solid #41514b; }
 .console-tabs button { background:transparent; color:#b3c9b8; border:0; border-bottom:2px solid transparent; border-radius:0; padding:8px 0; }
 .console-tabs button.active { color:#e1efdb; border-bottom-color:#a7c396; }
-#clear-button { margin-left:auto; }
 .console-tabs button span { font-size:14px; }
 .console-content { height:210px; overflow:auto; padding:16px; }
 .console-content pre,#test-results { font:17px/1.65 var(--mono); color:#c5dbc7; }
@@ -192,6 +194,7 @@ dialog::backdrop { background:#17241c88; }
 #setup-view pre { background:#edf1e5; padding:14px; }
 
 .topic-content>p { max-width:72ch; }
+.topic-content p { overflow-wrap:anywhere; }
 .topic-content h2 { margin-top:28px; }
 .topic-content .worked-example h2 { margin-top:0; }
 .topic-content .worked-example p { font-size:17px; }
@@ -212,6 +215,7 @@ dialog::backdrop { background:#17241c88; }
 .topic-content .inline-editor .console-content pre { font:17px/1.65 var(--mono); color:#c5dbc7; }
 .topic-content .inline-editor .console-content pre.error { color:#ffc5a7; }
 .original-output { margin-top:14px; border-top:1px solid var(--line); }
+.example-input { white-space:pre-wrap; }
 .original-output pre { margin-block:8px; }
 
 .inline-editor textarea { resize:none; }

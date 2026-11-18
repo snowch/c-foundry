@@ -53,16 +53,18 @@ Lifetime, bounds, aliasing, initialization, and synchronization. A valid source 
 
 </details>
 
-**Try:** Compile with GCC and Clang at -O0 and -O2, then run the same independent fixtures.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/3). In main.c, change x += UINT32_C(1); to x += UINT32_C(2);. Run code. Compare wrapped= and sum=. Which value changes according to the defined uint32_t wrap rule, even if a native compiler later optimizes the loop?
 
 ### References and help
 
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 - [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-3
+make example EXAMPLE=c-guarantees-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

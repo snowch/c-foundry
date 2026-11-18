@@ -21,7 +21,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "A .c file can be compiled under several revisions and extension policies.",
-        "tryit": "Run make standards-matrix and record actual accepted modes and diagnostics for both toolchains.",
+        "tryit": "After the browser run, open a native terminal at the repository root and run make standards-matrix. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -42,7 +42,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "Centralizing the dependency makes supported targets and failures reviewable.",
-        "tryit": "Compile with -Wpedantic -Werror, then write a feature probe that checks the exact extension your project needs.",
+        "tryit": "In main.c, change >= 64 to >= 128 in both branches and wide_at_least64= to wide_at_least128=. Run code. Compare the browser flag with a native run of the same edit. Which branch can supply a 128-bit type?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -63,7 +63,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Language and library support can vary independently.",
-        "tryit": "Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.",
+        "tryit": "In main.c, change the fallback message from mode=C17 fallback_selected to mode=pre-C23 fallback_selected. Run code. Which condition selects the fallback? Use make standards-matrix in your native checkout to see accepted modes separately from feature support.",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -111,7 +111,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Standard unsigned and signed arithmetic have different overflow contracts.",
-        "tryit": "Classify five expressions from TinyDB and cite the exact assumption or guarantee each relies on.",
+        "tryit": "In main.c, change wrapped += 1; to wrapped += 2;. Run code and compare unsigned_wrap=. Which bound gives the starting value? How does the rule for unsigned addition let you predict the result without knowing the exact width of unsigned?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -132,7 +132,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "memcpy transfers representation bytes without requiring a misaligned typed access.",
-        "tryit": "Replace a raw pointer cast in a decoder with explicit byte assembly and test it with unaligned input offsets.",
+        "tryit": "In main.c, change the source from 0x12345678 to 0x12345679. Run code and compare roundtrip= and bytes=. What does copying the object representation establish on this target? A portable file format still needs an explicit byte order.",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -153,7 +153,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "A valid source contract is the basis for expecting preserved behavior.",
-        "tryit": "Compile with GCC and Clang at -O0 and -O2, then run the same independent fixtures.",
+        "tryit": "In main.c, change x += UINT32_C(1); to x += UINT32_C(2);. Run code. Compare wrapped= and sum=. Which value changes according to the defined uint32_t wrap rule, even if a native compiler later optimizes the loop?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -177,7 +177,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "An int can represent every uint8_t value on the supported targets, so both operands promote to int before addition.",
-        "tryit": "Compare indices −1, 0, count−1, and count with the guarded index predicate. Then predict and run uint8_t sums around 255 before and after narrowing.",
+        "tryit": "In main.c, change negative from -1 to 1 and b from 10 to 5. Run code and compare converted_less=, mathematical_less=, valid_index=, promoted_sum=, and narrowed_sum=. Why do 255 and 260 differ when narrowed to uint8_t?",
         "input": "",
         "runtime": "browser"
       },
@@ -195,7 +195,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "The original information may be lost or the conversion may already have triggered an invalid or implementation-defined result.",
-        "tryit": "Test SCHAR_MIN−1, SCHAR_MIN, SCHAR_MAX, and SCHAR_MAX+1 on the supported targets. Require the destination to retain its earlier value after every rejection.",
+        "tryit": "In main.c, change the first to_signed_char argument from 130 to SCHAR_MAX. Run code. Compare signed_rejected= and output= with the earlier rejected request. Which accepted boundary can safely overwrite the original 7?",
         "input": "",
         "runtime": "browser"
       },
@@ -213,7 +213,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "Undefined behavior has already occurred once the unrepresentable signed operation is evaluated.",
-        "tryit": "Attempt the checked-arithmetic chapter exercise. Add tests for both endpoints, zero, all sign combinations, and failed operations retaining an existing output value.",
+        "tryit": "In main.c, change the multiply arguments from -7 and 6 to INT_MAX and 2. Run code and compare multiply_accepted= and result=. Why does the output retain 77 after a rejected multiplication?",
         "input": "",
         "runtime": "browser"
       },
@@ -231,7 +231,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "C defines both operations in terms of a representable quotient; the exceptional pair invalidates both.",
-        "tryit": "Test ±7 with divisors ±3 and verify the quotient/remainder identity. Then test zero and the extreme divisor pair without evaluating a rejected operation.",
+        "tryit": "In main.c, change checked_divrem(-7,3,&quotient,&remainder) to checked_divrem(7,-3,&quotient,&remainder). Run code and compare quotient= and remainder=. Check that divisor × quotient + remainder gives the input for each sign combination.",
         "input": "",
         "runtime": "browser"
       },
@@ -249,7 +249,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "DBL_EPSILON describes spacing near one, not every accumulated error or acceptable application difference.",
-        "tryit": "Change the increment near 2^53, compare numbers near zero, and vary each tolerance independently. Predict which error budget accepts each result before running.",
+        "tryit": "In native/examples/c-guarantees-8/main.c, change one from 1.0 to 2.0 and repeat the terminal run. Compare small_increment_lost= with the first run while checking sum=, exact=, and close=. What does the observed spacing near 2^53 allow on this target?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -270,7 +270,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Self-equality excludes quiet NaN but still permits infinities; isfinite excludes both categories.",
-        "tryit": "Test inf, -inf, nan, 1e9999, empty input, and a valid prefix followed by junk. Confirm rejected parses preserve the output and report the intended error category.",
+        "tryit": "In native/examples/c-guarantees-9/main.c, change the first parse_finite argument from \"nan\" to \"inf\" and rename nan_rejected= to inf_rejected=. Repeat the terminal run. Which fields show that the parser kept 7.0 after rejection and accepted the later finite value?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -291,7 +291,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "Use -DBL_MAX for the negative finite endpoint; subnormal values may exist between zero and DBL_MIN.",
-        "tryit": "Compare scalbn(DBL_MIN,-1), nextafter(0,1), and further halvings. Then test a strict strtod parser with 1e-9999 and decide whether your application should reject or retain tiny finite values.",
+        "tryit": "In native/examples/c-guarantees-10/main.c, change double lost=scalbn(source,-1); to double lost=scalbn(source,0);. Repeat the terminal run. Compare scaled_to_zero= and finite_subnormal=. Which classifications depend on applying another halving?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -339,7 +339,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "The parser can operate on supplied bytes without depending on a particular host filesystem layout.",
-        "tryit": "Inventory the APIs in your TinyDB build. Label each ISO C, POSIX, Win32, or another target-specific contract, and identify its failure policy.",
+        "tryit": "In native/examples/portable-c-1/main.c, replace portable with still portable inside the fputs string. Repeat the terminal run. Which operation puts the text in the stream and which retrieves it? Identify the ISO C functions used by this fixture.",
         "input": "",
         "runtime": "native"
       },
@@ -357,7 +357,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "Layout, padding, byte order, and other representation choices remain.",
-        "tryit": "Decode independently specified bytes and test all integer extremes without consulting sizeof(Row).",
+        "tryit": "In main.c, change both 0x01020304 constants to 0x11223344. Run code and inspect bytes= and value_ok=. Which byte comes first in the specified format?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -378,7 +378,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "A fallback may preserve a contract or explicitly report unsupported behavior; it must not silently change the meaning.",
-        "tryit": "Run python3 tools/check_portability.py --compiler gcc and inspect the capability report. Compare the result with Windows MSVC in the Actions matrix.",
+        "tryit": "After observing monotonic_configured=0 in the browser, open your native terminal at the repository root and run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -399,7 +399,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Replacement semantics belong to the filesystem boundary; portable byte serialization can remain independent.",
-        "tryit": "Add a rejecting ByteSink and verify that emit_header reports failure. Then sketch separate POSIX and Win32 publication adapters without claiming they offer identical crash guarantees.",
+        "tryit": "In native/examples/portable-c-4/main.c, insert a sink callback that ignores its arguments with (void) casts and returns false, matching the existing file_write signature. For the test, replace file_write with the rejecting callback in a second sink and print !emit_header(&rejected) as sink_rejected=. Repeat the terminal run before the successful fixture. Which part of the portable core propagates the host failure?",
         "input": "",
         "runtime": "native",
         "files": {
@@ -407,7 +407,8 @@ window.PART_SEVEN = {
           "sink.h": "#ifndef CF_SINK_H\n#define CF_SINK_H\n#include <stdbool.h>\n#include <stddef.h>\ntypedef struct { bool (*write)(void *, const unsigned char *, size_t); void *context; } ByteSink;\nbool emit_header(const ByteSink *sink);\nbool file_write(void *context, const unsigned char *bytes, size_t size);\n#endif\n",
           "core.c": "#include \"sink.h\"\nbool emit_header(const ByteSink *sink) {\n    static const unsigned char bytes[] = {0x54, 0x44, 0x42, 0x31};\n    return sink->write(sink->context, bytes, sizeof bytes);\n}\n",
           "host.c": "#include \"sink.h\"\n#include <stdio.h>\nbool file_write(void *context, const unsigned char *bytes, size_t size) {\n    FILE *file = context;\n    return fwrite(bytes, 1, size, file) == size;\n}\n"
-        }
+        },
+        "extension": "Sketch separate POSIX and Win32 file-publication adapters. Document what each platform can establish about file contents and directory entries after successful synchronization."
       },
       "5": {
         "intro": "Choose text mode for logical text and binary mode for specified bytes. Treat line-ending normalization as an explicit input policy.",
@@ -423,7 +424,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Binary mode avoids text-stream translations; the format still needs explicit widths, encoding, and validation.",
-        "tryit": "Add empty, CRLF-only, final-record-without-newline, and truncated-buffer cases. State separately how your parser rejects an incomplete record.",
+        "tryit": "In main.c, change the lone string from Ada\\r to Ada with no line ending. Run code and compare lone_cr= with lf= and crlf=. Which cases actually remove bytes from the original buffer?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -444,7 +445,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "Names can compare differently while referring to the same object on a case-insensitive filesystem.",
-        "tryit": "Run the audit project’s filename-policy tests for CON.txt, COM1.tdb, traversal, trailing dots, and a valid basename; document which otherwise valid OS names the project intentionally excludes.",
+        "tryit": "In main.c, replace people.tdb with people-2.tdb in the first snprintf. Run code and compare path= and truncated_rejected=. Why does the longer path fit the primary buffer while the small-buffer check still rejects it?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -465,7 +466,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "The cast satisfies the ctype argument requirement. It does not implement Unicode decoding.",
-        "tryit": "Compare the byte length of an ASCII name and a multibyte name, and test invalid UTF-8 rejection separately from name length and locale classification.",
+        "tryit": "In main.c, replace the UTF-8 bytes 0xc3, 0xa9 with the single byte 0x65. Run code and compare utf8_bytes= and ascii_letters=. What does the toy count reveal about byte length and classification in the C locale?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -486,7 +487,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Conversion success establishes a uintmax_t value, not that it fits the database field.",
-        "tryit": "Add zero, empty input, plus/minus signs, whitespace, a suffix, embedded zero bytes, leading zeros, and an extremely long number; verify output preservation for every rejection.",
+        "tryit": "In main.c, replace \"4294967296\" with \"0000000001\" in the second parse_id call. Run code and compare overflow_rejected= and retained=. What does this parser do with leading zeros when the final value fits?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -507,7 +508,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "The position representation can carry implementation-specific stream state and need not be an arithmetic byte offset.",
-        "tryit": "Add a final line without a newline, test a failed open, and audit the code paths that check read, write, flush, reposition, and close errors.",
+        "tryit": "In native/examples/portable-c-9/main.c, remove the last newline from the fputs string and change Grace to Linus. Repeat the terminal run. Compare revisited= and clean_eof=. Why can fgets still read a final line without a newline?",
         "input": "",
         "runtime": "native"
       }
@@ -552,7 +553,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "An overflowed size may request a small allocation and later cause an out-of-bounds write.",
-        "tryit": "Audit every size calculation in the pager, index, parser, and vector with a stated maximum.",
+        "tryit": "In main.c, change count from SIZE_MAX to 8. Run code and compare oversize_rejected=. Which part of the division-based bound lets the smaller request pass without first multiplying?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -573,7 +574,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "The loader commits its temporary state only after full validation.",
-        "tryit": "Add version fixtures to your release suite and document the intended upgrade and downgrade policy.",
+        "tryit": "In native/examples/hardening-tinydb-2/main.c, change the version byte in header from 99 to 2. Repeat the terminal run. What do rejected= and retained= say about the previously live row after an unknown version?",
         "input": "",
         "runtime": "native"
       },
@@ -591,7 +592,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Undiagnosed undefined behavior remains possible.",
-        "tryit": "Run python3 tools/check_portability.py --compiler gcc, inspect all four Actions matrix entries, and distinguish compiler diagnostics from operating-system coverage.",
+        "tryit": "With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at the root of your native checkout, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -612,7 +613,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "The scope is the actual instrumentation and executions.",
-        "tryit": "Run this example with SANITIZE=1, then add short inputs at every length below the full record size.",
+        "tryit": "In main.c, change unsigned char bytes[3] to bytes[7], leaving its bytes zero. Run code and compare short_rejected= and output_preserved=. The native example command also accepts SANITIZE=1 for memory diagnostics. Why can a short input preserve the output on both runs?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -633,7 +634,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "Independent fixtures catch shared codec mistakes, and cross-host artifact exchange exercises differences that a same-host round trip cannot reveal.",
-        "tryit": "Run the audit, extend its assumptions table, and design a separately tested replacement interface for your target OS. Add failure injection before claiming stronger publication guarantees.",
+        "tryit": "In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability in a native checkout to validate independent fixtures.",
         "input": "",
         "runtime": "native",
         "files": {

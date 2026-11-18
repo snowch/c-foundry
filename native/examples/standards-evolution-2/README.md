@@ -53,16 +53,18 @@ A guarded interface with a documented fallback or requirement. Centralizing the 
 
 </details>
 
-**Try:** Compile with -Wpedantic -Werror, then write a feature probe that checks the exact extension your project needs.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/2). In main.c, change >= 64 to >= 128 in both branches and wide_at_least64= to wide_at_least128=. Run code. Compare the browser flag with a native run of the same edit. Which branch can supply a 128-bit type?
 
 ### References and help
 
 - [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
 - [GCC manual: C dialect options](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html) — Check -std modes and distinguish standard language facilities from GNU extensions.
 
-Run from the repository root:
+Native source: `native/examples/standards-evolution-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=standards-evolution-2
+make example EXAMPLE=standards-evolution-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

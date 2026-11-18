@@ -182,16 +182,18 @@ The previous state remains. The loader commits its temporary state only after fu
 
 </details>
 
-**Try:** Add version fixtures to your release suite and document the intended upgrade and downgrade policy.
+**Try:** Edit the example in your native checkout. In native/examples/hardening-tinydb-2/main.c, change the version byte in header from 99 to 2. Repeat the terminal run. What do rejected= and retained= say about the previously live row after an unknown version?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/hardening-tinydb-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hardening-tinydb-2
+make example EXAMPLE=hardening-tinydb-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

@@ -90,16 +90,18 @@ No. The transaction handle is associated with a session identity.
 
 </details>
 
-**Try:** Add disconnect rollback and reject stale requests from a session whose transaction has already ended.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/multi-client/2). In main.c, change the tx_set value from 42 to 17. Run code. Compare other_rejected=, owner_committed=, and value=. Which session can publish the new value?
 
 ### References and help
 
 - [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 
-Run from the repository root:
+Native source: `native/examples/multi-client-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=multi-client-2
+make example EXAMPLE=multi-client-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

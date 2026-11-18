@@ -116,7 +116,7 @@ Yes. A compatible struct assignment copies its array members as part of the stru
 
 </details>
 
-**Try:** Add an invariant checker for count≤capacity, terminated names, positive IDs, and unique IDs.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/tables/1). In main.c, change source.name[0] = 'X'; to source.name[0] = 'E';. Run code and compare stored= and source=. Which value demonstrates that insert_row copied the name array into the table?
 
 ### References and help
 
@@ -131,11 +131,13 @@ No. It describes a C object layout that can include padding and target-specific 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/tables-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=tables-1
+make example EXAMPLE=tables-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 22.2 Inserting and selecting records
 
@@ -244,18 +246,20 @@ No. The insertion operation appends rather than maintaining sorted order.
 
 </details>
 
-**Try:** Implement a selection by ID and compare it with the existing standalone query exercise.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/tables/2). In main.c, change the key 99 in find_row(&t, 99) to 1. Run code and compare missing= with the starter. Which displayed record made that predicate false?
 
 ### References and help
 
 - [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
-Run from the repository root:
+Native source: `native/examples/tables-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=tables-2
+make example EXAMPLE=tables-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 22.3 Duplicate IDs and capacity limits
 
@@ -336,9 +340,10 @@ int main(void) {
   for (unsigned i = 1; i <= TABLE_CAP; ++i)
     if (insert_row(&t, (Row){i, "row", 0}) != OK)
       return 1;
+  Status duplicate = insert_row(&t, (Row){1, "other", 0});
+  Status extra = insert_row(&t, (Row){99, "extra", 0});
   printf("duplicate=%d full=%d count=%zu\n",
-         insert_row(&t, (Row){1, "other", 0}) == DUPLICATE,
-         insert_row(&t, (Row){99, "extra", 0}) == FULL, t.count);
+         duplicate == DUPLICATE, extra == FULL, t.count);
   return 0;
 }
 ```
@@ -364,18 +369,20 @@ DUPLICATE under this documented policy. Duplicate checking precedes the capacity
 
 </details>
 
-**Try:** Try an invalid row in a full table and record the intended error priority.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/tables/3). In main.c, change TABLE_CAP to TABLE_CAP - 1 in the fill loop’s upper bound. Run code and compare duplicate=, full=, and count=. Which of the two following insertions can now claim the free slot?
 
 ### References and help
 
 - [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
-Run from the repository root:
+Native source: `native/examples/tables-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=tables-3
+make example EXAMPLE=tables-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 22.4 Updating and deleting rows
 
@@ -477,18 +484,20 @@ No. Shifting changes the position-to-row mapping.
 
 </details>
 
-**Try:** Test deletion from the beginning, middle, end, and a one-row table.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/tables/4). In main.c, change the first delete_row(&t, 1) to delete_row(&t, 2) and leave the second call unchanged. Run code and compare the displayed row and missing=. When does the later delete actually find ID 1?
 
 ### References and help
 
 - [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
-Run from the repository root:
+Native source: `native/examples/tables-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=tables-4
+make example EXAMPLE=tables-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 22.5 A working in-memory database
 
@@ -594,18 +603,20 @@ Public results and logical state against a reference. An independent model can d
 
 </details>
 
-**Try:** Generate bounded insert/update/delete sequences and check invariants after every operation.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/tables/5). In main.c, change the update value 88 and the expected value in t.rows[i].score != 88 to 95. Run code and compare Grace’s printed score and table contract passed. Which equality protects against passing a check with an incorrect value?
 
 ### References and help
 
 - [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
-Run from the repository root:
+Native source: `native/examples/tables-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=tables-5
+make example EXAMPLE=tables-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

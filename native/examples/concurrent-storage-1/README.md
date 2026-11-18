@@ -60,16 +60,18 @@ No. They belong to distinct APIs and contracts.
 
 </details>
 
-**Try:** Wrap create/join behind a small project interface and add platform-specific adapters only where tested.
+**Try:** Edit the example in your native checkout. In native/examples/concurrent-storage-1/main.c, change return 42; in standard_worker to return 17;. Repeat the terminal run. Which join argument lets main observe the new joined_result=?
 
 ### References and help
 
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 - [Linux/POSIX manual: pthread_create(3)](https://man7.org/linux/man-pages/man3/pthread_create.3.html) — Read thread start arguments, error returns, and the required native threading environment.
 
-Run from the repository root:
+Native source: `native/examples/concurrent-storage-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=concurrent-storage-1
+make example EXAMPLE=concurrent-storage-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

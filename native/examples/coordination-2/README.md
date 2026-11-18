@@ -128,7 +128,7 @@ int main(void) {
   run_queue(&count, &sum);
   if (count != WORK_ITEMS || sum != 36)
     return 1;
-  printf("capacity=%d exactly_once=%u\n", WORK_CAP, count);
+  printf("capacity=%d received_count=%u\n", WORK_CAP, count);
   return 0;
 }
 ```
@@ -136,10 +136,10 @@ int main(void) {
 Output:
 
 ```text
-capacity=4 exactly_once=8
+capacity=4 received_count=8
 ```
 
-More work than capacity completes because slots are reused after consumption. The verification checks count and sum for this known unique sequence.
+Reusing slots lets this four-slot queue drain eight requests. The fixture checks the total and count from a fixed sequence of offered values.
 
 **Watch for:** Count and sum alone are not a complete exactly-once proof for arbitrary inputs; production tests should track each request ID.
 
@@ -154,16 +154,18 @@ The producer waits for space or closure. Blocking admission preserves accepted w
 
 </details>
 
-**Try:** Track every request ID in a bitmap, then test multiple producers and repeated queue wraparound.
+**Try:** Edit the example in your native checkout. In native/examples/coordination-2/main.c, change WORK_CAP from 4 to 3. Repeat the terminal run and read capacity= and received_count=. How could repeated and missing request IDs escape the fixture’s count and sum checks?
 
 ### References and help
 
 - [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/coordination-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=coordination-2
+make example EXAMPLE=coordination-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

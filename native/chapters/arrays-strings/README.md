@@ -63,18 +63,20 @@ The initializer determines a five-element array. sizeof reports sizes in bytes a
 
 </details>
 
-**Try:** Change the initializer to three values and confirm that count and the loop adapt without a hardcoded bound.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/arrays-strings/1). In main.c, replace {1, 2, 3, 4, 5} with {2, 4, 6}. Choose Run code and read the new sum in Console. Why does the loop visit just three indices without changing its bound?
 
 ### References and help
 
 - [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) — Check array bounds, element types, and array-to-pointer conversion.
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
-Run from the repository root:
+Native source: `native/examples/arrays-strings-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=arrays-strings-1
+make example EXAMPLE=arrays-strings-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 5.2 Character arrays and zero termination
 
@@ -124,18 +126,20 @@ strlen returns 3 because the terminator is not part of the text. sizeof reports 
 
 </details>
 
-**Try:** Set word[1] to '\0'. Predict strlen and sizeof before running the edited example.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/arrays-strings/2). In main.c, insert word[1] = '\0'; before printf. Predict the length= and capacity= fields, then choose Run code. Which quantity describes bytes before the terminator, and which includes all array storage?
 
 ### References and help
 
 - [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) — Check array bounds, element types, and array-to-pointer conversion.
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
-Run from the repository root:
+Native source: `native/examples/arrays-strings-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=arrays-strings-2
+make example EXAMPLE=arrays-strings-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 5.3 Reading lines with fgets
 
@@ -190,7 +194,7 @@ Yes. The capacity bounds each read. A long logical line can need more than one r
 
 </details>
 
-**Try:** Try an empty Input panel, then a line longer than 31 characters. Observe success, EOF, and the capacity limit.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/arrays-strings/3). Open Input and clear the supplied text. Choose Run code and look for no line in Console. Then put 012345678901234567890123456789012345 in Input and run again. Count the digits after Read: and explain where the remaining byte of the 32-byte array goes.
 
 ### References and help
 
@@ -206,11 +210,13 @@ At most seven input characters plus the terminating null character. A newline is
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/arrays-strings-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=arrays-strings-3
+make example EXAMPLE=arrays-strings-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 5.4 String comparison, copying, and parsing
 
@@ -272,7 +278,7 @@ They have equal contents. strcmp compares the characters, not whether both expre
 
 </details>
 
-**Try:** Change text to "42x", an empty string, and a number too large for long. Explain which checks reject them. Then make the copied name too long for the destination.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/arrays-strings/4). In main.c, change char text[] = "42"; to char text[] = "42x";. Choose Run code and find invalid integer after same= and copy=. What does the end pointer show about the conversion? Try an empty string next.
 
 ### References and help
 
@@ -280,11 +286,13 @@ They have equal contents. strcmp compares the characters, not whether both expre
 - [C reference: strtol family](https://en.cppreference.com/w/c/string/byte/strtol.html) — Check endptr, accepted syntax, range errors, and full-input validation.
 - [C reference: strcmp](https://en.cppreference.com/w/c/string/byte/strcmp.html) — Check the meaning of negative, zero, and positive results.
 
-Run from the repository root:
+Native source: `native/examples/arrays-strings-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=arrays-strings-4
+make example EXAMPLE=arrays-strings-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 5.5 Text statistics and word counting
 
@@ -342,18 +350,20 @@ For C is fun, each first letter after a boundary increases the word count; lette
 
 </details>
 
-**Try:** Open the text-statistics exercise and implement both counters. Explain the purpose of the in_word flag.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/arrays-strings/5). In Input, replace the supplied line with one   two and choose Run code. Compare words= with the starter. Why do adjacent spaces leave in_word false without adding a second word boundary?
 
 ### References and help
 
 - [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) — Check array bounds, element types, and array-to-pointer conversion.
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
-Run from the repository root:
+Native source: `native/examples/arrays-strings-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=arrays-strings-5
+make example EXAMPLE=arrays-strings-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

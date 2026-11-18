@@ -68,16 +68,18 @@ Exactly one. The extern declaration can be repeated; the object needs one progra
 
 </details>
 
-**Try:** Make operations private too and replace the public object declaration with a read function.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/2). Choose main.c in Source files. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?
 
 ### References and help
 
 - [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) — Find inclusion, conditional compilation, and macro replacement rules.
 - [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
 
-Run from the repository root:
+Native source: `native/examples/larger-programs-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=larger-programs-2
+make example EXAMPLE=larger-programs-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

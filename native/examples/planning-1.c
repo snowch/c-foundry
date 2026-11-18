@@ -16,7 +16,7 @@ const char *choose(Estimate e) {
 
 int main(void) {
   Estimate narrow = {100, 3, 1}, wide = {100, 3, 98};
-  printf("narrow=%s cost=%u wide=%s cost=%u\n", choose(narrow),
-         index_cost(narrow), choose(wide), index_cost(wide));
+  printf("narrow=%s narrow_index_pages=%u wide=%s wide_index_pages=%u scan_pages=%u\n", choose(narrow),
+         index_cost(narrow), choose(wide), index_cost(wide), wide.table_pages);
   return 0;
 }

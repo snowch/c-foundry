@@ -55,16 +55,18 @@ Binary mode, such as rb and wb. Binary mode avoids text-stream translations; the
 
 </details>
 
-**Try:** Add empty, CRLF-only, final-record-without-newline, and truncated-buffer cases. State separately how your parser rejects an incomplete record.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/5). In main.c, change the lone string from Ada\r to Ada with no line ending. Run code and compare lone_cr= with lf= and crlf=. Which cases actually remove bytes from the original buffer?
 
 ### References and help
 
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-5
+make example EXAMPLE=portable-c-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

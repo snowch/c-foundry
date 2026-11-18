@@ -160,7 +160,7 @@ The predicate may still be false. A wake is permission to re-evaluate state unde
 
 </details>
 
-**Try:** Add two consumers and verify exactly-once consumption with a protected item-count reference.
+**Try:** Edit the example in your native checkout. In native/examples/coordination-1/main.c, change WORK_CAP from 4 to 2. Repeat the terminal run and compare received= and sum=. Which condition can force the producer to wait while the work completed stays the same?
 
 ### References and help
 
@@ -175,11 +175,13 @@ A wakeup does not establish that the desired state currently holds. Recheck the 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/coordination-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=coordination-1
+make example EXAMPLE=coordination-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 36.2 Producer–consumer queues
 
@@ -307,7 +309,7 @@ int main(void) {
   run_queue(&count, &sum);
   if (count != WORK_ITEMS || sum != 36)
     return 1;
-  printf("capacity=%d exactly_once=%u\n", WORK_CAP, count);
+  printf("capacity=%d received_count=%u\n", WORK_CAP, count);
   return 0;
 }
 ```
@@ -315,10 +317,10 @@ int main(void) {
 Output:
 
 ```text
-capacity=4 exactly_once=8
+capacity=4 received_count=8
 ```
 
-More work than capacity completes because slots are reused after consumption. The verification checks count and sum for this known unique sequence.
+Reusing slots lets this four-slot queue drain eight requests. The fixture checks the total and count from a fixed sequence of offered values.
 
 **Watch for:** Count and sum alone are not a complete exactly-once proof for arbitrary inputs; production tests should track each request ID.
 
@@ -333,18 +335,20 @@ The producer waits for space or closure. Blocking admission preserves accepted w
 
 </details>
 
-**Try:** Track every request ID in a bitmap, then test multiple producers and repeated queue wraparound.
+**Try:** Edit the example in your native checkout. In native/examples/coordination-2/main.c, change WORK_CAP from 4 to 3. Repeat the terminal run and read capacity= and received_count=. How could repeated and missing request IDs escape the fixture’s count and sum checks?
 
 ### References and help
 
 - [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/coordination-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=coordination-2
+make example EXAMPLE=coordination-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 36.3 Lock ordering, deadlocks, and starvation
 
@@ -430,18 +434,20 @@ No. It addresses circular wait, not every scheduling policy.
 
 </details>
 
-**Try:** Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.
+**Try:** Edit the example in your native checkout. In native/examples/coordination-3/main.c, create a third pthread_t, start it with ordered_locks as for a and b, and join it before the printf and lock destruction. Repeat the terminal run. How does completed= change when another worker follows the same acquisition order?
 
 ### References and help
 
 - [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/coordination-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=coordination-3
+make example EXAMPLE=coordination-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

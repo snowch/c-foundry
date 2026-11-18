@@ -121,17 +121,19 @@ length ≤ page_size - offset after validating offset. Subtraction is safe only 
 
 </details>
 
-**Try:** Encode the slot directory into the page itself and include its bytes in the free-space calculation.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pages/1). In main.c, change the page_insert text and length from "Ada", 3 to "Grace", 5. Run code and compare slot=, offset=, length=, and text=. Which address moves when the same page holds a longer payload?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
-Run from the repository root:
+Native source: `native/examples/pages-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pages-1
+make example EXAMPLE=pages-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 26.2 Fixed-length and variable-length records
 
@@ -233,17 +235,19 @@ Its size cannot be inferred from a fixed row width. The reader needs an explicit
 
 </details>
 
-**Try:** Compare payload and metadata overhead for many one-byte records versus fewer long records.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pages/2). In main.c, replace "Grace", 5 with "Go", 2 in the second page_insert. Run code and compare lengths= and used=. Which memory usage is counted by PSIZE - free_end?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
-Run from the repository root:
+Native source: `native/examples/pages-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pages-2
+make example EXAMPLE=pages-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 26.3 Slotted pages
 
@@ -356,7 +360,7 @@ A slot identity under a documented reuse policy. Relocation can change offsets e
 
 </details>
 
-**Try:** Compact a page and verify that each live slot still resolves to the same bytes.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pages/3). In main.c, insert page_delete(&p, a); and compact(&p); before the page_read, using the provided operations. Run code and compare slot= and text=. Why can a stable slot still find Ken after compaction?
 
 ### References and help
 
@@ -370,11 +374,13 @@ It needs the page size, header/layout version, offset encoding, and validated re
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/pages-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pages-3
+make example EXAMPLE=pages-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 26.4 Free space and deleted records
 
@@ -486,18 +492,22 @@ Not necessarily; compaction may be required. The byte placement of remaining liv
 
 </details>
 
-**Try:** Add a reusable-slot policy with generations and test that stale locators are rejected.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pages/4). In main.c, replace "Grace", 5 with "Ken", 3 in the second page_insert. Run code after deletion and compaction. Compare live_bytes=, surviving_slot=, and offset=. Why does the payload change the offset but preserve the slot?
+
+**Extend the example:** A reusable slot needs a generation number if an older locator can outlive a delete. Sketch the invalid and valid locators for one deleted and reused slot.
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
 
-Run from the repository root:
+Native source: `native/examples/pages-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pages-4
+make example EXAMPLE=pages-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 26.5 A bounded page cache
 
@@ -588,17 +598,19 @@ No. Doing so loses the only modified page contents.
 
 </details>
 
-**Try:** Connect the cache to the checked pager and inject a write failure during dirty eviction.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pages/5). In main.c, replace the final fetch(&c, 3) with fetch(&c, 2). Run code and compare reads=, writes=, and cached1=. Why does the repeated page need fewer backing reads?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
-Run from the repository root:
+Native source: `native/examples/pages-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pages-5
+make example EXAMPLE=pages-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 26.6 Inspecting a database file visually
 
@@ -703,17 +715,19 @@ Yes. Displaying bytes still requires safe, bounded reads.
 
 </details>
 
-**Try:** Add a hex dump with highlighted validated ranges, then reject overlapping live slots.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pages/6). In main.c, remove page_delete(&p, a); and run. Compare the two slot state labels and their half-open byte ranges. Which endpoint marks the first byte outside each payload?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
-Run from the repository root:
+Native source: `native/examples/pages-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pages-6
+make example EXAMPLE=pages-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

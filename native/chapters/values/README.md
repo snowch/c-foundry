@@ -54,7 +54,7 @@ The formats match the arguments: %d for int, %.1f for a double printed with one 
 
 </details>
 
-**Try:** Change the values and predict the complete line before you run the example.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/values/1). In main.c after the first run, change count from 7 to 9, distance from 2.5 to 4.0, letter from 'A' to 'B', and ready from true to false. Predict the four fields and choose Run code. In Console, which field shows a Boolean as an integer?
 
 ### References and help
 
@@ -70,11 +70,13 @@ The formats match the arguments: %d for int, %.1f for a double printed with one 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/values-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=values-1
+make example EXAMPLE=values-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 2.2 Variables, initialization, and constants
 
@@ -118,18 +120,20 @@ No. An initializer is evaluated once at that point in execution. C does not main
 
 </details>
 
-**Try:** Recalculate total after changing quantity. Check that the first number now becomes 28.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/values/2). In main.c, add total = unit_price * quantity; just after quantity = 4;. Choose Run code. The first Console field changes from 21 to 28 and the second remains 4. When does C evaluate the multiplication?
 
 ### References and help
 
 - [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
 - [C reference: arithmetic types](https://en.cppreference.com/w/c/language/arithmetic_types.html) — Compare integer ranges, signedness, and floating-point types.
 
-Run from the repository root:
+Native source: `native/examples/values-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=values-2
+make example EXAMPLE=values-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 2.3 Operators and precedence
 
@@ -172,17 +176,19 @@ The first line divides seven into two groups with one left over. On the second l
 
 </details>
 
-**Try:** Add expressions for 9 / 4 and 9 % 4. Explain each result rather than only matching the output.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/values/3). In main.c, replace 7 / 2 and 7 % 2 in the first printf with 9 / 4 and 9 % 4. Choose Run code and read the first Console row. How do its quotient and remainder reconstruct 9?
 
 ### References and help
 
 - [C reference: operator precedence](https://en.cppreference.com/w/c/language/operator_precedence.html) — Use the precedence table, then check the operator’s own semantics.
 
-Run from the repository root:
+Native source: `native/examples/values-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=values-3
+make example EXAMPLE=values-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 2.4 Conversions, casts, and integer promotions
 
@@ -224,17 +230,19 @@ fractional receives 3.5 because conversion happens before division. truncated re
 
 </details>
 
-**Try:** Rewrite fractional using 7.0 instead of a cast. Explain why the result is unchanged.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/values/4). In main.c, replace (double)7 / 2 with 7.0 / 2 in fractional. Choose Run code and compare both Console fields with the starter. Which operand now makes the first division floating-point?
 
 ### References and help
 
 - [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) — Check integer promotions, usual arithmetic conversions, and narrowing.
 
-Run from the repository root:
+Native source: `native/examples/values-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=values-4
+make example EXAMPLE=values-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 2.5 Integer ranges, signed overflow, and unsigned arithmetic
 
@@ -285,18 +293,20 @@ No; signed overflow has undefined behavior. Unsigned arithmetic has defined modu
 
 </details>
 
-**Try:** Use the chapter’s numeric-expression exercise to practice type choice and conversion without invoking overflow.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/values/5). In main.c, change value -= 1; to value -= 2;. Choose Run code and compare the printed test against UINT_MAX with the starter. Then change the test to value == UINT_MAX - 1 and run again. Which value does defined unsigned subtraction produce?
 
 ### References and help
 
 - [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 
-Run from the repository root:
+Native source: `native/examples/values-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=values-5
+make example EXAMPLE=values-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

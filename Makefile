@@ -38,7 +38,7 @@ exercise:
 	python3 tools/lab.py --exercise '$(EXERCISE)' --compiler '$(CC)'
 
 example:
-	python3 tools/lab.py --example '$(EXAMPLE)' --compiler '$(CC)' $(if $(filter 1,$(SANITIZE)),--sanitize,) $(if $(filter 1,$(KEEP_FILES)),--keep-files,)
+	python3 tools/lab.py --example '$(EXAMPLE)' --compiler '$(CC)' $(if $(filter 1,$(SANITIZE)),--sanitize,) $(if $(filter 1,$(KEEP_FILES)),--keep-files,) $(if $(filter 1,$(RUN_ONLY)),--run-only,)
 
 check-part1:
 	python3 tools/check_part1.py '$(CC)'

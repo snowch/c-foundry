@@ -61,17 +61,19 @@ No. It checks each candidate directly rather than discarding an ordered interval
 
 </details>
 
-**Try:** Search for 99 and print missing when the returned index equals n.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/searching/1). In main.c, change the loop test from a[i] == 8 to a[i] == 99. Run code. What does first=3 mean in a three-element array? Why does the program avoid reading a[3]?
 
 ### References and help
 
 - [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) — Check the ordering precondition and how the candidate interval shrinks.
 
-Run from the repository root:
+Native source: `native/examples/searching-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=searching-1
+make example EXAMPLE=searching-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 12.2 Binary search and its sorted-input requirement
 
@@ -150,7 +152,7 @@ The array is sorted under the same ordering. An ordering comparison constrains e
 
 </details>
 
-**Try:** Search for 1, 9, and 11 and explain every insertion position.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/searching/2). In main.c, replace 8 with 9 in lower(a, 5, 8) and in a[i] == 8. Run code and inspect position= and found=. Where could 9 be inserted while preserving sort order?
 
 ### References and help
 
@@ -164,11 +166,13 @@ The searched sequence must be ordered consistently with the comparison. The cand
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/searching-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=searching-2
+make example EXAMPLE=searching-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 12.3 Inclusive versus half-open search intervals
 
@@ -248,17 +252,19 @@ lo == hi. The number of candidate positions is hi−lo.
 
 </details>
 
-**Try:** Trace lo, hi, and mid for a missing key in a two-element array.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/searching/3). In main.c, replace a[] = {7} with a[] = {7, 9}, then change both lower(a, 1, ...) lengths to 2. Run code and compare before= and after=. Which index is the first value at least 8?
 
 ### References and help
 
 - [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) — Check the ordering precondition and how the candidate interval shrinks.
 
-Run from the repository root:
+Native source: `native/examples/searching-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=searching-3
+make example EXAMPLE=searching-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 12.4 Lower bounds, upper bounds, and duplicate values
 
@@ -337,17 +343,19 @@ hi - lo. The endpoint hi is excluded.
 
 </details>
 
-**Try:** Test a value below all elements, above all elements, and an array containing only duplicates.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/searching/4). In main.c, use 4 instead of 3 as the query key in both lower and upper. Run code and inspect both range endpoints and count=. What does an empty half-open range tell you about duplicates of the query key?
 
 ### References and help
 
 - [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) — Check the ordering precondition and how the candidate interval shrinks.
 
-Run from the repository root:
+Native source: `native/examples/searching-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=searching-4
+make example EXAMPLE=searching-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 12.5 Searching a sorted record collection
 
@@ -412,17 +420,19 @@ Ascending ID order. Every comparison is against rows[mid].id.
 
 </details>
 
-**Try:** Insert an ID between 2 and 5 while preserving order, then implement find-or-missing cases.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/searching/5). In main.c, change the search key from 5 to 9 in both find_id and the following equality test. Run code and compare the returned record. Then use 8 in both places and explain why no row is printed.
 
 ### References and help
 
 - [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) — Check the ordering precondition and how the candidate interval shrinks.
 
-Run from the repository root:
+Native source: `native/examples/searching-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=searching-5
+make example EXAMPLE=searching-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

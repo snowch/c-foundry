@@ -52,7 +52,7 @@ No, filesystem case and identity rules are a separate contract. Names can compar
 
 </details>
 
-**Try:** Run the audit project’s filename-policy tests for CON.txt, COM1.tdb, traversal, trailing dots, and a valid basename; document which otherwise valid OS names the project intentionally excludes.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/6). In main.c, replace people.tdb with people-2.tdb in the first snprintf. Run code and compare path= and truncated_rejected=. Why does the longer path fit the primary buffer while the small-buffer check still rejects it?
 
 ### References and help
 
@@ -60,9 +60,11 @@ No, filesystem case and identity rules are a separate contract. Names can compar
 - [C reference: strcmp](https://en.cppreference.com/w/c/string/byte/strcmp.html) — Check the meaning of negative, zero, and positive results.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-6
+make example EXAMPLE=portable-c-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

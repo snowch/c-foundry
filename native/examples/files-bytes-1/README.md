@@ -47,7 +47,7 @@ No. Buffering and persistence are different stages; even flush is not a universa
 
 </details>
 
-**Try:** Inspect feof and ferror after deliberately attempting another read at end-of-file.
+**Try:** Edit the example in your native checkout. In native/examples/files-bytes-1/main.c, add another fgets after printf and print whether it returned NULL alongside feof(file) and ferror(file). Repeat the terminal run. What separates an exhausted file from a read error?
 
 ### References and help
 
@@ -63,9 +63,11 @@ Both EOF and an I/O error can cause a short read. Inspect the stream’s feof an
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-1
+make example EXAMPLE=files-bytes-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

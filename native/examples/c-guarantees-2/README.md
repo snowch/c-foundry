@@ -52,7 +52,7 @@ Alignment and object-type requirements may not be satisfied. memcpy transfers re
 
 </details>
 
-**Try:** Replace a raw pointer cast in a decoder with explicit byte assembly and test it with unaligned input offsets.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/2). In main.c, change the source from 0x12345678 to 0x12345679. Run code and compare roundtrip= and bytes=. What does copying the object representation establish on this target? A portable file format still needs an explicit byte order.
 
 ### References and help
 
@@ -60,9 +60,11 @@ Alignment and object-type requirements may not be satisfied. memcpy transfers re
 - [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
 - [C reference: memcpy](https://en.cppreference.com/w/c/string/byte/memcpy.html) — Check byte counts, valid object ranges, and the non-overlap requirement.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-2
+make example EXAMPLE=c-guarantees-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

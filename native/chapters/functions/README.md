@@ -53,7 +53,7 @@ The argument 21 initializes the parameter value. The body computes 42 and return
 
 </details>
 
-**Try:** Add a prototype above main and move the definition below main without changing the result.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/functions/1). In main.c, replace the definition of twice above main with int twice(int value); and place the original definition below main. Choose Run code. Does Console still print 42? What information does main get from the prototype?
 
 ### References and help
 
@@ -68,11 +68,13 @@ No. The type states the returned value’s type. The function’s documented con
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/functions-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=functions-1
+make example EXAMPLE=functions-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 4.2 Passing arguments by value
 
@@ -127,18 +129,20 @@ No. The increment changes the parameter copy. Only the returned result is given 
 
 </details>
 
-**Try:** Assign the return directly into original, then compare the output with the original example.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/functions/2). In main.c, insert original = result; above printf. Choose Run code. Compare both Console numbers with 10 11. Which assignment changes the caller’s variable?
 
 ### References and help
 
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/functions-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=functions-2
+make example EXAMPLE=functions-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 4.3 Scope, lifetime, and storage duration
 
@@ -195,18 +199,20 @@ The static object count is initialized once and survives the first return. The s
 
 </details>
 
-**Try:** Compare the two versions and explain the difference without changing the call sites.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/functions/3). In next_count in main.c, replace static int count = 0; with int count = 0;. Choose Run code again without editing the two calls. Why does Console print 1 twice instead of 1 then 2?
 
 ### References and help
 
 - [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/functions-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=functions-3
+make example EXAMPLE=functions-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 4.4 Decomposing a problem into functions
 
@@ -256,18 +262,20 @@ Formatting the final output. Keeping I/O at the boundary leaves the computation 
 
 </details>
 
-**Try:** Implement the chapter calculator exercise, then add perimeter as a second independent function.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/functions/4). In main.c, change width from 3 to 5, leaving height at 4. Choose Run code. Compare area= and perimeter= in Console. Which function multiplies the dimensions and which adds them?
 
 ### References and help
 
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/functions-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=functions-4
+make example EXAMPLE=functions-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 4.5 Testing functions independently
 
@@ -316,18 +324,20 @@ Assertions can be removed by NDEBUG. Removing assertions must not remove behavio
 
 </details>
 
-**Try:** Add tests where both inputs are negative and where the first input is zero.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/functions/5). In main.c, add assert(maximum(-5, -2) == -2); before puts. Choose Run code and check for checks passed. Then use -5 as the expected value and run again. What evidence tells you the compiler succeeded but an assertion stopped the program?
 
 ### References and help
 
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/functions-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=functions-5
+make example EXAMPLE=functions-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

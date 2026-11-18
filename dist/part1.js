@@ -14,7 +14,7 @@ window.PART_ONE = {
         "explanation": "<strong>Preprocessing</strong> handles lines such as <code>#include &lt;stdio.h&gt;</code>, which brings in descriptions of available functions. The <strong>compiler</strong> checks your C and translates it into an object file, one piece of the program. The <strong>linker</strong> connects that piece to library code such as <code>printf</code>. Together, these steps <strong>build</strong> the program. Here the result is <strong>WebAssembly</strong>: a binary program format the browser can run. A local build can instead produce an executable for your computer. <strong>Run code</strong> builds and runs the program for you.",
         "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello, C!\\n\");\n    return 0;\n}\n",
         "expected": "Hello, C!",
-        "walkthrough": "The header declares printf so the compiler can check its use. The call asks the runtime to write a line. The final return ends main successfully. The browser lab performs the compile, link, and run stages when you choose Run code; you do not need to install a compiler for Part 1.",
+        "walkthrough": "The header declares printf. Calling printf writes the greeting and a newline. Returning zero reports successful completion to the runtime.",
         "pitfall": "A compiler error prevents the new program from running. A runtime error happens after compilation and linking have succeeded. Treat these as different points in the process.",
         "question": "Which stage connects your program to the library code for printf?",
         "choices": [
@@ -24,7 +24,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "The linker connects the translated program with the library code it needs.",
-        "tryit": "Change the greeting, run the program, and check that the console reflects the new text.",
+        "tryit": "In main.c, replace Hello, C! with Hello, Ada! inside the printf string. Leave the newline escape in place. Choose Run code again and compare the two Console lines. Which part of the output did the edit control?",
         "input": ""
       },
       "2": {
@@ -41,7 +41,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "Returning a status and writing output are separate operations.",
-        "tryit": "Swap the two printf statements. Predict the new order before running.",
+        "tryit": "In main.c, move the printf line for Second above the line for First. Choose Run code. Does Console now print Second before First, and does return 0 add a line?",
         "input": ""
       },
       "3": {
@@ -59,7 +59,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "The %d consumes 25; %% contributes one literal percent sign.",
-        "tryit": "Print two labeled integer values on separate lines. Include a literal percent sign in one line.",
+        "tryit": "In main.c, change the 3 argument in the first printf to 7 and change 100%% to 75%% in the second string. Choose Run code. Find Count: 7 and Progress: 75% in Console. Why does the second line display one percent sign?",
         "input": ""
       },
       "4": {
@@ -67,7 +67,7 @@ window.PART_ONE = {
         "explanation": "Consider <code>printf(\"Hello\")</code> followed by <code>return 0;</code>. The call is missing its semicolon. The compiler may point at return because that is where it discovers the previous statement was not terminated. Warnings describe suspicious constructs that a compiler may still translate. Keep warnings visible: a successful build does not establish correct behavior. Linking failures, such as an undefined function reference, belong to a later stage.",
         "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello\\n\");\n    return 0;\n}\n",
         "expected": "Hello",
-        "walkthrough": "This is the corrected program. Remove the semicolon after printf in the editor and run it to observe a real compiler diagnostic. Restore the semicolon and rerun. If several errors appear, start at the first; later messages can be consequences of the same initial mistake. Exact diagnostic wording depends on compiler version.",
+        "walkthrough": "A diagnostic may point to the next statement because that is where the compiler discovers the missing terminator. Read the first diagnostic before chasing later ones. Its exact wording depends on the compiler.",
         "pitfall": "Do not change a large number of lines to silence a list of errors. A small edit-and-recompile cycle makes it easier to connect a cause with its effect.",
         "question": "The compiler points at return, but the preceding printf has no semicolon. What should you inspect first?",
         "choices": [
@@ -77,15 +77,15 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "The reported location is where parsing failed, which can follow the actual mistake.",
-        "tryit": "Create the missing-semicolon error, read it, fix it, and explain why its location may be one line later.",
+        "tryit": "In main.c, remove the semicolon immediately after printf(\"Hello\\n\"). Choose Run code and read the first compiler diagnostic in Console. Put the semicolon back and run again. Which line did the compiler report, and why can it follow the actual mistake?",
         "input": ""
       },
       "5": {
-        "intro": "The browser lab is a C environment with a limited operating-system interface. It is useful to know what belongs to the C language, what belongs to the runtime, and what the page itself provides.",
-        "explanation": "The editor contains source. Run code compiles and executes it in a worker so the page remains responsive. Console shows program output and diagnostics. Input supplies text before execution; it is not an interactive terminal that waits for you to type midway through the run. Later exercises will read it. Check output compares observable results with practice cases. It does not prove that an algorithm is appropriate or memory is managed correctly.",
+        "intro": "The browser runs compiled C and supplies a small operating-system interface.",
+        "explanation": "Input passes text to the program before execution. For example, scanf or fgets can read this prepared text during the run. Use Console to see the program output and any diagnostics.",
         "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"This program runs in the browser.\\n\");\n    return 0;\n}\n",
         "expected": "This program runs in the browser.",
-        "walkthrough": "This program needs only standard output. A Wasm module is generated and executed locally. Your edited source can be saved in this browser, but a program’s temporary files do not become permanent course data. Use Export for a copy you can keep or move to Codespaces. Stop terminates the running worker, including a program stuck in a loop.",
+        "walkthrough": "This starter writes to standard output. The page compiles it into WebAssembly and runs it locally. Stop is available while a run is active.",
         "pitfall": "Native Linux processes, sockets, and C threads are not supplied by this lab. Chapters that need those capabilities identify Codespaces as their execution environment; they are still readable on a tablet.",
         "question": "When should you supply input for the current browser runner?",
         "choices": [
@@ -94,7 +94,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "The runner passes the Input text at the start. It does not offer an interactive stdin prompt.",
-        "tryit": "Open the chapter’s greeting exercise. Edit, run, check, and export your first C file.",
+        "tryit": "In main.c, replace This program runs in the browser. with Built and run here. Choose Run code, then confirm Console shows the new line. In Editor tools, choose Export to save the edited main.c. The chapter’s greeting exercise uses Check output for separate practice.",
         "input": ""
       },
       "6": {
@@ -128,7 +128,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "printf counts characters transmitted, including the newline and excluding the terminating null byte. Its failure result is negative.",
-        "tryit": "Use the printf reference to predict the count for \"C\\n\", change the first call, and run it. Then find how to print a literal percent sign, include one in the message, and explain why the source spelling and output length differ.",
+        "tryit": "In main.c, change the first printf string from Hi!\\n to C\\n. Predict the return value, choose Run code, and read count= in Console. Next change the string to C%%\\n and run again. How many characters does one printed percent sign add?",
         "input": ""
       }
     }
@@ -157,7 +157,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "The f conversion expects a double; .1 requests one digit after the decimal point.",
-        "tryit": "Change the values and predict the complete line before you run the example.",
+        "tryit": "In main.c after the first run, change count from 7 to 9, distance from 2.5 to 4.0, letter from 'A' to 'B', and ready from true to false. Predict the four fields and choose Run code. In Console, which field shows a Boolean as an integer?",
         "input": ""
       },
       "2": {
@@ -174,7 +174,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "An initializer is evaluated once at that point in execution. C does not maintain spreadsheet-like dependencies.",
-        "tryit": "Recalculate total after changing quantity. Check that the first number now becomes 28.",
+        "tryit": "In main.c, add total = unit_price * quantity; just after quantity = 4;. Choose Run code. The first Console field changes from 21 to 28 and the second remains 4. When does C evaluate the multiplication?",
         "input": ""
       },
       "3": {
@@ -192,7 +192,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "Parentheses group the addition, producing 5 before the multiplication produces 20.",
-        "tryit": "Add expressions for 9 / 4 and 9 % 4. Explain each result rather than only matching the output.",
+        "tryit": "In main.c, replace 7 / 2 and 7 % 2 in the first printf with 9 / 4 and 9 % 4. Choose Run code and read the first Console row. How do its quotient and remainder reconstruct 9?",
         "input": ""
       },
       "4": {
@@ -209,7 +209,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "The second expression converts an operand before division; the first converts an already truncated quotient.",
-        "tryit": "Rewrite fractional using 7.0 instead of a cast. Explain why the result is unchanged.",
+        "tryit": "In main.c, replace (double)7 / 2 with 7.0 / 2 in fractional. Choose Run code and compare both Console fields with the starter. Which operand now makes the first division floating-point?",
         "input": ""
       },
       "5": {
@@ -226,7 +226,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "Unsigned arithmetic has defined modular behavior. Ordinary signed overflow does not.",
-        "tryit": "Use the chapter’s numeric-expression exercise to practice type choice and conversion without invoking overflow.",
+        "tryit": "In main.c, change value -= 1; to value -= 2;. Choose Run code and compare the printed test against UINT_MAX with the starter. Then change the test to value == UINT_MAX - 1 and run again. Which value does defined unsigned subtraction produce?",
         "input": ""
       }
     }
@@ -254,7 +254,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "The >= comparison includes equality. Boundary values belong in your tests.",
-        "tryit": "Change score to 49 and command to an unmatched value. Predict both output lines.",
+        "tryit": "In main.c, change score from 72 to 49 and command from 2 to 9. Predict the first and second lines before you choose Run code. Which branch and switch case produced the new lines?",
         "input": ""
       },
       "2": {
@@ -271,7 +271,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "The false left operand of && skips its right operand.",
-        "tryit": "Try divisor = 2 and then divisor = 5. Explain why one reaches the true branch and the other does not.",
+        "tryit": "In main.c, change divisor from 0 to 2, then to 5. Choose Run code after each change. Which Console message shows the right-hand comparison succeeded, and which runs actually evaluated the division?",
         "input": ""
       },
       "3": {
@@ -289,7 +289,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "The values 0, 1, and 2 satisfy i < 3.",
-        "tryit": "Rewrite the countdown using for. Keep the output and final value the same.",
+        "tryit": "In main.c, replace the while loop with for (; remaining > 0; remaining--) { }. Choose Run code. Compare the numbers and remaining= line with the original and explain why the final value is the same.",
         "input": ""
       },
       "4": {
@@ -307,7 +307,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "2 skips one iteration; 5 triggers break and ends the loop.",
-        "tryit": "Move the break condition to i == 4. Predict which final value disappears from the output.",
+        "tryit": "In main.c, change if (i == 5) break; to if (i == 4) break;. Choose Run code. Which final number disappears, and why is number 2 absent from both runs?",
         "input": ""
       },
       "5": {
@@ -324,7 +324,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "No assignment was made by that failed conversion. Handle the failure before using the destination.",
-        "tryit": "Open the guessing-game exercise and add the loop, range checks, and higher/lower responses.",
+        "tryit": "Open Input, replace its supplied 7 with 11, and choose Run code. Find out of range in Console. Replace 11 with abc and run again. Does scanf complete an integer conversion in both runs?",
         "input": "7"
       }
     }
@@ -353,7 +353,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "The function returns 4 * 2. It does not print; printf in the caller handles output.",
-        "tryit": "Add a prototype above main and move the definition below main without changing the result.",
+        "tryit": "In main.c, replace the definition of twice above main with int twice(int value); and place the original definition below main. Choose Run code. Does Console still print 42? What information does main get from the prototype?",
         "input": ""
       },
       "2": {
@@ -370,7 +370,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "The increment changes the parameter copy. Only the returned result is given back.",
-        "tryit": "Assign the return directly into original, then compare the output with the original example.",
+        "tryit": "In main.c, insert original = result; above printf. Choose Run code. Compare both Console numbers with 10 11. Which assignment changes the caller’s variable?",
         "input": ""
       },
       "3": {
@@ -388,7 +388,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "The automatic local is initialized to zero again on each call.",
-        "tryit": "Compare the two versions and explain the difference without changing the call sites.",
+        "tryit": "In next_count in main.c, replace static int count = 0; with int count = 0;. Choose Run code again without editing the two calls. Why does Console print 1 twice instead of 1 then 2?",
         "input": ""
       },
       "4": {
@@ -405,7 +405,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "Keeping I/O at the boundary leaves the computation easy to call and test independently.",
-        "tryit": "Implement the chapter calculator exercise, then add perimeter as a second independent function.",
+        "tryit": "In main.c, change width from 3 to 5, leaving height at 4. Choose Run code. Compare area= and perimeter= in Console. Which function multiplies the dimensions and which adds them?",
         "input": ""
       },
       "5": {
@@ -422,7 +422,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "Removing assertions must not remove behavior the program needs.",
-        "tryit": "Add tests where both inputs are negative and where the first input is zero.",
+        "tryit": "In main.c, add assert(maximum(-5, -2) == -2); before puts. Choose Run code and check for checks passed. Then use -5 as the expected value and run again. What evidence tells you the compiler succeeded but an assertion stopped the program?",
         "input": ""
       }
     }
@@ -451,7 +451,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "The first element is at zero, so the last valid index is count - 1.",
-        "tryit": "Change the initializer to three values and confirm that count and the loop adapt without a hardcoded bound.",
+        "tryit": "In main.c, replace {1, 2, 3, 4, 5} with {2, 4, 6}. Choose Run code and read the new sum in Console. Why does the loop visit just three indices without changing its bound?",
         "input": ""
       },
       "2": {
@@ -468,7 +468,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "Three text characters plus one zero terminator require four char elements.",
-        "tryit": "Set word[1] to '\\0'. Predict strlen and sizeof before running the edited example.",
+        "tryit": "In main.c, insert word[1] = '\\0'; before printf. Predict the length= and capacity= fields, then choose Run code. Which quantity describes bytes before the terminator, and which includes all array storage?",
         "input": ""
       },
       "3": {
@@ -485,7 +485,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "The capacity bounds each read. A long logical line can need more than one read.",
-        "tryit": "Try an empty Input panel, then a line longer than 31 characters. Observe success, EOF, and the capacity limit.",
+        "tryit": "Open Input and clear the supplied text. Choose Run code and look for no line in Console. Then put 012345678901234567890123456789012345 in Input and run again. Count the digits after Read: and explain where the remaining byte of the 32-byte array goes.",
         "input": "Ada Lovelace\n"
       },
       "4": {
@@ -502,7 +502,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "strcmp compares the characters, not whether both expressions designate the same array.",
-        "tryit": "Change text to \"42x\", an empty string, and a number too large for long. Explain which checks reject them. Then make the copied name too long for the destination.",
+        "tryit": "In main.c, change char text[] = \"42\"; to char text[] = \"42x\";. Choose Run code and find invalid integer after same= and copy=. What does the end pointer show about the conversion? Try an empty string next.",
         "input": ""
       },
       "5": {
@@ -520,7 +520,7 @@ window.PART_ONE = {
         ],
         "answer": 0,
         "why": "Only transitions from whitespace to non-whitespace start a word.",
-        "tryit": "Open the text-statistics exercise and implement both counters. Explain the purpose of the in_word flag.",
+        "tryit": "In Input, replace the supplied line with one   two and choose Run code. Compare words= with the starter. Why do adjacent spaces leave in_word false without adding a second word boundary?",
         "input": "C is fun\n"
       }
     }

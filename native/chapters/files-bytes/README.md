@@ -55,7 +55,7 @@ No. Buffering and persistence are different stages; even flush is not a universa
 
 </details>
 
-**Try:** Inspect feof and ferror after deliberately attempting another read at end-of-file.
+**Try:** Edit the example in your native checkout. In native/examples/files-bytes-1/main.c, add another fgets after printf and print whether it returned NULL alongside feof(file) and ferror(file). Repeat the terminal run. What separates an exhausted file from a read error?
 
 ### References and help
 
@@ -71,11 +71,13 @@ Both EOF and an I/O error can cause a short read. Inspect the stream’s feof an
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-1
+make example EXAMPLE=files-bytes-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 10.2 Fixed-width integers, bitwise operations, and masks
 
@@ -125,7 +127,7 @@ flags &= ~mask. The AND limits the change to bits selected by the inverted mask.
 
 </details>
 
-**Try:** Add a third flag and toggle it twice with XOR; verify that the original flags are restored.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/2). In main.c, remove the line that clears bit 2 and choose Run code. Compare hex=, bit2=, and bit5=. Which field confirms that clearing one bit in the starter preserves the other?
 
 ### References and help
 
@@ -133,11 +135,13 @@ flags &= ~mask. The AND limits the change to bits selected by the inverted mask.
 - [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-2
+make example EXAMPLE=files-bytes-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 10.3 Endianness and explicit serialization
 
@@ -198,18 +202,20 @@ The explicit extraction and reconstruction rules. The representation is specifie
 
 </details>
 
-**Try:** Try zero and the largest uint32_t, checking round trips without changing the byte order.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/3). In main.c, replace 0x12345678 with 0x00000102. Choose Run code and compare the four printed bytes and round trip=. Which byte appears first, and what does the check say about decoding?
 
 ### References and help
 
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-3
+make example EXAMPLE=files-bytes-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 10.4 Undefined behavior, assertions, and debugging
 
@@ -261,18 +267,20 @@ No. Assertions can disappear; external input still needs a runtime error-handlin
 
 </details>
 
-**Try:** Use GDB on the example and inspect the valid index rather than deliberately executing an out-of-bounds access.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/4). In main.c, change index from 2 to 1 and choose Run code. Compare Console with 12. Both indices are valid; which element does each access?
 
 ### References and help
 
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 - [C reference: assert](https://en.cppreference.com/w/c/error/assert.html) — Check what the diagnostic macro does and how NDEBUG changes its behavior.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-4
+make example EXAMPLE=files-bytes-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 10.5 Testing, sanitizers, portability, and browser runtime limits
 
@@ -326,7 +334,7 @@ No. It checks the executed behavior for the classes of problems that sanitizer c
 
 </details>
 
-**Try:** Run make example EXAMPLE=files-bytes-5 SANITIZE=1, then add a destination-capacity boundary case.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/5). In main.c, change small[4] to small[6]. Choose Run code and compare short= and too-long=. How many bytes does Grace need including its terminator? Use the optional native command with SANITIZE=1 to check the same boundary under native diagnostics.
 
 ### References and help
 
@@ -334,11 +342,13 @@ No. It checks the executed behavior for the classes of problems that sanitizer c
 - [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
 - [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-5
+make example EXAMPLE=files-bytes-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 10.6 A portable binary record format
 
@@ -419,18 +429,22 @@ Encoder and decoder could share the same mistake. A fixed independently defined 
 
 </details>
 
-**Try:** Implement the native binary-record project and explain every byte in its test fixture.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/6). In main.c, change Record original from {513, 90} to {514, 95}. Choose Run code and compare id=, score=, and bad version=. Which results depend on payload bytes and which depend on byte 2?
+
+**Extend the example:** Use the native binary-record project linked from the chapter overview to implement the format and verify its test fixture byte by byte.
 
 ### References and help
 
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-6
+make example EXAMPLE=files-bytes-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 10.7 Optional lab: Debugging C with GDB
 
@@ -551,7 +565,7 @@ Output:
 total=20
 ```
 
-This is the intentionally faulty starter: the loop begins at element 1 and skips element 0. The original-output command confirms the reproducible value 20; it does not check a repair. Use the separate debug-check command to require 24 and exercise single, empty, and negative inputs.
+The faulty starter begins at element 1 and produces 20. The original-output check confirms that reproduction. Use debug-check on the repaired student file to require 24 and exercise single, empty, and negative inputs.
 
 **Watch for:** A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Native GDB is not running inside the browser Wasm workspace.
 
@@ -566,17 +580,19 @@ Fix the source, rebuild, and add a regression test. The debugger changed one liv
 
 </details>
 
-**Try:** Use the optional guided GDB session in this lesson, repair the editable starter, and run all four regression cases. Explain why the empty-array case passed even before the fix.
+**Try:** Edit the example in your native checkout. For the optional repair, edit native/debugging/basics/main.c as described in the GDB instructions. Run its four regression cases after the repair. The separate terminal command below reproduces the faulty starter output total=20.
 
 ### References and help
 
 - [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-7
+make example EXAMPLE=files-bytes-7 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

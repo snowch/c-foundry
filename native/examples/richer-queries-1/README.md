@@ -113,7 +113,7 @@ To keep data separate from the prepared syntax. Typed binding retains the query 
 
 </details>
 
-**Try:** Generalize preparation through the real parser, add parameter types and lifetime rules, and test composite-prefix queries.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/richer-queries/1). In main.c, change bind(&p, 1, 2) to bind(&p, 2, 1). Run code and compare prepared= with all join= lines. Which row changes when the known query’s two bound values change?
 
 ### References and help
 
@@ -128,9 +128,11 @@ No. Read the API’s prepare, bind, step, reset, and finalize contracts. Prepara
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/richer-queries-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=richer-queries-1
+make example EXAMPLE=richer-queries-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

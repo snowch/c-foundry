@@ -86,16 +86,18 @@ No. It addresses circular wait, not every scheduling policy.
 
 </details>
 
-**Try:** Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.
+**Try:** Edit the example in your native checkout. In native/examples/coordination-3/main.c, create a third pthread_t, start it with ordered_locks as for a and b, and join it before the printf and lock destruction. Repeat the terminal run. How does completed= change when another worker follows the same acquisition order?
 
 ### References and help
 
 - [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/coordination-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=coordination-3
+make example EXAMPLE=coordination-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

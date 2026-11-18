@@ -78,7 +78,7 @@ No. It supplies neither the required atomic update nor the inter-thread ordering
 
 </details>
 
-**Try:** Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.
+**Try:** Edit the example in your native checkout. In native/examples/atomics-4/main.c, change the local volatile loop bound from 3 to 5 and repeat the terminal run. Compare local_volatile= and atomic_total=. Which quantity is local and which receives updates from more than one worker?
 
 ### References and help
 
@@ -93,9 +93,11 @@ No. volatile is not a substitute for atomic operations or synchronization. Use d
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/atomics-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=atomics-4
+make example EXAMPLE=atomics-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

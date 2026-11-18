@@ -73,17 +73,19 @@ The four initialized elements. The search problem grows with the number of candi
 
 </details>
 
-**Try:** Add four larger values, keep the target absent, and predict the count before running.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/big-o/1). In main.c, extend a to {2, 4, 6, 8, 10, 12, 14, 16} and change scan(a, 4, 7) to scan(a, 8, 7). Choose Run code and compare comparisons=. Why does keeping 7 absent reveal how much of the array is inspected?
 
 ### References and help
 
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
-Run from the repository root:
+Native source: `native/examples/big-o-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=big-o-1
+make example EXAMPLE=big-o-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 11.2 O, Θ, and Ω notation
 
@@ -132,7 +134,7 @@ The printed values illustrate the inequality; the algebra proves it for every n�
 
 </details>
 
-**Try:** Check the inequality for n=8, then write down why it holds for every n≥1.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/big-o/2). In main.c, change n <= 4 to n <= 8. Run code and compare count= with upper= on the n=8 line. Which expression bounds the other? Why do the printed examples alone leave the general inequality to explain?
 
 ### References and help
 
@@ -146,11 +148,13 @@ No. It gives an asymptotic upper bound up to constants beyond a threshold. State
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/big-o-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=big-o-2
+make example EXAMPLE=big-o-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 11.3 Constant, logarithmic, linear, linearithmic, and quadratic growth
 
@@ -211,17 +215,19 @@ It becomes four times as large. (2n)² equals 4n².
 
 </details>
 
-**Try:** Extend the table to 16 and compare the ratios rather than the absolute numbers.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/big-o/3). In main.c, raise the loop bound from n <= 8 to n <= 16. Run code and compare the n=8 and n=16 rows. Which columns stay fixed, double, or quadruple? These are calculated work counts.
 
 ### References and help
 
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
-Run from the repository root:
+Native source: `native/examples/big-o-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=big-o-3
+make example EXAMPLE=big-o-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 11.4 Best, average, and worst cases
 
@@ -279,17 +285,19 @@ Yes. An expectation is defined relative to probabilities over inputs.
 
 </details>
 
-**Try:** Count all four successful target positions and calculate their mean.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/big-o/4). In main.c, change the first scan target from 2 to 4 and rename first= to target4=. Run code, then repeat for 6. Together with the starter’s first= and last=, what mean comparison count do the four successful positions give?
 
 ### References and help
 
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
-Run from the repository root:
+Native source: `native/examples/big-o-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=big-o-4
+make example EXAMPLE=big-o-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 11.5 Time, auxiliary space, and amortized analysis
 
@@ -342,18 +350,20 @@ Yes, when it grows the buffer. The total sequence bound permits occasional expen
 
 </details>
 
-**Try:** Continue to nine appends and predict the new total copying cost.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/big-o/5). In main.c, change length < 8 to length < 9 and change the printed label appends=8 to appends=9. Run code. Compare copied= and capacity=. Which extra append triggers the next copy?
 
 ### References and help
 
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 - [C reference: realloc](https://en.cppreference.com/w/c/memory/realloc.html) — Check what happens to the original allocation on success and failure.
 
-Run from the repository root:
+Native source: `native/examples/big-o-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=big-o-5
+make example EXAMPLE=big-o-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 11.6 Loop invariants and correctness arguments
 
@@ -407,17 +417,19 @@ The prefix a[0..i). The next unread element is a[i], so it cannot already be inc
 
 </details>
 
-**Try:** Add an assertion for the invariant using a separately computed prefix in this small example.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/big-o/6). In main.c, change the middle member of a from 1 to 7. Run code. At which before i= row does sum= first differ? Explain why the sum at i always covers earlier indices only.
 
 ### References and help
 
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
-Run from the repository root:
+Native source: `native/examples/big-o-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=big-o-6
+make example EXAMPLE=big-o-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 11.7 Predict growth before measuring it
 
@@ -483,17 +495,19 @@ Correctness checks and a stated workload. A fast incorrect program is not an imp
 
 </details>
 
-**Try:** Use the Big O explorer, then compare absent-key linear and binary search counts on powers of two.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/big-o/7). In main.c, change the two scan sizes from 4 and 8 to 2 and 4, keeping the absent target 99. Choose Run code. Compare small=, large=, and ratio=. Use the Counted search link in the chapter overview to compare linear and binary search separately.
 
 ### References and help
 
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
-Run from the repository root:
+Native source: `native/examples/big-o-7.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=big-o-7
+make example EXAMPLE=big-o-7 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

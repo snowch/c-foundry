@@ -118,16 +118,18 @@ bool keyword(Lexer *l, const char *word) {
 int main(void) {
   Lexer l = {"SELECT * FROM people;", {0}, 0};
   Token token;
-  unsigned words = 0, punctuation = 0;
+  unsigned words = 0, numbers = 0, punctuation = 0;
   while ((token = next(&l)) != END) {
     if (token == BAD)
       return 1;
     if (token == WORD)
       ++words;
-    else
+    else if (token == NUMBER)
+      ++numbers;
+    else if (token != STRING)
       ++punctuation;
   }
-  printf("words=%u punctuation=%u\n", words, punctuation);
+  printf("words=%u numbers=%u punctuation=%u\n", words, numbers, punctuation);
   return 0;
 }
 ```
@@ -135,10 +137,10 @@ int main(void) {
 Output:
 
 ```text
-words=3 punctuation=2
+words=3 numbers=0 punctuation=2
 ```
 
-SELECT, FROM, and people are words. The star and semicolon are punctuation. No table access occurs during lexing.
+SELECT, FROM, and people count as words. The star and semicolon count as punctuation. The lexer recognises these tokens without accessing a table.
 
 **Watch for:** Treating a keyword-looking substring inside a quoted string as syntax corrupts valid data.
 
@@ -153,18 +155,20 @@ No. Lexing identifies categories and values; execution is a later stage.
 
 </details>
 
-**Try:** Print each token category and source offset, then test invalid characters and an overflowing numeric literal.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/parsing/1). In main.c, change SELECT * FROM people; in l’s initializer to SELECT * FROM people WHERE id = 7;. Run code. Compare words=, numbers=, and punctuation= with the starter. Which token is the literal, and which punctuation token separates the column from its value?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
-Run from the repository root:
+Native source: `native/examples/parsing-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=parsing-1
+make example EXAMPLE=parsing-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 23.2 Whitespace, quoted strings, and malformed input
 
@@ -308,18 +312,20 @@ No, it represents one quote character. The lexer’s string state handles double
 
 </details>
 
-**Try:** Test an empty string, 31-byte and 32-byte strings, and whitespace around every punctuation token.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/parsing/2). In main.c, replace 'Ada Lovelace' with '' inside the first lexer input string. Run code and compare the first two lines and unterminated=. How does a successfully read empty value differ from the rejected third input?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
-Run from the repository root:
+Native source: `native/examples/parsing-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=parsing-2
+make example EXAMPLE=parsing-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 23.3 A small SQL grammar
 
@@ -553,7 +559,7 @@ End of input. A single-statement parser must consume the entire statement.
 
 </details>
 
-**Try:** Write the grammar in a small notation, then generate one malformed example for each required punctuation token.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/parsing/3). In main.c, change the second SQL string from SELECT * FROM people to SELECT * FROM people; and rename missing_semicolon= to second_rejected=. Run code. Which two Console checks report acceptance and which still reports trailing text?
 
 ### References and help
 
@@ -568,11 +574,13 @@ Compare the actual grammar in this lesson with the reference and list the differ
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/parsing-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=parsing-3
+make example EXAMPLE=parsing-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 23.4 Building a statement representation
 
@@ -814,18 +822,20 @@ The lexer’s token buffer is reused. The statement needs stable data after subs
 
 </details>
 
-**Try:** Add an UPDATE production and a distinct statement variant without changing SELECT field meanings.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/parsing/4). In main.c, change id = 7 to id = 3 in the SELECT string. Run code and compare select=, filtered=, and id=. Which field preserves the same meaning but carries a new value?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
-Run from the repository root:
+Native source: `native/examples/parsing-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=parsing-4
+make example EXAMPLE=parsing-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 23.5 Clear syntax and validation errors
 
@@ -1060,18 +1070,20 @@ Schema validation. Zero is a valid numeric token but an invalid key under this s
 
 </details>
 
-**Try:** Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/parsing/5). In main.c, change only the first INSERT’s ID from 0 to 1. Run code and compare parsed=, value_rejected=, and syntax_rejected=. Which stage now accepts the first statement, and which still rejects the malformed second statement?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
-Run from the repository root:
+Native source: `native/examples/parsing-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=parsing-5
+make example EXAMPLE=parsing-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

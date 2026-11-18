@@ -170,16 +170,18 @@ Format documentation, validation tests, and execution limits. A recipient needs 
 
 </details>
 
-**Try:** Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.
+**Try:** Edit the example in your native checkout. In native/examples/ship-7/main.c, add a third row with ID 3, name Linus and score 70, change the response check copy.count != 2 to copy.count != 3, and update the printed line to release fixture: three validated rows. Repeat the terminal command. Why does the program check the loaded count before printing the line?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/ship-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-7
+make example EXAMPLE=ship-7 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
