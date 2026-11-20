@@ -72,15 +72,17 @@ Version validation and publication of the new value/version. Another writer must
 
 </details>
 
-**Try:** Protect compare_commit with a lock, then test two sessions synchronized to read the same initial version.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/isolation/2). In main.c, assign second = db.version; before the second compare_commit, after the first call has returned. Split the declarations of a and b if needed. Run code and compare stale_rejected=, value=, and version=. Which version makes the second commit valid?
 
 ### References and help
 
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 
-Run from the repository root:
+Native source: `native/examples/isolation-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=isolation-2
+make example EXAMPLE=isolation-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

@@ -67,18 +67,20 @@ Explicit rejection or a defined migration path. Different layouts need deliberat
 
 </details>
 
-**Try:** Write a byte-offset format table and test bad magic, version, record width, and reserved bytes.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/1). In main.c, change header[6] from 2 to 3 in the initializer. Run code and compare version=, record_bytes=, and rows=. This header task changes the advertised count. What further check would a complete file reader need before accepting that count?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-1
+make example EXAMPLE=persistence-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 25.2 Serializing rows without dumping raw structs
 
@@ -254,7 +256,7 @@ No. Its forty bytes are specified by offsets, independent of struct padding.
 
 </details>
 
-**Try:** Add fixture-byte tests for zero, maximum score, maximum ID, and a 31-byte name.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/2). In main.c, change the first initializer value 513 to 258. Run code and compare id_bytes= and the decoded row=. Which position holds the least significant byte?
 
 ### References and help
 
@@ -269,11 +271,13 @@ Readers on different targets must interpret the same bytes. Host padding, alignm
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/persistence-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-2
+make example EXAMPLE=persistence-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 25.3 Reading and writing fixed-size pages
 
@@ -468,18 +472,20 @@ Exactly the current page count. This pager rejects gaps and tracks contiguous in
 
 </details>
 
-**Try:** Write two pages with distinct markers, close and reopen a named file, and verify offsets from its checked length.
+**Try:** Edit the example in Browser Linux.  In native/examples/persistence-3/main.c, change page[7] = 42; to page[7] = 17;. Repeat the terminal command. Compare pages=, byte7=, and missing=. Which evidence comes from reading a stored byte and which comes from checking page bounds?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-3
+make example EXAMPLE=persistence-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 25.4 Building a pager abstraction
 
@@ -670,26 +676,28 @@ The caller that owns it. The pager borrows the FILE rather than taking ownership
 
 </details>
 
-**Try:** Add open/close functions with explicit ownership and tests for partial-page files and I/O failures.
+**Try:** Edit the example in Browser Linux.  In native/examples/persistence-4/main.c, replace page[0] = 9; with page[0] = 17;. Repeat the terminal command and compare gap_rejected=, valid=, and marker=. Why does the rejected write to page 2 leave page 0 writable?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-4
+make example EXAMPLE=persistence-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 25.5 Browser-backed files, import, and export
 
 A browser compiler’s virtual files are temporary unless explicitly transferred to persistent browser storage or exported to the user.
 
-Also editable and runnable inline in the browser course. This example uses the browser’s temporary virtual files. Use CLI to keep and download program files, or use the native command below.
+Also editable and runnable inline in the browser course. Inline runs use temporary files. Open the command workspace from Editor tools to keep a database between runs.
 
-This transfer tool writes people.tdb and loads it back through the validated decoder. Run it inline to inspect the round trip; those files last for this run only. To keep the generated file in the browser, choose CLI, run the suggested cc command, then run `./program`. Download people.tdb from the workspace file list. Run `./program import people.tdb` to test import. With a native toolchain, KEEP_FILES=1 retains the named artifact under .build/files/persistence-5. The page also supplies a matching sample file. Browser drafts and lesson marks are separate from database-file persistence; downloading a file does not establish transaction durability.
+This tool writes people.tdb and reads it back with the decoder. The inline run uses temporary files. The command workspace keeps files between runs, separately from lesson drafts and progress. Its Files list lets you download a copy. The native alternative can keep the named file when run with KEEP_FILES=1.
 
 ### main.c
 
@@ -858,7 +866,7 @@ exported=1 imported=1 rows=2
 
 The default run exports and reimports two rows. The optional import argument loads an external file and prints its validated contents; no raw struct casts are used.
 
-**Watch for:** Do not claim that the page’s current Wasm runner automatically persists its filesystem across executions.
+**Watch for:** Use the round-trip result to check this small format fixture. A successfully decoded file leaves crash durability and transaction guarantees to separate tests.
 
 **Check:** Does compiling in a browser automatically persist program files?
 
@@ -871,18 +879,20 @@ No. The runtime resets its virtual filesystem; a host transfer/storage step is s
 
 </details>
 
-**Try:** Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Browser Linux.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/5). In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Run the prepared cc command. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-5 KEEP_FILES=1
+make example EXAMPLE=persistence-5 KEEP_FILES=1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 25.6 Testing truncated and corrupt input
 
@@ -1058,18 +1068,22 @@ Only after complete validation succeeds. Later records or trailing input may sti
 
 </details>
 
-**Try:** Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.
+**Try:** Edit the example in Browser Linux.  In native/examples/persistence-6/main.c, change the final byte 7 in bad to 9 while leaving the file short. Repeat the terminal command. What do rejected=, retained=, and count= show about the existing table after a failed import?
+
+**Extend the example:** An independent folder of malformed files can cover truncation at every byte, duplicate IDs, a missing name terminator and trailing bytes. For each one, start with a known live row and check that failed import preserves it.
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-6
+make example EXAMPLE=persistence-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

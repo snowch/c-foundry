@@ -64,17 +64,19 @@ All input values are nonnegative. The remaining sum cannot be increased by inclu
 
 </details>
 
-**Try:** Count recursive calls and compare pruning with full enumeration on the same small inputs.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/strategies/1). In main.c, replace the first target 6 in the subset call with 11 and rename target6= to target11=. Run code. Which two elements make 11, and what does the unchanged target5= result tell you?
 
 ### References and help
 
 - [NIST DADS: backtracking](https://xlinux.nist.gov/dads/HTML/backtrack.html) — Identify the choices explored, rejected partial candidates, and restoration of state.
 
-Run from the repository root:
+Native source: `native/examples/strategies-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=strategies-1
+make example EXAMPLE=strategies-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 15.2 Greedy choices and counterexamples
 
@@ -126,17 +128,19 @@ The greedy rule is not always optimal. It refutes this rule under the stated dom
 
 </details>
 
-**Try:** Find the smallest amount where this coin system’s greedy count differs from an optimal table.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/strategies/2). In main.c, change remaining from 6 to 7 and keep the second printf argument 2. Run code and inspect greedy=. Construct a two-coin solution for 7. The example supplies the comparison count better=2 as a literal.
 
 ### References and help
 
 - [NIST DADS: greedy algorithms](https://xlinux.nist.gov/dads/HTML/greedyalgo.html) — Distinguish a locally attractive choice from a proof of global correctness.
 
-Run from the repository root:
+Native source: `native/examples/strategies-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=strategies-2
+make example EXAMPLE=strategies-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 15.3 Memoization and dynamic programming
 
@@ -190,7 +194,7 @@ x-c is an already solved smaller state. Positive coin values and increasing x es
 
 </details>
 
-**Try:** Remove coin one, represent unreachable states explicitly, and test both reachable and impossible amounts.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/strategies/3). In main.c, replace 1 with 2 in coins, then change best[6] to best[5] in printf. Run code. Why can 5 be represented with the new coins even without a coin of value 1?
 
 ### References and help
 
@@ -204,11 +208,13 @@ It retains results for previously solved states. Reusing those results avoids re
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/strategies-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=strategies-3
+make example EXAMPLE=strategies-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 15.4 One-dimensional and two-dimensional state
 
@@ -262,18 +268,20 @@ The cell above and the cell to the left. Every valid final move enters from one 
 
 </details>
 
-**Try:** Add one blocked cell and set its count to zero before applying the recurrence.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/strategies/4). In main.c, place (r == 1 && col == 1) ? 0 : before the existing conditional expression assigned to ways[r][col]. Run code and compare its center and lower-right values. Which paths stop contributing when the center is blocked?
 
 ### References and help
 
 - [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) — Check how overlapping subproblems and stored results change the work.
 - [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
 
-Run from the repository root:
+Native source: `native/examples/strategies-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=strategies-4
+make example EXAMPLE=strategies-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 15.5 Coin change, grid paths, and knapsack
 
@@ -324,17 +332,19 @@ To avoid reusing the current item. The source state must exclude the current ite
 
 </details>
 
-**Try:** Record predecessor choices to reconstruct the selected items, then verify the total weight and value.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/strategies/5). In main.c, replace the final item value 5 with 9. Run code and compare capacity5=. Which item can now beat the combination of weights 2 and 3, even though it leaves unused capacity?
 
 ### References and help
 
 - [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) — Check how overlapping subproblems and stored results change the work.
 
-Run from the repository root:
+Native source: `native/examples/strategies-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=strategies-5
+make example EXAMPLE=strategies-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

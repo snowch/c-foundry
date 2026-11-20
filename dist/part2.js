@@ -22,7 +22,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "Dereferencing selects the pointed-to object as the destination of the assignment.",
-        "tryit": "Change the write to 21, then compare value and *p before setting p to NULL.",
+        "tryit": "In main.c, change *p = 42; to *p = 21;. Choose Run code. Compare value= and null= in Console. Which changes when you write through p, and which comes from the later assignment to p itself?",
         "input": "",
         "runtime": "browser"
       },
@@ -41,7 +41,7 @@ window.PART_TWO = {
         ],
         "answer": 2,
         "why": "The helper needs access to the pointer object itself, through its address.",
-        "tryit": "Remove point_to and pass &p to a helper that sets p to NULL. Do not dereference p afterward.",
+        "tryit": "In main.c, change point_to(&p, &b) to point_to(&p, &a). Choose Run code and compare the third Console value with a and b. Did point_to move either integer or change which one p refers to?",
         "input": "",
         "runtime": "browser"
       },
@@ -59,7 +59,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "The one-past position supports iteration boundaries, not reading another element.",
-        "tryit": "Write a loop from values to end that prints each value while p != end.",
+        "tryit": "In main.c, change int *p = values + 1; to int *p = values;. Choose Run code. Which two elements are now read through p, and why does end - values stay 3?",
         "input": "",
         "runtime": "browser"
       },
@@ -77,7 +77,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "The pointer may change, but this access path does not permit modifying the int.",
-        "tryit": "Introduce one forbidden assignment at a time, read the diagnostic, and restore the valid version.",
+        "tryit": "In main.c, replace read = &b; with *read = 20; and choose Run code. Read the compiler diagnostic about writing through read. Restore read = &b; and rerun to see 11 20 again. What is const protecting?",
         "input": "",
         "runtime": "browser"
       },
@@ -95,7 +95,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "The initializer copies the integer into a separate local object.",
-        "tryit": "Complete the pointer exercise, then add a same-object call and explain the result.",
+        "tryit": "In main.c, initialize x to 3 and y to 8, leaving same at 7. Choose Run code and compare all three values. Why does the call with two pointers to same leave its value unchanged?",
         "input": "",
         "runtime": "browser"
       }
@@ -124,7 +124,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "The bytes have indeterminate contents until you establish values in them.",
-        "tryit": "Move free before printf only if the sum has already been copied into total. Explain which objects the print still accesses.",
+        "tryit": "In main.c, move free(values); above printf, after the loop has saved the sum in total. Choose Run code. Does Console still print 15? Which object does printf read after the allocation has been released?",
         "input": "",
         "runtime": "browser"
       },
@@ -142,7 +142,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "Failure preserves the original allocation and its contents.",
-        "tryit": "Change the initial values, grow the array, and verify that the earlier elements are preserved.",
+        "tryit": "In main.c, add values[0] = 12; after the first printf and add printf(\"old first=%d\\n\", values[0]); after values = grown;. Choose Run code. Compare first=, old first=, and last=. Which value did realloc preserve when it grew the array?",
         "input": "",
         "runtime": "browser"
       },
@@ -160,7 +160,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "A wrapped multiplication has already lost the size you intended to request.",
-        "tryit": "Make the injected allocator succeed for a small request, initialize the ints, and add cleanup for that path.",
+        "tryit": "In main.c, change true to false in allocate_for_demo(4 * sizeof *values, true). After the null check, add else { values[0] = 5; printf(\"allocated=%d\\n\", values[0]); }. Choose Run code. Which message changes, and which checked size rejection remains?",
         "input": "",
         "runtime": "browser"
       },
@@ -178,7 +178,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "It copies an address. Both pointers would reach the same allocation.",
-        "tryit": "Write down the owner and borrowed access paths in this program before adding another pointer to the copy.",
+        "tryit": "In main.c, change copy[0] = 'B'; to copy[0] = 'P';. Choose Run code and compare both words in Console. Which allocation owns the editable copy, and why does original keep its first letter?",
         "input": "",
         "runtime": "browser"
       },
@@ -196,9 +196,10 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "The terminator needs one additional char element.",
-        "tryit": "Append another literal, then implement the chapter’s growable-array project.",
+        "tryit": "In main.c, change the second append argument \" C\" to \" C17\". Choose Run code and compare the text, length=, and fits=. Which count excludes the terminating zero?",
         "input": "",
-        "runtime": "browser"
+        "runtime": "browser",
+        "extension": "For a follow-up, open the chapter’s growable-array exercise from the chapter overview. Its supplied cases check growth, input rejection, and cleanup."
       }
     }
   },
@@ -225,7 +226,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "Pointer members are copied as values; the pointed-to allocation is not duplicated.",
-        "tryit": "Change a character in copy.name and confirm that row.name remains unchanged.",
+        "tryit": "In main.c, insert copy.name[0] = 'E'; after copy.id = 2;. Choose Run code and compare the two rows. Did editing the copied array also edit row.name?",
         "input": "",
         "runtime": "browser"
       },
@@ -243,7 +244,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "The program’s invariant associates each Kind value with an established payload member.",
-        "tryit": "Add a third enum case with a suitable payload and update every switch handling it.",
+        "tryit": "In main.c, change value.data.text = \"Ada\"; to value.data.text = \"Grace\"; after assigning the TEXT tag. Choose Run code. Which of number= and text= changes, and which tag tells show how to read each value?",
         "input": "",
         "runtime": "browser"
       },
@@ -261,7 +262,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "Padding can make the complete object larger.",
-        "tryit": "Reorder the fields and print actual sizes and offsets. Keep those observations separate from your file-format design.",
+        "tryit": "In main.c, add printf(\"size=%zu offset=%zu alignment=%zu\\n\", sizeof(Row), offsetof(Row, count), _Alignof(int)); before return. Run code, then swap the two field declarations in Row and run again. Which size and position values change on this browser target?",
         "input": "",
         "runtime": "browser"
       },
@@ -279,7 +280,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "Accessing a member requires the current node to still be alive.",
-        "tryit": "Add a third node, update the sum, and ensure the same cleanup loop releases every allocation.",
+        "tryit": "In main.c, change the second node’s .value from 2 to 20. Choose Run code and read sum=. Which dereference follows first->next, and where does the cleanup loop free that allocation?",
         "input": "",
         "runtime": "browser"
       },
@@ -297,7 +298,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "It designates an element inside an existing array, not an independently owned allocation.",
-        "tryit": "Implement the record-update project and test an absent ID and an overlong name.",
+        "tryit": "In main.c, change find(rows, 2, 2) to find(rows, 2, 3). Choose Run code and read Grace’s score. Why is the original score still present when find returns NULL?",
         "input": "",
         "runtime": "browser"
       }
@@ -329,7 +330,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "The public header describes the interface; the implementation is a separately compiled translation unit.",
-        "tryit": "Change twice in operations.c and rebuild the same multi-file example.",
+        "tryit": "Choose operations.c in Source files. In twice, change the multiplication by 2 to multiplication by 3. Choose Run code and compare Console with 42. Which file supplies the changed definition?",
         "input": "",
         "runtime": "native",
         "files": {
@@ -355,7 +356,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "The extern declaration can be repeated; the object needs one program definition.",
-        "tryit": "Make operations private too and replace the public object declaration with a read function.",
+        "tryit": "Choose main.c in Source files. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?",
         "input": "",
         "runtime": "native",
         "files": {
@@ -381,7 +382,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "It prevents repetition within one translation unit; separate translation units still need a correct linkage design.",
-        "tryit": "Change the default factor, then inspect the preprocessed source with gcc -E main.c in the example folder.",
+        "tryit": "Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect the expanded source in a native checkout, change into native/examples/larger-programs-3 and run gcc -E main.c.",
         "input": "",
         "runtime": "native",
         "files": {
@@ -406,7 +407,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "A comparator should handle every supported int pair without undefined signed overflow.",
-        "tryit": "Reverse the comparison’s sign to sort descending and predict the new output.",
+        "tryit": "In main.c, swap the two comparison expressions in compare_ints so positive becomes negative and negative becomes positive. Choose Run code. Which output end now contains -3, and do both 7 values remain?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -427,12 +428,13 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "The status determines whether the returned owner was established.",
-        "tryit": "Implement the native record-store project and test its failure and cleanup paths.",
+        "tryit": "In main.c, change the first argument of copy_name from \"Ada\" to \"Grace\". Choose Run code and compare the first line with bad input=. Which call uses the success path that must free name?",
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run here, or use Browser Linux for a full GCC build."
-        }
+          "note": "Run here, or use the native command below with your own C toolchain."
+        },
+        "extension": "The chapter overview links the native record-store project. Its editable implementation and independent checks extend this example into a multi-file contract."
       }
     }
   },
@@ -462,7 +464,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "Buffering and persistence are different stages; even flush is not a universal crash-durability guarantee.",
-        "tryit": "Inspect feof and ferror after deliberately attempting another read at end-of-file.",
+        "tryit": "In native/examples/files-bytes-1/main.c, add another fgets after printf and print whether it returned NULL alongside feof(file) and ferror(file). Repeat the terminal run. What separates an exhausted file from a read error?",
         "input": "",
         "runtime": "native"
       },
@@ -480,7 +482,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "The AND limits the change to bits selected by the inverted mask.",
-        "tryit": "Add a third flag and toggle it twice with XOR; verify that the original flags are restored.",
+        "tryit": "In main.c, remove the line that clears bit 2 and choose Run code. Compare hex=, bit2=, and bit5=. Which field confirms that clearing one bit in the starter preserves the other?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -501,7 +503,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "The representation is specified by the algorithm rather than a raw memory dump.",
-        "tryit": "Try zero and the largest uint32_t, checking round trips without changing the byte order.",
+        "tryit": "In main.c, replace 0x12345678 with 0x00000102. Choose Run code and compare the four printed bytes and round trip=. Which byte appears first, and what does the check say about decoding?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -522,7 +524,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "Assertions can disappear; external input still needs a runtime error-handling policy.",
-        "tryit": "Use GDB on the example and inspect the valid index rather than deliberately executing an out-of-bounds access.",
+        "tryit": "In main.c, change index from 2 to 1 and choose Run code. Compare Console with 12. Both indices are valid; which element does each access?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -543,7 +545,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "It checks the executed behavior for the classes of problems that sanitizer can detect.",
-        "tryit": "Run make example EXAMPLE=files-bytes-5 in Browser Linux, then add a destination-capacity boundary case and verify that rejection preserves the destination.",
+        "tryit": "In main.c, change small[4] to small[6]. Choose Run code and compare short= and too-long=. How many bytes does Grace need including its terminator? Use Browser Linux to repeat the same boundary check with GCC; sanitizer tooling is optional further reading.",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -564,12 +566,13 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "A fixed independently defined representation catches errors that two mutually consistent functions can hide.",
-        "tryit": "Implement the native binary-record project and explain every byte in its test fixture.",
+        "tryit": "In main.c, change Record original from {513, 90} to {514, 95}. Choose Run code and compare id=, score=, and bad version=. Which results depend on payload bytes and which depend on byte 2?",
         "input": "",
         "runtime": "native",
         "browser": {
           "note": "Files created by this example last for this run only. Use the command workspace or a native build to keep program files."
-        }
+        },
+        "extension": "Use the native binary-record project linked from the chapter overview to implement the format and verify its test fixture byte by byte."
       },
       "7": {
         "intro": "Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Browser Linux.",
@@ -579,7 +582,7 @@ window.PART_TWO = {
         "runtime": "native",
         "input": "",
         "exampleTitle": "Reproduce the original failure",
-        "walkthrough": "This is the intentionally faulty starter: the loop begins at element 1 and skips element 0. The original-output command confirms the reproducible value 20; it does not check a repair. Use the separate debug-check command to require 24 and exercise single, empty, and negative inputs.",
+        "walkthrough": "The faulty starter begins at element 1 and produces 20. The original-output check confirms that reproduction. Use debug-check on the repaired student file to require 24 and exercise single, empty, and negative inputs.",
         "pitfall": "A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Native GDB is not running inside the browser Wasm workspace.",
         "question": "You use GDB to set total to 24 and the output becomes correct. What still needs doing?",
         "choices": [
@@ -588,7 +591,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "The debugger changed one live process. The faulty loop remains in the source until you edit it and verify the rebuilt program.",
-        "tryit": "Use the optional guided GDB session in this lesson, repair the editable starter, and run all four regression cases. Explain why the empty-array case passed even before the fix.",
+        "tryit": "For the optional repair, edit native/debugging/basics/main.c as described in the GDB instructions. Run its four regression cases after the repair. The separate terminal command below reproduces the faulty starter output total=20.",
         "lab": {
           "id": "basics",
           "title": "Optional GDB lab: investigate, repair, verify",

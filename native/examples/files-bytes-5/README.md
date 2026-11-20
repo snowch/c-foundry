@@ -54,7 +54,7 @@ No. It checks the executed behavior for the classes of problems that sanitizer c
 
 </details>
 
-**Try:** Run make example EXAMPLE=files-bytes-5 in Browser Linux, then add a destination-capacity boundary case and verify that rejection preserves the destination.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/5). In main.c, change small[4] to small[6]. Choose Run code and compare short= and too-long=. How many bytes does Grace need including its terminator? Use Browser Linux to repeat the same boundary check with GCC; sanitizer tooling is optional further reading.
 
 ### References and help
 
@@ -62,9 +62,11 @@ No. It checks the executed behavior for the classes of problems that sanitizer c
 - [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
 - [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-5
+make example EXAMPLE=files-bytes-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

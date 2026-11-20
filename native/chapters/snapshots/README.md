@@ -92,18 +92,20 @@ Ten. Its visibility boundary remains fixed rather than advancing between reads.
 
 </details>
 
-**Try:** Add a later committed version and verify that repeated reads at snapshot two remain unchanged.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/1). In main.c, change the second version’s value from 20 to 25. Run code and compare snapshot2= and snapshot3=. Which snapshot falls before the new version becomes visible?
 
 ### References and help
 
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 - [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 
-Run from the repository root:
+Native source: `native/examples/snapshots-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=snapshots-1
+make example EXAMPLE=snapshots-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 41.2 An introduction to MVCC
 
@@ -187,7 +189,7 @@ No. Visibility, conflict rules, and transaction coordination jointly determine i
 
 </details>
 
-**Try:** Add transaction-status metadata for tentative versions and reject their visibility until commit publication.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/2). In main.c, start the snapshot loop at 1 rather than 2. Run code and compare the three old= and new= rows. Which boundary first changes the visible version?
 
 ### References and help
 
@@ -202,11 +204,13 @@ The implementation retains or reconstructs the reader’s visible version. Read 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/snapshots-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=snapshots-2
+make example EXAMPLE=snapshots-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 41.3 Visibility rules and reclaiming old versions
 
@@ -288,18 +292,20 @@ No. That reader still requires the value visible before deletion time three.
 
 </details>
 
-**Try:** Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/3). In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. When does the modeled horizon make the old version unnecessary?
 
 ### References and help
 
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 - [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 
-Run from the repository root:
+Native source: `native/examples/snapshots-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=snapshots-3
+make example EXAMPLE=snapshots-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

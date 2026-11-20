@@ -176,16 +176,20 @@ Only after complete validation succeeds. Later records or trailing input may sti
 
 </details>
 
-**Try:** Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.
+**Try:** Edit the example in Browser Linux.  In native/examples/persistence-6/main.c, change the final byte 7 in bad to 9 while leaving the file short. Repeat the terminal command. What do rejected=, retained=, and count= show about the existing table after a failed import?
+
+**Extend the example:** An independent folder of malformed files can cover truncation at every byte, duplicate IDs, a missing name terminator and trailing bytes. For each one, start with a known live row and check that failed import preserves it.
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-6
+make example EXAMPLE=persistence-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

@@ -16,7 +16,11 @@ parser.add_argument('--example')
 parser.add_argument('--compiler', default='gcc')
 parser.add_argument('--sanitize', action='store_true')
 parser.add_argument('--keep-files', action='store_true')
+parser.add_argument('--run-only', action='store_true',
+                    help='Print example output and report the process exit status.')
 args = parser.parse_args()
+if args.run_only and not args.example:
+    parser.error('--run-only requires --example.')
 if args.chapter:
     chapter = next((c for c in course['chapters'] if c['id'] == args.chapter), None)
     if not chapter:
@@ -36,7 +40,14 @@ elif args.exercise or args.example:
     flags += exercises[selected][0].get('flags', [])
     if args.sanitize:
         flags += ['-fno-omit-frame-pointer', '-fsanitize=address,undefined']
-    subprocess.run(shlex.split(args.compiler) + flags + [str(ROOT / 'native' / folder / s) for s in sources] + ['-o', str(binary)], check=True)
+    libraries = [flag for flag in flags if flag.startswith('-l')]
+    compile_flags = [flag for flag in flags if not flag.startswith('-l')]
+    source_paths = [str(ROOT / 'native' / folder / source) for source in sources]
+    build_result = subprocess.run(shlex.split(args.compiler) + compile_flags + source_paths
+                                  + libraries + ['-o', str(binary)])
+    if build_result.returncode:
+        print('Build failed. The program did not run.')
+        raise SystemExit(build_result.returncode)
     failed = False
     for test in exercises[selected]:
         if args.keep_files:
@@ -46,11 +57,19 @@ elif args.exercise or args.example:
         else:
             with tempfile.TemporaryDirectory() as work:
                 run = subprocess.run([str(binary)], input=test['input'], capture_output=True, text=True, timeout=15, cwd=work)
-        passed = run.returncode == 0 and run.stdout.strip() == test['expected'].strip()
-        print(('PASS ' if passed else 'TRY AGAIN ') + test['name'])
-        if not passed:
-            print('Expected:', repr(test['expected']), 'received:', repr(run.stdout), 'exit:', run.returncode)
-            failed = True
+        if args.run_only:
+            print(run.stdout, end='')
+            if run.stderr:
+                print(run.stderr, end='')
+            if run.returncode:
+                print('Program exited with status', run.returncode)
+            failed |= run.returncode != 0
+        else:
+            passed = run.returncode == 0 and run.stdout.strip() == test['expected'].strip()
+            print(('PASS ' if passed else 'TRY AGAIN ') + test['name'])
+            if not passed:
+                print('Expected:', repr(test['expected']), 'received:', repr(run.stdout), 'exit:', run.returncode)
+                failed = True
     if args.keep_files:
         print('Retained program files:', ROOT / '.build/files' / selected)
     raise SystemExit(int(failed))
@@ -62,7 +81,8 @@ else:
     print('make sanitize              AddressSanitizer and UndefinedBehaviorSanitizer')
     print('make tsan                  ThreadSanitizer (requires runtime/kernel support)')
     print('make exercise EXERCISE=hello  Compile your editable exercise and check output')
-    print('make example EXAMPLE=values-1  Run a complete authored example')
+    print('make example EXAMPLE=values-1  Compare the example with its original output')
+    print('make example EXAMPLE=values-1 RUN_ONLY=1  Print the result of the current source')
     print('make project PROJECT=record-store  Run your Part 2 project checks')
     print('make check-examples        Compile and run all 227 authored programs')
     print('make debug-lab LAB=basics   Optional GDB investigation; use LAB=tinydb for repair')

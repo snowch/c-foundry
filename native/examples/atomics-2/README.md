@@ -62,16 +62,18 @@ No, it acts on its atomic object. The operation’s atomicity scope is the objec
 
 </details>
 
-**Try:** Describe an invariant spanning two fields and choose a mutex or an explicit publication protocol that preserves it.
+**Try:** Edit the example in Browser Linux.  In native/examples/atomics-2/main.c, change the initial atomic value from 0 to 2 and the exchange value from 7 to 9. Repeat the terminal run. Which of previous= and current= belongs to the state before the exchange?
 
 ### References and help
 
 - [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/atomics-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=atomics-2
+make example EXAMPLE=atomics-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

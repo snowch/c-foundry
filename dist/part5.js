@@ -21,7 +21,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "The type limits numeric representation, not relationships between rows.",
-        "tryit": "Write the schema contract, including name length, empty names, key zero, and duplicate behavior.",
+        "tryit": "In main.c, change Ada’s score from 90 to 95. Run code and compare the three columns in Console. Which column identifies the same row after a score change?",
         "input": "",
         "runtime": "browser"
       },
@@ -39,7 +39,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "Identity belongs to the schema contract rather than the current layout.",
-        "tryit": "Delete the first row and confirm that ID two remains the same even though its position changes.",
+        "tryit": "In main.c, swap the two insert_row calls. Run code and compare position= and id=. Which value tracks the physical array position, and which still identifies Grace?",
         "input": "",
         "runtime": "browser"
       },
@@ -57,7 +57,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "The initial insertion contract rejects duplicate IDs.",
-        "tryit": "Write acceptance cases for missing rows, invalid rows, a full table, and an empty selection.",
+        "tryit": "In main.c, change the second inserted ID from 1 to 2. Run code and compare inserted=, duplicate=, and rows=. Which check tells you whether the second row was accepted?",
         "input": "",
         "runtime": "browser"
       },
@@ -75,7 +75,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "Input framing must remain aligned after rejecting a long command.",
-        "tryit": "Add a quit command and test an overlong line followed by a valid command.",
+        "tryit": "Open Input and append a new select line after the existing commands. Run code and compare the first and second displayed rows with unknown command. What shows the command loop continued after rejecting the unrecognized command?",
         "input": "insert-demo\nselect\nwat\n",
         "runtime": "browser"
       },
@@ -93,7 +93,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "Contracts allow implementation changes while retaining observable guarantees.",
-        "tryit": "Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.",
+        "tryit": "In main.c, keep the duplicate ID 1 and replace the rejected row’s name Other with Grace. Run code. Does the acceptance message still appear? Identify the checks that prove the existing Ada row remained after rejection.",
         "input": "",
         "runtime": "browser"
       }
@@ -135,7 +135,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "A compatible struct assignment copies its array members as part of the struct value.",
-        "tryit": "Add an invariant checker for count≤capacity, terminated names, positive IDs, and unique IDs.",
+        "tryit": "In main.c, change source.name[0] = 'X'; to source.name[0] = 'E';. Run code and compare stored= and source=. Which value demonstrates that insert_row copied the name array into the table?",
         "input": "",
         "runtime": "browser"
       },
@@ -153,14 +153,14 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "The insertion operation appends rather than maintaining sorted order.",
-        "tryit": "Implement a selection by ID and compare it with the existing standalone query exercise.",
+        "tryit": "In main.c, change the key 99 in find_row(&t, 99) to 1. Run code and compare missing= with the starter. Which displayed record made that predicate false?",
         "input": "",
         "runtime": "browser"
       },
       "3": {
         "intro": "A failed insertion must leave existing rows intact. Define which error wins when more than one condition applies.",
         "explanation": "This API checks row validity, then duplicate identity, then capacity. Therefore a duplicate in a full table reports DUPLICATE. That priority is observable behavior and belongs in tests. Appending occurs only after every check has passed, so count and existing records stay unchanged on rejection.",
-        "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\n\nint main(void) {\n  Table t = {.count = 0};\n  for (unsigned i = 1; i <= TABLE_CAP; ++i)\n    if (insert_row(&t, (Row){i, \"row\", 0}) != OK)\n      return 1;\n  printf(\"duplicate=%d full=%d count=%zu\\n\",\n         insert_row(&t, (Row){1, \"other\", 0}) == DUPLICATE,\n         insert_row(&t, (Row){99, \"extra\", 0}) == FULL, t.count);\n  return 0;\n}\n",
+        "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\n\nint main(void) {\n  Table t = {.count = 0};\n  for (unsigned i = 1; i <= TABLE_CAP; ++i)\n    if (insert_row(&t, (Row){i, \"row\", 0}) != OK)\n      return 1;\n  Status duplicate = insert_row(&t, (Row){1, \"other\", 0});\n  Status extra = insert_row(&t, (Row){99, \"extra\", 0});\n  printf(\"duplicate=%d full=%d count=%zu\\n\",\n         duplicate == DUPLICATE, extra == FULL, t.count);\n  return 0;\n}\n",
         "expected": "duplicate=1 full=1 count=8",
         "walkthrough": "The duplicate and new ninth key produce distinct failures. Neither increases the initialized count.",
         "pitfall": "An API can be inconsistent even if it never crashes: error priority and state preservation need tests too.",
@@ -171,7 +171,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "Duplicate checking precedes the capacity check.",
-        "tryit": "Try an invalid row in a full table and record the intended error priority.",
+        "tryit": "In main.c, change TABLE_CAP to TABLE_CAP - 1 in the fill loop’s upper bound. Run code and compare duplicate=, full=, and count=. Which of the two following insertions can now claim the free slot?",
         "input": "",
         "runtime": "browser"
       },
@@ -189,7 +189,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "Shifting changes the position-to-row mapping.",
-        "tryit": "Test deletion from the beginning, middle, end, and a one-row table.",
+        "tryit": "In main.c, change the first delete_row(&t, 1) to delete_row(&t, 2) and leave the second call unchanged. Run code and compare the displayed row and missing=. When does the later delete actually find ID 1?",
         "input": "",
         "runtime": "browser"
       },
@@ -207,7 +207,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "An independent model can detect errors that the implementation’s own assumptions would miss.",
-        "tryit": "Generate bounded insert/update/delete sequences and check invariants after every operation.",
+        "tryit": "In main.c, change the update value 88 and the expected value in t.rows[i].score != 88 to 95. Run code and compare Grace’s printed score and table contract passed. Which equality protects against passing a check with an incorrect value?",
         "input": "",
         "runtime": "browser"
       }
@@ -239,9 +239,9 @@ window.PART_FIVE = {
       "1": {
         "intro": "Tokenization converts characters into categories such as keywords, identifiers, literals, and punctuation. It does not execute commands.",
         "explanation": "The lexer recognizes bounded ASCII words, checked unsigned 32-bit integers, quoted strings, and the punctuation needed by this grammar. It returns BAD for invalid or oversized tokens. Keywords are case-sensitive in this teaching dialect; changing that policy requires deliberate normalization rather than silently accepting some mixed-case forms.",
-        "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef enum {\n  END,\n  WORD,\n  NUMBER,\n  STRING,\n  SEMI,\n  LP,\n  RP,\n  COMMA,\n  STAR,\n  EQUAL,\n  BAD\n} Token;\ntypedef struct {\n  const char *p;\n  char text[32];\n  uint32_t number;\n} Lexer;\nToken next(Lexer *l) {\n  while (*l->p == ' ' || *l->p == '\\t' || *l->p == '\\n' || *l->p == '\\r')\n    ++l->p;\n  unsigned char ch = (unsigned char)*l->p;\n  l->text[0] = 0;\n  if (!ch)\n    return END;\n  if (ch >= '0' && ch <= '9') {\n    uint32_t n = 0;\n    do {\n      unsigned digit = (unsigned)(*l->p - '0');\n      if (n > (UINT32_MAX - digit) / 10)\n        return BAD;\n      n = n * 10 + digit;\n      ++l->p;\n    } while (*l->p >= '0' && *l->p <= '9');\n    l->number = n;\n    return NUMBER;\n  }\n  if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '_') {\n    size_t n = 0;\n    while ((*l->p >= 'A' && *l->p <= 'Z') || (*l->p >= 'a' && *l->p <= 'z') ||\n           (*l->p >= '0' && *l->p <= '9') || *l->p == '_') {\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p++;\n    }\n    l->text[n] = 0;\n    return WORD;\n  }\n  ++l->p;\n  if (ch == '\\'') {\n    size_t n = 0;\n    for (;;) {\n      if (!*l->p)\n        return BAD;\n      if (*l->p == '\\'' && l->p[1] != '\\'') {\n        ++l->p;\n        l->text[n] = 0;\n        return STRING;\n      }\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p;\n      if (*l->p == '\\'')\n        ++l->p;\n      ++l->p;\n    }\n  }\n  switch (ch) {\n  case ';':\n    return SEMI;\n  case '(':\n    return LP;\n  case ')':\n    return RP;\n  case ',':\n    return COMMA;\n  case '*':\n    return STAR;\n  case '=':\n    return EQUAL;\n  default:\n    return BAD;\n  }\n}\nbool keyword(Lexer *l, const char *word) {\n  return next(l) == WORD && strcmp(l->text, word) == 0;\n}\n\nint main(void) {\n  Lexer l = {\"SELECT * FROM people;\", {0}, 0};\n  Token token;\n  unsigned words = 0, punctuation = 0;\n  while ((token = next(&l)) != END) {\n    if (token == BAD)\n      return 1;\n    if (token == WORD)\n      ++words;\n    else\n      ++punctuation;\n  }\n  printf(\"words=%u punctuation=%u\\n\", words, punctuation);\n  return 0;\n}\n",
-        "expected": "words=3 punctuation=2",
-        "walkthrough": "SELECT, FROM, and people are words. The star and semicolon are punctuation. No table access occurs during lexing.",
+        "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef enum {\n  END,\n  WORD,\n  NUMBER,\n  STRING,\n  SEMI,\n  LP,\n  RP,\n  COMMA,\n  STAR,\n  EQUAL,\n  BAD\n} Token;\ntypedef struct {\n  const char *p;\n  char text[32];\n  uint32_t number;\n} Lexer;\nToken next(Lexer *l) {\n  while (*l->p == ' ' || *l->p == '\\t' || *l->p == '\\n' || *l->p == '\\r')\n    ++l->p;\n  unsigned char ch = (unsigned char)*l->p;\n  l->text[0] = 0;\n  if (!ch)\n    return END;\n  if (ch >= '0' && ch <= '9') {\n    uint32_t n = 0;\n    do {\n      unsigned digit = (unsigned)(*l->p - '0');\n      if (n > (UINT32_MAX - digit) / 10)\n        return BAD;\n      n = n * 10 + digit;\n      ++l->p;\n    } while (*l->p >= '0' && *l->p <= '9');\n    l->number = n;\n    return NUMBER;\n  }\n  if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '_') {\n    size_t n = 0;\n    while ((*l->p >= 'A' && *l->p <= 'Z') || (*l->p >= 'a' && *l->p <= 'z') ||\n           (*l->p >= '0' && *l->p <= '9') || *l->p == '_') {\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p++;\n    }\n    l->text[n] = 0;\n    return WORD;\n  }\n  ++l->p;\n  if (ch == '\\'') {\n    size_t n = 0;\n    for (;;) {\n      if (!*l->p)\n        return BAD;\n      if (*l->p == '\\'' && l->p[1] != '\\'') {\n        ++l->p;\n        l->text[n] = 0;\n        return STRING;\n      }\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p;\n      if (*l->p == '\\'')\n        ++l->p;\n      ++l->p;\n    }\n  }\n  switch (ch) {\n  case ';':\n    return SEMI;\n  case '(':\n    return LP;\n  case ')':\n    return RP;\n  case ',':\n    return COMMA;\n  case '*':\n    return STAR;\n  case '=':\n    return EQUAL;\n  default:\n    return BAD;\n  }\n}\nbool keyword(Lexer *l, const char *word) {\n  return next(l) == WORD && strcmp(l->text, word) == 0;\n}\n\nint main(void) {\n  Lexer l = {\"SELECT * FROM people;\", {0}, 0};\n  Token token;\n  unsigned words = 0, numbers = 0, punctuation = 0;\n  while ((token = next(&l)) != END) {\n    if (token == BAD)\n      return 1;\n    if (token == WORD)\n      ++words;\n    else if (token == NUMBER)\n      ++numbers;\n    else if (token != STRING)\n      ++punctuation;\n  }\n  printf(\"words=%u numbers=%u punctuation=%u\\n\", words, numbers, punctuation);\n  return 0;\n}\n",
+        "expected": "words=3 numbers=0 punctuation=2",
+        "walkthrough": "SELECT, FROM, and people count as words. The star and semicolon count as punctuation. The lexer recognises these tokens without accessing a table.",
         "pitfall": "Treating a keyword-looking substring inside a quoted string as syntax corrupts valid data.",
         "question": "Does tokenization insert a row?",
         "choices": [
@@ -250,7 +250,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "Lexing identifies categories and values; execution is a later stage.",
-        "tryit": "Print each token category and source offset, then test invalid characters and an overflowing numeric literal.",
+        "tryit": "In main.c, change SELECT * FROM people; in l’s initializer to SELECT * FROM people WHERE id = 7;. Run code. Compare words=, numbers=, and punctuation= with the starter. Which token is the literal, and which punctuation token separates the column from its value?",
         "input": "",
         "runtime": "browser"
       },
@@ -268,7 +268,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "The lexer’s string state handles doubled quotes before looking for token boundaries.",
-        "tryit": "Test an empty string, 31-byte and 32-byte strings, and whitespace around every punctuation token.",
+        "tryit": "In main.c, replace 'Ada Lovelace' with '' inside the first lexer input string. Run code and compare the first two lines and unterminated=. How does a successfully read empty value differ from the rejected third input?",
         "input": "",
         "runtime": "browser"
       },
@@ -286,7 +286,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "A single-statement parser must consume the entire statement.",
-        "tryit": "Write the grammar in a small notation, then generate one malformed example for each required punctuation token.",
+        "tryit": "In main.c, change the second SQL string from SELECT * FROM people to SELECT * FROM people; and rename missing_semicolon= to second_rejected=. Run code. Which two Console checks report acceptance and which still reports trailing text?",
         "input": "",
         "runtime": "browser"
       },
@@ -304,7 +304,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "The statement needs stable data after subsequent token reads.",
-        "tryit": "Add an UPDATE production and a distinct statement variant without changing SELECT field meanings.",
+        "tryit": "In main.c, change id = 7 to id = 3 in the SELECT string. Run code and compare select=, filtered=, and id=. Which field preserves the same meaning but carries a new value?",
         "input": "",
         "runtime": "browser"
       },
@@ -322,7 +322,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "Zero is a valid numeric token but an invalid key under this schema.",
-        "tryit": "Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.",
+        "tryit": "In main.c, change only the first INSERT’s ID from 0 to 1. Run code and compare parsed=, value_rejected=, and syntax_rejected=. Which stage now accepts the first statement, and which still rejects the malformed second statement?",
         "input": "",
         "runtime": "browser"
       }
@@ -364,7 +364,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "Unused capacity is reserved storage, not query input.",
-        "tryit": "Implement a cursor with next and exhausted results, including an empty table.",
+        "tryit": "In main.c, swap the first and last insert_row calls. Run code and compare the row order. Is the scan ordered by keys or by the table’s current storage order?",
         "input": "",
         "runtime": "browser"
       },
@@ -382,7 +382,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "This operator must inspect the predicate for every scanned row.",
-        "tryit": "Add equality and range predicates and compare result sets with a simple reference loop.",
+        "tryit": "In main.c, change t.rows[i].score >= 90 to t.rows[i].score >= 80. Run code and compare the names, examined=, and matched=. Does matching more rows make this scan visit more rows?",
         "input": "",
         "runtime": "browser"
       },
@@ -400,7 +400,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "It controls the result representation, not the underlying row schema.",
-        "tryit": "Represent the selected columns as an enum array and reject unknown or repeated columns according to a stated policy.",
+        "tryit": "In main.c, replace the id argument to printf with (unsigned)t.rows[i].score, leaving the %u format and name unchanged. Run code and compare the two displayed columns. Which data stays in the table even when its column is omitted?",
         "input": "",
         "runtime": "browser"
       },
@@ -418,7 +418,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "The limit applies to the ordered result.",
-        "tryit": "Implement top-k with a heap and compare it against this full-sort baseline.",
+        "tryit": "In main.c, change i < 2 to i < 3 in the display loop. Run code and compare all displayed names and scores. Which ordering rule keeps the tied score rows in this order?",
         "input": "",
         "runtime": "browser"
       },
@@ -436,7 +436,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "Empty input requires a separate result policy.",
-        "tryit": "Add min and max with explicit no-value results for empty input and test maximum score values.",
+        "tryit": "In main.c, replace Ken’s score of 90 with 100. Run code and compare count=, sum=, and average=. Which two change, and why can the remaining quantity stay fixed?",
         "input": "",
         "runtime": "browser"
       },
@@ -454,7 +454,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "Malformed or invalid statements must leave stored state untouched.",
-        "tryit": "Extend the grammar with one earlier operator, add end-to-end tests, and preserve all existing rejection behavior.",
+        "tryit": "In main.c, change the SELECT filter from id = 1 to id = 2. Run code and compare the printed result rows and rows=. What shows that a valid query can return nothing without removing the stored row?",
         "input": "",
         "runtime": "browser"
       }
@@ -496,7 +496,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "Different layouts need deliberate compatibility handling.",
-        "tryit": "Write a byte-offset format table and test bad magic, version, record width, and reserved bytes.",
+        "tryit": "In main.c, change header[6] from 2 to 3 in the initializer. Run code and compare version=, record_bytes=, and rows=. This header task changes the advertised count. What further check would a complete file reader need before accepting that count?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -517,7 +517,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "Its forty bytes are specified by offsets, independent of struct padding.",
-        "tryit": "Add fixture-byte tests for zero, maximum score, maximum ID, and a 31-byte name.",
+        "tryit": "In main.c, change the first initializer value 513 to 258. Run code and compare id_bytes= and the decoded row=. Which position holds the least significant byte?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -538,7 +538,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "This pager rejects gaps and tracks contiguous initialized pages.",
-        "tryit": "Write two pages with distinct markers, close and reopen a named file, and verify offsets from its checked length.",
+        "tryit": "In native/examples/persistence-3/main.c, change page[7] = 42; to page[7] = 17;. Repeat the terminal command. Compare pages=, byte7=, and missing=. Which evidence comes from reading a stored byte and which comes from checking page bounds?",
         "input": "",
         "runtime": "native"
       },
@@ -556,17 +556,17 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "The pager borrows the FILE rather than taking ownership.",
-        "tryit": "Add open/close functions with explicit ownership and tests for partial-page files and I/O failures.",
+        "tryit": "In native/examples/persistence-4/main.c, replace page[0] = 9; with page[0] = 17;. Repeat the terminal command and compare gap_rejected=, valid=, and marker=. Why does the rejected write to page 2 leave page 0 writable?",
         "input": "",
         "runtime": "native"
       },
       "5": {
         "intro": "A browser compiler’s virtual files are temporary unless explicitly transferred to persistent browser storage or exported to the user.",
-        "explanation": "This transfer tool writes people.tdb and loads it back through the validated decoder. Run it inline to inspect the round trip; those files last for this run only. To keep the generated file in the browser, choose CLI, run the suggested cc command, then run <code>./program</code>. Download people.tdb from the workspace file list. Run <code>./program import people.tdb</code> to test import. With a native toolchain, KEEP_FILES=1 retains the named artifact under .build/files/persistence-5. The page also supplies a matching sample file. Browser drafts and lesson marks are separate from database-file persistence; downloading a file does not establish transaction durability.",
+        "explanation": "This tool writes people.tdb and reads it back with the decoder. The inline run uses temporary files. The command workspace keeps files between runs, separately from lesson drafts and progress. Its Files list lets you download a copy. The native alternative can keep the named file when run with KEEP_FILES=1.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\nenum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };\nvoid put32(unsigned char *out, uint32_t value) {\n  for (unsigned i = 0; i < 4; ++i)\n    out[i] = (unsigned char)(value >> (8 * i));\n}\nuint32_t get32(const unsigned char *in) {\n  uint32_t value = 0;\n  for (unsigned i = 0; i < 4; ++i)\n    value |= (uint32_t)in[i] << (8 * i);\n  return value;\n}\nbool encode_row(unsigned char *out, const Row *row) {\n  if (!row->id || !memchr(row->name, 0, 32) || !row->name[0])\n    return false;\n  memset(out, 0, ROW_BYTES);\n  put32(out, row->id);\n  memcpy(out + 4, row->name, strlen(row->name));\n  put32(out + 36, row->score);\n  return true;\n}\nbool decode_row(const unsigned char *in, size_t n, Row *out) {\n  if (n != ROW_BYTES || get32(in) == 0 || !memchr(in + 4, 0, 32) || in[4] == 0)\n    return false;\n  Row row = {0};\n  row.id = get32(in);\n  memcpy(row.name, in + 4, 32);\n  row.score = get32(in + 36);\n  *out = row;\n  return true;\n}\nbool save(FILE *f, const Table *table) {\n  unsigned char header[HEADER_BYTES] = {0x54, 0x44,      0x42, 0x31,\n                                        1,    ROW_BYTES, 0,    0};\n  if (table->count > TABLE_CAP)\n    return false;\n  header[6] = (unsigned char)table->count;\n  if (fwrite(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  for (size_t i = 0; i < table->count; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    if (!encode_row(bytes, &table->rows[i]) ||\n        fwrite(bytes, 1, sizeof bytes, f) != sizeof bytes)\n      return false;\n  }\n  return fflush(f) == 0;\n}\nbool load(FILE *f, Table *out) {\n  unsigned char header[HEADER_BYTES];\n  if (fread(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  if (memcmp(header, (const unsigned char[]){0x54, 0x44, 0x42, 0x31}, 4) || header[4] != 1 || header[5] != ROW_BYTES ||\n      header[6] > TABLE_CAP || header[7] != 0)\n    return false;\n  Table table = {.count = 0};\n  for (unsigned i = 0; i < header[6]; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    Row row;\n    if (fread(bytes, 1, sizeof bytes, f) != sizeof bytes ||\n        !decode_row(bytes, sizeof bytes, &row) || insert_row(&table, row) != OK)\n      return false;\n  }\n  if (fgetc(f) != EOF || ferror(f))\n    return false;\n  *out = table;\n  return true;\n}\n\nint main(int argc, char **argv) {\n  Table source = {.count = 0}, copy = {.count = 0};\n  insert_row(&source, (Row){1, \"Ada\", 90});\n  insert_row(&source, (Row){2, \"Grace\", 80});\n  if (argc == 3 && strcmp(argv[1], \"import\") == 0) {\n    FILE *in = fopen(argv[2], \"rb\");\n    if (!in)\n      return 1;\n    bool ok = load(in, &copy);\n    if (fclose(in) != 0 || !ok)\n      return 1;\n    display(&copy);\n    return 0;\n  }\n  if (argc != 1)\n    return 1;\n  FILE *out = fopen(\"people.tdb\", \"wb\");\n  if (!out)\n    return 1;\n  bool written = save(out, &source);\n  if (fclose(out) != 0 || !written)\n    return 1;\n  FILE *in = fopen(\"people.tdb\", \"rb\");\n  if (!in)\n    return 1;\n  bool read = load(in, &copy);\n  if (fclose(in) != 0 || !read)\n    return 1;\n  printf(\"exported=1 imported=1 rows=%zu\\n\", copy.count);\n  return 0;\n}\n",
         "expected": "exported=1 imported=1 rows=2",
         "walkthrough": "The default run exports and reimports two rows. The optional import argument loads an external file and prints its validated contents; no raw struct casts are used.",
-        "pitfall": "Do not claim that the page’s current Wasm runner automatically persists its filesystem across executions.",
+        "pitfall": "Use the round-trip result to check this small format fixture. A successfully decoded file leaves crash durability and transaction guarantees to separate tests.",
         "question": "Does compiling in a browser automatically persist program files?",
         "choices": [
           "No",
@@ -574,7 +574,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "The runtime resets its virtual filesystem; a host transfer/storage step is separate.",
-        "tryit": "Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Browser Linux.",
+        "tryit": "In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Run the prepared cc command. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.",
         "input": "",
         "runtime": "native",
         "command": "make example EXAMPLE=persistence-5 KEEP_FILES=1",
@@ -583,7 +583,7 @@ window.PART_FIVE = {
           "label": "Download the two-row TinyDB sample"
         },
         "browser": {
-          "note": "This example uses the browser’s temporary virtual files. Use CLI to keep and download program files, or use the native command below."
+          "note": "Inline runs use temporary files. Open the command workspace from Editor tools to keep a database between runs."
         }
       },
       "6": {
@@ -600,9 +600,10 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "Later records or trailing input may still invalidate the file.",
-        "tryit": "Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.",
+        "tryit": "In native/examples/persistence-6/main.c, change the final byte 7 in bad to 9 while leaving the file short. Repeat the terminal command. What do rejected=, retained=, and count= show about the existing table after a failed import?",
         "input": "",
-        "runtime": "native"
+        "runtime": "native",
+        "extension": "An independent folder of malformed files can cover truncation at every byte, duplicate IDs, a missing name terminator and trailing bytes. For each one, start with a known live row and check that failed import preserves it."
       }
     },
     "practicePlan": {

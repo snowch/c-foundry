@@ -225,18 +225,20 @@ It reduces the number of page levels visited. Many routing choices fit within ea
 
 </details>
 
-**Try:** Calculate leaf and child capacities for a real page format including headers, key widths, and row references.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/1). In main.c, change the final inserted key from 7 to 5. Run code and compare root_children= and leaf_capacity=. Which count depends on inserted keys and which is a fixed model parameter?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
-Run from the repository root:
+Native source: `native/examples/bplus-trees-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=bplus-trees-1
+make example EXAMPLE=bplus-trees-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 27.2 Leaf pages and internal pages
 
@@ -456,7 +458,7 @@ To that next child. This model uses the child’s minimum as an inclusive lower 
 
 </details>
 
-**Try:** Test keys immediately below, equal to, and immediately above every separator.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/2). In main.c, change the final inserted key from 7 to 6. Run code and compare leaf min= and count= fields. Which separator remains associated with the start of the right child even if its count changes?
 
 ### References and help
 
@@ -471,11 +473,13 @@ No. Use it to compare interior/leaf pages, keys, and page references. The course
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/bplus-trees-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=bplus-trees-2
+make example EXAMPLE=bplus-trees-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 27.3 Searching and ordered traversal
 
@@ -695,18 +699,20 @@ No. The Boolean result must be checked before treating the output as a match.
 
 </details>
 
-**Try:** Cross-check every lookup against a sorted-array reference after each insertion.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/3). In main.c, change tree_find(&t, 6, &value) to tree_find(&t, 3, &value). Run code and compare found=, value=, and missing=. Why does an equal separator route to the leaf that begins with 3?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
-Run from the repository root:
+Native source: `native/examples/bplus-trees-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=bplus-trees-3
+make example EXAMPLE=bplus-trees-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 27.4 Inserting keys and splitting pages
 
@@ -932,7 +938,7 @@ Root-child capacity and a free leaf page. A split needs both a new leaf and a ne
 
 </details>
 
-**Try:** Generalize root splitting with stable page IDs and test failure preservation at every allocation boundary.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/4). In main.c, change the final inserted key from 5 to 6. Run code and compare leaves=, left=, right=, and boundary=. Does appending one more key also change the boundary created during the first split?
 
 ### References and help
 
@@ -940,11 +946,13 @@ Root-child capacity and a free leaf page. A split needs both a new leaf and a ne
 - [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
 - [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
-Run from the repository root:
+Native source: `native/examples/bplus-trees-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=bplus-trees-4
+make example EXAMPLE=bplus-trees-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 27.5 Range queries and linked leaves
 
@@ -1169,18 +1177,20 @@ No. The API uses a half-open [lo,hi) range.
 
 </details>
 
-**Try:** Test empty ranges, missing boundary keys, and a range spanning every split; make the endpoint in code match your prediction.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/5). In main.c, replace range(&t, 2, 8) with range(&t, 3, 6). Run code and inspect the first and last returned keys. Which endpoint does this implementation include?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
-Run from the repository root:
+Native source: `native/examples/bplus-trees-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=bplus-trees-5
+make example EXAMPLE=bplus-trees-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 27.6 Deletion, redistribution, and merging
 
@@ -1399,18 +1409,22 @@ When it is the sole root leaf. The root has a special occupancy exception.
 
 </details>
 
-**Try:** Generate insert/delete sequences and check ordering, uniqueness, occupancy, reachability, and pool ownership after each step.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/6). In main.c, remove tree_erase(&t, 2); and run. Compare leaves= and remaining=. How does keeping key 2 affect whether entries need to move between leaves?
+
+**Extend the example:** In a separate test, replay alternating insertions and deletions against a sorted-array reference. Record ordering, uniqueness, page occupancy, reachability, and ownership after each operation.
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
 
-Run from the repository root:
+Native source: `native/examples/bplus-trees-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=bplus-trees-6
+make example EXAMPLE=bplus-trees-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

@@ -64,16 +64,18 @@ No, choose absolute/relative tolerances from the problem’s error budget. DBL_E
 
 </details>
 
-**Try:** Change the increment near 2^53, compare numbers near zero, and vary each tolerance independently. Predict which error budget accepts each result before running.
+**Try:** Edit the example in Browser Linux.  In native/examples/c-guarantees-8/main.c, change one from 1.0 to 2.0 and repeat the terminal run. Compare small_increment_lost= with the first run while checking sum=, exact=, and close=. What does the observed spacing near 2^53 allow on this target?
 
 ### References and help
 
 - [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
 - [C reference: floating-point environment](https://en.cppreference.com/w/c/numeric/fenv.html) — Check rounding modes and implementation support before relying on them.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-8
+make example EXAMPLE=c-guarantees-8 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

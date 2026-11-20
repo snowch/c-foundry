@@ -94,17 +94,19 @@ a[0..i). The next value at i has not yet been inserted.
 
 </details>
 
-**Try:** Count shifts for sorted and reverse-sorted inputs of the same size.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/1). In main.c, set a to {1, 2, 3, 4} and b to {4, 3, 2, 1}. Run code and compare the two output rows. Does the identical final ordering establish that both algorithms made the same number of moves?
 
 ### References and help
 
 - [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
 
-Run from the repository root:
+Native source: `native/examples/sorting-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=sorting-1
+make example EXAMPLE=sorting-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 13.2 Merge sort
 
@@ -209,17 +211,19 @@ O(n). The merge buffer has one slot per input element.
 
 </details>
 
-**Try:** Attach original-position tags to equal keys and verify that their order is preserved.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/2). In main.c, change the first 5 in a to a second 4. Run code. Count the repeated 1 and 4 values in Console and compare with the input. What additional tags would let you inspect stability?
 
 ### References and help
 
 - [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
 
-Run from the repository root:
+Native source: `native/examples/sorting-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=sorting-2
+make example EXAMPLE=sorting-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 13.3 Quicksort and pivot selection
 
@@ -318,17 +322,19 @@ No. Sorted input repeatedly selects an extreme pivot in this version.
 
 </details>
 
-**Try:** Add a partition counter and compare sorted, reversed, and duplicate-heavy inputs.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/3). In main.c, change a to {5, 5, 5, 1, 1}. Run code and compare the sorted sequence with this input. Why is sorting all equal-key entries still required even when the partition cannot separate them by value?
 
 ### References and help
 
 - [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
 
-Run from the repository root:
+Native source: `native/examples/sorting-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=sorting-3
+make example EXAMPLE=sorting-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 13.4 Stability, in-place algorithms, and memory costs
 
@@ -394,17 +400,19 @@ The original order among equal keys. Different keys must move; equal-key relativ
 
 </details>
 
-**Try:** Change > to >= in the shift condition and inspect the equal-key tags.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/4). In main.c, change a[j - 1].key > x.key to a[j - 1].key >= x.key. Run code and compare the positions of 2A and 2C. Did the keys become unordered, or did equal-key order change?
 
 ### References and help
 
 - [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
 
-Run from the repository root:
+Native source: `native/examples/sorting-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=sorting-4
+make example EXAMPLE=sorting-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 13.5 Using qsort safely
 
@@ -489,7 +497,7 @@ Signed subtraction can overflow. Only the sign is needed, and relational compari
 
 </details>
 
-**Try:** Sort records with a tie-break on ID and document whether that total ordering matches your application.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/5). In main.c, change -7 to INT_MIN in a. Run code and compare ordered= and extremes=. Which comparisons show that the comparator also handles a duplicate extreme value?
 
 ### References and help
 
@@ -504,11 +512,13 @@ Return a negative value, zero, or a positive value for less than, equivalent, or
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/sorting-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=sorting-5
+make example EXAMPLE=sorting-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 13.6 Comparisons, moves, and input order
 
@@ -591,17 +601,19 @@ Rightward shifts of existing elements. The counter changes only inside the shift
 
 </details>
 
-**Try:** Build a comparison table for insertion and merge sort on four input orders, retaining correctness checks.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/6). In main.c, replace reverse[] = {4, 3, 2, 1} with reverse[] = {1, 3, 2, 4}. Run code. Compare reverse shifts= with the starter. Which out-of-order pair requires a move now?
 
 ### References and help
 
 - [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) — Compare ordering, stability, and algorithm families with the course models.
 
-Run from the repository root:
+Native source: `native/examples/sorting-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=sorting-6
+make example EXAMPLE=sorting-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

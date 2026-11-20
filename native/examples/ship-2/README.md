@@ -246,16 +246,18 @@ No. Only finitely many generated paths were exercised.
 
 </details>
 
-**Try:** Add token-length boundaries in Browser Linux and retain every discovered failure as a deterministic regression case. Optional sanitizer tooling is described separately.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/ship/2). In main.c, change the loop limit n < 256 to n < 512. Run code and compare fuzz_cases=. What does the count establish about this deterministic fixture? Run the equivalent in Browser Linux with GCC. Optional sanitizer tooling is described separately.
 
 ### References and help
 
 - [LLVM documentation: libFuzzer](https://llvm.org/docs/LibFuzzer.html) — Compare a native coverage-guided fuzzing engine with the bounded deterministic parser fixture.
 - [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
 
-Run from the repository root:
+Native source: `native/examples/ship-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-2
+make example EXAMPLE=ship-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

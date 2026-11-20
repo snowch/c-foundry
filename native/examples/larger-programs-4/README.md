@@ -52,16 +52,18 @@ It can overflow. A comparator should handle every supported int pair without und
 
 </details>
 
-**Try:** Reverse the comparison’s sign to sort descending and predict the new output.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/4). In main.c, swap the two comparison expressions in compare_ints so positive becomes negative and negative becomes positive. Choose Run code. Which output end now contains -3, and do both 7 values remain?
 
 ### References and help
 
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 - [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
 
-Run from the repository root:
+Native source: `native/examples/larger-programs-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=larger-programs-4
+make example EXAMPLE=larger-programs-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

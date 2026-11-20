@@ -11,7 +11,7 @@
   const sourceDrafts=new Map(),unsavedSources=new Set();
   function commands(chapter){
     const result=new Set([chapter.command]),data=authoredLessons.content[chapter.id];
-    for(const topic of chapter.topics){const t=data.topics[topic.id];result.add(t.command||`make example EXAMPLE=${chapter.id}-${topic.id}`);if(t.lab)result.add(t.lab.command);}
+    for(const topic of chapter.topics){const t=data.topics[topic.id];const command=t.command||`make example EXAMPLE=${chapter.id}-${topic.id}`;result.add(command);result.add(command+' RUN_ONLY=1');if(t.lab)result.add(t.lab.command);}
     if(data.nativePractice)result.add(`make project PROJECT=${data.nativePractice.id}`);
     if(data.practicePlan)result.add(data.practicePlan.command||`make example EXAMPLE=${data.practicePlan.example}`);
     return result;
@@ -25,7 +25,7 @@
     if(sourceIndex&&$('linux-source-tools').open)chooseSource();
     $('linux-context').textContent=chapter?`Chapter ${chapter.number}: ${chapter.title}`:'A complete Linux toolchain, running in your browser';
     $('linux-command').textContent=command||chapter?.command||'make counter';
-    const topic=chapter?.topics.find(topic=>{const t=authoredLessons.content[chapter.id].topics[topic.id];return (t.command||`make example EXAMPLE=${chapter.id}-${topic.id}`)===command||t.lab?.command===command;});
+    const topic=chapter?.topics.find(topic=>{const t=authoredLessons.content[chapter.id].topics[topic.id];return (t.command||`make example EXAMPLE=${chapter.id}-${topic.id}`)===command.replace(/ RUN_ONLY=1$/,'')||t.lab?.command===command;});
     $('linux-return').href=chapter?'#/chapter/'+chapter.id+(topic?'/'+topic.id:''):'#/course';
     $('linux-return').textContent=chapter?'← Return to '+(topic?.title||chapter.title):'← Complete course';
     return true;

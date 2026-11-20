@@ -110,16 +110,20 @@ No, a valid matching COMMIT is required. Tentative state remains separate until 
 
 </details>
 
-**Try:** Replay every prefix of this log and verify values against an independently listed set of committed boundaries.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/5). In main.c, change recover(log, 19, 0) to recover(log, 24, 0) and rename torn= to prefix24=. Run code and compare both values. Which complete record at byte 24 makes the first transaction eligible for replay?
+
+**Extend the example:** Copy the prepared log into a separate fixture with a second commit and a third torn transaction. Record expected visible values independently before testing the byte prefixes.
 
 ### References and help
 
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 - [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 
-Run from the repository root:
+Native source: `native/examples/recovery-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-5
+make example EXAMPLE=recovery-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

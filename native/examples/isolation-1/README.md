@@ -103,15 +103,17 @@ Holding the shared lock across both field reads. The invariant spans both fields
 
 </details>
 
-**Try:** Define a lock hierarchy for accounts and tables, then measure contention with verified invariant checks.
+**Try:** Edit the example in Browser Linux.  In native/examples/isolation-1/main.c, change Account account’s initial balances from 100, 0 to 90, 10. Repeat the terminal run. Why can consistent= and final_total= remain the same when the individual balances differ?
 
 ### References and help
 
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 
-Run from the repository root:
+Native source: `native/examples/isolation-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=isolation-1
+make example EXAMPLE=isolation-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

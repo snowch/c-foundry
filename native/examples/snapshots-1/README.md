@@ -84,16 +84,18 @@ Ten. Its visibility boundary remains fixed rather than advancing between reads.
 
 </details>
 
-**Try:** Add a later committed version and verify that repeated reads at snapshot two remain unchanged.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/1). In main.c, change the second version’s value from 20 to 25. Run code and compare snapshot2= and snapshot3=. Which snapshot falls before the new version becomes visible?
 
 ### References and help
 
 - [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 - [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 
-Run from the repository root:
+Native source: `native/examples/snapshots-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=snapshots-1
+make example EXAMPLE=snapshots-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

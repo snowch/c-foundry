@@ -121,7 +121,7 @@ To keep data separate from the prepared syntax. Typed binding retains the query 
 
 </details>
 
-**Try:** Generalize preparation through the real parser, add parameter types and lifetime rules, and test composite-prefix queries.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/richer-queries/1). In main.c, change bind(&p, 1, 2) to bind(&p, 2, 1). Run code and compare prepared= with all join= lines. Which row changes when the known query’s two bound values change?
 
 ### References and help
 
@@ -136,11 +136,13 @@ No. Read the API’s prepare, bind, step, reset, and finalize contracts. Prepara
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/richer-queries-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=richer-queries-1
+make example EXAMPLE=richer-queries-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 43.2 Better statistics and query planning
 
@@ -195,18 +197,20 @@ The values are heavily skewed. The distribution assumption disagrees with the st
 
 </details>
 
-**Try:** Collect a bounded histogram from a consistent snapshot and compare planner decisions before and after a skewed update workload.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/richer-queries/2). In main.c, replace two of the seven 1s in scores with 9s and run. Compare uniform=, histogram=, and actual=. Which estimate can reflect the changed frequency of 1?
 
 ### References and help
 
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 - [SQLite C interface: prepared statements](https://www.sqlite.org/c3ref/prepare.html) — Read preparation and statement lifecycle contracts; these are design comparisons, not TinyDB APIs.
 
-Run from the repository root:
+Native source: `native/examples/richer-queries-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=richer-queries-2
+make example EXAMPLE=richer-queries-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 43.3 Explaining and measuring execution choices
 
@@ -287,18 +291,22 @@ The query’s logical results. A faster plan that drops or duplicates rows is in
 
 </details>
 
-**Try:** Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/richer-queries/3). In main.c, replace the last query key 8 with 9 and run. Compare nested=, indexed=, and results=. What correctness evidence comes before interpreting the modeled comparison counts?
+
+**Extend the example:** An index also has a build cost. A larger experiment can separately count comparisons to build the index and answer queries on the same dataset.
 
 ### References and help
 
 - [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
-Run from the repository root:
+Native source: `native/examples/richer-queries-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=richer-queries-3
+make example EXAMPLE=richer-queries-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

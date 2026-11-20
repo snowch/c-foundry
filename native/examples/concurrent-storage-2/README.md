@@ -152,16 +152,18 @@ Ownership on successful and failed enqueue. The asynchronous consumer may run af
 
 </details>
 
-**Try:** Replace integer requests with owned command objects and verify cleanup on rejected enqueue and successful processing.
+**Try:** Edit the example in Browser Linux.  In native/examples/concurrent-storage-2/main.c, change WORK_ITEMS from 8 to 6. Repeat the terminal run and compare accepted_and_drained= and total=. Which check would additionally distinguish duplicated request IDs from missing ones?
 
 ### References and help
 
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 - [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
 
-Run from the repository root:
+Native source: `native/examples/concurrent-storage-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=concurrent-storage-2
+make example EXAMPLE=concurrent-storage-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

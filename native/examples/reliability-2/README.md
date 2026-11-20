@@ -160,16 +160,18 @@ No. It measures one possible cost component rather than the whole workload.
 
 </details>
 
-**Try:** Instrument your assembled database’s allocation sites and page reads, then benchmark verified workloads with and without pooling.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/reliability/2). In main.c, replace the final fetch(&c, 1) with fetch(&c, 3). Run code and compare individual_allocations=, pooled_allocations=, and cache_reads=. Which measure changes when only the last page request changes?
 
 ### References and help
 
 - [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 
-Run from the repository root:
+Native source: `native/examples/reliability-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=reliability-2
+make example EXAMPLE=reliability-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

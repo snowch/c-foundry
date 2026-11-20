@@ -127,7 +127,7 @@ No, snapshots or recovery may still reference it. Logical unlinking does not aut
 
 </details>
 
-**Try:** Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/maintenance/3). In main.c, remove bad.offset[b] = bad.offset[a]; and run. Compare valid= and overlap_rejected=. Why does a copied page without deliberate overlap pass the same integrity check?
 
 ### References and help
 
@@ -135,9 +135,11 @@ No, snapshots or recovery may still reference it. Logical unlinking does not aut
 - [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
 - [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
 
-Run from the repository root:
+Native source: `native/examples/maintenance-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=maintenance-3
+make example EXAMPLE=maintenance-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

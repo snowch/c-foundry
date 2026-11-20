@@ -62,18 +62,20 @@ p first holds an address that reaches value. The assignment through *p changes v
 
 </details>
 
-**Try:** Change the write to 21, then compare value and *p before setting p to NULL.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pointers/1). In main.c, change *p = 42; to *p = 21;. Choose Run code. Compare value= and null= in Console. Which changes when you write through p, and which comes from the later assignment to p itself?
 
 ### References and help
 
 - [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/pointers-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pointers-1
+make example EXAMPLE=pointers-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 6.2 Pointers as function arguments
 
@@ -136,18 +138,20 @@ int **. The helper needs access to the pointer object itself, through its addres
 
 </details>
 
-**Try:** Remove point_to and pass &p to a helper that sets p to NULL. Do not dereference p afterward.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pointers/2). In main.c, change point_to(&p, &b) to point_to(&p, &a). Choose Run code and compare the third Console value with a and b. Did point_to move either integer or change which one p refers to?
 
 ### References and help
 
 - [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/pointers-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pointers-2
+make example EXAMPLE=pointers-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 6.3 Arrays, pointers, and pointer arithmetic
 
@@ -199,7 +203,7 @@ No: it is one past the array. The one-past position supports iteration boundarie
 
 </details>
 
-**Try:** Write a loop from values to end that prints each value while p != end.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pointers/3). In main.c, change int *p = values + 1; to int *p = values;. Choose Run code. Which two elements are now read through p, and why does end - values stay 3?
 
 ### References and help
 
@@ -214,11 +218,13 @@ A one-past pointer can be formed and used within the permitted comparison/arithm
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/pointers-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pointers-3
+make example EXAMPLE=pointers-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 6.4 const and pointer declarations
 
@@ -263,18 +269,20 @@ read = &b;. The pointer may change, but this access path does not permit modifyi
 
 </details>
 
-**Try:** Introduce one forbidden assignment at a time, read the diagnostic, and restore the valid version.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pointers/4). In main.c, replace read = &b; with *read = 20; and choose Run code. Read the compiler diagnostic about writing through read. Restore read = &b; and rerun to see 11 20 again. What is const protecting?
 
 ### References and help
 
 - [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/pointers-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pointers-4
+make example EXAMPLE=pointers-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 6.5 Swapping values through pointers
 
@@ -332,18 +340,20 @@ It stores its own int value. The initializer copies the integer into a separate 
 
 </details>
 
-**Try:** Complete the pointer exercise, then add a same-object call and explain the result.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/pointers/5). In main.c, initialize x to 3 and y to 8, leaving same at 7. Choose Run code and compare all three values. Why does the call with two pointers to same leave its value unchanged?
 
 ### References and help
 
 - [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/pointers-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=pointers-5
+make example EXAMPLE=pointers-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

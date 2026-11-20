@@ -143,18 +143,20 @@ No. Process memory can disappear without a persistent recovery protocol.
 
 </details>
 
-**Try:** Write a guarantee table for each ACID property and identify the mechanism or missing work for each.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/1). In main.c, change the tentative score from 1 to 50, leaving rollback(&tx) unchanged. Run code and compare after_rollback=. Which state did update_score edit, and which state does the printed value come from?
 
 ### References and help
 
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 - [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 
-Run from the repository root:
+Native source: `native/examples/recovery-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-1
+make example EXAMPLE=recovery-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 29.2 A single-writer transaction model
 
@@ -287,18 +289,20 @@ Exclusive mutation ownership. The same live state must not be concurrently mutat
 
 </details>
 
-**Try:** Add an admission lock or a request queue and test two competing transaction starts.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/2). In main.c, replace the declarations of first and nested with separate calls, inserting rollback(&tx) between them. Run code and compare first= and nested=. Why can the second begin succeed once the model has no active transaction?
 
 ### References and help
 
 - [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 
-Run from the repository root:
+Native source: `native/examples/recovery-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-2
+make example EXAMPLE=recovery-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 29.3 BEGIN, COMMIT, and ROLLBACK
 
@@ -437,24 +441,26 @@ The earlier committed 95. Rollback never publishes its private working table.
 
 </details>
 
-**Try:** Define session ownership and behavior for COMMIT without BEGIN, nested BEGIN, and disconnect during a transaction.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/3). In main.c, change the first transaction’s score from 95 to 50 and leave the second rollback in place. Run code and compare committed_score= and invalid_commit=. Which boundary made 50 observable in live?
 
 ### References and help
 
 - [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 
-Run from the repository root:
+Native source: `native/examples/recovery-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-3
+make example EXAMPLE=recovery-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 29.4 Write-ahead logging
 
 Write-ahead logging records enough information for recovery before acknowledging a durable commit or persisting dependent data pages.
 
-The one-value redo log uses fixed eight-byte BEGIN, SET, and COMMIT records with transaction IDs. This native fixture flushes stdio and calls POSIX fsync on the log before treating the commit as durable. A real database also needs stable log naming, error handling, checksums, page/log ordering, and platform-specific file and directory guarantees. The example demonstrates the ordering, not a complete storage engine.
+The one-value redo log uses eight-byte BEGIN, SET, and COMMIT records with transaction IDs. In this POSIX fixture, the program checks the write, flushes the library buffer, calls fsync on the temporary file and then runs recovery over the same prepared bytes. A database also needs a recovery-visible log path, error handling and an ordering contract for log and data files.
 
 ### Recovery keeps committed work and ignores an incomplete tail
 
@@ -538,7 +544,7 @@ int main(void) {
     fclose(f);
     return 1;
   }
-  printf("durable_log_order_checked value=%u\n",
+  printf("sync_calls_succeeded value=%u\n",
          (unsigned)recover(bytes, sizeof bytes, 0));
   if (fclose(f) != 0)
     return 1;
@@ -549,10 +555,10 @@ int main(void) {
 Output:
 
 ```text
-durable_log_order_checked value=42
+sync_calls_succeeded value=42
 ```
 
-Recovery can reconstruct 42 from the committed log. The success line follows the checked synchronization call. The temporary file is intentionally not a permanent database path.
+The prepared log decodes to 42. The success line follows the checked sync call. The fixture uses a temporary file and runs no crash or power-loss test.
 
 **Watch for:** fflush alone moves bytes to the operating-system interface; it is not equivalent to a platform durable-sync operation.
 
@@ -567,7 +573,7 @@ After its required log synchronization succeeds. Recovery must be able to find a
 
 </details>
 
-**Try:** Use a named log under KEEP_FILES=1, inject sync failures, and add a checked data-page write only after the write-ahead condition holds.
+**Try:** Edit the example in Browser Linux.  In native/examples/recovery-4/main.c, change the value argument of the SET_REC log_record call from 42 to 17. Repeat the terminal command. Find sync_calls_succeeded and value=17. Which code checks the write, flush, and sync before the recovery result is printed?
 
 ### References and help
 
@@ -583,11 +589,13 @@ No. fflush addresses C stream buffering. Durable commit needs a host/storage pro
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/recovery-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-4
+make example EXAMPLE=recovery-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 29.5 Recovery after an interrupted write
 
@@ -697,18 +705,22 @@ No, a valid matching COMMIT is required. Tentative state remains separate until 
 
 </details>
 
-**Try:** Replay every prefix of this log and verify values against an independently listed set of committed boundaries.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/5). In main.c, change recover(log, 19, 0) to recover(log, 24, 0) and rename torn= to prefix24=. Run code and compare both values. Which complete record at byte 24 makes the first transaction eligible for replay?
+
+**Extend the example:** Copy the prepared log into a separate fixture with a second commit and a third torn transaction. Record expected visible values independently before testing the byte prefixes.
 
 ### References and help
 
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 - [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 
-Run from the repository root:
+Native source: `native/examples/recovery-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-5
+make example EXAMPLE=recovery-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 29.6 Browser storage guarantees and their limits
 
@@ -808,18 +820,20 @@ No. The two stores have different owners, data, and failure contracts.
 
 </details>
 
-**Try:** Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/6). In main.c, change the value 7 in the SET_REC call to 12. Run code and compare before_commit= and after_commit=. This replays a prepared log in memory. Which prefix contains the record that publishes the change?
 
 ### References and help
 
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 - [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 
-Run from the repository root:
+Native source: `native/examples/recovery-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-6
+make example EXAMPLE=recovery-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

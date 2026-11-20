@@ -59,16 +59,18 @@ Explicit rejection or a defined migration path. Different layouts need deliberat
 
 </details>
 
-**Try:** Write a byte-offset format table and test bad magic, version, record width, and reserved bytes.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/1). In main.c, change header[6] from 2 to 3 in the initializer. Run code and compare version=, record_bytes=, and rows=. This header task changes the advertised count. What further check would a complete file reader need before accepting that count?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-1
+make example EXAMPLE=persistence-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

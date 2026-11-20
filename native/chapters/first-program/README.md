@@ -42,7 +42,7 @@ Output:
 Hello, C!
 ```
 
-The header declares printf so the compiler can check its use. The call asks the runtime to write a line. The final return ends main successfully. The browser lab performs the compile, link, and run stages when you choose Run code; you do not need to install a compiler for Part 1.
+The header declares printf. Calling printf writes the greeting and a newline. Returning zero reports successful completion to the runtime.
 
 **Watch for:** A compiler error prevents the new program from running. A runtime error happens after compilation and linking have succeeded. Treat these as different points in the process.
 
@@ -58,18 +58,20 @@ Linking. The linker connects the translated program with the library code it nee
 
 </details>
 
-**Try:** Change the greeting, run the program, and check that the console reflects the new text.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/1). In main.c, replace Hello, C! with Hello, Ada! inside the printf string. Leave the newline escape in place. Choose Run code again and compare the two Console lines. Which part of the output did the edit control?
 
 ### References and help
 
 - [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
 - [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 
-Run from the repository root:
+Native source: `native/examples/first-program-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=first-program-1
+make example EXAMPLE=first-program-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 1.2 main, statements, comments, and return values
 
@@ -112,18 +114,20 @@ No. Returning a status and writing output are separate operations.
 
 </details>
 
-**Try:** Swap the two printf statements. Predict the new order before running.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/2). In main.c, move the printf line for Second above the line for First. Choose Run code. Does Console now print Second before First, and does return 0 add a line?
 
 ### References and help
 
 - [C reference: main](https://en.cppreference.com/w/c/language/main_function.html) — Check the supported forms of main and what returning a status means.
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 
-Run from the repository root:
+Native source: `native/examples/first-program-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=first-program-2
+make example EXAMPLE=first-program-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 1.3 Printing with printf
 
@@ -166,7 +170,7 @@ The first call substitutes 3 for %d and then starts a new line. The second print
 
 </details>
 
-**Try:** Print two labeled integer values on separate lines. Include a literal percent sign in one line.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/3). In main.c, change the 3 argument in the first printf to 7 and change 100%% to 75%% in the second string. Choose Run code. Find Count: 7 and Progress: 75% in Console. Why does the second line display one percent sign?
 
 ### References and help
 
@@ -181,11 +185,13 @@ On success printf returns the number of characters transmitted, excluding the te
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/first-program-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=first-program-3
+make example EXAMPLE=first-program-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 1.4 Reading compiler errors
 
@@ -210,7 +216,7 @@ Output:
 Hello
 ```
 
-This is the corrected program. Remove the semicolon after printf in the editor and run it to observe a real compiler diagnostic. Restore the semicolon and rerun. If several errors appear, start at the first; later messages can be consequences of the same initial mistake. Exact diagnostic wording depends on compiler version.
+A diagnostic may point to the next statement because that is where the compiler discovers the missing terminator. Read the first diagnostic before chasing later ones. Its exact wording depends on the compiler.
 
 **Watch for:** Do not change a large number of lines to silence a list of errors. A small edit-and-recompile cycle makes it easier to connect a cause with its effect.
 
@@ -226,23 +232,25 @@ The preceding statement. The reported location is where parsing failed, which ca
 
 </details>
 
-**Try:** Create the missing-semicolon error, read it, fix it, and explain why its location may be one line later.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/4). In main.c, remove the semicolon immediately after printf("Hello\n"). Choose Run code and read the first compiler diagnostic in Console. Put the semicolon back and run again. Which line did the compiler report, and why can it follow the actual mistake?
 
 ### References and help
 
 - [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
 
-Run from the repository root:
+Native source: `native/examples/first-program-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=first-program-4
+make example EXAMPLE=first-program-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 1.5 C, WebAssembly, and standard input/output
 
-The browser lab is a C environment with a limited operating-system interface. It is useful to know what belongs to the C language, what belongs to the runtime, and what the page itself provides.
+The browser runs compiled C and supplies a small operating-system interface.
 
-The editor contains source. Run code compiles and executes it in a worker so the page remains responsive. Console shows program output and diagnostics. Input supplies text before execution; it is not an interactive terminal that waits for you to type midway through the run. Later exercises will read it. Check output compares observable results with practice cases. It does not prove that an algorithm is appropriate or memory is managed correctly.
+Input passes text to the program before execution. For example, scanf or fgets can read this prepared text during the run. Use Console to see the program output and any diagnostics.
 
 ### Source becomes a runnable program
 
@@ -269,7 +277,7 @@ Output:
 This program runs in the browser.
 ```
 
-This program needs only standard output. A Wasm module is generated and executed locally. Your edited source can be saved in this browser, but a program’s temporary files do not become permanent course data. Use Export for a copy you can keep or move to Browser Linux. Stop terminates the running worker, including a program stuck in a loop.
+This starter writes to standard output. The page compiles it into WebAssembly and runs it locally. Stop is available while a run is active.
 
 **Watch for:** Native Linux processes, sockets, and C threads are not supplied by this lab. Chapters that need those capabilities identify Browser Linux as their execution environment; they are still readable on a tablet.
 
@@ -284,18 +292,20 @@ Before pressing Run code. The runner passes the Input text at the start. It does
 
 </details>
 
-**Try:** Open the chapter’s greeting exercise. Edit, run, check, and export your first C file.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/5). In main.c, replace This program runs in the browser. with Built and run here. Choose Run code, then confirm Console shows the new line. In Editor tools, choose Export to save the edited main.c. The chapter’s greeting exercise uses Check output for separate practice.
 
 ### References and help
 
 - [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/first-program-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=first-program-5
+make example EXAMPLE=first-program-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 1.6 Finding and reading C documentation
 
@@ -360,7 +370,7 @@ The first call writes H, i, !, and a newline: four characters. The terminating n
 
 </details>
 
-**Try:** Use the printf reference to predict the count for "C\n", change the first call, and run it. Then find how to print a literal percent sign, include one in the message, and explain why the source spelling and output length differ.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/6). In main.c, change the first printf string from Hi!\n to C\n. Predict the return value, choose Run code, and read count= in Console. Next change the string to C%%\n and run again. How many characters does one printed percent sign add?
 
 ### References and help
 
@@ -368,11 +378,13 @@ The first call writes H, i, !, and a newline: four characters. The terminating n
 - [Linux manual: printf(3)](https://man7.org/linux/man-pages/man3/printf.3.html) — Use SYNOPSIS, conversion specifications, RETURN VALUE, and STANDARDS; note POSIX extensions.
 - [Linux manual: printf(1)](https://man7.org/linux/man-pages/man1/printf.1.html) — Compare the command-line utility with the C library function in section 3.
 
-Run from the repository root:
+Native source: `native/examples/first-program-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=first-program-6
+make example EXAMPLE=first-program-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

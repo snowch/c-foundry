@@ -55,7 +55,7 @@ Reading Linux /proc to discover process state. The parser can operate on supplie
 
 </details>
 
-**Try:** Inventory the APIs in your TinyDB build. Label each ISO C, POSIX, Win32, or another target-specific contract, and identify its failure policy.
+**Try:** Edit the example in Browser Linux.  In native/examples/portable-c-1/main.c, replace portable with still portable inside the fputs string. Repeat the terminal run. Which operation puts the text in the stream and which retrieves it? Identify the ISO C functions used by this fixture.
 
 ### References and help
 
@@ -63,9 +63,11 @@ Reading Linux /proc to discover process state. The parser can operate on supplie
 - [C reference: fopen](https://en.cppreference.com/w/c/io/fopen.html) — Read text/binary modes, creation behavior, and the failure result.
 - [C reference: fread](https://en.cppreference.com/w/c/io/fread.html) — Check the difference between bytes and complete elements, and detect short reads.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-1
+make example EXAMPLE=portable-c-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

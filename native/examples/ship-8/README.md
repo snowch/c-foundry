@@ -106,16 +106,20 @@ The in-memory table alone cannot establish that the saved rows are correct. Reop
 
 </details>
 
-**Try:** Repair both defects in the isolated CLI copy, pass all four checks, and add missing-ID, sole-row deletion, and duplicate-rejection regressions. Record the GDB evidence for each source fix.
+**Try:** Edit the example in Browser Linux.  For the guided repair, edit native/debugging/tinydb/main.c using the optional GDB commands above. Run the four specified regression checks on the isolated copy. The separate terminal example below illustrates the correct UPDATE for ID 2.
+
+**Extend the example:** After the four guided checks pass, add regression cases in the isolated TinyDB lab for a missing ID, sole-row deletion, and duplicate rejection.
 
 ### References and help
 
 - [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
 - [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
 
-Run from the repository root:
+Native source: `native/examples/ship-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-8
+make example EXAMPLE=ship-8 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

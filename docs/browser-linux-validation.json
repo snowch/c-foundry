@@ -61,5 +61,7 @@
     "Browser viewport/touch emulation is not testing on every physical tablet.",
     "The hosted service and its toolchain can change independently of this repository.",
     "No multicore speedup, crash durability, or sanitizer availability is established by these tests."
-  ]
+  ],
+  "source_set_revision": "95d4466",
+  "source_set_note": "The original live acceptance source set is recorded by this revision. The later learner-wording merge changes one Part 8 output label from exactly_once to received_count; synchronization code is unchanged. The release browser run checks the integrated bundle, and CI verifies its fixtures."
 }

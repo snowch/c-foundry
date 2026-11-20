@@ -139,16 +139,18 @@ The earlier committed 95. Rollback never publishes its private working table.
 
 </details>
 
-**Try:** Define session ownership and behavior for COMMIT without BEGIN, nested BEGIN, and disconnect during a transaction.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/3). In main.c, change the first transaction’s score from 95 to 50 and leave the second rollback in place. Run code and compare committed_score= and invalid_commit=. Which boundary made 50 observable in live?
 
 ### References and help
 
 - [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 
-Run from the repository root:
+Native source: `native/examples/recovery-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-3
+make example EXAMPLE=recovery-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

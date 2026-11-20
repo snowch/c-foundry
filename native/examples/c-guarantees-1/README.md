@@ -58,16 +58,18 @@ No, it is undefined behavior in standard C. Standard unsigned and signed arithme
 
 </details>
 
-**Try:** Classify five expressions from TinyDB and cite the exact assumption or guarantee each relies on.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/1). In main.c, change wrapped += 1; to wrapped += 2;. Run code and compare unsigned_wrap=. Which bound gives the starting value? How does the rule for unsigned addition let you predict the result without knowing the exact width of unsigned?
 
 ### References and help
 
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 - [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-1
+make example EXAMPLE=c-guarantees-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

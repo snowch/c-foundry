@@ -71,7 +71,7 @@ After its worker has finished and been joined. Creation does not imply the worke
 
 </details>
 
-**Try:** Give each of several workers its own argument object and verify every result after joining.
+**Try:** Edit the example in Browser Linux.  In native/examples/threads-2/main.c, change the Job initializer’s input from 21 to 12. Repeat the terminal run. Find input= and result=. Which operation lets the owner read the worker’s completed result?
 
 ### References and help
 
@@ -86,9 +86,11 @@ No. The argument is a pointer value. The referenced storage needs a suitable lif
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/threads-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=threads-2
+make example EXAMPLE=threads-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

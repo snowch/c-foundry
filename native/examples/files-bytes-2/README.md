@@ -50,7 +50,7 @@ flags &= ~mask. The AND limits the change to bits selected by the inverted mask.
 
 </details>
 
-**Try:** Add a third flag and toggle it twice with XOR; verify that the original flags are restored.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/2). In main.c, remove the line that clears bit 2 and choose Run code. Compare hex=, bit2=, and bit5=. Which field confirms that clearing one bit in the starter preserves the other?
 
 ### References and help
 
@@ -58,9 +58,11 @@ flags &= ~mask. The AND limits the change to bits selected by the inverted mask.
 - [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-2
+make example EXAMPLE=files-bytes-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

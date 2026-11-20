@@ -54,16 +54,18 @@ Dataset construction and result formatting. Preparation and reporting answer dif
 
 </details>
 
-**Try:** Compare cold and warm page-cache runs with verified equal results and recorded environment details.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/ship/4). In main.c, change n <= 32 to n <= 128. Run code. Compare rows= against absent_scan_comparisons= on every line and explain the pattern. The program counts loop iterations.
 
 ### References and help
 
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
-Run from the repository root:
+Native source: `native/examples/ship-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-4
+make example EXAMPLE=ship-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

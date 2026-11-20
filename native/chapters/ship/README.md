@@ -261,18 +261,20 @@ Parsing, validation, and execution/storage. The observed result depends on the c
 
 </details>
 
-**Try:** Add tests for each supported statement and maintain a table of intentionally unsupported syntax.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/ship/1). In main.c, change Ada’s score from 90 to 95 in the INSERT text. Run code and compare the selected row and SQL contract passed. Which unsupported command continues to be rejected?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
 
-Run from the repository root:
+Native source: `native/examples/ship-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-1
+make example EXAMPLE=ship-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 30.2 Property tests and fuzzing the parser
 
@@ -518,18 +520,20 @@ No. Only finitely many generated paths were exercised.
 
 </details>
 
-**Try:** Add token-length boundaries in Browser Linux and retain every discovered failure as a deterministic regression case. Optional sanitizer tooling is described separately.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/ship/2). In main.c, change the loop limit n < 256 to n < 512. Run code and compare fuzz_cases=. What does the count establish about this deterministic fixture? Run the equivalent in Browser Linux with GCC. Optional sanitizer tooling is described separately.
 
 ### References and help
 
 - [LLVM documentation: libFuzzer](https://llvm.org/docs/LibFuzzer.html) — Compare a native coverage-guided fuzzing engine with the bounded deterministic parser fixture.
 - [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
 
-Run from the repository root:
+Native source: `native/examples/ship-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-2
+make example EXAMPLE=ship-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 30.3 Fault injection and recovery tests
 
@@ -641,7 +645,7 @@ Only the prefix containing the full commit record. Uncommitted records cannot es
 
 </details>
 
-**Try:** Add two committed transactions, an incomplete third, invalid headers, and repeated replay checks.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/ship/3). In main.c, change the SET_REC value and the matching final expected value from 42 to 17. Run code and find 25 interruption boundaries passed. Which single prefix publishes the new value in this model?
 
 ### References and help
 
@@ -656,11 +660,13 @@ No. It checks modeled failures on selected targets. Publish the tested failure m
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/ship-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-3
+make example EXAMPLE=ship-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 30.4 Benchmarks across growing datasets
 
@@ -714,18 +720,20 @@ Dataset construction and result formatting. Preparation and reporting answer dif
 
 </details>
 
-**Try:** Compare cold and warm page-cache runs with verified equal results and recorded environment details.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/ship/4). In main.c, change n <= 32 to n <= 128. Run code. Compare rows= against absent_scan_comparisons= on every line and explain the pattern. The program counts loop iterations.
 
 ### References and help
 
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
-Run from the repository root:
+Native source: `native/examples/ship-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-4
+make example EXAMPLE=ship-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 30.5 Memory and resource audits
 
@@ -895,18 +903,20 @@ No. Ownership remains until the resource is released.
 
 </details>
 
-**Try:** Enumerate every exit path in the pager, parser, and index; inject failures at each acquired resource boundary.
+**Try:** Edit the example in Browser Linux.  In native/examples/ship-5/main.c, add insert_row(&source, (Row){2, "Grace", 80}); before save. Repeat the terminal command. Which evidence shows the reopened fixture has two rows and the stream closed?
 
 ### References and help
 
 - [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 - [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
 
-Run from the repository root:
+Native source: `native/examples/ship-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-5
+make example EXAMPLE=ship-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 30.6 File-format documentation and compatibility
 
@@ -1079,18 +1089,20 @@ A separate verified new-format file. The old valid state should remain available
 
 </details>
 
-**Try:** Publish a format document with offsets, ranges, validation, version policy, and independently specified sample bytes.
+**Try:** Edit the example in Browser Linux.  In native/examples/ship-6/main.c, change the version byte in header from 2 to 3. Repeat the terminal command. Does the fixture still reject it? Which byte identifies the version rather than record width?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/ship-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-6
+make example EXAMPLE=ship-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 30.7 Exportable database files and a browser demonstration
 
@@ -1260,18 +1272,20 @@ Format documentation, validation tests, and execution limits. A recipient needs 
 
 </details>
 
-**Try:** Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.
+**Try:** Edit the example in Browser Linux.  In native/examples/ship-7/main.c, add a third row with ID 3, name Linus and score 70, change the response check copy.count != 2 to copy.count != 3, and update the printed line to release fixture: three validated rows. Repeat the terminal command. Why does the program check the loaded count before printing the line?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/ship-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-7
+make example EXAMPLE=ship-7 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 30.8 Optional workshop: Repair a broken TinyDB with GDB
 
@@ -1377,18 +1391,22 @@ The in-memory table alone cannot establish that the saved rows are correct. Reop
 
 </details>
 
-**Try:** Repair both defects in the isolated CLI copy, pass all four checks, and add missing-ID, sole-row deletion, and duplicate-rejection regressions. Record the GDB evidence for each source fix.
+**Try:** Edit the example in Browser Linux.  For the guided repair, edit native/debugging/tinydb/main.c using the optional GDB commands above. Run the four specified regression checks on the isolated copy. The separate terminal example below illustrates the correct UPDATE for ID 2.
+
+**Extend the example:** After the four guided checks pass, add regression cases in the isolated TinyDB lab for a missing ID, sole-row deletion, and duplicate rejection.
 
 ### References and help
 
 - [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
 - [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) — Compare structural checks with the invariants tested in the teaching database.
 
-Run from the repository root:
+Native source: `native/examples/ship-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-8
+make example EXAMPLE=ship-8 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

@@ -65,7 +65,7 @@ Reading Linux /proc to discover process state. The parser can operate on supplie
 
 </details>
 
-**Try:** Inventory the APIs in your TinyDB build. Label each ISO C, POSIX, Win32, or another target-specific contract, and identify its failure policy.
+**Try:** Edit the example in Browser Linux.  In native/examples/portable-c-1/main.c, replace portable with still portable inside the fputs string. Repeat the terminal run. Which operation puts the text in the stream and which retrieves it? Identify the ISO C functions used by this fixture.
 
 ### References and help
 
@@ -73,11 +73,13 @@ Reading Linux /proc to discover process state. The parser can operate on supplie
 - [C reference: fopen](https://en.cppreference.com/w/c/io/fopen.html) — Read text/binary modes, creation behavior, and the failure result.
 - [C reference: fread](https://en.cppreference.com/w/c/io/fread.html) — Check the difference between bytes and complete elements, and detect short reads.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-1
+make example EXAMPLE=portable-c-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 33.2 Fixed-width types, endianness, and binary compatibility
 
@@ -150,18 +152,20 @@ No. Layout, padding, byte order, and other representation choices remain.
 
 </details>
 
-**Try:** Decode independently specified bytes and test all integer extremes without consulting sizeof(Row).
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/2). In main.c, change both 0x01020304 constants to 0x11223344. Run code and inspect bytes= and value_ok=. Which byte comes first in the specified format?
 
 ### References and help
 
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-2
+make example EXAMPLE=portable-c-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 33.3 Feature detection and conditional compilation
 
@@ -220,18 +224,20 @@ Report that the required service is unavailable. A fallback may preserve a contr
 
 </details>
 
-**Try:** Run python3 tools/check_portability.py --compiler gcc and inspect the capability report. Compare the result with Windows MSVC in the Actions matrix.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/3). After observing monotonic_configured=0 in the browser, open your native terminal at the repository root and run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?
 
 ### References and help
 
 - [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) — Find inclusion, conditional compilation, and macro replacement rules.
 - [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-3
+make example EXAMPLE=portable-c-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 33.4 A portable core and explicit host adapters
 
@@ -322,18 +328,22 @@ The platform adapter with a documented replacement contract. Replacement semanti
 
 </details>
 
-**Try:** Add a rejecting ByteSink and verify that emit_header reports failure. Then sketch separate POSIX and Win32 publication adapters without claiming they offer identical crash guarantees.
+**Try:** Edit the example in Browser Linux.  In native/examples/portable-c-4/main.c, insert a sink callback that ignores its arguments with (void) casts and returns false, matching the existing file_write signature. For the test, replace file_write with the rejecting callback in a second sink and print !emit_header(&rejected) as sink_rejected=. Repeat the terminal run before the successful fixture. Which part of the portable core propagates the host failure?
+
+**Extend the example:** Sketch separate POSIX and Win32 file-publication adapters. Document what each platform can establish about file contents and directory entries after successful synchronization.
 
 ### References and help
 
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-4
+make example EXAMPLE=portable-c-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 33.5 Text and binary streams, LF and CRLF
 
@@ -388,18 +398,20 @@ Binary mode, such as rb and wb. Binary mode avoids text-stream translations; the
 
 </details>
 
-**Try:** Add empty, CRLF-only, final-record-without-newline, and truncated-buffer cases. State separately how your parser rejects an incomplete record.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/5). In main.c, change the lone string from Ada\r to Ada with no line ending. Run code and compare lone_cr= with lf= and crlf=. Which cases actually remove bytes from the original buffer?
 
 ### References and help
 
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-5
+make example EXAMPLE=portable-c-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 33.6 Paths, filenames, case, and bounded construction
 
@@ -451,7 +463,7 @@ No, filesystem case and identity rules are a separate contract. Names can compar
 
 </details>
 
-**Try:** Run the audit project’s filename-policy tests for CON.txt, COM1.tdb, traversal, trailing dots, and a valid basename; document which otherwise valid OS names the project intentionally excludes.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/6). In main.c, replace people.tdb with people-2.tdb in the first snprintf. Run code and compare path= and truncated_rejected=. Why does the longer path fit the primary buffer while the small-buffer check still rejects it?
 
 ### References and help
 
@@ -459,11 +471,13 @@ No, filesystem case and identity rules are a separate contract. Names can compar
 - [C reference: strcmp](https://en.cppreference.com/w/c/string/byte/strcmp.html) — Check the meaning of negative, zero, and positive results.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-6
+make example EXAMPLE=portable-c-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 33.7 Encodings, locale, and safe byte classification
 
@@ -512,18 +526,20 @@ It makes any byte a valid classification argument. The cast satisfies the ctype 
 
 </details>
 
-**Try:** Compare the byte length of an ASCII name and a multibyte name, and test invalid UTF-8 rejection separately from name length and locale classification.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/7). In main.c, replace the UTF-8 bytes 0xc3, 0xa9 with the single byte 0x65. Run code and compare utf8_bytes= and ascii_letters=. What does the toy count reveal about byte length and classification in the C locale?
 
 ### References and help
 
 - [C reference: locales](https://en.cppreference.com/w/c/locale.html) — Check which operations depend on the active locale.
 - [C reference: isspace](https://en.cppreference.com/w/c/string/byte/isspace.html) — Check which argument values are valid and how locale affects classification.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-7
+make example EXAMPLE=portable-c-7 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 33.8 Bounded records and reliable numeric parsing
 
@@ -586,18 +602,20 @@ The conversion type may have a wider range than the destination. Conversion succ
 
 </details>
 
-**Try:** Add zero, empty input, plus/minus signs, whitespace, a suffix, embedded zero bytes, leading zeros, and an extremely long number; verify output preservation for every rejection.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/8). In main.c, replace "4294967296" with "0000000001" in the second parse_id call. Run code and compare overflow_rejected= and retained=. What does this parser do with leading zeros when the final value fits?
 
 ### References and help
 
 - [C reference: strtol family](https://en.cppreference.com/w/c/string/byte/strtol.html) — Check endptr, accepted syntax, range errors, and full-input validation.
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-8
+make example EXAMPLE=portable-c-8 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 33.9 Stream errors, EOF, and saved positions
 
@@ -648,7 +666,7 @@ Save and restore it with fgetpos/fsetpos. The position representation can carry 
 
 </details>
 
-**Try:** Add a final line without a newline, test a failed open, and audit the code paths that check read, write, flush, reposition, and close errors.
+**Try:** Edit the example in Browser Linux.  In native/examples/portable-c-9/main.c, remove the last newline from the fputs string and change Grace to Linus. Repeat the terminal run. Compare revisited= and clean_eof=. Why can fgets still read a final line without a newline?
 
 ### References and help
 
@@ -664,11 +682,13 @@ Inspect the stream indicators: feof identifies end-of-file and ferror identifies
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/portable-c-9/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-9
+make example EXAMPLE=portable-c-9 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

@@ -152,7 +152,7 @@ Whether admission or completion is known. The client needs enough state to make 
 
 </details>
 
-**Try:** Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.
+**Try:** Edit the example in Browser Linux.  In native/examples/multi-client-3/main.c, change WORK_CAP from 4 to 2. Repeat the terminal run. Compare queue_bound= and processed=. Which limit governs admission at any instant, and which count covers the whole run?
 
 ### References and help
 
@@ -167,9 +167,11 @@ No. Queue synchronization protects its own operations. Transaction admission, ow
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/multi-client-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=multi-client-3
+make example EXAMPLE=multi-client-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

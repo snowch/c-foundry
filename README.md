@@ -18,7 +18,7 @@ A browser-only C, algorithms, and database course with **nine parts, 44 chapters
 
 ## Everything runs in a browser
 
-The inline compiler mounts directly in compatible lessons with Run, Stop, Reset, Export, input, and console output. Multi-file examples have source-file buttons and separate saved drafts. Reset restores the complete example; Export downloads the selected file. Example runs, reading completion, and graded practice checks are independent.
+The inline compiler mounts directly in compatible lessons with Run code, Stop, Editor tools, input, and console output. Multi-file examples have source-file buttons and separate saved drafts. Restore starter restores the complete example; Undo replacement recovers the draft. Export in Editor tools downloads the selected file. Example runs, reading completion, and graded practice checks are independent.
 
 The **Browser Linux** launcher carries a lesson’s actual command to an on-demand terminal embedded in the course. The JSLinux x86-64/Alpine VM executes on the learner’s device inside the browser and already contains GCC, Clang, GDB, Make, Python, and nano. Import the supplied course archive once, paste the setup command, then run the selected lab. The Linux page also offers a browser source editor with saved drafts, edited-file download/import, and explicit apply commands; terminal-editor shortcuts are optional. Every Part 8 concurrency example uses this Linux path. No account or local installation is required.
 
@@ -36,6 +36,23 @@ Two optional Browser Linux investigations teach GDB:
 - [Repair a broken TinyDB](https://snowch.github.io/c-foundry/#/chapter/ship/8): investigate update/delete bugs and verify saved rows.
 
 The course bundle contains both broken programs, guide files, regression checks, and reference repairs. Normal concurrency and GDB labs do not require a sanitizer runtime.
+
+## Database scope and chapter projects
+
+The course provides complete, executable **components and bounded teaching models**, with guided chapter projects to assemble and extend them. It does not automatically assemble a production database engine merely by marking readings complete.
+
+The implemented examples include:
+
+- A bounded row table with insertion, lookup, update, deletion, uniqueness, and failure preservation.
+- A lexer/parser for a documented, case-sensitive SQL subset: `INSERT INTO people VALUES (number, 'name', number);` and `SELECT * FROM people` with an optional `WHERE id = number`, followed by a semicolon. Ordering, aggregates, joins, and prepared-query examples are separate operators/models to integrate into the grammar as project work.
+- A documented 40-byte little-endian row codec, versioned eight-byte file header, validated imports, named exports, and a checked fixed-page pager.
+- Slotted-page and cache models; a bounded two-level B+ index with real split, borrow, merge, range, and pool-ownership behavior. The model’s routing root supports at most eight four-entry leaf pages; it is not an arbitrary-height serialized index.
+- Single-writer transaction state, fixed-record redo-log prefix recovery, a checked POSIX log-sync ordering example, and a checked Linux checkpoint publication sequence. The redo models retain explicit one-value/single-writer limits.
+- Joined pthread and C11-thread examples, a bounded draining queue, atomic counters and acquire/release publication, reader/writer protection, optimistic stale-write rejection, committed-version visibility, and an active-snapshot reclamation model.
+
+Every later chapter has a build-it-yourself goal, concrete extension tasks, and checks. Its baseline command verifies the original example output, not every learner extension. The two Part 2 Browser Linux projects additionally provide student TODO modules, public header contracts, executable checks, and separate `.reference/` implementations. Their initial student checks intentionally fail.
+
+The first five Linux foundations remain in `native/demos/`; they are independent demonstrations rather than the full assembled capstone. Lesson-run files reset between runs; CLI workspace files persist independently. Browser drafts and reading marks are not database durability mechanisms. The isolation, MVCC, recovery, statistics, and checkpoint pages state their model and host limits explicitly.
 
 ## ThreadSanitizer is reading, not another lab
 

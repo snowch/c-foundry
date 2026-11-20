@@ -1,18 +1,50 @@
 (() => {
   const $ = id => document.getElementById(id);
   const escape = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  let state={drafts:{},fileDrafts:{},inputs:{},completed:[],selected:'hello'};
-  try { const saved=JSON.parse(localStorage.getItem('c-foundry-v1'));if(saved&&typeof saved==='object')state={...state,...saved}; } catch(_){}
+  const storageKey='c-foundry-v1';
+  function readSaved(storage){
+    try{
+      const saved=JSON.parse(window[storage].getItem(storageKey));
+      return saved&&typeof saved==='object'?saved:null;
+    }catch(_){return null;}
+  }
+  let state={drafts:{},fileDrafts:{},inputs:{},replacements:{},completed:[],selected:'hello',
+    ...(readSaved('sessionStorage')||readSaved('localStorage'))};
   if(!state.drafts||typeof state.drafts!=='object')state.drafts={};
   if(!state.fileDrafts||typeof state.fileDrafts!=='object')state.fileDrafts={};
   if(!state.inputs||typeof state.inputs!=='object')state.inputs={};
+  if(!state.replacements||typeof state.replacements!=='object')state.replacements={};
   if(!Array.isArray(state.completed))state.completed=[];
   state.completed=state.completed.filter(id=>LESSONS.some(l=>l.id===id&&!l.isExample));
   const PRACTICE=COURSE.chapters.flatMap(c=>c.labs).map(id=>LESSONS.find(l=>l.id===id&&!l.isExample));
   let selected=Math.max(0,LESSONS.findIndex(l=>l.id===state.selected));
-  let worker,timer,busy=false,mode='run',runLesson,toastTimer,view='lab',currentRoute='',inlineActive=false,activeFile='main.c';
+  let worker,timer,busy=false,mode='run',runLesson,toastTimer,view='lab',currentRoute='',inlineActive=false,activeFile='main.c',hasOutput=false;
   const assessments={hello:'Explain what main and printf each do.',loops:'Explain why the loop includes n and what happens for n = 0.',pointers:'Explain why temp must keep its own copy of the first value.',heap:'Output checks cannot verify ownership. Confirm that every successful allocation is freed exactly once, including error paths.',search:'Output checks cannot establish that you used binary search. Explain the sorted-input requirement and how every iteration shrinks the interval.',sort:'Output checks cannot establish insertion sort or its complexity. Explain the sorted-prefix invariant and why shifting can take quadratic time.',rows:'Explain the width limit and the zero terminator in the name field.',query:'Explain why find_row returns an index, how duplicates are detected, and what happens when the table is full.'};
-  function save(){try{localStorage.setItem('c-foundry-v1',JSON.stringify(state));$('save-state').textContent='Saved on this device';}catch(_){$('save-state').textContent='Storage unavailable. Export your code to keep a copy.';}}
+  function save(){
+    const value=JSON.stringify(state);
+    let warning='';
+    try{
+      localStorage.setItem(storageKey,value);
+      try{sessionStorage.removeItem(storageKey);}catch(_){}
+    }catch(_){
+      try{
+        sessionStorage.setItem(storageKey,value);
+        warning='Draft saved for this tab. Use Export in Editor tools before closing the tab to keep a copy.';
+      }catch(_){
+        warning='Storage unavailable. Use Export in Editor tools before leaving this page to keep a copy.';
+      }
+    }
+    $('save-state').textContent=warning||'Saved in this browser.';
+    $('editor-save-warning').textContent=warning;
+    $('editor-save-warning').hidden=!warning;
+  }
+  function outputContext(message=''){
+    $('output-context').hidden=!message;
+    $('output-context').textContent=message;
+  }
+  function draftChanged(){
+    if(hasOutput)outputContext('This result used earlier code or input. Choose Run code to run your current draft.');
+  }
   function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4000);}
   function chapterProgress(chapter){return chapter.status==='ready'?`<span class="chapter-progress" data-chapter-progress="${chapter.id}"></span>`:'';}
   function updateCover(){
@@ -22,7 +54,7 @@
     const progress=lessonCompletion.total();
     let target=next||first,label=progress.done?'Continue learning →':'Start learning →';
     let path='/chapter/'+target.id,note=`${progress.done?'Next unmarked lesson':'Begin with Chapter '+target.chapter.number} · ${target.topic.title}`;
-    if(!next){label='Review from the beginning →';note='Core lessons marked done. Revisit a lesson or explore the optional labs below.';}
+    if(!next){label='Review from the beginning →';note='All required readings marked done. Revisit an optional lab or choose a practice exercise.';}
     else if(!progress.done){
       const draft=LESSONS.find(l=>l.id===state.selected&&(typeof state.drafts[l.id]==='string'||Object.values(state.fileDrafts[l.id]||{}).some(value=>typeof value==='string'))&&(l.isExample||!state.completed.includes(l.id)));
       const practice=state.completed.length?PRACTICE.find(l=>!state.completed.includes(l.id)):null;
@@ -85,7 +117,7 @@
   function showFile(name){
     activeFile=name;$('editor').value=sourceFiles()[name];$('editor').scrollTop=0;
     $('editor-file-name').textContent=name;$('editor').setAttribute('aria-label',name+' source code');
-    $('download-button').title='Download '+name;$('download-button').querySelector('span').textContent=LESSONS[selected].files?'Export file':'Export';
+    $('download-button').title='Download '+name;
     document.querySelectorAll('[data-source-file]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sourceFile===name)));lines();
   }
   function select(index){
@@ -101,11 +133,13 @@
     $('source-files').innerHTML=names.map(name=>`<button data-source-file="${escape(name)}" aria-pressed="false">${escape(name)}</button>`).join('');
     $('workspace-button').hidden=names.length>1;
     showFile('main.c');$('stdin').value=state.inputs[l.id]??l.input;
+    $('undo-replace-button').hidden=!state.replacements[l.id];
     $('input-dot').textContent=$('stdin').value?'•':'';$('lesson-counter').innerHTML=`<a href="#/chapter/${chapter.id}">Chapter ${chapter.number}: ${escape(chapter.title)}</a>`;
     updateExerciseNavigation();
     $('assessment-note').textContent='These checks compare output. '+(l.assessment||assessments[l.id]);
     $('reference-code').textContent=l.solution;
-    $('output').textContent='Run your program to see its output.';$('output').className='';$('test-results').textContent='Use Check output to run the practice cases.';$('test-count').textContent='';
+    hasOutput=false;outputContext();$('engine-status').textContent='';
+    $('output').textContent='Run code to see the output.';$('output').className='';$('test-results').textContent='Choose Check output to run the practice cases.';$('test-count').textContent='';
     window.lessonVisuals.show(l.id);document.querySelector('.worked-example').hidden=!!l.isExample;document.querySelector('#lab-view .prediction').hidden=!!l.isExample;document.querySelector('.hint').open=false;document.querySelector('.reference-solution').open=false;consoleTab('output');lines();save();showView('lab');
   }
   function renderMap(){
@@ -141,7 +175,6 @@
     panel.querySelector('.editor-wrap').style.height=`${Math.min(16,Math.max(8,lines))*28.05+36}px`;
     $('inline-editor-host').append(panel);
     inlineActive=true;
-    $('output').textContent='Run the program to see its actual output here.';
   }
   function renderRoute(){
     const raw=location.hash.slice(1)||'/lesson/'+state.selected;
@@ -169,10 +202,17 @@
   }
   function notFound(){$('preview-content').innerHTML='<h1 tabindex="-1">Page not found</h1><p><a href="#/course">Return to the course map</a></p>';showView('preview');}
   function go(path,replace=false){if(busy){toast('Stop the program before leaving this lesson.');return;}history[replace?'replaceState':'pushState'](null,'','#'+path);renderRoute();}
-  function consoleTab(tab){document.querySelectorAll('[data-console]').forEach(b=>b.classList.toggle('active',b.dataset.console===tab));['output','input','tests'].forEach(p=>$(p+'-pane').hidden=p!==tab);}
-  function setBusy(value){busy=value;$('run-button').disabled=value;$('check-button').disabled=value;$('stop-button').hidden=!value;$('editor').readOnly=value;$('reset-button').disabled=value;$('solution-button').disabled=value;document.querySelectorAll('[data-source-file]').forEach(b=>b.disabled=value);updateExerciseNavigation();}
-  function finish(){clearTimeout(timer);setBusy(false);$('engine-status').textContent='Browser compiler';}
-  function stop(reason='Stopped. Your code and progress are saved.'){worker?.terminate();worker=null;finish();$('output').textContent=reason;consoleTab('output');}
+  function consoleTab(tab){
+    document.querySelectorAll('[data-console]').forEach(button=>{
+      const active=button.dataset.console===tab;
+      button.classList.toggle('active',active);
+      button.setAttribute('aria-pressed',String(active));
+    });
+    ['output','input','tests'].forEach(p=>$(p+'-pane').hidden=p!==tab);
+  }
+  function setBusy(value){busy=value;$('run-button').disabled=value;$('check-button').disabled=value;$('stop-button').hidden=!value;$('editor').readOnly=value;$('stdin').readOnly=value;$('reset-button').disabled=value;$('undo-replace-button').disabled=value;$('solution-button').disabled=value;document.querySelectorAll('[data-source-file]').forEach(b=>b.disabled=value);updateExerciseNavigation();}
+  function finish(){clearTimeout(timer);setBusy(false);}
+  function stop(reason='Stopped. You can continue editing.'){worker?.terminate();worker=null;finish();$('engine-status').textContent='Stopped';$('output').textContent=reason;consoleTab('output');}
   function getWorker() {
     if(worker)return worker;
     worker = new Worker('compiler/worker.js');
@@ -184,11 +224,9 @@
       } else if(data.type==='done') {
         finish();
         const results=data.results;
-        $('output').textContent=(data.diagnostics ? 'Compiler diagnostics:\n'+data.diagnostics+'\n\n':'')+results[0].actual+(results[0].actual?'\n\n':'')+'Process finished successfully.';
-        if(inlineActive){
-          $('output').textContent=(data.diagnostics?'Compiler diagnostics:\n'+data.diagnostics+'\n\n':'')+(results[0].actual||'(no output)');
-          $('engine-status').textContent='Finished';
-        }
+        $('output').textContent=(data.diagnostics?'Compiler diagnostics:\n'+data.diagnostics+'\n\n':'')+(results[0].actual||'(no output)');
+        $('engine-status').textContent=mode==='check'?'Practice checks finished':'Run finished';
+        hasOutput=true;
         if(mode==='check') {
           const passed=results.filter(r=>r.pass).length;
           $('test-count').textContent=`${passed}/${results.length}`;
@@ -200,7 +238,7 @@
           }
         }
       } else if(data.type==='error') {
-        finish();$('output').className='error';$('output').textContent=[data.diagnostics,data.output,data.message].filter(Boolean).join('\n\n');consoleTab('output');
+        finish();$('engine-status').textContent='Run did not finish';$('output').className='error';$('output').textContent=[data.diagnostics,data.output,data.message].filter(Boolean).join('\n\n');consoleTab('output');
         if(mode==='check'){$('test-count').textContent='error';$('test-results').textContent='Checks could not finish. Fix the compiler or runtime error shown in Console.';}
         worker.terminate();worker=null;
       }
@@ -212,7 +250,9 @@
     if(busy || (view !== 'lab'&&!inlineActive))return;
     if(inlineActive)check=false;
     mode=check?'check':'run';runLesson=LESSONS[selected];setBusy(true);
-    $('output').className='';$('output').textContent='Preparing the browser compiler…\nThe first run downloads about 19 MB. Later runs reuse the compiler.';
+    hasOutput=false;outputContext();
+    $('engine-status').textContent='Preparing compiler…';$('output').className='';
+    $('output').textContent='The first run downloads about 19 MB. Later runs reuse the compiler.';
     $('test-results').textContent=check?'Compiling and running the checks…':'Run Check output to test this version of your code.'; $('test-count').textContent=''; consoleTab('output');
     timer=setTimeout(()=>stop('Compiler preparation timed out. Check your connection and try again.'),120000);
     try { getWorker().postMessage({code:sourceFiles()['main.c'],files:runLesson.files?sourceFiles():undefined,input:$('stdin').value,tests:check?runLesson.tests:undefined}); }
@@ -220,10 +260,9 @@
   }
 
   $('source-files').onclick=event=>{const button=event.target.closest('[data-source-file]');if(button&&!busy)showFile(button.dataset.sourceFile);};
-  $('editor').addEventListener('input',()=>{const id=LESSONS[selected].id;if(activeFile==='main.c')state.drafts[id]=$('editor').value;else{state.fileDrafts[id]??={};state.fileDrafts[id][activeFile]=$('editor').value;}lines();save();});
+  $('editor').addEventListener('input',()=>{const id=LESSONS[selected].id;if(activeFile==='main.c')state.drafts[id]=$('editor').value;else{state.fileDrafts[id]??={};state.fileDrafts[id][activeFile]=$('editor').value;}lines();save();draftChanged();});
   $('editor').addEventListener('scroll',()=>{$('line-numbers').scrollTop=$('editor').scrollTop;});
-  $('editor').addEventListener('keydown',event=>{if(event.key==='Tab'){event.preventDefault();if(busy)return;const el=event.target;el.setRangeText('    ',el.selectionStart,el.selectionEnd,'end');el.dispatchEvent(new Event('input'));}});
-  $('stdin').oninput=()=>{state.inputs[LESSONS[selected].id]=$('stdin').value;$('input-dot').textContent=$('stdin').value?'•':'';save();};
+  $('stdin').oninput=()=>{state.inputs[LESSONS[selected].id]=$('stdin').value;$('input-dot').textContent=$('stdin').value?'•':'';save();draftChanged();};
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&(view==='lab'||inlineActive)){e.preventDefault();run(e.shiftKey);}});
   document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view==='lab'?'/lesson/'+state.selected:'/course'));
   document.addEventListener('change',event=>{if(event.target.id==='chapter-jump')go(event.target.value);if(event.target.matches('[data-lesson-complete]'))lessonCompletion.mark(event.target.dataset.lessonComplete,event.target.checked);});
@@ -234,11 +273,38 @@
   function updateExerciseNavigation(){const l=LESSONS[selected],sequence=practiceSequence(),i=sequence.indexOf(l.id);$('previous-button').disabled=busy||(!l.isExample&&i<=0);$('next-button').disabled=busy||(!l.isExample&&i===sequence.length-1);$('previous-button').textContent=l.isExample?'← Topic explanation':'← Previous exercise';$('next-button').textContent=l.isExample?'Chapter overview →':'Next exercise →';}
   $('previous-button').onclick=()=>{const l=LESSONS[selected],seq=practiceSequence();go(l.isExample?'/chapter/'+l.chapterId+'/'+l.topicId:'/lesson/'+seq[Math.max(0,seq.indexOf(l.id)-1)]);};
   $('next-button').onclick=()=>{const l=LESSONS[selected],seq=practiceSequence();go(l.isExample?'/chapter/'+l.chapterId:'/lesson/'+seq[Math.min(seq.length-1,seq.indexOf(l.id)+1)]);};
-  $('reset-button').onclick=()=>{if(confirm('Restore all starter files? Your current edits will be replaced.')){delete state.drafts[LESSONS[selected].id];delete state.fileDrafts[LESSONS[selected].id];delete state.inputs[LESSONS[selected].id];const previousView=view;select(selected);if(inlineActive)showView(previousView);toast('Starter code restored.');}};
-  $('solution-button').onclick=()=>{if(confirm('Replace your code with the reference solution?')){$('editor').value=LESSONS[selected].solution;$('editor').dispatchEvent(new Event('input'));toast('Reference loaded. Compare it with your own approach.');}};
+  function rememberDraft(id){
+    state.replacements[id]={files:sourceFiles(),input:$('stdin').value};
+    $('undo-replace-button').hidden=false;
+  }
+  function refreshDraft(){
+    const previousView=view;
+    select(selected);
+    if(inlineActive)showView(previousView);
+  }
+  $('reset-button').onclick=()=>{
+    const id=LESSONS[selected].id;
+    if(state.drafts[id]===undefined&&state.fileDrafts[id]===undefined&&state.inputs[id]===undefined)return;
+    rememberDraft(id);
+    delete state.drafts[id];
+    delete state.fileDrafts[id];
+    delete state.inputs[id];
+    refreshDraft();
+    toast('Starter files and input restored. Use Undo replacement to recover the draft.');
+  };
+  $('undo-replace-button').onclick=()=>{
+    const id=LESSONS[selected].id,snapshot=state.replacements[id];
+    if(!snapshot)return;
+    const {'main.c':main,...other}=snapshot.files;
+    state.drafts[id]=main;state.fileDrafts[id]=other;state.inputs[id]=snapshot.input;
+    delete state.replacements[id];
+    refreshDraft();
+    $('reset-button').focus();
+    toast('Previous draft restored.');
+  };
+  $('solution-button').onclick=()=>{if(confirm('Load the reference solution? Undo replacement in Editor tools recovers your draft.')){rememberDraft(LESSONS[selected].id);$('editor').value=LESSONS[selected].solution;$('editor').dispatchEvent(new Event('input'));toast('Reference loaded. Compare it with your own approach.');}};
   $('workspace-button').onclick=async()=>{try{if(busy){toast('Stop the program first.');return;}await window.commandWorkspace.acceptSource($('editor').value,$('stdin').value);go('/workspace');}catch(error){toast(error.message);}};
   $('download-button').onclick=()=>{const url=URL.createObjectURL(new Blob([$('editor').value],{type:'text/x-c'}));const a=document.createElement('a');a.href=url;a.download=activeFile;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
-  $('clear-button').onclick=()=>{$('output').textContent='Console cleared.';$('output').className='';};
   $('start-db').onclick=()=>go('/chapter/database-foundations');
   document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#/"]');if(a&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey&&e.button===0){e.preventDefault();go(a.getAttribute('href').slice(1));}});
   $('about-button')?.addEventListener('click',()=>$('about-dialog').showModal());$('close-about').onclick=()=>$('about-dialog').close();

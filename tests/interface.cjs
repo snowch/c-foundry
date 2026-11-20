@@ -14,11 +14,13 @@ assert.equal($('lesson-title').textContent,'Your first C program');
 const order=[...w.document.querySelectorAll('#lab-view [id]')].map(e=>e.id);assert.ok(order.indexOf('lesson-body')<order.indexOf('worked-title'));assert.ok(order.indexOf('worked-title')<order.indexOf('prediction-title'));assert.ok(order.indexOf('prediction-title')<order.indexOf('exercise-title'));assert.ok(order.indexOf('exercise-title')<order.indexOf('editor'));
 assert.ok($('step-details').hidden);assert.ok(!w.document.querySelector('.complexity-pill'));
 $('editor').value='// draft\n// second line';$('editor').dispatchEvent(new w.Event('input'));assert.equal($('line-numbers').textContent,'1\n2');
+for(const shiftKey of [false,true])assert.equal($('editor').dispatchEvent(new w.KeyboardEvent('keydown',{key:'Tab',shiftKey,cancelable:true})),true);
 go('/lesson/loops');go('/lesson/hello');assert.equal($('editor').value,'// draft\n// second line');
 $('solution-button').click();$('check-button').click();assert.ok(worker().request.tests);assert.ok($('editor').readOnly);
 // Navigating while a program runs keeps the lesson and route intact.
 go('/course');assert.equal(w.location.hash,'#/lesson/hello');assert.ok(!$('lab-view').hidden);
 worker().emit({type:'done',results:[{actual:'Hello, C!',expected:'Hello, C!',name:'Greeting',pass:true}],diagnostics:''});assert.match($('drawer-progress').textContent,/1 of 15/);
+$('undo-replace-button').click();assert.equal($('editor').value,'// draft\n// second line');
 go('/lesson/pointers');assert.match($('worked-code').textContent,/int temp = \*a/);assert.ok(!$('step-details').hidden);assert.ok(!$('step-details').open);
 $('step-details').open=true;$('step-next').click();assert.equal(w.document.querySelectorAll('#step-state .changed').length,1);assert.match(w.document.querySelector('#step-state .changed th').textContent,/\*a/);$('step-next').click();assert.equal($('step-next').textContent,'Try it yourself ↓');$('step-next').click();assert.ok(!$('step-details').open);assert.equal(w.document.activeElement.id,'editor');
 $('prediction-check').click();assert.match($('prediction-feedback').textContent,/Choose/);click('input[name="prediction"][value="1"]');$('prediction-check').click();assert.match($('prediction-feedback').textContent,/Not quite/);click('input[name="prediction"][value="0"]');$('prediction-check').click();assert.match($('prediction-feedback').textContent,/Correct/);

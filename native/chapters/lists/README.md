@@ -88,18 +88,20 @@ No. Capacity reserves storage; length defines which elements belong to the seque
 
 </details>
 
-**Try:** Add pop and reserve operations, documenting what they do on an empty vector and failed allocation.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/lists/1). In main.c, extend the loop from i <= 5 to i <= 9 and print v.data[v.length - 1] in place of v.data[4]. Run code and compare length=, capacity=, and last=. Which append triggers capacity to grow past 8?
 
 ### References and help
 
 - [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
-Run from the repository root:
+Native source: `native/examples/lists-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=lists-1
+make example EXAMPLE=lists-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 16.2 Singly and doubly linked lists
 
@@ -169,18 +171,20 @@ b.previous. Both neighboring relationships must agree.
 
 </details>
 
-**Try:** Write an invariant checker that walks forward and verifies every backward link.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/lists/2). In main.c, change middle’s value from 9 to 7 without changing either link_after call. Run code. Which position in forward= and which backward= value identify the same middle node?
 
 ### References and help
 
 - [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) — Compare representation, traversal, and insertion costs.
 - [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 
-Run from the repository root:
+Native source: `native/examples/lists-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=lists-2
+make example EXAMPLE=lists-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 16.3 Insertion, removal, and traversal
 
@@ -278,7 +282,7 @@ The incoming link. No access to the node is valid after free.
 
 </details>
 
-**Try:** Test removing the head, tail, only node, and a value that is absent.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/lists/3). In main.c, change remove_value(&head, 2) to remove_value(&head, 1). Run code and compare the printed traversal with 1 3. Which value becomes the new head after the edit?
 
 ### References and help
 
@@ -293,11 +297,13 @@ Relinking after a known node can take constant pointer work. Finding that predec
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/lists-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=lists-3
+make example EXAMPLE=lists-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 16.4 Ownership and iterator invalidation
 
@@ -379,18 +385,20 @@ It does not contain an address into the old allocation. The guarantee is specifi
 
 </details>
 
-**Try:** Document invalidation for append, insert, erase, and clear in both a vector and a list.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/lists/4). In main.c, change selected from 1 to 0. Run code and compare reacquired= with the starter. Why is an index defined against the new allocation safer than a pointer kept across growth?
 
 ### References and help
 
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 - [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
 
-Run from the repository root:
+Native source: `native/examples/lists-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=lists-4
+make example EXAMPLE=lists-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 16.5 Locality, memory overhead, and operation costs
 
@@ -458,18 +466,20 @@ Access by arbitrary index. A list must follow links to find an index.
 
 </details>
 
-**Try:** Choose a representation for mostly indexed reads and for frequent splices with known neighboring nodes; justify both choices.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/lists/5). In main.c, change both the loop limit steps < 2 and the array access nodes[2] to index 1. Run code and compare value=, link_steps=, and indexed=. Which changes as the target moves one link closer?
 
 ### References and help
 
 - [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) — Compare representation, traversal, and insertion costs.
 - [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 
-Run from the repository root:
+Native source: `native/examples/lists-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=lists-5
+make example EXAMPLE=lists-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

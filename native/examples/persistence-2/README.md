@@ -176,7 +176,7 @@ No. Its forty bytes are specified by offsets, independent of struct padding.
 
 </details>
 
-**Try:** Add fixture-byte tests for zero, maximum score, maximum ID, and a 31-byte name.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/2). In main.c, change the first initializer value 513 to 258. Run code and compare id_bytes= and the decoded row=. Which position holds the least significant byte?
 
 ### References and help
 
@@ -191,9 +191,11 @@ Readers on different targets must interpret the same bytes. Host padding, alignm
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/persistence-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-2
+make example EXAMPLE=persistence-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

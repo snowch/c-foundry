@@ -78,18 +78,20 @@ operations.h. The public header describes the interface; the implementation is a
 
 </details>
 
-**Try:** Change twice in operations.c and rebuild the same multi-file example.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/1). Choose operations.c in Source files. In twice, change the multiplication by 2 to multiplication by 3. Choose Run code and compare Console with 42. Which file supplies the changed definition?
 
 ### References and help
 
 - [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
 - [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
 
-Run from the repository root:
+Native source: `native/examples/larger-programs-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=larger-programs-1
+make example EXAMPLE=larger-programs-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 9.2 Declarations, definitions, linkage, and static
 
@@ -157,18 +159,20 @@ Exactly one. The extern declaration can be repeated; the object needs one progra
 
 </details>
 
-**Try:** Make operations private too and replace the public object declaration with a read function.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/2). Choose main.c in Source files. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?
 
 ### References and help
 
 - [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) — Find inclusion, conditional compilation, and macro replacement rules.
 - [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) — Separate an object’s lifetime from which declarations name it.
 
-Run from the repository root:
+Native source: `native/examples/larger-programs-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=larger-programs-2
+make example EXAMPLE=larger-programs-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 9.3 Include guards and the preprocessor
 
@@ -224,7 +228,7 @@ No. It prevents repetition within one translation unit; separate translation uni
 
 </details>
 
-**Try:** Change the default factor, then inspect the preprocessed source with gcc -E main.c in the example folder.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/3). Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect the expanded source in a native checkout, change into native/examples/larger-programs-3 and run gcc -E main.c.
 
 ### References and help
 
@@ -239,11 +243,13 @@ No. It prevents repeated inclusion within a translation unit. Each source file i
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/larger-programs-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=larger-programs-3
+make example EXAMPLE=larger-programs-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 9.4 Function pointers and callbacks
 
@@ -295,24 +301,26 @@ It can overflow. A comparator should handle every supported int pair without und
 
 </details>
 
-**Try:** Reverse the comparison’s sign to sort descending and predict the new output.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/4). In main.c, swap the two comparison expressions in compare_ints so positive becomes negative and negative becomes positive. Choose Run code. Which output end now contains -3, and do both 7 values remain?
 
 ### References and help
 
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 - [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
 
-Run from the repository root:
+Native source: `native/examples/larger-programs-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=larger-programs-4
+make example EXAMPLE=larger-programs-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 9.5 Interfaces, ownership contracts, and error reporting
 
 A usable interface explains more than parameter types. State what it borrows, what it owns, how it reports failure, and what its outputs mean after failure.
 
-Also editable and runnable inline in the browser course. Run here, or use Browser Linux for a full GCC build.
+Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
 
 copy_name borrows a valid source string and returns a separately allocated owner through out on success. It sets a supplied output slot to NULL before a failure is possible, making the cleanup policy predictable. Distinct status values distinguish invalid arguments from allocation failure. The output slot must not already be the caller’s only owner of another allocation: overwriting that owner would leak it.
 
@@ -371,18 +379,22 @@ Only after OK. The status determines whether the returned owner was established.
 
 </details>
 
-**Try:** Implement the native record-store project and test its failure and cleanup paths.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/5). In main.c, change the first argument of copy_name from "Ada" to "Grace". Choose Run code and compare the first line with bad input=. Which call uses the success path that must free name?
+
+**Extend the example:** The chapter overview links the native record-store project. Its editable implementation and independent checks extend this example into a multi-file contract.
 
 ### References and help
 
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/larger-programs-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=larger-programs-5
+make example EXAMPLE=larger-programs-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 

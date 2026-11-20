@@ -52,16 +52,18 @@ No. Assertions can disappear; external input still needs a runtime error-handlin
 
 </details>
 
-**Try:** Use GDB on the example and inspect the valid index rather than deliberately executing an out-of-bounds access.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/files-bytes/4). In main.c, change index from 2 to 1 and choose Run code. Compare Console with 12. Both indices are valid; which element does each access?
 
 ### References and help
 
 - [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
 - [C reference: assert](https://en.cppreference.com/w/c/error/assert.html) — Check what the diagnostic macro does and how NDEBUG changes its behavior.
 
-Run from the repository root:
+Native source: `native/examples/files-bytes-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=files-bytes-4
+make example EXAMPLE=files-bytes-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

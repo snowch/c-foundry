@@ -91,16 +91,20 @@ The platform adapter with a documented replacement contract. Replacement semanti
 
 </details>
 
-**Try:** Add a rejecting ByteSink and verify that emit_header reports failure. Then sketch separate POSIX and Win32 publication adapters without claiming they offer identical crash guarantees.
+**Try:** Edit the example in Browser Linux.  In native/examples/portable-c-4/main.c, insert a sink callback that ignores its arguments with (void) casts and returns false, matching the existing file_write signature. For the test, replace file_write with the rejecting callback in a second sink and print !emit_header(&rejected) as sink_rejected=. Repeat the terminal run before the successful fixture. Which part of the portable core propagates the host failure?
+
+**Extend the example:** Sketch separate POSIX and Win32 file-publication adapters. Document what each platform can establish about file contents and directory entries after successful synchronization.
 
 ### References and help
 
 - [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-4
+make example EXAMPLE=portable-c-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

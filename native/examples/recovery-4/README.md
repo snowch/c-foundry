@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Write-ahead logging records enough information for recovery before acknowledging a durable commit or persisting dependent data pages.
 
-The one-value redo log uses fixed eight-byte BEGIN, SET, and COMMIT records with transaction IDs. This native fixture flushes stdio and calls POSIX fsync on the log before treating the commit as durable. A real database also needs stable log naming, error handling, checksums, page/log ordering, and platform-specific file and directory guarantees. The example demonstrates the ordering, not a complete storage engine.
+The one-value redo log uses eight-byte BEGIN, SET, and COMMIT records with transaction IDs. In this POSIX fixture, the program checks the write, flushes the library buffer, calls fsync on the temporary file and then runs recovery over the same prepared bytes. A database also needs a recovery-visible log path, error handling and an ordering contract for log and data files.
 
 ### Recovery keeps committed work and ignores an incomplete tail
 
@@ -90,7 +90,7 @@ int main(void) {
     fclose(f);
     return 1;
   }
-  printf("durable_log_order_checked value=%u\n",
+  printf("sync_calls_succeeded value=%u\n",
          (unsigned)recover(bytes, sizeof bytes, 0));
   if (fclose(f) != 0)
     return 1;
@@ -101,10 +101,10 @@ int main(void) {
 Output:
 
 ```text
-durable_log_order_checked value=42
+sync_calls_succeeded value=42
 ```
 
-Recovery can reconstruct 42 from the committed log. The success line follows the checked synchronization call. The temporary file is intentionally not a permanent database path.
+The prepared log decodes to 42. The success line follows the checked sync call. The fixture uses a temporary file and runs no crash or power-loss test.
 
 **Watch for:** fflush alone moves bytes to the operating-system interface; it is not equivalent to a platform durable-sync operation.
 
@@ -119,7 +119,7 @@ After its required log synchronization succeeds. Recovery must be able to find a
 
 </details>
 
-**Try:** Use a named log under KEEP_FILES=1, inject sync failures, and add a checked data-page write only after the write-ahead condition holds.
+**Try:** Edit the example in Browser Linux.  In native/examples/recovery-4/main.c, change the value argument of the SET_REC log_record call from 42 to 17. Repeat the terminal command. Find sync_calls_succeeded and value=17. Which code checks the write, flush, and sync before the recovery result is printed?
 
 ### References and help
 
@@ -135,9 +135,11 @@ No. fflush addresses C stream buffering. Durable commit needs a host/storage pro
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/recovery-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-4
+make example EXAMPLE=recovery-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

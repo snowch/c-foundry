@@ -45,8 +45,8 @@ const char *choose(Estimate e) {
 
 int main(void) {
   Estimate narrow = {100, 3, 1}, wide = {100, 3, 98};
-  printf("narrow=%s cost=%u wide=%s cost=%u\n", choose(narrow),
-         index_cost(narrow), choose(wide), index_cost(wide));
+  printf("narrow=%s narrow_index_pages=%u wide=%s wide_index_pages=%u scan_pages=%u\n", choose(narrow),
+         index_cost(narrow), choose(wide), index_cost(wide), wide.table_pages);
   return 0;
 }
 ```
@@ -54,7 +54,7 @@ int main(void) {
 Output:
 
 ```text
-narrow=index cost=4 wide=scan cost=101
+narrow=index narrow_index_pages=4 wide=scan wide_index_pages=101 scan_pages=100
 ```
 
 One match costs four estimated page reads through the index. Ninety-eight random matches cost 101, exceeding the hundred-page scan.
@@ -72,18 +72,20 @@ Yes, especially for many scattered matches. Lookup and row-fetch costs can excee
 
 </details>
 
-**Try:** Change cache and clustering assumptions and describe when the preferred plan changes.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/planning/1). In main.c, change the wide estimate’s last value from 98 to 20. Run code and compare wide=, wide_index_pages=, and scan_pages= with the starter. Which model input makes the estimated index work fall below the scan estimate?
 
 ### References and help
 
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 - [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 
-Run from the repository root:
+Native source: `native/examples/planning-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=planning-1
+make example EXAMPLE=planning-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 28.2 Simple cost estimates and selectivity
 
@@ -131,18 +133,20 @@ The fraction of rows passing a predicate. It is a cardinality estimate relative 
 
 </details>
 
-**Try:** Build a skewed score distribution and compare uniform estimates with observed matches.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/planning/2). In main.c, change matches from 10 to 100. Run code and compare selectivity= and expected_rows=. Which quantity is a fraction and which counts rows?
 
 ### References and help
 
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 - [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 
-Run from the repository root:
+Native source: `native/examples/planning-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=planning-2
+make example EXAMPLE=planning-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 28.3 Index-assisted filtering and ordering
 
@@ -200,18 +204,20 @@ After enough qualifying rows are emitted in the requested order. Residual predic
 
 </details>
 
-**Try:** Add a residual predicate that rejects the first candidate and verify the limit still returns two qualifying rows.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/planning/3). In main.c, change keys[mid] < 4 to keys[mid] < 5. Run code and compare the two returned keys. How does the lower bound change where the ordered scan starts?
 
 ### References and help
 
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 - [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 
-Run from the repository root:
+Native source: `native/examples/planning-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=planning-3
+make example EXAMPLE=planning-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 28.4 Implementing EXPLAIN
 
@@ -276,7 +282,7 @@ No. It reports the selected model; actual execution needs a separate explicit pa
 
 </details>
 
-**Try:** Represent plans with an enum and structured fields before rendering text, then snapshot-test the renderer.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/planning/4). In main.c, change the last field in Estimate e from 2 to 99. Run code and inspect PLAN, estimated_matches=, and estimated_pages=. What causes the model to choose a scan for the widened estimate?
 
 ### References and help
 
@@ -291,11 +297,13 @@ No. It describes a chosen plan. Actual reads depend on execution, input, and cac
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/planning-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=planning-4
+make example EXAMPLE=planning-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 28.5 Measuring page reads and comparisons
 
@@ -348,18 +356,20 @@ No. They measure different work and may differ greatly under selective filters.
 
 </details>
 
-**Try:** Attach counters to scan and index baselines and assert equal results before comparing work.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/planning/5). In main.c, change ids[i] >= 7 to ids[i] >= 5. Run code and compare comparisons= and emitted=. Which field confirms that this scan examines each record regardless of the filter?
 
 ### References and help
 
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 - [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 
-Run from the repository root:
+Native source: `native/examples/planning-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=planning-5
+make example EXAMPLE=planning-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 28.6 Optional: nested-loop joins
 
@@ -422,18 +432,22 @@ N times M. Every outer row scans all inner rows.
 
 </details>
 
-**Try:** Add an inner-key index and verify the same multiset of join rows, including duplicate keys.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/planning/6). In main.c, change the last order’s person from 1 to 2, leaving its total 30. Run code and compare joined names and pairs=. Which output row changes partner while the candidate pair count stays fixed?
+
+**Extend the example:** For an independent join exercise, build an index on the inner key and compare the complete multiset of output rows, including duplicate keys, with this baseline.
 
 ### References and help
 
 - [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 - [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
 
-Run from the repository root:
+Native source: `native/examples/planning-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=planning-6
+make example EXAMPLE=planning-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

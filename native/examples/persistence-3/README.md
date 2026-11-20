@@ -195,16 +195,18 @@ Exactly the current page count. This pager rejects gaps and tracks contiguous in
 
 </details>
 
-**Try:** Write two pages with distinct markers, close and reopen a named file, and verify offsets from its checked length.
+**Try:** Edit the example in Browser Linux.  In native/examples/persistence-3/main.c, change page[7] = 42; to page[7] = 17;. Repeat the terminal command. Compare pages=, byte7=, and missing=. Which evidence comes from reading a stored byte and which comes from checking page bounds?
 
 ### References and help
 
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
-Run from the repository root:
+Native source: `native/examples/persistence-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=persistence-3
+make example EXAMPLE=persistence-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

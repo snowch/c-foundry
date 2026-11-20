@@ -73,16 +73,18 @@ No. Layout, padding, byte order, and other representation choices remain.
 
 </details>
 
-**Try:** Decode independently specified bytes and test all integer extremes without consulting sizeof(Row).
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/2). In main.c, change both 0x01020304 constants to 0x11223344. Run code and inspect bytes= and value_ok=. Which byte comes first in the specified format?
 
 ### References and help
 
 - [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
 - [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) — Check when exact-width types exist and which format macros match them.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-2
+make example EXAMPLE=portable-c-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

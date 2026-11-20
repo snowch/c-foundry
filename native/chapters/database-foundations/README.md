@@ -114,7 +114,7 @@ The table insertion operation. The type limits numeric representation, not relat
 
 </details>
 
-**Try:** Write the schema contract, including name length, empty names, key zero, and duplicate behavior.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/database-foundations/1). In main.c, change Ada’s score from 90 to 95. Run code and compare the three columns in Console. Which column identifies the same row after a score change?
 
 ### References and help
 
@@ -129,11 +129,13 @@ No. SQLite is a comparison reference. TinyDB accepts only its explicitly impleme
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/database-foundations-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=database-foundations-1
+make example EXAMPLE=database-foundations-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 21.2 Storage, indexes, and query execution
 
@@ -240,18 +242,20 @@ The logical row ID. Identity belongs to the schema contract rather than the curr
 
 </details>
 
-**Try:** Delete the first row and confirm that ID two remains the same even though its position changes.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/database-foundations/2). In main.c, swap the two insert_row calls. Run code and compare position= and id=. Which value tracks the physical array position, and which still identifies Grace?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
-Run from the repository root:
+Native source: `native/examples/database-foundations-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=database-foundations-2
+make example EXAMPLE=database-foundations-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 21.3 Designing a deliberately small database
 
@@ -350,18 +354,20 @@ It remains unchanged. The initial insertion contract rejects duplicate IDs.
 
 </details>
 
-**Try:** Write acceptance cases for missing rows, invalid rows, a full table, and an empty selection.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/database-foundations/3). In main.c, change the second inserted ID from 1 to 2. Run code and compare inserted=, duplicate=, and rows=. Which check tells you whether the second row was accepted?
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
-Run from the repository root:
+Native source: `native/examples/database-foundations-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=database-foundations-3
+make example EXAMPLE=database-foundations-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 21.4 Building a command loop
 
@@ -484,7 +490,7 @@ To prevent its tail being treated as a new command. Input framing must remain al
 
 </details>
 
-**Try:** Add a quit command and test an overlong line followed by a valid command.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/database-foundations/4). Open Input and append a new select line after the existing commands. Run code and compare the first and second displayed rows with unknown command. What shows the command loop continued after rejecting the unrecognized command?
 
 ### References and help
 
@@ -492,11 +498,13 @@ To prevent its tail being treated as a new command. Input framing must remain al
 - [C reference: fgets](https://en.cppreference.com/w/c/io/fgets.html) — Check the buffer-size argument, newline retention, terminator, and failure result.
 - [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) — Distinguish a stream error from ordinary end-of-file.
 
-Run from the repository root:
+Native source: `native/examples/database-foundations-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=database-foundations-4
+make example EXAMPLE=database-foundations-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 21.5 Defining behavior and writing acceptance tests
 
@@ -597,18 +605,20 @@ No, unless the public behavior is intentionally revised. Contracts allow impleme
 
 </details>
 
-**Try:** Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/database-foundations/5). In main.c, keep the duplicate ID 1 and replace the rejected row’s name Other with Grace. Run code. Does the acceptance message still appear? Identify the checks that prove the existing Ada row remained after rejection.
 
 ### References and help
 
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 - [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
 
-Run from the repository root:
+Native source: `native/examples/database-foundations-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=database-foundations-5
+make example EXAMPLE=database-foundations-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

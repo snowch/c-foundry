@@ -133,16 +133,18 @@ Exclusive mutation ownership. The same live state must not be concurrently mutat
 
 </details>
 
-**Try:** Add an admission lock or a request queue and test two competing transaction starts.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recovery/2). In main.c, replace the declarations of first and nested with separate calls, inserting rollback(&tx) between them. Run code and compare first= and nested=. Why can the second begin succeed once the model has no active transaction?
 
 ### References and help
 
 - [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
 - [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
 
-Run from the repository root:
+Native source: `native/examples/recovery-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recovery-2
+make example EXAMPLE=recovery-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

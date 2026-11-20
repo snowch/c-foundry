@@ -21,7 +21,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "Capacity reserves storage; length defines which elements belong to the sequence.",
-        "tryit": "Add pop and reserve operations, documenting what they do on an empty vector and failed allocation.",
+        "tryit": "In main.c, extend the loop from i <= 5 to i <= 9 and print v.data[v.length - 1] in place of v.data[4]. Run code and compare length=, capacity=, and last=. Which append triggers capacity to grow past 8?",
         "input": "",
         "runtime": "browser"
       },
@@ -39,7 +39,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "Both neighboring relationships must agree.",
-        "tryit": "Write an invariant checker that walks forward and verifies every backward link.",
+        "tryit": "In main.c, change middle’s value from 9 to 7 without changing either link_after call. Run code. Which position in forward= and which backward= value identify the same middle node?",
         "input": "",
         "runtime": "browser"
       },
@@ -57,7 +57,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "No access to the node is valid after free.",
-        "tryit": "Test removing the head, tail, only node, and a value that is absent.",
+        "tryit": "In main.c, change remove_value(&head, 2) to remove_value(&head, 1). Run code and compare the printed traversal with 1 3. Which value becomes the new head after the edit?",
         "input": "",
         "runtime": "browser"
       },
@@ -75,7 +75,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "The guarantee is specific to append preserving earlier positions.",
-        "tryit": "Document invalidation for append, insert, erase, and clear in both a vector and a list.",
+        "tryit": "In main.c, change selected from 1 to 0. Run code and compare reacquired= with the starter. Why is an index defined against the new allocation safer than a pointer kept across growth?",
         "input": "",
         "runtime": "browser"
       },
@@ -93,7 +93,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "A list must follow links to find an index.",
-        "tryit": "Choose a representation for mostly indexed reads and for frequent splices with known neighboring nodes; justify both choices.",
+        "tryit": "In main.c, change both the loop limit steps < 2 and the array access nodes[2] to index 1. Run code and compare value=, link_steps=, and indexed=. Which changes as the target moves one link closer?",
         "input": "",
         "runtime": "browser"
       }
@@ -135,7 +135,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "LIFO is the defining removal order.",
-        "tryit": "Wrap this fixture in checked push and pop functions and test all empty/full boundaries.",
+        "tryit": "In main.c, add stack[count++] = 30; just before out = stack[--count];. Run code and compare popped= and remaining=. Why does 30 leave first even though it arrived last?",
         "input": "",
         "runtime": "browser"
       },
@@ -153,7 +153,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "Both states may have the same head and tail positions.",
-        "tryit": "Print physical indices while wrapping, then compare them with the logical output order.",
+        "tryit": "In main.c, replace the final push value 5 with 9. Run code and read the logical order. Which slot changes its value, and why does wraparound leave the order of the other values intact?",
         "input": "",
         "runtime": "browser"
       },
@@ -171,7 +171,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "The capacity invariant must remain true when the operation returns.",
-        "tryit": "Implement resize with failure preservation and verify FIFO order across a wrapped resize.",
+        "tryit": "In main.c, change the fill loop from i < 4 to i < 3, leaving push(&q, 8) unchanged. Run code. Which of empty_ok=, output=, full_ok=, and count= changes when the final push has room?",
         "input": "",
         "runtime": "browser"
       },
@@ -189,7 +189,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "The top is [ when ) arrives.",
-        "tryit": "Test empty input, a lone closing bracket, an unfinished open, and nesting beyond capacity.",
+        "tryit": "In main.c, replace ([)] in the second balanced call with [()] and run. Compare crossed= with the starter. Which closing bracket matches the most recent unmatched opener in the new case?",
         "input": "",
         "runtime": "browser"
       },
@@ -207,7 +207,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "The left operand was pushed earlier and lies below the right.",
-        "tryit": "Extend tokenization to multi-digit integers and add checked arithmetic and division-by-zero handling.",
+        "tryit": "In main.c, change the expression 8 3 - 2 + to 8 3 - 2 -. Run code. Which two values feed the last subtraction, and how does their order determine result=?",
         "input": "",
         "runtime": "browser"
       }
@@ -249,7 +249,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "A finite bucket set generally has fewer positions than possible keys.",
-        "tryit": "Find three integer keys that collide and test that all three remain independently retrievable.",
+        "tryit": "In main.c, replace bucket(9) with bucket(17) and change its printed label to bucket17=. Run code. Why do 1 and 17 still use the same bucket?",
         "input": "",
         "runtime": "browser"
       },
@@ -267,7 +267,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "An occupied slot is evidence to continue, not evidence of absence.",
-        "tryit": "Implement the same fixture with bucket-linked chains and compare ownership and memory layout.",
+        "tryit": "In main.c, insert put(table, 17, 170); before printf. Run code and compare missing= with -1. Why can the table find key 17 even though it shares the same initial slot?",
         "input": "",
         "runtime": "browser"
       },
@@ -285,7 +285,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "The bucket calculation depends on table capacity.",
-        "tryit": "Implement rehash into a temporary allocation, then swap owners only after every live entry is inserted.",
+        "tryit": "In main.c, change the last key in keys from 17 to 25. Run code and compare the old= and new= fields for each key. Which keys collide after the capacity doubles?",
         "input": "",
         "runtime": "browser"
       },
@@ -303,7 +303,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "A collision chain may continue beyond a deleted entry.",
-        "tryit": "Insert key 17 after the deletion and verify both slot reuse and key nine’s survival.",
+        "tryit": "In main.c, add put(table, 17, 170); just after erase(table, 1);. Run code. Compare removed=, survivor=, and tombstone=. Which field shows that insertion reused the former tombstone?",
         "input": "",
         "runtime": "browser"
       },
@@ -321,7 +321,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "Collision resolution may examine a linear number of entries.",
-        "tryit": "Compare probe counts for clustered keys and distinct home buckets at the same load.",
+        "tryit": "In main.c, change the inserted keys 9 and 17 to 2 and 3 to give distinct home slots. Run code. Does this particular missing key inspect fewer slots? Then use homes 1, 3, and 5 and compare absent_probes= again.",
         "input": "",
         "runtime": "browser"
       },
@@ -339,9 +339,10 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "A valid address today does not establish its future lifetime.",
-        "tryit": "Read bounded tokens, allocate owned copies for new words, and free all owners when the index is destroyed.",
+        "tryit": "In main.c, replace the last \"red\" in tokens with \"blue\". Run code and inspect red=, blue=, and absent=. Which counts track new token occurrences without increasing distinct words?",
         "input": "",
-        "runtime": "browser"
+        "runtime": "browser",
+        "extension": "Try a longer token list after updating the loop length. The example uses bounded in-table words; an index that allocates individual copies must release each distinct owner."
       }
     },
     "practicePlan": {
@@ -381,7 +382,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "The left and right subtree key constraints establish the sorted concatenation.",
-        "tryit": "Print preorder and postorder for the same tree, then explain a use for each order.",
+        "tryit": "In main.c, change the root key from 2 to 7 while leaving both children fixed. Run code. Where does 7 appear in the inorder sequence, and why does traversal alone leave an arbitrary tree’s keys unsorted?",
         "input": "",
         "runtime": "browser"
       },
@@ -399,7 +400,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "Each step follows one level of the tree.",
-        "tryit": "Implement deletion for a leaf and a one-child node before handling the two-child case.",
+        "tryit": "In main.c, change find(&root, 7) to find(&root, 2) in the missing= expression. Run code. How does the boolean change when the root itself matches?",
         "input": "",
         "runtime": "browser"
       },
@@ -417,7 +418,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "Ordering constrains key placement relative to ancestors, not one unique structure.",
-        "tryit": "Build a naive BST from ascending keys and count comparisons for the final key.",
+        "tryit": "In main.c, add printf(\"subchain_height=%d\\n\", height(&middle)); before return. Run code and compare subchain_height= with chain_height= and balanced_height=. What does height count, and can the same height describe different shapes?",
         "input": "",
         "runtime": "browser"
       },
@@ -435,7 +436,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "Reparenting is the mechanism; ordering is the preserved invariant.",
-        "tryit": "Exercise all four AVL imbalance cases and check both inorder output and every stored height.",
+        "tryit": "In main.c, change nodes’ key order from 3, 1, 2 to 1, 2, 3, retaining the other fields. Run code. Compare root=, height=, and order=. Can different insertion orders produce the same final tree?",
         "input": "",
         "runtime": "browser"
       },
@@ -453,7 +454,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "Only the ancestor-to-descendant ordering invariant is required.",
-        "tryit": "Test duplicates, an empty heap, full capacity, and alternating insertions and removals.",
+        "tryit": "In main.c, replace heap_push(&h, 5) with heap_push(&h, 2). Run code. Does each of the two equal priorities appear in the removal sequence?",
         "input": "",
         "runtime": "browser"
       },
@@ -471,7 +472,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "It implements the ordering rule, which may permit starvation.",
-        "tryit": "Replace encoded integers with a Task struct and comparator, then add an explicit fairness policy.",
+        "tryit": "In main.c, insert heap_push(&h, 10); before the removal loop. Run code. Compare priority= and sequence= for tasks with priority 1. How does the encoded sequence break the tie?",
         "input": "",
         "runtime": "browser"
       }
@@ -513,7 +514,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "It stores actual edges rather than every possible pair.",
-        "tryit": "Represent the same graph as neighbor lists and compare neighbor-iteration work.",
+        "tryit": "In main.c, change edges[0][3] and edges[3][0] from 0 to 1 in the initializer. Run code. Compare vertices=, undirected_edges=, and matrix_cells=. Why does one new undirected edge use two entries but no extra cells?",
         "input": "",
         "runtime": "browser"
       },
@@ -531,7 +532,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "Early marking prevents duplicate pending copies.",
-        "tryit": "Record parent and distance arrays, then reconstruct a minimum-edge path from zero to three.",
+        "tryit": "In main.c, call bfs(edges, 3) instead of bfs(edges, 0). Run code. Which vertex is printed first, and how does the queue order put vertices nearer to 3 ahead of more distant ones?",
         "input": "",
         "runtime": "browser"
       },
@@ -549,7 +550,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "A completed traversal already reached every vertex in its component.",
-        "tryit": "Add an isolated vertex in a larger fixed graph and implement parent-aware cycle detection.",
+        "tryit": "In main.c, join the two components by setting entries [1][2] and [2][1] to 1 in edges. Run code and compare components=. Which previously separate searches now meet?",
         "input": "",
         "runtime": "browser"
       },
@@ -567,7 +568,7 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "A cycle retains positive indegrees after removable vertices are exhausted.",
-        "tryit": "Add an edge from three to zero and check that the algorithm rejects the graph.",
+        "tryit": "In main.c, put a 1 at column zero of the fourth matrix row to add edge 3 to 0. Run code and read acyclic=. Why is no full order possible once that edge closes the cycle?",
         "input": "",
         "runtime": "browser"
       },
@@ -585,7 +586,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "A settled distance may later decrease through a negative edge, breaking the proof.",
-        "tryit": "Record predecessors and verify the reconstructed path’s cost against its edge weights.",
+        "tryit": "In main.c, raise the 1 at edges[0][1] to 6 and run. Inspect distances=. Why does the shortest path to vertex 2 now use the direct edge of cost 5?",
         "input": "",
         "runtime": "browser"
       },
@@ -603,9 +604,10 @@ window.PART_FOUR = {
         ],
         "answer": 1,
         "why": "A newer relaxation established a better candidate for that vertex.",
-        "tryit": "Replace matrix rows with adjacency lists and benchmark only after verifying route costs against the simpler implementation.",
+        "tryit": "In main.c, raise the 1 at edges[0][1] to 6 and run. Compare cost= and reverse_path=. Which earlier predecessor drops out of the reconstructed route?",
         "input": "",
-        "runtime": "browser"
+        "runtime": "browser",
+        "extension": "An adjacency list is a separate implementation. Track each vertex’s neighbours and compare shortest-path cost and reachability with the supplied matrix version before counting work."
       }
     },
     "practicePlan": {

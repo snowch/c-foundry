@@ -112,7 +112,7 @@ Only the prefix containing the full commit record. Uncommitted records cannot es
 
 </details>
 
-**Try:** Add two committed transactions, an incomplete third, invalid headers, and repeated replay checks.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/ship/3). In main.c, change the SET_REC value and the matching final expected value from 42 to 17. Run code and find 25 interruption boundaries passed. Which single prefix publishes the new value in this model?
 
 ### References and help
 
@@ -127,9 +127,11 @@ No. It checks modeled failures on selected targets. Publish the tested failure m
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/ship-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=ship-3
+make example EXAMPLE=ship-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

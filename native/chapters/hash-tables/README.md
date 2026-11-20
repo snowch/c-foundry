@@ -102,17 +102,19 @@ Yes. A finite bucket set generally has fewer positions than possible keys.
 
 </details>
 
-**Try:** Find three integer keys that collide and test that all three remain independently retrievable.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hash-tables/1). In main.c, replace bucket(9) with bucket(17) and change its printed label to bucket17=. Run code. Why do 1 and 17 still use the same bucket?
 
 ### References and help
 
 - [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
 
-Run from the repository root:
+Native source: `native/examples/hash-tables-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hash-tables-1
+make example EXAMPLE=hash-tables-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 18.2 Separate chaining and open addressing
 
@@ -217,17 +219,19 @@ A colliding key may be farther along the probe chain. An occupied slot is eviden
 
 </details>
 
-**Try:** Implement the same fixture with bucket-linked chains and compare ownership and memory layout.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hash-tables/2). In main.c, insert put(table, 17, 170); before printf. Run code and compare missing= with -1. Why can the table find key 17 even though it shares the same initial slot?
 
 ### References and help
 
 - [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
 
-Run from the repository root:
+Native source: `native/examples/hash-tables-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hash-tables-2
+make example EXAMPLE=hash-tables-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 18.3 Collisions, load factor, and resizing
 
@@ -285,17 +289,19 @@ No, reinsert live entries under the new capacity. The bucket calculation depends
 
 </details>
 
-**Try:** Implement rehash into a temporary allocation, then swap owners only after every live entry is inserted.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hash-tables/3). In main.c, change the last key in keys from 17 to 25. Run code and compare the old= and new= fields for each key. Which keys collide after the capacity doubles?
 
 ### References and help
 
 - [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
 
-Run from the repository root:
+Native source: `native/examples/hash-tables-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hash-tables-3
+make example EXAMPLE=hash-tables-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 18.4 Deletion and tombstones
 
@@ -399,17 +405,19 @@ No. A collision chain may continue beyond a deleted entry.
 
 </details>
 
-**Try:** Insert key 17 after the deletion and verify both slot reuse and key nine’s survival.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hash-tables/4). In main.c, add put(table, 17, 170); just after erase(table, 1);. Run code. Compare removed=, survivor=, and tombstone=. Which field shows that insertion reused the former tombstone?
 
 ### References and help
 
 - [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
 
-Run from the repository root:
+Native source: `native/examples/hash-tables-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hash-tables-4
+make example EXAMPLE=hash-tables-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 18.5 Average versus worst-case complexity
 
@@ -512,7 +520,7 @@ An absent colliding key examines three live entries and then an empty slot. The 
 
 </details>
 
-**Try:** Compare probe counts for clustered keys and distinct home buckets at the same load.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hash-tables/5). In main.c, change the inserted keys 9 and 17 to 2 and 3 to give distinct home slots. Run code. Does this particular missing key inspect fewer slots? Then use homes 1, 3, and 5 and compare absent_probes= again.
 
 ### References and help
 
@@ -526,11 +534,13 @@ No. Expected performance depends on hashing and occupancy assumptions. Collision
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/hash-tables-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hash-tables-5
+make example EXAMPLE=hash-tables-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 18.6 A word-frequency index
 
@@ -659,17 +669,21 @@ While their immutable storage outlives the table. A valid address today does not
 
 </details>
 
-**Try:** Read bounded tokens, allocate owned copies for new words, and free all owners when the index is destroyed.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hash-tables/6). In main.c, replace the last "red" in tokens with "blue". Run code and inspect red=, blue=, and absent=. Which counts track new token occurrences without increasing distinct words?
+
+**Extend the example:** Try a longer token list after updating the loop length. The example uses bounded in-table words; an index that allocates individual copies must release each distinct owner.
 
 ### References and help
 
 - [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) — Check collisions and the assumptions behind expected lookup cost.
 
-Run from the repository root:
+Native source: `native/examples/hash-tables-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=hash-tables-6
+make example EXAMPLE=hash-tables-6 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

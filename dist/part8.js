@@ -21,7 +21,7 @@ window.PART_EIGHT = {
         ],
         "answer": 0,
         "why": "Joined results establish completed work, not simultaneous scheduling.",
-        "tryit": "Compare sequential and threaded versions on a larger verified workload without assuming a speedup.",
+        "tryit": "In native/examples/threads-1/main.c, change .input by assigning jobs[i] = (Job){i + 2, 0}; instead of the existing i + 1 initializer. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -42,7 +42,7 @@ window.PART_EIGHT = {
         ],
         "answer": 1,
         "why": "Creation does not imply the worker has completed its accesses.",
-        "tryit": "Give each of several workers its own argument object and verify every result after joining.",
+        "tryit": "In native/examples/threads-2/main.c, change the Job initializer’s input from 21 to 12. Repeat the terminal run. Find input= and result=. Which operation lets the owner read the worker’s completed result?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -63,7 +63,7 @@ window.PART_EIGHT = {
         ],
         "answer": 0,
         "why": "Both workers must not base their committed update on the same stale state.",
-        "tryit": "Move the entire increment under one lock and verify final two; read the optional ThreadSanitizer note rather than relying on a data-race output.",
+        "tryit": "In native/examples/threads-3/main.c, find stale_update. Remove the three lines that lock gate, read copy, and unlock gate before pthread_barrier_wait. In the remaining lock/unlock pair after the barrier, replace shared_value = copy + 1; with ++shared_value;. Repeat the terminal run. What changed in final= when both increments each hold the lock from read through write?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -108,7 +108,7 @@ window.PART_EIGHT = {
         ],
         "answer": 0,
         "why": "A wake is permission to re-evaluate state under the mutex.",
-        "tryit": "Add two consumers and verify exactly-once consumption with a protected item-count reference.",
+        "tryit": "In native/examples/coordination-1/main.c, change WORK_CAP from 4 to 2. Repeat the terminal run and compare received= and sum=. Which condition can force the producer to wait while the work completed stays the same?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -118,9 +118,9 @@ window.PART_EIGHT = {
       "2": {
         "intro": "A bounded producer–consumer queue turns overload into backpressure rather than unbounded memory growth.",
         "explanation": "This four-slot queue carries eight requests, so a producer may wait for space. Every successful enqueue has one corresponding dequeue, and close rejects later offers while allowing already queued work to drain. FIFO is defined by queue admission order, not by when producer threads started. The example uses one producer and consumer to make the basic contract easy to verify.",
-        "code": "#define _POSIX_C_SOURCE 200809L\n#include <limits.h>\n#include <pthread.h>\n#include <sched.h>\n#include <stdatomic.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define CHECK(call)                                                            \\\n  do {                                                                         \\\n    int error = (call);                                                        \\\n    if (error) {                                                               \\\n      fprintf(stderr, \"thread error %d\\n\", error);                             \\\n      exit(1);                                                                 \\\n    }                                                                          \\\n  } while (0)\nenum { WORK_CAP = 4, WORK_ITEMS = 8 };\ntypedef struct {\n  int data[WORK_CAP];\n  size_t head, count;\n  bool closed;\n  pthread_mutex_t lock;\n  pthread_cond_t ready, space;\n} WorkQueue;\nbool offer_work(WorkQueue *q, int value) {\n  CHECK(pthread_mutex_lock(&q->lock));\n  while (q->count == WORK_CAP && !q->closed)\n    CHECK(pthread_cond_wait(&q->space, &q->lock));\n  if (q->closed) {\n    CHECK(pthread_mutex_unlock(&q->lock));\n    return false;\n  }\n  q->data[(q->head + q->count) % WORK_CAP] = value;\n  ++q->count;\n  CHECK(pthread_cond_signal(&q->ready));\n  CHECK(pthread_mutex_unlock(&q->lock));\n  return true;\n}\nbool take_work(WorkQueue *q, int *out) {\n  CHECK(pthread_mutex_lock(&q->lock));\n  while (!q->count && !q->closed)\n    CHECK(pthread_cond_wait(&q->ready, &q->lock));\n  if (!q->count) {\n    CHECK(pthread_mutex_unlock(&q->lock));\n    return false;\n  }\n  *out = q->data[q->head];\n  q->head = (q->head + 1) % WORK_CAP;\n  --q->count;\n  CHECK(pthread_cond_signal(&q->space));\n  CHECK(pthread_mutex_unlock(&q->lock));\n  return true;\n}\nvoid close_work(WorkQueue *q) {\n  CHECK(pthread_mutex_lock(&q->lock));\n  q->closed = true;\n  CHECK(pthread_cond_broadcast(&q->ready));\n  CHECK(pthread_cond_broadcast(&q->space));\n  CHECK(pthread_mutex_unlock(&q->lock));\n}\ntypedef struct {\n  WorkQueue *queue;\n  unsigned received;\n  long sum;\n} Work;\nvoid *produce(void *arg) {\n  Work *w = arg;\n  for (int i = 1; i <= WORK_ITEMS; ++i)\n    if (!offer_work(w->queue, i))\n      return NULL;\n  close_work(w->queue);\n  return NULL;\n}\nvoid *consume(void *arg) {\n  Work *w = arg;\n  int value;\n  while (take_work(w->queue, &value)) {\n    ++w->received;\n    w->sum += value;\n  }\n  return NULL;\n}\nvoid run_queue(unsigned *count, long *sum) {\n  WorkQueue q = {.lock = PTHREAD_MUTEX_INITIALIZER,\n                 .ready = PTHREAD_COND_INITIALIZER,\n                 .space = PTHREAD_COND_INITIALIZER};\n  Work work = {&q, 0, 0};\n  pthread_t producer, consumer;\n  CHECK(pthread_create(&consumer, NULL, consume, &work));\n  CHECK(pthread_create(&producer, NULL, produce, &work));\n  CHECK(pthread_join(producer, NULL));\n  CHECK(pthread_join(consumer, NULL));\n  *count = work.received;\n  *sum = work.sum;\n  CHECK(pthread_cond_destroy(&q.ready));\n  CHECK(pthread_cond_destroy(&q.space));\n  CHECK(pthread_mutex_destroy(&q.lock));\n}\n\nint main(void) {\n  unsigned count;\n  long sum;\n  run_queue(&count, &sum);\n  if (count != WORK_ITEMS || sum != 36)\n    return 1;\n  printf(\"capacity=%d exactly_once=%u\\n\", WORK_CAP, count);\n  return 0;\n}\n",
-        "expected": "capacity=4 exactly_once=8",
-        "walkthrough": "More work than capacity completes because slots are reused after consumption. The verification checks count and sum for this known unique sequence.",
+        "code": "#define _POSIX_C_SOURCE 200809L\n#include <limits.h>\n#include <pthread.h>\n#include <sched.h>\n#include <stdatomic.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define CHECK(call)                                                            \\\n  do {                                                                         \\\n    int error = (call);                                                        \\\n    if (error) {                                                               \\\n      fprintf(stderr, \"thread error %d\\n\", error);                             \\\n      exit(1);                                                                 \\\n    }                                                                          \\\n  } while (0)\nenum { WORK_CAP = 4, WORK_ITEMS = 8 };\ntypedef struct {\n  int data[WORK_CAP];\n  size_t head, count;\n  bool closed;\n  pthread_mutex_t lock;\n  pthread_cond_t ready, space;\n} WorkQueue;\nbool offer_work(WorkQueue *q, int value) {\n  CHECK(pthread_mutex_lock(&q->lock));\n  while (q->count == WORK_CAP && !q->closed)\n    CHECK(pthread_cond_wait(&q->space, &q->lock));\n  if (q->closed) {\n    CHECK(pthread_mutex_unlock(&q->lock));\n    return false;\n  }\n  q->data[(q->head + q->count) % WORK_CAP] = value;\n  ++q->count;\n  CHECK(pthread_cond_signal(&q->ready));\n  CHECK(pthread_mutex_unlock(&q->lock));\n  return true;\n}\nbool take_work(WorkQueue *q, int *out) {\n  CHECK(pthread_mutex_lock(&q->lock));\n  while (!q->count && !q->closed)\n    CHECK(pthread_cond_wait(&q->ready, &q->lock));\n  if (!q->count) {\n    CHECK(pthread_mutex_unlock(&q->lock));\n    return false;\n  }\n  *out = q->data[q->head];\n  q->head = (q->head + 1) % WORK_CAP;\n  --q->count;\n  CHECK(pthread_cond_signal(&q->space));\n  CHECK(pthread_mutex_unlock(&q->lock));\n  return true;\n}\nvoid close_work(WorkQueue *q) {\n  CHECK(pthread_mutex_lock(&q->lock));\n  q->closed = true;\n  CHECK(pthread_cond_broadcast(&q->ready));\n  CHECK(pthread_cond_broadcast(&q->space));\n  CHECK(pthread_mutex_unlock(&q->lock));\n}\ntypedef struct {\n  WorkQueue *queue;\n  unsigned received;\n  long sum;\n} Work;\nvoid *produce(void *arg) {\n  Work *w = arg;\n  for (int i = 1; i <= WORK_ITEMS; ++i)\n    if (!offer_work(w->queue, i))\n      return NULL;\n  close_work(w->queue);\n  return NULL;\n}\nvoid *consume(void *arg) {\n  Work *w = arg;\n  int value;\n  while (take_work(w->queue, &value)) {\n    ++w->received;\n    w->sum += value;\n  }\n  return NULL;\n}\nvoid run_queue(unsigned *count, long *sum) {\n  WorkQueue q = {.lock = PTHREAD_MUTEX_INITIALIZER,\n                 .ready = PTHREAD_COND_INITIALIZER,\n                 .space = PTHREAD_COND_INITIALIZER};\n  Work work = {&q, 0, 0};\n  pthread_t producer, consumer;\n  CHECK(pthread_create(&consumer, NULL, consume, &work));\n  CHECK(pthread_create(&producer, NULL, produce, &work));\n  CHECK(pthread_join(producer, NULL));\n  CHECK(pthread_join(consumer, NULL));\n  *count = work.received;\n  *sum = work.sum;\n  CHECK(pthread_cond_destroy(&q.ready));\n  CHECK(pthread_cond_destroy(&q.space));\n  CHECK(pthread_mutex_destroy(&q.lock));\n}\n\nint main(void) {\n  unsigned count;\n  long sum;\n  run_queue(&count, &sum);\n  if (count != WORK_ITEMS || sum != 36)\n    return 1;\n  printf(\"capacity=%d received_count=%u\\n\", WORK_CAP, count);\n  return 0;\n}\n",
+        "expected": "capacity=4 received_count=8",
+        "walkthrough": "Reusing slots lets this four-slot queue drain eight requests. The fixture checks the total and count from a fixed sequence of offered values.",
         "pitfall": "Count and sum alone are not a complete exactly-once proof for arbitrary inputs; production tests should track each request ID.",
         "question": "What happens when the queue fills under this policy?",
         "choices": [
@@ -129,7 +129,7 @@ window.PART_EIGHT = {
         ],
         "answer": 1,
         "why": "Blocking admission preserves accepted work instead of dropping it.",
-        "tryit": "Track every request ID in a bitmap, then test multiple producers and repeated queue wraparound.",
+        "tryit": "In native/examples/coordination-2/main.c, change WORK_CAP from 4 to 3. Repeat the terminal run and read capacity= and received_count=. How could repeated and missing request IDs escape the fixture’s count and sum checks?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -150,7 +150,7 @@ window.PART_EIGHT = {
         ],
         "answer": 0,
         "why": "It addresses circular wait, not every scheduling policy.",
-        "tryit": "Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.",
+        "tryit": "In native/examples/coordination-3/main.c, create a third pthread_t, start it with ordered_locks as for a and b, and join it before the printf and lock destruction. Repeat the terminal run. How does completed= change when another worker follows the same acquisition order?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -195,7 +195,7 @@ window.PART_EIGHT = {
         ],
         "answer": 0,
         "why": "Atomicity for one object and synchronization of other objects are distinct obligations.",
-        "tryit": "Replace the relaxed operations with default sequentially consistent operations, then explain why both totals match this contract.",
+        "tryit": "In native/examples/atomics-1/main.c, find atomic_fetch_add_explicit with memory_order_relaxed in the worker. Replace the call with atomic_fetch_add using the same first two arguments. Repeat the terminal run. Which invariant about the atomic counter makes atomic_total= agree in both runs?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -216,7 +216,7 @@ window.PART_EIGHT = {
         ],
         "answer": 1,
         "why": "The operation’s atomicity scope is the object supplied.",
-        "tryit": "Describe an invariant spanning two fields and choose a mutex or an explicit publication protocol that preserves it.",
+        "tryit": "In native/examples/atomics-2/main.c, change the initial atomic value from 0 to 2 and the exchange value from 7 to 9. Repeat the terminal run. Which of previous= and current= belongs to the state before the exchange?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -237,7 +237,7 @@ window.PART_EIGHT = {
         ],
         "answer": 0,
         "why": "Synchronization depends on the matching atomic communication.",
-        "tryit": "Explain why reading payload before the acquire would violate the protocol, then design a generation-based repeated-publication version.",
+        "tryit": "In native/examples/atomics-3/main.c, change the value assigned to payload by publish_payload from 42 to 17. Leave the release and acquire operations in place and repeat the terminal run. Which order lets the reader see published= safely?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -258,7 +258,7 @@ window.PART_EIGHT = {
         ],
         "answer": 1,
         "why": "It supplies neither the required atomic update nor the inter-thread ordering relationship.",
-        "tryit": "Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.",
+        "tryit": "In native/examples/atomics-4/main.c, change the local volatile loop bound from 3 to 5 and repeat the terminal run. Compare local_volatile= and atomic_total=. Which quantity is local and which receives updates from more than one worker?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -303,7 +303,7 @@ window.PART_EIGHT = {
         ],
         "answer": 0,
         "why": "They belong to distinct APIs and contracts.",
-        "tryit": "Wrap create/join behind a small project interface and add platform-specific adapters only where tested.",
+        "tryit": "In native/examples/concurrent-storage-1/main.c, change return 42; in standard_worker to return 17;. Repeat the terminal run. Which join argument lets main observe the new joined_result=?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -324,7 +324,7 @@ window.PART_EIGHT = {
         ],
         "answer": 1,
         "why": "The asynchronous consumer may run after the caller’s scope ends.",
-        "tryit": "Replace integer requests with owned command objects and verify cleanup on rejected enqueue and successful processing.",
+        "tryit": "In native/examples/concurrent-storage-2/main.c, change WORK_ITEMS from 8 to 6. Repeat the terminal run and compare accepted_and_drained= and total=. Which check would additionally distinguish duplicated request IDs from missing ones?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -345,7 +345,7 @@ window.PART_EIGHT = {
         ],
         "answer": 0,
         "why": "The request has not necessarily been processed or synchronized to storage.",
-        "tryit": "Add per-request responses with separate accepted, executed, and durable statuses, and document their wait boundaries.",
+        "tryit": "In native/examples/concurrent-storage-3/main.c, change WORK_ITEMS from 8 to 6. Repeat the terminal run and compare writer_state= and processed=. Which result shows the owner executed the requests? The in-memory fixture supplies no durable acknowledgement.",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -366,7 +366,7 @@ window.PART_EIGHT = {
         ],
         "answer": 1,
         "why": "A woken or draining worker may still need the lock and conditions.",
-        "tryit": "Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks in Browser Linux. The optional ThreadSanitizer reading explains a complementary external tool; it is not required to complete this chapter.",
+        "tryit": "In native/examples/concurrent-storage-4/main.c, change run < 20 to run < 25 and update the success message to 25 start-drain-join cycles passed. Repeat the terminal run. Which count and sum are checked in every cycle, and which schedule properties would you need separate tests to cover? The optional ThreadSanitizer reading explains a complementary external tool; it is not required to complete this chapter.",
         "input": "",
         "runtime": "native",
         "flags": [

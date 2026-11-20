@@ -84,7 +84,7 @@ No. Visibility, conflict rules, and transaction coordination jointly determine i
 
 </details>
 
-**Try:** Add transaction-status metadata for tentative versions and reject their visibility until commit publication.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/2). In main.c, start the snapshot loop at 1 rather than 2. Run code and compare the three old= and new= rows. Which boundary first changes the visible version?
 
 ### References and help
 
@@ -99,9 +99,11 @@ The implementation retains or reconstructs the reader’s visible version. Read 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/snapshots-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=snapshots-2
+make example EXAMPLE=snapshots-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

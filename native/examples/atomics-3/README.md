@@ -81,16 +81,18 @@ The acquire load of ready. Synchronization depends on the matching atomic commun
 
 </details>
 
-**Try:** Explain why reading payload before the acquire would violate the protocol, then design a generation-based repeated-publication version.
+**Try:** Edit the example in Browser Linux.  In native/examples/atomics-3/main.c, change the value assigned to payload by publish_payload from 42 to 17. Leave the release and acquire operations in place and repeat the terminal run. Which order lets the reader see published= safely?
 
 ### References and help
 
 - [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/atomics-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=atomics-3
+make example EXAMPLE=atomics-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

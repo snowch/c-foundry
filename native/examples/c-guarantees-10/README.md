@@ -59,16 +59,18 @@ The smallest positive normal double. Use -DBL_MAX for the negative finite endpoi
 
 </details>
 
-**Try:** Compare scalbn(DBL_MIN,-1), nextafter(0,1), and further halvings. Then test a strict strtod parser with 1e-9999 and decide whether your application should reject or retain tiny finite values.
+**Try:** Edit the example in Browser Linux.  In native/examples/c-guarantees-10/main.c, change double lost=scalbn(source,-1); to double lost=scalbn(source,0);. Repeat the terminal run. Compare scaled_to_zero= and finite_subnormal=. Which classifications depend on applying another halving?
 
 ### References and help
 
 - [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
 - [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
 
-Run from the repository root:
+Native source: `native/examples/c-guarantees-10/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=c-guarantees-10
+make example EXAMPLE=c-guarantees-10 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

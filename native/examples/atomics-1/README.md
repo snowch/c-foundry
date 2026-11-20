@@ -83,16 +83,18 @@ Not by itself. Atomicity for one object and synchronization of other objects are
 
 </details>
 
-**Try:** Replace the relaxed operations with default sequentially consistent operations, then explain why both totals match this contract.
+**Try:** Edit the example in Browser Linux.  In native/examples/atomics-1/main.c, find atomic_fetch_add_explicit with memory_order_relaxed in the worker. Replace the call with atomic_fetch_add using the same first two arguments. Repeat the terminal run. Which invariant about the atomic counter makes atomic_total= agree in both runs?
 
 ### References and help
 
 - [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
 - [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
 
-Run from the repository root:
+Native source: `native/examples/atomics-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=atomics-1
+make example EXAMPLE=atomics-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

@@ -148,7 +148,7 @@ After every accessing worker has finished. A woken or draining worker may still 
 
 </details>
 
-**Try:** Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks in Browser Linux. The optional ThreadSanitizer reading explains a complementary external tool; it is not required to complete this chapter.
+**Try:** Edit the example in Browser Linux.  In native/examples/concurrent-storage-4/main.c, change run < 20 to run < 25 and update the success message to 25 start-drain-join cycles passed. Repeat the terminal run. Which count and sum are checked in every cycle, and which schedule properties would you need separate tests to cover? The optional ThreadSanitizer reading explains a complementary external tool; it is not required to complete this chapter.
 
 ### References and help
 
@@ -163,9 +163,11 @@ The shared objects, synchronization primitives, and storage they access. Signal 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/concurrent-storage-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=concurrent-storage-4
+make example EXAMPLE=concurrent-storage-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

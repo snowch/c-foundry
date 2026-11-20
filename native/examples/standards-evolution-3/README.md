@@ -58,7 +58,7 @@ A compile/link probe of that actual facility. Language and library support can v
 
 </details>
 
-**Try:** Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/3). In main.c, change the fallback message from mode=C17 fallback_selected to mode=pre-C23 fallback_selected. Run code. Which condition selects the fallback? Use make standards-matrix in your native checkout to see accepted modes separately from feature support.
 
 ### References and help
 
@@ -73,9 +73,11 @@ No. Check the compiler’s documented mode and probe the exact language/library 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/standards-evolution-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=standards-evolution-3
+make example EXAMPLE=standards-evolution-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

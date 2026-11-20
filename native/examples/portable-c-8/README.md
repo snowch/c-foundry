@@ -63,16 +63,18 @@ The conversion type may have a wider range than the destination. Conversion succ
 
 </details>
 
-**Try:** Add zero, empty input, plus/minus signs, whitespace, a suffix, embedded zero bytes, leading zeros, and an extremely long number; verify output preservation for every rejection.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/8). In main.c, replace "4294967296" with "0000000001" in the second parse_id call. Run code and compare overflow_rejected= and retained=. What does this parser do with leading zeros when the final value fits?
 
 ### References and help
 
 - [C reference: strtol family](https://en.cppreference.com/w/c/string/byte/strtol.html) — Check endptr, accepted syntax, range errors, and full-input validation.
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) — Find the required terminators, buffer contracts, and comparison functions.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-8
+make example EXAMPLE=portable-c-8 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

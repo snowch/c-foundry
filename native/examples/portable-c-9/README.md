@@ -51,7 +51,7 @@ Save and restore it with fgetpos/fsetpos. The position representation can carry 
 
 </details>
 
-**Try:** Add a final line without a newline, test a failed open, and audit the code paths that check read, write, flush, reposition, and close errors.
+**Try:** Edit the example in Browser Linux.  In native/examples/portable-c-9/main.c, remove the last newline from the fputs string and change Grace to Linus. Repeat the terminal run. Compare revisited= and clean_eof=. Why can fgets still read a final line without a newline?
 
 ### References and help
 
@@ -67,9 +67,11 @@ Inspect the stream indicators: feof identifies end-of-file and ferror identifies
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/portable-c-9/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-9
+make example EXAMPLE=portable-c-9 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

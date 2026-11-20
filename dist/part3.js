@@ -21,7 +21,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "The search problem grows with the number of candidate elements.",
-        "tryit": "Add four larger values, keep the target absent, and predict the count before running.",
+        "tryit": "In main.c, extend a to {2, 4, 6, 8, 10, 12, 14, 16} and change scan(a, 4, 7) to scan(a, 8, 7). Choose Run code and compare comparisons=. Why does keeping 7 absent reveal how much of the array is inspected?",
         "input": "",
         "runtime": "browser"
       },
@@ -39,7 +39,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "Both a constant-times-n upper and lower bound exist.",
-        "tryit": "Check the inequality for n=8, then write down why it holds for every n≥1.",
+        "tryit": "In main.c, change n <= 4 to n <= 8. Run code and compare count= with upper= on the n=8 line. Which expression bounds the other? Why do the printed examples alone leave the general inequality to explain?",
         "input": "",
         "runtime": "browser"
       },
@@ -57,7 +57,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "(2n)² equals 4n².",
-        "tryit": "Extend the table to 16 and compare the ratios rather than the absolute numbers.",
+        "tryit": "In main.c, raise the loop bound from n <= 8 to n <= 16. Run code and compare the n=8 and n=16 rows. Which columns stay fixed, double, or quadruple? These are calculated work counts.",
         "input": "",
         "runtime": "browser"
       },
@@ -75,7 +75,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "An expectation is defined relative to probabilities over inputs.",
-        "tryit": "Count all four successful target positions and calculate their mean.",
+        "tryit": "In main.c, change the first scan target from 2 to 4 and rename first= to target4=. Run code, then repeat for 6. Together with the starter’s first= and last=, what mean comparison count do the four successful positions give?",
         "input": "",
         "runtime": "browser"
       },
@@ -93,7 +93,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "The total sequence bound permits occasional expensive operations.",
-        "tryit": "Continue to nine appends and predict the new total copying cost.",
+        "tryit": "In main.c, change length < 8 to length < 9 and change the printed label appends=8 to appends=9. Run code. Compare copied= and capacity=. Which extra append triggers the next copy?",
         "input": "",
         "runtime": "browser"
       },
@@ -111,7 +111,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "The next unread element is a[i], so it cannot already be included.",
-        "tryit": "Add an assertion for the invariant using a separately computed prefix in this small example.",
+        "tryit": "In main.c, change the middle member of a from 1 to 7. Run code. At which before i= row does sum= first differ? Explain why the sum at i always covers earlier indices only.",
         "input": "",
         "runtime": "browser"
       },
@@ -129,7 +129,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "A fast incorrect program is not an implementation of the required algorithm.",
-        "tryit": "Use the Big O explorer, then compare absent-key linear and binary search counts on powers of two.",
+        "tryit": "In main.c, change the two scan sizes from 4 and 8 to 2 and 4, keeping the absent target 99. Choose Run code. Compare small=, large=, and ratio=. Use the Counted search link in the chapter overview to compare linear and binary search separately.",
         "input": "",
         "runtime": "browser"
       }
@@ -171,7 +171,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "It checks each candidate directly rather than discarding an ordered interval.",
-        "tryit": "Search for 99 and print missing when the returned index equals n.",
+        "tryit": "In main.c, change the loop test from a[i] == 8 to a[i] == 99. Run code. What does first=3 mean in a three-element array? Why does the program avoid reading a[3]?",
         "input": "",
         "runtime": "browser"
       },
@@ -189,7 +189,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "An ordering comparison constrains every element in the discarded region.",
-        "tryit": "Search for 1, 9, and 11 and explain every insertion position.",
+        "tryit": "In main.c, replace 8 with 9 in lower(a, 5, 8) and in a[i] == 8. Run code and inspect position= and found=. Where could 9 be inserted while preserving sort order?",
         "input": "",
         "runtime": "browser"
       },
@@ -207,7 +207,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "The number of candidate positions is hi−lo.",
-        "tryit": "Trace lo, hi, and mid for a missing key in a two-element array.",
+        "tryit": "In main.c, replace a[] = {7} with a[] = {7, 9}, then change both lower(a, 1, ...) lengths to 2. Run code and compare before= and after=. Which index is the first value at least 8?",
         "input": "",
         "runtime": "browser"
       },
@@ -225,7 +225,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "The endpoint hi is excluded.",
-        "tryit": "Test a value below all elements, above all elements, and an array containing only duplicates.",
+        "tryit": "In main.c, use 4 instead of 3 as the query key in both lower and upper. Run code and inspect both range endpoints and count=. What does an empty half-open range tell you about duplicates of the query key?",
         "input": "",
         "runtime": "browser"
       },
@@ -243,7 +243,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "Every comparison is against rows[mid].id.",
-        "tryit": "Insert an ID between 2 and 5 while preserving order, then implement find-or-missing cases.",
+        "tryit": "In main.c, change the search key from 5 to 9 in both find_id and the following equality test. Run code and compare the returned record. Then use 8 in both places and explain why no row is printed.",
         "input": "",
         "runtime": "browser"
       }
@@ -286,7 +286,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "The next value at i has not yet been inserted.",
-        "tryit": "Count shifts for sorted and reverse-sorted inputs of the same size.",
+        "tryit": "In main.c, set a to {1, 2, 3, 4} and b to {4, 3, 2, 1}. Run code and compare the two output rows. Does the identical final ordering establish that both algorithms made the same number of moves?",
         "input": "",
         "runtime": "browser"
       },
@@ -304,7 +304,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "The merge buffer has one slot per input element.",
-        "tryit": "Attach original-position tags to equal keys and verify that their order is preserved.",
+        "tryit": "In main.c, change the first 5 in a to a second 4. Run code. Count the repeated 1 and 4 values in Console and compare with the input. What additional tags would let you inspect stability?",
         "input": "",
         "runtime": "browser"
       },
@@ -322,7 +322,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "Sorted input repeatedly selects an extreme pivot in this version.",
-        "tryit": "Add a partition counter and compare sorted, reversed, and duplicate-heavy inputs.",
+        "tryit": "In main.c, change a to {5, 5, 5, 1, 1}. Run code and compare the sorted sequence with this input. Why is sorting all equal-key entries still required even when the partition cannot separate them by value?",
         "input": "",
         "runtime": "browser"
       },
@@ -340,7 +340,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "Different keys must move; equal-key relative order is the preserved relation.",
-        "tryit": "Change > to >= in the shift condition and inspect the equal-key tags.",
+        "tryit": "In main.c, change a[j - 1].key > x.key to a[j - 1].key >= x.key. Run code and compare the positions of 2A and 2C. Did the keys become unordered, or did equal-key order change?",
         "input": "",
         "runtime": "browser"
       },
@@ -358,7 +358,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "Only the sign is needed, and relational comparisons avoid the overflow.",
-        "tryit": "Sort records with a tie-break on ID and document whether that total ordering matches your application.",
+        "tryit": "In main.c, change -7 to INT_MIN in a. Run code and compare ordered= and extremes=. Which comparisons show that the comparator also handles a duplicate extreme value?",
         "input": "",
         "runtime": "browser"
       },
@@ -376,7 +376,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "The counter changes only inside the shift loop.",
-        "tryit": "Build a comparison table for insertion and merge sort on four input orders, retaining correctness checks.",
+        "tryit": "In main.c, replace reverse[] = {4, 3, 2, 1} with reverse[] = {1, 3, 2, 4}. Run code. Compare reverse shifts= with the starter. Which out-of-order pair requires a move now?",
         "input": "",
         "runtime": "browser"
       }
@@ -419,7 +419,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "Each recursive call receives n−1 only when n is at least two.",
-        "tryit": "Add a checked public wrapper that rejects values above the documented domain.",
+        "tryit": "In main.c, replace factorial(5) with factorial(4) and change the five= label to four=. Run code. How does the new result follow from the starter’s result, and which base-case value remains?",
         "input": "",
         "runtime": "browser"
       },
@@ -437,7 +437,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "The caller waits for the child’s result.",
-        "tryit": "Draw one box per active call and mark the point where the maximum number of boxes is live.",
+        "tryit": "In main.c, change visit(2) to visit(3). Run code and compare the enter and leave lines. At which line are the most calls active? Draw one box for each call already entered and still waiting to leave.",
         "input": "",
         "runtime": "browser"
       },
@@ -455,7 +455,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "An implementation may preserve a call frame for each recursive call.",
-        "tryit": "Compare both versions for every input from zero through ten and add overflow checks before multiplication.",
+        "tryit": "In main.c, change 6 to 8 in both calls. Run code and compare recursive= and iterative=. What evidence shows the answers agree for 8, and what would you need to claim they agree over the full supported domain?",
         "input": "",
         "runtime": "browser"
       },
@@ -473,7 +473,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "A recurrence must describe sizes and nonrecursive work, not just call count.",
-        "tryit": "Repeat with n=7, draw the uneven leaves, and explain why the asymptotic merge-sort bound is unchanged.",
+        "tryit": "In main.c, change count_tree(8, &nodes, &leaves) to count_tree(7, &nodes, &leaves). Run code and compare nodes= and leaves=. Draw the uneven split and explain why a single work count leaves the asymptotic argument open.",
         "input": "",
         "runtime": "browser"
       },
@@ -491,7 +491,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "Calls remain active along the current root-to-node path.",
-        "tryit": "Add a nested directory and then implement the traversal with an explicit bounded stack.",
+        "tryit": "In main.c, append {\"util.c\", NULL, 0} to files and change root’s child count from 2 to 3. Run code and inspect the indentation of all three files. Which value tracks the depth of each recursive call?",
         "input": "",
         "runtime": "browser"
       }
@@ -533,7 +533,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "The remaining sum cannot be increased by including another nonnegative value.",
-        "tryit": "Count recursive calls and compare pruning with full enumeration on the same small inputs.",
+        "tryit": "In main.c, replace the first target 6 in the subset call with 11 and rename target6= to target11=. Run code. Which two elements make 11, and what does the unchanged target5= result tell you?",
         "input": "",
         "runtime": "browser"
       },
@@ -551,7 +551,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "It refutes this rule under the stated domain, not all greedy methods.",
-        "tryit": "Find the smallest amount where this coin system’s greedy count differs from an optimal table.",
+        "tryit": "In main.c, change remaining from 6 to 7 and keep the second printf argument 2. Run code and inspect greedy=. Construct a two-coin solution for 7. The example supplies the comparison count better=2 as a literal.",
         "input": "",
         "runtime": "browser"
       },
@@ -569,7 +569,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "Positive coin values and increasing x establish the dependency order.",
-        "tryit": "Remove coin one, represent unreachable states explicitly, and test both reachable and impossible amounts.",
+        "tryit": "In main.c, replace 1 with 2 in coins, then change best[6] to best[5] in printf. Run code. Why can 5 be represented with the new coins even without a coin of value 1?",
         "input": "",
         "runtime": "browser"
       },
@@ -587,7 +587,7 @@ window.PART_THREE = {
         ],
         "answer": 1,
         "why": "Every valid final move enters from one of those two predecessors.",
-        "tryit": "Add one blocked cell and set its count to zero before applying the recurrence.",
+        "tryit": "In main.c, place (r == 1 && col == 1) ? 0 : before the existing conditional expression assigned to ways[r][col]. Run code and compare its center and lower-right values. Which paths stop contributing when the center is blocked?",
         "input": "",
         "runtime": "browser"
       },
@@ -605,7 +605,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "The source state must exclude the current item for 0/1 semantics.",
-        "tryit": "Record predecessor choices to reconstruct the selected items, then verify the total weight and value.",
+        "tryit": "In main.c, replace the final item value 5 with 9. Run code and compare capacity5=. Which item can now beat the combination of weights 2 and 3, even though it leaves unused capacity?",
         "input": "",
         "runtime": "browser"
       }

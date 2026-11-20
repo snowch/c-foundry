@@ -70,7 +70,7 @@ The unsigned argument for n≥2. Each recursive call receives n−1 only when n 
 
 </details>
 
-**Try:** Add a checked public wrapper that rejects values above the documented domain.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recursion/1). In main.c, replace factorial(5) with factorial(4) and change the five= label to four=. Run code. How does the new result follow from the starter’s result, and which base-case value remains?
 
 ### References and help
 
@@ -84,11 +84,13 @@ A terminating base case and recursive steps that make progress toward it. A base
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/recursion-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recursion-1
+make example EXAMPLE=recursion-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 14.2 Drawing the call stack
 
@@ -154,17 +156,19 @@ The base-case call with n=0. The caller waits for the child’s result.
 
 </details>
 
-**Try:** Draw one box per active call and mark the point where the maximum number of boxes is live.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recursion/2). In main.c, change visit(2) to visit(3). Run code and compare the enter and leave lines. At which line are the most calls active? Draw one box for each call already entered and still waiting to leave.
 
 ### References and help
 
 - [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
 
-Run from the repository root:
+Native source: `native/examples/recursion-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recursion-2
+make example EXAMPLE=recursion-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 14.3 Recursive versus iterative implementations
 
@@ -218,17 +222,19 @@ No. An implementation may preserve a call frame for each recursive call.
 
 </details>
 
-**Try:** Compare both versions for every input from zero through ten and add overflow checks before multiplication.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recursion/3). In main.c, change 6 to 8 in both calls. Run code and compare recursive= and iterative=. What evidence shows the answers agree for 8, and what would you need to claim they agree over the full supported domain?
 
 ### References and help
 
 - [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
 
-Run from the repository root:
+Native source: `native/examples/recursion-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recursion-3
+make example EXAMPLE=recursion-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 14.4 Recursion trees and simple recurrences
 
@@ -286,18 +292,20 @@ The subproblem sizes shrink by about half. A recurrence must describe sizes and 
 
 </details>
 
-**Try:** Repeat with n=7, draw the uneven leaves, and explain why the asymptotic merge-sort bound is unchanged.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recursion/4). In main.c, change count_tree(8, &nodes, &leaves) to count_tree(7, &nodes, &leaves). Run code and compare nodes= and leaves=. Draw the uneven split and explain why a single work count leaves the asymptotic argument open.
 
 ### References and help
 
 - [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
 - [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
-Run from the repository root:
+Native source: `native/examples/recursion-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recursion-4
+make example EXAMPLE=recursion-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 14.5 Recursive directory-like tree traversal
 
@@ -360,17 +368,19 @@ The tree’s height. Calls remain active along the current root-to-node path.
 
 </details>
 
-**Try:** Add a nested directory and then implement the traversal with an explicit bounded stack.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/recursion/5). In main.c, append {"util.c", NULL, 0} to files and change root’s child count from 2 to 3. Run code and inspect the indentation of all three files. Which value tracks the depth of each recursive call?
 
 ### References and help
 
 - [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
 
-Run from the repository root:
+Native source: `native/examples/recursion-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=recursion-5
+make example EXAMPLE=recursion-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 

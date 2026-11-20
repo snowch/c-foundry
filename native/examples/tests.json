@@ -874,7 +874,7 @@
     {
       "name": "Tokens, keywords, identifiers, and literals",
       "input": "",
-      "expected": "words=3 punctuation=2"
+      "expected": "words=3 numbers=0 punctuation=2"
     }
   ],
   "parsing-2": [
@@ -1095,7 +1095,7 @@
     {
       "name": "Table scans versus index lookups",
       "input": "",
-      "expected": "narrow=index cost=4 wide=scan cost=101"
+      "expected": "narrow=index narrow_index_pages=4 wide=scan wide_index_pages=101 scan_pages=100"
     }
   ],
   "planning-2": [
@@ -1167,7 +1167,7 @@
     {
       "name": "Write-ahead logging",
       "input": "",
-      "expected": "durable_log_order_checked value=42",
+      "expected": "sync_calls_succeeded value=42",
       "sources": [
         "recovery-4/main.c"
       ]
@@ -1603,7 +1603,7 @@
     {
       "name": "Producer–consumer queues",
       "input": "",
-      "expected": "capacity=4 exactly_once=8",
+      "expected": "capacity=4 received_count=8",
       "flags": [
         "-pthread"
       ],

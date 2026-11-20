@@ -49,16 +49,18 @@ It makes any byte a valid classification argument. The cast satisfies the ctype 
 
 </details>
 
-**Try:** Compare the byte length of an ASCII name and a multibyte name, and test invalid UTF-8 rejection separately from name length and locale classification.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/7). In main.c, replace the UTF-8 bytes 0xc3, 0xa9 with the single byte 0x65. Run code and compare utf8_bytes= and ascii_letters=. What does the toy count reveal about byte length and classification in the C locale?
 
 ### References and help
 
 - [C reference: locales](https://en.cppreference.com/w/c/locale.html) — Check which operations depend on the active locale.
 - [C reference: isspace](https://en.cppreference.com/w/c/string/byte/isspace.html) — Check which argument values are valid and how locale affects classification.
 
-Run from the repository root:
+Native source: `native/examples/portable-c-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=portable-c-7
+make example EXAMPLE=portable-c-7 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 

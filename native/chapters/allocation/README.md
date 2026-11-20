@@ -66,7 +66,7 @@ No. The bytes have indeterminate contents until you establish values in them.
 
 </details>
 
-**Try:** Move free before printf only if the sum has already been copied into total. Explain which objects the print still accesses.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/allocation/1). In main.c, move free(values); above printf, after the loop has saved the sum in total. Choose Run code. Does Console still print 15? Which object does printf read after the allocation has been released?
 
 ### References and help
 
@@ -74,11 +74,13 @@ No. The bytes have indeterminate contents until you establish values in them.
 - [C reference: malloc](https://en.cppreference.com/w/c/memory/malloc.html) — Check allocation failure and which values in newly allocated storage are initialized.
 - [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
 
-Run from the repository root:
+Native source: `native/examples/allocation-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=allocation-1
+make example EXAMPLE=allocation-1 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 7.2 malloc, calloc, realloc, and free
 
@@ -136,7 +138,7 @@ The caller. Failure preserves the original allocation and its contents.
 
 </details>
 
-**Try:** Change the initial values, grow the array, and verify that the earlier elements are preserved.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/allocation/2). In main.c, add values[0] = 12; after the first printf and add printf("old first=%d\n", values[0]); after values = grown;. Choose Run code. Compare first=, old first=, and last=. Which value did realloc preserve when it grew the array?
 
 ### References and help
 
@@ -152,11 +154,13 @@ It remains allocated and unchanged. Preserve the original pointer until success 
 
 </details>
 
-Run from the repository root:
+Native source: `native/examples/allocation-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=allocation-2
+make example EXAMPLE=allocation-2 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 7.3 Allocation failure and size calculations
 
@@ -217,18 +221,20 @@ No. A wrapped multiplication has already lost the size you intended to request.
 
 </details>
 
-**Try:** Make the injected allocator succeed for a small request, initialize the ints, and add cleanup for that path.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/allocation/3). In main.c, change true to false in allocate_for_demo(4 * sizeof *values, true). After the null check, add else { values[0] = 5; printf("allocated=%d\n", values[0]); }. Choose Run code. Which message changes, and which checked size rejection remains?
 
 ### References and help
 
 - [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/allocation-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=allocation-3
+make example EXAMPLE=allocation-3 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 7.4 Leaks, dangling pointers, and double frees
 
@@ -289,7 +295,7 @@ No. It copies an address. Both pointers would reach the same allocation.
 
 </details>
 
-**Try:** Write down the owner and borrowed access paths in this program before adding another pointer to the copy.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/allocation/4). In main.c, change copy[0] = 'B'; to copy[0] = 'P';. Choose Run code and compare both words in Console. Which allocation owns the editable copy, and why does original keep its first letter?
 
 ### References and help
 
@@ -297,11 +303,13 @@ No. It copies an address. Both pointers would reach the same allocation.
 - [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/allocation-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=allocation-4
+make example EXAMPLE=allocation-4 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 7.5 A growing array and string builder
 
@@ -382,7 +390,9 @@ The first append creates storage and writes a valid string. The second reuses ca
 
 </details>
 
-**Try:** Append another literal, then implement the chapter’s growable-array project.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/allocation/5). In main.c, change the second append argument " C" to " C17". Choose Run code and compare the text, length=, and fits=. Which count excludes the terminating zero?
+
+**Extend the example:** For a follow-up, open the chapter’s growable-array exercise from the chapter overview. Its supplied cases check growth, input rejection, and cleanup.
 
 ### References and help
 
@@ -390,11 +400,13 @@ The first append creates storage and writes a valid string. The second reuses ca
 - [C reference: realloc](https://en.cppreference.com/w/c/memory/realloc.html) — Check what happens to the original allocation on success and failure.
 - [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
 
-Run from the repository root:
+Native source: `native/examples/allocation-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
 ```sh
-make example EXAMPLE=allocation-5
+make example EXAMPLE=allocation-5 RUN_ONLY=1
 ```
+
+Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Chapter practice
 
