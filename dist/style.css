@@ -187,7 +187,7 @@ dialog::backdrop { background:#17241c88; }
 .launch-actions { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
 .launch-actions a { font-size:16px; }
 .launch-feedback { color:#365e36; margin-top:12px; }
-.execution-panel .codespaces-cost { font-size:14px; color:var(--muted); }
+.execution-panel .Browser Linux-cost { font-size:14px; color:var(--muted); }
 #setup-view h2 { margin-top:28px; }
 #setup-view pre { background:#edf1e5; padding:14px; }
 
@@ -352,3 +352,13 @@ dialog::backdrop { background:#17241c88; }
 @media(max-width:520px){.concept-diagram{padding:14px;margin-block:20px}.concept-node{padding:10px}.concept-node-value{font-size:17px}.concept-node-label{font-size:15px}.concept-node-detail{font-size:16px}.concept-linked{grid-template-columns:1fr;gap:3px}.concept-arrow-wide{display:none}.concept-arrow-narrow{display:inline}.concept-children,.concept-sources{grid-template-columns:1fr}.concept-segments{grid-template-columns:1fr}.concept-table th,.concept-table td{padding:8px 5px;font-size:16px}.concept-diagram figcaption>p{font-size:17px}}
 
 .concept-connector svg{display:block;width:100%;height:28px;overflow:visible}
+
+/* Full Linux loads only after an explicit start; retain it across lesson routes. */
+.linux-terminal{min-width:0;width:100%;background:#161d1c;border-radius:6px;overflow:auto}
+.linux-terminal:empty{display:none}.linux-terminal iframe{display:block;width:100%;height:650px;border:0;background:#fff}
+.linux-controls{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 12px}.linux-controls button{min-height:44px}
+.linux-steps pre,.linux-backup pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:16px;background:#eef2e8;border:1px solid var(--line);font:16px/1.6 var(--mono)}
+#linux-view [hidden]{display:none!important}.linux-backup{margin-top:28px;border-top:1px solid var(--line)}
+@media(max-width:520px){.linux-terminal iframe{height:570px}.linux-controls{gap:8px}}
+
+#linux-source-tools{margin:20px 0;padding:14px;border:1px solid var(--line);border-radius:6px}#linux-source-tools>summary{cursor:pointer;min-height:44px;align-content:center;font-weight:600}#linux-source-file{display:block;max-width:100%;width:100%;font-size:16px;padding:10px;margin:8px 0}#linux-source-code{display:block;width:100%;height:360px;padding:14px;background:#202b2a;color:#eff3ec;border:1px solid #859681;border-radius:4px;font:17px/1.6 var(--mono);tab-size:4}#linux-source-status{font-size:16px;overflow-wrap:anywhere}

@@ -1,6 +1,6 @@
 # Browser storage guarantees and their limits
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 29.6 Browser storage guarantees and their limits
 

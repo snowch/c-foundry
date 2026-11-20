@@ -568,7 +568,7 @@ window.PART_SIX = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below."
+          "note": "Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab."
         }
       },
       "2": {
@@ -585,11 +585,11 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "Only finitely many generated paths were exercised.",
-        "tryit": "Run with SANITIZE=1, add token-length boundaries, and retain every discovered failure as a deterministic regression case.",
+        "tryit": "Add token-length boundaries in Browser Linux and retain every discovered failure as a deterministic regression case. Optional sanitizer tooling is described separately.",
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below."
+          "note": "Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab."
         }
       },
       "3": {
@@ -610,7 +610,7 @@ window.PART_SIX = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below."
+          "note": "Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab."
         }
       },
       "4": {
@@ -631,7 +631,7 @@ window.PART_SIX = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below."
+          "note": "Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab."
         }
       },
       "5": {

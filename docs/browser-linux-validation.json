@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-20",
+  "environment": "Chromium, real hosted JSLinux x86-64/Alpine in the course sandboxed iframe",
+  "compilers": "GCC 15.2.0; Clang 21.1.2 (observed standards-matrix output)",
+  "source_set_sha256": "015a2c7f3744933ba95683f4bac76a40b2ac9cfd28d1758a9ea5e420cc0e78ee",
+  "source_files": 276,
+  "results": [
+    {
+      "name": "IMPORT",
+      "seconds": 8.877,
+      "status": "pass"
+    },
+    {
+      "name": "SELECTED_LESSON",
+      "seconds": 29.819,
+      "status": "pass"
+    },
+    {
+      "name": "ALL_14_CONCURRENCY",
+      "seconds": 185.947,
+      "status": "pass"
+    },
+    {
+      "name": "OTHER_22_LINUX_EXAMPLES",
+      "seconds": 288.483,
+      "status": "pass"
+    },
+    {
+      "name": "BOTH_GDB_INVESTIGATIONS",
+      "seconds": 99.144,
+      "status": "pass"
+    },
+    {
+      "name": "BOTH_PROJECT_REFERENCES",
+      "seconds": 38.187,
+      "status": "pass"
+    },
+    {
+      "name": "EDIT_SOURCE",
+      "seconds": 0.102,
+      "status": "pass"
+    },
+    {
+      "name": "RESTORE",
+      "seconds": 14.538,
+      "status": "pass"
+    },
+    {
+      "name": "RESTORED_EDIT_AND_RUN",
+      "seconds": 14.717,
+      "status": "pass"
+    }
+  ],
+  "additional_passes": [
+    "On-page C editor download, guest import/apply and rerun",
+    "GCC and Clang standards matrix, including C23 typeof_unqual",
+    "320px and 390px touch-profile source import and unclipped terminal",
+    "Saved edit restored and executed in a fresh Linux session"
+  ],
+  "limits": [
+    "Browser viewport/touch emulation is not testing on every physical tablet.",
+    "The hosted service and its toolchain can change independently of this repository.",
+    "No multicore speedup, crash durability, or sanitizer availability is established by these tests."
+  ]
+}

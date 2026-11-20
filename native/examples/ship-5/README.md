@@ -1,6 +1,6 @@
 # Memory and resource audits
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 30.5 Memory and resource audits
 

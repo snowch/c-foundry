@@ -1,12 +1,12 @@
 # Text and binary streams, LF and CRLF
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 33.5 Text and binary streams, LF and CRLF
 
 Choose text mode for logical text and binary mode for specified bytes. Treat line-ending normalization as an explicit input policy.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
 Text streams may translate the host representation of a newline. A text-stream position is not necessarily a byte count, and the physical file need not have one byte for each character written. Use rb/wb for a byte-defined database format. When reading byte-defined text from binary input, a parser can explicitly accept LF and CRLF as terminators. The helper accepts a complete bounded record, strips one trailing LF and its preceding CR, and leaves a lone trailing CR unchanged; deciding whether that lone CR is allowed belongs to the input grammar.
 

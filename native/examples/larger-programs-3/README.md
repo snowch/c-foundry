@@ -1,12 +1,12 @@
 # Include guards and the preprocessor
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 9.3 Include guards and the preprocessor
 
 The preprocessor transforms source before ordinary C compilation. Keep its role small and visible: header guards and explicit configuration are common uses.
 
-Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+Also editable and runnable inline in the browser course. Run here, or use Browser Linux for a full GCC build.
 
 An include guard wraps a header in a conditional so repeated inclusion in one translation unit does not repeat its contents. The separate FACTOR conditional supplies a default only when configuration has not already defined it. A static inline function keeps ordinary parameter evaluation rules, unlike an expression macro that may evaluate an argument more than once. Header guards do not prevent multiple external definitions across different translation units.
 

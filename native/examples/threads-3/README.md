@@ -1,6 +1,6 @@
 # Data races and reproducible interleavings
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 35.3 Data races and reproducible interleavings
 
@@ -91,7 +91,7 @@ The complete read-modify-write operation. Both workers must not base their commi
 
 </details>
 
-**Try:** Move the entire increment under one lock and verify final two; use ThreadSanitizer separately rather than relying on a data-race output.
+**Try:** Move the entire increment under one lock and verify final two; read the optional ThreadSanitizer note rather than relying on a data-race output.
 
 ### References and help
 

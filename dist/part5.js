@@ -574,7 +574,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "The runtime resets its virtual filesystem; a host transfer/storage step is separate.",
-        "tryit": "Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Codespaces.",
+        "tryit": "Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Browser Linux.",
         "input": "",
         "runtime": "native",
         "command": "make example EXAMPLE=persistence-5 KEEP_FILES=1",

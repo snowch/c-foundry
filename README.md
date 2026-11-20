@@ -1,211 +1,96 @@
 # C Foundry
 
-[Open the course](https://snowch.github.io/c-foundry/#/course) · [Command workspace](https://snowch.github.io/c-foundry/#/workspace) · [Codespaces setup](docs/codespaces.md)
+[Open the course](https://snowch.github.io/c-foundry/#/course) · [Command workspace](https://snowch.github.io/c-foundry/#/workspace) · [Browser Linux](https://snowch.github.io/c-foundry/#/linux)
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/snowch/c-foundry?quickstart=1)
-
-A C, algorithms, and database course with **nine parts, 44 chapters, and 227 authored topic lessons**. Every topic includes an explanation, complete worked program, expected output and walkthrough, pitfall, understanding question with feedback, and an experiment. There are **191 inline browser examples**, **36 examples requiring native tools**, and **15 separate practice exercises** with 82 output cases.
+A browser-only C, algorithms, and database course with **nine parts, 44 chapters, and 227 authored topic lessons**. Every topic includes an explanation, complete program, expected output, walkthrough, pitfall, understanding check, and an experiment. **191 examples run inline; the remaining 36 run in Browser Linux.** Fifteen separate practice exercises provide 82 output cases.
 
 | Part | Chapters | Lessons | Focus |
 | --- | ---: | ---: | --- |
-| 1 | 5 | 26 | The C language |
-| 2 | 5 | 27 | Memory and practical C |
+| 1 | 5 | 26 | Language, build stages, and finding documentation |
+| 2 | 5 | 27 | Memory, practical C, multi-file projects, optional GDB |
 | 3 | 5 | 28 | Big O, correctness, searching, sorting, recursion, strategies |
-| 4 | 5 | 28 | Lists, queues, hashing, balanced trees, heaps, graphs |
-| 5 | 5 | 27 | TinyDB tables, a SQL subset, execution, persistence |
-| 6 | 5 | 32 | Pages, B+ trees, planning, transactions, recovery, release work |
-| 7 | 4 | 27 | Writing portable C: standards, numeric guarantees, files, text, parsing, platform boundaries, TinyDB audit |
-| 8 | 4 | 14 | Threads, coordination, atomics, storage ownership |
-| 9 | 6 | 18 | Multi-client contracts, isolation, snapshots, maintenance, richer queries, reliability |
+| 4 | 5 | 28 | Lists, queues, hashing, trees, heaps, graphs |
+| 5 | 5 | 27 | Build TinyDB: rows, parsing, execution, persistence |
+| 6 | 5 | 32 | Pages, indexes, planning, recovery, optional GDB repair |
+| 7 | 4 | 27 | Standards, numeric boundaries, portability and file exchange |
+| 8 | 4 | 14 | Threads, locks, atomics, concurrent storage — Browser Linux |
+| 9 | 6 | 18 | Isolation, snapshots, maintenance, richer queries, reliability |
 
-## Read, run, and track progress
+## Everything runs in a browser
 
-Ready chapter links open the first lesson directly. Contents expands the current part and highlights the current topic. Breadcrumbs, a chapter selector, and Previous/Next links support moving through lessons without repeatedly visiting overview pages. A sidebar is not permanently reserved on tablets.
+The inline compiler mounts directly in compatible lessons with Run, Stop, Reset, Export, input, and console output. Multi-file examples have source-file buttons and separate saved drafts. Reset restores the complete example; Export downloads the selected file. Example runs, reading completion, and graded practice checks are independent.
 
-Portable examples mount the shared editor directly in their reading page with Run, Stop, Reset, Export, input, and console output. Drafts have stable per-example IDs. Multi-file examples have source-file buttons; Run compiles every source file together. Each file has its own saved draft. Export downloads the selected file; Reset restores all files. Native alternatives are collapsed below eligible examples, with repository commands and source links. Examples that require native facilities retain their launch controls. Expected output is an optional disclosure. Examples are not graded practice and do not automatically mark a lesson done. See the [part-by-part execution coverage](docs/browser-examples.md) for the remaining native requirements.
+The **Browser Linux** launcher carries a lesson’s actual command to an on-demand terminal embedded in the course. The JSLinux x86-64/Alpine VM executes on the learner’s device inside the browser and already contains GCC, Clang, GDB, Make, Python, and nano. Import the supplied course archive once, paste the setup command, then run the selected lab. The Linux page also offers a browser source editor with saved drafts, edited-file download/import, and explicit apply commands; terminal-editor shortcuts are optional. Every Part 8 concurrency example uses this Linux path. No account or local installation is required.
 
-At each topic’s end, **Mark lesson as done** explicitly records reading completion; uncheck to undo. Following video-lab’s pattern, independent per-topic localStorage keys reconcile updates across tabs. Ticks appear in Contents, chapter outlines, and the selector, with chapter and part counts. Marks persist in this browser/device until site storage is cleared. Failed saves retain the choice for the session and explain the limitation. Earlier drafts and exercise output-check progress retain their original storage format.
+The terminal’s filesystem is temporary. The course page provides commands to export a complete work archive and restore it in a new session. Navigating among course pages retains the active terminal; reloading, closing, or stopping it does not. See [Browser Linux setup, saving, and provenance](docs/browser-linux.md) and the [live validation record](docs/browser-linux-validation.json).
 
-## Run programs from the CLI
+The site embeds the externally hosted terminal and credits its provider. It does not redistribute the emulator or OS image. The provider’s availability, first-load download, and device performance remain external dependencies. The inline compiler and course readings are independent of that service.
 
-Open the [command workspace](https://snowch.github.io/c-foundry/#/workspace). It runs real C/Wasm binaries with arguments and a shared flat filesystem:
+## Projects and debugging
 
-```text
-cc hello.c -o hello
-./hello Ada
-tinydb people.db
-INSERT INTO people VALUES (1, 'Ada', 90);
-SELECT * FROM people;
-UPDATE people SET score=95 WHERE id=1;
-SELECT COUNT(*) FROM people;
-.quit
-```
+Two editable Part 2 projects provide TODO modules, executable tests, and separate references. Initial starter failure is expected. Later chapters provide bounded executable components and workshops for assembling and extending TinyDB; a production SQL engine is not already assembled.
 
-TinyDB is a bundled C17 program, not a JavaScript SQL simulation. Its browser prompt invokes the C executable once per statement against the same file. It implements a single `people` table with unique positive uint32 IDs, 1–31 UTF-8 byte names, uint32 scores, 128 rows, INSERT/SELECT/UPDATE/DELETE/COUNT, optional ID filters, and case-insensitive SQL keywords. It uses autocommit and scans; indexes, transactions, concurrency, and crash recovery remain course models/project extensions. Its TDB1 format accepts the course sample; the earlier transfer lesson accepts at most eight rows, so it cannot import a larger CLI database.
+Two optional Browser Linux investigations teach GDB:
 
-Files save independently in IndexedDB, survive reloads, and can be imported or downloaded byte-for-byte. A stale tab cannot overwrite a newer saved snapshot. Storage failures leave files available for download and report unsaved status. Clearing browser site data removes saved work. Lesson editor **CLI** copies the current draft into a unique source file. **Add TinyDB source** provides the same source used for the bundled binary, ready to edit and compile. Use `./tinydb` to invoke your own file with that name; bare `tinydb` selects the included program.
+- [Investigate a small C bug](https://snowch.github.io/c-foundry/#/chapter/files-bytes/7): breakpoints, stepping, variables, call stacks, and a watchpoint.
+- [Repair a broken TinyDB](https://snowch.github.io/c-foundry/#/chapter/ship/8): investigate update/delete bugs and verify saved rows.
 
-`cc` supports multiple C sources and local headers with fixed C17 flags. Quoted arguments and preloaded stdin work; shell expansion, pipes, native Linux binaries, networking, and threads require Codespaces. Compatible binaries must target this runtime’s older `wasi_unstable` ABI. Limits are 32 files, 2 MB per file, 8 MB total, 256 KB per source, 100 KB output, and five seconds per program. Failed builds, traps, and Stop retain the previous files; normal exits (including nonzero status) commit file changes. This is a teaching workspace, not a crash-durable database service.
+The course bundle contains both broken programs, guide files, regression checks, and reference repairs. Normal concurrency and GDB labs do not require a sanitizer runtime.
 
-Run the same C source as a genuine stdin REPL in Codespaces or locally:
+## ThreadSanitizer is reading, not another lab
 
-```sh
-make tinydb-cli DB=people.db
-# Or build once, then invoke directly:
-make .build/native/tinydb-cli
-.build/native/tinydb-cli people.db --execute "SELECT * FROM people;"
-make check-cli
-```
+[What ThreadSanitizer can tell you](https://snowch.github.io/c-foundry/#/tools/threadsanitizer) is an optional reading page outside the TOC’s required labs and completion counts. It distinguishes data races from logical lost updates, explains detector limitations, and shows optional external compiler instructions. The hosted Linux image does not currently provide all sanitizer runtime combinations. No learner has to install tools or run TSan to complete the course.
 
-## Optional GDB investigations
+The browser labs teach concurrency through thread lifetimes, ownership, synchronization, cooperative shutdown, and invariant checks. Emulated timings do not demonstrate physical multicore speedup, every possible schedule, or real-device durability.
 
-The browser course remains usable without a native debugger. Two optional lessons provide real GDB sessions in Codespaces, the local dev container, or Linux/WSL:
+## Command workspace and files
 
-- [End of Part 2: Debugging C with GDB](https://snowch.github.io/c-foundry/#/chapter/files-bytes/7) — reproduce a logical failure, inspect variables and arrays, step through calls, inspect the call stack, and watch a value change. Fix the editable starter and verify ordinary, single, empty, and negative cases.
-- [End of Part 6: Repair a broken TinyDB](https://snowch.github.io/c-foundry/#/chapter/ship/8) — investigate wrong-row UPDATE and lost-row DELETE failures in an isolated copy of the real CLI. Each launch seeds a new database. Regression checks reopen the saved file and verify neighbor/survivor preservation.
+The small [browser command workspace](https://snowch.github.io/c-foundry/#/workspace) builds portable C programs with the checked-in C17 compiler, supports multiple sources and headers, and runs the bundled `tinydb people.db` command. Its shared files use IndexedDB and support import and download. It is separate from the full Linux terminal, which supplies Linux processes, threads, and GDB.
 
-```sh
-make debug-lab LAB=basics       # build and show the guide
-make debug-gdb LAB=basics       # real GDB; stops inside sum_values
-make debug-check LAB=basics     # initially fails until you repair the starter
-make debug-gdb LAB=tinydb
-make debug-gdb LAB=tinydb CASE=delete
-make debug-check LAB=tinydb
-```
+`cc` has fixed C17 options. Quoted arguments and preloaded stdin work; shell expansion, pipes, and Linux binaries belong in Browser Linux. Compatible Wasm binaries must target this runtime’s older `wasi_unstable` ABI. Workspace limits are 32 files, 2 MB per file, 8 MB total, 256 KB per source, 100 KB output, and five seconds per program. Failed builds, traps, and Stop retain previous files; normal exits commit file changes. This is a teaching workspace, not a crash-durable database service.
 
-Edit `native/debugging/<lab>/main.c`. Separate references live under `.reference/`; `make debug-check LAB=basics REFERENCE=1` checks the reference rather than the student copy. Lab artifacts and unique fixture sessions live under `.build/debugging/`. These labs do not alter the browser CLI, its files, or the canonical `native/cli/tinydb.c`. Compiler warnings, logging, assertions, hypothesis testing, and regressions remain part of the browser learning path; GDB sessions are an optional extension. No GDB-in-Wasm runtime is loaded by the site.
+The persistence lesson demonstrates creating and importing `people.tdb`. Its matching 88-byte sample is downloadable. Linux-produced files can be exported from the guest and imported into the command workspace where the format is supported. Drafts, lesson marks, shared workspace files, and Linux guest files are separate stores.
 
-Maintainers run `make check-debugging` (also with `CC=clang`) to verify frozen fault reproductions, the repaired reference contracts, and actual GDB breakpoint, stepping, stack, and software-watchpoint observations. Acceptance fixtures are built separately so repairing a student copy does not invalidate these maintainer checks. This is distinct from the student `debug-check` command. The course dev container already includes GDB; GitHub Actions runs these checks before deployment.
+## Original concept diagrams and references
 
-## Part 7: Writing portable C
+48 original static diagrams support 102 selected lessons across all nine parts. They reflow at small widths, retain readable text, and include **Diagram in words** descriptions. No external artwork or copied reference-site diagrams are included. See [the figure inventory and provenance](docs/concept-diagrams.md).
 
-Part 7 now has **27 lessons across four chapters**: language standards, C's numeric/object guarantees, practical files/text/platform interfaces, and a TinyDB portability audit. Its six new lessons cover text versus binary streams and LF/CRLF, paths and case behavior, encoding/locale/ctype, bounded numeric fields, EOF and stream positions, and cross-host database compatibility. Existing API-boundary, feature-detection, and adapter lessons now focus on ISO C versus POSIX/Win32/Linux contracts.
+Every topic has a collapsed **References and help** section with one to three curated references and a purpose for each link. Forty-four topics include an optional documentation question with a locally available answer comparison. [Finding and reading C documentation](https://snowch.github.io/c-foundry/#/chapter/first-program/6) teaches signatures, argument types, returns, errors, and standards labels using online references and a runnable printf example. Optional `man` commands illustrate an equivalent lookup on systems with manual pages; the hosted image does not include them.
 
-Start with [portable files, text, and platform interfaces](https://snowch.github.io/c-foundry/#/chapter/portable-c/1), then finish the [TinyDB portability audit](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/5). Portable habits remain part of the earlier type, array/string, and file lessons; this part consolidates them into a testable host contract.
+## Portable C and numeric boundaries
 
-```sh
-make check-portability
-make check-portability CC=clang
-make check-portability SANITIZE=1
-# Windows, from an MSVC developer terminal:
-python tools/check_portability.py --compiler cl
-```
+Part 7 separates ISO C facilities from host APIs. It covers explicit field widths and byte order, checked arithmetic and narrowing, finite floating-point policies, parsing, UTF-8, stream errors, filenames, adapters, feature probes, and a concrete TinyDB portability audit.
 
-The complete target in `native/portability/` separates a bounded TDB1 byte codec from ISO C binary-file access. It explicitly requires octets, uint32_t, ASCII-compatible execution characters, and UTF-8 row names; it creates new files exclusively under a restricted basename policy. Tests include exact independently specified bytes, invalid/truncated records, rejection preservation, capacity, and existing-file refusal. The audit documents concrete gaps in the larger CLI, including POSIX/Windows rename replacement and narrow-path encoding; it does not claim those gaps are already fixed in the full database.
+The audited target in `native/portability/` uses an explicit TDB1 codec and ISO C binary-file access. It requires octets, uint32_t, ASCII-compatible execution characters, and UTF-8 names. It creates new files under a restricted basename policy. Tests check exact independent bytes, invalid/truncated input, output preservation, existing-file refusal, and capacity. The audit documents remaining host gaps in the larger CLI; it does not claim universal Unicode paths or cross-platform crash durability.
 
-A four-entry Linux GCC/Clang, macOS Clang, and Windows MSVC matrix runs the same suite. A second consumer matrix verifies files from **every producer on every host**. Deployment requires these cross-host exchanges in addition to the existing browser and native checks. This qualifies the audited slice and Chapter 33 examples; it does not assert that every Linux/POSIX/thread example in the course is cross-platform. See [the assumptions and audit table](native/portability/README.md).
+Four CI producers—Linux GCC/Clang, macOS Clang, Windows MSVC—exchange files with every consumer host. This provides cross-host evidence for the audited slice, not a promise that every POSIX or threading example is portable to every OS.
 
-## Numeric boundaries
+## Maintainer verification
 
-[Part 7, Chapter 32](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/4) extends the Part 1 introduction with seven focused lessons: signed/unsigned comparisons and promotions; checked narrowing; checked addition/subtraction/multiplication; exceptional division, remainder, and negation; floating rounding and tolerances; NaN/infinity and finite parsing; and underflow/subnormals.
-
-Four integer examples run inline. Three floating examples run natively with `-lm`, explicitly require the demonstrated binary64/subnormal facilities, and establish round-to-nearest where needed. They do not manufacture NaN or infinity through undefined arithmetic or assume that all C implementations share IEEE behavior.
-
-The checked-calculator practice has 24 output cases. The independent native reference oracle checks 2,391 boundary/random cases against arbitrary-precision arithmetic, including output preservation on rejection, plus finite-input and tolerance policies. It checks the repository reference, not a learner’s unfinished starter:
-
-```sh
-make exercise EXERCISE=arithmetic
-make example EXAMPLE=c-guarantees-8
-make check-numeric
-make check-numeric CC=clang
-make check-numeric SANITIZE=1
-```
-
-## Database scope and chapter projects
-
-The course provides complete, executable **components and bounded teaching models**, with guided chapter projects to assemble and extend them. It does not automatically assemble a production database engine merely by marking readings complete.
-
-The implemented examples include:
-
-- A bounded row table with insertion, lookup, update, deletion, uniqueness, and failure preservation.
-- A lexer/parser for a documented, case-sensitive SQL subset: `INSERT INTO people VALUES (number, 'name', number);` and `SELECT * FROM people` with an optional `WHERE id = number`, followed by a semicolon. Ordering, aggregates, joins, and prepared-query examples are separate operators/models to integrate into the grammar as project work.
-- A documented 40-byte little-endian row codec, versioned eight-byte file header, validated imports, named exports, and a checked fixed-page pager.
-- Slotted-page and cache models; a bounded two-level B+ index with real split, borrow, merge, range, and pool-ownership behavior. The model’s routing root supports at most eight four-entry leaf pages; it is not an arbitrary-height serialized index.
-- Single-writer transaction state, fixed-record redo-log prefix recovery, a checked POSIX log-sync ordering example, and a checked Linux checkpoint publication sequence. The redo models retain explicit one-value/single-writer limits.
-- Joined pthread and C11-thread examples, a bounded draining queue, atomic counters and acquire/release publication, reader/writer protection, optimistic stale-write rejection, committed-version visibility, and an active-snapshot reclamation model.
-
-Every later chapter has a build-it-yourself goal, concrete extension tasks, and checks. Its baseline command verifies the original example output, not every learner extension. The two Part 2 native projects additionally provide student TODO modules, public header contracts, executable checks, and separate `.reference/` implementations. Their initial student checks intentionally fail.
-
-The first five native foundations remain in `native/demos/`; they are independent demonstrations rather than the full assembled capstone. Lesson-run files reset between runs; CLI workspace files persist independently. Browser drafts and reading marks are not database durability mechanisms. The isolation, MVCC, recovery, statistics, and checkpoint pages state their model and host limits explicitly.
-
-## Concept diagrams
-
-48 original, static diagrams support 102 selected lessons across all nine parts: source-to-execution stages, storage and pointers, array ranges, data structures, byte encodings, database pages, recovery, portability, and concurrency. They sit beside the conceptual explanation, with readable live text and a **Diagram in words** alternative. Diagrams describe the concept independently of the editor’s current code. No external artwork or copied reference-site diagrams are included. See the [figure inventory and provenance](docs/concept-diagrams.md).
-
-## Finding help
-
-[Finding and reading C documentation](https://snowch.github.io/c-foundry/#/chapter/first-program/6) teaches manual sections, signatures, arguments, return values, errors, standards labels, and a predict-then-run lookup exercise. Every topic has a collapsed **References and help** section with one to three curated references and a purpose for each link. Selected topics include an optional documentation question with a locally available answer comparison. External references open in a new tab; opening external references does not gate code execution or lesson completion.
-
-The Linux dev container includes `man`, C library manual pages, command manuals, and `less`. Try `man 3 printf`, `man 1 printf`, and `man -k printf`; `make check-help` verifies those entries. In `less`, use `/RETURN VALUE`, `n`, and `q`. On a tablet, use the online references; the course browser CLI does not supply `man`. Existing Codespaces need a container rebuild to install these packages.
-
-Reference data and lookup questions live in `dist/references.js`. Run `node tools/sync_readings.cjs` after editing them so the native reading mirrors retain the same references.
-
-## Run locally or in Codespaces
-
-Serve `dist/` using any static HTTP server; there is no app build step. Modern browsers need WebAssembly, Web Workers, and DecompressionStream. The first compiler run fetches about 19 MB of compressed assets from the same site.
-
-The dev container provides GCC 14.3, Clang 19, GDB, Make, Python, and Node 24. A desktop computer is not required: Codespaces runs Linux and an editor in the browser. It consumes your GitHub account’s compute/storage allowance; [check the current terms](https://docs.github.com/en/billing/concepts/product-billing/github-codespaces). No workspace is created automatically by visiting a lesson.
-
-```sh
-make serve
-make chapter CHAPTER=hash-tables
-make example EXAMPLE=graphs-6
-make example EXAMPLE=atomics-3
-make example EXAMPLE=hardening-tinydb-4 SANITIZE=1
-make project PROJECT=record-store
-```
-
-All 44 chapter workspace READMEs contain complete exported readings. Student browser exercise starters also have native copies under `native/exercises/`.
-
-## Export and inspect files
-
-```sh
-make example EXAMPLE=persistence-5 KEEP_FILES=1
-make example EXAMPLE=maintenance-2 KEEP_FILES=1
-```
-
-`KEEP_FILES=1` retains files under `.build/files/<example>/`; normal runs execute in a temporary working directory. Download retained files through the Codespaces explorer. The [persistence lesson](https://snowch.github.io/c-foundry/#/chapter/persistence/5) also offers the 88-byte two-row sample in `dist/assets/tinydb-sample.tdb`. Its transfer program accepts `import <path>` when compiled directly, with complete validation before replacing state. Native files and browser drafts are not automatically synchronized.
-
-Use your own fork/branch and commit and push work you want to retain before deleting a Codespace. See the setup guide for local development, reuse, and storage details.
-
-## Verify and publish
+The Docker toolchain in `.github/native/Dockerfile` exists for automated verification. It provides GCC 14.3, Clang, GDB, Python, Node 24, and manual pages. It is not a learner setup requirement. Public Browser Linux uses its provider’s installed toolchain; feature probes report that actual target.
 
 ```sh
 npm ci
-npm test                       # all page routes and the actual Wasm compiler
-make check-examples            # all 227 complete programs, strict GCC
-make check-examples CC=clang
-make check-examples PART=8      # one part
-make check-examples SANITIZE=1
-make check-structures           # independent B+ and AVL invariant workloads
-make check-structures SANITIZE=1
-make check-numeric              # numeric reference oracle and floating policies
-make check-projects             # the two native project references
-make check-projects SANITIZE=1
-make check-portability         # exact bytes and native portability contracts
-make check-debugging           # real GDB and the two repair lab contracts
-make check-cli                 # native CLI persistence and boundary tests
+npm test
 make check-native
 make check-native-clang
+make check-examples
+make check-examples CC=clang
+make check-examples SANITIZE=1
+make check-debugging
+make check-projects
+make check-structures
+make check-numeric
+make check-portability
 make standards-matrix
-make sanitize
-make tsan                       # optional; runtime/kernel support required
 ```
 
-Browser tests execute 191 worked examples and 82 practice cases through the real compiler worker and require the supplied programs to compile without diagnostics. Learner warnings remain visible. The suite also checks diagnostics, nonzero exits, malformed input, rejected starters, cancellation, and recovery. Command tests additionally compile multiple files and check argv/stdin UTF-8, shared file append/EOF, nonzero exits, failed builds, TinyDB CRUD, corrupt-file preservation, and the bundled binary’s reproducibility. DOM checks cover all 44 chapters and 227 topics, answer feedback, inline editor state, explicit completion, per-key tab reconciliation, unsaved feedback, native commands, and the downloadable fixture. Independent native workloads check 32,000 mixed B+ operations and 32 AVL insertion permutations against ordering, occupancy, reachability, height, and ownership properties.
+The optional developer targets `make sanitize` and `make tsan` require suitable external toolchain/runtime support and are not part of completing the browser course. `make tsan` checks the five foundations rather than every topic program.
 
-GitHub Actions deploys `dist/` on pushes to `main` only after the browser/interface, native, and cross-platform file-exchange jobs pass. Native CI builds the dev container, runs all examples under GCC and Clang, checks structural workloads, and runs the existing native foundations/project references with sanitizer checks.
+Run `node tools/sync_readings.cjs` after content changes to regenerate the native reading mirrors, example sources, manifest, and fixture. This preserves student TODO modules. Then run `python3 tools/build_browser_linux.py` to rebuild the deterministic browser course archive. `npm test` verifies both the bundled Wasm program and Linux archive reproducibility.
 
-## Content maintenance and runtime
+GitHub Actions deploys `dist/` after browser, native, and cross-platform exchange checks pass. Browser tests compile all 191 inline examples and 82 practice cases through the real worker and require supplied programs to compile without diagnostics. Learner diagnostics remain visible. Interface checks cover routes, saved edits, explicit completion, references, original diagrams, Browser Linux launch selection, and optional reading pages.
 
-`dist/part1.js` through `part9.js` hold the authored content. `dist/course.js` defines the syllabus/execution metadata and mirrors `native/course.json`. `dist/readings.js` renders readings and registers portable examples; `dist/completion.js` stores reading marks; `dist/app.js` handles routing/editor state; `dist/execution.js` renders native launch controls. `dist/workspace.js`, `dist/command-model.js`, and `dist/compiler/workspace-worker.js` implement the CLI; `native/cli/tinydb.c` is its canonical database source. Run `node tools/build_browser_programs.cjs` after editing that source, then commit the generated source copy, Wasm, and manifest in `dist/programs/`. `npm test` checks reproducibility. `dist/visuals.js` retains the optional original exercise traces and counted-search comparison.
+Finite green suites do not prove complexity, correctness for every input, race freedom for every schedule, physical storage durability, or production readiness. Physical tablets and browser versions still require ongoing device testing.
 
-Run `node tools/sync_readings.cjs` after content edits to regenerate all chapter READMEs, 227 native examples, the checked-output/source/flag manifest, and the sample file. It does not overwrite student exercise/project modules. Multi-file or native examples have their own directories; portable examples have flat `.c` exports.
-
-The browser compiler is the experimental [binji/wasm-clang](https://github.com/binji/wasm-clang) Clang 8 / LLD toolchain with incomplete older WASI support. The runtime bridge corrects legacy file-read/EOF bounds and append handling, and encodes argv/stdin/output as UTF-8. Original runtime and LLVM licenses are distributed in `dist/compiler/`. Compilation and execution happen locally in a worker; no compilation server is involved. Runs have a five-second execution limit and 100 KB output cap; compiler initialization has a two-minute limit. Native threads, arbitrary host files, and native sanitizer runtimes require the Linux toolchain.
-
-## Verification limits
-
-Phone/tablet Chromium checks cover 390, 768, and 1024 px, representative lessons from every later part, actual inline B+ tree compilation, native launch/copy controls, sample downloads, completion persistence, and overflow. Earlier navigation/completion checks also covered 320 px. Screenshots were inspected. This does not establish behavior on every physical device or browser.
-
-All 227 programs pass strict GCC, Clang, and native ASan/UBSan checks in the selected Codespaces image. Threaded examples check deterministic contracts while allowing schedule-dependent contention metrics. Hosted Codespace creation and real power-loss/device-failure recovery were not exercised. A green finite suite is not proof of algorithm complexity, memory safety for all inputs, race freedom under every schedule, durable behavior on every filesystem, or a production-ready database.
+Copyright © 2026 Christopher Snow. See [LICENSE](LICENSE).

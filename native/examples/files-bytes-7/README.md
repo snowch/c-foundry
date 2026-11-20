@@ -1,16 +1,16 @@
 # Optional lab: Debugging C with GDB
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 10.7 Optional lab: Debugging C with GDB
 
-Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Codespaces or local Linux.
+Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Browser Linux.
 
 A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with `-g -O0` so source locations and variables are easier to follow. Browser-only learners can skip the native session and continue to algorithms.
 
 ## Optional GDB lab: investigate, repair, verify (optional)
 
-Run in Codespaces or local Linux with GDB; the browser CLI does not provide GDB. Starter checks initially fail on purpose. Guide and editable source: `native/debugging/basics`.
+Run in the Browser Linux terminal with GDB; the browser CLI does not provide GDB. Starter checks initially fail on purpose. Guide and editable source: `native/debugging/basics`.
 
 ```sh
 make debug-lab LAB=basics
@@ -27,7 +27,7 @@ make debug-check LAB=basics
 
 ### Open real GDB
 
-Run this in the Codespaces or local Linux terminal, not the browser CLI. GDB stops inside sum_values before the total initializer.
+Run this in the full Browser Linux terminal. GDB stops inside sum_values before the total initializer.
 
 ```text
 make debug-gdb LAB=basics

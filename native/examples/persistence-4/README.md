@@ -1,6 +1,6 @@
 # Building a pager abstraction
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 25.4 Building a pager abstraction
 

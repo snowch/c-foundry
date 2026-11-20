@@ -16,7 +16,7 @@ Turn a portability claim into a contract and testable evidence. Audit the real T
 
 An assumption audit checks where input sizes, arithmetic ranges, alignment, and lifetimes cross API boundaries.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
 For an array allocation, validate count≤SIZE_MAX/element_size before multiplication. Also define a zero-element policy and who owns the result. The fixture rejects an impossible int-array size without attempting memory exhaustion. Similar checks belong in page offsets, slot lengths, result buffers, and log record counts. Include sizeof(long), size_t and printf formats, char signedness, execution character set, eight-bit-byte requirements, optional exact-width types, and alignment in the audit. Record each as guaranteed by C17, required of supported targets, validated at an input boundary, or delegated to a host adapter. A compiler accepting the source does not discharge the remaining assumptions.
 
@@ -270,7 +270,7 @@ make example EXAMPLE=hardening-tinydb-2
 
 Compilers provide complementary diagnostics. Keep the same language baseline and fixtures when comparing their builds.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
 The example exercises a bounded decoded record with explicit byte assembly and a typed output. Run it with CC=gcc and CC=clang, both with strict warnings. Agreement is useful evidence, not proof of freedom from undefined behavior: both compilers can compile the same invalid source without a diagnostic when the language does not require one. The new portability workflow uses Linux GCC and Clang, macOS Clang, and Windows MSVC in C17 mode. Each host consumes and produces the same known database bytes, and a second job on every host reads artifacts from all producers. This checks the audited slice, not every POSIX, threaded, or Linux-specific example in the course.
 
@@ -449,9 +449,9 @@ make example EXAMPLE=hardening-tinydb-3
 
 Sanitizers observe executed behavior and catch selected invalid operations. Combine them with strict builds, input validation, and independent expectations.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
-The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. Run with SANITIZE=1 to add AddressSanitizer and UndefinedBehaviorSanitizer in native builds. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support. A clean sanitizer run does not prove encoding compatibility, correct row identity, filesystem case behavior, or safe replacement of an existing file. Keep exact-byte, invalid-input, and failure-preservation assertions in the portability suite. The audit adapter deliberately creates new files exclusively; it does not claim portable atomic replacement.
+The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. AddressSanitizer and UndefinedBehaviorSanitizer are optional external tools. In this browser lab, run the independent boundary fixtures with the normal compiler; the hosted image does not require or provide every sanitizer runtime combination. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support. A clean sanitizer run does not prove encoding compatibility, correct row identity, filesystem case behavior, or safe replacement of an existing file. Keep exact-byte, invalid-input, and failure-preservation assertions in the portability suite. The audit adapter deliberately creates new files exclusively; it does not claim portable atomic replacement. [ThreadSanitizer scope and limitations](https://snowch.github.io/c-foundry/#/tools/threadsanitizer) are covered in an optional reading page.
 
 ### main.c
 
@@ -610,7 +610,7 @@ No selected violation was detected on exercised paths. The scope is the actual i
 
 </details>
 
-**Try:** Run this example with SANITIZE=1, then add short inputs at every length below the full record size.
+**Try:** In Browser Linux, add short inputs at every length below the full record size and verify output preservation. Read the optional tooling note for sanitizer scope; the browser lab does not require a sanitizer runtime.
 
 ### References and help
 
@@ -635,7 +635,7 @@ make example EXAMPLE=hardening-tinydb-4
 
 Finish with a concrete audit: publish the supported assumptions, compile a portable codec and file adapter separately, and verify database files produced by other hosts.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
 The native/portability target implements a bounded TDB1 codec with no FILE, path, locale, or operating-system calls in its core. Its separate ISO C adapter uses binary streams and exclusive creation of a new, restricted ASCII basename. The format requires uint32_t, eight-bit bytes, and UTF-8 row names; the target also explicitly requires an ASCII-compatible execution character set. The suite validates a known fixture, every truncated prefix, malformed headers, duplicate IDs, invalid names, and unchanged outputs on codec rejection. Each OS reads the same binary fixture and exports artifacts that all other matrix hosts must validate and copy byte-for-byte.
 

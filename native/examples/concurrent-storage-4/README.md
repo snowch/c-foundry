@@ -1,12 +1,12 @@
 # Shutdown, cancellation, and concurrency testing
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 38.4 Shutdown, cancellation, and concurrency testing
 
 Shutdown must wake blocked participants and decide what happens to already accepted work. Cooperative closure is easier to reason about than abrupt cancellation.
 
-The queue’s close flag rejects future puts and lets takes drain existing items before returning false. Both condition variables are broadcast so blocked producers and consumers recheck their predicates. All workers join before mutex and condition-variable destruction. The fixture repeats startup and shutdown to expose lifecycle mistakes without using scheduling sleeps.
+The queue’s close flag rejects future puts and lets takes drain existing items before returning false. Both condition variables are broadcast so blocked producers and consumers recheck their predicates. All workers join before mutex and condition-variable destruction. The fixture repeats startup and shutdown to expose lifecycle mistakes without using scheduling sleeps. [Read the optional ThreadSanitizer note](https://snowch.github.io/c-foundry/#/tools/threadsanitizer) for detector scope and limitations; this is not an extra lab.
 
 ### main.c
 
@@ -148,7 +148,7 @@ After every accessing worker has finished. A woken or draining worker may still 
 
 </details>
 
-**Try:** Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks; run ThreadSanitizer where supported.
+**Try:** Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks in Browser Linux. The optional ThreadSanitizer reading explains a complementary external tool; it is not required to complete this chapter.
 
 ### References and help
 

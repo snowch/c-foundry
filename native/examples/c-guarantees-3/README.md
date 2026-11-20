@@ -1,12 +1,12 @@
 # Why code can behave differently under optimization
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 32.3 Why code can behave differently under optimization
 
 Optimizers may transform valid programs while preserving their required observable behavior. They need not preserve a guessed result after undefined behavior.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
 The fixture uses unsigned fixed-width arithmetic with a defined wrap result and a bounded representable sum. Compile it at multiple optimization levels and compare those outputs. If a different program changes behavior under optimization, audit its language contracts, races, and uninitialized state before treating the difference as an optimizer bug.
 

@@ -1,12 +1,12 @@
 # Choosing a baseline and checking feature support
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 31.3 Choosing a baseline and checking feature support
 
 Feature detection should test the facility you need. A standard-version test alone cannot account for partial implementations or optional APIs.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
 The example selects a conservative C17 fallback at the course’s default language mode. A separate compile probe can attempt a C23-only facility under -std=c23 and report whether that compiler/library combination accepts it. Treat a failed probe as a result to handle, not permission to silently change the project’s semantics.
 

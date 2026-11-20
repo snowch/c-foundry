@@ -1,6 +1,6 @@
 # Fault injection, fuzzing, and recovery testing
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 44.3 Fault injection, fuzzing, and recovery testing
 
@@ -359,7 +359,7 @@ Minimize it and retain it as a deterministic regression. A preserved fixture pre
 
 </details>
 
-**Try:** Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
+**Try:** Run the complete course examples with both available compilers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
 
 ### References and help
 

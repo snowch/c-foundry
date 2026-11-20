@@ -50,7 +50,7 @@ if args.action in ['build', 'gdb']:
         print('Guided GDB: make debug-gdb LAB=' + args.lab)
     else:
         if not shutil.which('gdb'):
-            parser.exit(2, 'GDB is not installed. Open this lab in Codespaces or install GDB on local Linux/WSL.\n')
+            parser.exit(2, 'GDB is not installed. Open this lab in Browser Linux or install GDB on local Linux/WSL.\n')
         raise SystemExit(subprocess.run(['gdb', '-q', '-x', str(folder / 'start.gdb'), '--args', str(binary), *arguments], cwd=ROOT, check=False).returncode)
 else:
     failed = False

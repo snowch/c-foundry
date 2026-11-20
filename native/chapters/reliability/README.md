@@ -636,7 +636,7 @@ Minimize it and retain it as a deterministic regression. A preserved fixture pre
 
 </details>
 
-**Try:** Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
+**Try:** Run the complete course examples with both available compilers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
 
 ### References and help
 

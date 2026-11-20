@@ -1,6 +1,6 @@
 # Extending the write-ahead log
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 42.1 Extending the write-ahead log
 

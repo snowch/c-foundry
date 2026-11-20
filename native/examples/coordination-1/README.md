@@ -1,6 +1,6 @@
 # Mutexes and condition variables
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 36.1 Mutexes and condition variables
 

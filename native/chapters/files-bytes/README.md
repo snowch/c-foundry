@@ -81,7 +81,7 @@ make example EXAMPLE=files-bytes-1
 
 Bitwise operators manipulate the representation of unsigned values. Use them to define flags and packed fields deliberately, with shifts constrained to the type’s width.
 
-Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+Also editable and runnable inline in the browser course. Run here, or use Browser Linux for a full GCC build.
 
 OR sets mask bits, AND selects them, XOR toggles them, and complement inverts them. Fixed-width uint32_t is available on our target platforms; its existence is a format requirement, not a promise for every imaginable C implementation. Use a suitably typed unsigned left operand for shifts and keep the shift count below the width. inttypes.h supplies portable printf format macros for fixed-width types.
 
@@ -143,7 +143,7 @@ make example EXAMPLE=files-bytes-2
 
 Serialization defines a byte representation independently of an object’s in-memory layout. Pick a byte order and widths explicitly, and make the decoder validate the format before constructing values.
 
-Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+Also editable and runnable inline in the browser course. Run here, or use Browser Linux for a full GCC build.
 
 This format requires eight-bit bytes and a uint32_t. Encoding extracts the low-order byte first, defining little-endian order regardless of the host’s native order. Decoding casts each byte to uint32_t before shifting so the shift is performed in an appropriate unsigned type. A production decoder must also verify the available length before indexing its input.
 
@@ -215,7 +215,7 @@ make example EXAMPLE=files-bytes-3
 
 Undefined behavior is a broken language contract, not a particular error message. A program can appear to work while reading a dead object or crossing an array boundary.
 
-Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains.
+Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use Browser Linux for compiler warnings and GCC/Clang comparisons; optional sanitizer tooling is described separately.
 
 Validate external inputs before use, and use assertions to document internal invariants while developing. A debugger can show values, call stacks, and control flow, but an observed run cannot turn an invalid operation into a guarantee. Build with debug information and warnings. Keep required behavior outside assert, because NDEBUG can remove assertions. The example’s caller explicitly validates the index before calling the helper.
 
@@ -246,7 +246,7 @@ Output:
 12
 ```
 
-The runtime guard protects the external boundary, while the assertions express assumptions inside at. The program accesses a live array element. To investigate in Codespaces, build with -g, set a breakpoint in at using GDB, and inspect values, count, and index before continuing.
+The runtime guard protects the external boundary, while the assertions express assumptions inside at. The program accesses a live array element. To investigate in Browser Linux, build with -g, set a breakpoint in at using GDB, and inspect values, count, and index before continuing.
 
 **Watch for:** A dangling pointer is not safe because its address is non-null. Likewise, changing optimization settings may expose a bug, but does not make undefined behavior valid at another setting.
 
@@ -278,7 +278,7 @@ make example EXAMPLE=files-bytes-4
 
 Combine tests with compiler diagnostics, sanitizers, and portability checks. Each tool detects a different set of mistakes; none is a proof that a program is correct.
 
-Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains.
+Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use Browser Linux for compiler warnings and GCC/Clang comparisons; optional sanitizer tooling is described separately.
 
 The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. Use them on native builds: the page’s Wasm runner is not providing these native sanitizer runtimes.
 
@@ -311,7 +311,7 @@ short=ok
 too-long=rejected
 ```
 
-Ada needs exactly four chars with its terminator and fits. Grace does not, so the helper returns without copying it. In Codespaces, run this example with SANITIZE=1 and compare GCC and Clang builds. Keep a passing test distinct from evidence about paths that have not executed.
+Ada needs four characters including its terminator and fits; Grace does not, so the helper returns without copying it. Add independent capacity-boundary checks and compare GCC and Clang in Browser Linux. Sanitizer scope is covered in the optional tooling reading.
 
 **Watch for:** Sanitizers have coverage and platform limits. They do not generally prove ownership, absence of logical errors, or race freedom; concurrency needs additional tools and reasoning.
 
@@ -326,7 +326,7 @@ No. It checks the executed behavior for the classes of problems that sanitizer c
 
 </details>
 
-**Try:** Run make example EXAMPLE=files-bytes-5 SANITIZE=1, then add a destination-capacity boundary case.
+**Try:** Run make example EXAMPLE=files-bytes-5 in Browser Linux, then add a destination-capacity boundary case and verify that rejection preserves the destination.
 
 ### References and help
 
@@ -434,13 +434,13 @@ make example EXAMPLE=files-bytes-6
 
 ## 10.7 Optional lab: Debugging C with GDB
 
-Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Codespaces or local Linux.
+Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Browser Linux.
 
 A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with `-g -O0` so source locations and variables are easier to follow. Browser-only learners can skip the native session and continue to algorithms.
 
 ## Optional GDB lab: investigate, repair, verify (optional)
 
-Run in Codespaces or local Linux with GDB; the browser CLI does not provide GDB. Starter checks initially fail on purpose. Guide and editable source: `native/debugging/basics`.
+Run in the Browser Linux terminal with GDB; the browser CLI does not provide GDB. Starter checks initially fail on purpose. Guide and editable source: `native/debugging/basics`.
 
 ```sh
 make debug-lab LAB=basics
@@ -457,7 +457,7 @@ make debug-check LAB=basics
 
 ### Open real GDB
 
-Run this in the Codespaces or local Linux terminal, not the browser CLI. GDB stops inside sum_values before the total initializer.
+Run this in the full Browser Linux terminal. GDB stops inside sum_values before the total initializer.
 
 ```text
 make debug-gdb LAB=basics

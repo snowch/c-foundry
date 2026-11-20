@@ -1,12 +1,12 @@
 # Fault injection and recovery tests
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 30.3 Fault injection and recovery tests
 
 Fault injection makes rare failure paths repeatable. Test exactly where the protocol permits acknowledged state to survive.
 
-Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+Also editable and runnable inline in the browser course. Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab.
 
 For each possible byte cut in a single transaction log, the reference expectation is zero before the full COMMIT record and 42 afterward. The loop tests every prefix from zero through 24 bytes. This is an interruption model; it does not simulate all filesystem reorderings, device failures, or checksum-valid corruption.
 

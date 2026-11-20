@@ -54,7 +54,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/first-program",
       "command": "make chapter CHAPTER=first-program",
@@ -98,7 +98,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/values",
       "command": "make chapter CHAPTER=values",
@@ -142,7 +142,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/control-flow",
       "command": "make chapter CHAPTER=control-flow",
@@ -187,7 +187,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/functions",
       "command": "make chapter CHAPTER=functions",
@@ -231,7 +231,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/arrays-strings",
       "command": "make chapter CHAPTER=arrays-strings",
@@ -275,7 +275,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/pointers",
       "command": "make chapter CHAPTER=pointers",
@@ -320,7 +320,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/allocation",
       "command": "make chapter CHAPTER=allocation",
@@ -365,7 +365,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/structured-data",
       "command": "make chapter CHAPTER=structured-data",
@@ -407,7 +407,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Worked examples run inline where supported. Native project checks, compiler diagnostics, sanitizers, and optional GDB sessions use Codespaces or a local toolchain."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/larger-programs",
       "command": "make chapter CHAPTER=larger-programs",
@@ -462,7 +462,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Worked examples run inline where supported. Native project checks, compiler diagnostics, sanitizers, and optional GDB sessions use Codespaces or a local toolchain."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/files-bytes",
       "command": "make chapter CHAPTER=files-bytes",
@@ -516,7 +516,7 @@
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/big-o",
       "command": "make chapter CHAPTER=big-o",
@@ -560,7 +560,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/searching",
       "command": "make chapter CHAPTER=searching",
@@ -609,7 +609,7 @@
       ],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/sorting",
       "command": "make chapter CHAPTER=sorting",
@@ -651,7 +651,7 @@
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/recursion",
       "command": "make chapter CHAPTER=recursion",
@@ -693,7 +693,7 @@
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/strategies",
       "command": "make chapter CHAPTER=strategies",
@@ -735,7 +735,7 @@
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/lists",
       "command": "make chapter CHAPTER=lists",
@@ -777,7 +777,7 @@
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/queues",
       "command": "make chapter CHAPTER=queues",
@@ -824,7 +824,7 @@
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/hash-tables",
       "command": "make chapter CHAPTER=hash-tables",
@@ -871,7 +871,7 @@
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/trees-heaps",
       "command": "make chapter CHAPTER=trees-heaps",
@@ -918,7 +918,7 @@
       "labs": [],
       "execution": {
         "mode": "browser",
-        "reason": "The core examples fit the browser C runtime. Codespaces is optional."
+        "reason": "Edit, compile, and run the worked examples directly in this browser."
       },
       "workspace": "native/chapters/graphs",
       "command": "make chapter CHAPTER=graphs",
@@ -960,7 +960,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/database-foundations",
       "command": "make chapter CHAPTER=database-foundations",
@@ -1005,7 +1005,7 @@
       ],
       "execution": {
         "mode": "both",
-        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/tables",
       "command": "make chapter CHAPTER=tables",
@@ -1048,7 +1048,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/parsing",
       "command": "make chapter CHAPTER=parsing",
@@ -1096,7 +1096,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/execution",
       "command": "make chapter CHAPTER=execution",
@@ -1144,7 +1144,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Compatible format and transfer examples run inline. The command workspace keeps browser files; native commands provide the full file and persistence experiments."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/persistence",
       "command": "make chapter CHAPTER=persistence",
@@ -1192,7 +1192,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/pages",
       "command": "make chapter CHAPTER=pages",
@@ -1240,7 +1240,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/bplus-trees",
       "command": "make chapter CHAPTER=bplus-trees",
@@ -1288,7 +1288,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Read and explore the concepts here; use Linux for the evolving multi-file database project."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/planning",
       "command": "make chapter CHAPTER=planning",
@@ -1336,7 +1336,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Single-threaded recovery models and deterministic test fixtures run inline. Native tools provide sanitizer runs, host timing, durability experiments, and optional GDB."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/recovery",
       "command": "make chapter CHAPTER=recovery",
@@ -1395,7 +1395,7 @@
       "labs": [],
       "execution": {
         "mode": "both",
-        "reason": "Single-threaded recovery models and deterministic test fixtures run inline. Native tools provide sanitizer runs, host timing, durability experiments, and optional GDB."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/ship",
       "command": "make chapter CHAPTER=ship",
@@ -1429,7 +1429,7 @@
       "nativeDemo": "standards",
       "execution": {
         "mode": "both",
-        "reason": "Compatible probes and portable C examples run inline with one fixed C17 toolchain. Use native tools for cross-compiler, standards-mode, optimization, and sanitizer experiments."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/standards-evolution",
       "command": "make chapter CHAPTER=standards-evolution",
@@ -1499,7 +1499,7 @@
       "nativeDemo": "standards",
       "execution": {
         "mode": "both",
-        "reason": "Compatible probes and portable C examples run inline with one fixed C17 toolchain. Use native tools for cross-compiler, standards-mode, optimization, and sanitizer experiments."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/c-guarantees",
       "command": "make chapter CHAPTER=c-guarantees",
@@ -1562,7 +1562,7 @@
       "nativeDemo": "standards",
       "execution": {
         "mode": "both",
-        "reason": "Compatible probes and portable C examples run inline with one fixed C17 toolchain. Use native tools for cross-compiler, standards-mode, optimization, and sanitizer experiments."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/portable-c",
       "command": "make chapter CHAPTER=portable-c",
@@ -1605,7 +1605,7 @@
       "nativeDemo": "tinydb",
       "execution": {
         "mode": "both",
-        "reason": "Compatible probes and portable C examples run inline with one fixed C17 toolchain. Use native tools for cross-compiler, standards-mode, optimization, and sanitizer experiments."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/hardening-tinydb",
       "command": "make chapter CHAPTER=hardening-tinydb",
@@ -1637,8 +1637,8 @@
       "labs": [],
       "nativeDemo": "counter",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "linux",
+        "reason": "Run this chapter in the on-demand Browser Linux terminal with GCC, GDB, and Linux threads. No local installation or account is required."
       },
       "workspace": "native/chapters/threads",
       "command": "make chapter CHAPTER=threads",
@@ -1670,8 +1670,8 @@
       "labs": [],
       "nativeDemo": "queue",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "linux",
+        "reason": "Run this chapter in the on-demand Browser Linux terminal with GCC, GDB, and Linux threads. No local installation or account is required."
       },
       "workspace": "native/chapters/coordination",
       "command": "make chapter CHAPTER=coordination",
@@ -1708,8 +1708,8 @@
       "labs": [],
       "nativeDemo": "counter",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "linux",
+        "reason": "Run this chapter in the on-demand Browser Linux terminal with GCC, GDB, and Linux threads. No local installation or account is required."
       },
       "workspace": "native/chapters/atomics",
       "command": "make chapter CHAPTER=atomics",
@@ -1746,8 +1746,8 @@
       "labs": [],
       "nativeDemo": "queue",
       "execution": {
-        "mode": "codespaces",
-        "reason": "Threads, synchronization, and native concurrency tests need Linux C execution."
+        "mode": "linux",
+        "reason": "Run this chapter in the on-demand Browser Linux terminal with GCC, GDB, and Linux threads. No local installation or account is required."
       },
       "workspace": "native/chapters/concurrent-storage",
       "command": "make chapter CHAPTER=concurrent-storage",
@@ -1780,7 +1780,7 @@
       "nativeDemo": "tinydb",
       "execution": {
         "mode": "both",
-        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/multi-client",
       "command": "make chapter CHAPTER=multi-client",
@@ -1813,7 +1813,7 @@
       "nativeDemo": "tinydb",
       "execution": {
         "mode": "both",
-        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/isolation",
       "command": "make chapter CHAPTER=isolation",
@@ -1846,7 +1846,7 @@
       "nativeDemo": "tinydb",
       "execution": {
         "mode": "both",
-        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/snapshots",
       "command": "make chapter CHAPTER=snapshots",
@@ -1879,7 +1879,7 @@
       "nativeDemo": "tinydb",
       "execution": {
         "mode": "both",
-        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/maintenance",
       "command": "make chapter CHAPTER=maintenance",
@@ -1912,7 +1912,7 @@
       "nativeDemo": "tinydb",
       "execution": {
         "mode": "both",
-        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/richer-queries",
       "command": "make chapter CHAPTER=richer-queries",
@@ -1945,7 +1945,7 @@
       "nativeDemo": "tinydb",
       "execution": {
         "mode": "both",
-        "reason": "Compatible single-threaded models run inline. The complete concurrent system, operating-system integration, and native durability experiments require a native toolchain."
+        "reason": "Run compatible examples inline. Use the Browser Linux terminal for the chapter project, full compiler tools, or Linux APIs."
       },
       "workspace": "native/chapters/reliability",
       "command": "make chapter CHAPTER=reliability",

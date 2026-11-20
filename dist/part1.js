@@ -85,8 +85,8 @@ window.PART_ONE = {
         "explanation": "The editor contains source. Run code compiles and executes it in a worker so the page remains responsive. Console shows program output and diagnostics. Input supplies text before execution; it is not an interactive terminal that waits for you to type midway through the run. Later exercises will read it. Check output compares observable results with practice cases. It does not prove that an algorithm is appropriate or memory is managed correctly.",
         "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"This program runs in the browser.\\n\");\n    return 0;\n}\n",
         "expected": "This program runs in the browser.",
-        "walkthrough": "This program needs only standard output. A Wasm module is generated and executed locally. Your edited source can be saved in this browser, but a program’s temporary files do not become permanent course data. Use Export for a copy you can keep or move to Codespaces. Stop terminates the running worker, including a program stuck in a loop.",
-        "pitfall": "Native Linux processes, sockets, and C threads are not supplied by this lab. Chapters that need those capabilities identify Codespaces as their execution environment; they are still readable on a tablet.",
+        "walkthrough": "This program needs only standard output. A Wasm module is generated and executed locally. Your edited source can be saved in this browser, but a program’s temporary files do not become permanent course data. Use Export for a copy you can keep or move to Browser Linux. Stop terminates the running worker, including a program stuck in a loop.",
+        "pitfall": "Native Linux processes, sockets, and C threads are not supplied by this lab. Chapters that need those capabilities identify Browser Linux as their execution environment; they are still readable on a tablet.",
         "question": "When should you supply input for the current browser runner?",
         "choices": [
           "Before pressing Run code",
@@ -103,7 +103,7 @@ window.PART_ONE = {
         "guide": [
           {
             "title": "Choose the right entry",
-            "body": "On a tablet, open the online references below. In Codespaces or a local Linux terminal, section 3 documents C library functions; section 1 documents commands. A shell can also have its own printf builtin and help text. The commands below are for that Linux terminal, rather than this course’s browser CLI.",
+            "body": "Use the online references below in this browser lab. Section 3 of Linux manuals describes C library functions; section 1 describes commands. A shell can also have a printf builtin with separate help. The example manual commands below are optional reference instructions for systems that have man pages installed; the hosted Browser Linux image does not include them.",
             "command": "man 3 printf\nman 1 printf\nman -k printf"
           },
           {
@@ -113,7 +113,7 @@ window.PART_ONE = {
           },
           {
             "title": "Search, predict, then verify",
-            "body": "With the usual less pager, type /RETURN VALUE and press Enter; n finds the next match, and q quits. The man -k command searches descriptions, and its results depend on the installed manuals. On the online page, use your browser’s Find feature. Read that printf returns the transmitted character count on success and a negative value on output or encoding failure. Predict the result for Hi! followed by a newline, then run the example."
+            "body": "Use your browser’s Find feature to locate RETURN VALUE in the online printf reference. Read that success returns the transmitted character count and output or encoding failure returns a negative value. Predict the result for Hi! followed by a newline, then run the example. In an optional man/less environment, /RETURN VALUE searches, n finds the next match, and q quits; man -k searches installed descriptions."
           }
         ],
         "code": "#include <stdio.h>\n\nint main(void) {\n    int written = printf(\"Hi!\\n\");\n    printf(\"count=%d\\n\", written);\n    return 0;\n}\n",

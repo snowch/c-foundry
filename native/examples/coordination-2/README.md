@@ -1,6 +1,6 @@
 # Producer–consumer queues
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 36.2 Producer–consumer queues
 

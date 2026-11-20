@@ -2,7 +2,7 @@
 
 Read the lesson: https://snowch.github.io/c-foundry/#/chapter/ship/8. Prerequisite: the optional Part 2 GDB lab, https://snowch.github.io/c-foundry/#/chapter/files-bytes/7.
 
-Use GitHub Codespaces, the local Linux dev container, or Linux/WSL with GDB and the course build tools. `main.c` is a frozen copy of the runnable C TinyDB CLI with two deliberate logical faults. The browser CLI and `native/cli/tinydb.c` are independent and remain working. Do not debug a database file you want to keep: every guided launch creates its own three-row fixture under a new `.build/debugging/tinydb/session-*` directory.
+Use Browser Linux, the CI container, or Linux/WSL with GDB and the course build tools. `main.c` is a frozen copy of the runnable C TinyDB CLI with two deliberate logical faults. The browser CLI and `native/cli/tinydb.c` are independent and remain working. Do not debug a database file you want to keep: every guided launch creates its own three-row fixture under a new `.build/debugging/tinydb/session-*` directory.
 
 ## Reproduce two contract failures
 
@@ -58,4 +58,4 @@ All four cases must pass. They use separate fixtures and reopen the saved databa
 
 After your attempt, inspect `.reference/main.c` or run `make debug-check LAB=tinydb REFERENCE=1`. This validates the separate reference, not your edits. Sanitizer-clean runs cannot establish that the intended row was changed, so retain the behavioral assertions. GDB is an investigation tool, not an alternative to those checks.
 
-This bounded CLI has one table and autocommit file updates. This workshop does not implement the course's separate indexing, transaction, or concurrent-writer models. Files in `.build/` are local build artifacts; `make clean` removes them. Download/commit important evidence before cleaning or deleting a Codespace.
+This bounded CLI has one table and autocommit file updates. This workshop does not implement the course's separate indexing, transaction, or concurrent-writer models. Files in `.build/` are local build artifacts; `make clean` removes them. Export important work with the Browser Linux backup command before cleaning or ending a session.

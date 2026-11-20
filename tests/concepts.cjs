@@ -3,7 +3,7 @@ const dom=new JSDOM(fs.readFileSync('dist/index.html','utf8'),{url:'https://exam
 w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.confirm=()=>true;
 w.fetch=()=>{throw Error('Concept diagrams must not fetch external assets');};w.Worker=class{postMessage(){}terminate(){}};
 w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
-for(const file of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+file+'.js','utf8'));
+for(const file of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','browser-linux','app'])w.eval(fs.readFileSync('dist/'+file+'.js','utf8'));
 const $=selector=>w.document.querySelector(selector),go=path=>{w.history.pushState(null,'','#'+path);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
 const artifact=$('.concept-art');assert.equal(artifact.getAttribute('role'),'img');assert.ok(w.document.getElementById(artifact.getAttribute('aria-labelledby')));assert.ok(w.document.getElementById(artifact.getAttribute('aria-describedby')));
 assert.ok($('.concept-diagram').compareDocumentPosition($('.topic-content .worked-example'))&w.Node.DOCUMENT_POSITION_FOLLOWING);

@@ -1,6 +1,6 @@
 # Atomicity, consistency, isolation, and durability
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 29.1 Atomicity, consistency, isolation, and durability
 

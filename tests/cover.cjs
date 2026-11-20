@@ -5,7 +5,7 @@ function setup({hash='',marks=[],legacy,all=false}={}){
  w.confirm=()=>true;w.scrollTo=()=>{};w.matchMedia=()=>({matches:true});w.HTMLElement.prototype.scrollIntoView=function(options){scrolled={id:this.id,options};};w.Worker=class{postMessage(){}terminate(){}};
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
  if(legacy)w.localStorage.setItem('c-foundry-v1',JSON.stringify(legacy));for(const id of marks)w.localStorage.setItem(prefix+id,'true');
- const scripts=['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','app'];
+ const scripts=['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','browser-linux','app'];
  for(const name of scripts){if(name==='completion'&&all)for(const c of w.COURSE.chapters)for(const t of c.topics.filter(t=>!t.optional))w.localStorage.setItem(prefix+c.id+'/'+t.id,'true');w.eval(fs.readFileSync('dist/'+name+'.js','utf8'));}
  return{dom,w,$:id=>w.document.getElementById(id),scroll:()=>scrolled};
 }

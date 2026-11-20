@@ -80,7 +80,7 @@
     updateCompletion();
   }
   function lines(){$('line-numbers').textContent=Array.from({length:$('editor').value.split('\n').length},(_,i)=>i+1).join('\n');$('line-numbers').scrollTop=$('editor').scrollTop;}
-  function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup','workspace'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const readingTopic=next==='preview'&&!!document.querySelector('#preview-content .topic-content');const active=(b.dataset.view==='lab'&&(next==='lab'||readingTopic))||(b.dataset.view==='curriculum'&&(next==='curriculum'||(!readingTopic&&['preview','complexity','setup'].includes(next))));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});const cliNav=document.querySelector('.topbar a[href="#/workspace"]');cliNav?.classList.toggle('active',next==='workspace');cliNav?.setAttribute('aria-current',next==='workspace'?'page':'false');nav();}
+  function showView(next){view=next;['lab','curriculum','capstone','preview','complexity','setup','workspace','linux'].forEach(v=>$(v+'-view').hidden=v!==next);document.querySelectorAll('[data-view]').forEach(b=>{const readingTopic=next==='preview'&&!!document.querySelector('#preview-content .topic-content');const active=(b.dataset.view==='lab'&&(next==='lab'||readingTopic))||(b.dataset.view==='curriculum'&&(next==='curriculum'||(!readingTopic&&['preview','complexity','setup'].includes(next))));b.classList.toggle('active',active);b.setAttribute('aria-current',active?'page':'false');});const cliNav=document.querySelector('.topbar a[href="#/workspace"]');cliNav?.classList.toggle('active',next==='workspace');cliNav?.setAttribute('aria-current',next==='workspace'?'page':'false');const linuxNav=$('linux-nav');linuxNav?.classList.toggle('active',next==='linux');linuxNav?.setAttribute('aria-current',next==='linux'?'page':'false');nav();}
   function sourceFiles(){const l=LESSONS[selected];return Object.fromEntries(Object.entries(l.files||{'main.c':l.code}).map(([name,code])=>[name,name==='main.c'?(state.drafts[l.id]??code):(state.fileDrafts[l.id]?.[name]??code)]));}
   function showFile(name){
     activeFile=name;$('editor').value=sourceFiles()[name];$('editor').scrollTop=0;
@@ -157,6 +157,8 @@
     else if(parts[0]==='capstone')showView('capstone');
     else if(parts[0]==='workspace'){showView('workspace');window.commandWorkspace?.init();}
     else if(parts[0]==='setup')showView('setup');
+    else if(parts[0]==='linux'){showView('linux');try{if(!window.browserLinux.show(parts[1]||'',parts[2]?decodeURIComponent(parts[2]):''))notFound();}catch(_){notFound();}}
+    else if(parts[0]==='tools'&&parts[1]==='threadsanitizer'){$('preview-content').innerHTML=window.browserLinux.tsanPage();showView('preview');}
     else if(parts[0]==='big-o'){window.lessonVisuals.updateComplexity();showView('complexity');}
     else if(parts[0]==='chapter'){
       const chapter=COURSE.chapters.find(c=>c.id===parts[1]),topic=chapter?.topics.find(t=>t.id===parts[2]);

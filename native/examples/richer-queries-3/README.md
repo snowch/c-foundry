@@ -1,6 +1,6 @@
 # Explaining and measuring execution choices
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 43.3 Explaining and measuring execution choices
 

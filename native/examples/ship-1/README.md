@@ -1,12 +1,12 @@
 # End-to-end SQL tests
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 30.1 End-to-end SQL tests
 
 End-to-end tests cross parser, validation, executor, and storage boundaries. Keep earlier unit tests to localize failures.
 
-Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+Also editable and runnable inline in the browser course. Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab.
 
 The fixture inserts through the implemented SQL grammar, selects by key, and rejects an invalid statement before execution. A useful suite checks output rows, status, and persistent logical state after rejected operations. Operators not yet added to the parser grammar remain separate extension exercises rather than silently supported SQL syntax.
 

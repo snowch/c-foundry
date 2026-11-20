@@ -1,6 +1,6 @@
 # File-format documentation and compatibility
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 30.6 File-format documentation and compatibility
 

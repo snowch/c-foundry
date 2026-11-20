@@ -4,10 +4,10 @@ w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){};w.confirm=
 w.fetch=()=>{throw Error('Reading help must not fetch external pages');};
 w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};
 w.Worker=class{postMessage(){}terminate(){}};
-for(const file of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+file+'.js','utf8'));
+for(const file of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','browser-linux','app'])w.eval(fs.readFileSync('dist/'+file+'.js','utf8'));
 const $=selector=>w.document.querySelector(selector),go=path=>{w.history.pushState(null,'','#'+path);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
 assert.equal($('#preview-content h1').textContent,'Finding and reading C documentation');assert.equal($('#chapter-jump').value,'/chapter/first-program/6');
-assert.equal($('#editor').value,w.PART_ONE['first-program'].topics['6'].code);assert.match($('.reading-guide').textContent,/man 3 printf/);assert.match($('.reading-guide').textContent,/man 1 printf/);assert.match($('.reading-guide').textContent,/man -k printf/);assert.match($('.reading-guide').textContent,/SYNOPSIS/);assert.match($('.reading-guide').textContent,/RETURN VALUE/);assert.match($('.reading-guide').textContent,/local Linux terminal/);
+assert.equal($('#editor').value,w.PART_ONE['first-program'].topics['6'].code);assert.match($('.reading-guide').textContent,/man 3 printf/);assert.match($('.reading-guide').textContent,/man 1 printf/);assert.match($('.reading-guide').textContent,/man -k printf/);assert.match($('.reading-guide').textContent,/SYNOPSIS/);assert.match($('.reading-guide').textContent,/RETURN VALUE/);assert.match($('.reading-guide').textContent,/online references/);
 assert.equal($('.lesson-references').open,false);assert.equal($('[data-lesson-complete]').checked,false);
 $('.lesson-references summary').click();assert.equal($('.lesson-references').open,true);assert.equal($('.lesson-references a[href*="man3/printf"]').target,'_blank');assert.match($('.lesson-references a[href*="man3/printf"]').rel,/noopener/);assert.match($('.lesson-references a[href*="man3/printf"]').textContent,/new tab/);
 $('input[name="topic-check"][value="0"]').click();$('[data-topic-check]').click();assert.match($('#topic-feedback').textContent,/Correct/);assert.equal($('[data-lesson-complete]').checked,false);
@@ -29,5 +29,5 @@ for(const chapter of w.COURSE.chapters){
 }
 assert.equal(topics,227);assert.equal(tasks,44);
 const arrayChapter=w.COURSE.chapters.find(c=>c.id==='arrays-strings'),arrayTopic=arrayChapter.topics.find(t=>t.id==='4');assert.ok(w.lessonReferences.get(arrayChapter,arrayTopic,w.PART_ONE['arrays-strings'].topics['4']).links.some(l=>l.id==='strtol'));
-const image=fs.readFileSync('.devcontainer/Dockerfile','utf8');assert.match(image,/man-db manpages-dev less/);assert.match(image,/reinstall coreutils/);assert.match(fs.readFileSync('.github/workflows/pages.yml','utf8'),/make check-help/);
+const image=fs.readFileSync('.github/native/Dockerfile','utf8');assert.match(image,/man-db manpages-dev less/);assert.match(image,/reinstall coreutils/);assert.match(fs.readFileSync('.github/workflows/pages.yml','utf8'),/make check-help/);
 console.log('PASS help lesson, stable links/completion, offline lookup answers, 227 compact reference sections, 44 optional tasks, relevant APIs and native reading parity');dom.window.close();

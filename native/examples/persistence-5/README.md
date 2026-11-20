@@ -1,6 +1,6 @@
 # Browser-backed files, import, and export
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 25.5 Browser-backed files, import, and export
 
@@ -190,7 +190,7 @@ No. The runtime resets its virtual filesystem; a host transfer/storage step is s
 
 </details>
 
-**Try:** Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Codespaces.
+**Try:** Use CLI to build and run the source, download people.tdb, then run ./program import people.tdb. Change a header byte in a copy and check that import rejects it. The native command below offers the same experiment locally or in Browser Linux.
 
 ### References and help
 

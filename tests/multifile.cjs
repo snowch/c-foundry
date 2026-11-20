@@ -5,7 +5,7 @@ function page(saved){
  w.Worker=class{constructor(){worker=this;}postMessage(data){this.request=data;}terminate(){}emit(data){this.onmessage({data});}};
  w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};
  if(saved)w.localStorage.setItem('c-foundry-v1',saved);
- for(const f of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
+ for(const f of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','browser-linux','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
  return {dom,w,$:id=>w.document.getElementById(id),worker:()=>worker};
 }
 let p=page(),{$,w}=p;

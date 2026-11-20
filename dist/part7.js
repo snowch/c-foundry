@@ -25,7 +25,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "2": {
@@ -46,7 +46,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "3": {
@@ -67,7 +67,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       }
     },
@@ -115,7 +115,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "2": {
@@ -136,7 +136,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "3": {
@@ -160,7 +160,7 @@ window.PART_SEVEN = {
           "-O2"
         ],
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "4": {
@@ -304,7 +304,7 @@ window.PART_SEVEN = {
       "tasks": [
         "Implement the checked-arithmetic exercise and preserve the output object after rejection.",
         "Test endpoints, all operand signs, zero divisors, the exceptional quotient, and narrowing limits.",
-        "Run the floating-point probes in Codespaces and document target, rounding mode, finite-value policy, and tolerance assumptions."
+        "Run the floating-point probes in Browser Linux and document target, rounding mode, finite-value policy, and tolerance assumptions."
       ],
       "checks": [
         "Compare integer results against an independent arbitrary-precision oracle before accepting a boundary result.",
@@ -361,7 +361,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "3": {
@@ -382,7 +382,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "4": {
@@ -427,7 +427,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "6": {
@@ -448,7 +448,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "7": {
@@ -469,7 +469,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "8": {
@@ -490,7 +490,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "9": {
@@ -556,7 +556,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "2": {
@@ -595,12 +595,12 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "4": {
         "intro": "Sanitizers observe executed behavior and catch selected invalid operations. Combine them with strict builds, input validation, and independent expectations.",
-        "explanation": "The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. Run with SANITIZE=1 to add AddressSanitizer and UndefinedBehaviorSanitizer in native builds. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support. A clean sanitizer run does not prove encoding compatibility, correct row identity, filesystem case behavior, or safe replacement of an existing file. Keep exact-byte, invalid-input, and failure-preservation assertions in the portability suite. The audit adapter deliberately creates new files exclusively; it does not claim portable atomic replacement.",
+        "explanation": "The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. AddressSanitizer and UndefinedBehaviorSanitizer are optional external tools. In this browser lab, run the independent boundary fixtures with the normal compiler; the hosted image does not require or provide every sanitizer runtime combination. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support. A clean sanitizer run does not prove encoding compatibility, correct row identity, filesystem case behavior, or safe replacement of an existing file. Keep exact-byte, invalid-input, and failure-preservation assertions in the portability suite. The audit adapter deliberately creates new files exclusively; it does not claim portable atomic replacement. <a href=\"#/tools/threadsanitizer\">ThreadSanitizer scope and limitations</a> are covered in an optional reading page.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\nenum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };\nvoid put32(unsigned char *out, uint32_t value) {\n  for (unsigned i = 0; i < 4; ++i)\n    out[i] = (unsigned char)(value >> (8 * i));\n}\nuint32_t get32(const unsigned char *in) {\n  uint32_t value = 0;\n  for (unsigned i = 0; i < 4; ++i)\n    value |= (uint32_t)in[i] << (8 * i);\n  return value;\n}\nbool encode_row(unsigned char *out, const Row *row) {\n  if (!row->id || !memchr(row->name, 0, 32) || !row->name[0])\n    return false;\n  memset(out, 0, ROW_BYTES);\n  put32(out, row->id);\n  memcpy(out + 4, row->name, strlen(row->name));\n  put32(out + 36, row->score);\n  return true;\n}\nbool decode_row(const unsigned char *in, size_t n, Row *out) {\n  if (n != ROW_BYTES || get32(in) == 0 || !memchr(in + 4, 0, 32) || in[4] == 0)\n    return false;\n  Row row = {0};\n  row.id = get32(in);\n  memcpy(row.name, in + 4, 32);\n  row.score = get32(in + 36);\n  *out = row;\n  return true;\n}\nbool save(FILE *f, const Table *table) {\n  unsigned char header[HEADER_BYTES] = {0x54, 0x44,      0x42, 0x31,\n                                        1,    ROW_BYTES, 0,    0};\n  if (table->count > TABLE_CAP)\n    return false;\n  header[6] = (unsigned char)table->count;\n  if (fwrite(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  for (size_t i = 0; i < table->count; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    if (!encode_row(bytes, &table->rows[i]) ||\n        fwrite(bytes, 1, sizeof bytes, f) != sizeof bytes)\n      return false;\n  }\n  return fflush(f) == 0;\n}\nbool load(FILE *f, Table *out) {\n  unsigned char header[HEADER_BYTES];\n  if (fread(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  if (memcmp(header, (const unsigned char[]){0x54, 0x44, 0x42, 0x31}, 4) || header[4] != 1 || header[5] != ROW_BYTES ||\n      header[6] > TABLE_CAP || header[7] != 0)\n    return false;\n  Table table = {.count = 0};\n  for (unsigned i = 0; i < header[6]; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    Row row;\n    if (fread(bytes, 1, sizeof bytes, f) != sizeof bytes ||\n        !decode_row(bytes, sizeof bytes, &row) || insert_row(&table, row) != OK)\n      return false;\n  }\n  if (fgetc(f) != EOF || ferror(f))\n    return false;\n  *out = table;\n  return true;\n}\n\nint main(void) {\n  unsigned char bytes[3] = {0};\n  Row out = {9, \"Keep\", 1};\n  bool rejected = !decode_row(bytes, sizeof bytes, &out);\n  printf(\"short_rejected=%d output_preserved=%d\\n\", rejected,\n         out.id == 9 && strcmp(out.name, \"Keep\") == 0);\n  return 0;\n}\n",
         "expected": "short_rejected=1 output_preserved=1",
         "walkthrough": "Length rejection occurs before get32 reads an ID. The original output object remains valid and unchanged.",
@@ -612,11 +612,11 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "The scope is the actual instrumentation and executions.",
-        "tryit": "Run this example with SANITIZE=1, then add short inputs at every length below the full record size.",
+        "tryit": "In Browser Linux, add short inputs at every length below the full record size and verify output preservation. Read the optional tooling note for sanitizer scope; the browser lab does not require a sanitizer runtime.",
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       },
       "5": {
@@ -647,7 +647,7 @@ window.PART_SEVEN = {
           "label": "Download the shared two-row TDB1 fixture"
         },
         "browser": {
-          "note": "Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
         }
       }
     },

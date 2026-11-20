@@ -1,21 +1,16 @@
 (() => {
-  const CODESPACES='https://codespaces.new/snowch/c-foundry?quickstart=1';
-  const BILLING='https://docs.github.com/en/billing/concepts/product-billing/github-codespaces';
   const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  function label(chapter){return {browser:'Browser lab',both:'Browser + native tools',codespaces:'Native tools'}[chapter.execution.mode];}
+  function label(chapter){return {browser:'Browser lab',both:'Browser lab + Linux terminal',linux:'Browser Linux'}[chapter.execution.mode];}
+  function link(chapter,command=chapter.command){return '#/linux/'+chapter.id+'/'+encodeURIComponent(command);}
   function panel(chapter){
-    const mode=chapter.execution.mode;
-    if(mode==='browser')return `<section class="execution-panel"><h2>Where this lab runs</h2><p>Read and run these examples in your browser.</p><p>${escape(chapter.execution.reason)}</p></section>`;
-    const demo=chapter.nativeDemo;
-    return `<section class="execution-panel" aria-label="Execution environment"><h2>Where this lab runs</h2><p><strong>Read here. ${mode==='both'?'Explore here or build the project in Linux.':chapter.status==='ready'?'Run this example or project in Codespaces or a local dev container.':'Run the planned native lab in Codespaces or a local dev container.'}</strong></p><p>${escape(chapter.execution.reason)}</p>${chapter.status==='ready'?'<p>The source files and command are ready in the repository workspace.</p>':`<p>The chapter is still a preview. Its repository workspace contains the plan${demo?' and links to a runnable foundation':''}.</p>`}<pre class="launch-command"><code>${escape(chapter.command)}</code></pre><div class="launch-actions"><a class="primary-link" data-codespaces-command="${escape(chapter.command)}" href="${CODESPACES}" target="_blank" rel="noopener noreferrer">Open in Codespaces</a><button data-copy-command="${escape(chapter.command)}">Copy command</button><a href="https://github.com/snowch/c-foundry/blob/main/${chapter.workspace}/README.md" target="_blank" rel="noopener noreferrer">View chapter files</a></div><p class="launch-feedback" role="status"></p><p class="supporting">Once your editor opens, paste the command into its terminal. If you already have a Codespace, reuse it from <a href="https://github.com/codespaces" target="_blank" rel="noopener noreferrer">your Codespaces list</a>.</p>${demo?`<details><summary>Available native foundation</summary><p><code>make ${demo}</code> runs ${escape({hello:'a native C greeting',standards:'a compiler and binary-format probe',counter:'mutex-protected and atomic counters',queue:'a bounded producer–consumer queue',tinydb:'a coarse-lock, in-memory TinyDB table'}[demo])}. This is a starting point, not the completed chapter project.</p></details>`:''}<p class="codespaces-cost">Codespaces runs on your own GitHub account and uses its compute and storage allowance. <a href="${BILLING}" target="_blank" rel="noopener noreferrer">Check GitHub’s current terms</a>. Stop it when finished; delete it to release stored workspace usage.</p><p><a href="#/setup">Setup, local development, and saving your work →</a></p></section>`;
+    if(chapter.execution.mode==='browser')return `<section class="execution-panel"><h2>Where this lab runs</h2><p>Edit and run the examples directly in this browser.</p></section>`;
+    return `<section class="execution-panel" aria-label="Execution environment"><h2>Run in Browser Linux</h2><p>Use a Linux terminal in this page for GCC, GDB, threads, and the chapter projects. No account or local installation is required.</p><p>${escape(chapter.execution.reason)}</p><pre class="launch-command"><code>${escape(chapter.command)}</code></pre><div class="launch-actions"><a class="primary-link" data-linux-command="${escape(chapter.command)}" href="${escape(link(chapter))}">Open Browser Linux</a><button data-copy-command="${escape(chapter.command)}">Copy command</button><a href="https://github.com/snowch/c-foundry/blob/main/${escape(chapter.workspace)}/README.md" target="_blank" rel="noopener noreferrer">View source and instructions</a></div><p class="launch-feedback" role="status"></p><p class="supporting">The Linux system loads when you start it. Import the course bundle once per session. Download a work backup before closing or reloading the terminal. <a href="#/setup">Browser environments and saving work →</a></p></section>`;
   }
   document.addEventListener('click',async event=>{
-    const control=event.target.closest('[data-copy-command], [data-codespaces-command]');if(!control)return;
-    const command=control.dataset.copyCommand||control.dataset.codespacesCommand;
+    const control=event.target.closest('[data-copy-command]');if(!control)return;
     const status=control.closest('.execution-panel').querySelector('.launch-feedback');
-    try{await navigator.clipboard.writeText(command);status.textContent='Command copied. Paste it into the Codespaces terminal after startup.';}
-    catch(_){status.textContent='Copy the command shown above and paste it into the Codespaces terminal after startup.';}
-    // The anchor opens normally in the original click gesture; no popup is delayed by clipboard access.
+    try{await navigator.clipboard.writeText(control.dataset.copyCommand);status.textContent='Command copied. Paste it into the Browser Linux terminal after importing the course bundle.';}
+    catch(_){status.textContent='Copy the command shown above and paste it into Browser Linux after importing the course bundle.';}
   });
-  window.courseExecution={label,panel,url:CODESPACES};
+  window.courseExecution={label,panel,link,url:'#/linux'};
 })();

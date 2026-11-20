@@ -338,7 +338,7 @@ window.PART_TWO = {
           "main.c": "#include <stdio.h>\n#include \"operations.h\"\n\nint main(void) {\n    printf(\"%d\\n\", twice(21));\n    return 0;\n}\n"
         },
         "browser": {
-          "note": "Run here, or use the native command below with your own C toolchain."
+          "note": "Run here, or use Browser Linux for a full GCC build."
         }
       },
       "2": {
@@ -364,7 +364,7 @@ window.PART_TWO = {
           "main.c": "#include <stdio.h>\n#include \"counter.h\"\n\nint main(void) {\n    tick();\n    tick();\n    printf(\"calls=%d private=%d\\n\", operations, read_private());\n    return 0;\n}\n"
         },
         "browser": {
-          "note": "Run here, or use the native command below with your own C toolchain."
+          "note": "Run here, or use Browser Linux for a full GCC build."
         }
       },
       "3": {
@@ -389,7 +389,7 @@ window.PART_TWO = {
           "main.c": "#include <stdio.h>\n#include \"scale.h\"\n#include \"scale.h\"\n\nint main(void) {\n    printf(\"%d\\n\", scale(7));\n    return 0;\n}\n"
         },
         "browser": {
-          "note": "Run here, or use the native command below with your own C toolchain."
+          "note": "Run here, or use Browser Linux for a full GCC build."
         }
       },
       "4": {
@@ -410,7 +410,7 @@ window.PART_TWO = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run here, or use the native command below with your own C toolchain."
+          "note": "Run here, or use Browser Linux for a full GCC build."
         }
       },
       "5": {
@@ -431,7 +431,7 @@ window.PART_TWO = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run here, or use the native command below with your own C toolchain."
+          "note": "Run here, or use Browser Linux for a full GCC build."
         }
       }
     }
@@ -484,7 +484,7 @@ window.PART_TWO = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run here, or use the native command below with your own C toolchain."
+          "note": "Run here, or use Browser Linux for a full GCC build."
         }
       },
       "3": {
@@ -505,7 +505,7 @@ window.PART_TWO = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "Run here, or use the native command below with your own C toolchain."
+          "note": "Run here, or use Browser Linux for a full GCC build."
         }
       },
       "4": {
@@ -513,7 +513,7 @@ window.PART_TWO = {
         "explanation": "Validate external inputs before use, and use assertions to document internal invariants while developing. A debugger can show values, call stacks, and control flow, but an observed run cannot turn an invalid operation into a guarantee. Build with debug information and warnings. Keep required behavior outside assert, because NDEBUG can remove assertions. The example’s caller explicitly validates the index before calling the helper.",
         "code": "#include <stdio.h>\n#include <assert.h>\n\nint at(const int *values, size_t count, size_t index) {\n    assert(values != NULL);\n    assert(index < count);\n    return values[index];\n}\n\nint main(void) {\n    const int values[] = {4, 8, 12};\n    size_t index = 2;\n    if (index >= 3) return 1;\n    printf(\"%d\\n\", at(values, 3, index));\n    return 0;\n}\n",
         "expected": "12",
-        "walkthrough": "The runtime guard protects the external boundary, while the assertions express assumptions inside at. The program accesses a live array element. To investigate in Codespaces, build with -g, set a breakpoint in at using GDB, and inspect values, count, and index before continuing.",
+        "walkthrough": "The runtime guard protects the external boundary, while the assertions express assumptions inside at. The program accesses a live array element. To investigate in Browser Linux, build with -g, set a breakpoint in at using GDB, and inspect values, count, and index before continuing.",
         "pitfall": "A dangling pointer is not safe because its address is non-null. Likewise, changing optimization settings may expose a bug, but does not make undefined behavior valid at another setting.",
         "question": "Should an assertion be the only validation of untrusted input?",
         "choices": [
@@ -526,7 +526,7 @@ window.PART_TWO = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains."
+          "note": "This program runs with the browser’s fixed C17 toolchain. Use Browser Linux for compiler warnings and GCC/Clang comparisons; optional sanitizer tooling is described separately."
         }
       },
       "5": {
@@ -534,7 +534,7 @@ window.PART_TWO = {
         "explanation": "The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. Use them on native builds: the page’s Wasm runner is not providing these native sanitizer runtimes.",
         "code": "#include <stdio.h>\n#include <string.h>\n#include <stdbool.h>\n\nbool copy_checked(char *destination, size_t capacity, const char *source) {\n    size_t length = strlen(source);\n    if (length >= capacity) return false;\n    memcpy(destination, source, length + 1);\n    return true;\n}\n\nint main(void) {\n    char small[4];\n    printf(\"short=%s\\n\", copy_checked(small, sizeof small, \"Ada\") ? \"ok\" : \"rejected\");\n    printf(\"too-long=%s\\n\", copy_checked(small, sizeof small, \"Grace\") ? \"ok\" : \"rejected\");\n    return 0;\n}\n",
         "expected": "short=ok\ntoo-long=rejected",
-        "walkthrough": "Ada needs exactly four chars with its terminator and fits. Grace does not, so the helper returns without copying it. In Codespaces, run this example with SANITIZE=1 and compare GCC and Clang builds. Keep a passing test distinct from evidence about paths that have not executed.",
+        "walkthrough": "Ada needs four characters including its terminator and fits; Grace does not, so the helper returns without copying it. Add independent capacity-boundary checks and compare GCC and Clang in Browser Linux. Sanitizer scope is covered in the optional tooling reading.",
         "pitfall": "Sanitizers have coverage and platform limits. They do not generally prove ownership, absence of logical errors, or race freedom; concurrency needs additional tools and reasoning.",
         "question": "Does a sanitizer-clean run prove there are no bugs?",
         "choices": [
@@ -543,11 +543,11 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "It checks the executed behavior for the classes of problems that sanitizer can detect.",
-        "tryit": "Run make example EXAMPLE=files-bytes-5 SANITIZE=1, then add a destination-capacity boundary case.",
+        "tryit": "Run make example EXAMPLE=files-bytes-5 in Browser Linux, then add a destination-capacity boundary case and verify that rejection preserves the destination.",
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains."
+          "note": "This program runs with the browser’s fixed C17 toolchain. Use Browser Linux for compiler warnings and GCC/Clang comparisons; optional sanitizer tooling is described separately."
         }
       },
       "6": {
@@ -572,7 +572,7 @@ window.PART_TWO = {
         }
       },
       "7": {
-        "intro": "Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Codespaces or local Linux.",
+        "intro": "Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Browser Linux.",
         "explanation": "A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with <code>-g -O0</code> so source locations and variables are easier to follow. Browser-only learners can skip the native session and continue to algorithms.",
         "code": "/* Deliberately faulty lab starter. All accesses stay within the array. */\n#include <stddef.h>\n#include <stdio.h>\n#include <string.h>\n\n/* The caller supplies a live array and values whose sum fits in int. */\nint sum_values(const int *values, size_t count) {\n    int total = 0;\n    for (size_t i = 1; i < count; ++i) {\n        total += values[i];\n    }\n    return total;\n}\n\nint main(int argc, char **argv) {\n    const int ordinary[] = {4, 8, 12};\n    const int single[] = {7};\n    const int negative[] = {-5, 2, 1};\n    const int *values = ordinary;\n    size_t count = sizeof ordinary / sizeof ordinary[0];\n    if (argc > 1 && strcmp(argv[1], \"single\") == 0) {\n        values = single;\n        count = 1;\n    } else if (argc > 1 && strcmp(argv[1], \"empty\") == 0) {\n        count = 0;\n    } else if (argc > 1 && strcmp(argv[1], \"negative\") == 0) {\n        values = negative;\n        count = sizeof negative / sizeof negative[0];\n    }\n    int result = sum_values(values, count);\n    printf(\"total=%d\\n\", result);\n    return 0;\n}\n",
         "expected": "total=20",
@@ -602,7 +602,7 @@ window.PART_TWO = {
             },
             {
               "title": "Open real GDB",
-              "body": "Run this in the Codespaces or local Linux terminal, not the browser CLI. GDB stops inside sum_values before the total initializer.",
+              "body": "Run this in the full Browser Linux terminal. GDB stops inside sum_values before the total initializer.",
               "command": "make debug-gdb LAB=basics"
             },
             {

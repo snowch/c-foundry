@@ -1,14 +1,14 @@
 # Sanitizers and portability checks
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 34.4 Sanitizers and portability checks
 
 Sanitizers observe executed behavior and catch selected invalid operations. Combine them with strict builds, input validation, and independent expectations.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
-The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. Run with SANITIZE=1 to add AddressSanitizer and UndefinedBehaviorSanitizer in native builds. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support. A clean sanitizer run does not prove encoding compatibility, correct row identity, filesystem case behavior, or safe replacement of an existing file. Keep exact-byte, invalid-input, and failure-preservation assertions in the portability suite. The audit adapter deliberately creates new files exclusively; it does not claim portable atomic replacement.
+The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. AddressSanitizer and UndefinedBehaviorSanitizer are optional external tools. In this browser lab, run the independent boundary fixtures with the normal compiler; the hosted image does not require or provide every sanitizer runtime combination. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support. A clean sanitizer run does not prove encoding compatibility, correct row identity, filesystem case behavior, or safe replacement of an existing file. Keep exact-byte, invalid-input, and failure-preservation assertions in the portability suite. The audit adapter deliberately creates new files exclusively; it does not claim portable atomic replacement. [ThreadSanitizer scope and limitations](https://snowch.github.io/c-foundry/#/tools/threadsanitizer) are covered in an optional reading page.
 
 ### main.c
 
@@ -167,7 +167,7 @@ No selected violation was detected on exercised paths. The scope is the actual i
 
 </details>
 
-**Try:** Run this example with SANITIZE=1, then add short inputs at every length below the full record size.
+**Try:** In Browser Linux, add short inputs at every length below the full record size and verify output preservation. Read the optional tooling note for sanitizer scope; the browser lab does not require a sanitizer runtime.
 
 ### References and help
 

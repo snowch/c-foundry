@@ -1,6 +1,6 @@
 # A portable core and explicit host adapters
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 33.4 A portable core and explicit host adapters
 

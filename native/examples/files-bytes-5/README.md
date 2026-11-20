@@ -1,12 +1,12 @@
 # Testing, sanitizers, portability, and browser runtime limits
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 10.5 Testing, sanitizers, portability, and browser runtime limits
 
 Combine tests with compiler diagnostics, sanitizers, and portability checks. Each tool detects a different set of mistakes; none is a proof that a program is correct.
 
-Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use the native command below for compiler warnings, sanitizer checks, and comparisons between toolchains.
+Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use Browser Linux for compiler warnings and GCC/Clang comparisons; optional sanitizer tooling is described separately.
 
 The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. Use them on native builds: the page’s Wasm runner is not providing these native sanitizer runtimes.
 
@@ -39,7 +39,7 @@ short=ok
 too-long=rejected
 ```
 
-Ada needs exactly four chars with its terminator and fits. Grace does not, so the helper returns without copying it. In Codespaces, run this example with SANITIZE=1 and compare GCC and Clang builds. Keep a passing test distinct from evidence about paths that have not executed.
+Ada needs four characters including its terminator and fits; Grace does not, so the helper returns without copying it. Add independent capacity-boundary checks and compare GCC and Clang in Browser Linux. Sanitizer scope is covered in the optional tooling reading.
 
 **Watch for:** Sanitizers have coverage and platform limits. They do not generally prove ownership, absence of logical errors, or race freedom; concurrency needs additional tools and reasoning.
 
@@ -54,7 +54,7 @@ No. It checks the executed behavior for the classes of problems that sanitizer c
 
 </details>
 
-**Try:** Run make example EXAMPLE=files-bytes-5 SANITIZE=1, then add a destination-capacity boundary case.
+**Try:** Run make example EXAMPLE=files-bytes-5 in Browser Linux, then add a destination-capacity boundary case and verify that rejection preserves the destination.
 
 ### References and help
 

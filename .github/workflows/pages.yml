@@ -56,8 +56,8 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
-      - name: Build the Codespaces toolchain image
-        run: docker build -f .devcontainer/Dockerfile -t c-foundry-native .
+      - name: Build the CI toolchain image
+        run: docker build -f .github/native/Dockerfile -t c-foundry-native .
       - name: Test native foundations with GCC, Clang, and sanitizers
         run: |
           docker run --rm --user "$(id -u):$(id -g)" \

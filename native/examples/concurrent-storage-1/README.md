@@ -1,12 +1,12 @@
 # C11 threading facilities versus POSIX threads
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 38.1 C11 threading facilities versus POSIX threads
 
 C11 threads and POSIX threads are separate APIs with different names and availability rules. Choose an adapter boundary rather than mixing their handles.
 
-This fixture uses the standard threads.h interface on the Codespaces toolchain. thrd_create and thrd_join report thrd_success, and a worker returns an int result. Implementations may lack the optional threading facility; the feature guard makes that requirement explicit. The rest of this course’s Linux queue examples use pthreads and do not claim their types are interchangeable.
+This fixture uses the standard threads.h interface on the Browser Linux toolchain. thrd_create and thrd_join report thrd_success, and a worker returns an int result. Implementations may lack the optional threading facility; the feature guard makes that requirement explicit. The rest of this course’s Linux queue examples use pthreads and do not claim their types are interchangeable.
 
 ### main.c
 

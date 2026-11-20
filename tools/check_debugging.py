@@ -12,7 +12,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parent.parent
 compiler = sys.argv[1] if len(sys.argv) > 1 else 'gcc'
 if not shutil.which('gdb'):
-    raise SystemExit('GDB is required for check-debugging; use the course dev container.')
+    raise SystemExit('GDB is required for check-debugging; use the course CI container.')
 
 def command(arguments, code=0):
     result = subprocess.run(arguments, cwd=ROOT, text=True, capture_output=True, timeout=60, check=False, env={**os.environ, 'LC_ALL': 'C'})

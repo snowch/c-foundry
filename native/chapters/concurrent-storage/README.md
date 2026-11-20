@@ -14,7 +14,7 @@ Put a bounded queue between callers and a single storage owner, with a shutdown 
 
 C11 threads and POSIX threads are separate APIs with different names and availability rules. Choose an adapter boundary rather than mixing their handles.
 
-This fixture uses the standard threads.h interface on the Codespaces toolchain. thrd_create and thrd_join report thrd_success, and a worker returns an int result. Implementations may lack the optional threading facility; the feature guard makes that requirement explicit. The rest of this course’s Linux queue examples use pthreads and do not claim their types are interchangeable.
+This fixture uses the standard threads.h interface on the Browser Linux toolchain. thrd_create and thrd_join report thrd_success, and a worker returns an int result. Implementations may lack the optional threading facility; the feature guard makes that requirement explicit. The rest of this course’s Linux queue examples use pthreads and do not claim their types are interchangeable.
 
 ### main.c
 
@@ -411,7 +411,7 @@ make example EXAMPLE=concurrent-storage-3
 
 Shutdown must wake blocked participants and decide what happens to already accepted work. Cooperative closure is easier to reason about than abrupt cancellation.
 
-The queue’s close flag rejects future puts and lets takes drain existing items before returning false. Both condition variables are broadcast so blocked producers and consumers recheck their predicates. All workers join before mutex and condition-variable destruction. The fixture repeats startup and shutdown to expose lifecycle mistakes without using scheduling sleeps.
+The queue’s close flag rejects future puts and lets takes drain existing items before returning false. Both condition variables are broadcast so blocked producers and consumers recheck their predicates. All workers join before mutex and condition-variable destruction. The fixture repeats startup and shutdown to expose lifecycle mistakes without using scheduling sleeps. [Read the optional ThreadSanitizer note](https://snowch.github.io/c-foundry/#/tools/threadsanitizer) for detector scope and limitations; this is not an extra lab.
 
 ### main.c
 
@@ -553,7 +553,7 @@ After every accessing worker has finished. A woken or draining worker may still 
 
 </details>
 
-**Try:** Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks; run ThreadSanitizer where supported.
+**Try:** Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks in Browser Linux. The optional ThreadSanitizer reading explains a complementary external tool; it is not required to complete this chapter.
 
 ### References and help
 

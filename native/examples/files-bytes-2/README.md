@@ -1,12 +1,12 @@
 # Fixed-width integers, bitwise operations, and masks
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 10.2 Fixed-width integers, bitwise operations, and masks
 
 Bitwise operators manipulate the representation of unsigned values. Use them to define flags and packed fields deliberately, with shifts constrained to the type’s width.
 
-Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+Also editable and runnable inline in the browser course. Run here, or use Browser Linux for a full GCC build.
 
 OR sets mask bits, AND selects them, XOR toggles them, and complement inverts them. Fixed-width uint32_t is available on our target platforms; its existence is a format requirement, not a promise for every imaginable C implementation. Use a suitably typed unsigned left operand for shifts and keep the shift count below the width. inttypes.h supplies portable printf format macros for fixed-width types.
 

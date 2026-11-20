@@ -1,12 +1,12 @@
 # Benchmarks across growing datasets
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 30.4 Benchmarks across growing datasets
 
 Benchmark across growing data while retaining correctness checks and separating setup from the measured operation.
 
-Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+Also editable and runnable inline in the browser course. Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab.
 
 The deterministic fixture counts absent-key scan comparisons for two sizes. A native timing harness should create data before timing, use a monotonic clock where available, repeat sufficiently, and report distributions with compiler and machine details. The current eight-row table is a teaching bound, so larger benchmark datasets require an intentionally expanded storage implementation.
 

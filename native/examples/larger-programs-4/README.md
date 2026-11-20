@@ -1,12 +1,12 @@
 # Function pointers and callbacks
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 9.4 Function pointers and callbacks
 
 A function pointer lets a caller supply behavior through a typed interface. A callback is a function passed for another component to call according to a documented contract.
 
-Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+Also editable and runnable inline in the browser course. Run here, or use Browser Linux for a full GCC build.
 
 qsort receives a comparison callback. Its two arguments designate elements, and its result must be negative, zero, or positive according to their ordering. The callback converts each void pointer back to the correct element type before reading it. The function signature and element-size argument must match the actual array. The standard does not promise a particular sorting algorithm or stability.
 

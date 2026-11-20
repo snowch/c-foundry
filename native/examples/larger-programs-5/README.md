@@ -1,12 +1,12 @@
 # Interfaces, ownership contracts, and error reporting
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 9.5 Interfaces, ownership contracts, and error reporting
 
 A usable interface explains more than parameter types. State what it borrows, what it owns, how it reports failure, and what its outputs mean after failure.
 
-Also editable and runnable inline in the browser course. Run here, or use the native command below with your own C toolchain.
+Also editable and runnable inline in the browser course. Run here, or use Browser Linux for a full GCC build.
 
 copy_name borrows a valid source string and returns a separately allocated owner through out on success. It sets a supplied output slot to NULL before a failure is possible, making the cleanup policy predictable. Distinct status values distinguish invalid arguments from allocation failure. The output slot must not already be the caller’s only owner of another allocation: overwriting that owner would leak it.
 

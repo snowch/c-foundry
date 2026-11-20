@@ -1,7 +1,7 @@
 # Optional Part 2 lab: Debugging C with GDB
 
 Read the lesson in any browser: https://snowch.github.io/c-foundry/#/chapter/files-bytes/7.
-Run this lab in GitHub Codespaces (GDB is preinstalled), a local Linux dev container, or Linux/WSL with GCC or Clang, GDB, Make, and Python 3. It is optional: browser-only learners can continue to Part 3. The browser Wasm runner does not provide this GDB session.
+Run this lab in Browser Linux (GDB is preinstalled), a CI container, or Linux/WSL with GCC or Clang, GDB, Make, and Python 3. It is optional: browser-only learners can continue to Part 3. The browser Wasm runner does not provide this GDB session.
 
 ## Investigate before editing
 
@@ -57,4 +57,4 @@ make debug-check LAB=basics REFERENCE=1
 
 That checks the separate reference; it does not complete the student starter. Lab binaries and unique session directories live under `.build/debugging/basics/`. Every invocation preserves earlier sessions. `make clean` removes those artifacts, not source edits.
 
-If GDB cannot launch a child process in a restricted container, use the supplied Codespaces dev container or a local Linux session with debugging permitted. A working native terminal alone does not guarantee ptrace is available. The GDB environment command is not a command for the browser CLI.
+If GDB cannot launch a child process in a restricted container, use the supplied Browser Linux CI container or a local Linux session with debugging permitted. A working native terminal alone does not guarantee ptrace is available. The GDB environment command is not a command for the browser CLI.

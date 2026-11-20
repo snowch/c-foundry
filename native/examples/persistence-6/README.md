@@ -1,6 +1,6 @@
 # Testing truncated and corrupt input
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 25.6 Testing truncated and corrupt input
 

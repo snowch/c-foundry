@@ -55,7 +55,7 @@ elif args.exercise or args.example:
         print('Retained program files:', ROOT / '.build/files' / selected)
     raise SystemExit(int(failed))
 else:
-    print('C Foundry native workspace\n')
+    print('C Foundry Browser Linux workspace\n')
     print('make check-native          Test the five runnable foundations')
     print('make check-native-clang    Repeat with Clang')
     print('make standards-matrix      Compare language modes and a C23 feature')
@@ -64,7 +64,7 @@ else:
     print('make exercise EXERCISE=hello  Compile your editable exercise and check output')
     print('make example EXAMPLE=values-1  Run a complete authored example')
     print('make project PROJECT=record-store  Run your Part 2 project checks')
-    print('make check-examples        Compile and run all 226 authored programs')
+    print('make check-examples        Compile and run all 227 authored programs')
     print('make debug-lab LAB=basics   Optional GDB investigation; use LAB=tinydb for repair')
     print('make debug-gdb LAB=basics   Launch the guided GDB session')
     print('make debug-check LAB=basics  Run student regression checks (initially fail)')

@@ -7,7 +7,7 @@ This is a complete, deliberately bounded portability slice of TinyDB, not anothe
 
 ## Run the same checks on different hosts
 
-From the repository root in Codespaces or local Linux/macOS:
+From the repository root in Browser Linux or local Linux/macOS:
 
 ```sh
 make check-portability
@@ -66,4 +66,4 @@ ISO C includes `signal()`, but POSIX `sigaction`, masks, process groups, `fork`,
 4. Design a replacement interface with explicit guarantees and implement separate POSIX and Win32 adapters. Add ordinary failure injection before attempting crash-recovery claims.
 5. Inspect both producer and consumer reports in Actions; explain what cross-host file exchange establishes and what it does not.
 
-The shared suite is `tools/check_portability.py`. `--artifacts DIR` exports verified files; `--incoming DIR` verifies database artifacts downloaded from all four producers. Reports and binaries live under `.build/portability/`; `make clean` removes them. Retain any audit evidence you want to keep before cleaning or deleting a Codespace.
+The shared suite is `tools/check_portability.py`. `--artifacts DIR` exports verified files; `--incoming DIR` verifies database artifacts downloaded from all four producers. Reports and binaries live under `.build/portability/`; `make clean` removes them. Export any audit evidence you want to keep before cleaning or ending the Browser Linux session.

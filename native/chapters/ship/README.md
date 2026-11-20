@@ -14,7 +14,7 @@ Turn the small database into a reproducible learning release with contract tests
 
 End-to-end tests cross parser, validation, executor, and storage boundaries. Keep earlier unit tests to localize failures.
 
-Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+Also editable and runnable inline in the browser course. Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab.
 
 The fixture inserts through the implemented SQL grammar, selects by key, and rejects an invalid statement before execution. A useful suite checks output rows, status, and persistent logical state after rejected operations. Operators not yet added to the parser grammar remain separate extension exercises rather than silently supported SQL syntax.
 
@@ -278,7 +278,7 @@ make example EXAMPLE=ship-1
 
 Property tests compare many generated operation sequences with a simpler reference model. Parser fuzzing asks whether arbitrary bounded input is handled safely.
 
-Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+Also editable and runnable inline in the browser course. Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab.
 
 The fixture generates bounded strings with a fixed seed and passes them to the parser. It checks memory-safe completion under the selected compiler and can be rerun under sanitizers. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found.
 
@@ -518,7 +518,7 @@ No. Only finitely many generated paths were exercised.
 
 </details>
 
-**Try:** Run with SANITIZE=1, add token-length boundaries, and retain every discovered failure as a deterministic regression case.
+**Try:** Add token-length boundaries in Browser Linux and retain every discovered failure as a deterministic regression case. Optional sanitizer tooling is described separately.
 
 ### References and help
 
@@ -535,7 +535,7 @@ make example EXAMPLE=ship-2
 
 Fault injection makes rare failure paths repeatable. Test exactly where the protocol permits acknowledged state to survive.
 
-Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+Also editable and runnable inline in the browser course. Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab.
 
 For each possible byte cut in a single transaction log, the reference expectation is zero before the full COMMIT record and 42 afterward. The loop tests every prefix from zero through 24 bytes. This is an interruption model; it does not simulate all filesystem reorderings, device failures, or checksum-valid corruption.
 
@@ -666,7 +666,7 @@ make example EXAMPLE=ship-3
 
 Benchmark across growing data while retaining correctness checks and separating setup from the measured operation.
 
-Also editable and runnable inline in the browser course. Run the deterministic fixture here. Sanitizers, native timing measurements, and compiler comparisons use the native toolchain below.
+Also editable and runnable inline in the browser course. Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab.
 
 The deterministic fixture counts absent-key scan comparisons for two sizes. A native timing harness should create data before timing, use a monotonic clock where available, repeat sufficiently, and report distributions with compiler and machine details. The current eight-row table is a teaching bound, so larger benchmark datasets require an intentionally expanded storage implementation.
 
@@ -1277,11 +1277,11 @@ make example EXAMPLE=ship-7
 
 Use GDB to explain two data-integrity failures in a deliberately broken copy of the real TinyDB CLI, then verify the repair after reopening its database file.
 
-A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the <a href="#/chapter/files-bytes/7">optional Part 2 GDB lab</a> first, or skip this native workshop.
+A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the [optional Part 2 GDB lab](https://snowch.github.io/c-foundry/#/chapter/files-bytes/7) first, or skip this native workshop.
 
 ## Optional repair workshop: a broken TinyDB (optional)
 
-Run in Codespaces or local Linux with GDB; the browser CLI does not provide GDB. Starter checks initially fail on purpose. Guide and editable source: `native/debugging/tinydb`.
+Run in the Browser Linux terminal with GDB; the browser CLI does not provide GDB. Starter checks initially fail on purpose. Guide and editable source: `native/debugging/tinydb`.
 
 ```sh
 make debug-lab LAB=tinydb

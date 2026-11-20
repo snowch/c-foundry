@@ -17,7 +17,7 @@ Audit C’s behavior and numeric boundaries: conversions, checked arithmetic, ex
 
 Different kinds of latitude in C require different responses. Undefined behavior is not just another documented platform choice.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
 Defined behavior follows the language contract. Implementation-defined behavior requires an implementation’s documented choice, such as relevant integer characteristics. Unspecified behavior permits a set of allowed choices without requiring the same choice every time, such as many operand evaluation orders. Undefined behavior imposes no requirements. The executable uses defined operations and reports a guaranteed minimum property, avoiding deliberate invalid accesses.
 
@@ -86,7 +86,7 @@ make example EXAMPLE=c-guarantees-1
 
 A pointer’s numeric appearance does not establish alignment, type compatibility, or object lifetime. Use character access and memcpy for representation transfers.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
 The example copies an unsigned integer’s object representation into an unsigned-char array and back into a compatible object. Access through unsigned char may inspect object bytes; casting arbitrary byte storage to a wider pointer can violate alignment and effective-type rules. None of these operations extend an object’s lifetime or permit access after free.
 
@@ -150,7 +150,7 @@ make example EXAMPLE=c-guarantees-2
 
 Optimizers may transform valid programs while preserving their required observable behavior. They need not preserve a guessed result after undefined behavior.
 
-Also editable and runnable inline in the browser course. Run this probe with the browser’s fixed C17 toolchain. Its results describe that target only. Use the native command and setup guide for other compilers, language modes, optimization flags, and sanitizer checks.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
 
 The fixture uses unsigned fixed-width arithmetic with a defined wrap result and a bounded representable sum. Compile it at multiple optimization levels and compare those outputs. If a different program changes behavior under optimization, audit its language contracts, races, and uninitialized state before treating the difference as an optimizer bug.
 
@@ -746,7 +746,7 @@ Audit numeric assumptions and implement a checked arithmetic interface with boun
 
 1. Implement the checked-arithmetic exercise and preserve the output object after rejection.
 2. Test endpoints, all operand signs, zero divisors, the exceptional quotient, and narrowing limits.
-3. Run the floating-point probes in Codespaces and document target, rounding mode, finite-value policy, and tolerance assumptions.
+3. Run the floating-point probes in Browser Linux and document target, rounding mode, finite-value policy, and tolerance assumptions.
 
 ### Check your work
 

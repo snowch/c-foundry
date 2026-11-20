@@ -1,6 +1,6 @@
 # Free-page reuse, compaction, and integrity checking
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 42.3 Free-page reuse, compaction, and integrity checking
 

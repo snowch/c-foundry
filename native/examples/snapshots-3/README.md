@@ -1,6 +1,6 @@
 # Visibility rules and reclaiming old versions
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 41.3 Visibility rules and reclaiming old versions
 

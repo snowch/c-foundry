@@ -1,6 +1,6 @@
 # Acquire/release through concrete examples
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 37.3 Acquire/release through concrete examples
 

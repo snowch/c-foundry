@@ -1,6 +1,6 @@
 # Defining and testing an isolation contract
 
-Complete native example, ready to edit and run in Codespaces or locally.
+Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 40.3 Defining and testing an isolation contract
 

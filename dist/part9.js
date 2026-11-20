@@ -496,7 +496,7 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "A preserved fixture prevents the same defect from quietly returning.",
-        "tryit": "Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
+        "tryit": "Run the complete course examples with both available compilers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
         "input": "",
         "runtime": "native",
         "browser": {
