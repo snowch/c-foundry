@@ -8,6 +8,14 @@ Floating-point underflow is a loss of tiny-magnitude range or precision, not uns
 
 DBL_MIN is the smallest positive normal double, not the most negative value and not the smallest positive subnormal. On the explicitly required binary64 target with gradual underflow, nextafter(0,1) produces the smallest positive representable value. This experiment uses specified math-library functions to scale values, establishes round-to-nearest, and classifies results. A sufficiently small result rounds to zero; subnormals are finite but have less relative precision. errno and floating exceptions have math_errhandling-dependent contracts, so classification and application policy must not assume every implementation reports them identically.
 
+### Tiny positive results can become subnormal or zero
+
+Binary64 gradual underflow extends below DBL_MIN without unsigned-style wraparound.
+
+Read the boxes in increasing value, starting at zero. Zero is followed by the smallest positive subnormal, two to the power minus one thousand seventy-four. Half of DBL_MIN is two to the power minus one thousand twenty-three and remains subnormal. DBL_MIN is two to the power minus one thousand twenty-two and is the smallest positive normal binary64 double. Halving the smallest positive subnormal rounds to zero under round-to-nearest. The picture shows value categories, not proportional distances.
+
+The experiment requires binary64, gradual subnormals, and round-to-nearest. Boxes are not to scale; the C classification functions determine the printed results.
+
 ### main.c
 
 ```c

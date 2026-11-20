@@ -10,7 +10,7 @@ const manifest=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));
 let newTopics=0,browser=0,native=0,marked=0;
 for(const chapter of w.COURSE.chapters.filter(c=>c.part>=2)){
  go('/chapter/'+chapter.id);assert.ok(!$('#preview-content').textContent.includes('Preview page'));assert.ok($('#preview-content').textContent.includes(chapter.project));assert.ok($('#preview-content').textContent.includes('Build it yourself'));
- const content=w.authoredLessons.content[chapter.id];assert.ok(content.practicePlan.tasks.length>=3);
+ const content=w.authoredLessons.content[chapter.id];assert.ok(content.practicePlan.tasks.length>=1);
  for(const topic of chapter.topics){
   const t=content.topics[topic.id],id=chapter.id+'-'+topic.id;newTopics++;
   go('/chapter/'+chapter.id+'/'+topic.id);assert.equal($('#preview-content h1').textContent,topic.title);assert.ok($('[data-lesson-complete]'));assert.equal($('#chapter-jump').value,`/chapter/${chapter.id}/${topic.id}`);

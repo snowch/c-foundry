@@ -6,9 +6,9 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 A release suite should combine targeted regressions, generated input, and failure-boundary tests while stating what remains untested.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
-This fixture checks all 25 prefixes of a transaction log, every too-short row length, and 256 deterministic bounded parser inputs. It preserves the distinction between format validation, recovery semantics, and parser robustness. Concurrency schedule tests and ThreadSanitizer belong alongside these checks; no finite run proves all schedules, all storage reorderings, or production reliability.
+This fixture checks all 25 prefixes of a transaction log, every too-short row length, and 256 deterministic bounded parser inputs. It preserves the distinction between format validation, recovery semantics, and parser robustness. Add concurrency schedule tests in Browser Linux. ThreadSanitizer is optional external tooling; no finite run proves all schedules, all storage reorderings, or production reliability.
 
 ### main.c
 

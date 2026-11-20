@@ -14,7 +14,7 @@ Separate transaction visibility from durable acknowledgement. Model interrupted 
 
 Atomicity, consistency, isolation, and durability describe different obligations. Name which ones an implementation actually provides.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The copy-on-begin transaction model keeps uncommitted changes in a private working table, providing an all-or-nothing publication step for this single-threaded fixture. Table operations enforce schema consistency. It provides neither concurrent isolation nor crash durability by itself; those need synchronization and a persistence protocol. A process-local struct assignment is not a durable commit.
 
@@ -162,7 +162,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 A single-writer transaction model serializes mutations and simplifies conflict handling. The restriction must be enforced by the caller or service.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 begin refuses to start another transaction using the same active handle, but the model has no global lock. A real multi-client service must route all writers through one owner or protect admission with synchronization. Readers also need a contract about whether they see committed state or a working copy.
 
@@ -308,7 +308,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 BEGIN establishes a working state, COMMIT publishes it under the model’s contract, and ROLLBACK discards it. Repeated or out-of-order commands need defined failures.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The fixture commits one score update and then rolls back another. In this bounded single-threaded model, readers of live state see only the committed value. A production commit must also handle log failures and durable acknowledgement; copying the table here teaches state transition semantics only.
 
@@ -601,7 +601,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Recovery should apply committed transactions and ignore an incomplete final transaction. Test every interruption boundary rather than only whole-record cuts.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The bounded redo model scans complete eight-byte records, retains tentative state until a matching COMMIT, and stops at invalid structure. A short tail is ignored. SET stores the final value rather than an increment, making replay idempotent for the same log and base. This format has no checksum, so it cannot reliably detect every bit flip that still forms a valid record.
 
@@ -726,7 +726,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Browser persistence APIs have their own atomicity and completion contracts. A native filesystem protocol cannot simply be assumed to transfer to browser storage.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The executable model illustrates a complete versus interrupted commit boundary. In a browser host, IndexedDB transactions or OPFS operations need an explicit integration layer, quota/error handling, and documented acknowledgement rules. localStorage lesson marks and downloadable files are useful product features but are not a write-ahead-log durability mechanism for the C program. Inline lesson runs keep program files temporary. The command workspace saves files between successful runs through its browser storage layer; that file transfer does not implement a C write-ahead log or prove recovery after power loss.
 
@@ -839,15 +839,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Recover committed changes after simulated interruptions.
 
-1. Separate transaction visibility from durable acknowledgement. Model interrupted log prefixes and preserve committed state.
-2. Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.
+2. List expected values for all 25 prefixes of the 24-byte log, then add a second committed transaction and a torn third one.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check only complete matching commits change the recovered value. Keep browser-host persistence design separate from this in-memory replay test.
 
 Baseline command (checks original output, not every extension):
 

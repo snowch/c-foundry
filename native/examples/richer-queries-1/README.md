@@ -4,9 +4,9 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 43.1 Joins, composite indexes, and prepared statements
 
-Composite indexes order tuples lexicographically; prepared statements separate a fixed query shape from typed parameters; joins can use the same key lookup.
+Composite indexes compare the first tuple field, then the second to break a tie; prepared statements separate a fixed query shape from typed parameters; joins can use the same key lookup.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The fixture supports one exact prepared query shape, deliberately not a general SQL preparer. It binds tenant and ID as unsigned values and executes a composite-key binary search. The same lookup serves an indexed join from orders to customers, preserving one output per matching order. Adding these capabilities to the earlier SQL grammar is an assembly exercise with new parser and validation tests.
 

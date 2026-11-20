@@ -22,10 +22,10 @@ for(const [id,diagram] of Object.entries(w.conceptDiagrams.diagrams)){
   assert.ok(fs.readFileSync(chapter.workspace+'/README.md','utf8').includes(diagram.description),'Missing native reading description: '+route);
  }
 }
-assert.equal(placements,102);assert.equal(parts.size,9);
+assert.equal(placements,107);assert.equal(parts.size,9);
 // The string pictures must show one C escape, not a double-backslash spelling.
 for(const id of ['string','builder'])assert.equal(w.conceptDiagrams.diagrams[id].data.cells[3].value,String.fromCharCode(92)+'0');
 // Check comparison counts against the same specified search problem independently.
 function binaryCount(n){let lo=0,hi=n-1,count=0;while(lo<=hi){count++;const mid=lo+Math.floor((hi-lo)/2);if(mid===n-1)return count;lo=mid+1;}}
 for(const row of w.conceptDiagrams.diagrams.growth.data.rows){const n=parseInt(row[0]);assert.equal(parseInt(row[1]),n);assert.equal(parseInt(row[2]),binaryCount(n));}
-console.log('PASS original diagrams across all nine parts, 102 valid placements, accessible text, local assets, model counts, native reading parity and preserved editor/completion state');dom.window.close();
+console.log('PASS original diagrams across all nine parts, 107 valid placements, accessible text, local assets, model counts, native reading parity and preserved editor/completion state');dom.window.close();

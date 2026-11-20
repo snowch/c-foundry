@@ -114,9 +114,9 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Allocation count, object locality, and cache behavior are different measurements. A pool can reduce allocation calls while introducing its own lifetime constraints.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
-The fixture performs eight separate row allocations and one allocation for an eight-row pool, checking every result and freeing every owner. It also exercises the small page-cache model and counts backing-read events. Fewer allocations or reads can motivate a design, but neither proves lower total runtime; fragmentation, contention, eviction, and workload patterns matter.
+The fixture performs eight separate row allocations and one allocation for an eight-row pool, checking every result and freeing every owner. It also exercises the small page-cache model and counts backing-read events. Fewer allocations or reads can motivate a design, but neither proves lower total runtime; choose between designs by measuring the same correct workload, including allocator contention, cache misses, and cleanup costs.
 
 ### A cache lookup has a hit path and a miss path
 
@@ -287,9 +287,9 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 A release suite should combine targeted regressions, generated input, and failure-boundary tests while stating what remains untested.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
-This fixture checks all 25 prefixes of a transaction log, every too-short row length, and 256 deterministic bounded parser inputs. It preserves the distinction between format validation, recovery semantics, and parser robustness. Concurrency schedule tests and ThreadSanitizer belong alongside these checks; no finite run proves all schedules, all storage reorderings, or production reliability.
+This fixture checks all 25 prefixes of a transaction log, every too-short row length, and 256 deterministic bounded parser inputs. It preserves the distinction between format validation, recovery semantics, and parser robustness. Add concurrency schedule tests in Browser Linux. ThreadSanitizer is optional external tooling; no finite run proves all schedules, all storage reorderings, or production reliability.
 
 ### main.c
 
@@ -669,15 +669,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Evaluate an advanced TinyDB implementation against concurrent and fault-injected workloads.
 
-1. Evaluate concurrency, allocation, and recovery with reproducible workloads and clearly scoped evidence.
-2. Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Run the complete course examples with GCC and Clang in Browser Linux, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
+2. Run the course fixtures with GCC and Clang in Browser Linux, then assemble your own release suite.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Keep minimized failing inputs and deterministic log-prefix checks; report completed requests separately from schedule-dependent contention counts.
 
 Baseline command (checks original output, not every extension):
 

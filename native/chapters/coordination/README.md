@@ -12,7 +12,7 @@ Use mutex-protected predicates and condition-variable loops to coordinate bounde
 
 ## 36.1 Mutexes and condition variables
 
-A condition variable is a way to wait for a protected predicate to change, not a remembered message. Hold the mutex while checking the predicate.
+A condition variable is a way to wait for a protected predicate (a true/false test of shared state) to change, not a remembered message. Hold the mutex while checking the predicate.
 
 The queue waits in while loops for not-empty and not-full conditions. pthread_cond_wait releases the mutex while waiting and reacquires it before returning; spurious wakes and competition require a predicate recheck. Mutations and signals occur under the queue’s lock, and close broadcasts to both classes of waiter.
 
@@ -451,17 +451,14 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 
-Explore a bounded queue that coordinates a producer and consumer.
+Check the lock order used by a bounded work queue and its callers.
 
-1. Use mutex-protected predicates and condition-variable loops to coordinate bounded work and orderly shutdown.
-2. Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.
+2. Mark an edge A → B whenever a path holds lock A while acquiring B; check the graph for a directed cycle.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check workers finish under the chosen order; a completed finite run does not establish starvation freedom.
 
 Baseline command (checks original output, not every extension):
 

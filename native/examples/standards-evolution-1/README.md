@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 C revisions add facilities while retaining compatibility rules and implementation choices. A course baseline should be explicit.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 C89/C90 standardized the early language; C99 added facilities such as declarations in for loops and standard fixed-width integer interfaces; C11 added atomics and alignment facilities; C17 primarily corrected defects; C23 adds facilities including nullptr, typeof/typeof_unqual, constexpr objects, and inferred auto declarations; probe the exact facility before depending on it. __STDC_VERSION__ identifies the selected language revision when provided, but does not prove every optional library facility is available. This course uses C17 unless a feature probe says otherwise.
 
@@ -49,7 +49,7 @@ The compiler invocation and supported mode. A .c file can be compiled under seve
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/1). After the browser run, open a native terminal at the repository root and run make standards-matrix. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/1). After the browser run, choose Linux in the header, complete its setup, and run make standards-matrix at ~/work/c-foundry. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?
 
 ### References and help
 

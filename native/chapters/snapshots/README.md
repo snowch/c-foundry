@@ -14,7 +14,7 @@ Retain committed versions so readers can use a stable visibility boundary. Recla
 
 A snapshot read chooses versions according to a stable committed-time boundary, not according to the latest value at each statement.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The one-key model has value ten created at time one and superseded at time three; value twenty becomes visible at time three. A snapshot at time two continues to see ten. Timestamps here are bounded committed sequence numbers, not wall-clock time. Concurrent publication of version metadata needs synchronization in an assembled engine.
 
@@ -109,9 +109,9 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 41.2 An introduction to MVCC
 
-MVCC stores multiple committed versions and uses a visibility rule to decide which one a reader sees. It does not by itself solve write conflicts or serializability.
+Multi-version concurrency control (MVCC) stores multiple committed versions and uses a visibility rule to decide which one a reader sees. It does not by itself solve write conflicts or serializability.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The model tests created≤snapshot and either no deletion or snapshot<deleted. It searches newest to oldest and returns a copied value. A real implementation also needs transaction status for uncommitted versions, atomic publication of multi-row commits, conflict handling, indexes that respect visibility, and safe version lifetimes. The fixture deliberately contains only committed immutable version records.
 
@@ -216,7 +216,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Old versions can be reclaimed only when no active snapshot may still need them. Version retention is a concurrency and lifetime problem.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 For exclusive deletion time d, a version is no longer visible to snapshots at or after d. If the oldest active snapshot is at least d, the version can be removed under this model. Protect the active-reader registry and reclamation decision with synchronization, and prevent raw version pointers from escaping their protected lifetime. Timestamp wrap and abandoned reader handling need explicit policies.
 
@@ -292,7 +292,7 @@ No. That reader still requires the value visible before deletion time three.
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/3). In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. When does the modeled horizon make the old version unnecessary?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/3). In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. Why can a horizon of 3 remove the old version? What would be unsafe about supplying 3 while a reader at snapshot 2 is still active?
 
 ### References and help
 
@@ -311,15 +311,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Design version visibility tests before implementing snapshot reads.
 
-1. Retain committed versions so readers can use a stable visibility boundary. Reclaim only after the active-snapshot horizon permits it.
-2. Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.
+2. Keep a reader at snapshot 2 active while version 3 commits; end that reader before advancing the reclamation horizon.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check snapshot 2 still reads the old value, snapshot 3 reads the new value, and no required version is reclaimed.
 
 Baseline command (checks original output, not every extension):
 

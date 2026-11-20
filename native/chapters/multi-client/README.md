@@ -179,7 +179,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 A transaction boundary must belong to a session, not merely to whichever request arrives next. Other clients cannot commit or mutate another client’s working state.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The serialized-owner model tracks the active session ID. SET and COMMIT reject a different session without changing the active transaction. This fixture contains one value and an in-memory commit; integrating durable logging must retain the same ownership checks before acknowledgement. Define timeouts, disconnect rollback, and admission fairness separately.
 
@@ -453,17 +453,14 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 
-Extend the native TinyDB baseline with a serialized request path.
+Extend your TinyDB project with a serialized request path in Browser Linux.
 
-1. Define request admission, transaction ownership, and overload behavior before accepting multiple callers.
-2. Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.
+2. Add immediate-rejection and timed-admission variants with request IDs; repeat an ID after an ambiguous response.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check that retries do not apply one logical mutation twice and distinguish accepted, executed, and committed responses.
 
 Baseline command (checks original output, not every extension):
 

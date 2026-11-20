@@ -24,7 +24,7 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "The linker connects the translated program with the library code it needs.",
-        "tryit": "In main.c, replace Hello, C! with Hello, Ada! inside the printf string. Leave the newline escape in place. Choose Run code again and compare the two Console lines. Which part of the output did the edit control?",
+        "tryit": "In main.c, replace Hello, C! with Hello, Ada! inside the printf string. Leave the newline escape in place. Choose Run code again and find Hello, Ada! in Console. The new run replaces the earlier output. Which characters changed from the original greeting?",
         "input": ""
       },
       "2": {
@@ -86,7 +86,7 @@ window.PART_ONE = {
         "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"This program runs in the browser.\\n\");\n    return 0;\n}\n",
         "expected": "This program runs in the browser.",
         "walkthrough": "This starter writes to standard output. The page compiles it into WebAssembly and runs it locally. Stop is available while a run is active.",
-        "pitfall": "Native Linux processes, sockets, and C threads are not supplied by this lab. Chapters that need those capabilities identify Browser Linux as their execution environment; they are still readable on a tablet.",
+        "pitfall": "The inline runner supplies no Linux processes, sockets, or threads. Lessons that need them provide an Open Browser Linux button; that terminal also runs in your browser.",
         "question": "When should you supply input for the current browser runner?",
         "choices": [
           "Before pressing Run code",
@@ -182,7 +182,7 @@ window.PART_ONE = {
         "explanation": "Multiplication, division, and remainder bind more tightly than addition and subtraction. When both operands of division are integers, the result is an integer truncated toward zero: 7 / 2 is 3. The remainder operator % works on integers; for these positive operands, 7 % 2 is 1. Division by zero is invalid. Evaluation order is a separate issue from precedence: grouping does not generally tell you the order in which unrelated function calls or side effects are evaluated.",
         "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"%d %d\\n\", 7 / 2, 7 % 2);\n    printf(\"%d %d\\n\", 2 + 3 * 4, (2 + 3) * 4);\n    return 0;\n}\n",
         "expected": "3 1\n14 20",
-        "walkthrough": "The first line divides seven into two groups with one left over. On the second line, multiplication happens within the higher-precedence subexpression, yielding 14. Parentheses change the grouping to add first and yield 20. To obtain a fractional quotient, make a division operand floating point before division, as the next topic shows.",
+        "walkthrough": "The first line reports three complete groups of two, with one left over: 7 = 3 × 2 + 1. On the second line, multiplication happens within the higher-precedence subexpression, yielding 14. Parentheses change the grouping to add first and yield 20. To obtain a fractional quotient, make a division operand floating point before division, as the next topic shows.",
         "pitfall": "Avoid expressions that modify and read the same object in unsequenced ways. Write separate, simple statements instead of clever chains of increments and assignments.",
         "question": "What is the value of (2 + 3) * 4?",
         "choices": [
@@ -241,7 +241,7 @@ window.PART_ONE = {
     "practice": "guess",
     "topics": {
       "1": {
-        "intro": "A decision chooses which statements run. In a condition, zero is false and a nonzero scalar value is true. A comparison usually expresses that decision more clearly than relying on an unexplained number.",
+        "intro": "A decision chooses which statements run. For numeric conditions, zero is false and every nonzero value is true. A comparison usually expresses that decision more clearly than relying on an unexplained number.",
         "explanation": "<code>if</code> executes a statement or block when its condition is true. An else branch handles the alternative. Use braces even for short branches while learning: they keep later edits unambiguous. <code>switch</code> selects among integer-valued cases. A break exits the switch; without it, execution may continue into the following case. Use default for the unmatched case when that is meaningful.",
         "code": "#include <stdio.h>\n\nint main(void) {\n    int score = 72;\n    if (score >= 50) {\n        puts(\"pass\");\n    } else {\n        puts(\"retry\");\n    }\n    int command = 2;\n    switch (command) {\n        case 1: puts(\"start\"); break;\n        case 2: puts(\"stop\"); break;\n        default: puts(\"unknown\"); break;\n    }\n    return 0;\n}\n",
         "expected": "pass\nstop",
@@ -280,7 +280,7 @@ window.PART_ONE = {
         "code": "#include <stdio.h>\n\nint main(void) {\n    for (int i = 0; i < 3; i++) {\n        printf(\"%d\\n\", i);\n    }\n    int remaining = 2;\n    while (remaining > 0) {\n        remaining--;\n    }\n    printf(\"remaining=%d\\n\", remaining);\n    return 0;\n}\n",
         "expected": "0\n1\n2\nremaining=0",
         "walkthrough": "The for body sees i equal to 0, 1, and 2. After the update makes it 3, the condition is false. The while loop subtracts one twice and stops at zero. Neither loop executes its body after its condition has become false. This is why < n and <= n often differ by one iteration.",
-        "pitfall": "An empty body caused by a stray semicolon, or an update that never approaches the stopping condition, can create an unintended loop. Stop code is available if an experiment fails to terminate.",
+        "pitfall": "An empty body caused by a stray semicolon, or an update that never approaches the stopping condition, can create an unintended loop. The Stop button is available if an experiment fails to terminate.",
         "question": "How many times does the for body run?",
         "choices": [
           "2",
@@ -519,7 +519,7 @@ window.PART_ONE = {
           "Every space creates a word"
         ],
         "answer": 0,
-        "why": "Only transitions from whitespace to non-whitespace start a word.",
+        "why": "A non-whitespace character starts a word only when in_word is false, including at the beginning of input.",
         "tryit": "In Input, replace the supplied line with one   two and choose Run code. Compare words= with the starter. Why do adjacent spaces leave in_word false without adding a second word boundary?",
         "input": "C is fun\n"
       }

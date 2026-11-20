@@ -160,7 +160,7 @@ Output:
 14 20
 ```
 
-The first line divides seven into two groups with one left over. On the second line, multiplication happens within the higher-precedence subexpression, yielding 14. Parentheses change the grouping to add first and yield 20. To obtain a fractional quotient, make a division operand floating point before division, as the next topic shows.
+The first line reports three complete groups of two, with one left over: 7 = 3 × 2 + 1. On the second line, multiplication happens within the higher-precedence subexpression, yielding 14. Parentheses change the grouping to add first and yield 20. To obtain a fractional quotient, make a division operand floating point before division, as the next topic shows.
 
 **Watch for:** Avoid expressions that modify and read the same object in unsequenced ways. Write separate, simple statements instead of clever chains of increments and assignments.
 

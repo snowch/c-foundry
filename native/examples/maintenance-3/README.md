@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Free-page reuse and compaction require a reachability and identity policy. An unlinked physical page may still be needed by a snapshot or recovery log.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The fixture checks a slotted-page model for bounds and overlapping live ranges before compaction. It then constructs an overlapping corruption and verifies rejection. A full storage allocator must also track roots, index references, active snapshots, and log dependencies before placing a page on the reusable free list. A generation number can help reject stale external page handles.
 

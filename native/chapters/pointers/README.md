@@ -188,7 +188,7 @@ Output:
 4 6 3
 ```
 
-p reaches the second int, so *p is 4 and *(p + 1) is 6. end is one past the third element, and end - values counts three int elements, not their byte size. The td format prints ptrdiff_t. No expression reads *end.
+p reaches the second int, so *p is 4 and *(p + 1) is 6. end is one past the third element, and end - values counts three int elements, not their byte size. The %td format prints ptrdiff_t. No expression reads *end.
 
 **Watch for:** Subtracting unrelated pointers or dereferencing the endpoint has undefined behavior. An apparently plausible address is not evidence that an access is valid.
 

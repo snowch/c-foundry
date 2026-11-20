@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Parse a bounded decimal field with a stated grammar, range checks, and full consumption. Do not use a conversion’s numeric result as its success indicator.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 strtoumax accepts optional signs and leading whitespace; this protocol does not. Validate every input character as a decimal digit, copy only a bounded field into a terminated temporary buffer, clear errno, convert in base ten, reject ERANGE, check the end pointer, and check the uint32_t limit before narrowing. The output parameter changes only after every check. This accepts exactly decimal digits with leading zeros permitted. It does not infer whether a surrounding line was truncated: the framing layer must establish the complete field first.
 

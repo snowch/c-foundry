@@ -8,7 +8,7 @@ Property tests compare many generated operation sequences with a simpler referen
 
 Also editable and runnable inline in the browser course. Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab.
 
-The fixture generates bounded strings with a fixed seed and passes them to the parser. It checks memory-safe completion under the selected compiler and can be rerun under sanitizers. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found.
+The fixture generates bounded strings with a fixed seed and passes them to the parser. It counts parser calls that return. Normal completion alone does not establish memory safety; optional external sanitizers can detect selected invalid accesses on the paths that run. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found.
 
 ### main.c
 

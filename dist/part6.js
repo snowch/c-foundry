@@ -120,14 +120,11 @@ window.PART_SIX = {
     "practicePlan": {
       "goal": "Locate and manage records inside slotted storage pages.",
       "tasks": [
-        "Represent records inside bounded storage pages and keep cache and free-space state consistent.",
         "Add a hex dump with highlighted validated ranges, then reject overlapping live slots.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Test a record ending exactly at the page boundary, one exceeding it, overlapping live slots, and a deleted slot."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Validate ranges before displaying bytes; after compaction, check surviving slot IDs and payload bytes."
       ],
       "example": "pages-6"
     }
@@ -154,7 +151,7 @@ window.PART_SIX = {
         ],
         "answer": 0,
         "why": "Many routing choices fit within each fetched page.",
-        "tryit": "In main.c, change the final inserted key from 7 to 5. Run code and compare root_children= and leaf_capacity=. Which count depends on inserted keys and which is a fixed model parameter?",
+        "tryit": "In main.c, change the insertion loop’s key <= 7 bound to key <= 5. Run code and compare root_children= and leaf_capacity=. Which count depends on inserted keys and which is a fixed model parameter?",
         "input": "",
         "runtime": "browser"
       },
@@ -172,7 +169,7 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "This model uses the child’s minimum as an inclusive lower boundary.",
-        "tryit": "In main.c, change the final inserted key from 7 to 6. Run code and compare leaf min= and count= fields. Which separator remains associated with the start of the right child even if its count changes?",
+        "tryit": "In main.c, change the insertion loop’s key <= 7 bound to key <= 6. Run code and compare leaf min= and count= fields. Which third-leaf split no longer occurs with six keys? Why does the remaining right child still have minimum key 3?",
         "input": "",
         "runtime": "browser"
       },
@@ -208,13 +205,13 @@ window.PART_SIX = {
         ],
         "answer": 1,
         "why": "A split needs both a new leaf and a new routing entry.",
-        "tryit": "In main.c, change the final inserted key from 5 to 6. Run code and compare leaves=, left=, right=, and boundary=. Does appending one more key also change the boundary created during the first split?",
+        "tryit": "In main.c, change the insertion loop’s key <= 5 bound to key <= 6. Run code and compare leaves=, left=, right=, and boundary=. Does appending one more key also change the boundary created during the first split?",
         "input": "",
         "runtime": "browser"
       },
       "5": {
         "intro": "Range lookup combines one routed start with sequential leaf traversal. Keep inclusive and exclusive endpoints explicit.",
-        "explanation": "The example prints keys in [2,7). After routing to the first relevant leaf, it follows next pointers until a key reaches the upper boundary. A balanced full B+ tree gives O(log n+k) logical work for k returned keys, with page costs depending on density and cache state. Linked-leaf order is an invariant worth checking independently of point lookups.",
+        "explanation": "The example prints keys in [2,8). After routing to the first relevant leaf, it follows next pointers until a key reaches the upper boundary. A balanced full B+ tree gives O(log n+k) logical work for k returned keys, with page costs depending on density and cache state. Linked-leaf order is an invariant worth checking independently of point lookups.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { LEAF_MAX = 4, LEAF_POOL = 8 };\ntypedef struct Leaf {\n  int key[LEAF_MAX], value[LEAF_MAX];\n  size_t n;\n  bool used;\n  struct Leaf *next;\n} Leaf;\ntypedef struct {\n  Leaf pages[LEAF_POOL];\n  Leaf *child[LEAF_POOL];\n  size_t n;\n} BTree;\nvoid tree_init(BTree *t) {\n  memset(t, 0, sizeof *t);\n  t->n = 1;\n  t->pages[0].used = true;\n  t->child[0] = &t->pages[0];\n}\nsize_t route(const BTree *t, int key) {\n  size_t i = 0;\n  while (i + 1 < t->n && t->child[i + 1]->key[0] <= key)\n    ++i;\n  return i;\n}\nbool tree_find(const BTree *t, int key, int *out) {\n  const Leaf *p = t->child[route(t, key)];\n  for (size_t i = 0; i < p->n; ++i)\n    if (p->key[i] == key) {\n      *out = p->value[i];\n      return true;\n    }\n  return false;\n}\nbool tree_put(BTree *t, int key, int value) {\n  size_t at = route(t, key);\n  Leaf *p = t->child[at];\n  int old;\n  if (tree_find(t, key, &old))\n    return false;\n  if (p->n < LEAF_MAX) {\n    size_t i = p->n++;\n    while (i && p->key[i - 1] > key) {\n      p->key[i] = p->key[i - 1];\n      p->value[i] = p->value[i - 1];\n      --i;\n    }\n    p->key[i] = key;\n    p->value[i] = value;\n    return true;\n  }\n  if (t->n == LEAF_POOL)\n    return false;\n  Leaf *right = NULL;\n  for (size_t i = 0; i < LEAF_POOL; ++i)\n    if (!t->pages[i].used) {\n      right = &t->pages[i];\n      break;\n    }\n  if (!right)\n    return false;\n  int keys[5], values[5];\n  size_t j = 0;\n  bool added = false;\n  for (size_t i = 0; i < 5; ++i) {\n    if (!added && (j == p->n || key < p->key[j])) {\n      keys[i] = key;\n      values[i] = value;\n      added = true;\n    } else {\n      keys[i] = p->key[j];\n      values[i] = p->value[j++];\n    }\n  }\n  *right = (Leaf){0};\n  right->used = true;\n  p->n = 2;\n  right->n = 3;\n  for (size_t i = 0; i < 2; ++i) {\n    p->key[i] = keys[i];\n    p->value[i] = values[i];\n  }\n  for (size_t i = 0; i < 3; ++i) {\n    right->key[i] = keys[i + 2];\n    right->value[i] = values[i + 2];\n  }\n  right->next = p->next;\n  p->next = right;\n  for (size_t i = t->n; i > at + 1; --i)\n    t->child[i] = t->child[i - 1];\n  t->child[at + 1] = right;\n  ++t->n;\n  return true;\n}\nbool tree_erase(BTree *t, int key) {\n  size_t at = route(t, key);\n  Leaf *p = t->child[at];\n  size_t pos = 0;\n  while (pos < p->n && p->key[pos] != key)\n    ++pos;\n  if (pos == p->n)\n    return false;\n  for (size_t i = pos + 1; i < p->n; ++i) {\n    p->key[i - 1] = p->key[i];\n    p->value[i - 1] = p->value[i];\n  }\n  --p->n;\n  if (t->n == 1 || p->n >= 2)\n    return true;\n  Leaf *left = at ? t->child[at - 1] : NULL,\n       *right = at + 1 < t->n ? t->child[at + 1] : NULL;\n  if (left && left->n > 2) {\n    for (size_t i = p->n; i > 0; --i) {\n      p->key[i] = p->key[i - 1];\n      p->value[i] = p->value[i - 1];\n    }\n    --left->n;\n    p->key[0] = left->key[left->n];\n    p->value[0] = left->value[left->n];\n    ++p->n;\n    return true;\n  }\n  if (right && right->n > 2) {\n    p->key[p->n] = right->key[0];\n    p->value[p->n++] = right->value[0];\n    for (size_t i = 1; i < right->n; ++i) {\n      right->key[i - 1] = right->key[i];\n      right->value[i - 1] = right->value[i];\n    }\n    --right->n;\n    return true;\n  }\n  size_t removed;\n  if (left) {\n    for (size_t i = 0; i < p->n; ++i) {\n      left->key[left->n] = p->key[i];\n      left->value[left->n++] = p->value[i];\n    }\n    left->next = p->next;\n    p->used = false;\n    removed = at;\n  } else {\n    for (size_t i = 0; i < right->n; ++i) {\n      p->key[p->n] = right->key[i];\n      p->value[p->n++] = right->value[i];\n    }\n    p->next = right->next;\n    right->used = false;\n    removed = at + 1;\n  }\n  for (size_t i = removed + 1; i < t->n; ++i)\n    t->child[i - 1] = t->child[i];\n  --t->n;\n  return true;\n}\nvoid range(const BTree *t, int lo, int hi) {\n  const Leaf *p = t->child[route(t, lo)];\n  for (; p; p = p->next)\n    for (size_t i = 0; i < p->n; ++i) {\n      if (p->key[i] >= hi)\n        return;\n      if (p->key[i] >= lo)\n        printf(\"%d \", p->key[i]);\n    }\n  puts(\"\");\n}\n\nint main(void) {\n  BTree t;\n  tree_init(&t);\n  for (int key = 1; key <= 7; ++key)\n    if (!tree_put(&t, key, key * 10))\n      return 1;\n  range(&t, 2, 8);\n  return 0;\n}\n",
         "expected": "2 3 4 5 6 7",
         "walkthrough": "The executed fixture uses [2,8), returning six keys across all three leaves. The general contract excludes the upper bound.",
@@ -253,14 +250,11 @@ window.PART_SIX = {
     "practicePlan": {
       "goal": "Implement an ordered index that remains valid when pages split.",
       "tasks": [
-        "Build and test a bounded B+ index before encoding its pages. Preserve routing, occupancy, and leaf-link invariants.",
         "Generate insert/delete sequences and check ordering, uniqueness, occupancy, reachability, and pool ownership after each step.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Alternate insertions and deletions against a sorted-array reference, including duplicates, missing keys, and exhausted page capacity."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "After each step, check key order, unique keys, leaf occupancy, next links, reachable pages, and ownership of free pool slots."
       ],
       "example": "bplus-trees-6"
     }
@@ -278,7 +272,7 @@ window.PART_SIX = {
         "explanation": "The teaching estimate charges one unit per page, assumes a cold cache and one distinct data-page fetch per match, and adds three index levels. These assumptions intentionally simplify clustering and caching. Both paths must return identical logical rows under the same visibility rules; cost never permits an incorrect result.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct {\n  unsigned table_pages, index_levels, matches;\n} Estimate;\nunsigned index_cost(Estimate e) { return e.index_levels + e.matches; }\nconst char *choose(Estimate e) {\n  return index_cost(e) < e.table_pages ? \"index\" : \"scan\";\n}\n\nint main(void) {\n  Estimate narrow = {100, 3, 1}, wide = {100, 3, 98};\n  printf(\"narrow=%s narrow_index_pages=%u wide=%s wide_index_pages=%u scan_pages=%u\\n\", choose(narrow),\n         index_cost(narrow), choose(wide), index_cost(wide), wide.table_pages);\n  return 0;\n}\n",
         "expected": "narrow=index narrow_index_pages=4 wide=scan wide_index_pages=101 scan_pages=100",
-        "walkthrough": "One match costs four estimated page reads through the index. Ninety-eight random matches cost 101, exceeding the hundred-page scan.",
+        "walkthrough": "The output labels narrow= and wide= come from comparing the two estimated paths in the figure. They report plan choices; this fixture does not execute either query.",
         "pitfall": "Treating index lookup as free after O(log n) navigation ignores row fetches.",
         "question": "Can an index be slower than a scan?",
         "choices": [
@@ -329,7 +323,7 @@ window.PART_SIX = {
       },
       "4": {
         "intro": "EXPLAIN makes a planner’s assumptions and chosen operators visible. It should distinguish estimated work from actual execution statistics.",
-        "explanation": "The fixture prints a chosen access path, estimated matches, and its simplified page cost. It does not run a query. An EXPLAIN ANALYZE-like mode would execute and attach measured counters; that distinction matters for statements with side effects. Keep plan output stable enough for tests while avoiding promises about exact real-world runtime.",
+        "explanation": "The fixture prints a chosen access path, estimated matches, and its simplified page cost. It does not run a query. An EXPLAIN ANALYZE-like mode would execute and attach measured counters; an analyze mode can therefore change data for a mutating statement, whereas plain EXPLAIN must leave data untouched. Keep plan output stable enough for tests while avoiding promises about exact real-world runtime.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct {\n  unsigned table_pages, index_levels, matches;\n} Estimate;\nunsigned index_cost(Estimate e) { return e.index_levels + e.matches; }\nconst char *choose(Estimate e) {\n  return index_cost(e) < e.table_pages ? \"index\" : \"scan\";\n}\n\nint main(void) {\n  Estimate e = {100, 3, 2};\n  printf(\"PLAN %s estimated_matches=%u estimated_pages=%u\\n\", choose(e),\n         e.matches,\n         strcmp(choose(e), \"index\") == 0 ? index_cost(e) : e.table_pages);\n  return 0;\n}\n",
         "expected": "PLAN index estimated_matches=2 estimated_pages=5",
         "walkthrough": "The text exposes the two-match assumption and five-page cost calculation. No timing is inferred.",
@@ -386,14 +380,11 @@ window.PART_SIX = {
     "practicePlan": {
       "goal": "Compare query plans using page reads and a simple cost model.",
       "tasks": [
-        "Choose a correct access path first, then compare plans with an explicit cost model and measured logical work.",
         "Add an inner-key index and verify the same multiset of join rows, including duplicate keys.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Join inputs containing duplicate inner keys and a missing key using both a nested loop and your new inner-key index."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Compare every result pair including duplicates; count comparisons separately from modeled or measured page reads."
       ],
       "example": "planning-6"
     }
@@ -423,9 +414,7 @@ window.PART_SIX = {
         "tryit": "In main.c, change the tentative score from 1 to 50, leaving rollback(&tx) unchanged. Run code and compare after_rollback=. Which state did update_score edit, and which state does the printed value come from?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "2": {
         "intro": "A single-writer transaction model serializes mutations and simplifies conflict handling. The restriction must be enforced by the caller or service.",
@@ -444,9 +433,7 @@ window.PART_SIX = {
         "tryit": "In main.c, replace the declarations of first and nested with separate calls, inserting rollback(&tx) between them. Run code and compare first= and nested=. Why can the second begin succeed once the model has no active transaction?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "3": {
         "intro": "BEGIN establishes a working state, COMMIT publishes it under the model’s contract, and ROLLBACK discards it. Repeated or out-of-order commands need defined failures.",
@@ -465,9 +452,7 @@ window.PART_SIX = {
         "tryit": "In main.c, change the first transaction’s score from 95 to 50 and leave the second rollback in place. Run code and compare committed_score= and invalid_commit=. Which boundary made 50 observable in live?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "4": {
         "intro": "Write-ahead logging records enough information for recovery before acknowledging a durable commit or persisting dependent data pages.",
@@ -504,9 +489,7 @@ window.PART_SIX = {
         "tryit": "In main.c, change recover(log, 19, 0) to recover(log, 24, 0) and rename torn= to prefix24=. Run code and compare both values. Which complete record at byte 24 makes the first transaction eligible for replay?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        },
+        "browser": {},
         "extension": "Copy the prepared log into a separate fixture with a second commit and a third torn transaction. Record expected visible values independently before testing the byte prefixes."
       },
       "6": {
@@ -526,22 +509,17 @@ window.PART_SIX = {
         "tryit": "In main.c, change the value 7 in the SET_REC call to 12. Run code and compare before_commit= and after_commit=. This replays a prepared log in memory. Which prefix contains the record that publishes the change?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       }
     },
     "practicePlan": {
       "goal": "Recover committed changes after simulated interruptions.",
       "tasks": [
-        "Separate transaction visibility from durable acknowledgement. Model interrupted log prefixes and preserve committed state.",
         "Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "List expected values for all 25 prefixes of the 24-byte log, then add a second committed transaction and a torn third one."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check only complete matching commits change the recovered value. Keep browser-host persistence design separate from this in-memory replay test."
       ],
       "example": "recovery-6"
     }
@@ -577,7 +555,7 @@ window.PART_SIX = {
       },
       "2": {
         "intro": "Property tests compare many generated operation sequences with a simpler reference model. Parser fuzzing asks whether arbitrary bounded input is handled safely.",
-        "explanation": "The fixture generates bounded strings with a fixed seed and passes them to the parser. It checks memory-safe completion under the selected compiler and can be rerun under sanitizers. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found.",
+        "explanation": "The fixture generates bounded strings with a fixed seed and passes them to the parser. It counts parser calls that return. Normal completion alone does not establish memory safety; optional external sanitizers can detect selected invalid accesses on the paths that run. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\ntypedef enum {\n  END,\n  WORD,\n  NUMBER,\n  STRING,\n  SEMI,\n  LP,\n  RP,\n  COMMA,\n  STAR,\n  EQUAL,\n  BAD\n} Token;\ntypedef struct {\n  const char *p;\n  char text[32];\n  uint32_t number;\n} Lexer;\nToken next(Lexer *l) {\n  while (*l->p == ' ' || *l->p == '\\t' || *l->p == '\\n' || *l->p == '\\r')\n    ++l->p;\n  unsigned char ch = (unsigned char)*l->p;\n  l->text[0] = 0;\n  if (!ch)\n    return END;\n  if (ch >= '0' && ch <= '9') {\n    uint32_t n = 0;\n    do {\n      unsigned digit = (unsigned)(*l->p - '0');\n      if (n > (UINT32_MAX - digit) / 10)\n        return BAD;\n      n = n * 10 + digit;\n      ++l->p;\n    } while (*l->p >= '0' && *l->p <= '9');\n    l->number = n;\n    return NUMBER;\n  }\n  if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '_') {\n    size_t n = 0;\n    while ((*l->p >= 'A' && *l->p <= 'Z') || (*l->p >= 'a' && *l->p <= 'z') ||\n           (*l->p >= '0' && *l->p <= '9') || *l->p == '_') {\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p++;\n    }\n    l->text[n] = 0;\n    return WORD;\n  }\n  ++l->p;\n  if (ch == '\\'') {\n    size_t n = 0;\n    for (;;) {\n      if (!*l->p)\n        return BAD;\n      if (*l->p == '\\'' && l->p[1] != '\\'') {\n        ++l->p;\n        l->text[n] = 0;\n        return STRING;\n      }\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p;\n      if (*l->p == '\\'')\n        ++l->p;\n      ++l->p;\n    }\n  }\n  switch (ch) {\n  case ';':\n    return SEMI;\n  case '(':\n    return LP;\n  case ')':\n    return RP;\n  case ',':\n    return COMMA;\n  case '*':\n    return STAR;\n  case '=':\n    return EQUAL;\n  default:\n    return BAD;\n  }\n}\nbool keyword(Lexer *l, const char *word) {\n  return next(l) == WORD && strcmp(l->text, word) == 0;\n}\ntypedef enum { INSERT_STMT, SELECT_STMT } Kind;\ntypedef struct {\n  Kind kind;\n  Row row;\n  bool filtered;\n  uint32_t key;\n} Statement;\nbool parse(const char *sql, Statement *out) {\n  Lexer l = {sql, {0}, 0};\n  Statement s = {0};\n  if (next(&l) != WORD)\n    return false;\n  if (strcmp(l.text, \"INSERT\") == 0) {\n    s.kind = INSERT_STMT;\n    if (!keyword(&l, \"INTO\") || !keyword(&l, \"people\") ||\n        !keyword(&l, \"VALUES\") || next(&l) != LP || next(&l) != NUMBER)\n      return false;\n    s.row.id = l.number;\n    if (next(&l) != COMMA || next(&l) != STRING)\n      return false;\n    memcpy(s.row.name, l.text, sizeof s.row.name);\n    if (next(&l) != COMMA || next(&l) != NUMBER)\n      return false;\n    s.row.score = l.number;\n    if (next(&l) != RP || next(&l) != SEMI || next(&l) != END)\n      return false;\n  } else if (strcmp(l.text, \"SELECT\") == 0) {\n    s.kind = SELECT_STMT;\n    if (next(&l) != STAR || !keyword(&l, \"FROM\") || !keyword(&l, \"people\"))\n      return false;\n    Token t = next(&l);\n    if (t == WORD && strcmp(l.text, \"WHERE\") == 0) {\n      if (!keyword(&l, \"id\") || next(&l) != EQUAL || next(&l) != NUMBER)\n        return false;\n      s.filtered = true;\n      s.key = l.number;\n      t = next(&l);\n    }\n    if (t != SEMI || next(&l) != END)\n      return false;\n  } else\n    return false;\n  *out = s;\n  return true;\n}\nbool validate(const Statement *s) {\n  return s->kind != INSERT_STMT || (s->row.id > 0 && s->row.name[0] != 0);\n}\n\nint main(void) {\n  uint32_t seed = 17;\n  char sql[33];\n  unsigned cases = 0;\n  for (unsigned n = 0; n < 256; ++n) {\n    for (size_t i = 0; i < 32; ++i) {\n      seed = seed * 1664525u + 1013904223u;\n      sql[i] = \"SELECT (),;'012xyz\"[(seed >> 24) % 17];\n    }\n    sql[n % 32] = 0;\n    Statement s = {0};\n    if (parse(sql, &s))\n      (void)validate(&s);\n    ++cases;\n  }\n  printf(\"fuzz_cases=%u completed\\n\", cases);\n  return 0;\n}\n",
         "expected": "fuzz_cases=256 completed",
         "walkthrough": "Every buffer is terminated before parsing. The bounded test is deterministic, so a failure can be reproduced using the same seed.",
@@ -680,7 +658,7 @@ window.PART_SIX = {
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\nenum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };\nvoid put32(unsigned char *out, uint32_t value) {\n  for (unsigned i = 0; i < 4; ++i)\n    out[i] = (unsigned char)(value >> (8 * i));\n}\nuint32_t get32(const unsigned char *in) {\n  uint32_t value = 0;\n  for (unsigned i = 0; i < 4; ++i)\n    value |= (uint32_t)in[i] << (8 * i);\n  return value;\n}\nbool encode_row(unsigned char *out, const Row *row) {\n  if (!row->id || !memchr(row->name, 0, 32) || !row->name[0])\n    return false;\n  memset(out, 0, ROW_BYTES);\n  put32(out, row->id);\n  memcpy(out + 4, row->name, strlen(row->name));\n  put32(out + 36, row->score);\n  return true;\n}\nbool decode_row(const unsigned char *in, size_t n, Row *out) {\n  if (n != ROW_BYTES || get32(in) == 0 || !memchr(in + 4, 0, 32) || in[4] == 0)\n    return false;\n  Row row = {0};\n  row.id = get32(in);\n  memcpy(row.name, in + 4, 32);\n  row.score = get32(in + 36);\n  *out = row;\n  return true;\n}\nbool save(FILE *f, const Table *table) {\n  unsigned char header[HEADER_BYTES] = {0x54, 0x44,      0x42, 0x31,\n                                        1,    ROW_BYTES, 0,    0};\n  if (table->count > TABLE_CAP)\n    return false;\n  header[6] = (unsigned char)table->count;\n  if (fwrite(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  for (size_t i = 0; i < table->count; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    if (!encode_row(bytes, &table->rows[i]) ||\n        fwrite(bytes, 1, sizeof bytes, f) != sizeof bytes)\n      return false;\n  }\n  return fflush(f) == 0;\n}\nbool load(FILE *f, Table *out) {\n  unsigned char header[HEADER_BYTES];\n  if (fread(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  if (memcmp(header, (const unsigned char[]){0x54, 0x44, 0x42, 0x31}, 4) || header[4] != 1 || header[5] != ROW_BYTES ||\n      header[6] > TABLE_CAP || header[7] != 0)\n    return false;\n  Table table = {.count = 0};\n  for (unsigned i = 0; i < header[6]; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    Row row;\n    if (fread(bytes, 1, sizeof bytes, f) != sizeof bytes ||\n        !decode_row(bytes, sizeof bytes, &row) || insert_row(&table, row) != OK)\n      return false;\n  }\n  if (fgetc(f) != EOF || ferror(f))\n    return false;\n  *out = table;\n  return true;\n}\n\nint main(void) {\n  Table source = {.count = 0}, copy = {.count = 0};\n  insert_row(&source, (Row){1, \"Ada\", 90});\n  insert_row(&source, (Row){2, \"Grace\", 80});\n  FILE *f = tmpfile();\n  if (!f)\n    return 1;\n  bool ok = save(f, &source) && fseek(f, 0, SEEK_SET) == 0 && load(f, &copy);\n  if (fclose(f) != 0 || !ok || copy.count != 2)\n    return 1;\n  puts(\"release fixture: two validated rows\");\n  return 0;\n}\n",
         "expected": "release fixture: two validated rows",
         "walkthrough": "The fixture can be decoded independently of struct layout. The named export command is make example EXAMPLE=persistence-5 KEEP_FILES=1.",
-        "pitfall": "A browser demonstration must disclose whether its database state survives reload; the current C runner’s files do not.",
+        "pitfall": "A browser demonstration must disclose whether its database state survives reload; inline lesson files reset for each run. The command workspace saves its own files in this browser; Browser Linux requires an exported backup before closing.",
         "question": "What belongs with an exportable database release?",
         "choices": [
           "Format documentation, validation tests, and execution limits",
@@ -694,7 +672,7 @@ window.PART_SIX = {
       },
       "8": {
         "intro": "Use GDB to explain two data-integrity failures in a deliberately broken copy of the real TinyDB CLI, then verify the repair after reopening its database file.",
-        "explanation": "A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the <a href=\"#/chapter/files-bytes/7\">optional Part 2 GDB lab</a> first, or skip this native workshop.",
+        "explanation": "A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the <a href=\"#/chapter/files-bytes/7\">optional Part 2 GDB lab</a> first, or skip this optional workshop.",
         "code": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdio.h>\n\ntypedef struct { unsigned id, score; } Row;\n\nbool update_score(Row *rows, size_t count, unsigned id, unsigned score) {\n    for (size_t i = 0; i < count; ++i) {\n        if (rows[i].id == id) {\n            rows[i].score = score;\n            return true;\n        }\n    }\n    return false;\n}\n\nint main(void) {\n    Row rows[] = {{1, 90}, {2, 80}, {3, 70}};\n    if (!update_score(rows, 3, 2, 99)) return 1;\n    for (size_t i = 0; i < 3; ++i)\n        printf(\"id=%u score=%u\\n\", rows[i].id, rows[i].score);\n    return 0;\n}\n",
         "expected": "id=1 score=90\nid=2 score=99\nid=3 score=70",
         "runtime": "native",
@@ -748,14 +726,11 @@ window.PART_SIX = {
     "practicePlan": {
       "goal": "Ship a documented TinyDB build with tests, benchmarks, and exportable files.",
       "tasks": [
-        "Turn the small database into a reproducible learning release with contract tests, failure experiments, and an explicit compatibility document.",
         "Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Package your assembled program, its build command, acceptance tests, format specification, and an independently validated export."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Rebuild from that package in a fresh Browser Linux session and list implemented features, input limits, and untested failure conditions."
       ],
       "example": "ship-7"
     }

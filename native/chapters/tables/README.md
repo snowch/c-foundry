@@ -630,15 +630,12 @@ make exercise EXERCISE=query
 
 Insert records, reject duplicates, and find rows by ID.
 
-1. Implement row lifecycle operations while keeping key uniqueness and initialized-count invariants true.
-2. Generate bounded insert/update/delete sequences and check invariants after every operation.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Generate bounded insert/update/delete sequences and check invariants after every operation.
+2. Run bounded insert, update, and delete sequences against a simple independent reference table.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- After each operation, check status, row count, unique IDs, and complete surviving row values.
 
 Baseline command (checks original output, not every extension):
 

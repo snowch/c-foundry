@@ -23,7 +23,7 @@
     $('files').replaceChildren();
     for(const file of files){const li=document.createElement('li'),button=document.createElement('button');button.type='button';button.textContent=file.name+' · '+file.data.length.toLocaleString()+' B';button.setAttribute('aria-pressed',String(file.name===selected));button.onclick=()=>select(file.name);button.disabled=busy;li.append(button);$('files').append(li);}
     $('empty').hidden=files.length>0;
-    $('prompt').textContent=session?'tinydb:'+session+'>':'$';$('leave').hidden=!session;
+    $('prompt').textContent=session?'Command · TinyDB '+session:'Command';$('leave').hidden=!session;
     $('command').placeholder=session?'SELECT * FROM people;':'cc hello.c -o hello';
     if(selected&&!files.some(f=>f.name===selected)){selected='';$('file-editor').hidden=true;}
   }

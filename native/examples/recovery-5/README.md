@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Recovery should apply committed transactions and ignore an incomplete final transaction. Test every interruption boundary rather than only whole-record cuts.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The bounded redo model scans complete eight-byte records, retains tentative state until a matching COMMIT, and stops at invalid structure. A short tail is ignored. SET stores the final value rather than an increment, making replay idempotent for the same log and base. This format has no checksum, so it cannot reliably detect every bit flip that still forms a valid record.
 

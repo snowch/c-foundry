@@ -1557,7 +1557,7 @@ window.COURSE = {
           "status": "ready"
         }
       ],
-      "project": "Build portable file and text interfaces, then test their contracts across operating systems.",
+      "project": "Build portable file and text interfaces in Browser Linux and interpret cross-platform test evidence.",
       "labs": [],
       "nativeDemo": "standards",
       "execution": {
@@ -1600,7 +1600,7 @@ window.COURSE = {
           "status": "ready"
         }
       ],
-      "project": "Audit TinyDB assumptions, separate its codec from file access, and exchange validated database files across Linux, macOS, and Windows.",
+      "project": "Audit TinyDB assumptions, separate its codec from file access, and compare browser-lab results with automated cross-platform file checks.",
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {
@@ -1666,7 +1666,7 @@ window.COURSE = {
           "status": "ready"
         }
       ],
-      "project": "Explore a bounded queue that coordinates a producer and consumer.",
+      "project": "Check the lock order used by a bounded work queue and its callers.",
       "labs": [],
       "nativeDemo": "queue",
       "execution": {
@@ -1704,7 +1704,7 @@ window.COURSE = {
           "status": "ready"
         }
       ],
-      "project": "Compare a mutex-protected counter with a C11 atomic counter.",
+      "project": "Explain atomic counter updates and one-shot payload publication.",
       "labs": [],
       "nativeDemo": "counter",
       "execution": {
@@ -1775,7 +1775,7 @@ window.COURSE = {
           "status": "ready"
         }
       ],
-      "project": "Extend the native TinyDB baseline with a serialized request path.",
+      "project": "Extend your TinyDB project with a serialized request path in Browser Linux.",
       "labs": [],
       "nativeDemo": "tinydb",
       "execution": {

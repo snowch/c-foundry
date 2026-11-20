@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Worker arguments and result storage must outlive every access. Returning from a scope can invalidate pointers even when the thread still runs.
 
-main keeps the Job object alive while the worker accesses it and joins before reading its result. Passing the address of a loop variable reused by all workers can create both a lifetime or synchronization problem and incorrect logical inputs. Thread-local variables and separate per-worker objects simplify ownership but do not automatically protect genuinely shared objects.
+main keeps the Job object alive while the worker accesses it and joins before reading its result. Passing the address of a loop variable reused by all workers can let workers read changed inputs. Concurrently modifying that variable also needs synchronization, and leaving its scope too early ends its lifetime. Thread-local variables and separate per-worker objects simplify ownership but do not automatically protect genuinely shared objects.
 
 ### main.c
 

@@ -143,7 +143,7 @@
     window.lessonVisuals.show(l.id);document.querySelector('.worked-example').hidden=!!l.isExample;document.querySelector('#lab-view .prediction').hidden=!!l.isExample;document.querySelector('.hint').open=false;document.querySelector('.reference-solution').open=false;consoleTab('output');lines();save();showView('lab');
   }
   function renderMap(){
-    $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)} <span class="part-progress" data-part-progress="${i}"></span></h2><ol start="${COURSE.chapters.find(c=>c.part===i).number}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}${c.status==='ready'?'/1':''}"><strong>${escape(c.title)} ${chapterProgress(c)}</strong><span>${c.topics.length} ${c.status==='ready'?'lessons ready':'planned topics'}${c.labs.length?' · practice available':c.id==='big-o'?' · explorer available':c.status==='ready'?' · chapter project':' · preview'}</span></a></li>`).join('')}</ol></section>`).join('');
+    $('course-cards').innerHTML=COURSE.parts.map((part,i)=>`<section class="course-part"><h2>Part ${i+1}. ${escape(part)} <span class="part-progress" data-part-progress="${i}"></span></h2><ol start="${COURSE.chapters.find(c=>c.part===i).number}">${COURSE.chapters.filter(c=>c.part===i).map(c=>`<li><a href="#/chapter/${c.id}${c.status==='ready'?'/1':''}"><strong>${escape(c.title)} ${chapterProgress(c)}</strong><span>${c.labs.length?'practice exercises':c.id==='big-o'?'counted search explorer':c.status==='ready'?'chapter project':'preview'}</span></a></li>`).join('')}</ol></section>`).join('');
   }
   function preview(chapter,topic){
     if(chapter.status==='ready'){

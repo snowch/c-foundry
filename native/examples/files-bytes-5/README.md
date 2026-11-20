@@ -8,7 +8,7 @@ Combine tests with compiler diagnostics, sanitizers, and portability checks. Eac
 
 Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use Browser Linux for compiler warnings and GCC/Clang comparisons; optional sanitizer tooling is described separately.
 
-The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. Use them on native builds: the page’s Wasm runner is not providing these native sanitizer runtimes.
+The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. These are optional tools on separately configured builds. Neither is required to complete this browser lab.
 
 ### main.c
 

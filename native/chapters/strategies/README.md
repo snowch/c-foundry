@@ -222,6 +222,14 @@ A state must retain every fact needed by future choices. Different questions can
 
 For obstacle-free grid paths moving right or down, ways[r][c] depends on the cell above and the cell to the left. Boundary cells have one path. A full table uses O(RC) space; retaining just one row uses O(C) because the overwritten entry still represents the previous row until updated. Use bounded sizes or checked arithmetic to avoid path-count overflow.
 
+### Two predecessor cells feed one result
+
+For the unchanged 3×3 grid, the last cell receives three paths from each predecessor.
+
+In a three-by-three grid indexed from zero, ways[1][2] is three and is immediately above ways[2][2]. ways[2][1] is three and is immediately to its left. Their arrows converge on ways[2][2], whose value is six. A final down move comes from the upper cell; a final right move comes from the left cell. These two last-move cases are distinct.
+
+Only right and down moves are allowed; the original grid has no obstacles. Blocking a cell changes these counts.
+
 ### main.c
 
 ```c
@@ -253,7 +261,7 @@ Output:
 1 3 6
 ```
 
-The destination receives three paths from above and three from the left, for six total. The table itself is the dependency diagram.
+The printed bottom-right 6 counts paths whose last move is either down from above or right from the left. The figure connects those two predecessor cells.
 
 **Watch for:** Reducing space without preserving dependency order can accidentally reuse the current row instead of the previous row.
 
@@ -288,6 +296,14 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 For 0/1 knapsack, each item may be used at most once. Update order determines whether an item is accidentally reused.
 
 Let best[w] be the best value attainable within capacity w. For each item, visit capacities downward so best[w−weight] still refers to the solution before this item. Updating upward would solve an unbounded-use variant instead. With N items and integer capacity W, the table takes O(NW) time: this is pseudo-polynomial in numeric capacity, not polynomial in its bit length.
+
+### Update direction controls item reuse
+
+One item of weight two and value three can contribute at most once in the 0/1 problem.
+
+Consider only the first item, with weight two and value three; every best cell initially holds zero. Descending capacities visit four before two: best[4] reads the old best[2] of zero and becomes three, then best[2] becomes three. Ascending capacities visit two first: best[2] becomes three, then best[4] reads that changed cell and becomes six. Six counts the same item twice, so it belongs to an unbounded-use variant.
+
+This isolates the first item of the fixture. Capacities count weight units; best values count value units. Upward updates solve a different, reusable-item problem.
 
 ### main.c
 
@@ -350,15 +366,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Choose and justify a strategy for a small optimization problem.
 
-1. Choose between enumeration, greedy choices, and dynamic programming by examining state and counterexamples.
-2. Record predecessor choices to reconstruct the selected items, then verify the total weight and value.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Record predecessor choices to reconstruct the selected items, then verify the total weight and value.
+2. Test capacity zero, an item too heavy to fit, and an item that would win only if reused.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check the selected item IDs, total weight, and total value against enumeration on small instances.
 
 Baseline command (checks original output, not every extension):
 

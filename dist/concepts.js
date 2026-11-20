@@ -996,7 +996,6 @@
       "database-foundations/2",
       "parsing/4",
       "execution/6",
-      "planning/1",
       "planning/4",
       "richer-queries/3"
     ],
@@ -1905,6 +1904,230 @@
       "persistence/1"
     ],
     "note": "This is the course’s small TDB1 format with 8-bit bytes, not a raw C struct. Boxes are not proportional to field widths."
+  },
+  "recursion-levels": {
+    "title": "Count calls at each split depth",
+    "caption": "For eight elements, four depths contain fifteen calls and eight leaves.",
+    "description": "Start with one call of size eight at depth zero. It creates two calls of size four at depth one, then four calls of size two at depth two, then eight calls of size one at depth three. Size-one calls are leaves. Adding the call counts gives fifteen; the final depth has eight leaves. The table counts calls, not elapsed time or merge operations.",
+    "kind": "comparison",
+    "data": {
+      "headings": [
+        "Depth",
+        "Elements per call",
+        "Calls at this depth"
+      ],
+      "rows": [
+        [
+          "0",
+          "8",
+          "1"
+        ],
+        [
+          "1",
+          "4",
+          "2"
+        ],
+        [
+          "2",
+          "2",
+          "4"
+        ],
+        [
+          "3 · leaves",
+          "1",
+          "8"
+        ],
+        [
+          "Total",
+          "—",
+          "15 calls; 8 leaves"
+        ]
+      ]
+    },
+    "routes": [
+      "recursion/4"
+    ],
+    "note": "This is the power-of-two split fixture. A merge-sort combine step adds work not counted by this program."
+  },
+  "grid-dependencies": {
+    "title": "Two predecessor cells feed one result",
+    "caption": "For the unchanged 3×3 grid, the last cell receives three paths from each predecessor.",
+    "description": "In a three-by-three grid indexed from zero, ways[1][2] is three and is immediately above ways[2][2]. ways[2][1] is three and is immediately to its left. Their arrows converge on ways[2][2], whose value is six. A final down move comes from the upper cell; a final right move comes from the left cell. These two last-move cases are distinct.",
+    "kind": "converge",
+    "data": {
+      "sources": [
+        {
+          "label": "Above · [1][2]",
+          "value": "3 paths",
+          "detail": "final move: down",
+          "state": "normal"
+        },
+        {
+          "label": "Left · [2][1]",
+          "value": "3 paths",
+          "detail": "final move: right",
+          "state": "normal"
+        }
+      ],
+      "target": {
+        "label": "Destination · [2][2]",
+        "value": "3 + 3 = 6 paths",
+        "detail": "two disjoint last-move cases",
+        "state": "active"
+      }
+    },
+    "routes": [
+      "strategies/4"
+    ],
+    "note": "Only right and down moves are allowed; the original grid has no obstacles. Blocking a cell changes these counts."
+  },
+  "knapsack-order": {
+    "title": "Update direction controls item reuse",
+    "caption": "One item of weight two and value three can contribute at most once in the 0/1 problem.",
+    "description": "Consider only the first item, with weight two and value three; every best cell initially holds zero. Descending capacities visit four before two: best[4] reads the old best[2] of zero and becomes three, then best[2] becomes three. Ascending capacities visit two first: best[2] becomes three, then best[4] reads that changed cell and becomes six. Six counts the same item twice, so it belongs to an unbounded-use variant.",
+    "kind": "lanes",
+    "data": [
+      {
+        "label": "Descending · item used once",
+        "cards": [
+          {
+            "label": "Visit w = 4 first",
+            "value": "best[4] = 0 + 3",
+            "detail": "reads old best[2]",
+            "state": "normal"
+          },
+          {
+            "label": "Then visit w = 2",
+            "value": "best[2] = 0 + 3",
+            "detail": "reads old best[0]",
+            "state": "normal"
+          }
+        ]
+      },
+      {
+        "label": "Ascending · item reused",
+        "cards": [
+          {
+            "label": "Visit w = 2 first",
+            "value": "best[2] = 0 + 3",
+            "detail": "writes current-item state",
+            "state": "normal"
+          },
+          {
+            "label": "Then visit w = 4",
+            "value": "best[4] = 3 + 3",
+            "detail": "reads changed best[2]",
+            "state": "danger"
+          }
+        ]
+      }
+    ],
+    "routes": [
+      "strategies/5"
+    ],
+    "note": "This isolates the first item of the fixture. Capacities count weight units; best values count value units. Upward updates solve a different, reusable-item problem."
+  },
+  "plan-cost": {
+    "title": "Compare the estimated work of both paths",
+    "caption": "A cheaper access path depends on how many data pages the matches require.",
+    "description": "The model has one hundred table pages and an index with three levels. It charges one page unit for each index level and one distinct data-page fetch per matching row. For one match, the index costs three plus one, or four units, versus one hundred for a scan, so choose the index. For ninety-eight matches, the index costs one hundred and one units, versus one hundred for a scan, so choose the scan.",
+    "kind": "comparison",
+    "data": {
+      "headings": [
+        "Matches",
+        "Index: 3 + matches",
+        "Scan",
+        "Lower estimated work"
+      ],
+      "rows": [
+        [
+          "1",
+          "4 page units",
+          "100 page units",
+          "Index"
+        ],
+        [
+          "98",
+          "101 page units",
+          "100 page units",
+          "Scan"
+        ]
+      ]
+    },
+    "routes": [
+      "planning/1"
+    ],
+    "note": "Cold cache; each match needs a different data page. These are estimated page units, not measured disk reads or timings; both paths must return the same rows."
+  },
+  "skew-estimates": {
+    "title": "Data frequency changes the match estimate",
+    "caption": "The same eight rows support very different estimates under uniform and observed frequencies.",
+    "description": "There are eight score rows: seven have score one and one has score nine. A uniform model over ten possible score values predicts eight divided by ten, or zero point eight matches for either queried value. A histogram counted from the same rows predicts seven matches for score one and one match for score nine, equal to the actual counts in this fixture. The row total is eight in both cases.",
+    "kind": "comparison",
+    "data": {
+      "headings": [
+        "Queried score",
+        "Uniform estimate",
+        "Histogram estimate",
+        "Actual matches"
+      ],
+      "rows": [
+        [
+          "1",
+          "0.8 rows",
+          "7 rows",
+          "7 rows"
+        ],
+        [
+          "9",
+          "0.8 rows",
+          "1 row",
+          "1 row"
+        ]
+      ]
+    },
+    "routes": [
+      "richer-queries/2"
+    ],
+    "note": "The histogram is built from this fixed data. Later updates can make it stale, and single-column counts do not capture correlations between fields."
+  },
+  "float-range": {
+    "title": "Tiny positive results can become subnormal or zero",
+    "caption": "Binary64 gradual underflow extends below DBL_MIN without unsigned-style wraparound.",
+    "description": "Read the boxes in increasing value, starting at zero. Zero is followed by the smallest positive subnormal, two to the power minus one thousand seventy-four. Half of DBL_MIN is two to the power minus one thousand twenty-three and remains subnormal. DBL_MIN is two to the power minus one thousand twenty-two and is the smallest positive normal binary64 double. Halving the smallest positive subnormal rounds to zero under round-to-nearest. The picture shows value categories, not proportional distances.",
+    "kind": "cells",
+    "data": {
+      "cells": [
+        {
+          "label": "Zero",
+          "value": "0",
+          "detail": "smallest subnormal / 2 rounds here",
+          "state": "boundary"
+        },
+        {
+          "label": "Smallest subnormal",
+          "value": "2^−1074",
+          "detail": "nextafter(0, 1)",
+          "state": "normal"
+        },
+        {
+          "label": "Still subnormal",
+          "value": "2^−1023",
+          "detail": "DBL_MIN / 2",
+          "state": "normal"
+        },
+        {
+          "label": "Smallest normal",
+          "value": "2^−1022",
+          "detail": "DBL_MIN",
+          "state": "active"
+        }
+      ]
+    },
+    "routes": [
+      "c-guarantees/10"
+    ],
+    "note": "The experiment requires binary64, gradual subnormals, and round-to-nearest. Boxes are not to scale; the C classification functions determine the printed results."
   }
 };
   const routes=new Map();

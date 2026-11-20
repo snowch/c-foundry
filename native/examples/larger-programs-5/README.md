@@ -67,7 +67,7 @@ Only after OK. The status determines whether the returned owner was established.
 
 **Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/5). In main.c, change the first argument of copy_name from "Ada" to "Grace". Choose Run code and compare the first line with bad input=. Which call uses the success path that must free name?
 
-**Extend the example:** The chapter overview links the native record-store project. Its editable implementation and independent checks extend this example into a multi-file contract.
+**Extend the example:** The chapter overview links the record-store project in Browser Linux. Its editable implementation and independent checks extend this example into a multi-file contract.
 
 ### References and help
 

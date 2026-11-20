@@ -41,7 +41,7 @@ The reading exporter mirrors the captions, descriptions, and model notes into th
 | A search tree routes by ordered keys | `trees-heaps/2` |
 | A min-heap orders parents before children | `trees-heaps/5`, `trees-heaps/6`, `graphs/6` |
 | One graph can have several routes to a vertex | `graphs/1`, `graphs/2`, `graphs/4` |
-| A query passes through distinct responsibilities | `database-foundations/2`, `parsing/4`, `execution/6`, `planning/1`, `planning/4`, `richer-queries/3` |
+| A query passes through distinct responsibilities | `database-foundations/2`, `parsing/4`, `execution/6`, `planning/4`, `richer-queries/3` |
 | A file format chooses its byte order | `files-bytes/3`, `files-bytes/6`, `persistence/2`, `portable-c/2`, `hardening-tinydb/2` |
 | A slot is an indirection to record bytes | `pages/1`, `pages/3`, `pages/4` |
 | A cache lookup has a hit path and a miss path | `pages/5`, `reliability/2` |
@@ -64,8 +64,14 @@ The reading exporter mirrors the captions, descriptions, and model notes into th
 | Bounds bracket every occurrence of an equal key | `searching/4` |
 | Logical queue order can wrap across array index zero | `queues/2` |
 | A header tells a decoder how to read the following bytes | `persistence/1` |
+| Count calls at each split depth | `recursion/4` |
+| Two predecessor cells feed one result | `strategies/4` |
+| Update direction controls item reuse | `strategies/5` |
+| Compare the estimated work of both paths | `planning/1` |
+| Data frequency changes the match estimate | `richer-queries/2` |
+| Tiny positive results can become subnormal or zero | `c-guarantees/10` |
 
-48 original figure definitions serve 102 selected lessons across all nine parts. Lessons without a useful visual relationship retain their existing prose layout.
+54 original figure definitions serve 107 selected lessons across all nine parts. Lessons without a useful visual relationship retain their existing prose layout.
 
 ## Maintaining the figures
 

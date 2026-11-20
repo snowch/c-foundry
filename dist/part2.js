@@ -50,7 +50,7 @@ window.PART_TWO = {
         "explanation": "For an array with n elements, a pointer may designate an element or the one-past position used as an endpoint. A one-past pointer may be compared or subtracted within the appropriate array range, but not dereferenced. Subtracting pointers into the same array produces ptrdiff_t. Most array expressions convert to a pointer to their first element; an array parameter therefore needs an explicit length rather than sizeof on the parameter.",
         "code": "#include <stdio.h>\n#include <stddef.h>\n\nint main(void) {\n    int values[] = {2, 4, 6};\n    int *p = values + 1;\n    int *end = values + 3;\n    printf(\"%d %d %td\\n\", *p, *(p + 1), end - values);\n    return 0;\n}\n",
         "expected": "4 6 3",
-        "walkthrough": "p reaches the second int, so *p is 4 and *(p + 1) is 6. end is one past the third element, and end - values counts three int elements, not their byte size. The td format prints ptrdiff_t. No expression reads *end.",
+        "walkthrough": "p reaches the second int, so *p is 4 and *(p + 1) is 6. end is one past the third element, and end - values counts three int elements, not their byte size. The %td format prints ptrdiff_t. No expression reads *end.",
         "pitfall": "Subtracting unrelated pointers or dereferencing the endpoint has undefined behavior. An apparently plausible address is not evidence that an access is valid.",
         "question": "May this program read *end?",
         "choices": [
@@ -178,7 +178,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "It copies an address. Both pointers would reach the same allocation.",
-        "tryit": "In main.c, change copy[0] = 'B'; to copy[0] = 'P';. Choose Run code and compare both words in Console. Which allocation owns the editable copy, and why does original keep its first letter?",
+        "tryit": "In main.c, change copy[0] = 'B'; to copy[0] = 'P';. Choose Run code and compare both words in Console. Which string did the write change, and why does original keep its first letter?",
         "input": "",
         "runtime": "browser"
       },
@@ -232,7 +232,7 @@ window.PART_TWO = {
       },
       "2": {
         "intro": "An enum gives meaningful names to integer choices. A union stores alternatives in overlapping storage. A tagged union combines them so the program knows which alternative it may interpret.",
-        "explanation": "Maintain an invariant connecting the tag to the union member you most recently established. A switch on the tag selects the appropriate interpretation. typedef can give the whole record a concise type name, but it does not create lifetime management. In this example, the text member borrows a string literal whose lifetime covers the program; an owned heap string would need a different cleanup rule.",
+        "explanation": "Maintain a rule, called an invariant, connecting the tag to the union member you most recently established. A switch on the tag selects the appropriate interpretation. typedef can give the whole record a concise type name, but it does not create lifetime management. In this example, the text member borrows a string literal whose lifetime covers the program; an owned heap string would need a different cleanup rule.",
         "code": "#include <stdio.h>\n\ntypedef enum { NUMBER, TEXT } Kind;\ntypedef struct {\n    Kind kind;\n    union { int number; const char *text; } data;\n} Value;\n\nvoid show(Value value) {\n    switch (value.kind) {\n        case NUMBER: printf(\"number=%d\\n\", value.data.number); break;\n        case TEXT: printf(\"text=%s\\n\", value.data.text); break;\n    }\n}\n\nint main(void) {\n    Value value = {.kind = NUMBER, .data.number = 7};\n    show(value);\n    value.kind = TEXT;\n    value.data.text = \"Ada\";\n    show(value);\n    return 0;\n}\n",
         "expected": "number=7\ntext=Ada",
         "walkthrough": "The first value establishes the number alternative. Before the second call, both tag and text member are updated. show therefore follows the matching branch each time. The union reuses storage; it is not a record holding both independent payloads simultaneously.",
@@ -382,7 +382,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "It prevents repetition within one translation unit; separate translation units still need a correct linkage design.",
-        "tryit": "Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect the expanded source in a native checkout, change into native/examples/larger-programs-3 and run gcc -E main.c.",
+        "tryit": "Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect preprocessing, choose Linux in the header, complete its setup, and run cd ~/work/c-foundry/native/examples/larger-programs-3 && gcc -E main.c. Find twice-included scale.h’s single function definition in the terminal output.",
         "input": "",
         "runtime": "native",
         "files": {
@@ -434,7 +434,7 @@ window.PART_TWO = {
         "browser": {
           "note": "Run here, or use the native command below with your own C toolchain."
         },
-        "extension": "The chapter overview links the native record-store project. Its editable implementation and independent checks extend this example into a multi-file contract."
+        "extension": "The chapter overview links the record-store project in Browser Linux. Its editable implementation and independent checks extend this example into a multi-file contract."
       }
     }
   },
@@ -533,7 +533,7 @@ window.PART_TWO = {
       },
       "5": {
         "intro": "Combine tests with compiler diagnostics, sanitizers, and portability checks. Each tool detects a different set of mistakes; none is a proof that a program is correct.",
-        "explanation": "The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. Use them on native builds: the page’s Wasm runner is not providing these native sanitizer runtimes.",
+        "explanation": "The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. These are optional tools on separately configured builds. Neither is required to complete this browser lab.",
         "code": "#include <stdio.h>\n#include <string.h>\n#include <stdbool.h>\n\nbool copy_checked(char *destination, size_t capacity, const char *source) {\n    size_t length = strlen(source);\n    if (length >= capacity) return false;\n    memcpy(destination, source, length + 1);\n    return true;\n}\n\nint main(void) {\n    char small[4];\n    printf(\"short=%s\\n\", copy_checked(small, sizeof small, \"Ada\") ? \"ok\" : \"rejected\");\n    printf(\"too-long=%s\\n\", copy_checked(small, sizeof small, \"Grace\") ? \"ok\" : \"rejected\");\n    return 0;\n}\n",
         "expected": "short=ok\ntoo-long=rejected",
         "walkthrough": "Ada needs four characters including its terminator and fits; Grace does not, so the helper returns without copying it. Add independent capacity-boundary checks and compare GCC and Clang in Browser Linux. Sanitizer scope is covered in the optional tooling reading.",
@@ -576,14 +576,14 @@ window.PART_TWO = {
       },
       "7": {
         "intro": "Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Browser Linux.",
-        "explanation": "A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with <code>-g -O0</code> so source locations and variables are easier to follow. Browser-only learners can skip the native session and continue to algorithms.",
+        "explanation": "A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with <code>-g -O0</code> so source locations and variables are easier to follow. This investigation is optional. Use the Continue to Part 3 link to proceed without running GDB.",
         "code": "/* Deliberately faulty lab starter. All accesses stay within the array. */\n#include <stddef.h>\n#include <stdio.h>\n#include <string.h>\n\n/* The caller supplies a live array and values whose sum fits in int. */\nint sum_values(const int *values, size_t count) {\n    int total = 0;\n    for (size_t i = 1; i < count; ++i) {\n        total += values[i];\n    }\n    return total;\n}\n\nint main(int argc, char **argv) {\n    const int ordinary[] = {4, 8, 12};\n    const int single[] = {7};\n    const int negative[] = {-5, 2, 1};\n    const int *values = ordinary;\n    size_t count = sizeof ordinary / sizeof ordinary[0];\n    if (argc > 1 && strcmp(argv[1], \"single\") == 0) {\n        values = single;\n        count = 1;\n    } else if (argc > 1 && strcmp(argv[1], \"empty\") == 0) {\n        count = 0;\n    } else if (argc > 1 && strcmp(argv[1], \"negative\") == 0) {\n        values = negative;\n        count = sizeof negative / sizeof negative[0];\n    }\n    int result = sum_values(values, count);\n    printf(\"total=%d\\n\", result);\n    return 0;\n}\n",
         "expected": "total=20",
         "runtime": "native",
         "input": "",
         "exampleTitle": "Reproduce the original failure",
         "walkthrough": "The faulty starter begins at element 1 and produces 20. The original-output check confirms that reproduction. Use debug-check on the repaired student file to require 24 and exercise single, empty, and negative inputs.",
-        "pitfall": "A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Native GDB is not running inside the browser Wasm workspace.",
+        "pitfall": "A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Run GDB in Browser Linux; the small C command workspace does not provide it.",
         "question": "You use GDB to set total to 24 and the output becomes correct. What still needs doing?",
         "choices": [
           "Mark the defect fixed because this run passed",

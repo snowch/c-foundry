@@ -875,11 +875,11 @@ The default run exports and reimports two rows. The optional import argument loa
 
 <details><summary>Answer</summary>
 
-No. The runtime resets its virtual filesystem; a host transfer/storage step is separate.
+No. Inline lesson files reset on each run. The command workspace saves its own files in this browser; Download keeps a separate copy.
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/5). In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Run the prepared cc command. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/5). In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Choose Run to execute the prepared cc command and wait for Built program. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.
 
 ### References and help
 
@@ -1089,15 +1089,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Persist rows through a pager and reject corrupt database input.
 
-1. Define bytes independently of structs, check every stream operation, and load untrusted files into a temporary validated table.
-2. Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.
+2. Try every byte truncation of a valid export, duplicate IDs, a missing name terminator, and one trailing byte.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Load each invalid file over a known live table and compare every row before and after rejection.
 
 Baseline command (checks original output, not every extension):
 

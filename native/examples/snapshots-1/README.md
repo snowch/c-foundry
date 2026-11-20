@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 A snapshot read chooses versions according to a stable committed-time boundary, not according to the latest value at each statement.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The one-key model has value ten created at time one and superseded at time three; value twenty becomes visible at time three. A snapshot at time two continues to see ten. Timestamps here are bounded committed sequence numbers, not wall-clock time. Concurrent publication of version metadata needs synchronization in an assembled engine.
 

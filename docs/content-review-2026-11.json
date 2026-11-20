@@ -1,0 +1,1755 @@
+{
+  "date": "2026-11-20",
+  "baseline": "9d41ba2",
+  "prerequisites": "No prior C at Chapter 1; each later chapter assumes earlier course lessons, not prior Linux or C expertise.",
+  "scope": {
+    "chapters": 44,
+    "topic_lessons": 227,
+    "practice_exercises": 15,
+    "reference_questions": 44,
+    "existing_diagram_placements": 102
+  },
+  "method": "Read authored headings, explanations, instructions, expected outputs and feedback in course order. Check changed actions against editable source and available controls. Retain correct sentences. Inspect and run selected revised experiments; use the full compiler suite for unchanged program fixtures. This is editorial and functional review, not a learner comprehension study.",
+  "changes": [
+    {
+      "route": "first-program/1",
+      "field": "tryit",
+      "before": "In main.c, replace Hello, C! with Hello, Ada! inside the printf string. Leave the newline escape in place. Choose Run code again and compare the two Console lines. Which part of the output did the edit control?",
+      "after": "In main.c, replace Hello, C! with Hello, Ada! inside the printf string. Leave the newline escape in place. Choose Run code again and find Hello, Ada! in Console. The new run replaces the earlier output. Which characters changed from the original greeting?"
+    },
+    {
+      "route": "first-program/5",
+      "field": "pitfall",
+      "before": "Native Linux processes, sockets, and C threads are not supplied by this lab. Chapters that need those capabilities identify Browser Linux as their execution environment; they are still readable on a tablet.",
+      "after": "The inline runner supplies no Linux processes, sockets, or threads. Lessons that need them provide an Open Browser Linux button; that terminal also runs in your browser."
+    },
+    {
+      "route": "values/3",
+      "field": "walkthrough",
+      "before": "The first line divides seven into two groups with one left over. On the second line, multiplication happens within the higher-precedence subexpression, yielding 14. Parentheses change the grouping to add first and yield 20. To obtain a fractional quotient, make a division operand floating point before division, as the next topic shows.",
+      "after": "The first line reports three complete groups of two, with one left over: 7 = 3 × 2 + 1. On the second line, multiplication happens within the higher-precedence subexpression, yielding 14. Parentheses change the grouping to add first and yield 20. To obtain a fractional quotient, make a division operand floating point before division, as the next topic shows."
+    },
+    {
+      "route": "control-flow/1",
+      "field": "intro",
+      "before": "A decision chooses which statements run. In a condition, zero is false and a nonzero scalar value is true. A comparison usually expresses that decision more clearly than relying on an unexplained number.",
+      "after": "A decision chooses which statements run. For numeric conditions, zero is false and every nonzero value is true. A comparison usually expresses that decision more clearly than relying on an unexplained number."
+    },
+    {
+      "route": "control-flow/3",
+      "field": "pitfall",
+      "before": "An empty body caused by a stray semicolon, or an update that never approaches the stopping condition, can create an unintended loop. Stop code is available if an experiment fails to terminate.",
+      "after": "An empty body caused by a stray semicolon, or an update that never approaches the stopping condition, can create an unintended loop. The Stop button is available if an experiment fails to terminate."
+    },
+    {
+      "route": "arrays-strings/5",
+      "field": "why",
+      "before": "Only transitions from whitespace to non-whitespace start a word.",
+      "after": "A non-whitespace character starts a word only when in_word is false, including at the beginning of input."
+    },
+    {
+      "route": "pointers/3",
+      "field": "walkthrough",
+      "before": "p reaches the second int, so *p is 4 and *(p + 1) is 6. end is one past the third element, and end - values counts three int elements, not their byte size. The td format prints ptrdiff_t. No expression reads *end.",
+      "after": "p reaches the second int, so *p is 4 and *(p + 1) is 6. end is one past the third element, and end - values counts three int elements, not their byte size. The %td format prints ptrdiff_t. No expression reads *end."
+    },
+    {
+      "route": "allocation/4",
+      "field": "tryit",
+      "before": "In main.c, change copy[0] = 'B'; to copy[0] = 'P';. Choose Run code and compare both words in Console. Which allocation owns the editable copy, and why does original keep its first letter?",
+      "after": "In main.c, change copy[0] = 'B'; to copy[0] = 'P';. Choose Run code and compare both words in Console. Which string did the write change, and why does original keep its first letter?"
+    },
+    {
+      "route": "structured-data/2",
+      "field": "explanation",
+      "before": "Maintain an invariant connecting the tag to the union member you most recently established. A switch on the tag selects the appropriate interpretation. typedef can give the whole record a concise type name, but it does not create lifetime management. In this example, the text member borrows a string literal whose lifetime covers the program; an owned heap string would need a different cleanup rule.",
+      "after": "Maintain a rule, called an invariant, connecting the tag to the union member you most recently established. A switch on the tag selects the appropriate interpretation. typedef can give the whole record a concise type name, but it does not create lifetime management. In this example, the text member borrows a string literal whose lifetime covers the program; an owned heap string would need a different cleanup rule."
+    },
+    {
+      "route": "larger-programs/3",
+      "field": "tryit",
+      "before": "Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect the expanded source in a native checkout, change into native/examples/larger-programs-3 and run gcc -E main.c.",
+      "after": "Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect preprocessing, choose Linux in the header, complete its setup, and run cd ~/work/c-foundry/native/examples/larger-programs-3 && gcc -E main.c. Find twice-included scale.h’s single function definition in the terminal output."
+    },
+    {
+      "route": "larger-programs/5",
+      "field": "extension",
+      "before": "The chapter overview links the native record-store project. Its editable implementation and independent checks extend this example into a multi-file contract.",
+      "after": "The chapter overview links the record-store project in Browser Linux. Its editable implementation and independent checks extend this example into a multi-file contract."
+    },
+    {
+      "route": "files-bytes/5",
+      "field": "explanation",
+      "before": "The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. Use them on native builds: the page’s Wasm runner is not providing these native sanitizer runtimes.",
+      "after": "The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. These are optional tools on separately configured builds. Neither is required to complete this browser lab."
+    },
+    {
+      "route": "files-bytes/7",
+      "field": "explanation",
+      "before": "A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with <code>-g -O0</code> so source locations and variables are easier to follow. Browser-only learners can skip the native session and continue to algorithms.",
+      "after": "A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with <code>-g -O0</code> so source locations and variables are easier to follow. This investigation is optional. Use the Continue to Part 3 link to proceed without running GDB."
+    },
+    {
+      "route": "files-bytes/7",
+      "field": "pitfall",
+      "before": "A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Native GDB is not running inside the browser Wasm workspace.",
+      "after": "A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Run GDB in Browser Linux; the small C command workspace does not provide it."
+    },
+    {
+      "route": "big-o/4",
+      "field": "walkthrough",
+      "before": "All three arrays have size four. Only target placement changes, producing counts 1, 4, and 4. The best-case count is Θ(1); the worst case is Θ(n).",
+      "after": "All three searches use the same four-element array. Only target placement changes, producing counts 1, 4, and 4. The best-case count is Θ(1); the worst case is Θ(n)."
+    },
+    {
+      "route": "big-o/6",
+      "field": "explanation",
+      "before": "Before iteration i, sum equals the sum of a[0..i), and 0≤i≤n. It holds initially with an empty prefix. Adding a[i] and incrementing i preserves it. The measure n−i decreases, so the loop terminates; at i=n, the invariant gives the required total. Values are small here so the int sum is representable.",
+      "after": "Before iteration i, sum equals the sum of the prefix a[0..i), meaning indices 0 through i−1, and 0≤i≤n. It holds initially with an empty prefix. Adding a[i] and incrementing i preserves it. The measure n−i decreases, so the loop terminates; at i=n, the invariant gives the required total. Values are small here so the int sum is representable."
+    },
+    {
+      "route": "big-o",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Compare counted search operations, then explain how doubling the input changes the work.",
+        "tasks": [
+          "Count work on concrete inputs, prove what a loop preserves, and then describe growth. Separate a bound on a function from a stopwatch measurement.",
+          "Use the Big O explorer, then compare absent-key linear and binary search counts on powers of two.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "big-o-7"
+      },
+      "after": {
+        "goal": "Compare counted search operations, then explain how doubling the input changes the work.",
+        "tasks": [
+          "Use the Big O explorer, then compare absent-key linear and binary search counts on powers of two.",
+          "Compare absent-key search counts for n=4, 8, and 16; state that one inspected element counts as one comparison."
+        ],
+        "checks": [
+          "Check the predicted doubling ratios and explain why finite counts do not prove an asymptotic bound."
+        ],
+        "example": "big-o-7"
+      }
+    },
+    {
+      "route": "searching",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Find records while maintaining a shrinking search interval.",
+        "tasks": [
+          "Maintain explicit search intervals, handle absence and duplicates, and apply ordered search to records.",
+          "Insert an ID between 2 and 5 while preserving order, then implement find-or-missing cases.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "searching-5"
+      },
+      "after": {
+        "goal": "Find records while maintaining a shrinking search interval.",
+        "tasks": [
+          "Insert an ID between 2 and 5 while preserving order, then implement find-or-missing cases.",
+          "Check IDs before the first row, between rows, at both endpoints, and after the last row; test an empty table."
+        ],
+        "checks": [
+          "Explain why each interval update preserves every possible match and why the missing result is checked before indexing."
+        ],
+        "example": "searching-5"
+      }
+    },
+    {
+      "route": "sorting/1",
+      "field": "walkthrough",
+      "before": "The two methods produce the same ordered multiset through different operations. A matching result alone does not establish the algorithm or its cost.",
+      "after": "The two methods produce the same ordered collection with the same values and duplicate counts through different operations. A matching result alone does not establish the algorithm or its cost."
+    },
+    {
+      "route": "sorting/3",
+      "field": "tryit",
+      "before": "In main.c, change a to {5, 5, 5, 1, 1}. Run code and compare the sorted sequence with this input. Why is sorting all equal-key entries still required even when the partition cannot separate them by value?",
+      "after": "In main.c, change a to {5, 5, 5, 1, 1}. Run code and compare the sorted sequence with this input. The output confirms ordering. Does it reveal how many recursive calls the repeated equal keys required? Which branch of partition receives values equal to the pivot?"
+    },
+    {
+      "route": "sorting/5",
+      "field": "tryit",
+      "before": "In main.c, change -7 to INT_MIN in a. Run code and compare ordered= and extremes=. Which comparisons show that the comparator also handles a duplicate extreme value?",
+      "after": "In main.c, change -7 to INT_MIN in a. Run code and compare ordered= and extremes=. Do ordered= and extremes= tell you whether both copies of INT_MIN survived? Add show(a, 4); after qsort and run again to inspect all four values."
+    },
+    {
+      "route": "sorting",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Implement and compare sorting algorithms on different input orders.",
+        "tasks": [
+          "Compare algorithms by their invariants, movement, stability, and sensitivity to input order.",
+          "Build a comparison table for insertion and merge sort on four input orders, retaining correctness checks.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "sorting-6"
+      },
+      "after": {
+        "goal": "Implement and compare sorting algorithms on different input orders.",
+        "tasks": [
+          "Build a comparison table for insertion and merge sort on four input orders, retaining correctness checks.",
+          "Use sorted, reversed, all-equal, and duplicate-containing inputs; compare both values and duplicate counts after sorting."
+        ],
+        "checks": [
+          "Use tags on equal keys to check stability, and report shifts separately from comparisons."
+        ],
+        "example": "sorting-6"
+      }
+    },
+    {
+      "route": "recursion",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Traverse a tree and account for the recursive call stack.",
+        "tasks": [
+          "Make recursive subproblems smaller, track each call’s state, and compare explicit and implicit stacks.",
+          "Add a nested directory and then implement the traversal with an explicit bounded stack.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "recursion-5"
+      },
+      "after": {
+        "goal": "Traverse a tree and account for the recursive call stack.",
+        "tasks": [
+          "Add a nested directory and then implement the traversal with an explicit bounded stack.",
+          "Compare recursive and explicit-stack traversal on an empty tree, a leaf, and a nested directory; define a depth limit."
+        ],
+        "checks": [
+          "Check the same visit order and count the greatest number of unfinished calls or stack entries."
+        ],
+        "example": "recursion-5"
+      }
+    },
+    {
+      "route": "strategies/4",
+      "field": "walkthrough",
+      "before": "The destination receives three paths from above and three from the left, for six total. The table itself is the dependency diagram.",
+      "after": "The printed bottom-right 6 counts paths whose last move is either down from above or right from the left. The figure connects those two predecessor cells."
+    },
+    {
+      "route": "strategies",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Choose and justify a strategy for a small optimization problem.",
+        "tasks": [
+          "Choose between enumeration, greedy choices, and dynamic programming by examining state and counterexamples.",
+          "Record predecessor choices to reconstruct the selected items, then verify the total weight and value.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "strategies-5"
+      },
+      "after": {
+        "goal": "Choose and justify a strategy for a small optimization problem.",
+        "tasks": [
+          "Record predecessor choices to reconstruct the selected items, then verify the total weight and value.",
+          "Test capacity zero, an item too heavy to fit, and an item that would win only if reused."
+        ],
+        "checks": [
+          "Check the selected item IDs, total weight, and total value against enumeration on small instances."
+        ],
+        "example": "strategies-5"
+      }
+    },
+    {
+      "route": "lists",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Implement list operations and compare them with a dynamic array.",
+        "tasks": [
+          "Choose a sequence representation by its operation costs, ownership rules, and access patterns.",
+          "Choose a representation for mostly indexed reads and for frequent splices with known neighboring nodes; justify both choices.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "lists-5"
+      },
+      "after": {
+        "goal": "Implement list operations and compare them with a dynamic array.",
+        "tasks": [
+          "Choose a representation for mostly indexed reads and for frequent splices with known neighboring nodes; justify both choices.",
+          "Test removing the head, an interior node, the last node, and an absent value; check both directions of a doubly linked list."
+        ],
+        "checks": [
+          "State which pointers become invalid after removal or vector growth and identify each allocation’s cleanup owner."
+        ],
+        "example": "lists-5"
+      }
+    },
+    {
+      "route": "queues",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Build a circular queue and use a stack to evaluate expressions.",
+        "tasks": [
+          "Define bounded stack and queue operations before using them to parse or schedule work.",
+          "Extend tokenization to multi-digit integers and add checked arithmetic and division-by-zero handling.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "queues-5"
+      },
+      "after": {
+        "goal": "Build a circular queue and use a stack to evaluate expressions.",
+        "tasks": [
+          "Extend tokenization to multi-digit integers and add checked arithmetic and division-by-zero handling.",
+          "Test an empty pop, a full push, wrapped indices, missing operands, an unknown operator, and overflowing arithmetic."
+        ],
+        "checks": [
+          "Check FIFO order for the ring and right-before-left popping for postfix subtraction; rejected operations must preserve state."
+        ],
+        "example": "queues-5"
+      }
+    },
+    {
+      "route": "hash-tables/5",
+      "field": "tryit",
+      "before": "In main.c, change the inserted keys 9 and 17 to 2 and 3 to give distinct home slots. Run code. Does this particular missing key inspect fewer slots? Then use homes 1, 3, and 5 and compare absent_probes= again.",
+      "after": "In main.c, change the inserted keys 9 and 17 to 2 and 3 to give distinct home slots. Run code. Does this particular missing key inspect fewer slots? Next set the three put calls’ keys to 1, 3, and 5 and run again. Compare absent_probes=. Where does the search first encounter an empty slot in each arrangement?"
+    },
+    {
+      "route": "hash-tables/6",
+      "field": "extension",
+      "before": "Try a longer token list after updating the loop length. The example uses bounded in-table words; an index that allocates individual copies must release each distinct owner.",
+      "after": "Try a longer token list after updating the loop length. The example borrows immutable string literals; an index that allocates individual copies must release each distinct owner."
+    },
+    {
+      "route": "hash-tables",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Build a hash table that remains correct through collisions and resizing.",
+        "tasks": [
+          "Resolve collisions explicitly, preserve probe chains on deletion, and connect expected costs to load and hashing assumptions.",
+          "Read bounded tokens, allocate owned copies for new words, and free all owners when the index is destroyed.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "hash-tables-6"
+      },
+      "after": {
+        "goal": "Build a hash table that remains correct through collisions and resizing.",
+        "tasks": [
+          "Read bounded tokens, allocate owned copies for new words, and free all owners when the index is destroyed.",
+          "Force colliding words, delete the first colliding key, reinsert it, and fill the table; compare frequencies with a simple list."
+        ],
+        "checks": [
+          "Check that a deleted slot does not hide a surviving key and that each allocated distinct word is freed once."
+        ],
+        "example": "hash-tables-6"
+      }
+    },
+    {
+      "route": "trees-heaps/1",
+      "field": "explanation",
+      "before": "Inorder visits left subtree, node, and right subtree. For a binary search tree with distinct keys, this produces ascending order. A plain binary tree without the ordering invariant does not promise sorted output. Traversal visits each node once and uses stack depth proportional to tree height.",
+      "after": "Inorder visits left subtree, node, and right subtree. For a binary search tree (BST) with distinct keys, this produces ascending order. A plain binary tree without the ordering invariant does not promise sorted output. Traversal visits each node once and uses stack depth proportional to tree height."
+    },
+    {
+      "route": "trees-heaps/3",
+      "field": "explanation",
+      "before": "The fixture compares a three-node right chain with a balanced three-node tree. Both satisfy BST ordering and have the same inorder sequence, but maximum path lengths differ. For n sorted insertions into a naive BST, the final height is n; an AVL invariant keeps height O(log n).",
+      "after": "The fixture compares a three-node right chain with a balanced three-node tree. Both satisfy BST ordering and have the same inorder sequence, but maximum path lengths differ. For n sorted insertions into a naive BST, the final height is n; an AVL tree keeps each node’s child heights within one level of each other, giving O(log n) height."
+    },
+    {
+      "route": "trees-heaps/6",
+      "field": "intro",
+      "before": "A priority scheduler orders pending work by a documented priority key. Equal-priority behavior needs an explicit tie-break if it matters.",
+      "after": "A priority scheduler orders pending work by a documented priority key. To run equal-priority tasks in arrival order, include their insertion sequence as a tie-break."
+    },
+    {
+      "route": "trees-heaps",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Schedule tasks with a priority queue and investigate tree balance.",
+        "tasks": [
+          "Separate search-order invariants from shape and priority invariants. Keep both data and height metadata consistent.",
+          "Replace encoded integers with a Task struct and comparator, then add an explicit fairness policy.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "trees-heaps-6"
+      },
+      "after": {
+        "goal": "Schedule tasks with a priority queue and investigate tree balance.",
+        "tasks": [
+          "Replace encoded integers with a Task struct and comparator, then add an explicit fairness policy.",
+          "Give two tasks equal priority, insert them in a known order, then add higher-priority tasks before each removal."
+        ],
+        "checks": [
+          "Check your documented tie-break and fairness policy; verify heap order after every push and pop."
+        ],
+        "example": "trees-heaps-6"
+      }
+    },
+    {
+      "route": "graphs/1",
+      "field": "explanation",
+      "before": "A V×V adjacency matrix reserves Θ(V²) entries and tests one edge in O(1). An adjacency list uses Θ(V+E) storage and scans actual neighbors. This matrix fixture uses zero for absent edges, so it cannot represent a zero-weight edge; a more general format needs a separate presence flag or sentinel.",
+      "after": "Let V count vertices (nodes) and E count edges (connections). A V×V adjacency matrix reserves Θ(V²) entries and tests one edge in O(1). An adjacency list uses Θ(V+E) storage and scans actual neighbors. This matrix fixture uses zero for absent edges, so it cannot represent a zero-weight edge; a more general format needs a separate presence flag or sentinel."
+    },
+    {
+      "route": "graphs/2",
+      "field": "intro",
+      "before": "BFS explores by edge distance using a queue; DFS follows one path at a time using recursion or a stack.",
+      "after": "Breadth-first search (BFS) explores by edge distance using a queue. Depth-first search (DFS) follows one path at a time using recursion or a stack."
+    },
+    {
+      "route": "graphs/4",
+      "field": "explanation",
+      "before": "Kahn’s algorithm repeatedly removes a zero-indegree vertex and decrements its outgoing neighbors. If fewer than V vertices are emitted, a cycle prevents completion. The fixed array queue is safe because each vertex enters only when its indegree becomes zero, once. Different available zero-indegree choices can produce different valid orders.",
+      "after": "Kahn’s algorithm repeatedly removes a vertex with zero indegree (no remaining incoming edges) and decrements its outgoing neighbors. If fewer than V vertices are emitted, a cycle prevents completion. The fixed array queue is safe because each vertex enters only when its indegree becomes zero, once. Different available zero-indegree choices can produce different valid orders."
+    },
+    {
+      "route": "graphs",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Find routes in a graph and explain the cost of its representation.",
+        "tasks": [
+          "Choose a graph representation, track discovery state, and match the route algorithm to the edge-weight contract.",
+          "Replace matrix rows with adjacency lists and benchmark only after verifying route costs against the simpler implementation.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "graphs-6"
+      },
+      "after": {
+        "goal": "Find routes in a graph and explain the cost of its representation.",
+        "tasks": [
+          "Replace matrix rows with adjacency lists and benchmark only after verifying route costs against the simpler implementation.",
+          "Test an unreachable vertex, two routes to one vertex, and a rejected negative weight; compare matrix and list results."
+        ],
+        "checks": [
+          "Compare reachability and complete route costs before counting edge visits or timing either representation."
+        ],
+        "example": "graphs-6"
+      }
+    },
+    {
+      "route": "database-foundations/2",
+      "field": "explanation",
+      "before": "This initial table scan is both a correctness baseline and the fallback when no index exists. A later index can return candidate row positions, but execution must still honor the same row and predicate contract. Physical row positions may change after deletion or compaction; logical IDs should remain stable.",
+      "after": "This initial table scan is both a correctness baseline and the fallback when no index exists. A later index can return candidate row positions, but execution must still honor the same row and predicate contract: a predicate is the test that decides whether a row qualifies. Physical row positions may change after deletion or compaction; logical IDs should remain stable."
+    },
+    {
+      "route": "database-foundations/3",
+      "field": "explanation",
+      "before": "The baseline is a single in-memory table with unique positive IDs, bounded names, and deterministic insertion order. It does not yet promise persistence, transactions, concurrent access, Unicode-aware comparison, or arbitrary SQL. Each later chapter adds a named capability while preserving the earlier behavior.",
+      "after": "The baseline is a single in-memory table with unique positive IDs, bounded names, and deterministic insertion order. It does not yet promise persistence, transactions, concurrent access, Unicode-aware comparison, or arbitrary SQL. Later chapters supply separate components and projects for adding those capabilities to your own database while preserving its earlier behavior."
+    },
+    {
+      "route": "database-foundations",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Define TinyDB’s first commands and test their observable behavior.",
+        "tasks": [
+          "Define a deliberately small database contract before implementing storage or SQL syntax.",
+          "Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "database-foundations-5"
+      },
+      "after": {
+        "goal": "Define TinyDB’s first commands and test their observable behavior.",
+        "tasks": [
+          "Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.",
+          "Test selection from an empty table, ID zero, duplicate ID, and insertion beyond capacity."
+        ],
+        "checks": [
+          "For every rejected insert, compare the row count and every existing row with a copy taken before the call."
+        ],
+        "example": "database-foundations-5"
+      }
+    },
+    {
+      "route": "tables",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Insert records, reject duplicates, and find rows by ID.",
+        "tasks": [
+          "Implement row lifecycle operations while keeping key uniqueness and initialized-count invariants true.",
+          "Generate bounded insert/update/delete sequences and check invariants after every operation.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "tables-5"
+      },
+      "after": {
+        "goal": "Insert records, reject duplicates, and find rows by ID.",
+        "tasks": [
+          "Generate bounded insert/update/delete sequences and check invariants after every operation.",
+          "Run bounded insert, update, and delete sequences against a simple independent reference table."
+        ],
+        "checks": [
+          "After each operation, check status, row count, unique IDs, and complete surviving row values."
+        ],
+        "example": "tables-5"
+      }
+    },
+    {
+      "route": "parsing/2",
+      "field": "walkthrough",
+      "before": "The doubled quote contributes one character to O'Brien. The malformed second fixture reaches the end before a closing quote.",
+      "after": "The doubled quote contributes one character to O'Brien. The malformed third fixture reaches the end before a closing quote."
+    },
+    {
+      "route": "parsing",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Parse a small SQL subset and explain malformed statements.",
+        "tasks": [
+          "Recognize a deliberately small SQL grammar and keep syntax, schema validation, and execution separate.",
+          "Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "parsing-5"
+      },
+      "after": {
+        "goal": "Parse a small SQL subset and explain malformed statements.",
+        "tasks": [
+          "Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.",
+          "Test a missing semicolon, trailing tokens, an unterminated string, ID zero, and an oversized number."
+        ],
+        "checks": [
+          "Check the reported stage and source position; rejected syntax must not change the output statement or table."
+        ],
+        "example": "parsing-5"
+      }
+    },
+    {
+      "route": "execution/5",
+      "field": "explanation",
+      "before": "COUNT is zero on an empty input. This example uses a 64-bit sum for a table with at most eight unsigned 32-bit scores, so the sum is representable. An average is computed only when count is nonzero; a general SQL engine might return NULL for empty AVG and SUM. Our explicit empty policy is not an accidental divide-by-zero workaround.",
+      "after": "COUNT is zero on an empty input. This example uses a 64-bit sum for a table with at most eight unsigned 32-bit scores, so the sum is representable. An average is computed only when count is nonzero; a general SQL engine might return NULL for empty AVG and SUM. Here an empty input prints count=0 sum=0 average=0.00; the program skips division."
+    },
+    {
+      "route": "execution",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Execute validated statements over an in-memory table.",
+        "tasks": [
+          "Execute typed, validated statements and build query operators with explicit input and output contracts.",
+          "Extend the grammar with one earlier operator, add end-to-end tests, and preserve all existing rejection behavior.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "execution-6"
+      },
+      "after": {
+        "goal": "Execute validated statements over an in-memory table.",
+        "tasks": [
+          "Extend the grammar with one earlier operator, add end-to-end tests, and preserve all existing rejection behavior.",
+          "Add ORDER BY score LIMIT 2 to your own parser and executor, then test ties and fewer than two matching rows."
+        ],
+        "checks": [
+          "Compare complete result rows with an independent sort-then-limit reference and retain the earlier INSERT/SELECT rejection checks."
+        ],
+        "example": "execution-6"
+      }
+    },
+    {
+      "route": "persistence/5",
+      "field": "why",
+      "before": "The runtime resets its virtual filesystem; a host transfer/storage step is separate.",
+      "after": "Inline lesson files reset on each run. The command workspace saves its own files in this browser; Download keeps a separate copy."
+    },
+    {
+      "route": "persistence/5",
+      "field": "tryit",
+      "before": "In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Run the prepared cc command. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.",
+      "after": "In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Choose Run to execute the prepared cc command and wait for Built program. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it."
+    },
+    {
+      "route": "persistence",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Persist rows through a pager and reject corrupt database input.",
+        "tasks": [
+          "Define bytes independently of structs, check every stream operation, and load untrusted files into a temporary validated table.",
+          "Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "persistence-6"
+      },
+      "after": {
+        "goal": "Persist rows through a pager and reject corrupt database input.",
+        "tasks": [
+          "Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.",
+          "Try every byte truncation of a valid export, duplicate IDs, a missing name terminator, and one trailing byte."
+        ],
+        "checks": [
+          "Load each invalid file over a known live table and compare every row before and after rejection."
+        ],
+        "example": "persistence-6"
+      }
+    },
+    {
+      "route": "pages",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Locate and manage records inside slotted storage pages.",
+        "tasks": [
+          "Represent records inside bounded storage pages and keep cache and free-space state consistent.",
+          "Add a hex dump with highlighted validated ranges, then reject overlapping live slots.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "pages-6"
+      },
+      "after": {
+        "goal": "Locate and manage records inside slotted storage pages.",
+        "tasks": [
+          "Add a hex dump with highlighted validated ranges, then reject overlapping live slots.",
+          "Test a record ending exactly at the page boundary, one exceeding it, overlapping live slots, and a deleted slot."
+        ],
+        "checks": [
+          "Validate ranges before displaying bytes; after compaction, check surviving slot IDs and payload bytes."
+        ],
+        "example": "pages-6"
+      }
+    },
+    {
+      "route": "bplus-trees/1",
+      "field": "tryit",
+      "before": "In main.c, change the final inserted key from 7 to 5. Run code and compare root_children= and leaf_capacity=. Which count depends on inserted keys and which is a fixed model parameter?",
+      "after": "In main.c, change the insertion loop’s key <= 7 bound to key <= 5. Run code and compare root_children= and leaf_capacity=. Which count depends on inserted keys and which is a fixed model parameter?"
+    },
+    {
+      "route": "bplus-trees/2",
+      "field": "tryit",
+      "before": "In main.c, change the final inserted key from 7 to 6. Run code and compare leaf min= and count= fields. Which separator remains associated with the start of the right child even if its count changes?",
+      "after": "In main.c, change the insertion loop’s key <= 7 bound to key <= 6. Run code and compare leaf min= and count= fields. Which third-leaf split no longer occurs with six keys? Why does the remaining right child still have minimum key 3?"
+    },
+    {
+      "route": "bplus-trees/4",
+      "field": "tryit",
+      "before": "In main.c, change the final inserted key from 5 to 6. Run code and compare leaves=, left=, right=, and boundary=. Does appending one more key also change the boundary created during the first split?",
+      "after": "In main.c, change the insertion loop’s key <= 5 bound to key <= 6. Run code and compare leaves=, left=, right=, and boundary=. Does appending one more key also change the boundary created during the first split?"
+    },
+    {
+      "route": "bplus-trees/5",
+      "field": "explanation",
+      "before": "The example prints keys in [2,7). After routing to the first relevant leaf, it follows next pointers until a key reaches the upper boundary. A balanced full B+ tree gives O(log n+k) logical work for k returned keys, with page costs depending on density and cache state. Linked-leaf order is an invariant worth checking independently of point lookups.",
+      "after": "The example prints keys in [2,8). After routing to the first relevant leaf, it follows next pointers until a key reaches the upper boundary. A balanced full B+ tree gives O(log n+k) logical work for k returned keys, with page costs depending on density and cache state. Linked-leaf order is an invariant worth checking independently of point lookups."
+    },
+    {
+      "route": "bplus-trees",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Implement an ordered index that remains valid when pages split.",
+        "tasks": [
+          "Build and test a bounded B+ index before encoding its pages. Preserve routing, occupancy, and leaf-link invariants.",
+          "Generate insert/delete sequences and check ordering, uniqueness, occupancy, reachability, and pool ownership after each step.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "bplus-trees-6"
+      },
+      "after": {
+        "goal": "Implement an ordered index that remains valid when pages split.",
+        "tasks": [
+          "Generate insert/delete sequences and check ordering, uniqueness, occupancy, reachability, and pool ownership after each step.",
+          "Alternate insertions and deletions against a sorted-array reference, including duplicates, missing keys, and exhausted page capacity."
+        ],
+        "checks": [
+          "After each step, check key order, unique keys, leaf occupancy, next links, reachable pages, and ownership of free pool slots."
+        ],
+        "example": "bplus-trees-6"
+      }
+    },
+    {
+      "route": "planning/1",
+      "field": "walkthrough",
+      "before": "One match costs four estimated page reads through the index. Ninety-eight random matches cost 101, exceeding the hundred-page scan.",
+      "after": "The output labels narrow= and wide= come from comparing the two estimated paths in the figure. They report plan choices; this fixture does not execute either query."
+    },
+    {
+      "route": "planning/4",
+      "field": "explanation",
+      "before": "The fixture prints a chosen access path, estimated matches, and its simplified page cost. It does not run a query. An EXPLAIN ANALYZE-like mode would execute and attach measured counters; that distinction matters for statements with side effects. Keep plan output stable enough for tests while avoiding promises about exact real-world runtime.",
+      "after": "The fixture prints a chosen access path, estimated matches, and its simplified page cost. It does not run a query. An EXPLAIN ANALYZE-like mode would execute and attach measured counters; an analyze mode can therefore change data for a mutating statement, whereas plain EXPLAIN must leave data untouched. Keep plan output stable enough for tests while avoiding promises about exact real-world runtime."
+    },
+    {
+      "route": "planning",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Compare query plans using page reads and a simple cost model.",
+        "tasks": [
+          "Choose a correct access path first, then compare plans with an explicit cost model and measured logical work.",
+          "Add an inner-key index and verify the same multiset of join rows, including duplicate keys.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "planning-6"
+      },
+      "after": {
+        "goal": "Compare query plans using page reads and a simple cost model.",
+        "tasks": [
+          "Add an inner-key index and verify the same multiset of join rows, including duplicate keys.",
+          "Join inputs containing duplicate inner keys and a missing key using both a nested loop and your new inner-key index."
+        ],
+        "checks": [
+          "Compare every result pair including duplicates; count comparisons separately from modeled or measured page reads."
+        ],
+        "example": "planning-6"
+      }
+    },
+    {
+      "route": "recovery/1",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "recovery/2",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "recovery/3",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "recovery/5",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "recovery/6",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "recovery",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Recover committed changes after simulated interruptions.",
+        "tasks": [
+          "Separate transaction visibility from durable acknowledgement. Model interrupted log prefixes and preserve committed state.",
+          "Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "recovery-6"
+      },
+      "after": {
+        "goal": "Recover committed changes after simulated interruptions.",
+        "tasks": [
+          "Specify a browser host persistence adapter and list its transaction, quota, crash, and export guarantees before implementing it.",
+          "List expected values for all 25 prefixes of the 24-byte log, then add a second committed transaction and a torn third one."
+        ],
+        "checks": [
+          "Check only complete matching commits change the recovered value. Keep browser-host persistence design separate from this in-memory replay test."
+        ],
+        "example": "recovery-6"
+      }
+    },
+    {
+      "route": "ship/2",
+      "field": "explanation",
+      "before": "The fixture generates bounded strings with a fixed seed and passes them to the parser. It checks memory-safe completion under the selected compiler and can be rerun under sanitizers. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found.",
+      "after": "The fixture generates bounded strings with a fixed seed and passes them to the parser. It counts parser calls that return. Normal completion alone does not establish memory safety; optional external sanitizers can detect selected invalid accesses on the paths that run. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found."
+    },
+    {
+      "route": "ship/7",
+      "field": "pitfall",
+      "before": "A browser demonstration must disclose whether its database state survives reload; the current C runner’s files do not.",
+      "after": "A browser demonstration must disclose whether its database state survives reload; inline lesson files reset for each run. The command workspace saves its own files in this browser; Browser Linux requires an exported backup before closing."
+    },
+    {
+      "route": "ship/8",
+      "field": "explanation",
+      "before": "A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the <a href=\"#/chapter/files-bytes/7\">optional Part 2 GDB lab</a> first, or skip this native workshop.",
+      "after": "A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the <a href=\"#/chapter/files-bytes/7\">optional Part 2 GDB lab</a> first, or skip this optional workshop."
+    },
+    {
+      "route": "ship",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Ship a documented TinyDB build with tests, benchmarks, and exportable files.",
+        "tasks": [
+          "Turn the small database into a reproducible learning release with contract tests, failure experiments, and an explicit compatibility document.",
+          "Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "ship-7"
+      },
+      "after": {
+        "goal": "Ship a documented TinyDB build with tests, benchmarks, and exportable files.",
+        "tasks": [
+          "Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.",
+          "Package your assembled program, its build command, acceptance tests, format specification, and an independently validated export."
+        ],
+        "checks": [
+          "Rebuild from that package in a fresh Browser Linux session and list implemented features, input limits, and untested failure conditions."
+        ],
+        "example": "ship-7"
+      }
+    },
+    {
+      "route": "standards-evolution/1",
+      "field": "tryit",
+      "before": "After the browser run, open a native terminal at the repository root and run make standards-matrix. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?",
+      "after": "After the browser run, choose Linux in the header, complete its setup, and run make standards-matrix at ~/work/c-foundry. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?"
+    },
+    {
+      "route": "standards-evolution/1",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "standards-evolution/2",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "standards-evolution/3",
+      "field": "tryit",
+      "before": "In main.c, change the fallback message from mode=C17 fallback_selected to mode=pre-C23 fallback_selected. Run code. Which condition selects the fallback? Use make standards-matrix in your native checkout to see accepted modes separately from feature support.",
+      "after": "In main.c, change the fallback message from mode=C17 fallback_selected to mode=pre-C23 fallback_selected. Run code. Which condition selects the fallback? Use make standards-matrix at ~/work/c-foundry in Browser Linux to see accepted modes separately from feature support."
+    },
+    {
+      "route": "standards-evolution/3",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "standards-evolution",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Compile a feature probe under different language standards.",
+        "tasks": [
+          "Choose a language baseline and verify features with the actual compiler instead of assuming that a modern compiler name implies complete conformance.",
+          "Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "standards-evolution-3"
+      },
+      "after": {
+        "goal": "Compile a feature probe under different language standards.",
+        "tasks": [
+          "Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.",
+          "Run make standards-matrix in Browser Linux and record the compiler versions, accepted modes, and exact facilities probed."
+        ],
+        "checks": [
+          "Separate accepting -std=c23 from compiling and linking the C23 facility; retain diagnostics from a deliberately unsupported probe."
+        ],
+        "example": "standards-evolution-3"
+      }
+    },
+    {
+      "route": "c-guarantees/1",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "c-guarantees/2",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "c-guarantees/3",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "portable-c/2",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "portable-c/3",
+      "field": "tryit",
+      "before": "After observing monotonic_configured=0 in the browser, open your native terminal at the repository root and run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?",
+      "after": "After observing monotonic_configured=0 in the browser, choose Linux in the header, complete its setup, and at ~/work/c-foundry run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?"
+    },
+    {
+      "route": "portable-c/3",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "portable-c/5",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "portable-c/6",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "portable-c/7",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "portable-c/8",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "portable-c",
+      "field": "outcomes",
+      "before": [
+        "Distinguish ISO C, POSIX, Win32, and Linux-specific contracts.",
+        "Specify byte widths, byte order, file modes, and filename policy explicitly.",
+        "Handle line endings, byte encodings, locale, bounded records, and numeric conversion.",
+        "Check stream errors and use stream positions without assuming text byte offsets.",
+        "Compile and link capability probes, isolate host services, and test the same fixtures on Linux, macOS, and Windows."
+      ],
+      "after": [
+        "Distinguish ISO C, POSIX, Win32, and Linux-specific contracts.",
+        "Specify byte widths, byte order, file modes, and filename policy explicitly.",
+        "Handle line endings, byte encodings, locale, bounded records, and numeric conversion.",
+        "Check stream errors and use stream positions without assuming text byte offsets.",
+        "Compile and link capability probes in Browser Linux, then interpret the automated Linux, macOS, and Windows fixture results."
+      ]
+    },
+    {
+      "route": "portable-c",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Build portable file and text interfaces, then test their contracts across operating systems.",
+        "tasks": [
+          "Define filename, text-encoding, line-framing, and error contracts before adding host adapters.",
+          "Add rejecting and short-write sinks without changing the portable codec.",
+          "Compile and link actual capability probes, and test both configured and conservative paths.",
+          "Run the shared fixtures on Linux GCC/Clang, macOS Clang, and Windows MSVC."
+        ],
+        "checks": [
+          "Reject truncation, malformed numeric fields, unsupported capabilities, and invalid encodings without changing live output.",
+          "Explain the difference between C string equality and filesystem identity, and between flushing and durable publication.",
+          "Use python3 tools/check_portability.py --compiler gcc to run the native cross-platform acceptance suite."
+        ],
+        "example": "portable-c-9"
+      },
+      "after": {
+        "goal": "Build portable file and text interfaces in Browser Linux and interpret cross-platform test evidence.",
+        "tasks": [
+          "Define filename, text-encoding, line-framing, and error contracts before adding host adapters.",
+          "Add rejecting and short-write sinks without changing the portable codec.",
+          "Compile and link actual capability probes, and test both configured and conservative paths.",
+          "Run the shared fixtures with GCC and Clang in Browser Linux. Inspect the repository’s automated Linux, macOS, and Windows exchange checks for evidence from other hosts."
+        ],
+        "checks": [
+          "Reject truncation, malformed numeric fields, unsupported capabilities, and invalid encodings without changing live output.",
+          "Explain the difference between C string equality and filesystem identity, and between flushing and durable publication.",
+          "At ~/work/c-foundry in Browser Linux, run python3 tools/check_portability.py --compiler gcc and repeat with --compiler clang."
+        ],
+        "example": "portable-c-9"
+      }
+    },
+    {
+      "route": "hardening-tinydb/1",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "hardening-tinydb/3",
+      "field": "tryit",
+      "before": "With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at the root of your native checkout, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?",
+      "after": "With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at ~/work/c-foundry in Browser Linux, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?"
+    },
+    {
+      "route": "hardening-tinydb/3",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "hardening-tinydb/4",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "hardening-tinydb/5",
+      "field": "tryit",
+      "before": "In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability in a native checkout to validate independent fixtures.",
+      "after": "In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability at ~/work/c-foundry in Browser Linux to validate independent fixtures."
+    },
+    {
+      "route": "hardening-tinydb/5",
+      "field": "browser",
+      "before": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+      },
+      "after": {
+        "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
+      }
+    },
+    {
+      "route": "hardening-tinydb",
+      "field": "outcomes",
+      "before": [
+        "Record language, integer, encoding, filename, file-mode, and resource assumptions.",
+        "Keep portable encode/decode logic independent of filesystem operations.",
+        "Verify exact bytes and rejection preservation using independent fixtures.",
+        "Build the same audited target with GCC, Clang, and MSVC across Linux, macOS, and Windows.",
+        "Distinguish file compatibility from atomic replacement, crash durability, locking, and concurrent-writer support."
+      ],
+      "after": [
+        "Record language, integer, encoding, filename, file-mode, and resource assumptions.",
+        "Keep portable encode/decode logic independent of filesystem operations.",
+        "Verify exact bytes and rejection preservation using independent fixtures.",
+        "Interpret automated GCC, Clang, and MSVC builds and file-exchange results across Linux, macOS, and Windows.",
+        "Distinguish file compatibility from atomic replacement, crash durability, locking, and concurrent-writer support."
+      ]
+    },
+    {
+      "route": "hardening-tinydb",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Audit TinyDB assumptions, separate its codec from file access, and exchange validated database files across Linux, macOS, and Windows.",
+        "tasks": [
+          "Complete the assumptions and platform-dependency table in native/portability/README.md for your assembled database.",
+          "Keep the codec and parsers independent of FILE, paths, processes, signals, and locks.",
+          "Run the same fixture suite across Linux, macOS, and Windows, and inspect the exchanged artifacts.",
+          "Design and test host-specific replacement/durability adapters before integrating them into the full CLI."
+        ],
+        "checks": [
+          "Use make check-portability locally or python tools/check_portability.py --compiler cl from an MSVC developer terminal.",
+          "Verify exact binary bytes, every truncated prefix, duplicate IDs, invalid UTF-8, rejection preservation, and existing-destination refusal.",
+          "Distinguish tested targets and the audited eight-row subset from unsupported formats, Unicode path handling, power-loss durability, and concurrent access."
+        ],
+        "example": "hardening-tinydb-5",
+        "command": "make check-portability",
+        "workspace": "native/portability"
+      },
+      "after": {
+        "goal": "Audit TinyDB assumptions, separate its codec from file access, and compare browser-lab results with automated cross-platform file checks.",
+        "tasks": [
+          "Complete the assumptions and platform-dependency table in native/portability/README.md for your assembled database.",
+          "Keep the codec and parsers independent of FILE, paths, processes, signals, and locks.",
+          "Run the fixture suite with GCC and Clang in Browser Linux. The repository’s automated cross-platform jobs exchange files from Linux, macOS, and Windows; no other OS is required for this lab.",
+          "Design and test host-specific replacement/durability adapters before integrating them into the full CLI."
+        ],
+        "checks": [
+          "Run make check-portability in Browser Linux; repeat with make check-portability CC=clang.",
+          "Verify exact binary bytes, every truncated prefix, duplicate IDs, invalid UTF-8, rejection preservation, and existing-destination refusal.",
+          "Distinguish tested targets and the audited eight-row subset from unsupported formats, Unicode path handling, power-loss durability, and concurrent access."
+        ],
+        "example": "hardening-tinydb-5",
+        "command": "make check-portability",
+        "workspace": "native/portability"
+      }
+    },
+    {
+      "route": "threads/1",
+      "field": "tryit",
+      "before": "In native/examples/threads-1/main.c, change .input by assigning jobs[i] = (Job){i + 2, 0}; instead of the existing i + 1 initializer. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?",
+      "after": "In native/examples/threads-1/main.c, replace jobs[i] = (Job){i + 1, 0}; with jobs[i] = (Job){i + 2, 0};. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?"
+    },
+    {
+      "route": "threads/2",
+      "field": "explanation",
+      "before": "main keeps the Job object alive while the worker accesses it and joins before reading its result. Passing the address of a loop variable reused by all workers can create both a lifetime or synchronization problem and incorrect logical inputs. Thread-local variables and separate per-worker objects simplify ownership but do not automatically protect genuinely shared objects.",
+      "after": "main keeps the Job object alive while the worker accesses it and joins before reading its result. Passing the address of a loop variable reused by all workers can let workers read changed inputs. Concurrently modifying that variable also needs synchronization, and leaving its scope too early ends its lifetime. Thread-local variables and separate per-worker objects simplify ownership but do not automatically protect genuinely shared objects."
+    },
+    {
+      "route": "threads",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Run joined threads and distinguish safe shared state from a data race.",
+        "tasks": [
+          "Create and join threads with explicit argument lifetimes and shared-memory ownership. Distinguish concurrency bugs from safe interleavings.",
+          "Move the entire increment under one lock and verify final two; use ThreadSanitizer separately rather than relying on a data-race output.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "threads-3"
+      },
+      "after": {
+        "goal": "Run joined threads and distinguish safe shared state from a data race.",
+        "tasks": [
+          "Apply the stale_update repair described in the final lesson: keep each complete increment under one mutex acquisition.",
+          "Repeat the run and find final=2. Explain why the barrier still lets both workers reach the increment."
+        ],
+        "checks": [
+          "Keep both accesses protected; do not remove synchronization to manufacture a data race.",
+          "Identify which Job objects stay alive until their corresponding joins."
+        ],
+        "example": "threads-3"
+      }
+    },
+    {
+      "route": "coordination/1",
+      "field": "intro",
+      "before": "A condition variable is a way to wait for a protected predicate to change, not a remembered message. Hold the mutex while checking the predicate.",
+      "after": "A condition variable is a way to wait for a protected predicate (a true/false test of shared state) to change, not a remembered message. Hold the mutex while checking the predicate."
+    },
+    {
+      "route": "coordination",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Explore a bounded queue that coordinates a producer and consumer.",
+        "tasks": [
+          "Use mutex-protected predicates and condition-variable loops to coordinate bounded work and orderly shutdown.",
+          "Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "coordination-3"
+      },
+      "after": {
+        "goal": "Check the lock order used by a bounded work queue and its callers.",
+        "tasks": [
+          "Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.",
+          "Mark an edge A → B whenever a path holds lock A while acquiring B; check the graph for a directed cycle."
+        ],
+        "checks": [
+          "Check workers finish under the chosen order; a completed finite run does not establish starvation freedom."
+        ],
+        "example": "coordination-3"
+      }
+    },
+    {
+      "route": "atomics/1",
+      "field": "walkthrough",
+      "before": "Four workers perform one thousand indivisible increments each. No plain read-plus-write sequence can lose an increment.",
+      "after": "Four workers perform one thousand indivisible increments each. Each fetch-add performs the complete increment atomically, so another worker cannot overwrite it with a stale read-plus-write result."
+    },
+    {
+      "route": "atomics/2",
+      "field": "intro",
+      "before": "Sequential consistency provides a single order for sequentially consistent atomic operations that respects each thread’s required ordering. It is a useful starting point.",
+      "after": "Sequential consistency provides a single order for sequentially consistent atomic operations that respects each thread’s required ordering. Start with this ordering when reasoning about several atomic objects so their operations can be traced in one consistent order."
+    },
+    {
+      "route": "atomics/2",
+      "field": "question",
+      "before": "Does atomic exchange cover an entire arbitrary struct update?",
+      "after": "Does exchanging one atomic counter also atomically update other, separately stored fields?"
+    },
+    {
+      "route": "atomics",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Compare a mutex-protected counter with a C11 atomic counter.",
+        "tasks": [
+          "Use atomic operations for the exact shared-state protocol you need, and treat memory ordering as a correctness contract.",
+          "Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "atomics-4"
+      },
+      "after": {
+        "goal": "Explain atomic counter updates and one-shot payload publication.",
+        "tasks": [
+          "Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.",
+          "List each shared field and the mutex or atomic operation protecting it; distinguish counter atomicity from payload publication."
+        ],
+        "checks": [
+          "Check the counter total after joins and trace the release store read by the payload’s acquire load."
+        ],
+        "example": "atomics-4"
+      }
+    },
+    {
+      "route": "concurrent-storage",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Use the queue as a foundation for a single-writer storage service.",
+        "tasks": [
+          "Put a bounded queue between callers and a single storage owner, with a shutdown and testing contract.",
+          "Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks; run ThreadSanitizer where supported.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "concurrent-storage-4"
+      },
+      "after": {
+        "goal": "Use the queue as a foundation for a single-writer storage service.",
+        "tasks": [
+          "Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks.",
+          "Add repeated-close, full-queue admission, consumer-failure, and per-request-ID completion cases."
+        ],
+        "checks": [
+          "Check accepted requests drain once each and rejected requests retain their owner; join all accessing workers before destroying locks."
+        ],
+        "example": "concurrent-storage-4"
+      }
+    },
+    {
+      "route": "multi-client/2",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "multi-client",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Extend the native TinyDB baseline with a serialized request path.",
+        "tasks": [
+          "Define request admission, transaction ownership, and overload behavior before accepting multiple callers.",
+          "Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "multi-client-3"
+      },
+      "after": {
+        "goal": "Extend your TinyDB project with a serialized request path in Browser Linux.",
+        "tasks": [
+          "Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.",
+          "Add immediate-rejection and timed-admission variants with request IDs; repeat an ID after an ambiguous response."
+        ],
+        "checks": [
+          "Check that retries do not apply one logical mutation twice and distinguish accepted, executed, and committed responses."
+        ],
+        "example": "multi-client-3"
+      }
+    },
+    {
+      "route": "isolation/2",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "isolation/3",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "isolation",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Specify the behavior of concurrent reads before changing the locking strategy.",
+        "tasks": [
+          "Specify what readers may observe before changing locks. Race freedom and transaction isolation are related but different contracts.",
+          "Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "isolation-3"
+      },
+      "after": {
+        "goal": "Specify the behavior of concurrent reads before changing the locking strategy.",
+        "tasks": [
+          "Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.",
+          "Write fixed schedules for a nonrepeatable read, a stale write, and a two-account transfer."
+        ],
+        "checks": [
+          "Check which committed versions each read may observe and whether the account total stays constant; name only the isolation guarantees your tests specify."
+        ],
+        "example": "isolation-3"
+      }
+    },
+    {
+      "route": "snapshots/1",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "snapshots/2",
+      "field": "intro",
+      "before": "MVCC stores multiple committed versions and uses a visibility rule to decide which one a reader sees. It does not by itself solve write conflicts or serializability.",
+      "after": "Multi-version concurrency control (MVCC) stores multiple committed versions and uses a visibility rule to decide which one a reader sees. It does not by itself solve write conflicts or serializability."
+    },
+    {
+      "route": "snapshots/2",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "snapshots/3",
+      "field": "tryit",
+      "before": "In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. When does the modeled horizon make the old version unnecessary?",
+      "after": "In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. Why can a horizon of 3 remove the old version? What would be unsafe about supplying 3 while a reader at snapshot 2 is still active?"
+    },
+    {
+      "route": "snapshots/3",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "snapshots",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Design version visibility tests before implementing snapshot reads.",
+        "tasks": [
+          "Retain committed versions so readers can use a stable visibility boundary. Reclaim only after the active-snapshot horizon permits it.",
+          "Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "snapshots-3"
+      },
+      "after": {
+        "goal": "Design version visibility tests before implementing snapshot reads.",
+        "tasks": [
+          "Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.",
+          "Keep a reader at snapshot 2 active while version 3 commits; end that reader before advancing the reclamation horizon."
+        ],
+        "checks": [
+          "Check snapshot 2 still reads the old value, snapshot 3 reads the new value, and no required version is reclaimed."
+        ],
+        "example": "snapshots-3"
+      }
+    },
+    {
+      "route": "maintenance/1",
+      "field": "intro",
+      "before": "A log sequence number identifies a position in a stable ordered log. Recovery must know which committed position a checkpoint already includes.",
+      "after": "A log sequence number (LSN) identifies a position in a stable ordered log. Recovery must know which committed position a checkpoint already includes."
+    },
+    {
+      "route": "maintenance/1",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "maintenance/3",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "maintenance",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Extend the earlier pager and log with a tested checkpoint protocol.",
+        "tasks": [
+          "Make recovery work with snapshots, log positions, and reusable storage without freeing data that remains referenced.",
+          "Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "maintenance-3"
+      },
+      "after": {
+        "goal": "Extend the earlier pager and log with a tested checkpoint protocol.",
+        "tasks": [
+          "Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.",
+          "Add generation numbers to page handles and test a handle saved before deleting and reusing its page."
+        ],
+        "checks": [
+          "Reject the stale handle, check live-page reachability, and list which snapshot or log still prevents each proposed page reuse."
+        ],
+        "example": "maintenance-3"
+      }
+    },
+    {
+      "route": "richer-queries/1",
+      "field": "intro",
+      "before": "Composite indexes order tuples lexicographically; prepared statements separate a fixed query shape from typed parameters; joins can use the same key lookup.",
+      "after": "Composite indexes compare the first tuple field, then the second to break a tie; prepared statements separate a fixed query shape from typed parameters; joins can use the same key lookup."
+    },
+    {
+      "route": "richer-queries/1",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "richer-queries/2",
+      "field": "explanation",
+      "before": "The fixture has seven score-one rows and one score-nine row. A ten-value uniform model estimates 0.8 matches for score one, while a per-value histogram records seven. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns.",
+      "after": "The histogram counts each stored score instead of assuming ten possible score values are equally frequent. The figure compares both estimates with the actual row counts. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns."
+    },
+    {
+      "route": "richer-queries/2",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "richer-queries/3",
+      "field": "explanation",
+      "before": "The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate.",
+      "after": "The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. Equal counts alone do not establish equal result rows; the chapter project checks those rows including duplicates. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate."
+    },
+    {
+      "route": "richer-queries/3",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "richer-queries",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Compare richer query plans using correctness tests and measured work.",
+        "tasks": [
+          "Add query capabilities with explicit key ordering, typed parameters, and evidence that optimized execution preserves results.",
+          "Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "richer-queries-3"
+      },
+      "after": {
+        "goal": "Compare richer query plans using correctness tests and measured work.",
+        "tasks": [
+          "Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.",
+          "Run baseline and indexed joins on duplicate keys, missing keys, and keys from different tenants."
+        ],
+        "checks": [
+          "Compare complete result pairs including duplicates before comparing query work; count index construction separately."
+        ],
+        "example": "richer-queries-3"
+      }
+    },
+    {
+      "route": "reliability/2",
+      "field": "explanation",
+      "before": "The fixture performs eight separate row allocations and one allocation for an eight-row pool, checking every result and freeing every owner. It also exercises the small page-cache model and counts backing-read events. Fewer allocations or reads can motivate a design, but neither proves lower total runtime; fragmentation, contention, eviction, and workload patterns matter.",
+      "after": "The fixture performs eight separate row allocations and one allocation for an eight-row pool, checking every result and freeing every owner. It also exercises the small page-cache model and counts backing-read events. Fewer allocations or reads can motivate a design, but neither proves lower total runtime; choose between designs by measuring the same correct workload, including allocator contention, cache misses, and cleanup costs."
+    },
+    {
+      "route": "reliability/2",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "reliability/3",
+      "field": "explanation",
+      "before": "This fixture checks all 25 prefixes of a transaction log, every too-short row length, and 256 deterministic bounded parser inputs. It preserves the distinction between format validation, recovery semantics, and parser robustness. Concurrency schedule tests and ThreadSanitizer belong alongside these checks; no finite run proves all schedules, all storage reorderings, or production reliability.",
+      "after": "This fixture checks all 25 prefixes of a transaction log, every too-short row length, and 256 deterministic bounded parser inputs. It preserves the distinction between format validation, recovery semantics, and parser robustness. Add concurrency schedule tests in Browser Linux. ThreadSanitizer is optional external tooling; no finite run proves all schedules, all storage reorderings, or production reliability."
+    },
+    {
+      "route": "reliability/3",
+      "field": "browser",
+      "before": {
+        "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
+      },
+      "after": {}
+    },
+    {
+      "route": "reliability",
+      "field": "practicePlan",
+      "before": {
+        "goal": "Evaluate an advanced TinyDB implementation against concurrent and fault-injected workloads.",
+        "tasks": [
+          "Evaluate concurrency, allocation, and recovery with reproducible workloads and clearly scoped evidence.",
+          "Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
+          "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        ],
+        "checks": [
+          "Run the complete example and compare its output with the documented fixture.",
+          "Predict and check at least one changed input, including a failing or absent case.",
+          "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        ],
+        "example": "reliability-3"
+      },
+      "after": {
+        "goal": "Evaluate an advanced TinyDB implementation against concurrent and fault-injected workloads.",
+        "tasks": [
+          "Run the complete course examples with GCC and Clang in Browser Linux, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
+          "Run the course fixtures with GCC and Clang in Browser Linux, then assemble your own release suite."
+        ],
+        "checks": [
+          "Keep minimized failing inputs and deterministic log-prefix checks; report completed requests separately from schedule-dependent contention counts."
+        ],
+        "example": "reliability-3"
+      }
+    }
+  ],
+  "diagram_recommendations": [
+    {
+      "route": "recursion/4",
+      "quote": "Every level contributes Θ(n) work, and the tree has Θ(log n) levels. Count leaves separately from the total number of nodes; for the example’s power-of-two input, there are n leaves and 2n−1 nodes.",
+      "question": "Why does splitting eight inputs produce fifteen calls but only eight leaves?",
+      "show": "Start with one call of size eight at depth zero. It creates two calls of size four at depth one, then four calls of size two at depth two, then eight calls of size one at depth three. Size-one calls are leaves. Adding the call counts gives fifteen; the final depth has eight leaves. The table counts calls, not elapsed time or merge operations.",
+      "placement": "Immediately after the conceptual explanation, before the worked example.",
+      "replaces": "Can replace the repeated sentence “This program counts the split tree only” by carrying that scope in the figure note. Keep the recurrence and the merge-combine work assumption in prose.",
+      "caveat": "This is the power-of-two split fixture. A merge-sort combine step adds work not counted by this program."
+    },
+    {
+      "route": "strategies/4",
+      "quote": "For obstacle-free grid paths moving right or down, ways[r][c] depends on the cell above and the cell to the left.",
+      "question": "Which two previously computed cells contribute to the destination’s six paths?",
+      "show": "In a three-by-three grid indexed from zero, ways[1][2] is three and is immediately above ways[2][2]. ways[2][1] is three and is immediately to its left. Their arrows converge on ways[2][2], whose value is six. A final down move comes from the upper cell; a final right move comes from the left cell. These two last-move cases are distinct.",
+      "placement": "Immediately after the conceptual explanation, before the worked example.",
+      "replaces": "Replaces “The table itself is the dependency diagram.” The revised walkthrough names the bottom-right output and its incoming moves.",
+      "caveat": "Only right and down moves are allowed; the original grid has no obstacles. Blocking a cell changes these counts."
+    },
+    {
+      "route": "strategies/5",
+      "quote": "For each item, visit capacities downward so best[w−weight] still refers to the solution before this item. Updating upward would solve an unbounded-use variant instead.",
+      "question": "Which earlier write would let an upward update use the same item twice?",
+      "show": "Consider only the first item, with weight two and value three; every best cell initially holds zero. Descending capacities visit four before two: best[4] reads the old best[2] of zero and becomes three, then best[2] becomes three. Ascending capacities visit two first: best[2] becomes three, then best[4] reads that changed cell and becomes six. Six counts the same item twice, so it belongs to an unbounded-use variant.",
+      "placement": "Immediately after the conceptual explanation, before the worked example.",
+      "replaces": "Can replace “Each item contributes at most once because capacities descend” with the first-item trace. Keep the explanation of capacity5=7, the state definition, and the complexity caveat.",
+      "caveat": "This isolates the first item of the fixture. Capacities count weight units; best values count value units. Upward updates solve a different, reusable-item problem."
+    },
+    {
+      "route": "planning/1",
+      "quote": "The teaching estimate charges one unit per page, assumes a cold cache and one distinct data-page fetch per match, and adds three index levels.",
+      "question": "When do scattered matches make index navigation plus row fetches cost more than a scan?",
+      "show": "The model has one hundred table pages and an index with three levels. It charges one page unit for each index level and one distinct data-page fetch per matching row. For one match, the index costs three plus one, or four units, versus one hundred for a scan, so choose the index. For ninety-eight matches, the index costs one hundred and one units, versus one hundred for a scan, so choose the scan.",
+      "placement": "Immediately after the conceptual explanation, before the worked example.",
+      "replaces": "Replaces the generic query-pipeline figure on this lesson. The two numeric walkthrough sentences can be replaced by the named narrow= and wide= output interpretation; keep the cost assumptions and result-equivalence rule.",
+      "caveat": "Cold cache; each match needs a different data page. These are estimated page units, not measured disk reads or timings; both paths must return the same rows."
+    },
+    {
+      "route": "richer-queries/2",
+      "quote": "The fixture has seven score-one rows and one score-nine row. A ten-value uniform model estimates 0.8 matches for score one, while a per-value histogram records seven.",
+      "question": "Why does a histogram estimate seven matches when a uniform model estimates less than one?",
+      "show": "There are eight score rows: seven have score one and one has score nine. A uniform model over ten possible score values predicts eight divided by ten, or zero point eight matches for either queried value. A histogram counted from the same rows predicts seven matches for score one and one match for score nine, equal to the actual counts in this fixture. The row total is eight in both cases.",
+      "placement": "Immediately after the conceptual explanation, before the worked example.",
+      "replaces": "Replaces the two quoted numeric setup sentences with the comparison table. Keep the data-refresh and correlation caveats.",
+      "caveat": "The histogram is built from this fixed data. Later updates can make it stale, and single-column counts do not capture correlations between fields."
+    },
+    {
+      "route": "c-guarantees/10",
+      "quote": "DBL_MIN is the smallest positive normal double, not the most negative value and not the smallest positive subnormal. On the explicitly required binary64 target with gradual underflow, nextafter(0,1) produces the smallest positive representable value.",
+      "question": "Which threshold separates a positive normal value from a subnormal value, and when can halving produce zero?",
+      "show": "Read the boxes in increasing value, starting at zero. Zero is followed by the smallest positive subnormal, two to the power minus one thousand seventy-four. Half of DBL_MIN is two to the power minus one thousand twenty-three and remains subnormal. DBL_MIN is two to the power minus one thousand twenty-two and is the smallest positive normal binary64 double. Halving the smallest positive subnormal rounds to zero under round-to-nearest. The picture shows value categories, not proportional distances.",
+      "placement": "Immediately after the conceptual explanation, before the worked example.",
+      "replaces": "Can replace “Half of DBL_MIN remains a finite subnormal on these targets” and “Halving the smallest subnormal through scalbn rounds to zero under the chosen rounding mode” with the ordered boxes and their note. Keep target, rounding, classification, and math-error reporting assumptions visible.",
+      "caveat": "The experiment requires binary64, gradual subnormals, and round-to-nearest. Boxes are not to scale; the C classification functions determine the printed results."
+    }
+  ]
+}

@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Sanitizers observe executed behavior and catch selected invalid operations. Combine them with strict builds, input validation, and independent expectations.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. AddressSanitizer and UndefinedBehaviorSanitizer are optional external tools. In this browser lab, run the independent boundary fixtures with the normal compiler; the hosted image does not require or provide every sanitizer runtime combination. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support. A clean sanitizer run does not prove encoding compatibility, correct row identity, filesystem case behavior, or safe replacement of an existing file. Keep exact-byte, invalid-input, and failure-preservation assertions in the portability suite. The audit adapter deliberately creates new files exclusively; it does not claim portable atomic replacement. [ThreadSanitizer scope and limitations](https://snowch.github.io/c-foundry/#/tools/threadsanitizer) are covered in an optional reading page.
 

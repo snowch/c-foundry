@@ -12,9 +12,9 @@ Add query capabilities with explicit key ordering, typed parameters, and evidenc
 
 ## 43.1 Joins, composite indexes, and prepared statements
 
-Composite indexes order tuples lexicographically; prepared statements separate a fixed query shape from typed parameters; joins can use the same key lookup.
+Composite indexes compare the first tuple field, then the second to break a tie; prepared statements separate a fixed query shape from typed parameters; joins can use the same key lookup.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The fixture supports one exact prepared query shape, deliberately not a general SQL preparer. It binds tenant and ID as unsigned values and executes a composite-key binary search. The same lookup serves an indexed join from orders to customers, preserving one output per matching order. Adding these capabilities to the earlier SQL grammar is an assembly exercise with new parser and validation tests.
 
@@ -148,9 +148,17 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Better statistics model the distribution that predicates actually encounter. Histograms can represent skew that a uniform estimate misses.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
-The fixture has seven score-one rows and one score-nine row. A ten-value uniform model estimates 0.8 matches for score one, while a per-value histogram records seven. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns.
+The histogram counts each stored score instead of assuming ten possible score values are equally frequent. The figure compares both estimates with the actual row counts. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns.
+
+### Data frequency changes the match estimate
+
+The same eight rows support very different estimates under uniform and observed frequencies.
+
+There are eight score rows: seven have score one and one has score nine. A uniform model over ten possible score values predicts eight divided by ten, or zero point eight matches for either queried value. A histogram counted from the same rows predicts seven matches for score one and one match for score nine, equal to the actual counts in this fixture. The row total is eight in both cases.
+
+The histogram is built from this fixed data. Later updates can make it stale, and single-column counts do not capture correlations between fields.
 
 ### main.c
 
@@ -216,9 +224,9 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 An optimized plan must first return the same logical result. Instrument matching units when comparing its work with a baseline.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
-The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate.
+The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. Equal counts alone do not establish equal result rows; the chapter project checks those rows including duplicates. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate.
 
 ### A query passes through distinct responsibilities
 
@@ -312,15 +320,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Compare richer query plans using correctness tests and measured work.
 
-1. Add query capabilities with explicit key ordering, typed parameters, and evidence that optimized execution preserves results.
-2. Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.
+2. Run baseline and indexed joins on duplicate keys, missing keys, and keys from different tenants.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Compare complete result pairs including duplicates before comparing query work; count index construction separately.
 
 Baseline command (checks original output, not every extension):
 

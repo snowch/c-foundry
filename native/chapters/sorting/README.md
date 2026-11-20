@@ -79,7 +79,7 @@ Output:
 1 2 3 4
 ```
 
-The two methods produce the same ordered multiset through different operations. A matching result alone does not establish the algorithm or its cost.
+The two methods produce the same ordered collection with the same values and duplicate counts through different operations. A matching result alone does not establish the algorithm or its cost.
 
 **Watch for:** Shifting without saving the insertion value first destroys information.
 
@@ -322,7 +322,7 @@ No. Sorted input repeatedly selects an extreme pivot in this version.
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/3). In main.c, change a to {5, 5, 5, 1, 1}. Run code and compare the sorted sequence with this input. Why is sorting all equal-key entries still required even when the partition cannot separate them by value?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/3). In main.c, change a to {5, 5, 5, 1, 1}. Run code and compare the sorted sequence with this input. The output confirms ordering. Does it reveal how many recursive calls the repeated equal keys required? Which branch of partition receives values equal to the pivot?
 
 ### References and help
 
@@ -497,7 +497,7 @@ Signed subtraction can overflow. Only the sign is needed, and relational compari
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/5). In main.c, change -7 to INT_MIN in a. Run code and compare ordered= and extremes=. Which comparisons show that the comparator also handles a duplicate extreme value?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/sorting/5). In main.c, change -7 to INT_MIN in a. Run code and compare ordered= and extremes=. Do ordered= and extremes= tell you whether both copies of INT_MIN survived? Add show(a, 4); after qsort and run again to inspect all four values.
 
 ### References and help
 
@@ -627,15 +627,12 @@ make exercise EXERCISE=sort
 
 Implement and compare sorting algorithms on different input orders.
 
-1. Compare algorithms by their invariants, movement, stability, and sensitivity to input order.
-2. Build a comparison table for insertion and merge sort on four input orders, retaining correctness checks.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Build a comparison table for insertion and merge sort on four input orders, retaining correctness checks.
+2. Use sorted, reversed, all-equal, and duplicate-containing inputs; compare both values and duplicate counts after sorting.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Use tags on equal keys to check stability, and report shifts separately from comparisons.
 
 Baseline command (checks original output, not every extension):
 

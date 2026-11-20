@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Old versions can be reclaimed only when no active snapshot may still need them. Version retention is a concurrency and lifetime problem.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 For exclusive deletion time d, a version is no longer visible to snapshots at or after d. If the oldest active snapshot is at least d, the version can be removed under this model. Protect the active-reader registry and reclamation decision with synchronization, and prevent raw version pointers from escaping their protected lifetime. Timestamp wrap and abandoned reader handling need explicit policies.
 
@@ -82,7 +82,7 @@ No. That reader still requires the value visible before deletion time three.
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/3). In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. When does the modeled horizon make the old version unnecessary?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/snapshots/3). In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. Why can a horizon of 3 remove the old version? What would be unsafe about supplying 3 while a reader at snapshot 2 is still active?
 
 ### References and help
 

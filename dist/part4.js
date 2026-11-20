@@ -101,14 +101,11 @@ window.PART_FOUR = {
     "practicePlan": {
       "goal": "Implement list operations and compare them with a dynamic array.",
       "tasks": [
-        "Choose a sequence representation by its operation costs, ownership rules, and access patterns.",
         "Choose a representation for mostly indexed reads and for frequent splices with known neighboring nodes; justify both choices.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Test removing the head, an interior node, the last node, and an absent value; check both directions of a doubly linked list."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "State which pointers become invalid after removal or vector growth and identify each allocation’s cleanup owner."
       ],
       "example": "lists-5"
     }
@@ -215,14 +212,11 @@ window.PART_FOUR = {
     "practicePlan": {
       "goal": "Build a circular queue and use a stack to evaluate expressions.",
       "tasks": [
-        "Define bounded stack and queue operations before using them to parse or schedule work.",
         "Extend tokenization to multi-digit integers and add checked arithmetic and division-by-zero handling.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Test an empty pop, a full push, wrapped indices, missing operands, an unknown operator, and overflowing arithmetic."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check FIFO order for the ring and right-before-left popping for postfix subtraction; rejected operations must preserve state."
       ],
       "example": "queues-5"
     }
@@ -321,7 +315,7 @@ window.PART_FOUR = {
         ],
         "answer": 0,
         "why": "Collision resolution may examine a linear number of entries.",
-        "tryit": "In main.c, change the inserted keys 9 and 17 to 2 and 3 to give distinct home slots. Run code. Does this particular missing key inspect fewer slots? Then use homes 1, 3, and 5 and compare absent_probes= again.",
+        "tryit": "In main.c, change the inserted keys 9 and 17 to 2 and 3 to give distinct home slots. Run code. Does this particular missing key inspect fewer slots? Next set the three put calls’ keys to 1, 3, and 5 and run again. Compare absent_probes=. Where does the search first encounter an empty slot in each arrangement?",
         "input": "",
         "runtime": "browser"
       },
@@ -342,20 +336,17 @@ window.PART_FOUR = {
         "tryit": "In main.c, replace the last \"red\" in tokens with \"blue\". Run code and inspect red=, blue=, and absent=. Which counts track new token occurrences without increasing distinct words?",
         "input": "",
         "runtime": "browser",
-        "extension": "Try a longer token list after updating the loop length. The example uses bounded in-table words; an index that allocates individual copies must release each distinct owner."
+        "extension": "Try a longer token list after updating the loop length. The example borrows immutable string literals; an index that allocates individual copies must release each distinct owner."
       }
     },
     "practicePlan": {
       "goal": "Build a hash table that remains correct through collisions and resizing.",
       "tasks": [
-        "Resolve collisions explicitly, preserve probe chains on deletion, and connect expected costs to load and hashing assumptions.",
         "Read bounded tokens, allocate owned copies for new words, and free all owners when the index is destroyed.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Force colliding words, delete the first colliding key, reinsert it, and fill the table; compare frequencies with a simple list."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check that a deleted slot does not hide a surviving key and that each allocated distinct word is freed once."
       ],
       "example": "hash-tables-6"
     }
@@ -370,7 +361,7 @@ window.PART_FOUR = {
     "topics": {
       "1": {
         "intro": "Traversal order describes when a parent is visited relative to its children. It does not require a particular memory layout.",
-        "explanation": "Inorder visits left subtree, node, and right subtree. For a binary search tree with distinct keys, this produces ascending order. A plain binary tree without the ordering invariant does not promise sorted output. Traversal visits each node once and uses stack depth proportional to tree height.",
+        "explanation": "Inorder visits left subtree, node, and right subtree. For a binary search tree (BST) with distinct keys, this produces ascending order. A plain binary tree without the ordering invariant does not promise sorted output. Traversal visits each node once and uses stack depth proportional to tree height.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct Node {\n  int key;\n  struct Node *left, *right;\n  int height;\n} Node;\nvoid inorder(const Node *n) {\n  if (!n)\n    return;\n  inorder(n->left);\n  printf(\"%d \", n->key);\n  inorder(n->right);\n}\nconst Node *find(const Node *n, int key) {\n  while (n && n->key != key)\n    n = key < n->key ? n->left : n->right;\n  return n;\n}\nint height(const Node *n) { return n ? n->height : 0; }\nint maximum(int a, int b) { return a > b ? a : b; }\nvoid refresh(Node *n) {\n  n->height = 1 + maximum(height(n->left), height(n->right));\n}\nNode *rotate_right(Node *root) {\n  Node *next = root->left;\n  root->left = next->right;\n  next->right = root;\n  refresh(root);\n  refresh(next);\n  return next;\n}\nNode *rotate_left(Node *root) {\n  Node *next = root->right;\n  root->right = next->left;\n  next->left = root;\n  refresh(root);\n  refresh(next);\n  return next;\n}\nNode *avl_insert(Node *root, Node *item) {\n  if (!root)\n    return item;\n  if (item->key < root->key)\n    root->left = avl_insert(root->left, item);\n  else if (item->key > root->key)\n    root->right = avl_insert(root->right, item);\n  else\n    return root;\n  refresh(root);\n  int balance = height(root->left) - height(root->right);\n  if (balance > 1) {\n    if (item->key > root->left->key)\n      root->left = rotate_left(root->left);\n    return rotate_right(root);\n  }\n  if (balance < -1) {\n    if (item->key < root->right->key)\n      root->right = rotate_right(root->right);\n    return rotate_left(root);\n  }\n  return root;\n}\n\nint main(void) {\n  Node a = {1, NULL, NULL, 1}, b = {3, NULL, NULL, 1}, root = {2, &a, &b, 2};\n  inorder(&root);\n  puts(\"\");\n  return 0;\n}\n",
         "expected": "1 2 3",
         "walkthrough": "The recursive calls print the left leaf, root, and right leaf. Child pointers borrow stack nodes that remain alive until traversal ends.",
@@ -406,7 +397,7 @@ window.PART_FOUR = {
       },
       "3": {
         "intro": "Insertion order can turn an ordinary BST into a chain. Balancing prevents the search path from growing linearly with the number of keys.",
-        "explanation": "The fixture compares a three-node right chain with a balanced three-node tree. Both satisfy BST ordering and have the same inorder sequence, but maximum path lengths differ. For n sorted insertions into a naive BST, the final height is n; an AVL invariant keeps height O(log n).",
+        "explanation": "The fixture compares a three-node right chain with a balanced three-node tree. Both satisfy BST ordering and have the same inorder sequence, but maximum path lengths differ. For n sorted insertions into a naive BST, the final height is n; an AVL tree keeps each node’s child heights within one level of each other, giving O(log n) height.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct Node {\n  int key;\n  struct Node *left, *right;\n  int height;\n} Node;\nvoid inorder(const Node *n) {\n  if (!n)\n    return;\n  inorder(n->left);\n  printf(\"%d \", n->key);\n  inorder(n->right);\n}\nconst Node *find(const Node *n, int key) {\n  while (n && n->key != key)\n    n = key < n->key ? n->left : n->right;\n  return n;\n}\nint height(const Node *n) { return n ? n->height : 0; }\nint maximum(int a, int b) { return a > b ? a : b; }\nvoid refresh(Node *n) {\n  n->height = 1 + maximum(height(n->left), height(n->right));\n}\nNode *rotate_right(Node *root) {\n  Node *next = root->left;\n  root->left = next->right;\n  next->right = root;\n  refresh(root);\n  refresh(next);\n  return next;\n}\nNode *rotate_left(Node *root) {\n  Node *next = root->right;\n  root->right = next->left;\n  next->left = root;\n  refresh(root);\n  refresh(next);\n  return next;\n}\nNode *avl_insert(Node *root, Node *item) {\n  if (!root)\n    return item;\n  if (item->key < root->key)\n    root->left = avl_insert(root->left, item);\n  else if (item->key > root->key)\n    root->right = avl_insert(root->right, item);\n  else\n    return root;\n  refresh(root);\n  int balance = height(root->left) - height(root->right);\n  if (balance > 1) {\n    if (item->key > root->left->key)\n      root->left = rotate_left(root->left);\n    return rotate_right(root);\n  }\n  if (balance < -1) {\n    if (item->key < root->right->key)\n      root->right = rotate_right(root->right);\n    return rotate_left(root);\n  }\n  return root;\n}\n\nint main(void) {\n  Node last = {3, NULL, NULL, 1}, middle = {2, NULL, &last, 2},\n       chain = {1, NULL, &middle, 3};\n  Node left = {1, NULL, NULL, 1}, right = {3, NULL, NULL, 1},\n       balanced = {2, &left, &right, 2};\n  printf(\"chain_height=%d balanced_height=%d\\n\", height(&chain),\n         height(&balanced));\n  return 0;\n}\n",
         "expected": "chain_height=3 balanced_height=2",
         "walkthrough": "The stored heights include the root level. Balanced shape reduces the longest route without changing key order.",
@@ -459,7 +450,7 @@ window.PART_FOUR = {
         "runtime": "browser"
       },
       "6": {
-        "intro": "A priority scheduler orders pending work by a documented priority key. Equal-priority behavior needs an explicit tie-break if it matters.",
+        "intro": "A priority scheduler orders pending work by a documented priority key. To run equal-priority tasks in arrival order, include their insertion sequence as a tie-break.",
         "explanation": "This small scheduler encodes priority and insertion sequence into one bounded integer key, allowing the existing min-heap to break ties FIFO. The encoding is valid only for the stated fixture’s small values; a general scheduler should compare a struct with checked sequence handling. Scheduling priority does not imply that a task is safe to interrupt or run concurrently.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct {\n  int data[16];\n  size_t n;\n} Heap;\nbool heap_push(Heap *h, int x) {\n  if (h->n == 16)\n    return false;\n  size_t i = h->n++;\n  while (i && h->data[(i - 1) / 2] > x) {\n    h->data[i] = h->data[(i - 1) / 2];\n    i = (i - 1) / 2;\n  }\n  h->data[i] = x;\n  return true;\n}\nbool heap_pop(Heap *h, int *out) {\n  if (!h->n)\n    return false;\n  *out = h->data[0];\n  int x = h->data[--h->n];\n  if (!h->n)\n    return true;\n  size_t i = 0;\n  while (i * 2 + 1 < h->n) {\n    size_t child = i * 2 + 1;\n    if (child + 1 < h->n && h->data[child + 1] < h->data[child])\n      ++child;\n    if (h->data[child] >= x)\n      break;\n    h->data[i] = h->data[child];\n    i = child;\n  }\n  h->data[i] = x;\n  return true;\n}\n\nint main(void) {\n  Heap h = {0};\n  heap_push(&h, 20);\n  heap_push(&h, 11);\n  heap_push(&h, 12);\n  int x;\n  while (heap_pop(&h, &x))\n    printf(\"priority=%d sequence=%d\\n\", x / 10, x % 10);\n  return 0;\n}\n",
         "expected": "priority=1 sequence=1\npriority=1 sequence=2\npriority=2 sequence=0",
@@ -480,14 +471,11 @@ window.PART_FOUR = {
     "practicePlan": {
       "goal": "Schedule tasks with a priority queue and investigate tree balance.",
       "tasks": [
-        "Separate search-order invariants from shape and priority invariants. Keep both data and height metadata consistent.",
         "Replace encoded integers with a Task struct and comparator, then add an explicit fairness policy.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Give two tasks equal priority, insert them in a known order, then add higher-priority tasks before each removal."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check your documented tie-break and fairness policy; verify heap order after every push and pop."
       ],
       "example": "trees-heaps-6"
     }
@@ -502,7 +490,7 @@ window.PART_FOUR = {
     "topics": {
       "1": {
         "intro": "A graph representation determines which operations are cheap and how much memory is reserved.",
-        "explanation": "A V×V adjacency matrix reserves Θ(V²) entries and tests one edge in O(1). An adjacency list uses Θ(V+E) storage and scans actual neighbors. This matrix fixture uses zero for absent edges, so it cannot represent a zero-weight edge; a more general format needs a separate presence flag or sentinel.",
+        "explanation": "Let V count vertices (nodes) and E count edges (connections). A V×V adjacency matrix reserves Θ(V²) entries and tests one edge in O(1). An adjacency list uses Θ(V+E) storage and scans actual neighbors. This matrix fixture uses zero for absent edges, so it cannot represent a zero-weight edge; a more general format needs a separate presence flag or sentinel.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { V = 4, INF = 10000 };\nvoid bfs(const int edges[V][V], int start) {\n  bool seen[V] = {0};\n  int queue[V];\n  size_t head = 0, count = 0;\n  seen[start] = true;\n  queue[count++] = start;\n  while (head < count) {\n    int u = queue[head++];\n    printf(\"%d \", u);\n    for (int v = 0; v < V; ++v)\n      if (edges[u][v] && !seen[v]) {\n        seen[v] = true;\n        queue[count++] = v;\n      }\n  }\n  puts(\"\");\n}\nvoid dfs(const int edges[V][V], int u, bool *seen) {\n  seen[u] = true;\n  for (int v = 0; v < V; ++v)\n    if (edges[u][v] && !seen[v])\n      dfs(edges, v, seen);\n}\nvoid distances(const int edges[V][V], int start, int *dist) {\n  bool done[V] = {0};\n  for (int i = 0; i < V; ++i)\n    dist[i] = INF;\n  dist[start] = 0;\n  for (int step = 0; step < V; ++step) {\n    int u = -1;\n    for (int i = 0; i < V; ++i)\n      if (!done[i] && (u < 0 || dist[i] < dist[u]))\n        u = i;\n    if (u < 0 || dist[u] == INF)\n      break;\n    done[u] = true;\n    for (int v = 0; v < V; ++v)\n      if (edges[u][v] > 0 && dist[u] + edges[u][v] < dist[v])\n        dist[v] = dist[u] + edges[u][v];\n  }\n}\n\nint main(void) {\n  const int edges[V][V] = {\n      {0, 1, 1, 0}, {1, 0, 0, 0}, {1, 0, 0, 1}, {0, 0, 1, 0}};\n  size_t directed_entries = 0;\n  for (int u = 0; u < V; ++u)\n    for (int v = 0; v < V; ++v)\n      if (edges[u][v])\n        ++directed_entries;\n  printf(\"vertices=%d undirected_edges=%zu matrix_cells=%d\\n\", V,\n         directed_entries / 2, V * V);\n  return 0;\n}\n",
         "expected": "vertices=4 undirected_edges=3 matrix_cells=16",
         "walkthrough": "Each undirected edge appears twice in the symmetric matrix. Six stored adjacency entries describe three undirected edges.",
@@ -519,7 +507,7 @@ window.PART_FOUR = {
         "runtime": "browser"
       },
       "2": {
-        "intro": "BFS explores by edge distance using a queue; DFS follows one path at a time using recursion or a stack.",
+        "intro": "Breadth-first search (BFS) explores by edge distance using a queue. Depth-first search (DFS) follows one path at a time using recursion or a stack.",
         "explanation": "Mark a vertex discovered when adding it to the queue, not when removing it, so multiple incoming edges cannot enqueue it repeatedly. The queue then needs at most V entries. With adjacency lists, traversal is O(V+E); this matrix implementation scans V possible neighbors per visited vertex and is O(V²).",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { V = 4, INF = 10000 };\nvoid bfs(const int edges[V][V], int start) {\n  bool seen[V] = {0};\n  int queue[V];\n  size_t head = 0, count = 0;\n  seen[start] = true;\n  queue[count++] = start;\n  while (head < count) {\n    int u = queue[head++];\n    printf(\"%d \", u);\n    for (int v = 0; v < V; ++v)\n      if (edges[u][v] && !seen[v]) {\n        seen[v] = true;\n        queue[count++] = v;\n      }\n  }\n  puts(\"\");\n}\nvoid dfs(const int edges[V][V], int u, bool *seen) {\n  seen[u] = true;\n  for (int v = 0; v < V; ++v)\n    if (edges[u][v] && !seen[v])\n      dfs(edges, v, seen);\n}\nvoid distances(const int edges[V][V], int start, int *dist) {\n  bool done[V] = {0};\n  for (int i = 0; i < V; ++i)\n    dist[i] = INF;\n  dist[start] = 0;\n  for (int step = 0; step < V; ++step) {\n    int u = -1;\n    for (int i = 0; i < V; ++i)\n      if (!done[i] && (u < 0 || dist[i] < dist[u]))\n        u = i;\n    if (u < 0 || dist[u] == INF)\n      break;\n    done[u] = true;\n    for (int v = 0; v < V; ++v)\n      if (edges[u][v] > 0 && dist[u] + edges[u][v] < dist[v])\n        dist[v] = dist[u] + edges[u][v];\n  }\n}\n\nint main(void) {\n  const int edges[V][V] = {\n      {0, 1, 1, 0}, {1, 0, 0, 0}, {1, 0, 0, 1}, {0, 0, 1, 0}};\n  bfs(edges, 0);\n  return 0;\n}\n",
         "expected": "0 1 2 3",
@@ -556,7 +544,7 @@ window.PART_FOUR = {
       },
       "4": {
         "intro": "A topological order places every prerequisite before its dependents. It exists only for a directed acyclic graph.",
-        "explanation": "Kahn’s algorithm repeatedly removes a zero-indegree vertex and decrements its outgoing neighbors. If fewer than V vertices are emitted, a cycle prevents completion. The fixed array queue is safe because each vertex enters only when its indegree becomes zero, once. Different available zero-indegree choices can produce different valid orders.",
+        "explanation": "Kahn’s algorithm repeatedly removes a vertex with zero indegree (no remaining incoming edges) and decrements its outgoing neighbors. If fewer than V vertices are emitted, a cycle prevents completion. The fixed array queue is safe because each vertex enters only when its indegree becomes zero, once. Different available zero-indegree choices can produce different valid orders.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint main(void) {\n  enum { V = 4 };\n  int edges[V][V] = {{0, 1, 1, 0}, {0, 0, 0, 1}, {0, 0, 0, 1}, {0, 0, 0, 0}},\n      degree[V] = {0}, queue[V];\n  size_t head = 0, n = 0;\n  for (int u = 0; u < V; ++u)\n    for (int v = 0; v < V; ++v)\n      degree[v] += edges[u][v];\n  for (int u = 0; u < V; ++u)\n    if (degree[u] == 0)\n      queue[n++] = u;\n  while (head < n) {\n    int u = queue[head++];\n    printf(\"%s%d\", head == 1 ? \"\" : \" \", u);\n    for (int v = 0; v < V; ++v)\n      if (edges[u][v] && --degree[v] == 0)\n        queue[n++] = v;\n  }\n  printf(\"\\nacyclic=%d\\n\", n == V);\n  return 0;\n}\n",
         "expected": "0 1 2 3\nacyclic=1",
         "walkthrough": "Zero enables one and two, which together enable three. All four vertices are emitted.",
@@ -613,14 +601,11 @@ window.PART_FOUR = {
     "practicePlan": {
       "goal": "Find routes in a graph and explain the cost of its representation.",
       "tasks": [
-        "Choose a graph representation, track discovery state, and match the route algorithm to the edge-weight contract.",
         "Replace matrix rows with adjacency lists and benchmark only after verifying route costs against the simpler implementation.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Test an unreachable vertex, two routes to one vertex, and a rejected negative weight; compare matrix and list results."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Compare reachability and complete route costs before counting edge visits or timing either representation."
       ],
       "example": "graphs-6"
     }

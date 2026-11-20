@@ -186,11 +186,11 @@ The default run exports and reimports two rows. The optional import argument loa
 
 <details><summary>Answer</summary>
 
-No. The runtime resets its virtual filesystem; a host transfer/storage step is separate.
+No. Inline lesson files reset on each run. The command workspace saves its own files in this browser; Download keeps a separate copy.
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/5). In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Run the prepared cc command. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/persistence/5). In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Choose Run to execute the prepared cc command and wait for Built program. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.
 
 ### References and help
 

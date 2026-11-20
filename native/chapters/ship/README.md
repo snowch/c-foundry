@@ -282,7 +282,7 @@ Property tests compare many generated operation sequences with a simpler referen
 
 Also editable and runnable inline in the browser course. Run this deterministic fixture here. Use Browser Linux for compiler comparisons; optional sanitizer and hardware-timing guidance is separate from the required browser lab.
 
-The fixture generates bounded strings with a fixed seed and passes them to the parser. It checks memory-safe completion under the selected compiler and can be rerun under sanitizers. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found.
+The fixture generates bounded strings with a fixed seed and passes them to the parser. It counts parser calls that return. Normal completion alone does not establish memory safety; optional external sanitizers can detect selected invalid accesses on the paths that run. It is not exhaustive and does not prove grammatical correctness. Preserve failing seeds and minimize inputs when a crash or inconsistent result is found.
 
 ### main.c
 
@@ -1259,7 +1259,7 @@ release fixture: two validated rows
 
 The fixture can be decoded independently of struct layout. The named export command is make example EXAMPLE=persistence-5 KEEP_FILES=1.
 
-**Watch for:** A browser demonstration must disclose whether its database state survives reload; the current C runner’s files do not.
+**Watch for:** A browser demonstration must disclose whether its database state survives reload; inline lesson files reset for each run. The command workspace saves its own files in this browser; Browser Linux requires an exported backup before closing.
 
 **Check:** What belongs with an exportable database release?
 
@@ -1291,7 +1291,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Use GDB to explain two data-integrity failures in a deliberately broken copy of the real TinyDB CLI, then verify the repair after reopening its database file.
 
-A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the [optional Part 2 GDB lab](https://snowch.github.io/c-foundry/#/chapter/files-bytes/7) first, or skip this native workshop.
+A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the [optional Part 2 GDB lab](https://snowch.github.io/c-foundry/#/chapter/files-bytes/7) first, or skip this optional workshop.
 
 ## Optional repair workshop: a broken TinyDB (optional)
 
@@ -1412,15 +1412,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Ship a documented TinyDB build with tests, benchmarks, and exportable files.
 
-1. Turn the small database into a reproducible learning release with contract tests, failure experiments, and an explicit compatibility document.
-2. Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.
+2. Package your assembled program, its build command, acceptance tests, format specification, and an independently validated export.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Rebuild from that package in a fresh Browser Linux session and list implemented features, input limits, and untested failure conditions.
 
 Baseline command (checks original output, not every extension):
 

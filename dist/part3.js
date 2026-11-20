@@ -66,7 +66,7 @@ window.PART_THREE = {
         "explanation": "Linear search finds the first element with one comparison, the last with n, and an absent target with n. Under a uniform distribution over present positions, its average count is (n+1)/2. That distribution is an assumption; real query workloads need not be uniform.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nsize_t scan(const int *a, size_t n, int target) {\n  size_t comparisons = 0;\n  for (size_t i = 0; i < n; ++i) {\n    ++comparisons;\n    if (a[i] == target)\n      break;\n  }\n  return comparisons;\n}\n\nint main(void) {\n  int a[] = {2, 4, 6, 8};\n  printf(\"first=%zu last=%zu absent=%zu\\n\", scan(a, 4, 2), scan(a, 4, 8),\n         scan(a, 4, 7));\n  return 0;\n}\n",
         "expected": "first=1 last=4 absent=4",
-        "walkthrough": "All three arrays have size four. Only target placement changes, producing counts 1, 4, and 4. The best-case count is Θ(1); the worst case is Θ(n).",
+        "walkthrough": "All three searches use the same four-element array. Only target placement changes, producing counts 1, 4, and 4. The best-case count is Θ(1); the worst case is Θ(n).",
         "pitfall": "A successful benchmark on first-position hits does not measure the worst case.",
         "question": "Does average-case analysis require an input distribution?",
         "choices": [
@@ -99,7 +99,7 @@ window.PART_THREE = {
       },
       "6": {
         "intro": "A loop invariant states what is true at a chosen point in every iteration. Prove initialization, preservation, and the result at termination.",
-        "explanation": "Before iteration i, sum equals the sum of a[0..i), and 0≤i≤n. It holds initially with an empty prefix. Adding a[i] and incrementing i preserves it. The measure n−i decreases, so the loop terminates; at i=n, the invariant gives the required total. Values are small here so the int sum is representable.",
+        "explanation": "Before iteration i, sum equals the sum of the prefix a[0..i), meaning indices 0 through i−1, and 0≤i≤n. It holds initially with an empty prefix. Adding a[i] and incrementing i preserves it. The measure n−i decreases, so the loop terminates; at i=n, the invariant gives the required total. Values are small here so the int sum is representable.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint main(void) {\n  int a[] = {3, 1, 4}, sum = 0;\n  for (size_t i = 0; i < 3; ++i) {\n    printf(\"before i=%zu sum=%d\\n\", i, sum);\n    sum += a[i];\n  }\n  printf(\"total=%d\\n\", sum);\n  return 0;\n}\n",
         "expected": "before i=0 sum=0\nbefore i=1 sum=3\nbefore i=2 sum=4\ntotal=8",
         "walkthrough": "Each line shows the invariant before the write. The final sum 8 follows from including exactly the three initialized elements.",
@@ -137,14 +137,11 @@ window.PART_THREE = {
     "practicePlan": {
       "goal": "Compare counted search operations, then explain how doubling the input changes the work.",
       "tasks": [
-        "Count work on concrete inputs, prove what a loop preserves, and then describe growth. Separate a bound on a function from a stopwatch measurement.",
         "Use the Big O explorer, then compare absent-key linear and binary search counts on powers of two.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Compare absent-key search counts for n=4, 8, and 16; state that one inspected element counts as one comparison."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check the predicted doubling ratios and explain why finite counts do not prove an asymptotic bound."
       ],
       "example": "big-o-7"
     }
@@ -252,14 +249,11 @@ window.PART_THREE = {
     "practicePlan": {
       "goal": "Find records while maintaining a shrinking search interval.",
       "tasks": [
-        "Maintain explicit search intervals, handle absence and duplicates, and apply ordered search to records.",
         "Insert an ID between 2 and 5 while preserving order, then implement find-or-missing cases.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Check IDs before the first row, between rows, at both endpoints, and after the last row; test an empty table."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Explain why each interval update preserves every possible match and why the missing result is checked before indexing."
       ],
       "example": "searching-5"
     }
@@ -277,7 +271,7 @@ window.PART_THREE = {
         "explanation": "Before insertion iteration i, a[0..i) is sorted and contains the original prefix values. Shift larger values right, then fill the resulting gap. Using > rather than ≥ preserves equal-element order. Selection sort always scans the remaining suffix; insertion sort can exploit already sorted input. Both have quadratic worst-case time and constant auxiliary storage.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nvoid show(const int *a, size_t n) {\n  for (size_t i = 0; i < n; ++i)\n    printf(\"%s%d\", i ? \" \" : \"\", a[i]);\n  puts(\"\");\n}\nsize_t insertion(int *a, size_t n) {\n  size_t moves = 0;\n  for (size_t i = 1; i < n; ++i) {\n    int x = a[i];\n    size_t j = i;\n    while (j && a[j - 1] > x) {\n      a[j] = a[j - 1];\n      --j;\n      ++moves;\n    }\n    a[j] = x;\n  }\n  return moves;\n}\nvoid selection(int *a, size_t n) {\n  for (size_t i = 0; i < n; ++i) {\n    size_t least = i;\n    for (size_t j = i + 1; j < n; ++j)\n      if (a[j] < a[least])\n        least = j;\n    int t = a[i];\n    a[i] = a[least];\n    a[least] = t;\n  }\n}\nint compare_int(const void *x, const void *y) {\n  int a = *(const int *)x, b = *(const int *)y;\n  return (a > b) - (a < b);\n}\n\nint main(void) {\n  int a[] = {4, 1, 3, 2}, b[] = {4, 1, 3, 2};\n  selection(a, 4);\n  insertion(b, 4);\n  show(a, 4);\n  show(b, 4);\n  return 0;\n}\n",
         "expected": "1 2 3 4\n1 2 3 4",
-        "walkthrough": "The two methods produce the same ordered multiset through different operations. A matching result alone does not establish the algorithm or its cost.",
+        "walkthrough": "The two methods produce the same ordered collection with the same values and duplicate counts through different operations. A matching result alone does not establish the algorithm or its cost.",
         "pitfall": "Shifting without saving the insertion value first destroys information.",
         "question": "Which region is sorted before insertion iteration i?",
         "choices": [
@@ -322,7 +316,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "Sorted input repeatedly selects an extreme pivot in this version.",
-        "tryit": "In main.c, change a to {5, 5, 5, 1, 1}. Run code and compare the sorted sequence with this input. Why is sorting all equal-key entries still required even when the partition cannot separate them by value?",
+        "tryit": "In main.c, change a to {5, 5, 5, 1, 1}. Run code and compare the sorted sequence with this input. The output confirms ordering. Does it reveal how many recursive calls the repeated equal keys required? Which branch of partition receives values equal to the pivot?",
         "input": "",
         "runtime": "browser"
       },
@@ -358,7 +352,7 @@ window.PART_THREE = {
         ],
         "answer": 0,
         "why": "Only the sign is needed, and relational comparisons avoid the overflow.",
-        "tryit": "In main.c, change -7 to INT_MIN in a. Run code and compare ordered= and extremes=. Which comparisons show that the comparator also handles a duplicate extreme value?",
+        "tryit": "In main.c, change -7 to INT_MIN in a. Run code and compare ordered= and extremes=. Do ordered= and extremes= tell you whether both copies of INT_MIN survived? Add show(a, 4); after qsort and run again to inspect all four values.",
         "input": "",
         "runtime": "browser"
       },
@@ -385,14 +379,11 @@ window.PART_THREE = {
     "practicePlan": {
       "goal": "Implement and compare sorting algorithms on different input orders.",
       "tasks": [
-        "Compare algorithms by their invariants, movement, stability, and sensitivity to input order.",
         "Build a comparison table for insertion and merge sort on four input orders, retaining correctness checks.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Use sorted, reversed, all-equal, and duplicate-containing inputs; compare both values and duplicate counts after sorting."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Use tags on equal keys to check stability, and report shifts separately from comparisons."
       ],
       "example": "sorting-6"
     }
@@ -499,14 +490,11 @@ window.PART_THREE = {
     "practicePlan": {
       "goal": "Traverse a tree and account for the recursive call stack.",
       "tasks": [
-        "Make recursive subproblems smaller, track each call’s state, and compare explicit and implicit stacks.",
         "Add a nested directory and then implement the traversal with an explicit bounded stack.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Compare recursive and explicit-stack traversal on an empty tree, a leaf, and a nested directory; define a depth limit."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check the same visit order and count the greatest number of unfinished calls or stack entries."
       ],
       "example": "recursion-5"
     }
@@ -578,7 +566,7 @@ window.PART_THREE = {
         "explanation": "For obstacle-free grid paths moving right or down, ways[r][c] depends on the cell above and the cell to the left. Boundary cells have one path. A full table uses O(RC) space; retaining just one row uses O(C) because the overwritten entry still represents the previous row until updated. Use bounded sizes or checked arithmetic to avoid path-count overflow.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint main(void) {\n  unsigned ways[3][3];\n  for (size_t r = 0; r < 3; ++r)\n    for (size_t col = 0; col < 3; ++col)\n      ways[r][col] =\n          (r == 0 || col == 0) ? 1 : ways[r - 1][col] + ways[r][col - 1];\n  for (size_t r = 0; r < 3; ++r)\n    printf(\"%u %u %u\\n\", ways[r][0], ways[r][1], ways[r][2]);\n  return 0;\n}\n",
         "expected": "1 1 1\n1 2 3\n1 3 6",
-        "walkthrough": "The destination receives three paths from above and three from the left, for six total. The table itself is the dependency diagram.",
+        "walkthrough": "The printed bottom-right 6 counts paths whose last move is either down from above or right from the left. The figure connects those two predecessor cells.",
         "pitfall": "Reducing space without preserving dependency order can accidentally reuse the current row instead of the previous row.",
         "question": "Which earlier cells determine an interior cell?",
         "choices": [
@@ -613,14 +601,11 @@ window.PART_THREE = {
     "practicePlan": {
       "goal": "Choose and justify a strategy for a small optimization problem.",
       "tasks": [
-        "Choose between enumeration, greedy choices, and dynamic programming by examining state and counterexamples.",
         "Record predecessor choices to reconstruct the selected items, then verify the total weight and value.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Test capacity zero, an item too heavy to fit, and an item that would win only if reused."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check the selected item IDs, total weight, and total value against enumeration on small instances."
       ],
       "example": "strategies-5"
     }

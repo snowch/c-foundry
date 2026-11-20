@@ -12,9 +12,9 @@ Make recovery work with snapshots, log positions, and reusable storage without f
 
 ## 42.1 Extending the write-ahead log
 
-A log sequence number identifies a position in a stable ordered log. Recovery must know which committed position a checkpoint already includes.
+A log sequence number (LSN) identifies a position in a stable ordered log. Recovery must know which committed position a checkpoint already includes.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The typed-record model skips records at or before the checkpoint’s applied LSN, requires a contiguous suffix, and updates the checkpoint only on a matching COMMIT. It retains the one-value single-writer transaction restriction. An on-disk log needs explicit record encoding, checksums, and torn-record framing; this struct is not a file format.
 
@@ -296,7 +296,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Free-page reuse and compaction require a reachability and identity policy. An unlinked physical page may still be needed by a snapshot or recovery log.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The fixture checks a slotted-page model for bounds and overlapping live ranges before compaction. It then constructs an overlapping corruption and verifies rejection. A full storage allocator must also track roots, index references, active snapshots, and log dependencies before placing a page on the reusable free list. A generation number can help reject stale external page handles.
 
@@ -437,15 +437,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Extend the earlier pager and log with a tested checkpoint protocol.
 
-1. Make recovery work with snapshots, log positions, and reusable storage without freeing data that remains referenced.
-2. Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.
+2. Add generation numbers to page handles and test a handle saved before deleting and reusing its page.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Reject the stale handle, check live-page reachability, and list which snapshot or log still prevents each proposed page reuse.
 
 Baseline command (checks original output, not every extension):
 

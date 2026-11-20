@@ -68,7 +68,7 @@ Output:
 atomic_total=4000
 ```
 
-Four workers perform one thousand indivisible increments each. No plain read-plus-write sequence can lose an increment.
+Four workers perform one thousand indivisible increments each. Each fetch-add performs the complete increment atomically, so another worker cannot overwrite it with a stale read-plus-write result.
 
 **Watch for:** An atomic counter does not automatically protect a surrounding mutable table or pointer graph.
 

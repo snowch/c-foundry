@@ -346,7 +346,7 @@ For C is fun, each first letter after a boundary increases the word count; lette
 
 <details><summary>Answer</summary>
 
-2. Only transitions from whitespace to non-whitespace start a word.
+2. A non-whitespace character starts a word only when in_word is false, including at the beginning of input.
 
 </details>
 

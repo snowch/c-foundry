@@ -733,15 +733,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Locate and manage records inside slotted storage pages.
 
-1. Represent records inside bounded storage pages and keep cache and free-space state consistent.
-2. Add a hex dump with highlighted validated ranges, then reject overlapping live slots.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Add a hex dump with highlighted validated ranges, then reject overlapping live slots.
+2. Test a record ending exactly at the page boundary, one exceeding it, overlapping live slots, and a deleted slot.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Validate ranges before displaying bytes; after compaction, check surviving slot IDs and payload bytes.
 
 Baseline command (checks original output, not every extension):
 

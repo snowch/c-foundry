@@ -270,7 +270,7 @@ Output:
 first=1 last=4 absent=4
 ```
 
-All three arrays have size four. Only target placement changes, producing counts 1, 4, and 4. The best-case count is Θ(1); the worst case is Θ(n).
+All three searches use the same four-element array. Only target placement changes, producing counts 1, 4, and 4. The best-case count is Θ(1); the worst case is Θ(n).
 
 **Watch for:** A successful benchmark on first-position hits does not measure the worst case.
 
@@ -369,7 +369,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 A loop invariant states what is true at a chosen point in every iteration. Prove initialization, preservation, and the result at termination.
 
-Before iteration i, sum equals the sum of a[0..i), and 0≤i≤n. It holds initially with an empty prefix. Adding a[i] and incrementing i preserves it. The measure n−i decreases, so the loop terminates; at i=n, the invariant gives the required total. Values are small here so the int sum is representable.
+Before iteration i, sum equals the sum of the prefix a[0..i), meaning indices 0 through i−1, and 0≤i≤n. It holds initially with an empty prefix. Adding a[i] and incrementing i preserves it. The measure n−i decreases, so the loop terminates; at i=n, the invariant gives the required total. Values are small here so the int sum is representable.
 
 ### main.c
 
@@ -513,15 +513,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Compare counted search operations, then explain how doubling the input changes the work.
 
-1. Count work on concrete inputs, prove what a loop preserves, and then describe growth. Separate a bound on a function from a stopwatch measurement.
-2. Use the Big O explorer, then compare absent-key linear and binary search counts on powers of two.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Use the Big O explorer, then compare absent-key linear and binary search counts on powers of two.
+2. Compare absent-key search counts for n=4, 8, and 16; state that one inspected element counts as one comparison.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check the predicted doubling ratios and explain why finite counts do not prove an asymptotic bound.
 
 Baseline command (checks original output, not every extension):
 

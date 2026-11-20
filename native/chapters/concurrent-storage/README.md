@@ -586,15 +586,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Use the queue as a foundation for a single-writer storage service.
 
-1. Put a bounded queue between callers and a single storage owner, with a shutdown and testing contract.
-2. Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks; run ThreadSanitizer where supported.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks.
+2. Add repeated-close, full-queue admission, consumer-failure, and per-request-ID completion cases.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check accepted requests drain once each and rejected requests retain their owner; join all accessing workers before destroying locks.
 
 Baseline command (checks original output, not every extension):
 

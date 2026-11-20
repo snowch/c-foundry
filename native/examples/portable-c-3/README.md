@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Probe the facility you need with the selected compiler and libraries. A platform name or accepted language-mode flag does not establish that an API can be linked.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The build chooses CF_HAVE_MONOTONIC only after compiling and linking a clock_gettime/CLOCK_MONOTONIC probe. A conservative build defaults to zero and reports the service as unconfigured. Defining _POSIX_C_SOURCE before headers requests the POSIX declarations; it does not create an implementation. The check-portability runner exercises both the default path and the detected path. When monotonic timing is required, an unavailable result must remain unavailable: wall-clock time is not a semantics-preserving replacement.
 
@@ -59,7 +59,7 @@ Report that the required service is unavailable. A fallback may preserve a contr
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/3). After observing monotonic_configured=0 in the browser, open your native terminal at the repository root and run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/3). After observing monotonic_configured=0 in the browser, choose Linux in the header, complete its setup, and at ~/work/c-foundry run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?
 
 ### References and help
 

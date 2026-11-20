@@ -58,7 +58,7 @@ Linking. The linker connects the translated program with the library code it nee
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/1). In main.c, replace Hello, C! with Hello, Ada! inside the printf string. Leave the newline escape in place. Choose Run code again and compare the two Console lines. Which part of the output did the edit control?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/1). In main.c, replace Hello, C! with Hello, Ada! inside the printf string. Leave the newline escape in place. Choose Run code again and find Hello, Ada! in Console. The new run replaces the earlier output. Which characters changed from the original greeting?
 
 ### References and help
 
@@ -279,7 +279,7 @@ This program runs in the browser.
 
 This starter writes to standard output. The page compiles it into WebAssembly and runs it locally. Stop is available while a run is active.
 
-**Watch for:** Native Linux processes, sockets, and C threads are not supplied by this lab. Chapters that need those capabilities identify Browser Linux as their execution environment; they are still readable on a tablet.
+**Watch for:** The inline runner supplies no Linux processes, sockets, or threads. Lessons that need them provide an Open Browser Linux button; that terminal also runs in your browser.
 
 **Check:** When should you supply input for the current browser runner?
 

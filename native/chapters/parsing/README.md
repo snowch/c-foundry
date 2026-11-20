@@ -297,7 +297,7 @@ O'Brien
 unterminated=1
 ```
 
-The doubled quote contributes one character to O'Brien. The malformed second fixture reaches the end before a closing quote.
+The doubled quote contributes one character to O'Brien. The malformed third fixture reaches the end before a closing quote.
 
 **Watch for:** A fixed-size token buffer needs a decoded-length check before every write, including escaped data.
 
@@ -1089,15 +1089,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Parse a small SQL subset and explain malformed statements.
 
-1. Recognize a deliberately small SQL grammar and keep syntax, schema validation, and execution separate.
-2. Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.
+2. Test a missing semicolon, trailing tokens, an unterminated string, ID zero, and an oversized number.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check the reported stage and source position; rejected syntax must not change the output statement or table.
 
 Baseline command (checks original output, not every extension):
 

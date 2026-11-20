@@ -288,7 +288,7 @@ Combine tests with compiler diagnostics, sanitizers, and portability checks. Eac
 
 Also editable and runnable inline in the browser course. This program runs with the browser’s fixed C17 toolchain. Use Browser Linux for compiler warnings and GCC/Clang comparisons; optional sanitizer tooling is described separately.
 
-The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. Use them on native builds: the page’s Wasm runner is not providing these native sanitizer runtimes.
+The copy helper requires valid nonoverlapping source and destination objects and a terminated source. It rejects text that cannot fit including the terminator. Test both the boundary that fits and the first value that does not. AddressSanitizer helps detect many invalid memory accesses, and UndefinedBehaviorSanitizer detects selected invalid operations. These are optional tools on separately configured builds. Neither is required to complete this browser lab.
 
 ### main.c
 
@@ -450,7 +450,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Investigate a reproducible logical bug using breakpoints, stepping, variables, call stacks, and a watchpoint. Read here; run the optional lab in Browser Linux.
 
-A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with `-g -O0` so source locations and variables are easier to follow. Browser-only learners can skip the native session and continue to algorithms.
+A useful debugging loop is: reproduce a failure, state the expected behavior, form one hypothesis, observe the running program, make a source fix, and add a regression test. GDB supplies observations; it does not decide whether the behavior meets your contract. This starter should sum 4, 8, and 12 to 24, but prints 20 without any deliberate invalid memory access. The lab builds with `-g -O0` so source locations and variables are easier to follow. This investigation is optional. Use the Continue to Part 3 link to proceed without running GDB.
 
 ## Optional GDB lab: investigate, repair, verify (optional)
 
@@ -567,7 +567,7 @@ total=20
 
 The faulty starter begins at element 1 and produces 20. The original-output check confirms that reproduction. Use debug-check on the repaired student file to require 24 and exercise single, empty, and negative inputs.
 
-**Watch for:** A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Native GDB is not running inside the browser Wasm workspace.
+**Watch for:** A watchpoint reports a value change; it does not prove that the right value was written. Changing a variable inside GDB repairs only the current execution. Save a source fix, rebuild, and rerun the independent checks. Run GDB in Browser Linux; the small C command workspace does not provide it.
 
 **Check:** You use GDB to set total to 24 and the output becomes correct. What still needs doing?
 

@@ -295,7 +295,7 @@ No. It copies an address. Both pointers would reach the same allocation.
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/allocation/4). In main.c, change copy[0] = 'B'; to copy[0] = 'P';. Choose Run code and compare both words in Console. Which allocation owns the editable copy, and why does original keep its first letter?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/allocation/4). In main.c, change copy[0] = 'B'; to copy[0] = 'P';. Choose Run code and compare both words in Console. Which string did the write change, and why does original keep its first letter?
 
 ### References and help
 

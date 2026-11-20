@@ -446,15 +446,12 @@ make exercise EXERCISE=search
 
 Find records while maintaining a shrinking search interval.
 
-1. Maintain explicit search intervals, handle absence and duplicates, and apply ordered search to records.
-2. Insert an ID between 2 and 5 while preserving order, then implement find-or-missing cases.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Insert an ID between 2 and 5 while preserving order, then implement find-or-missing cases.
+2. Check IDs before the first row, between rows, at both endpoints, and after the last row; test an empty table.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Explain why each interval update preserves every possible match and why the missing result is checked before indexing.
 
 Baseline command (checks original output, not every extension):
 

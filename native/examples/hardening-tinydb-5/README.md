@@ -6,7 +6,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Finish with a concrete audit: publish the supported assumptions, compile a portable codec and file adapter separately, and verify database files produced by other hosts.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The native/portability target implements a bounded TDB1 codec with no FILE, path, locale, or operating-system calls in its core. Its separate ISO C adapter uses binary streams and exclusive creation of a new, restricted ASCII basename. The format requires uint32_t, eight-bit bytes, and UTF-8 row names; the target also explicitly requires an ASCII-compatible execution character set. The suite validates a known fixture, every truncated prefix, malformed headers, duplicate IDs, invalid names, and unchanged outputs on codec rejection. Each OS reads the same binary fixture and exports artifacts that all other matrix hosts must validate and copy byte-for-byte.
 
@@ -208,7 +208,7 @@ Every tested host validates and copies files from all producers against an indep
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/5). In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability in a native checkout to validate independent fixtures.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/5). In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability at ~/work/c-foundry in Browser Linux to validate independent fixtures.
 
 ### References and help
 

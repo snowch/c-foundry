@@ -10,7 +10,7 @@ Write portable file handling, text processing, and parsing code, and put operati
 - Specify byte widths, byte order, file modes, and filename policy explicitly.
 - Handle line endings, byte encodings, locale, bounded records, and numeric conversion.
 - Check stream errors and use stream positions without assuming text byte offsets.
-- Compile and link capability probes, isolate host services, and test the same fixtures on Linux, macOS, and Windows.
+- Compile and link capability probes in Browser Linux, then interpret the automated Linux, macOS, and Windows fixture results.
 
 ## 33.1 Standard library versus operating-system APIs
 
@@ -85,7 +85,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Fixed-width types simplify an external protocol only when their availability and byte-size requirements are stated. Endianness still needs explicit encoding.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The byte codec extracts and assembles little-endian uint32_t values instead of writing native objects. Exact-width types are optional on some C implementations; this course’s supported targets provide uint32_t and eight-bit bytes. Schema and format compatibility also depend on string encoding, version rules, and validation, not only on integer width. State these requirements at the format boundary with compile-time checks. sizeof a struct includes padding, and sizeof(long), pointer width, alignment, and host byte order are not a portable file specification. Use fixed numeric magic bytes rather than assuming the execution character set defines an external encoding.
 
@@ -171,7 +171,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Probe the facility you need with the selected compiler and libraries. A platform name or accepted language-mode flag does not establish that an API can be linked.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The build chooses CF_HAVE_MONOTONIC only after compiling and linking a clock_gettime/CLOCK_MONOTONIC probe. A conservative build defaults to zero and reports the service as unconfigured. Defining _POSIX_C_SOURCE before headers requests the POSIX declarations; it does not create an implementation. The check-portability runner exercises both the default path and the detected path. When monotonic timing is required, an unavailable result must remain unavailable: wall-clock time is not a semantics-preserving replacement.
 
@@ -224,7 +224,7 @@ Report that the required service is unavailable. A fallback may preserve a contr
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/3). After observing monotonic_configured=0 in the browser, open your native terminal at the repository root and run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/portable-c/3). After observing monotonic_configured=0 in the browser, choose Linux in the header, complete its setup, and at ~/work/c-foundry run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?
 
 ### References and help
 
@@ -349,7 +349,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Choose text mode for logical text and binary mode for specified bytes. Treat line-ending normalization as an explicit input policy.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 Text streams may translate the host representation of a newline. A text-stream position is not necessarily a byte count, and the physical file need not have one byte for each character written. Use rb/wb for a byte-defined database format. When reading byte-defined text from binary input, a parser can explicitly accept LF and CRLF as terminators. The helper accepts a complete bounded record, strips one trailing LF and its preceding CR, and leaves a lone trailing CR unchanged; deciding whether that lone CR is allowed belongs to the input grammar.
 
@@ -417,7 +417,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 A path is interpreted by a host, not by the C language alone. Define filename policy and let callers supply locations instead of baking in Linux conventions.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 Absolute path syntax, separators, case sensitivity, Unicode path APIs, reserved names, symlinks, and path length limits vary by filesystem and host configuration. Even Windows and macOS have configurable case behavior. strcmp comparing two names does not establish that the filesystem treats them as different files. The example constructs a bounded relative path for a documented Unix-like adapter and checks snprintf truncation; another adapter can use its host rules. The audit project uses an even narrower common ASCII basename policy, including Windows device-name exclusions, to make its supported set testable.
 
@@ -483,7 +483,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Distinguish bytes, encoded characters, and locale-dependent classification. Make the external text encoding part of the format.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 A char may be signed, and passing a negative value other than EOF to isalpha, isspace, or toupper has undefined behavior. Convert a byte through unsigned char before classification. The C locale is available on hosted implementations, while installed locale names differ by host; a named UTF-8 locale is not universally present. This example sets the C locale and counts ASCII letters in a known UTF-8 byte sequence. Applying byte-wise ctype does not decode a multibyte character, perform Unicode case folding, or count user-perceived characters. UTF-8 validation and a byte-length limit are separate policies in the audit codec.
 
@@ -545,7 +545,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Parse a bounded decimal field with a stated grammar, range checks, and full consumption. Do not use a conversion’s numeric result as its success indicator.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 strtoumax accepts optional signs and leading whitespace; this protocol does not. Validate every input character as a decimal digit, copy only a bounded field into a terminated temporary buffer, clear errno, convert in base ten, reject ERANGE, check the end pointer, and check the uint32_t limit before narrowing. The output parameter changes only after every check. This accepts exactly decimal digits with leading zeros permitted. It does not infer whether a surrounding line was truncated: the framing layer must establish the complete field first.
 
@@ -692,18 +692,18 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 
-Build portable file and text interfaces, then test their contracts across operating systems.
+Build portable file and text interfaces in Browser Linux and interpret cross-platform test evidence.
 
 1. Define filename, text-encoding, line-framing, and error contracts before adding host adapters.
 2. Add rejecting and short-write sinks without changing the portable codec.
 3. Compile and link actual capability probes, and test both configured and conservative paths.
-4. Run the shared fixtures on Linux GCC/Clang, macOS Clang, and Windows MSVC.
+4. Run the shared fixtures with GCC and Clang in Browser Linux. Inspect the repository’s automated Linux, macOS, and Windows exchange checks for evidence from other hosts.
 
 ### Check your work
 
 - Reject truncation, malformed numeric fields, unsupported capabilities, and invalid encodings without changing live output.
 - Explain the difference between C string equality and filesystem identity, and between flushing and durable publication.
-- Use python3 tools/check_portability.py --compiler gcc to run the native cross-platform acceptance suite.
+- At ~/work/c-foundry in Browser Linux, run python3 tools/check_portability.py --compiler gcc and repeat with --compiler clang.
 
 Baseline command (checks original output, not every extension):
 

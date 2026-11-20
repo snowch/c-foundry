@@ -1,5 +1,7 @@
 # Learner wording and interface review
 
+The [20 November follow-up review](content-review-2026-11.md) applies the expanded sentence-level criteria after the Browser Linux integration. Its quoted change ledger and six diagram specifications are linked there. The evidence below records the earlier review.
+
 The review starts from the first chapter’s prerequisite of no prior C. Each later topic assumes its earlier lessons in the published order. It covered 227 reading topics, 44 chapter overviews, 15 separate practices and the contents, setup, command workspace, counted search, TinyDB project and missing-page views. The chapter mirrors and native example guides were regenerated from the same authored text.
 
 ## Reading and execution

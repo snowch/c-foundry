@@ -21,11 +21,11 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "A .c file can be compiled under several revisions and extension policies.",
-        "tryit": "After the browser run, open a native terminal at the repository root and run make standards-matrix. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?",
+        "tryit": "After the browser run, choose Linux in the header, complete its setup, and run make standards-matrix at ~/work/c-foundry. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?",
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "2": {
@@ -46,7 +46,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "3": {
@@ -63,25 +63,22 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Language and library support can vary independently.",
-        "tryit": "In main.c, change the fallback message from mode=C17 fallback_selected to mode=pre-C23 fallback_selected. Run code. Which condition selects the fallback? Use make standards-matrix in your native checkout to see accepted modes separately from feature support.",
+        "tryit": "In main.c, change the fallback message from mode=C17 fallback_selected to mode=pre-C23 fallback_selected. Run code. Which condition selects the fallback? Use make standards-matrix at ~/work/c-foundry in Browser Linux to see accepted modes separately from feature support.",
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       }
     },
     "practicePlan": {
       "goal": "Compile a feature probe under different language standards.",
       "tasks": [
-        "Choose a language baseline and verify features with the actual compiler instead of assuming that a modern compiler name implies complete conformance.",
         "Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Run make standards-matrix in Browser Linux and record the compiler versions, accepted modes, and exact facilities probed."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Separate accepting -std=c23 from compiling and linking the C23 facility; retain diagnostics from a deliberately unsupported probe."
       ],
       "example": "standards-evolution-3"
     }
@@ -115,7 +112,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "2": {
@@ -136,7 +133,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "3": {
@@ -160,7 +157,7 @@ window.PART_SEVEN = {
           "-O2"
         ],
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "4": {
@@ -322,7 +319,7 @@ window.PART_SEVEN = {
       "Specify byte widths, byte order, file modes, and filename policy explicitly.",
       "Handle line endings, byte encodings, locale, bounded records, and numeric conversion.",
       "Check stream errors and use stream positions without assuming text byte offsets.",
-      "Compile and link capability probes, isolate host services, and test the same fixtures on Linux, macOS, and Windows."
+      "Compile and link capability probes in Browser Linux, then interpret the automated Linux, macOS, and Windows fixture results."
     ],
     "topics": {
       "1": {
@@ -361,7 +358,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "3": {
@@ -378,11 +375,11 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "A fallback may preserve a contract or explicitly report unsupported behavior; it must not silently change the meaning.",
-        "tryit": "After observing monotonic_configured=0 in the browser, open your native terminal at the repository root and run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?",
+        "tryit": "After observing monotonic_configured=0 in the browser, choose Linux in the header, complete its setup, and at ~/work/c-foundry run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?",
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "4": {
@@ -428,7 +425,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "6": {
@@ -449,7 +446,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "7": {
@@ -470,7 +467,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "8": {
@@ -491,7 +488,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "9": {
@@ -514,17 +511,17 @@ window.PART_SEVEN = {
       }
     },
     "practicePlan": {
-      "goal": "Build portable file and text interfaces, then test their contracts across operating systems.",
+      "goal": "Build portable file and text interfaces in Browser Linux and interpret cross-platform test evidence.",
       "tasks": [
         "Define filename, text-encoding, line-framing, and error contracts before adding host adapters.",
         "Add rejecting and short-write sinks without changing the portable codec.",
         "Compile and link actual capability probes, and test both configured and conservative paths.",
-        "Run the shared fixtures on Linux GCC/Clang, macOS Clang, and Windows MSVC."
+        "Run the shared fixtures with GCC and Clang in Browser Linux. Inspect the repository’s automated Linux, macOS, and Windows exchange checks for evidence from other hosts."
       ],
       "checks": [
         "Reject truncation, malformed numeric fields, unsupported capabilities, and invalid encodings without changing live output.",
         "Explain the difference between C string equality and filesystem identity, and between flushing and durable publication.",
-        "Use python3 tools/check_portability.py --compiler gcc to run the native cross-platform acceptance suite."
+        "At ~/work/c-foundry in Browser Linux, run python3 tools/check_portability.py --compiler gcc and repeat with --compiler clang."
       ],
       "example": "portable-c-9"
     }
@@ -535,7 +532,7 @@ window.PART_SEVEN = {
       "Record language, integer, encoding, filename, file-mode, and resource assumptions.",
       "Keep portable encode/decode logic independent of filesystem operations.",
       "Verify exact bytes and rejection preservation using independent fixtures.",
-      "Build the same audited target with GCC, Clang, and MSVC across Linux, macOS, and Windows.",
+      "Interpret automated GCC, Clang, and MSVC builds and file-exchange results across Linux, macOS, and Windows.",
       "Distinguish file compatibility from atomic replacement, crash durability, locking, and concurrent-writer support."
     ],
     "topics": {
@@ -557,7 +554,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "2": {
@@ -592,11 +589,11 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Undiagnosed undefined behavior remains possible.",
-        "tryit": "With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at the root of your native checkout, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?",
+        "tryit": "With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at ~/work/c-foundry in Browser Linux, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?",
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "4": {
@@ -617,7 +614,7 @@ window.PART_SEVEN = {
         "input": "",
         "runtime": "native",
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       },
       "5": {
@@ -634,7 +631,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "Independent fixtures catch shared codec mistakes, and cross-host artifact exchange exercises differences that a same-host round trip cannot reveal.",
-        "tryit": "In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability in a native checkout to validate independent fixtures.",
+        "tryit": "In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability at ~/work/c-foundry in Browser Linux to validate independent fixtures.",
         "input": "",
         "runtime": "native",
         "files": {
@@ -648,20 +645,20 @@ window.PART_SEVEN = {
           "label": "Download the shared two-row TDB1 fixture"
         },
         "browser": {
-          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately."
+          "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
         }
       }
     },
     "practicePlan": {
-      "goal": "Audit TinyDB assumptions, separate its codec from file access, and exchange validated database files across Linux, macOS, and Windows.",
+      "goal": "Audit TinyDB assumptions, separate its codec from file access, and compare browser-lab results with automated cross-platform file checks.",
       "tasks": [
         "Complete the assumptions and platform-dependency table in native/portability/README.md for your assembled database.",
         "Keep the codec and parsers independent of FILE, paths, processes, signals, and locks.",
-        "Run the same fixture suite across Linux, macOS, and Windows, and inspect the exchanged artifacts.",
+        "Run the fixture suite with GCC and Clang in Browser Linux. The repository’s automated cross-platform jobs exchange files from Linux, macOS, and Windows; no other OS is required for this lab.",
         "Design and test host-specific replacement/durability adapters before integrating them into the full CLI."
       ],
       "checks": [
-        "Use make check-portability locally or python tools/check_portability.py --compiler cl from an MSVC developer terminal.",
+        "Run make check-portability in Browser Linux; repeat with make check-portability CC=clang.",
         "Verify exact binary bytes, every truncated prefix, duplicate IDs, invalid UTF-8, rejection preservation, and existing-destination refusal.",
         "Distinguish tested targets and the audited eight-row subset from unsupported formats, Unicode path handling, power-loss durability, and concurrent access."
       ],

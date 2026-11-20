@@ -16,13 +16,13 @@ A scan reads the table’s pages; an index lookup navigates the index and then o
 
 The teaching estimate charges one unit per page, assumes a cold cache and one distinct data-page fetch per match, and adds three index levels. These assumptions intentionally simplify clustering and caching. Both paths must return identical logical rows under the same visibility rules; cost never permits an incorrect result.
 
-### A query passes through distinct responsibilities
+### Compare the estimated work of both paths
 
-Parsing syntax is different from validating and executing it.
+A cheaper access path depends on how many data pages the matches require.
 
-A SQL source string is tokenized and parsed into a statement representation. Validation checks supported operations and schema rules. Planning chooses a strategy such as a scan or index lookup. Execution performs that strategy and produces rows or an error. These boxes name responsibilities; small implementations can combine some stages.
+The model has one hundred table pages and an index with three levels. It charges one page unit for each index level and one distinct data-page fetch per matching row. For one match, the index costs three plus one, or four units, versus one hundred for a scan, so choose the index. For ninety-eight matches, the index costs one hundred and one units, versus one hundred for a scan, so choose the scan.
 
-A conceptual pipeline, not evidence that every SQL feature or optimizer transformation is implemented.
+Cold cache; each match needs a different data page. These are estimated page units, not measured disk reads or timings; both paths must return the same rows.
 
 ### main.c
 
@@ -57,7 +57,7 @@ Output:
 narrow=index narrow_index_pages=4 wide=scan wide_index_pages=101 scan_pages=100
 ```
 
-One match costs four estimated page reads through the index. Ninety-eight random matches cost 101, exceeding the hundred-page scan.
+The output labels narrow= and wide= come from comparing the two estimated paths in the figure. They report plan choices; this fixture does not execute either query.
 
 **Watch for:** Treating index lookup as free after O(log n) navigation ignores row fetches.
 
@@ -223,7 +223,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 EXPLAIN makes a planner’s assumptions and chosen operators visible. It should distinguish estimated work from actual execution statistics.
 
-The fixture prints a chosen access path, estimated matches, and its simplified page cost. It does not run a query. An EXPLAIN ANALYZE-like mode would execute and attach measured counters; that distinction matters for statements with side effects. Keep plan output stable enough for tests while avoiding promises about exact real-world runtime.
+The fixture prints a chosen access path, estimated matches, and its simplified page cost. It does not run a query. An EXPLAIN ANALYZE-like mode would execute and attach measured counters; an analyze mode can therefore change data for a mutating statement, whereas plain EXPLAIN must leave data untouched. Keep plan output stable enough for tests while avoiding promises about exact real-world runtime.
 
 ### A query passes through distinct responsibilities
 
@@ -453,15 +453,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Compare query plans using page reads and a simple cost model.
 
-1. Choose a correct access path first, then compare plans with an explicit cost model and measured logical work.
-2. Add an inner-key index and verify the same multiset of join rows, including duplicate keys.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Add an inner-key index and verify the same multiset of join rows, including duplicate keys.
+2. Join inputs containing duplicate inner keys and a missing key using both a nested loop and your new inner-key index.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Compare every result pair including duplicates; count comparisons separately from modeled or measured page reads.
 
 Baseline command (checks original output, not every extension):
 

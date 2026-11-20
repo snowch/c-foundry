@@ -56,7 +56,7 @@ No. It prevents repetition within one translation unit; separate translation uni
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/3). Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect the expanded source in a native checkout, change into native/examples/larger-programs-3 and run gcc -E main.c.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/3). Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect preprocessing, choose Linux in the header, complete its setup, and run cd ~/work/c-foundry/native/examples/larger-programs-3 && gcc -E main.c. Find twice-included scale.h’s single function definition in the terminal output.
 
 ### References and help
 

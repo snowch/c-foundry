@@ -76,7 +76,7 @@ Output:
 atomic_total=4000
 ```
 
-Four workers perform one thousand indivisible increments each. No plain read-plus-write sequence can lose an increment.
+Four workers perform one thousand indivisible increments each. Each fetch-add performs the complete increment atomically, so another worker cannot overwrite it with a stale read-plus-write result.
 
 **Watch for:** An atomic counter does not automatically protect a surrounding mutable table or pointer graph.
 
@@ -108,7 +108,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 37.2 Sequential consistency first
 
-Sequential consistency provides a single order for sequentially consistent atomic operations that respects each thread’s required ordering. It is a useful starting point.
+Sequential consistency provides a single order for sequentially consistent atomic operations that respects each thread’s required ordering. Start with this ordering when reasoning about several atomic objects so their operations can be traced in one consistent order.
 
 The fixture uses the default atomic exchange and load operations, which are sequentially consistent. Exchange returns the previous value while installing the new one atomically. More complex protocols should first have a clear sequentially consistent argument; weakening orderings requires a new proof about which synchronization relationships remain.
 
@@ -155,7 +155,7 @@ The exchange changes the state to seven and returns zero. Atomic exchange is not
 
 **Watch for:** A collection of atomic fields can still expose a combination of values that violates an application invariant.
 
-**Check:** Does atomic exchange cover an entire arbitrary struct update?
+**Check:** Does exchanging one atomic counter also atomically update other, separately stored fields?
 
 1. Yes
 2. No, it acts on its atomic object
@@ -376,17 +376,14 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 
-Compare a mutex-protected counter with a C11 atomic counter.
+Explain atomic counter updates and one-shot payload publication.
 
-1. Use atomic operations for the exact shared-state protocol you need, and treat memory ordering as a correctness contract.
-2. Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.
+2. List each shared field and the mutex or atomic operation protecting it; distinguish counter atomicity from payload publication.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check the counter total after joins and trace the release store read by the payload’s acquire load.
 
 Baseline command (checks original output, not every extension):
 

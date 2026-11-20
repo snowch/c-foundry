@@ -445,15 +445,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Build a circular queue and use a stack to evaluate expressions.
 
-1. Define bounded stack and queue operations before using them to parse or schedule work.
-2. Extend tokenization to multi-digit integers and add checked arithmetic and division-by-zero handling.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Extend tokenization to multi-digit integers and add checked arithmetic and division-by-zero handling.
+2. Test an empty pop, a full push, wrapped indices, missing operands, an unknown operator, and overflowing arithmetic.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check FIFO order for the ring and right-before-left popping for postfix subtraction; rejected operations must preserve state.
 
 Baseline command (checks original output, not every extension):
 

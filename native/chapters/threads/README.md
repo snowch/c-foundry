@@ -86,7 +86,7 @@ No. Joined results establish completed work, not simultaneous scheduling.
 
 </details>
 
-**Try:** Edit the example in Browser Linux.  In native/examples/threads-1/main.c, change .input by assigning jobs[i] = (Job){i + 2, 0}; instead of the existing i + 1 initializer. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?
+**Try:** Edit the example in Browser Linux.  In native/examples/threads-1/main.c, replace jobs[i] = (Job){i + 1, 0}; with jobs[i] = (Job){i + 2, 0};. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?
 
 ### References and help
 
@@ -105,7 +105,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Worker arguments and result storage must outlive every access. Returning from a scope can invalidate pointers even when the thread still runs.
 
-main keeps the Job object alive while the worker accesses it and joins before reading its result. Passing the address of a loop variable reused by all workers can create both a lifetime or synchronization problem and incorrect logical inputs. Thread-local variables and separate per-worker objects simplify ownership but do not automatically protect genuinely shared objects.
+main keeps the Job object alive while the worker accesses it and joins before reading its result. Passing the address of a loop variable reused by all workers can let workers read changed inputs. Concurrently modifying that variable also needs synchronization, and leaving its scope too early ends its lifetime. Thread-local variables and separate per-worker objects simplify ownership but do not automatically protect genuinely shared objects.
 
 ### main.c
 
@@ -301,15 +301,13 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Run joined threads and distinguish safe shared state from a data race.
 
-1. Create and join threads with explicit argument lifetimes and shared-memory ownership. Distinguish concurrency bugs from safe interleavings.
-2. Move the entire increment under one lock and verify final two; use ThreadSanitizer separately rather than relying on a data-race output.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Apply the stale_update repair described in the final lesson: keep each complete increment under one mutex acquisition.
+2. Repeat the run and find final=2. Explain why the barrier still lets both workers reach the increment.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Keep both accesses protected; do not remove synchronization to manufacture a data race.
+- Identify which Job objects stay alive until their corresponding joins.
 
 Baseline command (checks original output, not every extension):
 

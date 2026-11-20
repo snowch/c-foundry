@@ -27,7 +27,7 @@ window.PART_FIVE = {
       },
       "2": {
         "intro": "Storage owns rows, an index locates candidates, and execution decides which candidates satisfy a query. Keep those roles separable.",
-        "explanation": "This initial table scan is both a correctness baseline and the fallback when no index exists. A later index can return candidate row positions, but execution must still honor the same row and predicate contract. Physical row positions may change after deletion or compaction; logical IDs should remain stable.",
+        "explanation": "This initial table scan is both a correctness baseline and the fallback when no index exists. A later index can return candidate row positions, but execution must still honor the same row and predicate contract: a predicate is the test that decides whether a row qualifies. Physical row positions may change after deletion or compaction; logical IDs should remain stable.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\n\nint main(void) {\n  Table t = {.count = 0};\n  insert_row(&t, (Row){1, \"Ada\", 90});\n  insert_row(&t, (Row){2, \"Grace\", 80});\n  int i = find_row(&t, 2);\n  printf(\"position=%d id=%u\\n\", i, (unsigned)t.rows[i].id);\n  return 0;\n}\n",
         "expected": "position=1 id=2",
         "walkthrough": "The logical ID two is stored at physical position one. These numbers are intentionally different.",
@@ -45,7 +45,7 @@ window.PART_FIVE = {
       },
       "3": {
         "intro": "Limit the first database so every promised behavior can be tested. A small, explicit contract is more useful than incomplete general SQL support.",
-        "explanation": "The baseline is a single in-memory table with unique positive IDs, bounded names, and deterministic insertion order. It does not yet promise persistence, transactions, concurrent access, Unicode-aware comparison, or arbitrary SQL. Each later chapter adds a named capability while preserving the earlier behavior.",
+        "explanation": "The baseline is a single in-memory table with unique positive IDs, bounded names, and deterministic insertion order. It does not yet promise persistence, transactions, concurrent access, Unicode-aware comparison, or arbitrary SQL. Later chapters supply separate components and projects for adding those capabilities to your own database while preserving its earlier behavior.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\n\nint main(void) {\n  Table t = {.count = 0};\n  Status first = insert_row(&t, (Row){1, \"Ada\", 90}),\n         again = insert_row(&t, (Row){1, \"Other\", 0});\n  printf(\"inserted=%d duplicate=%d rows=%zu\\n\", first == OK, again == DUPLICATE,\n         t.count);\n  return 0;\n}\n",
         "expected": "inserted=1 duplicate=1 rows=1",
         "walkthrough": "The second call is rejected and the original table count remains one. Rejection is observable rather than a silent overwrite.",
@@ -101,14 +101,11 @@ window.PART_FIVE = {
     "practicePlan": {
       "goal": "Define TinyDB’s first commands and test their observable behavior.",
       "tasks": [
-        "Define a deliberately small database contract before implementing storage or SQL syntax.",
         "Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Test selection from an empty table, ID zero, duplicate ID, and insertion beyond capacity."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "For every rejected insert, compare the row count and every existing row with a copy taken before the call."
       ],
       "example": "database-foundations-5"
     }
@@ -216,14 +213,11 @@ window.PART_FIVE = {
     "practicePlan": {
       "goal": "Insert records, reject duplicates, and find rows by ID.",
       "tasks": [
-        "Implement row lifecycle operations while keeping key uniqueness and initialized-count invariants true.",
         "Generate bounded insert/update/delete sequences and check invariants after every operation.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Run bounded insert, update, and delete sequences against a simple independent reference table."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "After each operation, check status, row count, unique IDs, and complete surviving row values."
       ],
       "example": "tables-5"
     }
@@ -259,7 +253,7 @@ window.PART_FIVE = {
         "explanation": "Inside a single-quoted string, this lexer interprets two adjacent quotes as one data quote. It rejects an unterminated string or a decoded value exceeding 31 bytes. Whitespace outside tokens is ignored; whitespace inside a quoted string is preserved. These are ASCII byte-oriented rules, not Unicode normalization.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef enum {\n  END,\n  WORD,\n  NUMBER,\n  STRING,\n  SEMI,\n  LP,\n  RP,\n  COMMA,\n  STAR,\n  EQUAL,\n  BAD\n} Token;\ntypedef struct {\n  const char *p;\n  char text[32];\n  uint32_t number;\n} Lexer;\nToken next(Lexer *l) {\n  while (*l->p == ' ' || *l->p == '\\t' || *l->p == '\\n' || *l->p == '\\r')\n    ++l->p;\n  unsigned char ch = (unsigned char)*l->p;\n  l->text[0] = 0;\n  if (!ch)\n    return END;\n  if (ch >= '0' && ch <= '9') {\n    uint32_t n = 0;\n    do {\n      unsigned digit = (unsigned)(*l->p - '0');\n      if (n > (UINT32_MAX - digit) / 10)\n        return BAD;\n      n = n * 10 + digit;\n      ++l->p;\n    } while (*l->p >= '0' && *l->p <= '9');\n    l->number = n;\n    return NUMBER;\n  }\n  if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '_') {\n    size_t n = 0;\n    while ((*l->p >= 'A' && *l->p <= 'Z') || (*l->p >= 'a' && *l->p <= 'z') ||\n           (*l->p >= '0' && *l->p <= '9') || *l->p == '_') {\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p++;\n    }\n    l->text[n] = 0;\n    return WORD;\n  }\n  ++l->p;\n  if (ch == '\\'') {\n    size_t n = 0;\n    for (;;) {\n      if (!*l->p)\n        return BAD;\n      if (*l->p == '\\'' && l->p[1] != '\\'') {\n        ++l->p;\n        l->text[n] = 0;\n        return STRING;\n      }\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p;\n      if (*l->p == '\\'')\n        ++l->p;\n      ++l->p;\n    }\n  }\n  switch (ch) {\n  case ';':\n    return SEMI;\n  case '(':\n    return LP;\n  case ')':\n    return RP;\n  case ',':\n    return COMMA;\n  case '*':\n    return STAR;\n  case '=':\n    return EQUAL;\n  default:\n    return BAD;\n  }\n}\nbool keyword(Lexer *l, const char *word) {\n  return next(l) == WORD && strcmp(l->text, word) == 0;\n}\n\nint main(void) {\n  Lexer l = {\"  'Ada Lovelace'  'O''Brien'\", {0}, 0};\n  if (next(&l) != STRING)\n    return 1;\n  puts(l.text);\n  if (next(&l) != STRING)\n    return 1;\n  puts(l.text);\n  Lexer bad = {\"'unfinished\", {0}, 0};\n  printf(\"unterminated=%d\\n\", next(&bad) == BAD);\n  return 0;\n}\n",
         "expected": "Ada Lovelace\nO'Brien\nunterminated=1",
-        "walkthrough": "The doubled quote contributes one character to O'Brien. The malformed second fixture reaches the end before a closing quote.",
+        "walkthrough": "The doubled quote contributes one character to O'Brien. The malformed third fixture reaches the end before a closing quote.",
         "pitfall": "A fixed-size token buffer needs a decoded-length check before every write, including escaped data.",
         "question": "Is a doubled quote inside this literal a token boundary?",
         "choices": [
@@ -330,14 +324,11 @@ window.PART_FIVE = {
     "practicePlan": {
       "goal": "Parse a small SQL subset and explain malformed statements.",
       "tasks": [
-        "Recognize a deliberately small SQL grammar and keep syntax, schema validation, and execution separate.",
         "Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Test a missing semicolon, trailing tokens, an unterminated string, ID zero, and an oversized number."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check the reported stage and source position; rejected syntax must not change the output statement or table."
       ],
       "example": "parsing-5"
     }
@@ -424,7 +415,7 @@ window.PART_FIVE = {
       },
       "5": {
         "intro": "Aggregation summarizes a set of rows. Define empty-set behavior and arithmetic representation before implementing it.",
-        "explanation": "COUNT is zero on an empty input. This example uses a 64-bit sum for a table with at most eight unsigned 32-bit scores, so the sum is representable. An average is computed only when count is nonzero; a general SQL engine might return NULL for empty AVG and SUM. Our explicit empty policy is not an accidental divide-by-zero workaround.",
+        "explanation": "COUNT is zero on an empty input. This example uses a 64-bit sum for a table with at most eight unsigned 32-bit scores, so the sum is representable. An average is computed only when count is nonzero; a general SQL engine might return NULL for empty AVG and SUM. Here an empty input prints count=0 sum=0 average=0.00; the program skips division.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\n\nint main(void) {\n  Table t = {.count = 0};\n  insert_row(&t, (Row){1, \"Ada\", 90});\n  insert_row(&t, (Row){2, \"Grace\", 80});\n  insert_row(&t, (Row){3, \"Ken\", 90});\n  uint64_t sum = 0;\n  for (size_t i = 0; i < t.count; ++i)\n    sum += t.rows[i].score;\n  printf(\"count=%zu sum=%llu average=%.2f\\n\", t.count, (unsigned long long)sum,\n         t.count ? (double)sum / t.count : 0.0);\n  return 0;\n}\n",
         "expected": "count=3 sum=260 average=86.67",
         "walkthrough": "The average is 260 divided by three, formatted to two decimal places. The widening occurs in the accumulator rather than after an overflowing narrow sum.",
@@ -462,14 +453,11 @@ window.PART_FIVE = {
     "practicePlan": {
       "goal": "Execute validated statements over an in-memory table.",
       "tasks": [
-        "Execute typed, validated statements and build query operators with explicit input and output contracts.",
         "Extend the grammar with one earlier operator, add end-to-end tests, and preserve all existing rejection behavior.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Add ORDER BY score LIMIT 2 to your own parser and executor, then test ties and fewer than two matching rows."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Compare complete result rows with an independent sort-then-limit reference and retain the earlier INSERT/SELECT rejection checks."
       ],
       "example": "execution-6"
     }
@@ -573,8 +561,8 @@ window.PART_FIVE = {
           "Yes"
         ],
         "answer": 0,
-        "why": "The runtime resets its virtual filesystem; a host transfer/storage step is separate.",
-        "tryit": "In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Run the prepared cc command. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.",
+        "why": "Inline lesson files reset on each run. The command workspace saves its own files in this browser; Download keeps a separate copy.",
+        "tryit": "In main.c, change Ada’s score from 90 to 95 and choose Run code. Compare exported=, imported=, and rows=. In Editor tools, choose Open in command workspace. Choose Run to execute the prepared cc command and wait for Built program. Enter ./program in Command and choose Run, then do the same with ./program import people.tdb. Which score appears for Ada? Select people.tdb in Files and choose Download to keep it.",
         "input": "",
         "runtime": "native",
         "command": "make example EXAMPLE=persistence-5 KEEP_FILES=1",
@@ -609,14 +597,11 @@ window.PART_FIVE = {
     "practicePlan": {
       "goal": "Persist rows through a pager and reject corrupt database input.",
       "tasks": [
-        "Define bytes independently of structs, check every stream operation, and load untrusted files into a temporary validated table.",
         "Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Try every byte truncation of a valid export, duplicate IDs, a missing name terminator, and one trailing byte."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Load each invalid file over a known live table and compare every row before and after rejection."
       ],
       "example": "persistence-6"
     }

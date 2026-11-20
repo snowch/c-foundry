@@ -14,7 +14,7 @@ Choose a graph representation, track discovery state, and match the route algori
 
 A graph representation determines which operations are cheap and how much memory is reserved.
 
-A V×V adjacency matrix reserves Θ(V²) entries and tests one edge in O(1). An adjacency list uses Θ(V+E) storage and scans actual neighbors. This matrix fixture uses zero for absent edges, so it cannot represent a zero-weight edge; a more general format needs a separate presence flag or sentinel.
+Let V count vertices (nodes) and E count edges (connections). A V×V adjacency matrix reserves Θ(V²) entries and tests one edge in O(1). An adjacency list uses Θ(V+E) storage and scans actual neighbors. This matrix fixture uses zero for absent edges, so it cannot represent a zero-weight edge; a more general format needs a separate presence flag or sentinel.
 
 ### One graph can have several routes to a vertex
 
@@ -137,7 +137,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 20.2 Breadth-first and depth-first search
 
-BFS explores by edge distance using a queue; DFS follows one path at a time using recursion or a stack.
+Breadth-first search (BFS) explores by edge distance using a queue. Depth-first search (DFS) follows one path at a time using recursion or a stack.
 
 Mark a vertex discovered when adding it to the queue, not when removing it, so multiple incoming edges cannot enqueue it repeatedly. The queue then needs at most V entries. With adjacency lists, traversal is O(V+E); this matrix implementation scans V possible neighbors per visited vertex and is O(V²).
 
@@ -360,7 +360,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 A topological order places every prerequisite before its dependents. It exists only for a directed acyclic graph.
 
-Kahn’s algorithm repeatedly removes a zero-indegree vertex and decrements its outgoing neighbors. If fewer than V vertices are emitted, a cycle prevents completion. The fixed array queue is safe because each vertex enters only when its indegree becomes zero, once. Different available zero-indegree choices can produce different valid orders.
+Kahn’s algorithm repeatedly removes a vertex with zero indegree (no remaining incoming edges) and decrements its outgoing neighbors. If fewer than V vertices are emitted, a cycle prevents completion. The fixed array queue is safe because each vertex enters only when its indegree becomes zero, once. Different available zero-indegree choices can produce different valid orders.
 
 ### One graph can have several routes to a vertex
 
@@ -716,15 +716,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Find routes in a graph and explain the cost of its representation.
 
-1. Choose a graph representation, track discovery state, and match the route algorithm to the edge-weight contract.
-2. Replace matrix rows with adjacency lists and benchmark only after verifying route costs against the simpler implementation.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Replace matrix rows with adjacency lists and benchmark only after verifying route costs against the simpler implementation.
+2. Test an unreachable vertex, two routes to one vertex, and a rejected negative weight; compare matrix and list results.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Compare reachability and complete route costs before counting edge visits or timing either representation.
 
 Baseline command (checks original output, not every extension):
 

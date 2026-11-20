@@ -735,7 +735,7 @@
     "exercise": {
       "reference": "fileformat",
       "question": "Does SQLite’s documented B-tree page layout define the exact layout of the course’s B+ tree?",
-      "answer": "No. Use it to compare interior/leaf pages, keys, and page references. The course’s own explicit format and invariants define its B+ tree."
+      "answer": "No. Use it to compare interior/leaf pages, keys, and page references. The course defines an in-memory B+ model with its own occupancy and routing rules. A serialized version would need a separate specified page format."
     }
   },
   "planning": {
@@ -982,7 +982,7 @@
   function render(chapter,topic,content){
     const {links,exercise}=get(chapter,topic,content);
     const manual=links.find(link=>link.man);
-    return `<section class="lesson-resources" aria-label="Documentation and help"><details class="lesson-references"><summary>References and help</summary><p>Use these references to check the contracts and concepts on this page.</p><ul>${links.map(link=>`<li><a href="${escape(link.url)}" target="_blank" rel="noopener noreferrer">${escape(link.title)} <span class="reference-new-tab">(new tab)</span></a><p>${escape(link.note)}</p></li>`).join('')}</ul>${manual?`<p>Optional lookup on a system with installed manual pages:</p><pre><code>${escape(manual.man)}</code></pre>`:''}<p class="supporting">C17 is the course baseline. Check STANDARDS in Linux manuals for POSIX or Linux extensions. <a href="#/chapter/first-program/6">How to find and read C documentation →</a></p></details>${exercise?`<details class="documentation-practice"><summary>Use the documentation <span class="supporting">· optional</span></summary><p>${escape(exercise.question)}</p><p>Consult <a href="${escape(catalog[exercise.reference].url)}" target="_blank" rel="noopener noreferrer">${escape(catalog[exercise.reference].title)} (new tab)</a>, read the relevant section, then use the lesson’s example to explore the contract.</p><details class="documentation-answer"><summary>Compare your answer</summary><p>${escape(exercise.answer)}</p></details></details>`:''}</section>`;
+    return `<section class="lesson-resources" aria-label="Documentation and help"><details class="lesson-references"><summary>References and help</summary><p>Use these references to check the contracts and concepts on this page.</p><ul>${links.map(link=>`<li><a href="${escape(link.url)}" target="_blank" rel="noopener noreferrer">${escape(link.title)} <span class="reference-new-tab">(new tab)</span></a><p>${escape(link.note)}</p></li>`).join('')}</ul>${manual?`<p>Optional lookup on a system with installed manual pages:</p><pre><code>${escape(manual.man)}</code></pre>`:''}<p class="supporting">C17 is the course baseline. Check STANDARDS in Linux manuals for POSIX or Linux extensions. <a href="#/chapter/first-program/6">How to find and read C documentation →</a></p></details>${exercise?`<details class="documentation-practice"><summary>Use the documentation <span class="supporting">· optional</span></summary><p>${escape(exercise.question)}</p><p>Consult <a href="${escape(catalog[exercise.reference].url)}" target="_blank" rel="noopener noreferrer">${escape(catalog[exercise.reference].title)} (new tab)</a>, read the section that answers the question, then open Compare your answer below.</p><details class="documentation-answer"><summary>Compare your answer</summary><p>${escape(exercise.answer)}</p></details></details>`:''}</section>`;
   }
   window.lessonReferences={catalog,chapters,get,render};
 })();

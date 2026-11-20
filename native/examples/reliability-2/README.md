@@ -6,9 +6,9 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Allocation count, object locality, and cache behavior are different measurements. A pool can reduce allocation calls while introducing its own lifetime constraints.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
-The fixture performs eight separate row allocations and one allocation for an eight-row pool, checking every result and freeing every owner. It also exercises the small page-cache model and counts backing-read events. Fewer allocations or reads can motivate a design, but neither proves lower total runtime; fragmentation, contention, eviction, and workload patterns matter.
+The fixture performs eight separate row allocations and one allocation for an eight-row pool, checking every result and freeing every owner. It also exercises the small page-cache model and counts backing-read events. Fewer allocations or reads can motivate a design, but neither proves lower total runtime; choose between designs by measuring the same correct workload, including allocator contention, cache misses, and cleanup costs.
 
 ### A cache lookup has a hit path and a miss path
 

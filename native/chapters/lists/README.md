@@ -485,15 +485,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Implement list operations and compare them with a dynamic array.
 
-1. Choose a sequence representation by its operation costs, ownership rules, and access patterns.
-2. Choose a representation for mostly indexed reads and for frequent splices with known neighboring nodes; justify both choices.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Choose a representation for mostly indexed reads and for frequent splices with known neighboring nodes; justify both choices.
+2. Test removing the head, an interior node, the last node, and an absent value; check both directions of a doubly linked list.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- State which pointers become invalid after removal or vector growth and identify each allocation’s cleanup owner.
 
 Baseline command (checks original output, not every extension):
 

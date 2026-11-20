@@ -6,9 +6,9 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 An optimized plan must first return the same logical result. Instrument matching units when comparing its work with a baseline.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
-The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate.
+The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. Equal counts alone do not establish equal result rows; the chapter project checks those rows including duplicates. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate.
 
 ### A query passes through distinct responsibilities
 

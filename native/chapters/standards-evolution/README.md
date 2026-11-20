@@ -14,7 +14,7 @@ Choose a language baseline and verify features with the actual compiler instead 
 
 C revisions add facilities while retaining compatibility rules and implementation choices. A course baseline should be explicit.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 C89/C90 standardized the early language; C99 added facilities such as declarations in for loops and standard fixed-width integer interfaces; C11 added atomics and alignment facilities; C17 primarily corrected defects; C23 adds facilities including nullptr, typeof/typeof_unqual, constexpr objects, and inferred auto declarations; probe the exact facility before depending on it. __STDC_VERSION__ identifies the selected language revision when provided, but does not prove every optional library facility is available. This course uses C17 unless a feature probe says otherwise.
 
@@ -57,7 +57,7 @@ The compiler invocation and supported mode. A .c file can be compiled under seve
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/1). After the browser run, open a native terminal at the repository root and run make standards-matrix. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/1). After the browser run, choose Linux in the header, complete its setup, and run make standards-matrix at ~/work/c-foundry. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?
 
 ### References and help
 
@@ -76,7 +76,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Compiler extensions can be useful when isolated behind a checked interface, but they are not portable language guarantees.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The example guards a GNU-compatible extended integer type and supplies a standard fallback. __extension__ is itself a compiler-specific escape used only within that guard. The output checks a capability property rather than promising that every C target has a 128-bit integer. Prefer a standard baseline path unless the extended representation is part of a documented platform requirement.
 
@@ -142,7 +142,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Feature detection should test the facility you need. A standard-version test alone cannot account for partial implementations or optional APIs.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The example selects a conservative C17 fallback at the course’s default language mode. A separate compile probe can attempt a C23-only facility under -std=c23 and report whether that compiler/library combination accepts it. Treat a failed probe as a result to handle, not permission to silently change the project’s semantics.
 
@@ -194,7 +194,7 @@ A compile/link probe of that actual facility. Language and library support can v
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/3). In main.c, change the fallback message from mode=C17 fallback_selected to mode=pre-C23 fallback_selected. Run code. Which condition selects the fallback? Use make standards-matrix in your native checkout to see accepted modes separately from feature support.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/3). In main.c, change the fallback message from mode=C17 fallback_selected to mode=pre-C23 fallback_selected. Run code. Which condition selects the fallback? Use make standards-matrix at ~/work/c-foundry in Browser Linux to see accepted modes separately from feature support.
 
 ### References and help
 
@@ -221,15 +221,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Compile a feature probe under different language standards.
 
-1. Choose a language baseline and verify features with the actual compiler instead of assuming that a modern compiler name implies complete conformance.
-2. Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Add a positive and negative feature probe to your build and keep its diagnostics in the setup documentation.
+2. Run make standards-matrix in Browser Linux and record the compiler versions, accepted modes, and exact facilities probed.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Separate accepting -std=c23 from compiling and linking the C23 facility; retain diagnostics from a deliberately unsupported probe.
 
 Baseline command (checks original output, not every extension):
 

@@ -4,7 +4,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 36.1 Mutexes and condition variables
 
-A condition variable is a way to wait for a protected predicate to change, not a remembered message. Hold the mutex while checking the predicate.
+A condition variable is a way to wait for a protected predicate (a true/false test of shared state) to change, not a remembered message. Hold the mutex while checking the predicate.
 
 The queue waits in while loops for not-empty and not-full conditions. pthread_cond_wait releases the mutex while waiting and reacquires it before returning; spurious wakes and competition require a predicate recheck. Mutations and signals occur under the queue’s lock, and close broadcasts to both classes of waiter.
 

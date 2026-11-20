@@ -12,7 +12,7 @@ Turn a sequence of statements into decisions and repetitions. Finish with a boun
 
 ## 3.1 if, else, and switch
 
-A decision chooses which statements run. In a condition, zero is false and a nonzero scalar value is true. A comparison usually expresses that decision more clearly than relying on an unexplained number.
+A decision chooses which statements run. For numeric conditions, zero is false and every nonzero value is true. A comparison usually expresses that decision more clearly than relying on an unexplained number.
 
 `if` executes a statement or block when its condition is true. An else branch handles the alternative. Use braces even for short branches while learning: they keep later edits unambiguous. `switch` selects among integer-valued cases. A break exits the switch; without it, execution may continue into the following case. Use default for the unmatched case when that is meaningful.
 
@@ -185,7 +185,7 @@ remaining=0
 
 The for body sees i equal to 0, 1, and 2. After the update makes it 3, the condition is false. The while loop subtracts one twice and stops at zero. Neither loop executes its body after its condition has become false. This is why < n and <= n often differ by one iteration.
 
-**Watch for:** An empty body caused by a stray semicolon, or an update that never approaches the stopping condition, can create an unintended loop. Stop code is available if an experiment fails to terminate.
+**Watch for:** An empty body caused by a stray semicolon, or an update that never approaches the stopping condition, can create an unintended loop. The Stop button is available if an experiment fails to terminate.
 
 **Check:** How many times does the for body run?
 

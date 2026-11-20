@@ -73,7 +73,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 An enum gives meaningful names to integer choices. A union stores alternatives in overlapping storage. A tagged union combines them so the program knows which alternative it may interpret.
 
-Maintain an invariant connecting the tag to the union member you most recently established. A switch on the tag selects the appropriate interpretation. typedef can give the whole record a concise type name, but it does not create lifetime management. In this example, the text member borrows a string literal whose lifetime covers the program; an owned heap string would need a different cleanup rule.
+Maintain a rule, called an invariant, connecting the tag to the union member you most recently established. A switch on the tag selects the appropriate interpretation. typedef can give the whole record a concise type name, but it does not create lifetime management. In this example, the text member borrows a string literal whose lifetime covers the program; an owned heap string would need a different cleanup rule.
 
 ### main.c
 

@@ -9,14 +9,14 @@ Turn a portability claim into a contract and testable evidence. Audit the real T
 - Record language, integer, encoding, filename, file-mode, and resource assumptions.
 - Keep portable encode/decode logic independent of filesystem operations.
 - Verify exact bytes and rejection preservation using independent fixtures.
-- Build the same audited target with GCC, Clang, and MSVC across Linux, macOS, and Windows.
+- Interpret automated GCC, Clang, and MSVC builds and file-exchange results across Linux, macOS, and Windows.
 - Distinguish file compatibility from atomic replacement, crash durability, locking, and concurrent-writer support.
 
 ## 34.1 Auditing assumptions about types and memory
 
 An assumption audit checks where input sizes, arithmetic ranges, alignment, and lifetimes cross API boundaries.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 For an array allocation, validate count≤SIZE_MAX/element_size before multiplication. Also define a zero-element policy and who owns the result. The fixture rejects an impossible int-array size without attempting memory exhaustion. Similar checks belong in page offsets, slot lengths, result buffers, and log record counts. Include sizeof(long), size_t and printf formats, char signedness, execution character set, eight-bit-byte requirements, optional exact-width types, and alignment in the audit. Record each as guaranteed by C17, required of supported targets, validated at an input boundary, or delegated to a host adapter. A compiler accepting the source does not discharge the remaining assumptions.
 
@@ -274,7 +274,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Compilers provide complementary diagnostics. Keep the same language baseline and fixtures when comparing their builds.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The example exercises a bounded decoded record with explicit byte assembly and a typed output. Run it with CC=gcc and CC=clang, both with strict warnings. Agreement is useful evidence, not proof of freedom from undefined behavior: both compilers can compile the same invalid source without a diagnostic when the language does not require one. The new portability workflow uses Linux GCC and Clang, macOS Clang, and Windows MSVC in C17 mode. Each host consumes and produces the same known database bytes, and a second job on every host reads artifacts from all producers. This checks the audited slice, not every POSIX, threaded, or Linux-specific example in the course.
 
@@ -436,7 +436,7 @@ No. Undiagnosed undefined behavior remains possible.
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/3). With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at the root of your native checkout, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/3). With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at ~/work/c-foundry in Browser Linux, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?
 
 ### References and help
 
@@ -455,7 +455,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Sanitizers observe executed behavior and catch selected invalid operations. Combine them with strict builds, input validation, and independent expectations.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The fixture passes a deliberately short record to the decoder and verifies that it is rejected before bytes are accessed or output is assigned. AddressSanitizer and UndefinedBehaviorSanitizer are optional external tools. In this browser lab, run the independent boundary fixtures with the normal compiler; the hosted image does not require or provide every sanitizer runtime combination. ThreadSanitizer is a separate tool for shared-memory concurrency and may depend on runtime/kernel support. A clean sanitizer run does not prove encoding compatibility, correct row identity, filesystem case behavior, or safe replacement of an existing file. Keep exact-byte, invalid-input, and failure-preservation assertions in the portability suite. The audit adapter deliberately creates new files exclusively; it does not claim portable atomic replacement. [ThreadSanitizer scope and limitations](https://snowch.github.io/c-foundry/#/tools/threadsanitizer) are covered in an optional reading page.
 
@@ -643,7 +643,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Finish with a concrete audit: publish the supported assumptions, compile a portable codec and file adapter separately, and verify database files produced by other hosts.
 
-Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes. Optional external sanitizer tooling is described separately.
+Also editable and runnable inline in the browser course. This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes.
 
 The native/portability target implements a bounded TDB1 codec with no FILE, path, locale, or operating-system calls in its core. Its separate ISO C adapter uses binary streams and exclusive creation of a new, restricted ASCII basename. The format requires uint32_t, eight-bit bytes, and UTF-8 row names; the target also explicitly requires an ASCII-compatible execution character set. The suite validates a known fixture, every truncated prefix, malformed headers, duplicate IDs, invalid names, and unchanged outputs on codec rejection. Each OS reads the same binary fixture and exports artifacts that all other matrix hosts must validate and copy byte-for-byte.
 
@@ -845,7 +845,7 @@ Every tested host validates and copies files from all producers against an indep
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/5). In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability in a native checkout to validate independent fixtures.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/5). In main.c, change table.rows[0].score from 90 to 95 and choose Run code. Compare rows= and bytes=. What fixed-width format rule explains why a different score occupies the same file length? Run make check-portability at ~/work/c-foundry in Browser Linux to validate independent fixtures.
 
 ### References and help
 
@@ -863,16 +863,16 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## Build it yourself
 
-Audit TinyDB assumptions, separate its codec from file access, and exchange validated database files across Linux, macOS, and Windows.
+Audit TinyDB assumptions, separate its codec from file access, and compare browser-lab results with automated cross-platform file checks.
 
 1. Complete the assumptions and platform-dependency table in native/portability/README.md for your assembled database.
 2. Keep the codec and parsers independent of FILE, paths, processes, signals, and locks.
-3. Run the same fixture suite across Linux, macOS, and Windows, and inspect the exchanged artifacts.
+3. Run the fixture suite with GCC and Clang in Browser Linux. The repository’s automated cross-platform jobs exchange files from Linux, macOS, and Windows; no other OS is required for this lab.
 4. Design and test host-specific replacement/durability adapters before integrating them into the full CLI.
 
 ### Check your work
 
-- Use make check-portability locally or python tools/check_portability.py --compiler cl from an MSVC developer terminal.
+- Run make check-portability in Browser Linux; repeat with make check-portability CC=clang.
 - Verify exact binary bytes, every truncated prefix, duplicate IDs, invalid UTF-8, rejection preservation, and existing-destination refusal.
 - Distinguish tested targets and the audited eight-row subset from unsupported formats, Unicode path handling, power-loss durability, and concurrent access.
 

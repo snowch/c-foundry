@@ -129,7 +129,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 An optimistic update can reject a stale read instead of silently overwriting a newer result. The version comparison and write must share one atomic critical section in concurrent use.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 Two logical sessions read version one. The first commits a new value and advances the version; the second is rejected when its observed version no longer matches. This deterministic sequential schedule models the conflict rule. A threaded implementation must guard compare_commit with a mutex or an appropriate atomic state protocol, including version-wrap handling.
 
@@ -213,7 +213,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 An isolation contract states which anomalies are allowed across a transaction’s sequence of operations. Protecting each statement does not automatically provide repeatable reads.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
 The fixture models a reader observing a committed value, another session committing a change, and the first reader observing the newer value on its next statement. That is compatible with a per-statement committed-read policy but not a repeatable snapshot. A complete implementation must specify multi-row reads, phantoms, write conflicts, and transaction boundaries rather than borrowing a label without its tests.
 
@@ -306,15 +306,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Specify the behavior of concurrent reads before changing the locking strategy.
 
-1. Specify what readers may observe before changing locks. Race freedom and transaction isolation are related but different contracts.
-2. Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.
+2. Write fixed schedules for a nonrepeatable read, a stale write, and a two-account transfer.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check which committed versions each read may observe and whether the account total stays constant; name only the isolation guarantees your tests specify.
 
 Baseline command (checks original output, not every extension):
 

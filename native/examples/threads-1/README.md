@@ -78,7 +78,7 @@ No. Joined results establish completed work, not simultaneous scheduling.
 
 </details>
 
-**Try:** Edit the example in Browser Linux.  In native/examples/threads-1/main.c, change .input by assigning jobs[i] = (Job){i + 2, 0}; instead of the existing i + 1 initializer. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?
+**Try:** Edit the example in Browser Linux.  In native/examples/threads-1/main.c, replace jobs[i] = (Job){i + 1, 0}; with jobs[i] = (Job){i + 2, 0};. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?
 
 ### References and help
 

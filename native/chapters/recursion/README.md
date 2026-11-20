@@ -242,6 +242,14 @@ A recursion tree exposes how many subproblems exist at each depth and how much n
 
 A balanced split into two half-sized problems with constant leaf cost and linear combine cost satisfies T(n)=2T(n/2)+Θ(n). Every level contributes Θ(n) work, and the tree has Θ(log n) levels. Count leaves separately from the total number of nodes; for the example’s power-of-two input, there are n leaves and 2n−1 nodes.
 
+### Count calls at each split depth
+
+For eight elements, four depths contain fifteen calls and eight leaves.
+
+Start with one call of size eight at depth zero. It creates two calls of size four at depth one, then four calls of size two at depth two, then eight calls of size one at depth three. Size-one calls are leaves. Adding the call counts gives fifteen; the final depth has eight leaves. The table counts calls, not elapsed time or merge operations.
+
+This is the power-of-two split fixture. A merge-sort combine step adds work not counted by this program.
+
 ### main.c
 
 ```c
@@ -386,15 +394,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Traverse a tree and account for the recursive call stack.
 
-1. Make recursive subproblems smaller, track each call’s state, and compare explicit and implicit stacks.
-2. Add a nested directory and then implement the traversal with an explicit bounded stack.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Add a nested directory and then implement the traversal with an explicit bounded stack.
+2. Compare recursive and explicit-stack traversal on an empty tree, a leaf, and a nested directory; define a depth limit.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check the same visit order and count the greatest number of unfinished calls or stack entries.
 
 Baseline command (checks original output, not every extension):
 

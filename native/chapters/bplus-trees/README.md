@@ -225,7 +225,7 @@ It reduces the number of page levels visited. Many routing choices fit within ea
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/1). In main.c, change the final inserted key from 7 to 5. Run code and compare root_children= and leaf_capacity=. Which count depends on inserted keys and which is a fixed model parameter?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/1). In main.c, change the insertion loop’s key <= 7 bound to key <= 5. Run code and compare root_children= and leaf_capacity=. Which count depends on inserted keys and which is a fixed model parameter?
 
 ### References and help
 
@@ -458,7 +458,7 @@ To that next child. This model uses the child’s minimum as an inclusive lower 
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/2). In main.c, change the final inserted key from 7 to 6. Run code and compare leaf min= and count= fields. Which separator remains associated with the start of the right child even if its count changes?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/2). In main.c, change the insertion loop’s key <= 7 bound to key <= 6. Run code and compare leaf min= and count= fields. Which third-leaf split no longer occurs with six keys? Why does the remaining right child still have minimum key 3?
 
 ### References and help
 
@@ -469,7 +469,7 @@ To that next child. This model uses the child’s minimum as an inclusive lower 
 
 <details><summary>Compare your answer</summary>
 
-No. Use it to compare interior/leaf pages, keys, and page references. The course’s own explicit format and invariants define its B+ tree.
+No. Use it to compare interior/leaf pages, keys, and page references. The course defines an in-memory B+ model with its own occupancy and routing rules. A serialized version would need a separate specified page format.
 
 </details>
 
@@ -938,7 +938,7 @@ Root-child capacity and a free leaf page. A split needs both a new leaf and a ne
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/4). In main.c, change the final inserted key from 5 to 6. Run code and compare leaves=, left=, right=, and boundary=. Does appending one more key also change the boundary created during the first split?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/bplus-trees/4). In main.c, change the insertion loop’s key <= 5 bound to key <= 6. Run code and compare leaves=, left=, right=, and boundary=. Does appending one more key also change the boundary created during the first split?
 
 ### References and help
 
@@ -958,7 +958,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Range lookup combines one routed start with sequential leaf traversal. Keep inclusive and exclusive endpoints explicit.
 
-The example prints keys in [2,7). After routing to the first relevant leaf, it follows next pointers until a key reaches the upper boundary. A balanced full B+ tree gives O(log n+k) logical work for k returned keys, with page costs depending on density and cache state. Linked-leaf order is an invariant worth checking independently of point lookups.
+The example prints keys in [2,8). After routing to the first relevant leaf, it follows next pointers until a key reaches the upper boundary. A balanced full B+ tree gives O(log n+k) logical work for k returned keys, with page costs depending on density and cache state. Linked-leaf order is an invariant worth checking independently of point lookups.
 
 ### A leaf split creates two searchable key ranges
 
@@ -1430,15 +1430,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Implement an ordered index that remains valid when pages split.
 
-1. Build and test a bounded B+ index before encoding its pages. Preserve routing, occupancy, and leaf-link invariants.
-2. Generate insert/delete sequences and check ordering, uniqueness, occupancy, reachability, and pool ownership after each step.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Generate insert/delete sequences and check ordering, uniqueness, occupancy, reachability, and pool ownership after each step.
+2. Alternate insertions and deletions against a sorted-array reference, including duplicates, missing keys, and exhausted page capacity.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- After each step, check key order, unique keys, leaf occupancy, next links, reachable pages, and ownership of free pool slots.
 
 Baseline command (checks original output, not every extension):
 

@@ -14,7 +14,7 @@ Separate search-order invariants from shape and priority invariants. Keep both d
 
 Traversal order describes when a parent is visited relative to its children. It does not require a particular memory layout.
 
-Inorder visits left subtree, node, and right subtree. For a binary search tree with distinct keys, this produces ascending order. A plain binary tree without the ordering invariant does not promise sorted output. Traversal visits each node once and uses stack depth proportional to tree height.
+Inorder visits left subtree, node, and right subtree. For a binary search tree (BST) with distinct keys, this produces ascending order. A plain binary tree without the ordering invariant does not promise sorted output. Traversal visits each node once and uses stack depth proportional to tree height.
 
 ### main.c
 
@@ -266,7 +266,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Insertion order can turn an ordinary BST into a chain. Balancing prevents the search path from growing linearly with the number of keys.
 
-The fixture compares a three-node right chain with a balanced three-node tree. Both satisfy BST ordering and have the same inorder sequence, but maximum path lengths differ. For n sorted insertions into a naive BST, the final height is n; an AVL invariant keeps height O(log n).
+The fixture compares a three-node right chain with a balanced three-node tree. Both satisfy BST ordering and have the same inorder sequence, but maximum path lengths differ. For n sorted insertions into a naive BST, the final height is n; an AVL tree keeps each node’s child heights within one level of each other, giving O(log n) height.
 
 ### main.c
 
@@ -631,7 +631,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 ## 19.6 A task scheduler
 
-A priority scheduler orders pending work by a documented priority key. Equal-priority behavior needs an explicit tie-break if it matters.
+A priority scheduler orders pending work by a documented priority key. To run equal-priority tasks in arrival order, include their insertion sequence as a tie-break.
 
 This small scheduler encodes priority and insertion sequence into one bounded integer key, allowing the existing min-heap to break ties FIFO. The encoding is valid only for the stated fixture’s small values; a general scheduler should compare a struct with checked sequence handling. Scheduling priority does not imply that a task is safe to interrupt or run concurrently.
 
@@ -743,15 +743,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Schedule tasks with a priority queue and investigate tree balance.
 
-1. Separate search-order invariants from shape and priority invariants. Keep both data and height metadata consistent.
-2. Replace encoded integers with a Task struct and comparator, then add an explicit fairness policy.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Replace encoded integers with a Task struct and comparator, then add an explicit fairness policy.
+2. Give two tasks equal priority, insert them in a known order, then add higher-priority tasks before each removal.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check your documented tie-break and fairness policy; verify heap order after every push and pop.
 
 Baseline command (checks original output, not every extension):
 

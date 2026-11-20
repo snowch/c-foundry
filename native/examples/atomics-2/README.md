@@ -4,7 +4,7 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 ## 37.2 Sequential consistency first
 
-Sequential consistency provides a single order for sequentially consistent atomic operations that respects each thread’s required ordering. It is a useful starting point.
+Sequential consistency provides a single order for sequentially consistent atomic operations that respects each thread’s required ordering. Start with this ordering when reasoning about several atomic objects so their operations can be traced in one consistent order.
 
 The fixture uses the default atomic exchange and load operations, which are sequentially consistent. Exchange returns the previous value while installing the new one atomically. More complex protocols should first have a clear sequentially consistent argument; weakening orderings requires a new proof about which synchronization relationships remain.
 
@@ -51,7 +51,7 @@ The exchange changes the state to seven and returns zero. Atomic exchange is not
 
 **Watch for:** A collection of atomic fields can still expose a combination of values that violates an application invariant.
 
-**Check:** Does atomic exchange cover an entire arbitrary struct update?
+**Check:** Does exchanging one atomic counter also atomically update other, separately stored fields?
 
 1. Yes
 2. No, it acts on its atomic object

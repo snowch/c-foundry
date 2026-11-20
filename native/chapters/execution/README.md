@@ -489,7 +489,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Aggregation summarizes a set of rows. Define empty-set behavior and arithmetic representation before implementing it.
 
-COUNT is zero on an empty input. This example uses a 64-bit sum for a table with at most eight unsigned 32-bit scores, so the sum is representable. An average is computed only when count is nonzero; a general SQL engine might return NULL for empty AVG and SUM. Our explicit empty policy is not an accidental divide-by-zero workaround.
+COUNT is zero on an empty input. This example uses a 64-bit sum for a table with at most eight unsigned 32-bit scores, so the sum is representable. An average is computed only when count is nonzero; a general SQL engine might return NULL for empty AVG and SUM. Here an empty input prints count=0 sum=0 average=0.00; the program skips division.
 
 ### main.c
 
@@ -884,15 +884,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Execute validated statements over an in-memory table.
 
-1. Execute typed, validated statements and build query operators with explicit input and output contracts.
-2. Extend the grammar with one earlier operator, add end-to-end tests, and preserve all existing rejection behavior.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Extend the grammar with one earlier operator, add end-to-end tests, and preserve all existing rejection behavior.
+2. Add ORDER BY score LIMIT 2 to your own parser and executor, then test ties and fewer than two matching rows.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Compare complete result rows with an independent sort-then-limit reference and retain the earlier INSERT/SELECT rejection checks.
 
 Baseline command (checks original output, not every extension):
 

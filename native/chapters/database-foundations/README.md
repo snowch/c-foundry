@@ -141,7 +141,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Storage owns rows, an index locates candidates, and execution decides which candidates satisfy a query. Keep those roles separable.
 
-This initial table scan is both a correctness baseline and the fallback when no index exists. A later index can return candidate row positions, but execution must still honor the same row and predicate contract. Physical row positions may change after deletion or compaction; logical IDs should remain stable.
+This initial table scan is both a correctness baseline and the fallback when no index exists. A later index can return candidate row positions, but execution must still honor the same row and predicate contract: a predicate is the test that decides whether a row qualifies. Physical row positions may change after deletion or compaction; logical IDs should remain stable.
 
 ### A query passes through distinct responsibilities
 
@@ -261,7 +261,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Limit the first database so every promised behavior can be tested. A small, explicit contract is more useful than incomplete general SQL support.
 
-The baseline is a single in-memory table with unique positive IDs, bounded names, and deterministic insertion order. It does not yet promise persistence, transactions, concurrent access, Unicode-aware comparison, or arbitrary SQL. Each later chapter adds a named capability while preserving the earlier behavior.
+The baseline is a single in-memory table with unique positive IDs, bounded names, and deterministic insertion order. It does not yet promise persistence, transactions, concurrent access, Unicode-aware comparison, or arbitrary SQL. Later chapters supply separate components and projects for adding those capabilities to your own database while preserving its earlier behavior.
 
 ### main.c
 
@@ -624,15 +624,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Define TinyDB’s first commands and test their observable behavior.
 
-1. Define a deliberately small database contract before implementing storage or SQL syntax.
-2. Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.
+2. Test selection from an empty table, ID zero, duplicate ID, and insertion beyond capacity.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- For every rejected insert, compare the row count and every existing row with a copy taken before the call.
 
 Baseline command (checks original output, not every extension):
 

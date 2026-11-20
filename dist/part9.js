@@ -45,9 +45,7 @@ window.PART_NINE = {
         "tryit": "In main.c, change the tx_set value from 42 to 17. Run code. Compare other_rejected=, owner_committed=, and value=. Which session can publish the new value?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "3": {
         "intro": "Backpressure makes overload behavior explicit. A system must decide whether a full queue blocks, rejects, or sheds work under a documented policy.",
@@ -72,16 +70,13 @@ window.PART_NINE = {
       }
     },
     "practicePlan": {
-      "goal": "Extend the native TinyDB baseline with a serialized request path.",
+      "goal": "Extend your TinyDB project with a serialized request path in Browser Linux.",
       "tasks": [
-        "Define request admission, transaction ownership, and overload behavior before accepting multiple callers.",
         "Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Add immediate-rejection and timed-admission variants with request IDs; repeat an ID after an ambiguous response."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check that retries do not apply one logical mutation twice and distinguish accepted, executed, and committed responses."
       ],
       "example": "multi-client-3"
     }
@@ -132,9 +127,7 @@ window.PART_NINE = {
         "tryit": "In main.c, assign second = db.version; before the second compare_commit, after the first call has returned. Split the declarations of a and b if needed. Run code and compare stale_rejected=, value=, and version=. Which version makes the second commit valid?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "3": {
         "intro": "An isolation contract states which anomalies are allowed across a transaction’s sequence of operations. Protecting each statement does not automatically provide repeatable reads.",
@@ -153,22 +146,17 @@ window.PART_NINE = {
         "tryit": "In main.c, change compare_commit(&db, 1, 20) to compare_commit(&db, 1, 10). Run code and compare statement_reads= and repeatable=. What does equal output in this one schedule tell you about the fixture? What remains to demonstrate about repeated reads?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       }
     },
     "practicePlan": {
       "goal": "Specify the behavior of concurrent reads before changing the locking strategy.",
       "tasks": [
-        "Specify what readers may observe before changing locks. Race freedom and transaction isolation are related but different contracts.",
         "Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Write fixed schedules for a nonrepeatable read, a stale write, and a two-account transfer."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check which committed versions each read may observe and whether the account total stays constant; name only the isolation guarantees your tests specify."
       ],
       "example": "isolation-3"
     }
@@ -198,12 +186,10 @@ window.PART_NINE = {
         "tryit": "In main.c, change the second version’s value from 20 to 25. Run code and compare snapshot2= and snapshot3=. Which snapshot falls before the new version becomes visible?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "2": {
-        "intro": "MVCC stores multiple committed versions and uses a visibility rule to decide which one a reader sees. It does not by itself solve write conflicts or serializability.",
+        "intro": "Multi-version concurrency control (MVCC) stores multiple committed versions and uses a visibility rule to decide which one a reader sees. It does not by itself solve write conflicts or serializability.",
         "explanation": "The model tests created≤snapshot and either no deletion or snapshot<deleted. It searches newest to oldest and returns a copied value. A real implementation also needs transaction status for uncommitted versions, atomic publication of multi-row commits, conflict handling, indexes that respect visibility, and safe version lifetimes. The fixture deliberately contains only committed immutable version records.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct {\n  int value;\n  uint64_t created, deleted;\n} Version;\nbool visible(const Version *v, uint64_t snapshot) {\n  return v->created <= snapshot && (v->deleted == 0 || snapshot < v->deleted);\n}\nbool snapshot_read(const Version *versions, size_t count, uint64_t snapshot,\n                   int *out) {\n  for (size_t i = count; i > 0; --i)\n    if (visible(&versions[i - 1], snapshot)) {\n      *out = versions[i - 1].value;\n      return true;\n    }\n  return false;\n}\nsize_t reclaim(Version *versions, size_t count, uint64_t oldest) {\n  size_t kept = 0;\n  for (size_t i = 0; i < count; ++i)\n    if (versions[i].deleted == 0 || versions[i].deleted > oldest)\n      versions[kept++] = versions[i];\n  return kept;\n}\n\nint main(void) {\n  Version old = {10, 1, 3}, fresh = {20, 3, 0};\n  for (uint64_t s = 2; s <= 3; ++s)\n    printf(\"snapshot=%llu old=%d new=%d\\n\", (unsigned long long)s,\n           visible(&old, s), visible(&fresh, s));\n  return 0;\n}\n",
         "expected": "snapshot=2 old=1 new=0\nsnapshot=3 old=0 new=1",
@@ -219,9 +205,7 @@ window.PART_NINE = {
         "tryit": "In main.c, start the snapshot loop at 1 rather than 2. Run code and compare the three old= and new= rows. Which boundary first changes the visible version?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "3": {
         "intro": "Old versions can be reclaimed only when no active snapshot may still need them. Version retention is a concurrency and lifetime problem.",
@@ -237,25 +221,20 @@ window.PART_NINE = {
         ],
         "answer": 0,
         "why": "That reader still requires the value visible before deletion time three.",
-        "tryit": "In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. When does the modeled horizon make the old version unnecessary?",
+        "tryit": "In main.c, change the earlier reclaim horizon argument from 2 to 3, leaving the later one fixed. Run code and compare old_reader_keeps= and horizon3_keeps=. Why can a horizon of 3 remove the old version? What would be unsafe about supplying 3 while a reader at snapshot 2 is still active?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       }
     },
     "practicePlan": {
       "goal": "Design version visibility tests before implementing snapshot reads.",
       "tasks": [
-        "Retain committed versions so readers can use a stable visibility boundary. Reclaim only after the active-snapshot horizon permits it.",
         "Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Keep a reader at snapshot 2 active while version 3 commits; end that reader before advancing the reclamation horizon."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check snapshot 2 still reads the old value, snapshot 3 reads the new value, and no required version is reclaimed."
       ],
       "example": "snapshots-3"
     }
@@ -269,7 +248,7 @@ window.PART_NINE = {
     ],
     "topics": {
       "1": {
-        "intro": "A log sequence number identifies a position in a stable ordered log. Recovery must know which committed position a checkpoint already includes.",
+        "intro": "A log sequence number (LSN) identifies a position in a stable ordered log. Recovery must know which committed position a checkpoint already includes.",
         "explanation": "The typed-record model skips records at or before the checkpoint’s applied LSN, requires a contiguous suffix, and updates the checkpoint only on a matching COMMIT. It retains the one-value single-writer transaction restriction. An on-disk log needs explicit record encoding, checksums, and torn-record framing; this struct is not a file format.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };\nvoid put32(unsigned char *out, uint32_t value) {\n  for (unsigned i = 0; i < 4; ++i)\n    out[i] = (unsigned char)(value >> (8 * i));\n}\nuint32_t get32(const unsigned char *in) {\n  uint32_t value = 0;\n  for (unsigned i = 0; i < 4; ++i)\n    value |= (uint32_t)in[i] << (8 * i);\n  return value;\n}\nenum { BEGIN_REC = 1, SET_REC = 2, COMMIT_REC = 3, LOG_BYTES = 8 };\nvoid log_record(unsigned char *out, unsigned kind, unsigned tx,\n                uint32_t value) {\n  memset(out, 0, LOG_BYTES);\n  out[0] = (unsigned char)kind;\n  out[1] = (unsigned char)tx;\n  put32(out + 4, value);\n}\nuint32_t recover(const unsigned char *log, size_t length, uint32_t base) {\n  unsigned active = 0;\n  uint32_t pending = base;\n  for (size_t at = 0; at <= length && length - at >= LOG_BYTES;\n       at += LOG_BYTES) {\n    const unsigned char *r = log + at;\n    if (!r[1] || r[2] || r[3])\n      break;\n    if (r[0] == BEGIN_REC) {\n      if (active)\n        break;\n      active = r[1];\n      pending = base;\n    } else if (r[0] == SET_REC) {\n      if (active != r[1])\n        break;\n      pending = get32(r + 4);\n    } else if (r[0] == COMMIT_REC) {\n      if (active != r[1])\n        break;\n      base = pending;\n      active = 0;\n    } else\n      break;\n  }\n  return base;\n}\ntypedef struct {\n  uint64_t lsn;\n  unsigned kind, tx;\n  uint32_t value;\n} LogRecord;\ntypedef struct {\n  uint64_t applied;\n  uint32_t value;\n} Checkpoint;\nCheckpoint replay(const LogRecord *log, size_t n, Checkpoint base) {\n  unsigned active = 0;\n  uint64_t seen = base.applied;\n  uint32_t pending = base.value;\n  for (size_t i = 0; i < n; ++i) {\n    LogRecord r = log[i];\n    if (r.lsn <= base.applied)\n      continue;\n    if (seen == UINT64_MAX || r.lsn != seen + 1 || !r.tx)\n      break;\n    seen = r.lsn;\n    if (r.kind == BEGIN_REC) {\n      if (active)\n        break;\n      active = r.tx;\n      pending = base.value;\n    } else if (r.kind == SET_REC) {\n      if (active != r.tx)\n        break;\n      pending = r.value;\n    } else if (r.kind == COMMIT_REC) {\n      if (active != r.tx)\n        break;\n      base = (Checkpoint){r.lsn, pending};\n      active = 0;\n    } else\n      break;\n  }\n  return base;\n}\n\nint main(void) {\n  LogRecord log[] = {{1, BEGIN_REC, 1, 0},  {2, SET_REC, 1, 10},\n                     {3, COMMIT_REC, 1, 0}, {4, BEGIN_REC, 2, 0},\n                     {5, SET_REC, 2, 20},   {6, COMMIT_REC, 2, 0}};\n  Checkpoint result = replay(log, 6, (Checkpoint){3, 10});\n  printf(\"value=%u applied=%llu\\n\", (unsigned)result.value,\n         (unsigned long long)result.applied);\n  return 0;\n}\n",
         "expected": "value=20 applied=6",
@@ -285,9 +264,7 @@ window.PART_NINE = {
         "tryit": "In main.c, change the SET_REC value for transaction 2 from 20 to 25, retaining the sequence numbers. Run code and compare value= and applied=. Which record publishes the new value, and what advances the applied checkpoint?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "2": {
         "intro": "A checkpoint permits old log removal only after the snapshot is safely published. Reversing that order can erase the only recoverable copy.",
@@ -326,22 +303,17 @@ window.PART_NINE = {
         "tryit": "In main.c, remove bad.offset[b] = bad.offset[a]; and run. Compare valid= and overlap_rejected=. Why does a copied page without deliberate overlap pass the same integrity check?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       }
     },
     "practicePlan": {
       "goal": "Extend the earlier pager and log with a tested checkpoint protocol.",
       "tasks": [
-        "Make recovery work with snapshots, log positions, and reusable storage without freeing data that remains referenced.",
         "Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Add generation numbers to page handles and test a handle saved before deleting and reusing its page."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Reject the stale handle, check live-page reachability, and list which snapshot or log still prevents each proposed page reuse."
       ],
       "example": "maintenance-3"
     }
@@ -355,7 +327,7 @@ window.PART_NINE = {
     ],
     "topics": {
       "1": {
-        "intro": "Composite indexes order tuples lexicographically; prepared statements separate a fixed query shape from typed parameters; joins can use the same key lookup.",
+        "intro": "Composite indexes compare the first tuple field, then the second to break a tie; prepared statements separate a fixed query shape from typed parameters; joins can use the same key lookup.",
         "explanation": "The fixture supports one exact prepared query shape, deliberately not a general SQL preparer. It binds tenant and ID as unsigned values and executes a composite-key binary search. The same lookup serves an indexed join from orders to customers, preserving one output per matching order. Adding these capabilities to the earlier SQL grammar is an assembly exercise with new parser and validation tests.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct {\n  unsigned tenant, id;\n  const char *name;\n} Customer;\nint compare_key(const Customer *a, unsigned tenant, unsigned id) {\n  if (a->tenant != tenant)\n    return (a->tenant > tenant) - (a->tenant < tenant);\n  return (a->id > id) - (a->id < id);\n}\nconst Customer *lookup_customer(const Customer *rows, size_t n, unsigned tenant,\n                                unsigned id) {\n  size_t lo = 0, hi = n;\n  while (lo < hi) {\n    size_t mid = lo + (hi - lo) / 2;\n    if (compare_key(&rows[mid], tenant, id) < 0)\n      lo = mid + 1;\n    else\n      hi = mid;\n  }\n  return lo < n && compare_key(&rows[lo], tenant, id) == 0 ? &rows[lo] : NULL;\n}\ntypedef struct {\n  bool prepared, bound;\n  unsigned tenant, id;\n} Prepared;\nbool prepare(Prepared *p, const char *sql) {\n  *p = (Prepared){0};\n  if (strcmp(sql, \"SELECT name FROM people WHERE tenant = ? AND id = ?;\") != 0)\n    return false;\n  p->prepared = true;\n  return true;\n}\nbool bind(Prepared *p, unsigned tenant, unsigned id) {\n  if (!p->prepared || !tenant || !id)\n    return false;\n  p->tenant = tenant;\n  p->id = id;\n  p->bound = true;\n  return true;\n}\nconst Customer *execute_prepared(const Prepared *p, const Customer *rows,\n                                 size_t n) {\n  return p->prepared && p->bound ? lookup_customer(rows, n, p->tenant, p->id)\n                                 : NULL;\n}\n\nint main(void) {\n  Customer customers[] = {{1, 1, \"Ada\"}, {1, 2, \"Grace\"}, {2, 1, \"Ken\"}};\n  Prepared p;\n  if (!prepare(&p, \"SELECT name FROM people WHERE tenant = ? AND id = ?;\") ||\n      !bind(&p, 1, 2))\n    return 1;\n  const Customer *row = execute_prepared(&p, customers, 3);\n  if (!row)\n    return 1;\n  printf(\"prepared=%s\\n\", row->name);\n  struct Order {\n    unsigned tenant, person, total;\n  } orders[] = {{1, 1, 20}, {1, 1, 30}, {2, 1, 40}};\n  for (size_t i = 0; i < 3; ++i) {\n    row = lookup_customer(customers, 3, orders[i].tenant, orders[i].person);\n    if (row)\n      printf(\"join=%s:%u\\n\", row->name, orders[i].total);\n  }\n  return 0;\n}\n",
         "expected": "prepared=Grace\njoin=Ada:20\njoin=Ada:30\njoin=Ken:40",
@@ -371,13 +343,11 @@ window.PART_NINE = {
         "tryit": "In main.c, change bind(&p, 1, 2) to bind(&p, 2, 1). Run code and compare prepared= with all join= lines. Which row changes when the known query’s two bound values change?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "2": {
         "intro": "Better statistics model the distribution that predicates actually encounter. Histograms can represent skew that a uniform estimate misses.",
-        "explanation": "The fixture has seven score-one rows and one score-nine row. A ten-value uniform model estimates 0.8 matches for score one, while a per-value histogram records seven. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns.",
+        "explanation": "The histogram counts each stored score instead of assuming ten possible score values are equally frequent. The figure compares both estimates with the actual row counts. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint main(void) {\n  unsigned scores[] = {1, 1, 1, 1, 1, 1, 1, 9}, histogram[10] = {0}, actual = 0;\n  for (size_t i = 0; i < 8; ++i)\n    ++histogram[scores[i]];\n  for (size_t i = 0; i < 8; ++i)\n    if (scores[i] == 1)\n      ++actual;\n  printf(\"uniform=%.2f histogram=%u actual=%u\\n\", 8.0 / 10.0, histogram[1],\n         actual);\n  return 0;\n}\n",
         "expected": "uniform=0.80 histogram=7 actual=7",
         "walkthrough": "The histogram matches this known dataset’s count. Its accuracy does not eliminate the need to measure execution or refresh after changes.",
@@ -392,13 +362,11 @@ window.PART_NINE = {
         "tryit": "In main.c, replace two of the seven 1s in scores with 9s and run. Compare uniform=, histogram=, and actual=. Which estimate can reflect the changed frequency of 1?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "3": {
         "intro": "An optimized plan must first return the same logical result. Instrument matching units when comparing its work with a baseline.",
-        "explanation": "The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate.",
+        "explanation": "The fixture joins three lookup keys against eight ordered IDs. The nested baseline compares every pair; the indexed path counts ordering comparisons plus its final equality checks. Its result count agrees with the baseline. Equal counts alone do not establish equal result rows; the chapter project checks those rows including duplicates. These are comparison counts, not page reads or elapsed time; the index’s construction and maintenance costs are separate.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint main(void) {\n  int ids[] = {1, 2, 3, 4, 5, 6, 7, 8}, keys[] = {2, 4, 8};\n  unsigned nested = 0, indexed = 0, a = 0, b = 0;\n  for (size_t k = 0; k < 3; ++k) {\n    for (size_t i = 0; i < 8; ++i) {\n      ++nested;\n      if (ids[i] == keys[k])\n        ++a;\n    }\n    size_t lo = 0, hi = 8;\n    while (lo < hi) {\n      ++indexed;\n      size_t mid = lo + (hi - lo) / 2;\n      if (ids[mid] < keys[k])\n        lo = mid + 1;\n      else\n        hi = mid;\n    }\n    if (lo < 8) {\n      ++indexed;\n      if (ids[lo] == keys[k])\n        ++b;\n    }\n  }\n  if (a != b)\n    return 1;\n  printf(\"nested=%u indexed=%u results=%u\\n\", nested, indexed, b);\n  return 0;\n}\n",
         "expected": "nested=24 indexed=13 results=3",
         "walkthrough": "Thirteen counted comparisons replace twenty-four in this fixture. Smaller or differently ordered workloads may have different tradeoffs.",
@@ -413,23 +381,18 @@ window.PART_NINE = {
         "tryit": "In main.c, replace the last query key 8 with 9 and run. Compare nested=, indexed=, and results=. What correctness evidence comes before interpreting the modeled comparison counts?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        },
+        "browser": {},
         "extension": "An index also has a build cost. A larger experiment can separately count comparisons to build the index and answer queries on the same dataset."
       }
     },
     "practicePlan": {
       "goal": "Compare richer query plans using correctness tests and measured work.",
       "tasks": [
-        "Add query capabilities with explicit key ordering, typed parameters, and evidence that optimized execution preserves results.",
         "Compare complete result multisets including duplicates, then add index-build cost and page-cache counters.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Run baseline and indexed joins on duplicate keys, missing keys, and keys from different tenants."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Compare complete result pairs including duplicates before comparing query work; count index construction separately."
       ],
       "example": "richer-queries-3"
     }
@@ -465,7 +428,7 @@ window.PART_NINE = {
       },
       "2": {
         "intro": "Allocation count, object locality, and cache behavior are different measurements. A pool can reduce allocation calls while introducing its own lifetime constraints.",
-        "explanation": "The fixture performs eight separate row allocations and one allocation for an eight-row pool, checking every result and freeing every owner. It also exercises the small page-cache model and counts backing-read events. Fewer allocations or reads can motivate a design, but neither proves lower total runtime; fragmentation, contention, eviction, and workload patterns matter.",
+        "explanation": "The fixture performs eight separate row allocations and one allocation for an eight-row pool, checking every result and freeing every owner. It also exercises the small page-cache model and counts backing-read events. Fewer allocations or reads can motivate a design, but neither proves lower total runtime; choose between designs by measuring the same correct workload, including allocator contention, cache misses, and cleanup costs.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\ntypedef struct {\n  int id;\n  unsigned age;\n  bool valid, dirty;\n  int value;\n} Frame;\ntypedef struct {\n  Frame frames[2];\n  unsigned clock, reads, writes;\n} Cache;\nint *fetch(Cache *c, int id) {\n  size_t victim = 0;\n  for (size_t i = 0; i < 2; ++i)\n    if (c->frames[i].valid && c->frames[i].id == id) {\n      c->frames[i].age = ++c->clock;\n      return &c->frames[i].value;\n    }\n  for (size_t i = 0; i < 2; ++i)\n    if (!c->frames[i].valid) {\n      victim = i;\n      break;\n    } else if (c->frames[i].age < c->frames[victim].age)\n      victim = i;\n  Frame *f = &c->frames[victim];\n  if (f->valid && f->dirty)\n    ++c->writes;\n  *f = (Frame){id, ++c->clock, true, false, id * 10};\n  ++c->reads;\n  return &f->value;\n}\n\nint main(void) {\n  Row *separate[8] = {0};\n  unsigned calls = 0;\n  for (size_t i = 0; i < 8; ++i) {\n    separate[i] = malloc(sizeof *separate[i]);\n    ++calls;\n    if (!separate[i]) {\n      for (size_t j = 0; j < i; ++j)\n        free(separate[j]);\n      return 1;\n    }\n  }\n  Row *pool = malloc(8 * sizeof *pool);\n  if (!pool) {\n    for (size_t i = 0; i < 8; ++i)\n      free(separate[i]);\n    return 1;\n  }\n  Cache c = {0};\n  fetch(&c, 1);\n  fetch(&c, 2);\n  fetch(&c, 1);\n  printf(\"individual_allocations=%u pooled_allocations=1 cache_reads=%u\\n\",\n         calls, c.reads);\n  for (size_t i = 0; i < 8; ++i)\n    free(separate[i]);\n  free(pool);\n  return 0;\n}\n",
         "expected": "individual_allocations=8 pooled_allocations=1 cache_reads=2",
         "walkthrough": "Repeated access to page one hits in the two-frame model. The row pool has one owner, while separate rows have eight cleanup obligations.",
@@ -480,13 +443,11 @@ window.PART_NINE = {
         "tryit": "In main.c, replace the final fetch(&c, 1) with fetch(&c, 3). Run code and compare individual_allocations=, pooled_allocations=, and cache_reads=. Which measure changes when only the last page request changes?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        }
+        "browser": {}
       },
       "3": {
         "intro": "A release suite should combine targeted regressions, generated input, and failure-boundary tests while stating what remains untested.",
-        "explanation": "This fixture checks all 25 prefixes of a transaction log, every too-short row length, and 256 deterministic bounded parser inputs. It preserves the distinction between format validation, recovery semantics, and parser robustness. Concurrency schedule tests and ThreadSanitizer belong alongside these checks; no finite run proves all schedules, all storage reorderings, or production reliability.",
+        "explanation": "This fixture checks all 25 prefixes of a transaction log, every too-short row length, and 256 deterministic bounded parser inputs. It preserves the distinction between format validation, recovery semantics, and parser robustness. Add concurrency schedule tests in Browser Linux. ThreadSanitizer is optional external tooling; no finite run proves all schedules, all storage reorderings, or production reliability.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\nenum { ROW_BYTES = 40, HEADER_BYTES = 8, PAGE_BYTES = 128 };\nvoid put32(unsigned char *out, uint32_t value) {\n  for (unsigned i = 0; i < 4; ++i)\n    out[i] = (unsigned char)(value >> (8 * i));\n}\nuint32_t get32(const unsigned char *in) {\n  uint32_t value = 0;\n  for (unsigned i = 0; i < 4; ++i)\n    value |= (uint32_t)in[i] << (8 * i);\n  return value;\n}\nbool encode_row(unsigned char *out, const Row *row) {\n  if (!row->id || !memchr(row->name, 0, 32) || !row->name[0])\n    return false;\n  memset(out, 0, ROW_BYTES);\n  put32(out, row->id);\n  memcpy(out + 4, row->name, strlen(row->name));\n  put32(out + 36, row->score);\n  return true;\n}\nbool decode_row(const unsigned char *in, size_t n, Row *out) {\n  if (n != ROW_BYTES || get32(in) == 0 || !memchr(in + 4, 0, 32) || in[4] == 0)\n    return false;\n  Row row = {0};\n  row.id = get32(in);\n  memcpy(row.name, in + 4, 32);\n  row.score = get32(in + 36);\n  *out = row;\n  return true;\n}\nbool save(FILE *f, const Table *table) {\n  unsigned char header[HEADER_BYTES] = {0x54, 0x44,      0x42, 0x31,\n                                        1,    ROW_BYTES, 0,    0};\n  if (table->count > TABLE_CAP)\n    return false;\n  header[6] = (unsigned char)table->count;\n  if (fwrite(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  for (size_t i = 0; i < table->count; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    if (!encode_row(bytes, &table->rows[i]) ||\n        fwrite(bytes, 1, sizeof bytes, f) != sizeof bytes)\n      return false;\n  }\n  return fflush(f) == 0;\n}\nbool load(FILE *f, Table *out) {\n  unsigned char header[HEADER_BYTES];\n  if (fread(header, 1, sizeof header, f) != sizeof header)\n    return false;\n  if (memcmp(header, (const unsigned char[]){0x54, 0x44, 0x42, 0x31}, 4) || header[4] != 1 || header[5] != ROW_BYTES ||\n      header[6] > TABLE_CAP || header[7] != 0)\n    return false;\n  Table table = {.count = 0};\n  for (unsigned i = 0; i < header[6]; ++i) {\n    unsigned char bytes[ROW_BYTES];\n    Row row;\n    if (fread(bytes, 1, sizeof bytes, f) != sizeof bytes ||\n        !decode_row(bytes, sizeof bytes, &row) || insert_row(&table, row) != OK)\n      return false;\n  }\n  if (fgetc(f) != EOF || ferror(f))\n    return false;\n  *out = table;\n  return true;\n}\nenum { BEGIN_REC = 1, SET_REC = 2, COMMIT_REC = 3, LOG_BYTES = 8 };\nvoid log_record(unsigned char *out, unsigned kind, unsigned tx,\n                uint32_t value) {\n  memset(out, 0, LOG_BYTES);\n  out[0] = (unsigned char)kind;\n  out[1] = (unsigned char)tx;\n  put32(out + 4, value);\n}\nuint32_t recover(const unsigned char *log, size_t length, uint32_t base) {\n  unsigned active = 0;\n  uint32_t pending = base;\n  for (size_t at = 0; at <= length && length - at >= LOG_BYTES;\n       at += LOG_BYTES) {\n    const unsigned char *r = log + at;\n    if (!r[1] || r[2] || r[3])\n      break;\n    if (r[0] == BEGIN_REC) {\n      if (active)\n        break;\n      active = r[1];\n      pending = base;\n    } else if (r[0] == SET_REC) {\n      if (active != r[1])\n        break;\n      pending = get32(r + 4);\n    } else if (r[0] == COMMIT_REC) {\n      if (active != r[1])\n        break;\n      base = pending;\n      active = 0;\n    } else\n      break;\n  }\n  return base;\n}\ntypedef enum {\n  END,\n  WORD,\n  NUMBER,\n  STRING,\n  SEMI,\n  LP,\n  RP,\n  COMMA,\n  STAR,\n  EQUAL,\n  BAD\n} Token;\ntypedef struct {\n  const char *p;\n  char text[32];\n  uint32_t number;\n} Lexer;\nToken next(Lexer *l) {\n  while (*l->p == ' ' || *l->p == '\\t' || *l->p == '\\n' || *l->p == '\\r')\n    ++l->p;\n  unsigned char ch = (unsigned char)*l->p;\n  l->text[0] = 0;\n  if (!ch)\n    return END;\n  if (ch >= '0' && ch <= '9') {\n    uint32_t n = 0;\n    do {\n      unsigned digit = (unsigned)(*l->p - '0');\n      if (n > (UINT32_MAX - digit) / 10)\n        return BAD;\n      n = n * 10 + digit;\n      ++l->p;\n    } while (*l->p >= '0' && *l->p <= '9');\n    l->number = n;\n    return NUMBER;\n  }\n  if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '_') {\n    size_t n = 0;\n    while ((*l->p >= 'A' && *l->p <= 'Z') || (*l->p >= 'a' && *l->p <= 'z') ||\n           (*l->p >= '0' && *l->p <= '9') || *l->p == '_') {\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p++;\n    }\n    l->text[n] = 0;\n    return WORD;\n  }\n  ++l->p;\n  if (ch == '\\'') {\n    size_t n = 0;\n    for (;;) {\n      if (!*l->p)\n        return BAD;\n      if (*l->p == '\\'' && l->p[1] != '\\'') {\n        ++l->p;\n        l->text[n] = 0;\n        return STRING;\n      }\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p;\n      if (*l->p == '\\'')\n        ++l->p;\n      ++l->p;\n    }\n  }\n  switch (ch) {\n  case ';':\n    return SEMI;\n  case '(':\n    return LP;\n  case ')':\n    return RP;\n  case ',':\n    return COMMA;\n  case '*':\n    return STAR;\n  case '=':\n    return EQUAL;\n  default:\n    return BAD;\n  }\n}\nbool keyword(Lexer *l, const char *word) {\n  return next(l) == WORD && strcmp(l->text, word) == 0;\n}\ntypedef enum { INSERT_STMT, SELECT_STMT } Kind;\ntypedef struct {\n  Kind kind;\n  Row row;\n  bool filtered;\n  uint32_t key;\n} Statement;\nbool parse(const char *sql, Statement *out) {\n  Lexer l = {sql, {0}, 0};\n  Statement s = {0};\n  if (next(&l) != WORD)\n    return false;\n  if (strcmp(l.text, \"INSERT\") == 0) {\n    s.kind = INSERT_STMT;\n    if (!keyword(&l, \"INTO\") || !keyword(&l, \"people\") ||\n        !keyword(&l, \"VALUES\") || next(&l) != LP || next(&l) != NUMBER)\n      return false;\n    s.row.id = l.number;\n    if (next(&l) != COMMA || next(&l) != STRING)\n      return false;\n    memcpy(s.row.name, l.text, sizeof s.row.name);\n    if (next(&l) != COMMA || next(&l) != NUMBER)\n      return false;\n    s.row.score = l.number;\n    if (next(&l) != RP || next(&l) != SEMI || next(&l) != END)\n      return false;\n  } else if (strcmp(l.text, \"SELECT\") == 0) {\n    s.kind = SELECT_STMT;\n    if (next(&l) != STAR || !keyword(&l, \"FROM\") || !keyword(&l, \"people\"))\n      return false;\n    Token t = next(&l);\n    if (t == WORD && strcmp(l.text, \"WHERE\") == 0) {\n      if (!keyword(&l, \"id\") || next(&l) != EQUAL || next(&l) != NUMBER)\n        return false;\n      s.filtered = true;\n      s.key = l.number;\n      t = next(&l);\n    }\n    if (t != SEMI || next(&l) != END)\n      return false;\n  } else\n    return false;\n  *out = s;\n  return true;\n}\nbool validate(const Statement *s) {\n  return s->kind != INSERT_STMT || (s->row.id > 0 && s->row.name[0] != 0);\n}\n\nint main(void) {\n  unsigned char log[24];\n  log_record(log, BEGIN_REC, 1, 0);\n  log_record(log + 8, SET_REC, 1, 42);\n  log_record(log + 16, COMMIT_REC, 1, 0);\n  for (size_t cut = 0; cut <= 24; ++cut)\n    if (recover(log, cut, 0) != (cut == 24 ? 42u : 0u))\n      return 1;\n  unsigned char record[ROW_BYTES] = {0};\n  for (size_t n = 0; n < ROW_BYTES; ++n) {\n    Row out = {9, \"Keep\", 0};\n    if (decode_row(record, n, &out) || out.id != 9)\n      return 1;\n  }\n  uint32_t seed = 23;\n  char input[17];\n  const char alphabet[] = \"SELECT 0123(),;xyz\";\n  for (unsigned trial = 0; trial < 256; ++trial) {\n    for (size_t i = 0; i < 16; ++i) {\n      seed = seed * 1664525u + 1013904223u;\n      input[i] = alphabet[(seed >> 24) % (sizeof alphabet - 1)];\n    }\n    input[trial % 16] = 0;\n    Statement s = {0};\n    if (parse(input, &s))\n      (void)validate(&s);\n  }\n  puts(\"recovery_prefixes=25 parser_cases=256 short_records=40\");\n  return 0;\n}\n",
         "expected": "recovery_prefixes=25 parser_cases=256 short_records=40",
         "walkthrough": "The pass line follows independent boundary expectations and decoder output-preservation checks. The fixed seeds make the generated corpus reproducible.",
@@ -501,23 +462,18 @@ window.PART_NINE = {
         "tryit": "In main.c, change the SET_REC value and the matching complete-prefix expected value from 42 to 17. Run code and compare recovery_prefixes=, parser_cases=, and short_records=. Which prefix checks the changed committed payload while the other fixtures remain independent?",
         "input": "",
         "runtime": "native",
-        "browser": {
-          "note": "This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees."
-        },
+        "browser": {},
         "extension": "In Browser Linux, make check-examples CC=clang repeats the fixtures with a second compiler. Use these results to design and document your project’s release suite. Sanitizer builds are optional external tooling and are not required by this browser course."
       }
     },
     "practicePlan": {
       "goal": "Evaluate an advanced TinyDB implementation against concurrent and fault-injected workloads.",
       "tasks": [
-        "Evaluate concurrency, allocation, and recovery with reproducible workloads and clearly scoped evidence.",
-        "Run the complete course examples with both compilers and sanitizers, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Run the complete course examples with GCC and Clang in Browser Linux, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
+        "Run the course fixtures with GCC and Clang in Browser Linux, then assemble your own release suite."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Keep minimized failing inputs and deterministic log-prefix checks; report completed requests separately from schedule-dependent contention counts."
       ],
       "example": "reliability-3"
     }

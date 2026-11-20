@@ -21,7 +21,7 @@ window.PART_EIGHT = {
         ],
         "answer": 0,
         "why": "Joined results establish completed work, not simultaneous scheduling.",
-        "tryit": "In native/examples/threads-1/main.c, change .input by assigning jobs[i] = (Job){i + 2, 0}; instead of the existing i + 1 initializer. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?",
+        "tryit": "In native/examples/threads-1/main.c, replace jobs[i] = (Job){i + 1, 0}; with jobs[i] = (Job){i + 2, 0};. Repeat the terminal run. Which of joined= and sum= changes when each of four jobs gets a larger input?",
         "input": "",
         "runtime": "native",
         "flags": [
@@ -30,7 +30,7 @@ window.PART_EIGHT = {
       },
       "2": {
         "intro": "Worker arguments and result storage must outlive every access. Returning from a scope can invalidate pointers even when the thread still runs.",
-        "explanation": "main keeps the Job object alive while the worker accesses it and joins before reading its result. Passing the address of a loop variable reused by all workers can create both a lifetime or synchronization problem and incorrect logical inputs. Thread-local variables and separate per-worker objects simplify ownership but do not automatically protect genuinely shared objects.",
+        "explanation": "main keeps the Job object alive while the worker accesses it and joins before reading its result. Passing the address of a loop variable reused by all workers can let workers read changed inputs. Concurrently modifying that variable also needs synchronization, and leaving its scope too early ends its lifetime. Thread-local variables and separate per-worker objects simplify ownership but do not automatically protect genuinely shared objects.",
         "code": "#define _POSIX_C_SOURCE 200809L\n#include <limits.h>\n#include <pthread.h>\n#include <sched.h>\n#include <stdatomic.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define CHECK(call)                                                            \\\n  do {                                                                         \\\n    int error = (call);                                                        \\\n    if (error) {                                                               \\\n      fprintf(stderr, \"thread error %d\\n\", error);                             \\\n      exit(1);                                                                 \\\n    }                                                                          \\\n  } while (0)\ntypedef struct {\n  int input, result;\n} Job;\nvoid *twice_job(void *arg) {\n  Job *job = arg;\n  job->result = job->input * 2;\n  return NULL;\n}\n\nint main(void) {\n  Job job = {21, 0};\n  pthread_t thread;\n  CHECK(pthread_create(&thread, NULL, twice_job, &job));\n  CHECK(pthread_join(thread, NULL));\n  printf(\"input=%d result=%d\\n\", job.input, job.result);\n  return 0;\n}\n",
         "expected": "input=21 result=42",
         "walkthrough": "The worker borrows a live Job and writes a result that main reads only after join. No heap ownership transfer is needed.",
@@ -74,14 +74,12 @@ window.PART_EIGHT = {
     "practicePlan": {
       "goal": "Run joined threads and distinguish safe shared state from a data race.",
       "tasks": [
-        "Create and join threads with explicit argument lifetimes and shared-memory ownership. Distinguish concurrency bugs from safe interleavings.",
-        "Move the entire increment under one lock and verify final two; use ThreadSanitizer separately rather than relying on a data-race output.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Apply the stale_update repair described in the final lesson: keep each complete increment under one mutex acquisition.",
+        "Repeat the run and find final=2. Explain why the barrier still lets both workers reach the increment."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Keep both accesses protected; do not remove synchronization to manufacture a data race.",
+        "Identify which Job objects stay alive until their corresponding joins."
       ],
       "example": "threads-3"
     }
@@ -95,7 +93,7 @@ window.PART_EIGHT = {
     ],
     "topics": {
       "1": {
-        "intro": "A condition variable is a way to wait for a protected predicate to change, not a remembered message. Hold the mutex while checking the predicate.",
+        "intro": "A condition variable is a way to wait for a protected predicate (a true/false test of shared state) to change, not a remembered message. Hold the mutex while checking the predicate.",
         "explanation": "The queue waits in while loops for not-empty and not-full conditions. pthread_cond_wait releases the mutex while waiting and reacquires it before returning; spurious wakes and competition require a predicate recheck. Mutations and signals occur under the queue’s lock, and close broadcasts to both classes of waiter.",
         "code": "#define _POSIX_C_SOURCE 200809L\n#include <limits.h>\n#include <pthread.h>\n#include <sched.h>\n#include <stdatomic.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define CHECK(call)                                                            \\\n  do {                                                                         \\\n    int error = (call);                                                        \\\n    if (error) {                                                               \\\n      fprintf(stderr, \"thread error %d\\n\", error);                             \\\n      exit(1);                                                                 \\\n    }                                                                          \\\n  } while (0)\nenum { WORK_CAP = 4, WORK_ITEMS = 8 };\ntypedef struct {\n  int data[WORK_CAP];\n  size_t head, count;\n  bool closed;\n  pthread_mutex_t lock;\n  pthread_cond_t ready, space;\n} WorkQueue;\nbool offer_work(WorkQueue *q, int value) {\n  CHECK(pthread_mutex_lock(&q->lock));\n  while (q->count == WORK_CAP && !q->closed)\n    CHECK(pthread_cond_wait(&q->space, &q->lock));\n  if (q->closed) {\n    CHECK(pthread_mutex_unlock(&q->lock));\n    return false;\n  }\n  q->data[(q->head + q->count) % WORK_CAP] = value;\n  ++q->count;\n  CHECK(pthread_cond_signal(&q->ready));\n  CHECK(pthread_mutex_unlock(&q->lock));\n  return true;\n}\nbool take_work(WorkQueue *q, int *out) {\n  CHECK(pthread_mutex_lock(&q->lock));\n  while (!q->count && !q->closed)\n    CHECK(pthread_cond_wait(&q->ready, &q->lock));\n  if (!q->count) {\n    CHECK(pthread_mutex_unlock(&q->lock));\n    return false;\n  }\n  *out = q->data[q->head];\n  q->head = (q->head + 1) % WORK_CAP;\n  --q->count;\n  CHECK(pthread_cond_signal(&q->space));\n  CHECK(pthread_mutex_unlock(&q->lock));\n  return true;\n}\nvoid close_work(WorkQueue *q) {\n  CHECK(pthread_mutex_lock(&q->lock));\n  q->closed = true;\n  CHECK(pthread_cond_broadcast(&q->ready));\n  CHECK(pthread_cond_broadcast(&q->space));\n  CHECK(pthread_mutex_unlock(&q->lock));\n}\ntypedef struct {\n  WorkQueue *queue;\n  unsigned received;\n  long sum;\n} Work;\nvoid *produce(void *arg) {\n  Work *w = arg;\n  for (int i = 1; i <= WORK_ITEMS; ++i)\n    if (!offer_work(w->queue, i))\n      return NULL;\n  close_work(w->queue);\n  return NULL;\n}\nvoid *consume(void *arg) {\n  Work *w = arg;\n  int value;\n  while (take_work(w->queue, &value)) {\n    ++w->received;\n    w->sum += value;\n  }\n  return NULL;\n}\nvoid run_queue(unsigned *count, long *sum) {\n  WorkQueue q = {.lock = PTHREAD_MUTEX_INITIALIZER,\n                 .ready = PTHREAD_COND_INITIALIZER,\n                 .space = PTHREAD_COND_INITIALIZER};\n  Work work = {&q, 0, 0};\n  pthread_t producer, consumer;\n  CHECK(pthread_create(&consumer, NULL, consume, &work));\n  CHECK(pthread_create(&producer, NULL, produce, &work));\n  CHECK(pthread_join(producer, NULL));\n  CHECK(pthread_join(consumer, NULL));\n  *count = work.received;\n  *sum = work.sum;\n  CHECK(pthread_cond_destroy(&q.ready));\n  CHECK(pthread_cond_destroy(&q.space));\n  CHECK(pthread_mutex_destroy(&q.lock));\n}\n\nint main(void) {\n  unsigned count;\n  long sum;\n  run_queue(&count, &sum);\n  printf(\"received=%u sum=%ld\\n\", count, sum);\n  return 0;\n}\n",
         "expected": "received=8 sum=36",
@@ -159,16 +157,13 @@ window.PART_EIGHT = {
       }
     },
     "practicePlan": {
-      "goal": "Explore a bounded queue that coordinates a producer and consumer.",
+      "goal": "Check the lock order used by a bounded work queue and its callers.",
       "tasks": [
-        "Use mutex-protected predicates and condition-variable loops to coordinate bounded work and orderly shutdown.",
         "Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Mark an edge A → B whenever a path holds lock A while acquiring B; check the graph for a directed cycle."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check workers finish under the chosen order; a completed finite run does not establish starvation freedom."
       ],
       "example": "coordination-3"
     }
@@ -186,7 +181,7 @@ window.PART_EIGHT = {
         "explanation": "The counter uses relaxed fetch-add because only the numeric total is shared through that atomic object; joins establish worker completion before main reads the total. Relaxed ordering would not be sufficient to publish an unrelated payload through a flag. All increments still participate in the counter’s atomic modification order.",
         "code": "#define _POSIX_C_SOURCE 200809L\n#include <limits.h>\n#include <pthread.h>\n#include <sched.h>\n#include <stdatomic.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define CHECK(call)                                                            \\\n  do {                                                                         \\\n    int error = (call);                                                        \\\n    if (error) {                                                               \\\n      fprintf(stderr, \"thread error %d\\n\", error);                             \\\n      exit(1);                                                                 \\\n    }                                                                          \\\n  } while (0)\natomic_uint counter;\nvoid *increment_counter(void *unused) {\n  (void)unused;\n  for (unsigned i = 0; i < 1000; ++i)\n    atomic_fetch_add_explicit(&counter, 1, memory_order_relaxed);\n  return NULL;\n}\nunsigned joined_counter(void) {\n  atomic_init(&counter, 0);\n  pthread_t threads[4];\n  for (unsigned i = 0; i < 4; ++i)\n    CHECK(pthread_create(&threads[i], NULL, increment_counter, NULL));\n  for (unsigned i = 0; i < 4; ++i)\n    CHECK(pthread_join(threads[i], NULL));\n  return atomic_load_explicit(&counter, memory_order_relaxed);\n}\n\nint main(void) {\n  printf(\"atomic_total=%u\\n\", joined_counter());\n  return 0;\n}\n",
         "expected": "atomic_total=4000",
-        "walkthrough": "Four workers perform one thousand indivisible increments each. No plain read-plus-write sequence can lose an increment.",
+        "walkthrough": "Four workers perform one thousand indivisible increments each. Each fetch-add performs the complete increment atomically, so another worker cannot overwrite it with a stale read-plus-write result.",
         "pitfall": "An atomic counter does not automatically protect a surrounding mutable table or pointer graph.",
         "question": "Does relaxed atomicity publish unrelated non-atomic data?",
         "choices": [
@@ -203,13 +198,13 @@ window.PART_EIGHT = {
         ]
       },
       "2": {
-        "intro": "Sequential consistency provides a single order for sequentially consistent atomic operations that respects each thread’s required ordering. It is a useful starting point.",
+        "intro": "Sequential consistency provides a single order for sequentially consistent atomic operations that respects each thread’s required ordering. Start with this ordering when reasoning about several atomic objects so their operations can be traced in one consistent order.",
         "explanation": "The fixture uses the default atomic exchange and load operations, which are sequentially consistent. Exchange returns the previous value while installing the new one atomically. More complex protocols should first have a clear sequentially consistent argument; weakening orderings requires a new proof about which synchronization relationships remain.",
         "code": "#define _POSIX_C_SOURCE 200809L\n#include <limits.h>\n#include <pthread.h>\n#include <sched.h>\n#include <stdatomic.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define CHECK(call)                                                            \\\n  do {                                                                         \\\n    int error = (call);                                                        \\\n    if (error) {                                                               \\\n      fprintf(stderr, \"thread error %d\\n\", error);                             \\\n      exit(1);                                                                 \\\n    }                                                                          \\\n  } while (0)\n\nint main(void) {\n  atomic_uint state;\n  atomic_init(&state, 0);\n  unsigned previous = atomic_exchange(&state, 7);\n  printf(\"previous=%u current=%u\\n\", previous, atomic_load(&state));\n  return 0;\n}\n",
         "expected": "previous=0 current=7",
         "walkthrough": "The exchange changes the state to seven and returns zero. Atomic exchange is not a substitute for a multi-object transaction.",
         "pitfall": "A collection of atomic fields can still expose a combination of values that violates an application invariant.",
-        "question": "Does atomic exchange cover an entire arbitrary struct update?",
+        "question": "Does exchanging one atomic counter also atomically update other, separately stored fields?",
         "choices": [
           "Yes",
           "No, it acts on its atomic object"
@@ -267,16 +262,13 @@ window.PART_EIGHT = {
       }
     },
     "practicePlan": {
-      "goal": "Compare a mutex-protected counter with a C11 atomic counter.",
+      "goal": "Explain atomic counter updates and one-shot payload publication.",
       "tasks": [
-        "Use atomic operations for the exact shared-state protocol you need, and treat memory ordering as a correctness contract.",
         "Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "List each shared field and the mutex or atomic operation protecting it; distinguish counter atomicity from payload publication."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check the counter total after joins and trace the release store read by the payload’s acquire load."
       ],
       "example": "atomics-4"
     }
@@ -377,14 +369,11 @@ window.PART_EIGHT = {
     "practicePlan": {
       "goal": "Use the queue as a foundation for a single-writer storage service.",
       "tasks": [
-        "Put a bounded queue between callers and a single storage owner, with a shutdown and testing contract.",
-        "Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks; run ThreadSanitizer where supported.",
-        "Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants."
+        "Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks.",
+        "Add repeated-close, full-queue admission, consumer-failure, and per-request-ID completion cases."
       ],
       "checks": [
-        "Run the complete example and compare its output with the documented fixture.",
-        "Predict and check at least one changed input, including a failing or absent case.",
-        "Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work."
+        "Check accepted requests drain once each and rejected requests retain their owner; join all accessing workers before destroying locks."
       ],
       "example": "concurrent-storage-4"
     }

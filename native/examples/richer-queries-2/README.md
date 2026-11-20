@@ -6,9 +6,17 @@ Complete Linux example, ready to edit and run in the browser terminal.
 
 Better statistics model the distribution that predicates actually encounter. Histograms can represent skew that a uniform estimate misses.
 
-Also editable and runnable inline in the browser course. This is a bounded, single-threaded model. Run and change it here; use a native build for the full system and its host-specific guarantees.
+Also editable and runnable inline in the browser course.
 
-The fixture has seven score-one rows and one score-nine row. A ten-value uniform model estimates 0.8 matches for score one, while a per-value histogram records seven. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns.
+The histogram counts each stored score instead of assuming ten possible score values are equally frequent. The figure compares both estimates with the actual row counts. These statistics describe this snapshot of data; updates can make them stale, and independent single-column histograms still miss correlations between columns.
+
+### Data frequency changes the match estimate
+
+The same eight rows support very different estimates under uniform and observed frequencies.
+
+There are eight score rows: seven have score one and one has score nine. A uniform model over ten possible score values predicts eight divided by ten, or zero point eight matches for either queried value. A histogram counted from the same rows predicts seven matches for score one and one match for score nine, equal to the actual counts in this fixture. The row total is eight in both cases.
+
+The histogram is built from this fixed data. Later updates can make it stale, and single-column counts do not capture correlations between fields.
 
 ### main.c
 

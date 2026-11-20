@@ -520,7 +520,7 @@ An absent colliding key examines three live entries and then an empty slot. The 
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hash-tables/5). In main.c, change the inserted keys 9 and 17 to 2 and 3 to give distinct home slots. Run code. Does this particular missing key inspect fewer slots? Then use homes 1, 3, and 5 and compare absent_probes= again.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hash-tables/5). In main.c, change the inserted keys 9 and 17 to 2 and 3 to give distinct home slots. Run code. Does this particular missing key inspect fewer slots? Next set the three put calls’ keys to 1, 3, and 5 and run again. Compare absent_probes=. Where does the search first encounter an empty slot in each arrangement?
 
 ### References and help
 
@@ -671,7 +671,7 @@ While their immutable storage outlives the table. A valid address today does not
 
 **Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hash-tables/6). In main.c, replace the last "red" in tokens with "blue". Run code and inspect red=, blue=, and absent=. Which counts track new token occurrences without increasing distinct words?
 
-**Extend the example:** Try a longer token list after updating the loop length. The example uses bounded in-table words; an index that allocates individual copies must release each distinct owner.
+**Extend the example:** Try a longer token list after updating the loop length. The example borrows immutable string literals; an index that allocates individual copies must release each distinct owner.
 
 ### References and help
 
@@ -689,15 +689,12 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Build a hash table that remains correct through collisions and resizing.
 
-1. Resolve collisions explicitly, preserve probe chains on deletion, and connect expected costs to load and hashing assumptions.
-2. Read bounded tokens, allocate owned copies for new words, and free all owners when the index is destroyed.
-3. Write independent cases for empty input, boundaries, rejected operations, and the chapter’s stated invariants.
+1. Read bounded tokens, allocate owned copies for new words, and free all owners when the index is destroyed.
+2. Force colliding words, delete the first colliding key, reinsert it, and fill the table; compare frequencies with a simple list.
 
 ### Check your work
 
-- Run the complete example and compare its output with the documented fixture.
-- Predict and check at least one changed input, including a failing or absent case.
-- Explain the time and extra-space costs, or the ordering and persistence guarantees for native systems work.
+- Check that a deleted slot does not hide a surviving key and that each allocated distinct word is freed once.
 
 Baseline command (checks original output, not every extension):
 

@@ -157,7 +157,7 @@ release fixture: two validated rows
 
 The fixture can be decoded independently of struct layout. The named export command is make example EXAMPLE=persistence-5 KEEP_FILES=1.
 
-**Watch for:** A browser demonstration must disclose whether its database state survives reload; the current C runner’s files do not.
+**Watch for:** A browser demonstration must disclose whether its database state survives reload; inline lesson files reset for each run. The command workspace saves its own files in this browser; Browser Linux requires an exported backup before closing.
 
 **Check:** What belongs with an exportable database release?
 
