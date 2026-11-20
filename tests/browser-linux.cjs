@@ -5,7 +5,7 @@ w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialog
 for(const f of ['lessons','course','completion','part1','part2','part3','part4','part5','part6','part7','part8','part9','references','concepts','readings','visuals','execution','browser-linux','app'])w.eval(fs.readFileSync('dist/'+f+'.js','utf8'));
 const $=id=>w.document.getElementById(id),go=route=>{w.history.pushState(null,'','#'+route);w.dispatchEvent(new w.HashChangeEvent('hashchange'));};
 assert.equal(w.document.querySelector('iframe'),null);assert.equal($('linux-view').hidden,true);
-const part=w.document.querySelectorAll('#course-cards .course-part')[7];assert.equal((part.textContent.match(/Browser Linux/g)||[]).length,4);assert.ok(!part.textContent.includes('Native tools'));
+const contents=$('course-cards').textContent;assert.ok(!/Browser lab|Browser Linux|Linux terminal|Native tools/.test(contents));const part=w.document.querySelectorAll('#course-cards .course-part')[7];assert.equal(part.querySelectorAll('li').length,4);assert.match(part.textContent,/chapter project/);
 let checked=0;
 for(const chapter of w.COURSE.chapters.filter(c=>c.part===7))for(const topic of chapter.topics){
  checked++;go('/chapter/'+chapter.id+'/'+topic.id);const a=w.document.querySelector('.native-example [data-linux-command]');assert.ok(a);const command='make example EXAMPLE='+chapter.id+'-'+topic.id+' RUN_ONLY=1';assert.equal(a.dataset.linuxCommand,command);a.click();assert.equal($('linux-view').hidden,false);assert.equal($('linux-command').textContent,command);assert.equal(w.document.querySelector('iframe'),null);
