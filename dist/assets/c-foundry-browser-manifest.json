@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 444784,
-  "sha256": "decb7cc58ba091c7e972841520f522395ef8538cf19907844bc6cd340a497a64",
+  "bytes": 444878,
+  "sha256": "360b1929bb2c782bd0b710ef4d199add99add1870a5541869351449342fa60ae",
   "files": [
     {
       "path": "LICENSE",
@@ -131,8 +131,8 @@
     },
     {
       "path": "native/chapters/first-program/README.md",
-      "bytes": 18533,
-      "sha256": "c5122806b5e3be0c11a26b123897a370f7445d036eda20754f6d9dac08f5e91d"
+      "bytes": 18812,
+      "sha256": "a8b0a87cd12288e3d008db6e5998036379bfd216c33e4fb42c856c59bcc59360"
     },
     {
       "path": "native/chapters/functions/README.md",
@@ -2236,8 +2236,8 @@
     },
     {
       "path": "tools/sync_readings.cjs",
-      "bytes": 6321,
-      "sha256": "d85f4957ca148af65ad0f90b706b6a963a42e9bffcfa0cdd5169ed0dc6d3e8e1"
+      "bytes": 6367,
+      "sha256": "88426cbd0afba8bd724a0d55faf9ffb21adb5b17a414d9abd8189dc5ad473db8"
     }
   ]
 }

@@ -15,7 +15,9 @@ Write, run, and diagnose a complete C program. You will learn which parts of the
 
 Your main.c file is text. Before it can run, tools prepare it, translate it, and connect it to library code.
 
-<strong>Preprocessing</strong> handles lines such as `#include <stdio.h>`, which brings in descriptions of available functions. The <strong>compiler</strong> checks your C and translates it into an object file, one piece of the program. The <strong>linker</strong> connects that piece to library code such as `printf`. Together, these steps <strong>build</strong> the program. Here the result is <strong>WebAssembly</strong>: a binary program format the browser can run. A local build can instead produce an executable for your computer. <strong>Run code</strong> builds and runs the program for you.
+You don’t need to understand every build step yet. <strong>Run code</strong> handles those steps for you. For now, focus on running the program and changing its greeting. We’ll explore preprocessing, compilation, and linking further in [Chapter 9, Building larger programs](https://snowch.github.io/c-foundry/#/chapter/larger-programs).
+
+<strong>Preprocessing</strong> handles lines such as `#include <stdio.h>`, which brings in descriptions of available functions. The <strong>compiler</strong> checks your C and translates it into an object file, one piece of the program. The <strong>linker</strong> connects that piece to library code such as `printf`. Together, these steps <strong>build</strong> the program. Here the result is <strong>WebAssembly</strong>: a binary program format the browser can run. A local build can instead produce an executable for your computer.
 
 ### Source becomes a runnable program
 
