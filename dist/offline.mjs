@@ -63,7 +63,7 @@ function render() {
     else if(!otherCourseDownloaded&&(snapshot.saved||snapshot.partial))status=version==='Up to date'?'Up to date. Offline download incomplete.':'Offline download incomplete';
     else if(version==='Up to date')status='Up to date online. Not saved for offline use.';
   }
-  const checkingCopy=freshChecks>0&&hasOfflineCopy&&!transferring&&!ready;
+  const checkingCopy=freshChecks>0&&hasOfflineCopy&&!transferring;
   if(checkingCopy)status='Checking saved copy';
   if(unavailable&&hasOfflineCopy&&!transferring&&!checkingCopy)status='Couldn’t verify the offline copy';
   // Keep the existing update/offline status slots for older pinned clients,
@@ -87,7 +87,7 @@ function render() {
   $('download-update').classList.toggle('primary',!ready);
   $('restart-update').hidden=!ready;$('later-update').hidden=!ready;
   $('restart-note').hidden=!ready;
-  $('restart-update').disabled=restarting||locked||Boolean(checking);
+  $('restart-update').disabled=restarting||locked||Boolean(checking)||checkingCopy;
   $('check-update').disabled=Boolean(checking);
   $('check-update').hidden=transferring;
   $('check-update').textContent='Check for updates';
