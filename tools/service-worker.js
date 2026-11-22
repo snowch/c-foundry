@@ -440,6 +440,13 @@ self.addEventListener('message', event => {
       let result;
       const progress = value => port.postMessage({ progress: value });
       if (data.type === 'STATUS') {
+        // A manual check must examine files after it was requested. Joining a
+        // scan that read an early file before eviction can return an old result.
+        // Wait for those scans, forwarding progress, then begin/join a new scan.
+        if(data.fresh)await Promise.allSettled([...verifying.values()].map(async scan=>{
+          scan.listeners.add(progress);
+          try{await scan.work;}finally{scan.listeners.delete(progress);}
+        }));
         if (/^[a-f0-9]{64}$/.test(data.running)) seen.set(event.source.id, data.running);
         result = await status(data.running, null, progress);
         await prune(progress);

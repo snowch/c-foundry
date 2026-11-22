@@ -6,6 +6,7 @@ const base = new URL(document.querySelector('meta[name="gpu-base"]').content, lo
 const running = document.querySelector('meta[name="gpu-release"]').content;
 const dialog = $('app-status-dialog');
 let registration, worker, latest, runningRelease, snapshot = {}, checking, lastCheck = 0, checkingAbort, connecting, runningMetadata,retryingCheck=false;
+let freshChecks=0;
 let downloading = false, cancelling = false, restarting = false, mode, removed = false, refreshGeneration = 0, cacheLifetime = 0;
 let version = navigator.onLine ? 'Checking for updates' : 'Cannot check for updates';
 const supported = 'serviceWorker' in navigator && isSecureContext && 'caches' in self;
@@ -62,11 +63,14 @@ function render() {
     else if(!otherCourseDownloaded&&(snapshot.saved||snapshot.partial))status=version==='Up to date'?'Up to date. Offline download incomplete.':'Offline download incomplete';
     else if(version==='Up to date')status='Up to date online. Not saved for offline use.';
   }
+  const checkingCopy=freshChecks>0&&hasOfflineCopy&&!transferring&&!ready;
+  if(checkingCopy)status='Checking saved copy';
+  if(unavailable&&hasOfflineCopy&&!transferring&&!checkingCopy)status='Couldn’t verify the offline copy';
   // Keep the existing update/offline status slots for older pinned clients,
   // but expose one message under Course status in the current interface.
   $('version-status').textContent=status;
-  $('course-ready-icon').toggleAttribute('hidden',transferring||Boolean(ready)||Boolean(available)||!downloaded||version!=='Up to date');
-  $('offline-status').textContent=offlineTransfer?status:unavailable?'Offline downloads are unavailable':downloaded?'Downloaded and ready to use offline.':otherCourseDownloaded?'A different version is saved and ready to use offline.':ready?'Downloaded update is ready after restarting.':snapshot.saved||snapshot.partial?'Offline download incomplete':'Not downloaded for offline use';
+  $('course-ready-icon').toggleAttribute('hidden',checkingCopy||transferring||Boolean(ready)||Boolean(available)||!downloaded||version!=='Up to date');
+  $('offline-status').textContent=checkingCopy?'Checking saved files':offlineTransfer?status:unavailable?'Offline downloads are unavailable':downloaded?'Downloaded and ready to use offline.':otherCourseDownloaded?'A different version is saved and ready to use offline.':ready?'Downloaded update is ready after restarting.':snapshot.saved||snapshot.partial?'Offline download incomplete':'Not downloaded for offline use';
   $('offline-status').dataset.state=downloaded||otherCourseDownloaded?'ready':'unavailable';
   $('update-section').hidden=offlineTransfer;
   // A failed online check says nothing about offline availability. Keep that
@@ -74,7 +78,7 @@ function render() {
   const primaryStatesOffline=downloaded||ready||(!otherCourseDownloaded&&(snapshot.saved||snapshot.partial));
   const savedCopyAlongsideUpdate=available&&!transferring&&!ready&&(downloaded||otherCourseDownloaded);
   $('offline-section').hidden=!offlineTransfer&&!savedCopyAlongsideUpdate&&!(failedCheck&&!transferring&&!primaryStatesOffline);
-  $('app-status-summary').textContent=ready?'Update ready':transferring?status:available||relevantPending?'Update available':version==='Up to date'?'Up to date online':downloaded?'Downloaded':'Check version';
+  $('app-status-summary').textContent=checkingCopy?'Checking saved copy':ready?'Update ready':transferring?status:available||relevantPending?'Update available':version==='Up to date'?'Up to date online':downloaded?'Downloaded':'Check version';
   $('app-status-details').hidden=transferring;
   $('install-help').hidden=transferring;
   $('download-update').hidden=locked||!supported||failedCheck||(!available&&(downloaded||ready))||Boolean(available&&ready&&snapshot.pending===latest.id);
@@ -124,11 +128,12 @@ function rpc(type, data = {}, progress) {
     worker.postMessage({ type, running, ...data }, [channel.port2]);
   });
 }
-async function refresh() {
+async function refresh(fresh = false) {
   if (!worker || removed) return;
   const generation = ++refreshGeneration;
+  if(fresh){freshChecks++;render();}
   try {
-    let result = await rpc('STATUS');
+    let result = await rpc('STATUS',{fresh});
     if(!result.downloadVersion)result={...result,...await legacyInfo(result)};
     if (generation !== refreshGeneration) return;
     result=await recoverCompletedUpdate(result);
@@ -138,8 +143,8 @@ async function refresh() {
     render();remember();
   } catch (failure) {
     if (generation !== refreshGeneration) return;
-    unavailable = true; error(failure.message); render();
-  }
+    snapshot={...snapshot,offlineReady:false,pendingReady:false};unavailable = true; error(failure.message); render();
+  } finally {if(fresh){freshChecks--;render();}}
 }
 function completedUpdateNeedsRestart(state) {
   // Older installed workers can select a completed update before this pinned
@@ -435,15 +440,15 @@ async function performDownload(save, resume) {
   }
 }
 $('running-version').textContent=`Running build ${running.slice(0,12)}`;
-$('app-status-open').addEventListener('click', () => { dialog.showModal(); check(true).finally(()=>{if(worker&&!removed)refresh();}); if (!worker || removed) connect(); else refresh(); });
+$('app-status-open').addEventListener('click', () => { dialog.showModal(); check(true).finally(()=>{if(worker&&!removed)refresh(true);}); if (!worker || removed) connect(); else refresh(true); });
 $('app-status-close').addEventListener('click', () => dialog.close());
 dialog.addEventListener('close', () => $('app-status-open').focus({ preventScroll: true }));
-const recheck=()=>{check(true);refresh();};
+const recheck=()=>{check(true);refresh(true);};
 $('check-update').addEventListener('click',recheck);
 $('retry-update').addEventListener('click',async()=>{
   const button=$('retry-update'),hadFocus=document.activeElement===button;
   retryingCheck=true;
-  try{await Promise.all([check(true),refresh()]);}
+  try{await Promise.all([check(true),refresh(true)]);}
   finally{
     retryingCheck=false;render();
     // Disabling a focused button can move focus to body while the request runs.
@@ -481,10 +486,10 @@ $('confirm-remove').addEventListener('click', async () => {
 navigator.serviceWorker?.addEventListener('message', ({ data }) => {
   if (data?.type === 'STATUS_CHANGED') refresh();
   if (data?.type === 'DOWNLOAD_PROGRESS'&&snapshot.download?.id===data.id){snapshot.download={...snapshot.download,bytes:data.progress.bytes,stage:data.progress.stage,state:snapshot.download.state==='background'?'verifying':snapshot.download.state};render();}
-  if (data?.type === 'OPEN_APP_STATUS'){if(!dialog.open)dialog.showModal();refresh();}
+  if (data?.type === 'OPEN_APP_STATUS'){if(!dialog.open)dialog.showModal();check(true);refresh(true);}
   if (data?.type === 'OFFLINE_REMOVED') { snapshot = {}; removed = true; render(); }
 });
-addEventListener('online', () => { lastCheck = 0; check(true).finally(()=>refresh());resumeDownloads(); });
+addEventListener('online', () => { lastCheck = 0; check(true).finally(()=>refresh(true));resumeDownloads(); });
 addEventListener('offline', () => { checkingAbort?.abort('offline'); latest=null; version = 'Cannot check for updates'; render(); });
 addEventListener('focus', () => { check();refresh();resumeDownloads(); });
 document.addEventListener('visibilitychange', () => {

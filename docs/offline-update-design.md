@@ -27,3 +27,7 @@ Exercise first reading without a compiler download; manual/implicit startup and 
 ## Reconnecting and reopening status
 
 Opening App status forces a small metadata check and local-copy verification immediately and after that check settles. Returning online also refreshes the saved-copy state after checking the host. A failed or aborted check while offline must not leave an earlier ready message visible after cache files have changed. Complete-copy verification can share an in-flight scan across tabs; corruption tests wait for that scan to finish and then require a fresh scan.
+
+A manual status check sends `STATUS` with `fresh: true`. The worker waits for scans already in progress, forwarding their progress so the request does not time out, then checks the cache again. This prevents a scan that read an early file before eviction from supplying the result of a later manual check. Concurrent checks that begin after the request may still share work. Corruption/reconnect tests use the actual status control and return the tab to the foreground.
+
+While a fresh local check is pending, the dialog says “Checking saved copy” instead of repeating an earlier ready message. A failed verification request invalidates the displayed readiness until a later check succeeds; it does not remove the learner’s saved files or drafts.
