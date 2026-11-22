@@ -13,6 +13,7 @@
   if(!state.drafts||typeof state.drafts!=='object')state.drafts={};
   if(!state.fileDrafts||typeof state.fileDrafts!=='object')state.fileDrafts={};
   if(!state.inputs||typeof state.inputs!=='object')state.inputs={};
+  state.results??={};state.predictions??={};
   if(!state.replacements||typeof state.replacements!=='object')state.replacements={};
   if(!Array.isArray(state.completed))state.completed=[];
   state.completed=state.completed.filter(id=>LESSONS.some(l=>l.id===id&&!l.isExample));
@@ -20,7 +21,14 @@
   let selected=Math.max(0,LESSONS.findIndex(l=>l.id===state.selected));
   let worker,timer,busy=false,mode='run',runLesson,toastTimer,view='lab',currentRoute='',inlineActive=false,activeFile='main.c',hasOutput=false;
   const assessments={hello:'Explain what main and printf each do.',loops:'Explain why the loop includes n and what happens for n = 0.',pointers:'Explain why temp must keep its own copy of the first value.',heap:'Output checks cannot verify ownership. Confirm that every successful allocation is freed exactly once, including error paths.',search:'Output checks cannot establish that you used binary search. Explain the sorted-input requirement and how every iteration shrinks the interval.',sort:'Output checks cannot establish insertion sort or its complexity. Explain the sorted-prefix invariant and why shifting can take quadratic time.',rows:'Explain the width limit and the zero terminator in the name field.',query:'Explain why find_row returns an index, how duplicates are detected, and what happens when the table is full.'};
+  let baseline=JSON.parse(JSON.stringify(state));
   function save(){
+    const latest=readSaved('sessionStorage')||readSaved('localStorage');
+    if(latest){for(const field of ['drafts','fileDrafts','inputs','replacements','results','predictions']){
+      const merged={...(latest[field]||{})},own=state[field]||{},before=baseline[field]||{};
+      for(const id of new Set([...Object.keys(own),...Object.keys(before)]))if(JSON.stringify(own[id])!==JSON.stringify(before[id])){if(own[id]===undefined)delete merged[id];else merged[id]=own[id];}
+      state[field]=merged;
+    }state.completed=[...new Set([...(latest.completed||[]),...state.completed])].filter(id=>LESSONS.some(l=>l.id===id&&!l.isExample));}
     const value=JSON.stringify(state);
     let warning='';
     try{
@@ -37,6 +45,7 @@
     $('save-state').textContent=warning||'Saved in this browser.';
     $('editor-save-warning').textContent=warning;
     $('editor-save-warning').hidden=!warning;
+    baseline=JSON.parse(JSON.stringify(state));return !warning||warning.startsWith('Draft saved for this tab.');
   }
   function outputContext(message=''){
     $('output-context').hidden=!message;
@@ -138,8 +147,9 @@
     updateExerciseNavigation();
     $('assessment-note').textContent='These checks compare output. '+(l.assessment||assessments[l.id]);
     $('reference-code').textContent=l.solution;
-    hasOutput=false;outputContext();$('engine-status').textContent='';
-    $('output').textContent='Run code to see the output.';$('output').className='';$('test-results').textContent='Choose Check output to run the practice cases.';$('test-count').textContent='';
+    const previous=state.results[l.id];hasOutput=Boolean(previous);outputContext(previous?'Previous program output. Choose Run code to check the current draft.':'');$('engine-status').textContent='';
+    $('run-warning').hidden=true;$('run-diagnostics').hidden=true;$('runtime-reload').hidden=true;
+    $('output').textContent=previous?.output||'Run code to see the output.';$('output').className='';$('test-results').textContent='Choose Check output to run the practice cases.';$('test-count').textContent='';
     window.lessonVisuals.show(l.id);document.querySelector('.worked-example').hidden=!!l.isExample;document.querySelector('#lab-view .prediction').hidden=!!l.isExample;document.querySelector('.hint').open=false;document.querySelector('.reference-solution').open=false;consoleTab('output');lines();save();showView('lab');
   }
   function renderMap(){
@@ -198,7 +208,7 @@
       if(!chapter||(parts[2]&&!topic)){notFound();}else preview(chapter,topic);
     }else{notFound();}
     currentRoute=raw;document.title=(document.querySelector('main > section:not([hidden]) h1')?.textContent||'Course')+' · C Foundry';
-    closeCourseMenu();const heading=document.querySelector('main > section:not([hidden]) h1');heading?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
+    closeCourseMenu();window.dispatchEvent(new CustomEvent('c-foundry:route'));const heading=document.querySelector('main > section:not([hidden]) h1');heading?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
   }
   function notFound(){$('preview-content').innerHTML='<h1 tabindex="-1">Page not found</h1><p><a href="#/course">Return to the course map</a></p>';showView('preview');}
   function go(path,replace=false){if(busy){toast('Stop the program before leaving this lesson.');return;}history[replace?'replaceState':'pushState'](null,'','#'+path);renderRoute();}
@@ -212,21 +222,22 @@
   }
   function setBusy(value){busy=value;$('run-button').disabled=value;$('check-button').disabled=value;$('stop-button').hidden=!value;$('editor').readOnly=value;$('stdin').readOnly=value;$('reset-button').disabled=value;$('undo-replace-button').disabled=value;$('solution-button').disabled=value;document.querySelectorAll('[data-source-file]').forEach(b=>b.disabled=value);updateExerciseNavigation();}
   function finish(){clearTimeout(timer);setBusy(false);}
-  function stop(reason='Stopped. You can continue editing.'){worker?.terminate();worker=null;finish();$('engine-status').textContent='Stopped';$('output').textContent=reason;consoleTab('output');}
+  function stop(reason='Stopped. You can continue editing.'){worker?.terminate();worker=null;finish();$('engine-status').textContent=reason;if(!hasOutput)$('output').textContent=reason;else outputContext('Previous output is kept. The last attempt was stopped.');consoleTab('output');}
   function getWorker() {
     if(worker)return worker;
-    worker = new Worker('compiler/worker.js');
+    worker = window.cFoundryRunner?window.cFoundryRunner.createWorker():new Worker('compiler/worker.js');
     worker.onmessage=({data})=>{
       if(data.type==='stage') {
         const names={loading:'Preparing compiler…',compiling:'Compiling C → Wasm…',running:'Running your program…'};
         $('engine-status').textContent=names[data.stage]||data.stage;
         if(data.stage==='running'){clearTimeout(timer);timer=setTimeout(()=>stop('Execution stopped after 5 seconds. Check for an infinite loop.'),5000);}
+      } else if(data.type==='cancelled'){finish();$('engine-status').textContent=data.message;if(hasOutput)outputContext('Previous output is kept. The last attempt was cancelled.');
       } else if(data.type==='done') {
         finish();
         const results=data.results;
         $('output').textContent=(data.diagnostics?'Compiler diagnostics:\n'+data.diagnostics+'\n\n':'')+(results[0].actual||'(no output)');
         $('engine-status').textContent=mode==='check'?'Practice checks finished':'Run finished';
-        hasOutput=true;
+        hasOutput=true;outputContext();state.results[runLesson.id]={output:$('output').textContent};save();
         if(mode==='check') {
           const passed=results.filter(r=>r.pass).length;
           $('test-count').textContent=`${passed}/${results.length}`;
@@ -238,7 +249,10 @@
           }
         }
       } else if(data.type==='error') {
-        finish();$('engine-status').textContent='Run did not finish';$('output').className='error';$('output').textContent=[data.diagnostics,data.output,data.message].filter(Boolean).join('\n\n');consoleTab('output');
+        finish();$('engine-status').textContent=data.runtimeLoad?'Code runner files could not be loaded.':'Run did not finish';const details=[data.diagnostics,data.output,data.message].filter(Boolean).join('\n\n');
+        $('run-warning').hidden=false;$('run-warning').textContent=data.runtimeLoad?'The compiler files could not be loaded. Your code and previous output are kept.':'The program could not complete. Read the compiler or execution message below.';
+        $('run-diagnostics').hidden=false;$('run-diagnostics').open=!data.runtimeLoad;$('run-diagnostics').querySelector('pre').textContent=details;$('runtime-reload').hidden=!data.runtimeLoad;
+        if(!hasOutput){$('output').className='error';$('output').textContent=details;}else outputContext('Output from the last program that ran. The latest attempt did not complete.');consoleTab('output');
         if(mode==='check'){$('test-count').textContent='error';$('test-results').textContent='Checks could not finish. Fix the compiler or runtime error shown in Console.';}
         worker.terminate();worker=null;
       }
@@ -250,9 +264,10 @@
     if(busy || (view !== 'lab'&&!inlineActive))return;
     if(inlineActive)check=false;
     mode=check?'check':'run';runLesson=LESSONS[selected];setBusy(true);
-    hasOutput=false;outputContext();
+    if(hasOutput)outputContext('Output from the previous run. The new run is in progress.');
+    $('run-warning').hidden=true;$('run-diagnostics').hidden=true;$('runtime-reload').hidden=true;
     $('engine-status').textContent='Preparing compiler…';$('output').className='';
-    $('output').textContent='The first run downloads about 19 MB. Later runs reuse the compiler.';
+    if(!hasOutput)$('output').textContent='Preparing the local C compiler…';
     $('test-results').textContent=check?'Compiling and running the checks…':'Run Check output to test this version of your code.'; $('test-count').textContent=''; consoleTab('output');
     timer=setTimeout(()=>stop('Compiler preparation timed out. Check your connection and try again.'),120000);
     try { getWorker().postMessage({code:sourceFiles()['main.c'],files:runLesson.files?sourceFiles():undefined,input:$('stdin').value,tests:check?runLesson.tests:undefined}); }
@@ -316,5 +331,7 @@
   $('drawer-course-map').onclick=()=>go('/course');
   $('course-outline-button').onclick=()=>{const heading=$('course-outline-title');heading.focus({preventScroll:true});heading.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
   window.addEventListener('hashchange',renderRoute);
+  $('runtime-reload').onclick=()=>window.cFoundryRunner?.recovery.reload();
+  window.cFoundryApp={saveForRestart(){if(busy)throw Error('Wait for the current program to finish.');if(!save()||lessonCompletion.total().unsaved)throw Error('Your source, input or completion could not be saved. Export your files before reloading.');const expected=JSON.stringify(state);if(![readSaved('sessionStorage'),readSaved('localStorage')].some(value=>JSON.stringify(value)===expected))throw Error('The browser did not keep the saved draft. Export your files before reloading.');},snapshot(){return {output:$('output').textContent,context:$('output-context').textContent,hasOutput,activeFile};},restore(value){if(!value)return;if(Object.hasOwn(sourceFiles(),value.activeFile))showFile(value.activeFile);$('output').textContent=value.output;hasOutput=value.hasOutput;outputContext(value.context);},savePrediction(id,text){state.predictions[id]=text;save();},prediction(id){return state.predictions[id]||'';}};
   if(!location.hash)go('/course',true);else renderRoute();
 })();

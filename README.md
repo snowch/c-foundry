@@ -106,8 +106,18 @@ The optional developer targets `make sanitize` and `make tsan` require suitable 
 
 Run `node tools/sync_readings.cjs` after content changes to regenerate the native reading mirrors, example sources, manifest, and fixture. This preserves student TODO modules. Then run `python3 tools/build_browser_linux.py` to rebuild the deterministic browser course archive. `npm test` verifies both the bundled Wasm program and Linux archive reproducibility.
 
-GitHub Actions deploys `dist/` after browser, native, and cross-platform exchange checks pass. Browser tests compile all 191 inline examples and 82 practice cases through the real worker and require supplied programs to compile without diagnostics. Learner diagnostics remain visible. Interface checks cover routes, saved edits, explicit completion, references, original diagrams, Browser Linux launch selection, and optional reading pages.
+GitHub Actions deploys generated `.build/site` after browser, native, and cross-platform exchange checks pass. Browser tests compile all 191 inline examples and 82 practice cases through the real worker and require supplied programs to compile without diagnostics. Learner diagnostics remain visible. Interface checks cover routes, saved edits, explicit completion, references, original diagrams, Browser Linux launch selection, and optional reading pages.
 
 Finite green suites do not prove complexity, correctness for every input, race freedom for every schedule, physical storage durability, or production readiness. Physical tablets and browser versions still require ongoing device testing.
 
 Copyright © 2026 Christopher Snow. See [LICENSE](LICENSE).
+
+## Shared course controls and offline access
+
+**Code runner** starts or frees the inline C compiler and lets you choose its idle timeout (30 minutes by default). The same compiler stays ready between lessons and C workspace commands. **App status** checks for updates and saves verified readings and runtime files. Wait for “Downloaded and ready to use offline” before disconnecting; a fresh offline tab can then run the inline examples and C workspace.
+
+Browser Linux is an external service and still needs internet access. Export its guest files and choose Stop Linux before an update or reload. Compiler idle release does not stop Linux. Saved lesson drafts, reading marks, workspace files and Linux source-editor drafts retain their existing storage keys.
+
+For a production-equivalent local preview, run `npm ci` and `npm run serve`. The authored `dist/` directory is source; generated Pages output is `.build/site`.
+
+See [course style](docs/course-style.md), [runner lifecycle](docs/code-runner-design.md) and [offline/update adapter](docs/offline-update-design.md).
