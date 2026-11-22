@@ -23,3 +23,13 @@ Missing, failed or incompatible runtime downloads are infrastructure failures. K
 ## Verification
 
 Exercise first reading without a compiler download; manual/implicit startup and Escape; warm inline/multi-file/workspace use; stop and idle release; a complete save followed by a fresh offline tab and real compilation; old-tab first Run after deployment; two-tab update/restart; failed-save veto; preservation of independent drafts, prediction, output and marks; workspace conflicts; active-Linux/unsaved-file guards; return online and offline-copy removal. Check phone/desktop, both themes, focus and inline resource rows. Functional checks do not establish learning effectiveness.
+
+## Reconnecting and reopening status
+
+Opening App status forces a small metadata check and local-copy verification immediately and after that check settles. Returning online also refreshes the saved-copy state after checking the host. A failed or aborted check while offline must not leave an earlier ready message visible after cache files have changed. Complete-copy verification can share an in-flight scan across tabs; corruption tests wait for that scan to finish and then require a fresh scan.
+
+A manual status check sends `STATUS` with `fresh: true`. The worker waits for scans already in progress, forwarding their progress so the request does not time out, then checks the cache again. This prevents a scan that read an early file before eviction from supplying the result of a later manual check. Concurrent checks that begin after the request may still share work. Corruption/reconnect tests use the actual status control and return the tab to the foreground.
+
+While a fresh local check is pending, the dialog says “Checking saved copy” instead of repeating an earlier ready message. A failed verification request invalidates the displayed readiness until a later check succeeds; it does not remove the learner’s saved files or drafts.
+
+An older installed worker may ignore the new `fresh` field. Workers supporting the boundary advertise `freshVerification: 1`; otherwise the page waits for the first STATUS reply and requests STATUS again before displaying readiness. This supplies a fresh check without forcing a waiting worker to activate over open learner windows.
