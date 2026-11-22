@@ -1,12 +1,13 @@
-importScripts('shared.js','../command-model.js');
-const assets=new Map(),modules=new Map();
+if(typeof API==='undefined')importScripts('shared.js','../command-model.js');
+(()=>{
+const assets=self.compilerAssets??=new Map(),modules=self.compilerModules??=new Map();
 async function readBuffer(name){
   if(!assets.has(name))assets.set(name,(async()=>{const response=await fetch(name+'.gz');if(!response.ok)throw Error('Could not load the browser runtime. Retry when connected.');return new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();})());
-  try{return await assets.get(name);}catch(error){assets.delete(name);throw error;}
+  try{return await assets.get(name);}catch(error){assets.delete(name);error.runtimeLoad=true;throw error;}
 }
-async function compileStreaming(name){if(!modules.has(name))modules.set(name,readBuffer(name).then(WebAssembly.compile));try{return await modules.get(name);}catch(error){modules.delete(name);throw error;}}
+async function compileStreaming(name){if(!modules.has(name))modules.set(name,readBuffer(name).then(WebAssembly.compile));try{return await modules.get(name);}catch(error){modules.delete(name);error.runtimeLoad=true;throw error;}}
 let inFlight=false,builtin;
-self.onmessage=async({data})=>{
+const handle=async({data})=>{
   if(inFlight){postMessage({type:'error',message:'Wait for the current command to finish.'});return;}
   inFlight=true;let stage='loading',size=0;
   const report=value=>{stage=value;postMessage({type:'stage',stage:value});};
@@ -45,7 +46,7 @@ self.onmessage=async({data})=>{
     };
     let bytes=files.get(data.program);
     if((!bytes||data.builtin===true)&&data.program==='tinydb'){
-      if(!builtin)builtin=fetch('../programs/tinydb.wasm').then(response=>{if(!response.ok)throw Error('Could not load TinyDB.');return response.arrayBuffer();});
+      if(!builtin)builtin=fetch('../programs/tinydb.wasm').then(response=>{if(!response.ok){const error=Error('Could not load TinyDB.');error.runtimeLoad=true;throw error;}return response.arrayBuffer();});
       try{bytes=new Uint8Array(await builtin);}catch(error){builtin=null;throw error;}
     }
     if(!bytes||!commandModel.isWasm(bytes))throw Error('Program not found. Build a C source with cc, or run the included tinydb command.');
@@ -73,6 +74,9 @@ self.onmessage=async({data})=>{
     }
     commandModel.validateFiles(result);
     postMessage({type:'done',files:result,exitCode});
-  }catch(error){postMessage({type:'error',message:error.message});}
+  }catch(error){postMessage({type:'error',message:error.message,runtimeLoad:Boolean(error.runtimeLoad)});}
   finally{inFlight=false;}
 };
+
+self.handleWorkspaceRequest=handle;if(!self.foundryUnified)self.onmessage=handle;
+})();

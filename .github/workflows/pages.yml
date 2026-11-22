@@ -17,7 +17,7 @@ concurrency:
 jobs:
   test-and-package:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -30,6 +30,22 @@ jobs:
         run: npm ci
       - name: Test interface and WebAssembly compiler
         run: npm test
+      - name: Install Chromium for course journeys
+        run: npx playwright install --with-deps chromium
+      - name: Test shared controls, offline use and updates
+        run: npm run test:browser
+      - name: Save browser verification screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shared-course-browser-checks
+          path: test-results/
+          if-no-files-found: ignore
+      - name: Retain verified releases for older open tabs
+        if: github.ref == 'refs/heads/main'
+        run: node tools/retain-for-publish.mjs
+        env:
+          PUBLISHED_COURSE_URL: https://snowch.github.io/c-foundry/
       - name: Configure GitHub Pages
         if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
@@ -37,7 +53,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: .build/site
 
   deploy:
     if: github.ref == 'refs/heads/main'

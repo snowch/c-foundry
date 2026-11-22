@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 444878,
-  "sha256": "360b1929bb2c782bd0b710ef4d199add99add1870a5541869351449342fa60ae",
+  "bytes": 448617,
+  "sha256": "0495a2a6efcd4663403c71a07cac5accb51a444a526be09d9a6a96d4203e3061",
   "files": [
     {
       "path": "LICENSE",
@@ -16,8 +16,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 12329,
-      "sha256": "94f10fa0c098b45de038a5fb5f55c48af431d5724718af23562a2f54e2f331f4"
+      "bytes": 13422,
+      "sha256": "0d3288dcabfceaba271e5ae93e29dc75e62e2e4316c97e678cf5410e915ef3ab"
     },
     {
       "path": "dist/assets/tinydb-sample.tdb",
@@ -50,6 +50,11 @@
       "sha256": "67ade7943fb3d14dc51195b0a915370aa212b761274550d68f7b1dff588ba107"
     },
     {
+      "path": "docs/code-runner-design.md",
+      "bytes": 2154,
+      "sha256": "339a8349581827c9d6d71229699938540ffb67b31a9b6a897bfc857cf729b447"
+    },
+    {
       "path": "docs/concept-diagrams.md",
       "bytes": 6901,
       "sha256": "0be3b9fb953a625b55452c4029e0e001a236c04c12cb65b05243a8ebd1ccd735"
@@ -65,9 +70,19 @@
       "sha256": "40cb1286925e6273ce9f4ff71771d7b97357b00c7086f36bcc3745b5bc618ea9"
     },
     {
+      "path": "docs/course-style.md",
+      "bytes": 2224,
+      "sha256": "cc94585cd73ee01c12e59240f65b5a903956a2385bbe8e75f2db793fb6590009"
+    },
+    {
       "path": "docs/learner-wording-review.md",
       "bytes": 4620,
       "sha256": "64b512824c389f355c1e18512ace9322c0f1a1de5e43cbb3577f2b19295b36be"
+    },
+    {
+      "path": "docs/offline-update-design.md",
+      "bytes": 4203,
+      "sha256": "f7a718b39b7ebca20da9858f53518821ac3c30dc535673fb224b300801e933ab"
     },
     {
       "path": "native/chapters/allocation/README.md",

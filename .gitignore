@@ -7,3 +7,5 @@ __pycache__/
 
 /people.db
 /people.db.tmp
+
+test-results/
