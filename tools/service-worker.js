@@ -127,7 +127,7 @@ async function status(running, justVerified, progress) {
   // explicitly removes it; treat it as consent to preserve offline access on update.
   const legacy = keys.some(k => k.startsWith(PREFIX) && !k.startsWith(PREFIX + 'release-') && k !== META);
   const transfer=await downloadInfo();
-  return { ...state, ...transfer, runningRelease: await manifest(running), saved: Boolean(state.saved || legacy), legacy,
+  return { ...state, ...transfer, freshVerification:1, runningRelease: await manifest(running), saved: Boolean(state.saved || legacy), legacy,
     offlineReady: Boolean(state.saved && ((justVerified && release?.id === justVerified.id) || await complete(release, progress))),
     pendingReady: Boolean(pending && ((justVerified && pending.id === justVerified.id) || await complete(pending, progress))),
     busy: Boolean(operation || restarting || transfer.download?.busy) };

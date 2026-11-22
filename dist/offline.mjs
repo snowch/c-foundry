@@ -134,6 +134,9 @@ async function refresh(fresh = false) {
   if(fresh){freshChecks++;render();}
   try {
     let result = await rpc('STATUS',{fresh});
+    // Installed older workers ignore fresh. Their first reply fences earlier
+    // scans; the second check therefore examines files after this request.
+    if(fresh&&!result.freshVerification)result=await rpc('STATUS');
     if(!result.downloadVersion)result={...result,...await legacyInfo(result)};
     if (generation !== refreshGeneration) return;
     result=await recoverCompletedUpdate(result);

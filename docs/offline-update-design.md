@@ -31,3 +31,5 @@ Opening App status forces a small metadata check and local-copy verification imm
 A manual status check sends `STATUS` with `fresh: true`. The worker waits for scans already in progress, forwarding their progress so the request does not time out, then checks the cache again. This prevents a scan that read an early file before eviction from supplying the result of a later manual check. Concurrent checks that begin after the request may still share work. Corruption/reconnect tests use the actual status control and return the tab to the foreground.
 
 While a fresh local check is pending, the dialog says “Checking saved copy” instead of repeating an earlier ready message. A failed verification request invalidates the displayed readiness until a later check succeeds; it does not remove the learner’s saved files or drafts.
+
+An older installed worker may ignore the new `fresh` field. Workers supporting the boundary advertise `freshVerification: 1`; otherwise the page waits for the first STATUS reply and requests STATUS again before displaying readiness. This supplies a fresh check without forcing a waiting worker to activate over open learner windows.
