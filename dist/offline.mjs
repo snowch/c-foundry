@@ -435,7 +435,7 @@ async function performDownload(save, resume) {
   }
 }
 $('running-version').textContent=`Running build ${running.slice(0,12)}`;
-$('app-status-open').addEventListener('click', () => { dialog.showModal(); check(); if (!worker || removed) connect(); else refresh(); });
+$('app-status-open').addEventListener('click', () => { dialog.showModal(); check(true).finally(()=>{if(worker&&!removed)refresh();}); if (!worker || removed) connect(); else refresh(); });
 $('app-status-close').addEventListener('click', () => dialog.close());
 dialog.addEventListener('close', () => $('app-status-open').focus({ preventScroll: true }));
 const recheck=()=>{check(true);refresh();};
@@ -484,7 +484,7 @@ navigator.serviceWorker?.addEventListener('message', ({ data }) => {
   if (data?.type === 'OPEN_APP_STATUS'){if(!dialog.open)dialog.showModal();refresh();}
   if (data?.type === 'OFFLINE_REMOVED') { snapshot = {}; removed = true; render(); }
 });
-addEventListener('online', () => { lastCheck = 0; check();resumeDownloads(); });
+addEventListener('online', () => { lastCheck = 0; check(true).finally(()=>refresh());resumeDownloads(); });
 addEventListener('offline', () => { checkingAbort?.abort('offline'); latest=null; version = 'Cannot check for updates'; render(); });
 addEventListener('focus', () => { check();refresh();resumeDownloads(); });
 document.addEventListener('visibilitychange', () => {

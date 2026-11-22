@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 448617,
-  "sha256": "0495a2a6efcd4663403c71a07cac5accb51a444a526be09d9a6a96d4203e3061",
+  "bytes": 448791,
+  "sha256": "9a7406f729b82c8199a63e2458b4d50f759e963ed1be1d81d857e8094cc872a5",
   "files": [
     {
       "path": "LICENSE",
@@ -81,8 +81,8 @@
     },
     {
       "path": "docs/offline-update-design.md",
-      "bytes": 4203,
-      "sha256": "f7a718b39b7ebca20da9858f53518821ac3c30dc535673fb224b300801e933ab"
+      "bytes": 4704,
+      "sha256": "b0f62f3622d3f9b89c59b06a4e1712282227a530de4d46013ab7e808d81092ee"
     },
     {
       "path": "native/chapters/allocation/README.md",
