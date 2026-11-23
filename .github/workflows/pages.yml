@@ -39,6 +39,8 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Test shared controls, offline use and updates
         run: npm run test:browser
+      - name: Verify focused lab hubs and saved progress
+        run: npm run test:hub
       - name: Verify self-hosted Linux, edited source and work recovery
         run: npm run test:linux
       - name: Save browser verification screenshots

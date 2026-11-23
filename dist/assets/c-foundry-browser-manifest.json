@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 456973,
-  "sha256": "c178086281c4488391cfe1436a1522f2f648aa9d53acf2dd9a7dc97a0a5f0a55",
+  "bytes": 458692,
+  "sha256": "c04d3d74b9890b38f92af0ab6466c9268d13f4fcf4113a20f0e72fd8838899bd",
   "files": [
     {
       "path": "LICENSE",
@@ -60,6 +60,11 @@
       "sha256": "0be3b9fb953a625b55452c4029e0e001a236c04c12cb65b05243a8ebd1ccd735"
     },
     {
+      "path": "docs/content-completion.md",
+      "bytes": 1640,
+      "sha256": "95ff0e85f91c96a91741d22d4356a3ac2a629fd6c1f70fec9e04bfb1916afb3b"
+    },
+    {
       "path": "docs/content-review-2026-11.json",
       "bytes": 115527,
       "sha256": "a03d31082716d0955bf7ec973d75bde07ce72c4f46528503cb6d358f46396e2a"
@@ -71,8 +76,13 @@
     },
     {
       "path": "docs/course-style.md",
-      "bytes": 2224,
-      "sha256": "cc94585cd73ee01c12e59240f65b5a903956a2385bbe8e75f2db793fb6590009"
+      "bytes": 2405,
+      "sha256": "34d5e970be1e9f9d2684f3b2802b867d0f4753da9013697252c596752939fda3"
+    },
+    {
+      "path": "docs/lab-series.md",
+      "bytes": 1954,
+      "sha256": "e6f9fb7f463fb6e2eada49feaf428c50ebbdcfb170085029c14b7ee7845d395c"
     },
     {
       "path": "docs/learner-wording-review.md",
@@ -83,6 +93,11 @@
       "path": "docs/offline-update-design.md",
       "bytes": 6612,
       "sha256": "11f224ca53fd13cf118935174a40b15015b57f4e2e371f216d0ca6a9af41dc83"
+    },
+    {
+      "path": "docs/review.md",
+      "bytes": 1119,
+      "sha256": "8f438143ce96d54719d783cdf4541097f389c2ef1de046a70451e10dc7df532e"
     },
     {
       "path": "docs/self-hosted-linux-validation.json",

@@ -8,6 +8,8 @@ Readings retain their explanations, complete editable programs, understanding ch
 
 Reading marks, practice output checks and program execution remain separate. Running a valid edited program does not fail because its output differs from the starter. A stopped or failed attempt keeps the previous genuine result and labels it as earlier output. Compiler errors and infrastructure failures have different recovery behaviour.
 
-IBM Plex Sans and Mono and Material icons are bundled with their licences for offline use. Both themes use semantic colour roles, including live-text concept diagrams; code remains approximately 16px on phones. Required instructions stay visible. Browser Linux remains a separate external terminal, with explicit saving guidance.
+IBM Plex Sans and Mono and Material icons are bundled with their licences for offline use. Both themes use semantic colour roles, including live-text concept diagrams; code remains approximately 16px on phones. Required instructions stay visible. Browser Linux is self-hosted with the course. The source editor sends edits directly to its guest; exports remain available for backup.
 
 Verify the homepage and first, middle, final, multi-file and Linux lessons; all reading destinations; resources/completion; phones and desktop; themes; keyboard navigation; and saved work. Run the real compiler and workspace as well as the DOM checks. Functional verification does not establish learning effectiveness.
+
+The Foundry now uses the [focused lab-series hub](lab-series.md): numbered lab cards, scoped progress and stable lesson links.
