@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 456940,
-  "sha256": "8d12cbd86615cdc668037f0f3d8046f4eb4ed0ca711d4f027034fd9100eca48b",
+  "bytes": 456973,
+  "sha256": "c178086281c4488391cfe1436a1522f2f648aa9d53acf2dd9a7dc97a0a5f0a55",
   "files": [
     {
       "path": "LICENSE",
@@ -2246,8 +2246,8 @@
     },
     {
       "path": "tools/local-linux/build.py",
-      "bytes": 11462,
-      "sha256": "82d436a67c614f88000bc58398e35059ea64e381c2fc522333641912e498e9bb"
+      "bytes": 11622,
+      "sha256": "35b8da56fde5c6c579eb3d0d10eae119d7e0b4da9cf806ca8d78a4fbc1c2f1af"
     },
     {
       "path": "tools/local-linux/lz4-legacy.py",
