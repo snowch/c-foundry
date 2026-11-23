@@ -45,3 +45,11 @@ saved by the parent's complete manifest. An active guest vetoes restart until th
 learner exports and stops it. Test the actual course iframe, not only a standalone
 runtime page: a double release prefix can leave isolated runtime tests passing
 while the course cannot start the guest.
+
+## Stalled native background downloads
+
+Background Fetch is an optional transport, not proof that a download will finish. Chromium CI stalled at the same byte count after both three and six minutes. When a visible, online page observes 45 seconds without byte progress, it asks the worker to hand the existing job to foreground fetch. The worker records `foregroundOnly` before aborting the native registration so an abort event cannot revoke the learner's consent or start the same transport again. Explicit Cancel remains a separate action that revokes consent.
+
+Native completion events and handoff RPCs join one importer per registration. Completed responses must match the requested release path, byte count and SHA-256 hash. Unresolved native response promises have a bounded ten-second wait and are retried through normal foreground fetch; incomplete or invalid aborted responses are never cached as valid. Verified completed files are reused. The same job ID and update mode remain attached to the request, and the earlier complete course stays usable until the full new release verifies and a safe restart commits it.
+
+The visible page resumes using the existing PREPARE protocol. A refresh, return online or return to the foreground reconnects to the persisted request. Do not promise that a browser can download while suspended: native support is best effort, and foreground progress is the fallback. `background-protocol.cjs` exercises verified partial imports, unresolved records, consent, old-release retention and pending updates; `background-handoff.cjs` exercises the visible-page watchdog and real saved-cache/offline navigation with a stalled transport. The real Linux test separately exercises native Background Fetch, full course verification, fresh offline boot and guest-file restoration.

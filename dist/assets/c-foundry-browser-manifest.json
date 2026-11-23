@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 458830,
-  "sha256": "67da9edbb60989a1f045d2e957a98f24676cfd9bc7faf54d03a00889fae152d7",
+  "bytes": 459550,
+  "sha256": "fec337374940dce638b73730c1f2961db299feb282259b0c9cf35151fc60d411",
   "files": [
     {
       "path": "LICENSE",
@@ -91,13 +91,13 @@
     },
     {
       "path": "docs/offline-update-design.md",
-      "bytes": 6612,
-      "sha256": "11f224ca53fd13cf118935174a40b15015b57f4e2e371f216d0ca6a9af41dc83"
+      "bytes": 8425,
+      "sha256": "3c37c28e48060172d75ba0cce948db57311c7678483b16b1c5ad4cb259b18932"
     },
     {
       "path": "docs/review.md",
-      "bytes": 1495,
-      "sha256": "6f7a7d4b28dd7de04ec0808230fe50c517b9cfa0d3a2421f73b72bc7b5d0cded"
+      "bytes": 1889,
+      "sha256": "fdc02cd5d1b9ee966e431f8885ccacb6f5e7896fa80a0b07917d224c96d6778a"
     },
     {
       "path": "docs/self-hosted-linux-validation.json",

@@ -38,7 +38,7 @@ function render() {
   progress.hidden=cancelling||!(active||requested);
   if(job&&!downloading&&!preparingRestart)showProgress({bytes:job.bytes,total:job.total,stage:job.stage});
   const notice=$('download-behaviour');
-  notice.textContent=job?.error?'':requested&&!navigator.onLine?'Waiting for a connection. Completed files are kept.':job?.state==='background'?'Your browser can continue this download in the background.':preparingRestart||job?.state==='verifying'?'All files must pass verification before the download is ready.':'Completed files are kept. Return here to resume if your browser pauses the download.';
+  notice.textContent=job?.error?'':requested&&!navigator.onLine?'Waiting for a connection. Completed files are kept.':job?.foregroundOnly?'The browser download paused. Continuing here; completed files are kept.':job?.state==='background'?'Your browser can continue this download in the background.':preparingRestart||job?.state==='verifying'?'All files must pass verification before the download is ready.':'Completed files are kept. Return here to resume if your browser pauses the download.';
   if(job?.error&&!downloading&&!downloadWork&&$('app-status-error').dataset.source!=='download-start')error(job.error,'download');
   else if($('app-status-error').dataset.source==='download')error('');
   if($('app-status-error').dataset.source?.startsWith('download')&&$('app-status-error').parentElement!==feedback)feedback.append($('app-status-error'));
@@ -336,27 +336,42 @@ function showProgress(value) {
   $('download-progress-label').textContent=stage==='downloaded'?'Downloading files':stage==='checking'?'Checking saved files':'Checking files';
   $('progress-text').textContent=`${progressSize(value.bytes)} of ${progressSize(value.total)} ${stage==='downloaded'?'downloaded':'checked'}`;
 }
+// Native Background Fetch is optional: a visible page can take over a stalled job.
+let backgroundHandoff,backgroundWatchdog,backgroundActivity=0,backgroundBytes=-1;
+function scheduleBackgroundWatch(){clearTimeout(backgroundWatchdog);backgroundWatchdog=setTimeout(checkNativeProgress,5000);}
+async function checkNativeProgress(){
+ clearTimeout(backgroundWatchdog);const transfer=backgroundDownload,job=snapshot.download;
+ if(!transfer||transfer.result||!job?.wanted||job.id!==transfer.id||job.foregroundOnly||downloadCancelled||backgroundHandoff)return;
+ if(transfer.downloaded!==backgroundBytes){backgroundBytes=transfer.downloaded;backgroundActivity=Date.now();}
+ if(document.visibilityState!=='visible'||!navigator.onLine||Date.now()-backgroundActivity<45000){scheduleBackgroundWatch();return;}
+ backgroundHandoff=(async()=>{
+  await rpc('FALLBACK_BACKGROUND',{id:job.id});if(downloadWork)await downloadWork;await refresh();
+  const current=snapshot.download;
+  if(!downloadCancelled&&current?.id===job.id&&current.wanted&&snapshot.downloadRelease)
+    await download(current.mode==='offline',{release:snapshot.downloadRelease,id:job.id,foregroundOnly:true});
+ })().catch(failure=>error(failure.message,'download-start')).finally(()=>{backgroundHandoff=null;});
+ await backgroundHandoff;
+}
 async function watchBackground(id) {
-  if(!registration.backgroundFetch)return;
-  const transfer=await registration.backgroundFetch.get(id);
-  if(!transfer)return;
-  if(backgroundDownload?.id===id)return;
-  if(backgroundDownload)backgroundDownload.removeEventListener('progress',backgroundProgress);
-  backgroundDownload=transfer;
-  backgroundProgress=()=>{
-    if(snapshot.download?.id!==id)return;
-    if(transfer.result){refresh();return;}
-    const job=snapshot.download;
-    snapshot.download={...job,state:'background',busy:true,stage:'downloaded',bytes:Math.min(job.total,job.cachedBytes+transfer.downloaded)};
-    render();
-  };
-  transfer.addEventListener('progress',backgroundProgress);backgroundProgress();
+ if(!registration.backgroundFetch)return;const transfer=await registration.backgroundFetch.get(id);if(!transfer)return;
+ if(backgroundDownload?.id===id)return;
+ if(backgroundDownload)backgroundDownload.removeEventListener('progress',backgroundProgress);
+ backgroundDownload=transfer;backgroundBytes=transfer.downloaded;backgroundActivity=Date.now();
+ backgroundProgress=()=>{
+  if(snapshot.download?.id!==id||snapshot.download.foregroundOnly)return;
+  if(transfer.result){clearTimeout(backgroundWatchdog);refresh();return;}
+  if(transfer.downloaded!==backgroundBytes){backgroundBytes=transfer.downloaded;backgroundActivity=Date.now();}
+  const job=snapshot.download;
+  snapshot.download={...job,state:'background',busy:true,stage:'downloaded',bytes:Math.min(job.total,job.cachedBytes+transfer.downloaded)};
+  render();scheduleBackgroundWatch();
+ };
+ transfer.addEventListener('progress',backgroundProgress);backgroundProgress();
 }
 async function resumeDownloads() {
   if(resumeWork)return resumeWork;
   if(window!==window.top||!connected||removed||restarting||downloading||!navigator.onLine||document.visibilityState!=='visible')return;
   resumeWork=(async()=>{
-    await refresh();
+    await refresh();if(backgroundHandoff)return;
     const job=snapshot.download;
     if(!job?.wanted)return;
     if(registration.backgroundFetch)await watchBackground(job.id);
@@ -396,7 +411,7 @@ async function performDownload(save, resume) {
   try {
     if(snapshot.downloadVersion!==1){const job=await legacyStart(release,mode,downloadId);downloadId=job.id;localDownloadId=downloadId;}
     if(downloadCancelled){if(snapshot.downloadVersion!==1)await legacyStop(downloadId);handled=true;return;}
-    if(snapshot.downloadVersion===1&&registration.backgroundFetch){
+    if(snapshot.downloadVersion===1&&registration.backgroundFetch&&!resume?.foregroundOnly&&!(snapshot.download?.release===release.id&&snapshot.download.foregroundOnly)){
       const plan=await rpc('DOWNLOAD_PLAN',request,showProgress);
       if(plan.ready){localDownloadId=plan.status.download?.id;++refreshGeneration;snapshot=plan.status;unavailable=false;handled=true;return;}
       downloadId=plan.backgroundId;localDownloadId=downloadId;
@@ -509,3 +524,5 @@ const downloadLink=new URL(location.href);
 if(downloadLink.searchParams.get('download')==='1'){
   dialog.showModal();downloadLink.searchParams.delete('download');history.replaceState(history.state,'',downloadLink);
 }
+
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checkNativeProgress();});
