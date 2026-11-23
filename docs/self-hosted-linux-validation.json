@@ -1,0 +1,6 @@
+{
+  "kind": "c",
+  "seconds": 192.446,
+  "blocked": [],
+  "output": "LAB_READY\nFoundry workspace prepared.\nfoundry:~# gcc --version | head -1; clang --version | head -1; gdb --version | h\nead -1; cd /root/work/c-foundry; make check-native; printf \"\\nPROBE_EXIT=%s\\n\" \"\n$?\"\ngcc (Alpine 15.2.0) 15.2.0\nAlpine clang version 21.1.2\nGNU gdb (GDB) 16.3\nmkdir -p .build/native\ngcc -std=c17 -Wall -Wextra -Wpedantic -Werror -g -O1 native/demos/hello.c -pthread -o .build/native/hello\ngcc -std=c17 -Wall -Wextra -Wpedantic -Werror -g -O1 native/demos/standards.c -pthread -o .build/native/standards\ngcc -std=c17 -Wall -Wextra -Wpedantic -Werror -g -O1 native/demos/counter.c -pthread -o .build/native/counter\ngcc -std=c17 -Wall -Wextra -Wpedantic -Werror -g -O1 native/demos/queue.c -pthread -o .build/native/queue\ngcc -std=c17 -Wall -Wextra -Wpedantic -Werror -g -O1 native/demos/tinydb.c -pthread -o .build/native/tinydb\npython3 tools/check_native.py .build/native\nPASS native hello\nPASS native standards\nPASS native counter\nPASS native queue\nPASS native tinydb\nPROBE_EXIT=0\nfoundry:~#  "
+}

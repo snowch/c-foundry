@@ -4,17 +4,19 @@ The course has two browser runtimes. Compatible examples use the inline C compil
 
 ## Start a Linux lab
 
-1. Open **Browser Linux** from the lesson. Its selected command is carried across.
-2. Download `c-foundry-browser.tar.gz` from that page.
-3. Choose **Start Linux**. The terminal embeds the publicly hosted JSLinux x86-64/Alpine system. Wait for the `localhost:~#` prompt. Its optional login invitation is not needed.
-4. Use the upload control inside the terminal to import the downloaded archive. Files are imported into the guest’s home directory.
-5. Copy and paste the one-time setup command:
+1. Open **Browser Linux** from the lesson; its command is carried across.
+2. Choose **Run lab in Linux**. The page starts its local guest, waits for the
+   prepared workspace, then sends the command automatically.
+3. Inspect the terminal output. To edit a source, use **Edit a course file in this
+   browser**, then **Run edited source in Linux**. The page sends the exact editor
+   text through a guest-only share; no download/upload or paste is needed.
 
-```sh
-mkdir -p ~/work && tar xzf ~/c-foundry-browser.tar.gz -C ~/work && cd ~/work/c-foundry
-```
+The runtime includes GCC 15.2, Clang 21.1, GDB 16.3, Make, Python and nano. The
+Linux x86 target has 32-bit pointers. It uses 1 GiB guest RAM plus browser overhead.
+The guest, compiler and examples are self-hosted. A complete verified offline
+copy includes them; optional documentation links still require internet access.
 
-Then paste the selected lab command. For example:
+Example commands remain available for direct terminal use:
 
 ```sh
 make example EXAMPLE=threads-1
@@ -25,7 +27,7 @@ make example EXAMPLE=concurrent-storage-4
 
 All fourteen Part 8 worked programs use this same Linux path. Their normal compilation and invariant checks do not require a sanitizer runtime. `nano path/to/file.c` opens a source editor: Ctrl+O saves and Ctrl+X exits. A tablet keyboard or external keyboard can enter terminal commands; full-screen mode gives the terminal more room.
 
-The Browser Linux page also has an **Edit a course file in this browser** section. It loads a source picker on demand, saves per-file drafts, and downloads edited files. Upload the edited file into the terminal, then copy its generated apply-and-run command. This supplies source editing on tablets without requiring nano control keys. The editor and the guest filesystem are separate until that explicit transfer. To edit a file that was already changed inside Linux, use the generated source-export command, then Import source file into the selected editor path. This preserves restored work instead of replacing it with a course original.
+The Browser Linux page also has an **Edit a course file in this browser** section. It loads a source picker on demand, saves per-file drafts, and downloads edited files. Choose Run edited source in Linux to transfer the current editor text and run the selected command. This supplies source editing on tablets without requiring nano control keys. The editor and the guest filesystem are separate until that explicit transfer. To edit a file that was already changed inside Linux, use the generated source-export command, then Import source file into the selected editor path. This preserves restored work instead of replacing it with a course original.
 
 The course preserves the active terminal element when navigating among its pages. A browser reload, tab close, or Stop ends that temporary session. The Linux system is loaded only after Start, independently of the fast inline compiler.
 
@@ -68,13 +70,19 @@ Later chapter workshops assemble and extend bounded database components. They do
 
 ## Optional reading and tooling
 
-[ThreadSanitizer](https://snowch.github.io/c-foundry/#/tools/threadsanitizer) is a reading page, outside lesson completion and required lab work. The hosted image does not currently provide working ASan/TSan toolchain combinations; normal labs use independent fixture and invariant checks. Optional external sanitizer commands in developer documentation are not course requirements. An emulator’s timing does not measure real multicore speedup or physical-device durability.
+[ThreadSanitizer](https://snowch.github.io/c-foundry/#/tools/threadsanitizer) is a reading page, outside lesson completion and required lab work. The self-hosted image does not currently provide working ASan/TSan toolchain combinations; normal labs use independent fixture and invariant checks. Optional external sanitizer commands in developer documentation are not course requirements. An emulator’s timing does not measure real multicore speedup or physical-device durability.
 
-Use the online C references linked at the bottom of each lesson. The hosted image has no installed `man` pages. The help lesson describes optional equivalent manual commands for environments that provide them; reading function contracts and running its printf example work entirely in the browser.
+Use the online C references linked at the bottom of each lesson. The self-hosted image has no installed `man` pages. The help lesson describes optional equivalent manual commands for environments that provide them; reading function contracts and running its printf example work entirely in the browser.
 
 ## Hosting and source provenance
 
-The Linux VM executes on the learner’s device inside the browser. Its emulator and base image are supplied by [Fabrice Bellard’s JSLinux service](https://bellard.org/jslinux/). The course loads that external service in a sandboxed iframe and includes a direct link as an alternative. The course does not copy or redistribute the emulator, Linux image, or provider artwork. Availability and first-load performance depend on the hosted service, network, and device; the inline compiler and lesson readings remain independent.
+The Linux VM executes on the learner’s device in the self-hosted BSD-2-Clause
+v86 emulator. Firmware, kernel, guest image and terminal dependencies are served
+inside this course's release. `tools/local-linux/assets.json` pins downloads;
+`linux/notices/` publishes the binary provenance, upstream licences and exact source
+recipes. CI fetches dependencies during the build; learners never fetch a runtime
+from another service. The initial self-hosted browser check passed native greeting,
+standards, counter, queue and TinyDB checks with outside requests blocked.
 
 `tools/build_browser_linux.py` packages the course-owned source and fixture files into a deterministic archive with a file-hash manifest. It contains no guest OS, emulator, downloaded toolchain, account credentials, Git history, or third-party npm dependencies. It includes the course LICENSE and an explicit selected file list. The archive is checked for reproducibility by `npm test`.
 

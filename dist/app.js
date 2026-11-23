@@ -57,6 +57,7 @@
   function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4000);}
   function chapterProgress(chapter){return chapter.status==='ready'?`<span class="chapter-progress" data-chapter-progress="${chapter.id}"></span>`:'';}
   function updateCover(){
+    if(window.refreshFoundryHub){window.refreshFoundryHub();return;}
     const link=$('course-start-link'),context=$('course-start-context');
     const topics=COURSE.chapters.filter(c=>c.status==='ready').flatMap(chapter=>chapter.topics.filter(topic=>!topic.optional).map(topic=>({chapter,topic,id:chapter.id+'/'+topic.id})));
     const first=topics[0],next=topics.find(item=>!lessonCompletion.isDone(item.id));
@@ -196,7 +197,7 @@
       if(l.isExample){go(`/chapter/${l.chapterId}/${l.topicId}`,true);return;}
       select(LESSONS.indexOf(l));
     }
-    else if(parts[0]==='course'){renderMap();showView('curriculum');}
+    else if(parts[0]==='course'||parts[0]==='lab'){renderMap();showView('curriculum');}
     else if(parts[0]==='capstone')showView('capstone');
     else if(parts[0]==='workspace'){showView('workspace');window.commandWorkspace?.init();}
     else if(parts[0]==='setup')showView('setup');

@@ -326,10 +326,16 @@ async function stopDownloadRequest(id) {
     else throw failure;
   }
 }
-async function receiveBackground(event, outcome) {
+const backgroundImports=new Map();
+async function receiveBackground(event,outcome){
+ const id=event.registration.id;if(backgroundImports.has(id))return backgroundImports.get(id);
+ const work=importBackground(event,outcome);backgroundImports.set(id,work);
+ try{return await work;}finally{if(backgroundImports.get(id)===work)backgroundImports.delete(id);}
+}
+async function importBackground(event, outcome) {
   let job=await readDownload();
   if (!job || job.id!==event.registration.id) return;
-  if (outcome==='abort') await stopDownloadRequest(job.id);
+  if (outcome==='abort'&&!job.foregroundOnly) await stopDownloadRequest(job.id);
   // A short page-cache operation may already own CacheStorage. Let it finish
   // before importing the browser's responses, including when no page is open.
   while (operation) await operationFinished;
@@ -343,18 +349,23 @@ async function receiveBackground(event, outcome) {
     await changeDownload(job.id,{state:'verifying'});
     const expected=new Map(release.files.map(file=>[new URL(`releases/${release.id}/${file.path}`,BASE).href,file]));
     const cache=await caches.open(cacheName(release.id));let bytes=job.cachedBytes,validationFailure;
-    if(event.registration.recordsAvailable)for(const record of await event.registration.matchAll()) {
-      operation.signal.throwIfAborted();
-      const file=expected.get(record.request.url);
-      if(!file){validationFailure=new Error('A downloaded file did not match the release. Retry after deployment finishes.');continue;}
-      let response;
-      try {response=await record.responseReady;} catch {if(outcome==='success')validationFailure=new Error('A download response is missing. Retry the download.');continue;}
-      if(!await verified(response.clone(),file)) {
-        if(outcome!=='success')continue;
-        validationFailure=new Error('A downloaded file did not match the release. Retry after deployment finishes.');continue;
+    if(event.registration.recordsAvailable){
+      const records=await event.registration.matchAll();
+      const responses=await Promise.all(records.map(async record=>{
+        let timer;
+        try{return {record,response:await Promise.race([record.responseReady,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('A background response did not finish.')),10000);})])};}
+        catch{return {record};}finally{clearTimeout(timer);}
+      }));
+      for(const {record,response} of responses){
+        operation.signal.throwIfAborted();
+        const file=expected.get(record.request.url);
+        if(!file){validationFailure=new Error('A downloaded file did not match the release. Retry after deployment finishes.');continue;}
+        if(!response){if(outcome==='success')validationFailure=new Error('A download response is missing. Retry the download.');continue;}
+        let valid=false;try{valid=await verified(response.clone(),file);}catch{/* Aborted bodies are incomplete, never verified files. */}
+        if(!valid){if(outcome==='success')validationFailure=new Error('A downloaded file did not match the release. Retry after deployment finishes.');continue;}
+        await cache.put(new URL(file.path,BASE),response);bytes+=file.bytes;
+        await reportDownload(job.id,{bytes,total:release.bytes,stage:'verified'});
       }
-      await cache.put(new URL(file.path,BASE),response);bytes+=file.bytes;
-      await reportDownload(job.id,{bytes,total:release.bytes,stage:'verified'});
     }
     if(validationFailure)throw validationFailure;
     const current=await readDownload();
@@ -364,7 +375,7 @@ async function receiveBackground(event, outcome) {
       await event.updateUI?.({title:job.mode==='update'?'C Foundry update ready':'C Foundry available offline'});
     } else {
       const failed=outcome==='fail',reason=event.registration.failureReason;
-      const retry=failed&&!['aborted','quota-exceeded','download-total-exceeded'].includes(reason);
+      const retry=outcome==='abort'&&job.foregroundOnly||failed&&!['aborted','quota-exceeded','download-total-exceeded'].includes(reason);
       const error=!failed?null:reason==='quota-exceeded'?'Browser storage is full. Free space and resume the download.':reason==='download-total-exceeded'?'The download size changed. Retry after deployment finishes.':'Download interrupted. Completed files are kept; it will resume when you return.';
       await changeDownload(job.id,current=>({state:'paused',wanted:Boolean(current.wanted&&retry),error:current.wanted?error:null}));
     }
@@ -462,6 +473,16 @@ self.addEventListener('message', event => {
         const job=await readDownload();
         if(!job || job.id!==data.id || !job.wanted) throw new Error('This download was cancelled or replaced.');
         await changeDownload(job.id,{state:'background',error:null});result={};
+      } else if(data.type==='FALLBACK_BACKGROUND'){
+        const job=await readDownload();
+        if(!job||job.id!==data.id||!job.wanted){result=await downloadInfo();}
+        else{
+          await changeDownload(job.id,{foregroundOnly:true,error:null});
+          const native=await nativeDownload(job);
+          if(native){if(!native.result)await native.abort();await receiveBackground({registration:native},'abort');}
+          else await changeDownload(job.id,{state:'paused'});
+          result=await downloadInfo();await broadcast({type:'STATUS_CHANGED'});
+        }
       } else if (data.type === 'CANCEL') {
         await cancelDownload(data.id); result = {};
       } else if (data.type === 'PREPARE') {
@@ -494,7 +515,7 @@ self.addEventListener('message', event => {
             // that contract while protecting another selected/resumable update.
             result=await status(data.running,null,progress);
           }else{
-            if(existing?.wanted && await nativeDownload(existing))throw new Error('The browser is already downloading this course.');
+            if(existing?.wanted&&!existing.foregroundOnly&&await nativeDownload(existing))throw new Error('The browser is already downloading this course.');
             if(data.requestDownload || data.downloadId){job=await newDownload(data.release,data);operationDownload=job.id;await changeDownload(job.id,{state:'foreground',error:null});}
             state.partial = data.release.id; await writeState(state);
             await prepare(data.release, Boolean(data.save), port, operation.signal, job?.id, data.running);

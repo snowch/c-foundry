@@ -1,0 +1,277 @@
+[
+  {
+    "path": "parts.json",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/parts.json",
+    "sha256": "9cd5ad2606a4ea2e542eee50bbb3dcfc3cc28d3ac812ec7fb2955f131d19ffba",
+    "bytes": 160,
+    "group": "base"
+  },
+  {
+    "path": "libv86.mjs",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/libv86.mjs",
+    "sha256": "f9f3b4cae7dafb882e10e51aae9137ec52d5aed5ffbc9026f9081c73bbaae4c8",
+    "bytes": 359819,
+    "group": "base"
+  },
+  {
+    "path": "v86.wasm",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/v86.wasm",
+    "sha256": "2f0c4150f266415b754a84a32e6f8e4c975a1d3abb94c78b047fa30027db1ef1",
+    "bytes": 2007347,
+    "group": "base"
+  },
+  {
+    "path": "v86-LICENSE.txt",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/v86-LICENSE.txt",
+    "sha256": "3f61ba65e3215b09ef264ba8d777d73c19644309fbb705967634eb5147e500a0",
+    "bytes": 1306,
+    "group": "base"
+  },
+  {
+    "path": "seabios.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/seabios.bin",
+    "sha256": "73e3f359102e3a9982c35fce98eb7cd08f18303ac7f1ba6ebfbe6cdc1c244d98",
+    "bytes": 131072,
+    "group": "base"
+  },
+  {
+    "path": "vgabios.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/vgabios.bin",
+    "sha256": "a4bc0d80cc3ca028c73dafa8fee396b8d054ce87ebd8abfbd31b06b437607880",
+    "bytes": 36352,
+    "group": "base"
+  },
+  {
+    "path": "vmlinuz-virt",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/vmlinuz-virt",
+    "sha256": "7df6dba6acdad76fa66aa6e4f7827acfe2b2943d7be321568f96251320d36146",
+    "bytes": 8110592,
+    "group": "base"
+  },
+  {
+    "path": "guest-00.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/guest-00.bin",
+    "sha256": "3d25c6aa9b53fdf09104194961a51d7b6cbd0574657fef8c6f6d2a4a70432088",
+    "bytes": 16777216,
+    "group": "base"
+  },
+  {
+    "path": "guest-01.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/guest-01.bin",
+    "sha256": "e7b681f481bb5580331c61dafcbf1aaf0025559c3c4fcdc0b158a21206c3397d",
+    "bytes": 16777216,
+    "group": "base"
+  },
+  {
+    "path": "guest-02.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/guest-02.bin",
+    "sha256": "8998320da4bf9b4f7fb8e8b6ed22834a80f3a34e857ca8a369e53d33cf0dea8c",
+    "bytes": 16777216,
+    "group": "base"
+  },
+  {
+    "path": "guest-03.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/guest-03.bin",
+    "sha256": "91f98ce0a18316392538905271496a7c38d53e220694c5545f0e5c493d1e662e",
+    "bytes": 16777216,
+    "group": "base"
+  },
+  {
+    "path": "guest-04.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/guest-04.bin",
+    "sha256": "bf1852353a9fec2aba60074c243a924daebc2a9f6b5c781d92f7e5a571a43770",
+    "bytes": 16777216,
+    "group": "base"
+  },
+  {
+    "path": "guest-05.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/guest-05.bin",
+    "sha256": "b5d3fbfc78a5bde53f247adb587d95bb4c736664595be6b25ac67a6ce5aa8ef9",
+    "bytes": 16777216,
+    "group": "base"
+  },
+  {
+    "path": "guest-06.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/guest-06.bin",
+    "sha256": "1d12aa4a65f112a12cf88b32570c3d1754458485fffc58b0b613afaf8c384a5a",
+    "bytes": 16777216,
+    "group": "base"
+  },
+  {
+    "path": "guest-07.bin",
+    "url": "https://raw.githubusercontent.com/snowch/c-network-programming-lab/d8d169c7edc335f1a1c7c2304fb9d849a61a8c03/runtime/files/guest-07.bin",
+    "sha256": "43fa817bfcf5cd9bde6d02637b5d55d2214f9c8605c609b4b5d0a81accd61a26",
+    "bytes": 13091711,
+    "group": "base"
+  },
+  {
+    "path": "COPYING.LESSER",
+    "url": "https://raw.githubusercontent.com/copy/v86/315b2b0b758703ef0e6cc7b4088d6068f83f3c20/bios/COPYING.LESSER",
+    "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c",
+    "group": "base"
+  },
+  {
+    "path": "fetch-and-build-seabios.sh",
+    "url": "https://raw.githubusercontent.com/copy/v86/315b2b0b758703ef0e6cc7b4088d6068f83f3c20/bios/fetch-and-build-seabios.sh",
+    "sha256": "057856a817ae3dc85b18dc00f19274f6e877e6f28a36dce1afc5be751739e24a",
+    "group": "base"
+  },
+  {
+    "path": "seabios.config",
+    "url": "https://raw.githubusercontent.com/copy/v86/315b2b0b758703ef0e6cc7b4088d6068f83f3c20/bios/seabios.config",
+    "sha256": "7d1337b30591277356ca1b1bf1a192c2c1f17e15ec9e5740befcc57bb000339d",
+    "group": "base"
+  },
+  {
+    "path": "seabios-debug.config",
+    "url": "https://raw.githubusercontent.com/copy/v86/315b2b0b758703ef0e6cc7b4088d6068f83f3c20/bios/seabios-debug.config",
+    "sha256": "7fa7a757ac0ba4161bc6ecf8ca4af09463462db58c4717a79cea0db49be9c13d",
+    "group": "base"
+  },
+  {
+    "name": "@xterm/xterm",
+    "version": "6.0.0",
+    "url": "https://registry.npmjs.org/@xterm/xterm/-/xterm-6.0.0.tgz",
+    "sha256": "908e66e04af6c8dc6b00dd3b54de088e2e81e5ed866284fd6c2fb3c2d1c7a3f6",
+    "group": "xterm"
+  },
+  {
+    "name": "@xterm/addon-fit",
+    "version": "0.11.0",
+    "url": "https://registry.npmjs.org/@xterm/addon-fit/-/addon-fit-0.11.0.tgz",
+    "sha256": "26003b4517a132b64e4ff228fd88a5fda3fff5e606c76093f6dcff772e9ecec0",
+    "group": "xterm"
+  },
+  {
+    "path": "clang21-headers-21.1.2-r2.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/clang21-headers-21.1.2-r2.apk",
+    "sha256": "c260e39c4b4ea4fc256c5510f169c5a5c56941e61c205f65e5ef9f6434267b3c",
+    "group": "c-package"
+  },
+  {
+    "path": "libffi-3.5.2-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/libffi-3.5.2-r0.apk",
+    "sha256": "96aa9d0822f1c743ac5650bd509781cacac92c003a0445c7fdd990a7120a014e",
+    "group": "c-package"
+  },
+  {
+    "path": "libxml2-2.13.9-r1.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/libxml2-2.13.9-r1.apk",
+    "sha256": "77bd6e44b14e624282878d4f1a7a61b19c37ed17026b32a044506402f726aa25",
+    "group": "c-package"
+  },
+  {
+    "path": "llvm21-libs-21.1.2-r1.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/llvm21-libs-21.1.2-r1.apk",
+    "sha256": "9dff5cd96a52137abea9ce1c631ea27a74f7a151b2860a75d9e59c19f52818ad",
+    "group": "c-package"
+  },
+  {
+    "path": "clang21-libs-21.1.2-r2.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/clang21-libs-21.1.2-r2.apk",
+    "sha256": "0994e97bdb5c20e20ca14aed8e87f0bf737a8441bbad95969b6d29bf817564d1",
+    "group": "c-package"
+  },
+  {
+    "path": "fortify-headers-1.1-r5.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/fortify-headers-1.1-r5.apk",
+    "sha256": "371fb8dc889ba62e06de39bec2855601429c886ac08e291162c4d63a1328383b",
+    "group": "c-package"
+  },
+  {
+    "path": "libstdc++-dev-15.2.0-r2.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/libstdc++-dev-15.2.0-r2.apk",
+    "sha256": "32d49f11add00b485fa4bac6e65719e44da0c23b171e2ed427f8dc4177b5b856",
+    "group": "c-package"
+  },
+  {
+    "path": "llvm21-linker-tools-21.1.2-r1.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/llvm21-linker-tools-21.1.2-r1.apk",
+    "sha256": "fbfa8c0801bd3a52d32a1a4f6d6a7dff1554e62433543c923c100873ee801b8c",
+    "group": "c-package"
+  },
+  {
+    "path": "clang21-21.1.2-r2.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/clang21-21.1.2-r2.apk",
+    "sha256": "317cd7779216bb978fbc88d09e5724bba06db9fb602facca07462eae1caac0af",
+    "group": "c-package"
+  },
+  {
+    "path": "musl-dbg-1.2.5-r24.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/musl-dbg-1.2.5-r24.apk",
+    "sha256": "346ecf62983dd03018f82695a623c421d6192e119e77e976c23d8f4a2951565f",
+    "group": "c-package"
+  },
+  {
+    "path": "libexpat-2.10.0-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/libexpat-2.10.0-r0.apk",
+    "sha256": "6b13908a187ddd32bee26fd195abc9456c553d36a43cc5a66150e53857b3fbdf",
+    "group": "c-package"
+  },
+  {
+    "path": "gdbm-1.26-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/gdbm-1.26-r0.apk",
+    "sha256": "e4a571f192b4e310b9188efb03afddf1c532eb3a5d4dc2cca2945a77613450b3",
+    "group": "c-package"
+  },
+  {
+    "path": "mpdecimal-4.0.1-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/mpdecimal-4.0.1-r0.apk",
+    "sha256": "839c4c2b77d519795ae3c9940a89a2c33851b04a62f62082b319756916a4e014",
+    "group": "c-package"
+  },
+  {
+    "path": "libpanelw-6.5_p20251123-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/libpanelw-6.5_p20251123-r0.apk",
+    "sha256": "f5177c0d913d6effd7ae0787b78920263376215aaef69d6b73aeea40d1608b9e",
+    "group": "c-package"
+  },
+  {
+    "path": "sqlite-libs-3.53.4-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/sqlite-libs-3.53.4-r0.apk",
+    "sha256": "e1cec828f9102cbd549b018ad695e57d0e5cfa937f9208096d80d4917768a29a",
+    "group": "c-package"
+  },
+  {
+    "path": "python3-3.12.16-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/python3-3.12.16-r0.apk",
+    "sha256": "5065ca54138beee99d07d3999f03bac2707fa99e5a4d81d5472d4cecfe567be3",
+    "group": "c-package"
+  },
+  {
+    "path": "python3-pycache-pyc0-3.12.16-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/python3-pycache-pyc0-3.12.16-r0.apk",
+    "sha256": "3d83c41dbe11935baba143e486148a5471c8b9360054e30428db94986cd5f355",
+    "group": "c-package"
+  },
+  {
+    "path": "pyc-3.12.16-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/pyc-3.12.16-r0.apk",
+    "sha256": "ca1f463719d27935bbe7e9529eb2187d88899cb0d4057d334be7a05f0e5b6f12",
+    "group": "c-package"
+  },
+  {
+    "path": "python3-pyc-3.12.16-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/python3-pyc-3.12.16-r0.apk",
+    "sha256": "360504e778836c7997d4d0d21eaf1d8fc0aadf2109dbe8c21ec746b1ba4fcb5a",
+    "group": "c-package"
+  },
+  {
+    "path": "gdb-16.3-r2.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/gdb-16.3-r2.apk",
+    "sha256": "64bf006081694328f7d505bc2f69caf881e81523bdaa40dbe9da8fef30166430",
+    "group": "c-package"
+  },
+  {
+    "path": "gcc-gdb-15.2.0-r2.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/gcc-gdb-15.2.0-r2.apk",
+    "sha256": "5f0ebbf8c010647fbcaa7504ec902222626d25ec80103c7b36cb8cbb0062a644",
+    "group": "c-package"
+  },
+  {
+    "path": "nano-8.7-r0.apk",
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/x86/nano-8.7-r0.apk",
+    "sha256": "d30dc286dc15350ec0ea9b9d5b2da07a4633aabb0ed978ddac4a53ea76b1789b",
+    "group": "c-package"
+  }
+]

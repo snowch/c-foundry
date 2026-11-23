@@ -29,14 +29,14 @@ const panel = `<dialog id="app-status-dialog" aria-labelledby="app-status-title"
 <details id="app-status-details"><summary>Version and download details</summary><p id="running-version"></p><p id="release-detail"></p>
 <button id="check-update" type="button">Check for updates</button>
 <p>Downloads include all readings, diagrams, example sources and the inline C compiler. Browser storage overhead is additional. External links need internet access.</p>
-<p>Browser Linux is an external service and needs internet access. Its Linux system is not included in this download. Export guest files before reloading.</p>
+<p>The saved course includes the Linux terminal, emulator, kernel and guest files. Export guest files before reloading.</p>
 <button id="remove-offline" type="button" hidden>Remove offline copy</button>
 <div id="remove-confirmation" hidden><p>Remove C Foundry’s downloaded files from this browser? Your experiment work, preferences and other apps will be kept.</p><button id="confirm-remove" type="button">Remove downloaded files</button><button id="cancel-remove" type="button">Keep offline copy</button></div></details>
 <div id="install-help" hidden></div>
 </dialog>`;
 export async function buildOffline(directory, identity = { commit: null, date: null }) {
   const files = (await filesUnder(directory)).filter(path => path !== 'sw.js' && path !== 'release.json' && !path.startsWith('releases/'));
-  for (const path of files.filter(path => path.endsWith('.html'))) {
+  for (const path of files.filter(path => path.endsWith('.html') && path !== 'linux/index.html')) {
     const base = '../'.repeat(path.split('/').length - 1) || './';
     let html = (await readFile(`${directory}/${path}`, 'utf8'))
       .replace('<!-- app-status-control -->', markup)

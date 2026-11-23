@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+if [ "$#" -ne 1 ] || [ ! -f "$1" ]; then echo 'Use export_file /path/to/file' >&2; exit 2; fi
+name=$(basename "$1")
+case "$name" in *[!A-Za-z0-9_.-]*|'') echo 'Use a filename containing letters, numbers, dots, underscores or hyphens.' >&2;exit 2;;esac
+name="export-$(date +%s)-$name"
+cp "$1" "/exchange/$name"
+printf '\n__FOUNDRY_EXPORT__:%s\n' "$name"

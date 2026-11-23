@@ -24,7 +24,7 @@ The **Browser Linux** launcher carries a lesson’s actual command to an on-dema
 
 The terminal’s filesystem is temporary. The course page provides commands to export a complete work archive and restore it in a new session. Navigating among course pages retains the active terminal; reloading, closing, or stopping it does not. See [Browser Linux setup, saving, and provenance](docs/browser-linux.md) and the [live validation record](docs/browser-linux-validation.json).
 
-The site embeds the externally hosted terminal and credits its provider. It does not redistribute the emulator or OS image. The provider’s availability, first-load download, and device performance remain external dependencies. The inline compiler and course readings are independent of that service.
+The site publishes its own v86 emulator, terminal, firmware, Alpine Linux x86 kernel and guest image. All runtime assets stay inside the course scope. The build pins upstream downloads and publishes licences/source recipes; the browser does not contact a third-party runtime provider. The guest uses 1 GiB RAM and has 32-bit pointers. Editor changes transfer directly to Linux.
 
 ## Projects and debugging
 
@@ -116,7 +116,7 @@ Copyright © 2026 Christopher Snow. See [LICENSE](LICENSE).
 
 **Code runner** starts or frees the inline C compiler and lets you choose its idle timeout (30 minutes by default). The same compiler stays ready between lessons and C workspace commands. **App status** checks for updates and saves verified readings and runtime files. Wait for “Downloaded and ready to use offline” before disconnecting; a fresh offline tab can then run the inline examples and C workspace.
 
-Browser Linux is an external service and still needs internet access. Export its guest files and choose Stop Linux before an update or reload. Compiler idle release does not stop Linux. Saved lesson drafts, reading marks, workspace files and Linux source-editor drafts retain their existing storage keys.
+Browser Linux is included in the complete verified offline copy. Export its guest files and choose Stop Linux before an update or reload. Compiler idle release does not stop Linux. Saved lesson drafts, reading marks, workspace files and Linux source-editor drafts retain their existing storage keys.
 
 For a production-equivalent local preview, run `npm ci` and `npm run serve`. The authored `dist/` directory is source; generated Pages output is `.build/site`.
 

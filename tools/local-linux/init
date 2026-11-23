@@ -1,0 +1,17 @@
+#!/bin/sh
+export PATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOME=/root TERM=vt100
+mount -t devtmpfs devtmpfs /dev
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t tmpfs tmpfs /tmp
+ip link set lo up
+mkdir -p /exchange /root
+if modprobe 9pnet_virtio && modprobe 9p && mount -t 9p -o trans=virtio,version=9p2000.L host9p /exchange; then
+  echo LAB_READY
+else
+  echo LAB_EXCHANGE_FAILED
+fi
+cd /root
+while true; do
+  setsid /bin/sh -c 'exec /bin/sh -i </dev/ttyS0 >/dev/ttyS0 2>&1'
+done

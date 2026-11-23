@@ -4,7 +4,7 @@ The [shared offline/update design](https://github.com/snowch/cuda-cpp-lab/blob/m
 
 ## What is saved
 
-App status can save all course readings, original diagrams, example sources, local fonts/icons, the course source archive, the bundled TinyDB program and the inline C compiler. Inline examples and the C command workspace can then compile and run in a fresh offline tab. External documentation and the externally hosted Browser Linux VM require internet access. Browser Linux is not included in the offline readiness claim; the homepage and download screen state this distinction.
+App status can save all course readings, original diagrams, example sources, local fonts/icons, the course source archive, the bundled TinyDB program and the inline C compiler. Inline examples and the C command workspace can then compile and run in a fresh offline tab. The complete saved course also includes the self-hosted v86 terminal, firmware, Linux kernel and guest chunks. Browser Linux must boot and run an unvisited example in a fresh offline tab before readiness is accepted. Only optional external documentation and separately installed desktop tools require internet access.
 
 Automatic checks fetch small release metadata, not the full compiler. Online navigation remains fresh. One primary action reflects the saved copy: Save offline copy, Update offline copy or Repair offline copy. Completed downloads are ready only after all manifest files pass byte verification. A downloaded update offers Restart to update. Interrupted/cancelled downloads retain completed files and keep an earlier complete copy usable. Request persistent browser storage when supported; device/browser eviction remains possible.
 
@@ -33,3 +33,23 @@ A manual status check sends `STATUS` with `fresh: true`. The worker waits for sc
 While a fresh local check is pending, the dialog says “Checking saved copy” instead of repeating an earlier ready message. A failed verification request invalidates the displayed readiness until a later check succeeds; it does not remove the learner’s saved files or drafts.
 
 An older installed worker may ignore the new `fresh` field. Workers supporting the boundary advertise `freshVerification: 1`; otherwise the page waits for the first STATUS reply and requests STATUS again before displaying readiness. This supplies a fresh check without forcing a waiting worker to activate over open learner windows.
+
+## Embedded Linux document URLs
+
+`linux/index.html` is an embedded runtime component, not a second course shell.
+Keep its dependency URLs relative and do not inject App status or rewrite its
+links as if it lived at the course root. The parent script resolves its iframe
+against the script's immutable release directory; the frame's relative imports
+then remain inside that same release. All of those files are still hashed and
+saved by the parent's complete manifest. An active guest vetoes restart until the
+learner exports and stops it. Test the actual course iframe, not only a standalone
+runtime page: a double release prefix can leave isolated runtime tests passing
+while the course cannot start the guest.
+
+## Stalled native background downloads
+
+Background Fetch is an optional transport, not proof that a download will finish. Chromium CI stalled at the same byte count after both three and six minutes. When a visible, online page observes 45 seconds without byte progress, it asks the worker to hand the existing job to foreground fetch. The worker records `foregroundOnly` before aborting the native registration so an abort event cannot revoke the learner's consent or start the same transport again. Explicit Cancel remains a separate action that revokes consent.
+
+Native completion events and handoff RPCs join one importer per registration. Completed responses must match the requested release path, byte count and SHA-256 hash. Unresolved native response promises have a bounded ten-second wait and are retried through normal foreground fetch; incomplete or invalid aborted responses are never cached as valid. Verified completed files are reused. The same job ID and update mode remain attached to the request, and the earlier complete course stays usable until the full new release verifies and a safe restart commits it.
+
+The visible page resumes using the existing PREPARE protocol. A refresh, return online or return to the foreground reconnects to the persisted request. Do not promise that a browser can download while suspended: native support is best effort, and foreground progress is the fallback. `background-protocol.cjs` exercises verified partial imports, unresolved records, consent, old-release retention and pending updates; `background-handoff.cjs` exercises the visible-page watchdog and real saved-cache/offline navigation with a stalled transport. The real Linux test separately exercises native Background Fetch, full course verification, fresh offline boot and guest-file restoration.

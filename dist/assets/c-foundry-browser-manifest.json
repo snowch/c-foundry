@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 449169,
-  "sha256": "066a5a266d83ea202b177c8364bc25b33dda537801923ef0fad8ff3a0752c53f",
+  "bytes": 459550,
+  "sha256": "fec337374940dce638b73730c1f2961db299feb282259b0c9cf35151fc60d411",
   "files": [
     {
       "path": "LICENSE",
@@ -16,8 +16,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13422,
-      "sha256": "0d3288dcabfceaba271e5ae93e29dc75e62e2e4316c97e678cf5410e915ef3ab"
+      "bytes": 13493,
+      "sha256": "df9964b7018605ae00cf13b2cb6c185dec2dd3da27889330c9b5df98fd77da5f"
     },
     {
       "path": "dist/assets/tinydb-sample.tdb",
@@ -46,8 +46,8 @@
     },
     {
       "path": "docs/browser-linux.md",
-      "bytes": 6589,
-      "sha256": "67ade7943fb3d14dc51195b0a915370aa212b761274550d68f7b1dff588ba107"
+      "bytes": 6841,
+      "sha256": "fa918e1e85edf6903071cc6cd23ff2852b6dcd8cc2d4a50e1fe3172dfcacda25"
     },
     {
       "path": "docs/code-runner-design.md",
@@ -58,6 +58,11 @@
       "path": "docs/concept-diagrams.md",
       "bytes": 6901,
       "sha256": "0be3b9fb953a625b55452c4029e0e001a236c04c12cb65b05243a8ebd1ccd735"
+    },
+    {
+      "path": "docs/content-completion.md",
+      "bytes": 1640,
+      "sha256": "95ff0e85f91c96a91741d22d4356a3ac2a629fd6c1f70fec9e04bfb1916afb3b"
     },
     {
       "path": "docs/content-review-2026-11.json",
@@ -71,8 +76,13 @@
     },
     {
       "path": "docs/course-style.md",
-      "bytes": 2224,
-      "sha256": "cc94585cd73ee01c12e59240f65b5a903956a2385bbe8e75f2db793fb6590009"
+      "bytes": 2405,
+      "sha256": "34d5e970be1e9f9d2684f3b2802b867d0f4753da9013697252c596752939fda3"
+    },
+    {
+      "path": "docs/lab-series.md",
+      "bytes": 1954,
+      "sha256": "e6f9fb7f463fb6e2eada49feaf428c50ebbdcfb170085029c14b7ee7845d395c"
     },
     {
       "path": "docs/learner-wording-review.md",
@@ -81,8 +91,23 @@
     },
     {
       "path": "docs/offline-update-design.md",
-      "bytes": 5791,
-      "sha256": "dafed719c8e5ad615f9bb3ce070a0d49701503bfc080e530eb8f4a60399283aa"
+      "bytes": 8425,
+      "sha256": "3c37c28e48060172d75ba0cce948db57311c7678483b16b1c5ad4cb259b18932"
+    },
+    {
+      "path": "docs/review.md",
+      "bytes": 1889,
+      "sha256": "fdc02cd5d1b9ee966e431f8885ccacb6f5e7896fa80a0b07917d224c96d6778a"
+    },
+    {
+      "path": "docs/self-hosted-linux-validation.json",
+      "bytes": 1110,
+      "sha256": "4096c4d22382e9a4aa6bc0d1692475eb3f6cd484e2fad28d8321b51f5cd7e7eb"
+    },
+    {
+      "path": "docs/self-hosted-linux.md",
+      "bytes": 1051,
+      "sha256": "814740019fa475c44c966d94ad10b67bd2058834458f898f1ee3168dd1a8ccc2"
     },
     {
       "path": "native/chapters/allocation/README.md",
@@ -2233,6 +2258,36 @@
       "path": "tools/lab.py",
       "bytes": 5030,
       "sha256": "020e901050d2290c55ebc51c3035a02c4e340425ebc4734d3a0f5f8fb240ec69"
+    },
+    {
+      "path": "tools/local-linux/build.py",
+      "bytes": 11622,
+      "sha256": "35b8da56fde5c6c579eb3d0d10eae119d7e0b4da9cf806ca8d78a4fbc1c2f1af"
+    },
+    {
+      "path": "tools/local-linux/lz4-legacy.py",
+      "bytes": 762,
+      "sha256": "44da758ff02b67ebcd725da214bb15cd7a635b4da736db9b23867d58a98ba8f5"
+    },
+    {
+      "path": "tools/local-linux/newc.py",
+      "bytes": 1364,
+      "sha256": "af1966e6d190b935e57f8303c6476af50bbe09561a6ea805bd4b3e430884e38b"
+    },
+    {
+      "path": "tools/local-linux/rebuild.sh",
+      "bytes": 1313,
+      "sha256": "7d77efef589467e4820234464beb6a8d73eb2956503590055ba45e8c32fd4d71"
+    },
+    {
+      "path": "tools/local-linux/split-image.py",
+      "bytes": 527,
+      "sha256": "51812bac9b4209d4f18cae27a58db076989f2727ba2ee9c30a0526f9e951b938"
+    },
+    {
+      "path": "tools/local-linux/support.py",
+      "bytes": 3441,
+      "sha256": "8a6120989dc604070b209ee6d5359944be25b1763206b61752eec71d29b75a17"
     },
     {
       "path": "tools/project.py",
