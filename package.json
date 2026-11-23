@@ -6,7 +6,8 @@
     "test": "node tests/interface.cjs && node tests/cover.cjs && node tests/execution.cjs && node tests/browser-linux.cjs && node tests/part1.cjs && node tests/references.cjs && node tests/concepts.cjs && node tests/part2.cjs && node tests/multifile.cjs && node tests/completion.cjs && node tests/course.cjs && node tests/debugging.cjs && node tests/portability.cjs && node tests/smoke.cjs && node tests/workspace-ui.cjs && node tests/workspace.cjs && node tools/build_browser_programs.cjs --check && python3 tools/build_browser_linux.py --check && python3 tests/browser-linux-bundle.py",
     "build": "node tools/build.mjs",
     "serve": "npm run build && python3 -m http.server 8080 --directory .build/site",
-    "test:browser": "npm run build && node tests/shared-browser.cjs && node tests/update-browser.cjs"
+    "test:browser": "npm run build && node tests/shared-browser.cjs && node tests/update-browser.cjs",
+    "test:linux": "node tests/self-hosted-linux.cjs c"
   },
   "devDependencies": {
     "fake-indexeddb": "^6.2.7",

@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 449169,
-  "sha256": "066a5a266d83ea202b177c8364bc25b33dda537801923ef0fad8ff3a0752c53f",
+  "bytes": 456940,
+  "sha256": "8d12cbd86615cdc668037f0f3d8046f4eb4ed0ca711d4f027034fd9100eca48b",
   "files": [
     {
       "path": "LICENSE",
@@ -16,8 +16,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13422,
-      "sha256": "0d3288dcabfceaba271e5ae93e29dc75e62e2e4316c97e678cf5410e915ef3ab"
+      "bytes": 13493,
+      "sha256": "df9964b7018605ae00cf13b2cb6c185dec2dd3da27889330c9b5df98fd77da5f"
     },
     {
       "path": "dist/assets/tinydb-sample.tdb",
@@ -46,8 +46,8 @@
     },
     {
       "path": "docs/browser-linux.md",
-      "bytes": 6589,
-      "sha256": "67ade7943fb3d14dc51195b0a915370aa212b761274550d68f7b1dff588ba107"
+      "bytes": 6841,
+      "sha256": "fa918e1e85edf6903071cc6cd23ff2852b6dcd8cc2d4a50e1fe3172dfcacda25"
     },
     {
       "path": "docs/code-runner-design.md",
@@ -81,8 +81,18 @@
     },
     {
       "path": "docs/offline-update-design.md",
-      "bytes": 5791,
-      "sha256": "dafed719c8e5ad615f9bb3ce070a0d49701503bfc080e530eb8f4a60399283aa"
+      "bytes": 6612,
+      "sha256": "11f224ca53fd13cf118935174a40b15015b57f4e2e371f216d0ca6a9af41dc83"
+    },
+    {
+      "path": "docs/self-hosted-linux-validation.json",
+      "bytes": 1110,
+      "sha256": "4096c4d22382e9a4aa6bc0d1692475eb3f6cd484e2fad28d8321b51f5cd7e7eb"
+    },
+    {
+      "path": "docs/self-hosted-linux.md",
+      "bytes": 1051,
+      "sha256": "814740019fa475c44c966d94ad10b67bd2058834458f898f1ee3168dd1a8ccc2"
     },
     {
       "path": "native/chapters/allocation/README.md",
@@ -2233,6 +2243,36 @@
       "path": "tools/lab.py",
       "bytes": 5030,
       "sha256": "020e901050d2290c55ebc51c3035a02c4e340425ebc4734d3a0f5f8fb240ec69"
+    },
+    {
+      "path": "tools/local-linux/build.py",
+      "bytes": 11462,
+      "sha256": "82d436a67c614f88000bc58398e35059ea64e381c2fc522333641912e498e9bb"
+    },
+    {
+      "path": "tools/local-linux/lz4-legacy.py",
+      "bytes": 762,
+      "sha256": "44da758ff02b67ebcd725da214bb15cd7a635b4da736db9b23867d58a98ba8f5"
+    },
+    {
+      "path": "tools/local-linux/newc.py",
+      "bytes": 1364,
+      "sha256": "af1966e6d190b935e57f8303c6476af50bbe09561a6ea805bd4b3e430884e38b"
+    },
+    {
+      "path": "tools/local-linux/rebuild.sh",
+      "bytes": 1313,
+      "sha256": "7d77efef589467e4820234464beb6a8d73eb2956503590055ba45e8c32fd4d71"
+    },
+    {
+      "path": "tools/local-linux/split-image.py",
+      "bytes": 527,
+      "sha256": "51812bac9b4209d4f18cae27a58db076989f2727ba2ee9c30a0526f9e951b938"
+    },
+    {
+      "path": "tools/local-linux/support.py",
+      "bytes": 3441,
+      "sha256": "8a6120989dc604070b209ee6d5359944be25b1763206b61752eec71d29b75a17"
     },
     {
       "path": "tools/project.py",

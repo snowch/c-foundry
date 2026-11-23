@@ -17,7 +17,7 @@ concurrency:
 jobs:
   test-and-package:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -26,6 +26,11 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+      - uses: actions/cache@v4
+        with:
+          path: .cache/local-linux
+          key: c-linux-${{ runner.os }}-${{ hashFiles('tools/local-linux/**') }}
+          restore-keys: c-linux-${{ runner.os }}-
       - name: Install test dependencies
         run: npm ci
       - name: Test interface and WebAssembly compiler
@@ -34,6 +39,8 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Test shared controls, offline use and updates
         run: npm run test:browser
+      - name: Verify self-hosted Linux, edited source and work recovery
+        run: npm run test:linux
       - name: Save browser verification screenshots
         if: always()
         uses: actions/upload-artifact@v4

@@ -9,3 +9,7 @@ __pycache__/
 /people.db.tmp
 
 test-results/
+
+.cache/
+/dist/linux/runtime/
+/dist/linux/notices/
