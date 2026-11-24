@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 459691,
-  "sha256": "65589a635cf9f0574753decd8ba722b26bcbe4d7a13796faa22cd8f971429668",
+  "bytes": 459817,
+  "sha256": "e3235e9f52f71c20dea23cb28129904ba3b55a4a04dd07caf3a8bbb4ad3a54f1",
   "files": [
     {
       "path": "LICENSE",
@@ -76,8 +76,8 @@
     },
     {
       "path": "docs/course-style.md",
-      "bytes": 2405,
-      "sha256": "34d5e970be1e9f9d2684f3b2802b867d0f4753da9013697252c596752939fda3"
+      "bytes": 2848,
+      "sha256": "ba4af5b43ba6e7bd99d090b49748b29c4d9cb71998863332266493492292ec84"
     },
     {
       "path": "docs/lab-series.md",
