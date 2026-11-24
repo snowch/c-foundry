@@ -334,7 +334,7 @@ async function receiveBackground(event,outcome){
 }
 async function importBackground(event, outcome) {
   let job=await readDownload();
-  if (!job || job.id!==event.registration.id) return;
+  if (!job || job.id!==event.registration.id || (!job.wanted && job.state==='ready')) return;
   if (outcome==='abort'&&!job.foregroundOnly) await stopDownloadRequest(job.id);
   // A short page-cache operation may already own CacheStorage. Let it finish
   // before importing the browser's responses, including when no page is open.
@@ -343,7 +343,7 @@ async function importBackground(event, outcome) {
   try {
     await pruning;
     job=await readDownload();
-    if (!job || job.id!==event.registration.id) return;
+    if (!job || job.id!==event.registration.id || (!job.wanted && job.state==='ready')) return;
     const release=await manifest(job.release);
     if(!release)throw new Error('The download metadata is missing. Choose the download again.');
     await changeDownload(job.id,{state:'verifying'});

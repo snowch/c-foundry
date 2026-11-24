@@ -224,8 +224,30 @@ const fs = require("node:fs"),
     await (await older.match(origin + "index.html")).text(),
     "old complete course",
   );
+  let late;
+  handlers.backgroundfetchabort({
+    registration: native,
+    waitUntil(work) {
+      late = work;
+    },
+  });
+  await late;
+  assert.equal(
+    (await (await meta.match(origin + "__download_request_v1__")).json()).state,
+    "ready",
+    "A late native event must not downgrade a finished verified download",
+  );
+  const finalized = await (
+    await meta.match(origin + "__app_status_state__")
+  ).json();
+  assert.equal(finalized.active, a);
+  assert.equal(finalized.pending, b);
+  assert.equal(
+    await (await older.match(origin + "index.html")).text(),
+    "old complete course",
+  );
   console.log(
-    "PASS native abort handoff keeps consent, imports only verified responses, bounds unresolved records, resumes missing files, retains earlier complete course and stages a verified update",
+    "PASS native abort handoff keeps consent, imports only verified responses, bounds unresolved records, resumes missing files, retains earlier complete course and stages a verified update and ignores late native events",
   );
 })().catch((error) => {
   console.error(error);
