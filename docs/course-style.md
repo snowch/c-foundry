@@ -13,3 +13,5 @@ IBM Plex Sans and Mono and Material icons are bundled with their licences for of
 Verify the homepage and first, middle, final, multi-file and Linux lessons; all reading destinations; resources/completion; phones and desktop; themes; keyboard navigation; and saved work. Run the real compiler and workspace as well as the DOM checks. Functional verification does not establish learning effectiveness.
 
 The Foundry now uses the [focused lab-series hub](lab-series.md): numbered lab cards, scoped progress and stable lesson links.
+
+The header contains Code runner, App status and Theme. The lesson editor remains the primary interface. Command workspace and Browser Linux remain available through Independent workspaces in the Course lessons outline and through quiet footer links. Course map uses the existing course/lab overview routes, rather than a second header control. This changes navigation placement only; all existing URLs and saved workspace files remain valid.
