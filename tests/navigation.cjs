@@ -7,7 +7,11 @@ const { chromium, expect } = require("playwright/test"),
   const { server, url } = await start({ root: process.env.NAV_SITE || "dist" }),
     browser = await chromium.launch({
       headless: true,
-      executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
+      executablePath:
+        process.env.CHROMIUM_PATH ||
+        (fs.existsSync("/usr/bin/chromium")
+          ? "/usr/bin/chromium"
+          : chromium.executablePath()),
     });
   const context = await browser.newContext({
       viewport: { width: 390, height: 1000 },
