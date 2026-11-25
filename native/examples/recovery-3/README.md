@@ -145,8 +145,13 @@ The earlier committed 95. Rollback never publishes its private working table.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) (online) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
+- Course notes: transactions (included in the explanation above) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- Course notes: atomic commit (included in the explanation above) — Read the failure assumptions and ordering required for a durable commit protocol.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html)
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html)
 
 Native source: `native/examples/recovery-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

@@ -76,8 +76,13 @@ operations.h. The public header describes the interface; the implementation is a
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html) (online) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
-- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) (online) — Separate an object’s lifetime from which declarations name it.
+- Course notes: compilation stages (included in the explanation above) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
+- Course notes: storage duration and linkage (included in the explanation above) — Separate an object’s lifetime from which declarations name it.
+
+**Optional further reading (internet required):**
+
+- [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html)
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html)
 
 Native source: `native/examples/larger-programs-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

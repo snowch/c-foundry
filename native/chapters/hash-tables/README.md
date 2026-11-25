@@ -108,7 +108,11 @@ Yes. A finite bucket set generally has fewer positions than possible keys.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) (online) — Check collisions and the assumptions behind expected lookup cost.
+- Course notes: hash tables (included in the explanation above) — Check collisions and the assumptions behind expected lookup cost.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html)
 
 Native source: `native/examples/hash-tables-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -227,7 +231,11 @@ A colliding key may be farther along the probe chain. An occupied slot is eviden
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) (online) — Check collisions and the assumptions behind expected lookup cost.
+- Course notes: hash tables (included in the explanation above) — Check collisions and the assumptions behind expected lookup cost.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html)
 
 Native source: `native/examples/hash-tables-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -299,7 +307,11 @@ No, reinsert live entries under the new capacity. The bucket calculation depends
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) (online) — Check collisions and the assumptions behind expected lookup cost.
+- Course notes: hash tables (included in the explanation above) — Check collisions and the assumptions behind expected lookup cost.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html)
 
 Native source: `native/examples/hash-tables-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -417,7 +429,11 @@ No. A collision chain may continue beyond a deleted entry.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) (online) — Check collisions and the assumptions behind expected lookup cost.
+- Course notes: hash tables (included in the explanation above) — Check collisions and the assumptions behind expected lookup cost.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html)
 
 Native source: `native/examples/hash-tables-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -534,7 +550,11 @@ An absent colliding key examines three live entries and then an empty slot. The 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) (online) — Check collisions and the assumptions behind expected lookup cost.
+- Course notes: hash tables (included in the explanation above) — Check collisions and the assumptions behind expected lookup cost.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html)
 
 **Use the documentation (optional):** Is constant-time hash lookup an unconditional worst-case guarantee?
 
@@ -687,7 +707,11 @@ While their immutable storage outlives the table. A valid address today does not
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html) (online) — Check collisions and the assumptions behind expected lookup cost.
+- Course notes: hash tables (included in the explanation above) — Check collisions and the assumptions behind expected lookup cost.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: hash tables](https://xlinux.nist.gov/dads/HTML/hashtab.html)
 
 Native source: `native/examples/hash-tables-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

@@ -72,9 +72,11 @@ No. The bytes have indeterminate contents until you establish values in them.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
-- [C reference: malloc](https://en.cppreference.com/w/c/memory/malloc.html) (online) — Check allocation failure and which values in newly allocated storage are initialized.
-- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) (online) — Check valid pointer arguments and access after deallocation.
+- [Read malloc(3)](../../manuals/malloc.3.txt) (included) — malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory
+
+**Optional further reading (internet required):**
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
 
 Native source: `native/examples/allocation-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -146,9 +148,11 @@ The caller. Failure preserves the original allocation and its contents.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: realloc](https://en.cppreference.com/w/c/memory/realloc.html) (online) — Check what happens to the original allocation on success and failure.
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
-- [C reference: malloc](https://en.cppreference.com/w/c/memory/malloc.html) (online) — Check allocation failure and which values in newly allocated storage are initialized.
+- [Read realloc(3)](../../manuals/realloc.3.txt) (included) — Check what happens to the original allocation on success and failure.
+
+**Optional further reading (internet required):**
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
 
 **Use the documentation (optional):** If realloc fails for a nonzero requested size, what happens to the original allocation?
 
@@ -231,8 +235,13 @@ No. A wrapped multiplication has already lost the size you intended to request.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- [Read malloc(3)](../../manuals/malloc.3.txt) (included) — malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Optional further reading (internet required):**
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
 
 Native source: `native/examples/allocation-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -309,9 +318,13 @@ No. It copies an address. Both pointers would reach the same allocation.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
-- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) (online) — Check valid pointer arguments and access after deallocation.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- [Read malloc(3)](../../manuals/malloc.3.txt) (included) — malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Optional further reading (internet required):**
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
 
 Native source: `native/examples/allocation-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -408,9 +421,13 @@ The first append creates storage and writes a valid string. The second reuses ca
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
-- [C reference: realloc](https://en.cppreference.com/w/c/memory/realloc.html) (online) — Check what happens to the original allocation on success and failure.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- [Read malloc(3)](../../manuals/malloc.3.txt) (included) — malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Optional further reading (internet required):**
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
 
 Native source: `native/examples/allocation-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

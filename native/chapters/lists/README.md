@@ -94,8 +94,13 @@ No. Capacity reserves storage; length defines which elements belong to the seque
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
+- [Read malloc(3)](../../manuals/malloc.3.txt) (included) — malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory
+- Course notes: Big O (included in the explanation above) — Read an asymptotic bound as a growth claim, not an exact operation count.
+
+**Optional further reading (internet required):**
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html)
 
 Native source: `native/examples/lists-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -179,8 +184,13 @@ b.previous. Both neighboring relationships must agree.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) (online) — Compare representation, traversal, and insertion costs.
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+- Course notes: linked lists (included in the explanation above) — Compare representation, traversal, and insertion costs.
+- [Read malloc(3)](../../manuals/malloc.3.txt) (included) — malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html)
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
 
 Native source: `native/examples/lists-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -292,8 +302,13 @@ The incoming link. No access to the node is valid after free.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) (online) — Compare representation, traversal, and insertion costs.
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+- Course notes: linked lists (included in the explanation above) — Compare representation, traversal, and insertion costs.
+- [Read malloc(3)](../../manuals/malloc.3.txt) (included) — malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html)
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
 
 **Use the documentation (optional):** Why is deleting the node after a known node different from locating a node by value in a singly linked list?
 
@@ -397,8 +412,13 @@ It does not contain an address into the old allocation. The guarantee is specifi
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
-- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) (online) — Check pointer declarations, null pointers, and valid pointer operations.
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+- Course notes: pointers (included in the explanation above) — Check pointer declarations, null pointers, and valid pointer operations.
+
+**Optional further reading (internet required):**
+
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html)
 
 Native source: `native/examples/lists-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -480,8 +500,13 @@ Access by arbitrary index. A list must follow links to find an index.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) (online) — Compare representation, traversal, and insertion costs.
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+- Course notes: linked lists (included in the explanation above) — Compare representation, traversal, and insertion costs.
+- [Read malloc(3)](../../manuals/malloc.3.txt) (included) — malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html)
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
 
 Native source: `native/examples/lists-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

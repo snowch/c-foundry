@@ -58,8 +58,12 @@ No. Assertions can disappear; external input still needs a runtime error-handlin
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
-- [C reference: assert](https://en.cppreference.com/w/c/error/assert.html) (online) — Check what the diagnostic macro does and how NDEBUG changes its behavior.
+- Course notes: behavior categories (included in the explanation above) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [Read assert(3)](../../manuals/assert.3.txt) (included) — Check what the diagnostic macro does and how NDEBUG changes its behavior.
+
+**Optional further reading (internet required):**
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html)
 
 Native source: `native/examples/files-bytes-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

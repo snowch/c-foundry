@@ -69,8 +69,13 @@ The initializer determines a five-element array. sizeof reports sizes in bytes a
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) (online) — Check array bounds, element types, and array-to-pointer conversion.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- Course notes: arrays (included in the explanation above) — Check array bounds, element types, and array-to-pointer conversion.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html)
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 Native source: `native/examples/arrays-strings-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -134,8 +139,13 @@ strlen returns 3 because the terminator is not part of the text. sizeof reports 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) (online) — Check array bounds, element types, and array-to-pointer conversion.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- Course notes: arrays (included in the explanation above) — Check array bounds, element types, and array-to-pointer conversion.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html)
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 Native source: `native/examples/arrays-strings-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -204,9 +214,14 @@ Yes. The capacity bounds each read. A long logical line can need more than one r
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: fgets](https://en.cppreference.com/w/c/io/fgets.html) (online) — Check the buffer-size argument, newline retention, terminator, and failure result.
-- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) (online) — Check array bounds, element types, and array-to-pointer conversion.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- [Read fgets(3)](../../manuals/fgets.3.txt) (included) — Check the buffer-size argument, newline retention, terminator, and failure result.
+- Course notes: arrays (included in the explanation above) — Check array bounds, element types, and array-to-pointer conversion.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html)
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 **Use the documentation (optional):** If fgets has room for eight characters including its terminator, how many input characters can it store, and does it retain a newline?
 
@@ -298,9 +313,13 @@ They have equal contents. strcmp compares the characters, not whether both expre
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) (online) — Check array bounds, element types, and array-to-pointer conversion.
-- [C reference: strtol family](https://en.cppreference.com/w/c/string/byte/strtol.html) (online) — Check endptr, accepted syntax, range errors, and full-input validation.
-- [C reference: strcmp](https://en.cppreference.com/w/c/string/byte/strcmp.html) (online) — Check the meaning of negative, zero, and positive results.
+- Course notes: arrays (included in the explanation above) — Check array bounds, element types, and array-to-pointer conversion.
+- [Read strtol(3)](../../manuals/strtol.3.txt) (included) — Check endptr, accepted syntax, range errors, and full-input validation.
+- [Read strcmp(3)](../../manuals/strcmp.3.txt) (included) — Check the meaning of negative, zero, and positive results.
+
+**Optional further reading (internet required):**
+
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html)
 
 Native source: `native/examples/arrays-strings-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -380,8 +399,13 @@ Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html) (online) — Check array bounds, element types, and array-to-pointer conversion.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- Course notes: arrays (included in the explanation above) — Check array bounds, element types, and array-to-pointer conversion.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [C reference: arrays](https://en.cppreference.com/w/c/language/array.html)
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 Native source: `native/examples/arrays-strings-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

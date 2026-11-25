@@ -60,8 +60,13 @@ Dataset construction and result formatting. Preparation and reporting answer dif
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- Course notes: Big O (included in the explanation above) — Read an asymptotic bound as a growth claim, not an exact operation count.
+- Course notes: query planning (included in the explanation above) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html)
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html)
 
 Native source: `native/examples/ship-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

@@ -100,7 +100,11 @@ a[0..i). The next value at i has not yet been inserted.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) (online) — Compare ordering, stability, and algorithm families with the course models.
+- Course notes: sorting (included in the explanation above) — Compare ordering, stability, and algorithm families with the course models.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html)
 
 Native source: `native/examples/sorting-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -219,7 +223,11 @@ O(n). The merge buffer has one slot per input element.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) (online) — Compare ordering, stability, and algorithm families with the course models.
+- Course notes: sorting (included in the explanation above) — Compare ordering, stability, and algorithm families with the course models.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html)
 
 Native source: `native/examples/sorting-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -340,7 +348,11 @@ No. Sorted input repeatedly selects an extreme pivot in this version.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) (online) — Compare ordering, stability, and algorithm families with the course models.
+- Course notes: sorting (included in the explanation above) — Compare ordering, stability, and algorithm families with the course models.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html)
 
 Native source: `native/examples/sorting-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -422,7 +434,11 @@ The original order among equal keys. Different keys must move; equal-key relativ
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) (online) — Compare ordering, stability, and algorithm families with the course models.
+- Course notes: sorting (included in the explanation above) — Compare ordering, stability, and algorithm families with the course models.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html)
 
 Native source: `native/examples/sorting-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -521,8 +537,12 @@ Signed subtraction can overflow. Only the sign is needed, and relational compari
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: qsort](https://en.cppreference.com/w/c/algorithm/qsort.html) (online) — Check comparator results, element widths, and the absence of a stability guarantee.
-- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) (online) — Compare ordering, stability, and algorithm families with the course models.
+- [Read qsort(3)](../../manuals/qsort.3.txt) (included) — Check comparator results, element widths, and the absence of a stability guarantee.
+- Course notes: sorting (included in the explanation above) — Compare ordering, stability, and algorithm families with the course models.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html)
 
 **Use the documentation (optional):** What signs must a qsort comparator return, and does qsort promise stable ordering of equal elements?
 
@@ -627,7 +647,11 @@ Rightward shifts of existing elements. The counter changes only inside the shift
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html) (online) — Compare ordering, stability, and algorithm families with the course models.
+- Course notes: sorting (included in the explanation above) — Compare ordering, stability, and algorithm families with the course models.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: sorting](https://xlinux.nist.gov/dads/HTML/sort.html)
 
 Native source: `native/examples/sorting-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

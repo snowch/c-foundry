@@ -84,8 +84,13 @@ operations.h. The public header describes the interface; the implementation is a
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html) (online) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
-- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) (online) — Separate an object’s lifetime from which declarations name it.
+- Course notes: compilation stages (included in the explanation above) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
+- Course notes: storage duration and linkage (included in the explanation above) — Separate an object’s lifetime from which declarations name it.
+
+**Optional further reading (internet required):**
+
+- [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html)
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html)
 
 Native source: `native/examples/larger-programs-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -175,8 +180,13 @@ Exactly one. The extern declaration can be repeated; the object needs one progra
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) (online) — Find inclusion, conditional compilation, and macro replacement rules.
-- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) (online) — Separate an object’s lifetime from which declarations name it.
+- Course notes: preprocessing (included in the explanation above) — Find inclusion, conditional compilation, and macro replacement rules.
+- Course notes: storage duration and linkage (included in the explanation above) — Separate an object’s lifetime from which declarations name it.
+
+**Optional further reading (internet required):**
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html)
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html)
 
 Native source: `native/examples/larger-programs-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -246,8 +256,13 @@ No. It prevents repetition within one translation unit; separate translation uni
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) (online) — Find inclusion, conditional compilation, and macro replacement rules.
-- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) (online) — Separate an object’s lifetime from which declarations name it.
+- Course notes: preprocessing (included in the explanation above) — Find inclusion, conditional compilation, and macro replacement rules.
+- Course notes: storage duration and linkage (included in the explanation above) — Separate an object’s lifetime from which declarations name it.
+
+**Optional further reading (internet required):**
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html)
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html)
 
 **Use the documentation (optional):** Does an include guard stop duplicate external function definitions in different source files?
 
@@ -321,8 +336,13 @@ It can overflow. A comparator should handle every supported int pair without und
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) (online) — Read declarations, parameter types, and the rules for calling functions.
-- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) (online) — Check pointer declarations, null pointers, and valid pointer operations.
+- Course notes: functions (included in the explanation above) — Read declarations, parameter types, and the rules for calling functions.
+- Course notes: pointers (included in the explanation above) — Check pointer declarations, null pointers, and valid pointer operations.
+
+**Optional further reading (internet required):**
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html)
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html)
 
 Native source: `native/examples/larger-programs-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -403,8 +423,13 @@ Only after OK. The status determines whether the returned owner was established.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) (online) — Read declarations, parameter types, and the rules for calling functions.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- Course notes: functions (included in the explanation above) — Read declarations, parameter types, and the rules for calling functions.
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Optional further reading (internet required):**
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html)
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
 
 Native source: `native/examples/larger-programs-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

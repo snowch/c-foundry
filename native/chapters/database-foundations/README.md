@@ -120,8 +120,13 @@ The table insertion operation. The type limits numeric representation, not relat
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 **Use the documentation (optional):** Does SQLite’s full SQL reference imply that the course’s TinyDB parser accepts every documented clause?
 
@@ -250,8 +255,13 @@ The logical row ID. Identity belongs to the schema contract rather than the curr
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 Native source: `native/examples/database-foundations-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -364,8 +374,13 @@ It remains unchanged. The initial insertion contract rejects duplicate IDs.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 Native source: `native/examples/database-foundations-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -502,9 +517,13 @@ To prevent its tail being treated as a new command. Input framing must remain al
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [C reference: fgets](https://en.cppreference.com/w/c/io/fgets.html) (online) — Check the buffer-size argument, newline retention, terminator, and failure result.
-- [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) (online) — Distinguish a stream error from ordinary end-of-file.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [Read fgets(3)](../../manuals/fgets.3.txt) (included) — Check the buffer-size argument, newline retention, terminator, and failure result.
+- [Read ferror(3)](../../manuals/ferror.3.txt) (included) — Distinguish a stream error from ordinary end-of-file.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
 
 Native source: `native/examples/database-foundations-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -619,8 +638,13 @@ No, unless the public behavior is intentionally revised. Contracts allow impleme
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 Native source: `native/examples/database-foundations-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

@@ -79,8 +79,12 @@ isfinite(value). Self-equality excludes quiet NaN but still permits infinities; 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) (online) — Find finite/NaN classification and library error-handling contracts.
-- [C reference: strtof, strtod, strtold](https://en.cppreference.com/w/c/string/byte/strtof.html) (online) — Check endptr, range errors, and acceptance of infinity/NaN before enforcing a finite-input policy.
+- [Read sqrt(3)](../../manuals/sqrt.3.txt) (included) — sqrt, sqrtf, sqrtl - square root function
+- [Read strtod(3)](../../manuals/strtod.3.txt) (included) — Check endptr, range errors, and acceptance of infinity/NaN before enforcing a finite-input policy.
+
+**Optional further reading (internet required):**
+
+- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html)
 
 Native source: `native/examples/c-guarantees-9/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

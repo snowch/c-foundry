@@ -64,9 +64,14 @@ flags &= ~mask. The AND limits the change to bits selected by the inverted mask.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) (online) — Read conversion specifiers, required argument types, and the return value.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- [Read printf(3)](../../manuals/printf.3.txt) (included) — Read conversion specifiers, required argument types, and the return value.
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 Native source: `native/examples/files-bytes-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

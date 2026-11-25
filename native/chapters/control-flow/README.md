@@ -66,8 +66,13 @@ pass. The >= comparison includes equality. Boundary values belong in your tests.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html) (online) — Distinguish sequencing rules from operator precedence.
-- [C reference: if](https://en.cppreference.com/w/c/language/if.html) (online) — Read how the controlling expression selects a branch.
+- Course notes: evaluation order (included in the explanation above) — Distinguish sequencing rules from operator precedence.
+- Course notes: if (included in the explanation above) — Read how the controlling expression selects a branch.
+
+**Optional further reading (internet required):**
+
+- [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html)
+- [C reference: if](https://en.cppreference.com/w/c/language/if.html)
 
 Native source: `native/examples/control-flow-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -135,8 +140,13 @@ No. The false left operand of && skips its right operand.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html) (online) — Distinguish sequencing rules from operator precedence.
-- [C reference: if](https://en.cppreference.com/w/c/language/if.html) (online) — Read how the controlling expression selects a branch.
+- Course notes: evaluation order (included in the explanation above) — Distinguish sequencing rules from operator precedence.
+- Course notes: if (included in the explanation above) — Read how the controlling expression selects a branch.
+
+**Optional further reading (internet required):**
+
+- [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html)
+- [C reference: if](https://en.cppreference.com/w/c/language/if.html)
 
 **Use the documentation (optional):** Does && evaluate its right operand when the left operand is zero? How does that help guard a division?
 
@@ -209,7 +219,11 @@ The for body sees i equal to 0, 1, and 2. After the update makes it 3, the condi
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: statements](https://en.cppreference.com/w/c/language/statements.html) (online) — Compare selection, iteration, and jump statements and the control flow each permits.
+- Course notes: statements (included in the explanation above) — Compare selection, iteration, and jump statements and the control flow each permits.
+
+**Optional further reading (internet required):**
+
+- [C reference: statements](https://en.cppreference.com/w/c/language/statements.html)
 
 Native source: `native/examples/control-flow-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -279,7 +293,11 @@ Printed output: 0, 1, 3, 4. continue proceeds to the for-loop update and conditi
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: statements](https://en.cppreference.com/w/c/language/statements.html) (online) — Compare selection, iteration, and jump statements and the control flow each permits.
+- Course notes: statements (included in the explanation above) — Compare selection, iteration, and jump statements and the control flow each permits.
+
+**Optional further reading (internet required):**
+
+- [C reference: statements](https://en.cppreference.com/w/c/language/statements.html)
 
 Native source: `native/examples/control-flow-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -345,8 +363,13 @@ No. No assignment was made by that failed conversion. Handle the failure before 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html) (online) — Distinguish sequencing rules from operator precedence.
-- [C reference: if](https://en.cppreference.com/w/c/language/if.html) (online) — Read how the controlling expression selects a branch.
+- Course notes: evaluation order (included in the explanation above) — Distinguish sequencing rules from operator precedence.
+- Course notes: if (included in the explanation above) — Read how the controlling expression selects a branch.
+
+**Optional further reading (internet required):**
+
+- [C reference: evaluation order](https://en.cppreference.com/w/c/language/eval_order.html)
+- [C reference: if](https://en.cppreference.com/w/c/language/if.html)
 
 Native source: `native/examples/control-flow-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

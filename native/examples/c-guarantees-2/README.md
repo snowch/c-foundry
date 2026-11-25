@@ -58,9 +58,13 @@ Alignment and object-type requirements may not be satisfied. memcpy transfers re
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
-- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) (online) — Check valid pointer arguments and access after deallocation.
-- [C reference: memcpy](https://en.cppreference.com/w/c/string/byte/memcpy.html) (online) — Check byte counts, valid object ranges, and the non-overlap requirement.
+- Course notes: behavior categories (included in the explanation above) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [Read free(3)](../../manuals/free.3.txt) (included) — Check valid pointer arguments and access after deallocation.
+- [Read memcpy(3)](../../manuals/memcpy.3.txt) (included) — Check byte counts, valid object ranges, and the non-overlap requirement.
+
+**Optional further reading (internet required):**
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html)
 
 Native source: `native/examples/c-guarantees-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

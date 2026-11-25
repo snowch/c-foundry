@@ -61,9 +61,13 @@ No. Buffering and persistence are different stages; even flush is not a universa
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: fread](https://en.cppreference.com/w/c/io/fread.html) (online) — Check the difference between bytes and complete elements, and detect short reads.
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) (online) — Distinguish a stream error from ordinary end-of-file.
+- [Read fread(3)](../../manuals/fread.3.txt) (included) — Check the difference between bytes and complete elements, and detect short reads.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- [Read ferror(3)](../../manuals/ferror.3.txt) (included) — Distinguish a stream error from ordinary end-of-file.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
 
 **Use the documentation (optional):** How can fread return fewer complete elements than requested, and how do you distinguish EOF from an I/O error?
 

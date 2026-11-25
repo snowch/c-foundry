@@ -127,7 +127,11 @@ length ≤ page_size - offset after validating offset. Subtraction is safe only 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 Native source: `native/examples/pages-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -243,7 +247,11 @@ Its size cannot be inferred from a fixed row width. The reader needs an explicit
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 Native source: `native/examples/pages-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -370,7 +378,11 @@ A slot identity under a documented reuse policy. Relocation can change offsets e
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 **Use the documentation (optional):** Which information must a reader have before it can safely interpret a page’s record offsets?
 
@@ -506,8 +518,12 @@ Not necessarily; compaction may be required. The byte placement of remaining liv
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) (online) — Check valid pointer arguments and access after deallocation.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [Read free(3)](../../manuals/free.3.txt) (included) — Check valid pointer arguments and access after deallocation.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 Native source: `native/examples/pages-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -612,7 +628,11 @@ No. Doing so loses the only modified page contents.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 Native source: `native/examples/pages-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -731,7 +751,11 @@ Yes. Displaying bytes still requires safe, bounded reads.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
 
 Native source: `native/examples/pages-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

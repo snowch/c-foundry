@@ -161,8 +161,13 @@ No. Lexing identifies categories and values; execution is a later stage.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 Native source: `native/examples/parsing-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -320,8 +325,13 @@ No, it represents one quote character. The lexer’s string state handles double
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 Native source: `native/examples/parsing-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -577,8 +587,13 @@ End of input. A single-statement parser must consume the entire statement.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 **Use the documentation (optional):** Which SQL clauses on the reference page are deliberately absent from the lesson’s grammar?
 
@@ -842,8 +857,13 @@ The lexer’s token buffer is reused. The statement needs stable data after subs
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 Native source: `native/examples/parsing-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -1092,8 +1112,13 @@ Schema validation. Zero is a valid numeric token but an invalid key under this s
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 Native source: `native/examples/parsing-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

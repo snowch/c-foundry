@@ -74,8 +74,13 @@ Before multiplying. An overflowed size may request a small allocation and later 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find the macros that describe the selected implementation’s ranges.
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- Course notes: numeric limits (included in the explanation above) — Find the macros that describe the selected implementation’s ranges.
+- Course notes: behavior categories (included in the explanation above) — Distinguish undefined, unspecified, and implementation-defined behavior.
+
+**Optional further reading (internet required):**
+
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html)
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html)
 
 Native source: `native/examples/hardening-tinydb-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -271,8 +276,13 @@ The previous state remains. The loader commits its temporary state only after fu
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 Native source: `native/examples/hardening-tinydb-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -454,8 +464,13 @@ No. Undiagnosed undefined behavior remains possible.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) (online) — Look up a diagnostic option and the conditions it reports.
-- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) (online) — Read what each sanitizer observes and which runtime/toolchain it needs.
+- Course notes: warning options (included in the explanation above) — Look up a diagnostic option and the conditions it reports.
+- Course notes: instrumentation (included in the explanation above) — Read what each sanitizer observes and which runtime/toolchain it needs.
+
+**Optional further reading (internet required):**
+
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
 
 Native source: `native/examples/hardening-tinydb-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -636,8 +651,13 @@ No selected violation was detected on exercised paths. The scope is the actual i
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) (online) — Read what each sanitizer observes and which runtime/toolchain it needs.
-- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) (online) — Look up a diagnostic option and the conditions it reports.
+- Course notes: instrumentation (included in the explanation above) — Read what each sanitizer observes and which runtime/toolchain it needs.
+- Course notes: warning options (included in the explanation above) — Look up a diagnostic option and the conditions it reports.
+
+**Optional further reading (internet required):**
+
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
 
 **Use the documentation (optional):** Does a sanitizer report establish that every possible memory bug has been found?
 
@@ -867,9 +887,15 @@ Every tested host validates and copies files from all producers against an indep
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) (online) — Look up a diagnostic option and the conditions it reports.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- Course notes: warning options (included in the explanation above) — Look up a diagnostic option and the conditions it reports.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
 
 Native source: `native/examples/hardening-tinydb-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

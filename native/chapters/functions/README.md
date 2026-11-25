@@ -59,8 +59,13 @@ The argument 21 initializes the parameter value. The body computes 42 and return
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) (online) — Read declarations, parameter types, and the rules for calling functions.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- Course notes: functions (included in the explanation above) — Read declarations, parameter types, and the rules for calling functions.
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Optional further reading (internet required):**
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html)
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
 
 **Use the documentation (optional):** Does a function’s return type tell you every error condition or ownership rule?
 
@@ -137,8 +142,13 @@ No. The increment changes the parameter copy. Only the returned result is given 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) (online) — Read declarations, parameter types, and the rules for calling functions.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- Course notes: functions (included in the explanation above) — Read declarations, parameter types, and the rules for calling functions.
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Optional further reading (internet required):**
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html)
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
 
 Native source: `native/examples/functions-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -209,8 +219,13 @@ The static object count is initialized once and survives the first return. The s
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) (online) — Separate an object’s lifetime from which declarations name it.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- Course notes: storage duration and linkage (included in the explanation above) — Separate an object’s lifetime from which declarations name it.
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Optional further reading (internet required):**
+
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html)
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
 
 Native source: `native/examples/functions-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -274,8 +289,13 @@ Formatting the final output. Keeping I/O at the boundary leaves the computation 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) (online) — Read declarations, parameter types, and the rules for calling functions.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- Course notes: functions (included in the explanation above) — Read declarations, parameter types, and the rules for calling functions.
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Optional further reading (internet required):**
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html)
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
 
 Native source: `native/examples/functions-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -338,8 +358,13 @@ Assertions can be removed by NDEBUG. Removing assertions must not remove behavio
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) (online) — Read declarations, parameter types, and the rules for calling functions.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- Course notes: functions (included in the explanation above) — Read declarations, parameter types, and the rules for calling functions.
+- Course notes: object lifetime (included in the explanation above) — Check when an object exists and when access through a pointer becomes invalid.
+
+**Optional further reading (internet required):**
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html)
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html)
 
 Native source: `native/examples/functions-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

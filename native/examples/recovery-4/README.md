@@ -125,9 +125,14 @@ After its required log synchronization succeeds. Recovery must be able to find a
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
-- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) (online) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
-- [Linux/POSIX manual: fsync(2)](https://man7.org/linux/man-pages/man2/fsync.2.html) (online) — Compare an OS synchronization request with C stream flushing; read filesystem-specific limitations.
+- Course notes: atomic commit (included in the explanation above) — Read the failure assumptions and ordering required for a durable commit protocol.
+- Course notes: write-ahead logging (included in the explanation above) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+- [Read fsync(2)](../../manuals/fsync.2.txt) (included) — Compare an OS synchronization request with C stream flushing; read filesystem-specific limitations.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html)
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html)
 
 **Use the documentation (optional):** Does a successful fflush alone establish that a committed record survives power loss?
 

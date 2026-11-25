@@ -69,9 +69,13 @@ No. Buffering and persistence are different stages; even flush is not a universa
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: fread](https://en.cppreference.com/w/c/io/fread.html) (online) — Check the difference between bytes and complete elements, and detect short reads.
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) (online) — Distinguish a stream error from ordinary end-of-file.
+- [Read fread(3)](../../manuals/fread.3.txt) (included) — Check the difference between bytes and complete elements, and detect short reads.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- [Read ferror(3)](../../manuals/ferror.3.txt) (included) — Distinguish a stream error from ordinary end-of-file.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
 
 **Use the documentation (optional):** How can fread return fewer complete elements than requested, and how do you distinguish EOF from an I/O error?
 
@@ -151,9 +155,14 @@ flags &= ~mask. The AND limits the change to bits selected by the inverted mask.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) (online) — Read conversion specifiers, required argument types, and the return value.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- [Read printf(3)](../../manuals/printf.3.txt) (included) — Read conversion specifiers, required argument types, and the return value.
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 Native source: `native/examples/files-bytes-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -228,8 +237,13 @@ The explicit extraction and reconstruction rules. The representation is specifie
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 Native source: `native/examples/files-bytes-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -295,8 +309,12 @@ No. Assertions can disappear; external input still needs a runtime error-handlin
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
-- [C reference: assert](https://en.cppreference.com/w/c/error/assert.html) (online) — Check what the diagnostic macro does and how NDEBUG changes its behavior.
+- Course notes: behavior categories (included in the explanation above) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [Read assert(3)](../../manuals/assert.3.txt) (included) — Check what the diagnostic macro does and how NDEBUG changes its behavior.
+
+**Optional further reading (internet required):**
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html)
 
 Native source: `native/examples/files-bytes-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -364,9 +382,15 @@ No. It checks the executed behavior for the classes of problems that sanitizer c
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) (online) — Read what each sanitizer observes and which runtime/toolchain it needs.
-- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) (online) — Look up a diagnostic option and the conditions it reports.
-- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) (online) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+- Course notes: instrumentation (included in the explanation above) — Read what each sanitizer observes and which runtime/toolchain it needs.
+- Course notes: warning options (included in the explanation above) — Look up a diagnostic option and the conditions it reports.
+- Course notes: WebAssembly concepts (included in the explanation above) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+
+**Optional further reading (internet required):**
+
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts)
 
 Native source: `native/examples/files-bytes-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -463,8 +487,13 @@ Encoder and decoder could share the same mistake. A fixed independently defined 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 Native source: `native/examples/files-bytes-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -614,7 +643,11 @@ Fix the source, rebuild, and add a regression test. The debugger changed one liv
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) (online) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
+- Course notes: debugging a program (included in the explanation above) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
+
+**Optional further reading (internet required):**
+
+- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/)
 
 Native source: `native/examples/files-bytes-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

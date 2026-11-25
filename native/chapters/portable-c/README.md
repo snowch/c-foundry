@@ -71,9 +71,13 @@ Reading Linux /proc to discover process state. The parser can operate on supplie
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: fopen](https://en.cppreference.com/w/c/io/fopen.html) (online) — Read text/binary modes, creation behavior, and the failure result.
-- [C reference: fread](https://en.cppreference.com/w/c/io/fread.html) (online) — Check the difference between bytes and complete elements, and detect short reads.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- [Read fopen(3)](../../manuals/fopen.3.txt) (included) — Read text/binary modes, creation behavior, and the failure result.
+- [Read fread(3)](../../manuals/fread.3.txt) (included) — Check the difference between bytes and complete elements, and detect short reads.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
 
 Native source: `native/examples/portable-c-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -160,8 +164,13 @@ No. Layout, padding, byte order, and other representation choices remain.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 Native source: `native/examples/portable-c-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -234,8 +243,13 @@ Report that the required service is unavailable. A fallback may preserve a contr
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) (online) — Find inclusion, conditional compilation, and macro replacement rules.
-- [C reference: language history](https://en.cppreference.com/w/c/language/history.html) (online) — Separate C17 facilities from later additions and compiler extensions.
+- Course notes: preprocessing (included in the explanation above) — Find inclusion, conditional compilation, and macro replacement rules.
+- Course notes: language history (included in the explanation above) — Separate C17 facilities from later additions and compiler extensions.
+
+**Optional further reading (internet required):**
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html)
+- [C reference: language history](https://en.cppreference.com/w/c/language/history.html)
 
 Native source: `native/examples/portable-c-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -342,8 +356,13 @@ The platform adapter with a documented replacement contract. Replacement semanti
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) (online) — Read declarations, parameter types, and the rules for calling functions.
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- Course notes: functions (included in the explanation above) — Read declarations, parameter types, and the rules for calling functions.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+
+**Optional further reading (internet required):**
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html)
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
 
 Native source: `native/examples/portable-c-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -420,8 +439,13 @@ Binary mode, such as rb and wb. Binary mode avoids text-stream translations; the
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 Native source: `native/examples/portable-c-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -487,9 +511,14 @@ No, filesystem case and identity rules are a separate contract. Names can compar
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: strcmp](https://en.cppreference.com/w/c/string/byte/strcmp.html) (online) — Check the meaning of negative, zero, and positive results.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- [Read strcmp(3)](../../manuals/strcmp.3.txt) (included) — Check the meaning of negative, zero, and positive results.
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 Native source: `native/examples/portable-c-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -560,8 +589,12 @@ It makes any byte a valid classification argument. The cast satisfies the ctype 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: locales](https://en.cppreference.com/w/c/locale.html) (online) — Check which operations depend on the active locale.
-- [C reference: isspace](https://en.cppreference.com/w/c/string/byte/isspace.html) (online) — Check which argument values are valid and how locale affects classification.
+- [Read setlocale(3)](../../manuals/setlocale.3.txt) (included) — setlocale - set the current locale
+- [Read isspace(3)](../../manuals/isspace.3.txt) (included) — Check which argument values are valid and how locale affects classification.
+
+**Optional further reading (internet required):**
+
+- [C reference: locales](https://en.cppreference.com/w/c/locale.html)
 
 Native source: `native/examples/portable-c-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -638,8 +671,12 @@ The conversion type may have a wider range than the destination. Conversion succ
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: strtol family](https://en.cppreference.com/w/c/string/byte/strtol.html) (online) — Check endptr, accepted syntax, range errors, and full-input validation.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- [Read strtol(3)](../../manuals/strtol.3.txt) (included) — Check endptr, accepted syntax, range errors, and full-input validation.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 Native source: `native/examples/portable-c-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -704,9 +741,14 @@ Save and restore it with fgetpos/fsetpos. The position representation can carry 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: ferror](https://en.cppreference.com/w/c/io/ferror.html) (online) — Distinguish a stream error from ordinary end-of-file.
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- [Read ferror(3)](../../manuals/ferror.3.txt) (included) — Distinguish a stream error from ordinary end-of-file.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 **Use the documentation (optional):** When a stream read returns EOF, how do you tell ordinary end-of-file from an I/O error?
 

@@ -58,8 +58,13 @@ It can overflow. A comparator should handle every supported int pair without und
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) (online) — Read declarations, parameter types, and the rules for calling functions.
-- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) (online) — Check pointer declarations, null pointers, and valid pointer operations.
+- Course notes: functions (included in the explanation above) — Read declarations, parameter types, and the rules for calling functions.
+- Course notes: pointers (included in the explanation above) — Check pointer declarations, null pointers, and valid pointer operations.
+
+**Optional further reading (internet required):**
+
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html)
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html)
 
 Native source: `native/examples/larger-programs-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

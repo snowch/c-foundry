@@ -65,8 +65,13 @@ Explicit rejection or a defined migration path. Different layouts need deliberat
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
 
 Native source: `native/examples/persistence-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

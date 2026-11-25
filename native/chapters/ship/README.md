@@ -267,8 +267,13 @@ Parsing, validation, and execution/storage. The observed result depends on the c
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
-- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) (online) — Compare structural checks with the invariants tested in the teaching database.
+- Course notes: SELECT (included in the explanation above) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+- Course notes: integrity checks (included in the explanation above) — Compare structural checks with the invariants tested in the teaching database.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check)
 
 Native source: `native/examples/ship-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -528,8 +533,13 @@ No. Only finitely many generated paths were exercised.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [LLVM documentation: libFuzzer](https://llvm.org/docs/LibFuzzer.html) (online) — Compare a native coverage-guided fuzzing engine with the bounded deterministic parser fixture.
-- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) (online) — Read what each sanitizer observes and which runtime/toolchain it needs.
+- Course notes: libFuzzer (included in the explanation above) — Compare a native coverage-guided fuzzing engine with the bounded deterministic parser fixture.
+- Course notes: instrumentation (included in the explanation above) — Read what each sanitizer observes and which runtime/toolchain it needs.
+
+**Optional further reading (internet required):**
+
+- [LLVM documentation: libFuzzer](https://llvm.org/docs/LibFuzzer.html)
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
 
 Native source: `native/examples/ship-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -655,8 +665,13 @@ Only the prefix containing the full commit record. Uncommitted records cannot es
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
-- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) (online) — Compare structural checks with the invariants tested in the teaching database.
+- Course notes: atomic commit (included in the explanation above) — Read the failure assumptions and ordering required for a durable commit protocol.
+- Course notes: integrity checks (included in the explanation above) — Compare structural checks with the invariants tested in the teaching database.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html)
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check)
 
 **Use the documentation (optional):** Can a finite fault-injection test prove durability for every filesystem and device?
 
@@ -732,8 +747,13 @@ Dataset construction and result formatting. Preparation and reporting answer dif
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- Course notes: Big O (included in the explanation above) — Read an asymptotic bound as a growth claim, not an exact operation count.
+- Course notes: query planning (included in the explanation above) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html)
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html)
 
 Native source: `native/examples/ship-4/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -917,8 +937,13 @@ No. Ownership remains until the resource is released.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
-- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) (online) — Read what each sanitizer observes and which runtime/toolchain it needs.
+- [Read malloc(3)](../../manuals/malloc.3.txt) (included) — malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory
+- Course notes: instrumentation (included in the explanation above) — Read what each sanitizer observes and which runtime/toolchain it needs.
+
+**Optional further reading (internet required):**
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html)
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
 
 Native source: `native/examples/ship-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -1105,8 +1130,13 @@ A separate verified new-format file. The old valid state should remain available
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html) (online) — Check when exact-width types exist and which format macros match them.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- Course notes: fixed-width integers (included in the explanation above) — Check when exact-width types exist and which format macros match them.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
+- [C reference: fixed-width integers](https://en.cppreference.com/w/c/types/integer.html)
 
 Native source: `native/examples/ship-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -1290,8 +1320,13 @@ Format documentation, validation tests, and execution limits. A recipient needs 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
+- Course notes: database file format (included in the explanation above) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [Read stdio(3)](../../manuals/stdio.3.txt) (included) — stdio - standard input/output library functions
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html)
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html)
 
 Native source: `native/examples/ship-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -1413,8 +1448,13 @@ The in-memory table alone cannot establish that the saved rows are correct. Reop
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) (online) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
-- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) (online) — Compare structural checks with the invariants tested in the teaching database.
+- Course notes: debugging a program (included in the explanation above) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
+- Course notes: integrity checks (included in the explanation above) — Compare structural checks with the invariants tested in the teaching database.
+
+**Optional further reading (internet required):**
+
+- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/)
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check)
 
 Native source: `native/examples/ship-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

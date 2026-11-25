@@ -70,8 +70,12 @@ No, choose absolute/relative tolerances from the problem’s error budget. DBL_E
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find precision, exponent-range, and subnormal-support macros.
-- [C reference: floating-point environment](https://en.cppreference.com/w/c/numeric/fenv.html) (online) — Check rounding modes and implementation support before relying on them.
+- Course notes: floating-point limits (included in the explanation above) — Find precision, exponent-range, and subnormal-support macros.
+- [Read fenv(3)](../../manuals/fenv.3.txt) (included) — Check rounding modes and implementation support before relying on them.
+
+**Optional further reading (internet required):**
+
+- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html)
 
 Native source: `native/examples/c-guarantees-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

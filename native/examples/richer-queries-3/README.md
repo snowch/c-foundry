@@ -89,8 +89,13 @@ The query’s logical results. A faster plan that drops or duplicates rows is in
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) (online) — Compare a plan explanation with measured execution work.
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- Course notes: EXPLAIN QUERY PLAN (included in the explanation above) — Compare a plan explanation with measured execution work.
+- Course notes: query planning (included in the explanation above) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html)
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html)
 
 Native source: `native/examples/richer-queries-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

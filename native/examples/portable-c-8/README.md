@@ -69,8 +69,12 @@ The conversion type may have a wider range than the destination. Conversion succ
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: strtol family](https://en.cppreference.com/w/c/string/byte/strtol.html) (online) — Check endptr, accepted syntax, range errors, and full-input validation.
-- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html) (online) — Find the required terminators, buffer contracts, and comparison functions.
+- [Read strtol(3)](../../manuals/strtol.3.txt) (included) — Check endptr, accepted syntax, range errors, and full-input validation.
+- [Read strlen(3)](../../manuals/strlen.3.txt) (included) — strlen - calculate the length of a string
+
+**Optional further reading (internet required):**
+
+- [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
 Native source: `native/examples/portable-c-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

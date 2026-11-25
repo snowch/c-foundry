@@ -62,8 +62,13 @@ No. It prevents repetition within one translation unit; separate translation uni
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html) (online) — Find inclusion, conditional compilation, and macro replacement rules.
-- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html) (online) — Separate an object’s lifetime from which declarations name it.
+- Course notes: preprocessing (included in the explanation above) — Find inclusion, conditional compilation, and macro replacement rules.
+- Course notes: storage duration and linkage (included in the explanation above) — Separate an object’s lifetime from which declarations name it.
+
+**Optional further reading (internet required):**
+
+- [C reference: preprocessing](https://en.cppreference.com/w/c/preprocessor.html)
+- [C reference: storage duration and linkage](https://en.cppreference.com/w/c/language/storage_duration.html)
 
 **Use the documentation (optional):** Does an include guard stop duplicate external function definitions in different source files?
 

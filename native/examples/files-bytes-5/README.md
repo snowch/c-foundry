@@ -60,9 +60,15 @@ No. It checks the executed behavior for the classes of problems that sanitizer c
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) (online) — Read what each sanitizer observes and which runtime/toolchain it needs.
-- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) (online) — Look up a diagnostic option and the conditions it reports.
-- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) (online) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+- Course notes: instrumentation (included in the explanation above) — Read what each sanitizer observes and which runtime/toolchain it needs.
+- Course notes: warning options (included in the explanation above) — Look up a diagnostic option and the conditions it reports.
+- Course notes: WebAssembly concepts (included in the explanation above) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+
+**Optional further reading (internet required):**
+
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts)
 
 Native source: `native/examples/files-bytes-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

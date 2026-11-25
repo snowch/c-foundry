@@ -87,8 +87,13 @@ The acquire load of ready. Synchronization depends on the matching atomic commun
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) (online) — Read atomic operations and their memory-order contracts.
-- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) (online) — Check thread creation, joining, mutexes, and optional implementation support.
+- Course notes: atomics (included in the explanation above) — Read atomic operations and their memory-order contracts.
+- Course notes: C11 concurrency (included in the explanation above) — Check thread creation, joining, mutexes, and optional implementation support.
+
+**Optional further reading (internet required):**
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html)
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html)
 
 Native source: `native/examples/atomics-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

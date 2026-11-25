@@ -67,7 +67,11 @@ No. It checks each candidate directly rather than discarding an ordered interval
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) (online) — Check the ordering precondition and how the candidate interval shrinks.
+- Course notes: binary search (included in the explanation above) — Check the ordering precondition and how the candidate interval shrinks.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html)
 
 Native source: `native/examples/searching-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -160,7 +164,11 @@ The array is sorted under the same ordering. An ordering comparison constrains e
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) (online) — Check the ordering precondition and how the candidate interval shrinks.
+- Course notes: binary search (included in the explanation above) — Check the ordering precondition and how the candidate interval shrinks.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html)
 
 **Use the documentation (optional):** Which input property does binary search require, and what must remain true of the candidate interval?
 
@@ -262,7 +270,11 @@ lo == hi. The number of candidate positions is hi−lo.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) (online) — Check the ordering precondition and how the candidate interval shrinks.
+- Course notes: binary search (included in the explanation above) — Check the ordering precondition and how the candidate interval shrinks.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html)
 
 Native source: `native/examples/searching-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -355,7 +367,11 @@ hi - lo. The endpoint hi is excluded.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) (online) — Check the ordering precondition and how the candidate interval shrinks.
+- Course notes: binary search (included in the explanation above) — Check the ordering precondition and how the candidate interval shrinks.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html)
 
 Native source: `native/examples/searching-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -434,7 +450,11 @@ Ascending ID order. Every comparison is against rows[mid].id.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html) (online) — Check the ordering precondition and how the candidate interval shrinks.
+- Course notes: binary search (included in the explanation above) — Check the ordering precondition and how the candidate interval shrinks.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: binary search](https://xlinux.nist.gov/dads/HTML/binarySearch.html)
 
 Native source: `native/examples/searching-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

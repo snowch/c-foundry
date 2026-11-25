@@ -76,7 +76,11 @@ The unsigned argument for n≥2. Each recursive call receives n−1 only when n 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
+- Course notes: recursion (included in the explanation above) — Identify base cases and progress toward them.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html)
 
 **Use the documentation (optional):** Which two parts of a recursive algorithm prevent the same subproblem from recurring forever?
 
@@ -164,7 +168,11 @@ The base-case call with n=0. The caller waits for the child’s result.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
+- Course notes: recursion (included in the explanation above) — Identify base cases and progress toward them.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html)
 
 Native source: `native/examples/recursion-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -232,7 +240,11 @@ No. An implementation may preserve a call frame for each recursive call.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
+- Course notes: recursion (included in the explanation above) — Identify base cases and progress toward them.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html)
 
 Native source: `native/examples/recursion-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -312,8 +324,13 @@ The subproblem sizes shrink by about half. A recurrence must describe sizes and 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
+- Course notes: recursion (included in the explanation above) — Identify base cases and progress toward them.
+- Course notes: Big O (included in the explanation above) — Read an asymptotic bound as a growth claim, not an exact operation count.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html)
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html)
 
 Native source: `native/examples/recursion-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -390,7 +407,11 @@ The tree’s height. Calls remain active along the current root-to-node path.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
+- Course notes: recursion (included in the explanation above) — Identify base cases and progress toward them.
+
+**Optional further reading (internet required):**
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html)
 
 Native source: `native/examples/recursion-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

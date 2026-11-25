@@ -149,8 +149,13 @@ No. Process memory can disappear without a persistent recovery protocol.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
-- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) (online) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+- Course notes: atomic commit (included in the explanation above) — Read the failure assumptions and ordering required for a durable commit protocol.
+- Course notes: write-ahead logging (included in the explanation above) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html)
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html)
 
 Native source: `native/examples/recovery-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -297,8 +302,13 @@ Exclusive mutation ownership. The same live state must not be concurrently mutat
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) (online) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
+- Course notes: transactions (included in the explanation above) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- Course notes: atomic commit (included in the explanation above) — Read the failure assumptions and ordering required for a durable commit protocol.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html)
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html)
 
 Native source: `native/examples/recovery-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -451,8 +461,13 @@ The earlier committed 95. Rollback never publishes its private working table.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) (online) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
+- Course notes: transactions (included in the explanation above) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- Course notes: atomic commit (included in the explanation above) — Read the failure assumptions and ordering required for a durable commit protocol.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html)
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html)
 
 Native source: `native/examples/recovery-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -585,9 +600,14 @@ After its required log synchronization succeeds. Recovery must be able to find a
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
-- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) (online) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
-- [Linux/POSIX manual: fsync(2)](https://man7.org/linux/man-pages/man2/fsync.2.html) (online) — Compare an OS synchronization request with C stream flushing; read filesystem-specific limitations.
+- Course notes: atomic commit (included in the explanation above) — Read the failure assumptions and ordering required for a durable commit protocol.
+- Course notes: write-ahead logging (included in the explanation above) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+- [Read fsync(2)](../../manuals/fsync.2.txt) (included) — Compare an OS synchronization request with C stream flushing; read filesystem-specific limitations.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html)
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html)
 
 **Use the documentation (optional):** Does a successful fflush alone establish that a committed record survives power loss?
 
@@ -721,8 +741,13 @@ No, a valid matching COMMIT is required. Tentative state remains separate until 
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
-- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) (online) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+- Course notes: atomic commit (included in the explanation above) — Read the failure assumptions and ordering required for a durable commit protocol.
+- Course notes: write-ahead logging (included in the explanation above) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html)
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html)
 
 Native source: `native/examples/recovery-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -836,8 +861,13 @@ No. The two stores have different owners, data, and failure contracts.
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
-- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) (online) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+- Course notes: atomic commit (included in the explanation above) — Read the failure assumptions and ordering required for a durable commit protocol.
+- Course notes: WebAssembly concepts (included in the explanation above) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html)
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts)
 
 Native source: `native/examples/recovery-6/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

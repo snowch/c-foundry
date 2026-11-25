@@ -114,8 +114,13 @@ The in-memory table alone cannot establish that the saved rows are correct. Reop
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) (online) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
-- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check) (online) — Compare structural checks with the invariants tested in the teaching database.
+- Course notes: debugging a program (included in the explanation above) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
+- Course notes: integrity checks (included in the explanation above) — Compare structural checks with the invariants tested in the teaching database.
+
+**Optional further reading (internet required):**
+
+- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/)
+- [SQLite documentation: integrity checks](https://www.sqlite.org/pragma.html#pragma_integrity_check)
 
 Native source: `native/examples/ship-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

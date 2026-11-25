@@ -979,14 +979,30 @@
     const ids=[...new Set([...(exercise?[exercise.reference]:[]),...(specified||[plan.refs[0],...mentioned,...plan.refs.slice(1)])])].slice(0,3);
     return {links:ids.map(id=>{if(!catalog[id])throw Error('Missing reference: '+id);return {id,...catalog[id]};}),exercise};
   }
+  const manualAliases={'printf-man':'printf.3','pthread':'pthread_create.3','mutex':'pthread_cond_wait.3','fsync':'fsync.2','ctype':'isspace.3','io':'stdio.3','memory':'malloc.3','strings':'strlen.3','locale':'setlocale.3','fenv':'fenv.3','math':'sqrt.3'};
+  // These library overviews cover more APIs than the related included entry.
+  const broaderReferences=new Set(['memory','strings','io','math','locale']);
+  function manualKey(id){const pages=window.C_MANUAL_PAGES||{},key=manualAliases[id]||Object.keys(pages).find(key=>key===id+'.3'||key===id+'.2');return key&&pages[key]?key:undefined;}
+  function describe(link){
+    const key=manualKey(link.id),page=key&&window.C_MANUAL_PAGES[key];
+    const title=key?'Read '+page.name+'('+page.section+')':'Course notes: '+(link.id==='printf-command'?'C function and shell command':link.title.replace(/^[^:]+:\s*/,''));
+    return {...link,manual:key,href:key?'#/manual/'+key:'#/reference/'+link.id,title,
+      note:key&&broaderReferences.has(link.id)?page.summary:link.note,
+      identity:key?'manual:'+page.source:'notes:'+link.id};
+  }
+  function getView(chapter,topic,content){
+    const raw=get(chapter,topic,content),seen=new Set(),links=[];
+    for(const link of raw.links){const item=describe(link);if(!seen.has(item.identity)){seen.add(item.identity);links.push(item);}}
+    const external=raw.links.filter(link=>!manualKey(link.id)||broaderReferences.has(link.id));
+    return {links,external,exercise:raw.exercise};
+  }
   function render(chapter,topic,content){
-    const {links,exercise}=get(chapter,topic,content);
-    const local=id=>window.cManuals?cManuals.href(id):'#/reference/'+id;
-    const label=link=>link.title+(window.cManuals?.entry(link.id)?' — bundled manual':' — course notes');
-    return `<section class="lesson-resources" aria-label="Documentation and help"><details class="lesson-references"><summary>References and help</summary><p>The bundled manuals and course notes below work offline after you download the course. Full external references require internet access.</p><ul>${links.map(link=>`<li><a href="${escape(local(link.id))}">${escape(label(link))}</a><p>${escape(link.note)}</p><a href="${escape(link.url)}" target="_blank" rel="noopener noreferrer">Full online reference (internet required, new tab)</a></li>`).join('')}</ul><p><a href="#/manual">Search the bundled C manual pages →</a></p><p class="supporting">C17 is the course baseline. Check STANDARDS for POSIX or Linux extensions. <a href="#/chapter/first-program/6">How to find and read C documentation →</a></p></details>${exercise?`<details class="documentation-practice"><summary>Use the documentation <span class="supporting">· optional</span></summary><p>${escape(exercise.question)}</p><p>Open <a href="${escape(local(exercise.reference))}">${escape(label({id:exercise.reference,...catalog[exercise.reference]}))}</a>. Find the relevant section, write your answer below, then choose Compare your answer.</p><label>Your answer<textarea class="documentation-response" data-documentation-key="${chapter.id}/${topic.id}" rows="3" placeholder="Name the section you used and explain your answer."></textarea></label><details class="documentation-answer"><summary>Compare your answer</summary><p>${escape(exercise.answer)}</p><p>Does your answer identify the same rule and its limits? Revise it if you missed a condition.</p></details></details>`:''}</section>`;
+    const {links,external,exercise}=getView(chapter,topic,content);
+    const lookup=exercise&&describe({id:exercise.reference,...catalog[exercise.reference]});
+    return `<section class="lesson-resources" aria-label="Documentation and help"><details class="lesson-references"><summary>References and help</summary><p>These manuals and course notes work offline after you download the course. They contain the material needed for this lesson.</p><ul>${links.map(link=>`<li><a href="${escape(link.href)}">${escape(link.title)}</a><p>${escape(link.note)}</p></li>`).join('')}</ul><p><a href="#/manual">Search included C manual pages →</a></p>${external.length?`<details class="supplementary-references"><summary>Optional further reading (online)</summary><p>These external references provide additional detail. Internet access is required; you can complete the lesson without opening them.</p><ul>${external.map(link=>`<li><a href="${escape(link.url)}" target="_blank" rel="noopener noreferrer">${escape(link.title)} (new tab)</a></li>`).join('')}</ul></details>`:''}<p class="supporting">C17 is the course baseline. Check STANDARDS for POSIX or Linux extensions. <a href="#/chapter/first-program/6">How to find and read C documentation →</a></p></details>${exercise?`<details class="documentation-practice"><summary>Use the documentation <span class="supporting">· optional</span></summary><p>${escape(exercise.question)}</p><p>Open <a href="${escape(lookup.href)}">${escape(lookup.title)}</a>. Find the relevant section, write your answer below, then choose Compare your answer.</p><label>Your answer<textarea class="documentation-response" data-documentation-key="${chapter.id}/${topic.id}" rows="3" placeholder="Name the section you used and explain your answer."></textarea></label><details class="documentation-answer"><summary>Compare your answer</summary><p>${escape(exercise.answer)}</p><p>Does your answer identify the same rule and its limits? Revise it if you missed a condition.</p></details></details>`:''}</section>`;
   }
 
   document.addEventListener('input',event=>{const key=event.target.dataset.documentationKey;if(key)try{localStorage.setItem('c-foundry:documentation-answer:v1:'+key,event.target.value);}catch(_){};});
   window.addEventListener?.('c-foundry:route',()=>{document.querySelectorAll('[data-documentation-key]').forEach(node=>{try{node.value=localStorage.getItem('c-foundry:documentation-answer:v1:'+node.dataset.documentationKey)||'';}catch(_){};});});
-  window.lessonReferences={catalog,chapters,get,render};
+  window.lessonReferences={catalog,chapters,get,getView,manualKey,render};
 })();

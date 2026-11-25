@@ -79,7 +79,11 @@ No. Another transaction may commit between statements after each lock is release
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) (online) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+- Course notes: isolation (included in the explanation above) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+
+**Optional further reading (internet required):**
+
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html)
 
 **Use the documentation (optional):** Can a reader infer a database’s isolation guarantee merely because each individual access uses a lock?
 

@@ -142,7 +142,11 @@ Fix the source, rebuild, and add a regression test. The debugger changed one liv
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
 
-- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/) (online) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
+- Course notes: debugging a program (included in the explanation above) — Look up breakpoints, stepping, backtraces, and watchpoints in the native debugger.
+
+**Optional further reading (internet required):**
+
+- [GDB manual: debugging a program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/)
 
 Native source: `native/examples/files-bytes-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
