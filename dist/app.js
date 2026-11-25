@@ -197,7 +197,8 @@
       if(l.isExample){go(`/chapter/${l.chapterId}/${l.topicId}`,true);return;}
       select(LESSONS.indexOf(l));
     }
-    else if(parts[0]==='course'||parts[0]==='lab'){renderMap();showView('curriculum');}
+    else if(['part','lab'].includes(parts[0])&&!COURSE.parts.some((_,i)=>String(i+1)===parts[1])){notFound();}
+    else if(parts[0]==='course'||parts[0]==='lab'||parts[0]==='part'){renderMap();showView('curriculum');}
     else if(parts[0]==='capstone')showView('capstone');
     else if(parts[0]==='workspace'){showView('workspace');window.commandWorkspace?.init();}
     else if(parts[0]==='setup')showView('setup');
@@ -209,7 +210,7 @@
       if(!chapter||(parts[2]&&!topic)){notFound();}else preview(chapter,topic);
     }else{notFound();}
     currentRoute=raw;document.title=(document.querySelector('main > section:not([hidden]) h1')?.textContent||'Course')+' · C Foundry';
-    closeCourseMenu();window.dispatchEvent(new CustomEvent('c-foundry:route'));const heading=document.querySelector('main > section:not([hidden]) h1');heading?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
+    closeCourseMenu();window.dispatchEvent(new CustomEvent('c-foundry:route'));const heading=[...document.querySelectorAll('main > section:not([hidden]) h1')].find(node=>!node.closest('[hidden]'));heading?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
   }
   function notFound(){$('preview-content').innerHTML='<h1 tabindex="-1">Page not found</h1><p><a href="#/course">Return to the course map</a></p>';showView('preview');}
   function go(path,replace=false){if(busy){toast('Stop the program before leaving this lesson.');return;}history[replace?'replaceState':'pushState'](null,'','#'+path);renderRoute();}

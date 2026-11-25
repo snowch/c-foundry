@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 493158,
-  "sha256": "e8c24818202724df1732b8e8ba6f36c3c4dfccb69bd71c510a4ec762c66895dd",
+  "bytes": 494439,
+  "sha256": "ebe455ff07cdb8297ff9eca97030cc0d94d1d94db0a61b1ee99d81e4d3e9aff5",
   "files": [
     {
       "path": "LICENSE",
@@ -81,18 +81,23 @@
     },
     {
       "path": "docs/course-style.md",
-      "bytes": 2848,
-      "sha256": "ba4af5b43ba6e7bd99d090b49748b29c4d9cb71998863332266493492292ec84"
+      "bytes": 3438,
+      "sha256": "22ccf66792d5da0308846ae18ed2e304a6e33f297dcba58aab086db64b957c7a"
     },
     {
       "path": "docs/lab-series.md",
-      "bytes": 1954,
-      "sha256": "e6f9fb7f463fb6e2eada49feaf428c50ebbdcfb170085029c14b7ee7845d395c"
+      "bytes": 3378,
+      "sha256": "11cadde44e5b100d0bb0be48af424e9a5b5a527f4b656c29f33e8d2a13b0c694"
     },
     {
       "path": "docs/learner-wording-review.md",
       "bytes": 4620,
       "sha256": "64b512824c389f355c1e18512ace9322c0f1a1de5e43cbb3577f2b19295b36be"
+    },
+    {
+      "path": "docs/navigation-review.md",
+      "bytes": 1797,
+      "sha256": "28599c08ad9a58b187e6f60cea85c87a9ff4788b9693012be6f85f7b62da7031"
     },
     {
       "path": "docs/offline-update-design.md",
