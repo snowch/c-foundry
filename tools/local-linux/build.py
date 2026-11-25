@@ -82,8 +82,11 @@ if kind == "c":
     # A small offline reader uses the exact same selected manuals as the page.
     man = layer / "usr/local/bin/man"
     man.parent.mkdir(parents=True, exist_ok=True)
-    man.write_text("#!/bin/sh\nexec python3 /root/work/c-foundry/tools/man.py \"$@\"\n")
+    man.write_text("#!/bin/sh\nFOUNDRY_TERMINAL=1 exec python3 /root/work/c-foundry/tools/man.py \"$@\"\n")
     man.chmod(0o755)
+    support = layer / "usr/local/lib/foundry"
+    support.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(here / "terminal_resize.py", support / "terminal_resize.py")
 else:
     extract(fetch(by_name["alpine-base.tar.gz"]), layer)
     base = cache / "module-root"

@@ -18,5 +18,34 @@ else:sys.exit('Use man [section] name, or man -k keyword.')
 if key not in index:sys.exit('This page is not bundled. Run man -k keyword to search the included C manuals.')
 text=(folder/index[key]['file']).read_text()
 if sys.stdout.isatty() and shutil.which('less'):
- subprocess.run(['less'],input=text,text=True,env={**os.environ,'LESSHISTFILE':'-'})
+ signal_ui = os.environ.get('FOUNDRY_TERMINAL') == '1'
+ if not signal_ui:
+  subprocess.run(['less'],input=text,text=True,env={**os.environ,'LESSHISTFILE':'-'})
+ else:
+  # The touch Close control targets only this reader's child, even while a
+  # search prompt owns stdin. Restore the serial TTY on every exit path.
+  import re, termios, threading
+  exchange=pathlib.Path('/exchange')
+  def requests():
+   return [p for p in exchange.iterdir() if re.fullmatch(r'man-quit-\d+',p.name)]
+  for request in requests(): request.unlink(missing_ok=True)
+  original=termios.tcgetattr(sys.stdout.fileno())
+  child=subprocess.Popen(['less'],stdin=subprocess.PIPE,text=True,env={**os.environ,'LESSHISTFILE':'-'})
+  finished=threading.Event()
+  def watch_close():
+   while not finished.wait(.1):
+    try:
+     pending=requests()
+     if pending:
+      for request in pending:request.unlink(missing_ok=True)
+      if child.poll() is None:child.terminate()
+      return
+    except OSError:pass
+  watcher=threading.Thread(target=watch_close,daemon=True);watcher.start()
+  print('\033]777;foundry-man;open\007',end='',flush=True)
+  try:child.communicate(text)
+  finally:
+   finished.set();watcher.join(timeout=.3)
+   termios.tcsetattr(sys.stdout.fileno(),termios.TCSANOW,original)
+   print('\033]777;foundry-man;closed\007',end='',flush=True)
 else:print(text,end='')

@@ -461,7 +461,7 @@
   function prediction() {
     const host = document.querySelector("#inline-editor-host");
     if (
-      !host ||
+      document.querySelector(".help-practice") || !host ||
       host.closest("[hidden]") ||
       host.previousElementSibling?.id === "course-prediction"
     )

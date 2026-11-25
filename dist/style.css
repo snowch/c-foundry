@@ -455,3 +455,31 @@ pre.memory-stream{background:var(--soft);color:var(--ink);font:18px/1.6 var(--mo
 .manual-reader .Bd,.manual-reader .Bl { margin-inline:0; } .manual-reader .manual-scope { padding:16px; border-left:3px solid var(--accent); background:var(--soft); }
 #manual-search { display:block; width:100%; margin-block:8px; padding:12px; font:inherit; }
 #manual-index li { padding-block:12px; border-bottom:1px solid var(--line); } #manual-index p { margin:4px 0; }
+
+/* A visible exit remains available in the terminal focus view on touch devices. */
+.linux-terminal { overflow:hidden; }
+.linux-terminal iframe { height:clamp(520px,80dvh,780px);background:#101d1b; }
+.linux-focus-bar { display:none; }
+.linux-terminal.is-expanded { position:fixed;inset:0;z-index:1000;border-radius:0;display:flex;flex-direction:column;padding:0;background:#101d1b; }
+.linux-terminal.is-expanded .linux-focus-bar { display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;color:#e0ece7;background:#16342a;flex-shrink:0; }
+.linux-focus-bar button { min-height:44px;background:#a6e1cb;color:#10211d;border:0;border-radius:6px; }
+.linux-terminal.is-expanded iframe { width:100%;flex:1;min-height:0;height:0; }
+.linux-help-mode .linux-steps,.linux-help-mode .linux-backup,.linux-help-mode>#linux-bundle,.linux-help-mode>p:has(+.linux-steps){display:none;}
+#linux-help-guide { padding:20px;border:1px solid var(--line);background:var(--panel);border-radius:8px;margin-block:20px; }
+#linux-help-guide h2 { margin-top:0; }
+#linux-help-guide p { margin-block:12px; }
+
+.help-practice,.help-transfer { margin:24px 0;padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:8px; }
+.help-practice h2:first-child,.help-transfer h2:first-child { margin-top:0; }
+.help-manual { margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:8px;background:var(--paper,var(--panel)); }
+.help-manual-toolbar { display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px; }
+.help-manual-toolbar strong { font-size:18px; }.help-manual select { display:block;width:100%;max-width:100%;font:inherit;padding:10px;margin-block:8px 16px; }
+.help-manual .manual-reader { margin:12px 0;max-width:100%; }.help-manual h2 { font-size:22px; }
+.help-manual pre { white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;font:16px/1.65 var(--mono); }
+.help-answer-fields { display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px;margin-block:16px; }
+.help-answer-fields input,.help-answer-fields select,.help-transfer input { display:block;width:100%;font:inherit;min-height:44px;padding:10px;margin-top:6px; }
+.help-transfer input { max-width:280px; }.help-linux-extension { margin-top:20px;padding-top:16px;border-top:1px solid var(--line); }
+.help-linux-extension summary { min-height:44px;cursor:pointer;font-weight:600; }
+#help-contract-feedback,#help-run-evidence,#help-transfer-feedback { overflow-wrap:anywhere; }
+
+.help-manual-controls { position:sticky;top:0;z-index:10;background:var(--paper,var(--panel));padding-top:8px;border-bottom:1px solid var(--line); }

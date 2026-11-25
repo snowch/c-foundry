@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 1014305,
-  "sha256": "431777f148b45c952e91ab62ae3a34132448b4f81d9f02a41bd32c1178f6de7c",
+  "bytes": 1016542,
+  "sha256": "e5b6bbbe0a95266efaa29faeac614561956ce0b87e40dc515e0be03c1d7b8c80",
   "files": [
     {
       "path": "LICENSE",
@@ -16,8 +16,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 14469,
-      "sha256": "1862c2289da315d86c930cf5cf3f6def192f1333732f54d86ec810306cda88fa"
+      "bytes": 14857,
+      "sha256": "bfea8c5907e9135459b431cb383bb54a48d1c2b56c40d673544ac1d430a8f0df"
     },
     {
       "path": "dist/assets/tinydb-sample.tdb",
@@ -666,8 +666,8 @@
     },
     {
       "path": "docs/review.md",
-      "bytes": 4301,
-      "sha256": "3cc6766eabee624b83a9f03be4a88e699cbcece73d22e7f93d30caef30fa86db"
+      "bytes": 7078,
+      "sha256": "fc4f1374ae8b277178f0eb2cfdca7e889d3f94543d3c474b18a3c7fb1c8b3d84"
     },
     {
       "path": "docs/self-hosted-linux-validation.json",
@@ -756,8 +756,8 @@
     },
     {
       "path": "native/chapters/first-program/README.md",
-      "bytes": 20380,
-      "sha256": "4c05ab512816da43d3417bcb7819e04abc7dd2f39387412b19dc53cd8835e16b"
+      "bytes": 20545,
+      "sha256": "d9bda83920a0488dd444de3057b123956d08fe2ba2bff84da8893e037cba1ea8"
     },
     {
       "path": "native/chapters/functions/README.md",
@@ -3411,8 +3411,8 @@
     },
     {
       "path": "tools/local-linux/build.py",
-      "bytes": 11899,
-      "sha256": "fdc5b6bf3665c419e7392b2b37add72978c4440ed56abe87124d1ee7549fd04d"
+      "bytes": 12089,
+      "sha256": "58bac6008609cd664d34726fc686b3c77e0ad47efd6f2d79c54ced357448a453"
     },
     {
       "path": "tools/local-linux/lz4-legacy.py",
@@ -3440,9 +3440,14 @@
       "sha256": "8a6120989dc604070b209ee6d5359944be25b1763206b61752eec71d29b75a17"
     },
     {
+      "path": "tools/local-linux/terminal_resize.py",
+      "bytes": 845,
+      "sha256": "4c8579cb575edb740d4b8644ae8b435522b00e732fe2d881748e7984266c86e7"
+    },
+    {
       "path": "tools/man.py",
-      "bytes": 1450,
-      "sha256": "fc2bdebf95a74fd4cf7c5902c2fc32f5052ac30f579b08ab586473554e413bf6"
+      "bytes": 2690,
+      "sha256": "9b31dc41e7dfd7f64c05177201e19c7fb087b00ccec2d583b33c9b8ad57d5e47"
     },
     {
       "path": "tools/project.py",

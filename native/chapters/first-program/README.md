@@ -327,7 +327,7 @@ A function reference describes a contract: the header to include, the arguments 
 
 ### Choose the right entry
 
-Open the bundled printf(3) manual from References below, or start the Browser Linux help exercise. Section 3 describes C library functions; section 1 describes shell commands. The course bundles selected C library and Linux manuals. Shell-command manuals such as printf(1) are separate online references.
+Open printf(3) in the lesson’s manual reader, then select RETURN VALUE. You can also use man 3 printf in the Browser Linux terminal. Section 3 describes C library functions; section 1 describes shell commands. The course bundles selected C library and Linux manuals. Shell-command manuals such as printf(1) are separate online references.
 
 ```text
 man 3 printf
@@ -344,7 +344,7 @@ int printf(const char *restrict format, ...);
 
 ### Search, predict, then verify
 
-Use your browser’s Find feature to locate RETURN VALUE in the bundled printf(3) manual. Read that success returns the transmitted character count and output or encoding failure returns a negative value. Predict the result for Hi! followed by a newline, then run the example. In the Browser Linux manual pager, /RETURN VALUE searches, n finds the next match, and q quits; man -k searches installed descriptions.
+Use your browser’s Find feature to locate RETURN VALUE in the bundled printf(3) manual. Read that success returns the transmitted character count and output or encoding failure returns a negative value. Predict the result for Hi! followed by a newline, then run the example. The Linux terminal also has Find in manual, Previous page, Next page and Close manual controls. The keyboard equivalents are /RETURN VALUE, n and q. man -k printf searches available names and descriptions.
 
 ### main.c
 
@@ -365,23 +365,23 @@ Hi!
 count=4
 ```
 
-The first call writes H, i, !, and a newline: four characters. The terminating null byte in the C string is not transmitted. int written stores that return value; the next chapter develops variables and types. The second call prints the stored count using %d. Read printf’s own return contract, rather than assuming every C function uses zero to mean success.
+With the original Hi! string, the first call writes H, i, !, and a newline: four characters. The terminating null byte in the C string is not transmitted. int written stores that return value; the next chapter develops variables and types. The second call prints the stored count using %d. Read printf’s own return contract, rather than assuming every C function uses zero to mean success.
 
 **Watch for:** Do not confuse printf(1), the command-line utility, with printf(3), the C library function. Match format specifiers to argument types, and check whether a documented facility belongs to ISO C, POSIX, or a particular implementation. A reference describing a feature does not establish support in every compiler or runtime.
 
-**Check:** After printf("Hi!\n") succeeds, which return value does its documentation specify?
+**Check:** Which command opens the manual for the C library function printf?
 
-1. 4: three visible characters and the newline
-2. 5: including the string’s terminating null byte
-3. 0: every C function returns zero on success
+1. man 3 printf: C library function
+2. man 1 printf: shell command
+3. man -k printf: directly opens the C library manual
 
 <details><summary>Answer</summary>
 
-4: three visible characters and the newline. printf counts characters transmitted, including the newline and excluding the terminating null byte. Its failure result is negative.
+man 3 printf: C library function. Section 3 describes C library functions. Section 1 describes commands. man -k searches available names and descriptions; it does not open the function’s manual.
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/6). In main.c, change the first printf string from Hi!\n to C\n. Predict the return value, choose Run code, and read count= in Console. Next change the string to C%%\n and run again. How many characters does one printed percent sign add?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/6). In main.c, replace Hi! inside the first printf string with C%%. Keep the newline escape and quotation marks. Predict the new return value below, choose Run code, and compare count= in Console with your prediction. Use the manual’s DESCRIPTION to find what %% prints if you are unsure.
 
 ### References and help
 
