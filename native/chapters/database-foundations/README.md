@@ -97,7 +97,7 @@ Insertion validates the row and copies it into the table. Embedded name storage 
 
 Which slots may display inspect after this insertion?
 
-Which slots may display inspect after this insertion? Table after insert_row. 1; spare; spare; spare; spare; spare; spare; spare. count=1; capacity=8. Row 0 is ID 1, Ada, score 90.. Only rows[0..count) are stored records. Unused capacity is not seven additional database rows.
+Which slots may display inspect after this insertion? Table after insert_row: index 0 = 1, index 1 = spare, index 2 = spare, index 3 = spare, index 4 = spare, index 5 = spare, index 6 = spare, index 7 = spare. count=1; capacity=8. Row 0 is ID 1, Ada, score 90.. Only rows[0..count) are stored records. Unused capacity is not seven additional database rows.
 
 Only rows[0..count) are stored records. Unused capacity is not seven additional database rows. Illustration of the supplied example; edits do not update this picture.
 

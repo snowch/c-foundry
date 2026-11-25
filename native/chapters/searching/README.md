@@ -135,7 +135,7 @@ At position three the value equals eight. The left operand of && prevents indexi
 
 Why does lower(a, 5, 8) return position 3?
 
-Why does lower(a, 5, 8) return position 3? [0,5). 2; 4; 6; 8; 10. mid=2: 6 < 8, so lo=3.. mid; [3,5). 2; 4; 6; 8; 10. mid=4: 10 ≥ 8, so hi=4.. mid; [3,4). 2; 4; 6; 8; 10. mid=3: 8 ≥ 8, so hi=3.. mid; [3,3) · stop. 2; 4; 6; 8; 10. position=3; 3 < 5 and a[3] == 8, so found=1.. lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership.
+Why does lower(a, 5, 8) return position 3? [0,5): index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. mid=2: 6 < 8, so lo=3.. [3,5): index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. mid=4: 10 ≥ 8, so hi=4.. [3,4): index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. mid=3: 8 ≥ 8, so hi=3.. [3,3) · stop: index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. position=3; 3 < 5 and a[3] == 8, so found=1.. lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership.
 
 lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership. Illustration of the supplied example; edits do not update this picture.
 

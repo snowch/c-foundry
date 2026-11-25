@@ -606,7 +606,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "binary-search": {
     "title": "Keep the original array while bounds move",
     "caption": "Why does lower(a, 5, 8) return position 3?",
-    "description": "Why does lower(a, 5, 8) return position 3? [0,5). 2; 4; 6; 8; 10. mid=2: 6 < 8, so lo=3.. mid; [3,5). 2; 4; 6; 8; 10. mid=4: 10 ≥ 8, so hi=4.. mid; [3,4). 2; 4; 6; 8; 10. mid=3: 8 ≥ 8, so hi=3.. mid; [3,3) · stop. 2; 4; 6; 8; 10. position=3; 3 < 5 and a[3] == 8, so found=1.. lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership.",
+    "description": "Why does lower(a, 5, 8) return position 3? [0,5): index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. mid=2: 6 < 8, so lo=3.. [3,5): index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. mid=4: 10 ≥ 8, so hi=4.. [3,4): index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. mid=3: 8 ≥ 8, so hi=3.. [3,3) · stop: index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. position=3; 3 < 5 and a[3] == 8, so found=1.. lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership.",
     "note": "lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership. Illustration of the supplied example; edits do not update this picture.",
     "kind": "learning-model",
     "data": {
@@ -703,7 +703,7 @@ function learningFigure(model, id, cls='concept-diagram') {
         }
       ],
       "note": "lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership.",
-      "description": "Why does lower(a, 5, 8) return position 3? [0,5). 2; 4; 6; 8; 10. mid=2: 6 < 8, so lo=3.. mid; [3,5). 2; 4; 6; 8; 10. mid=4: 10 ≥ 8, so hi=4.. mid; [3,4). 2; 4; 6; 8; 10. mid=3: 8 ≥ 8, so hi=3.. mid; [3,3) · stop. 2; 4; 6; 8; 10. position=3; 3 < 5 and a[3] == 8, so found=1.. lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership."
+      "description": "Why does lower(a, 5, 8) return position 3? [0,5): index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. mid=2: 6 < 8, so lo=3.. [3,5): index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. mid=4: 10 ≥ 8, so hi=4.. [3,4): index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. mid=3: 8 ≥ 8, so hi=3.. [3,3) · stop: index 0 = 2, index 1 = 4, index 2 = 6, index 3 = 8, index 4 = 10. position=3; 3 < 5 and a[3] == 8, so found=1.. lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership."
     },
     "routes": [
       "searching/2"
@@ -1531,7 +1531,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "deadlock": {
     "title": "Consistent order prevents this lock cycle",
     "caption": "What cycle would opposite lock orders permit?",
-    "description": "What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Thread A; L; Thread B; R. held by; waits for; held by; waits for. Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.",
+    "description": "What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Nodes: Thread A, L, Thread B, R. Connections: L leads to Thread A (held by); Thread A leads to R (waits for); R leads to Thread B (held by); Thread B leads to L (waits for). Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.",
     "note": "The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness. Illustration of the supplied example; edits do not update this picture.",
     "kind": "learning-model",
     "data": {
@@ -1617,7 +1617,7 @@ function learningFigure(model, id, cls='concept-diagram') {
         }
       ],
       "note": "The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.",
-      "description": "What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Thread A; L; Thread B; R. held by; waits for; held by; waits for. Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness."
+      "description": "What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Nodes: Thread A, L, Thread B, R. Connections: L leads to Thread A (held by); Thread A leads to R (waits for); R leads to Thread B (held by); Thread B leads to L (waits for). Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness."
     },
     "routes": [
       "coordination/3"
@@ -3495,7 +3495,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "model-database-foundations-1": {
     "title": "One row is live; the other slots are capacity",
     "caption": "Which slots may display inspect after this insertion?",
-    "description": "Which slots may display inspect after this insertion? Table after insert_row. 1; spare; spare; spare; spare; spare; spare; spare. count=1; capacity=8. Row 0 is ID 1, Ada, score 90.. Only rows[0..count) are stored records. Unused capacity is not seven additional database rows.",
+    "description": "Which slots may display inspect after this insertion? Table after insert_row: index 0 = 1, index 1 = spare, index 2 = spare, index 3 = spare, index 4 = spare, index 5 = spare, index 6 = spare, index 7 = spare. count=1; capacity=8. Row 0 is ID 1, Ada, score 90.. Only rows[0..count) are stored records. Unused capacity is not seven additional database rows.",
     "note": "Only rows[0..count) are stored records. Unused capacity is not seven additional database rows. Illustration of the supplied example; edits do not update this picture.",
     "kind": "learning-model",
     "data": {
@@ -3531,7 +3531,7 @@ function learningFigure(model, id, cls='concept-diagram') {
         }
       ],
       "note": "Only rows[0..count) are stored records. Unused capacity is not seven additional database rows.",
-      "description": "Which slots may display inspect after this insertion? Table after insert_row. 1; spare; spare; spare; spare; spare; spare; spare. count=1; capacity=8. Row 0 is ID 1, Ada, score 90.. Only rows[0..count) are stored records. Unused capacity is not seven additional database rows."
+      "description": "Which slots may display inspect after this insertion? Table after insert_row: index 0 = 1, index 1 = spare, index 2 = spare, index 3 = spare, index 4 = spare, index 5 = spare, index 6 = spare, index 7 = spare. count=1; capacity=8. Row 0 is ID 1, Ada, score 90.. Only rows[0..count) are stored records. Unused capacity is not seven additional database rows."
     },
     "routes": [
       "database-foundations/1"
@@ -3542,7 +3542,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "model-tables-1": {
     "title": "The stored row has its own embedded name array",
     "caption": "Why does changing source.name leave the stored name unchanged?",
-    "description": "Why does changing source.name leave the stored name unchanged? After source.name[0] = X. Source Row. 7 | Xda | 95. source. separate struct; Stored Row · count=1. 7 | Ada | 95. t.rows[0]. struct assignment copied fields. The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy.",
+    "description": "Why does changing source.name leave the stored name unchanged? After source.name[0] = X: Source Row contains 7 | Xda | 95. source separate struct Source Row; Stored Row · count=1 contains 7 | Ada | 95. t.rows[0] struct assignment copied fields Stored Row · count=1. The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy.",
     "note": "The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy. Illustration of the supplied example; edits do not update this picture.",
     "kind": "learning-model",
     "data": {
@@ -3577,7 +3577,7 @@ function learningFigure(model, id, cls='concept-diagram') {
         }
       ],
       "note": "The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy.",
-      "description": "Why does changing source.name leave the stored name unchanged? After source.name[0] = X. Source Row. 7 | Xda | 95. source. separate struct; Stored Row · count=1. 7 | Ada | 95. t.rows[0]. struct assignment copied fields. The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy."
+      "description": "Why does changing source.name leave the stored name unchanged? After source.name[0] = X: Source Row contains 7 | Xda | 95. source separate struct Source Row; Stored Row · count=1 contains 7 | Ada | 95. t.rows[0] struct assignment copied fields Stored Row · count=1. The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy."
     },
     "routes": [
       "tables/1"
@@ -3631,7 +3631,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "model-allocation-4": {
     "title": "The text copy has independent storage",
     "caption": "Why does changing and freeing copy leave original unchanged?",
-    "description": "Why does changing and freeing copy leave original unchanged? After copy[0] = B · before free(copy). Original character array. Hi. original. separate array; Allocated character array. Bi. copy. owns this allocation; After free(copy); copy = NULL. Original array remains alive. Hi. original. unchanged; Pointer variable copy. NULL · no target. ; Old allocation: lifetime ended. released character storage. . True. copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid.",
+    "description": "Why does changing and freeing copy leave original unchanged? After copy[0] = B · before free(copy): Original character array contains Hi. original separate array Original character array; Allocated character array contains Bi. copy owns this allocation Allocated character array. After free(copy); copy = NULL: Original array remains alive contains Hi. original unchanged Original array remains alive; Pointer variable copy contains NULL · no target. ; Old allocation: lifetime ended contains released character storage; lifetime ended. . copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid.",
     "note": "copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid. Illustration of the supplied example; edits do not update this picture.",
     "kind": "learning-model",
     "data": {
@@ -3692,7 +3692,7 @@ function learningFigure(model, id, cls='concept-diagram') {
         }
       ],
       "note": "copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid.",
-      "description": "Why does changing and freeing copy leave original unchanged? After copy[0] = B · before free(copy). Original character array. Hi. original. separate array; Allocated character array. Bi. copy. owns this allocation; After free(copy); copy = NULL. Original array remains alive. Hi. original. unchanged; Pointer variable copy. NULL · no target. ; Old allocation: lifetime ended. released character storage. . True. copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid."
+      "description": "Why does changing and freeing copy leave original unchanged? After copy[0] = B · before free(copy): Original character array contains Hi. original separate array Original character array; Allocated character array contains Bi. copy owns this allocation Allocated character array. After free(copy); copy = NULL: Original array remains alive contains Hi. original unchanged Original array remains alive; Pointer variable copy contains NULL · no target. ; Old allocation: lifetime ended contains released character storage; lifetime ended. . copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid."
     },
     "routes": [
       "allocation/4"
@@ -3703,7 +3703,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "model-coordination-2": {
     "title": "Wake, reacquire, then test the queue again",
     "caption": "Why can a woken consumer still need to wait?",
-    "description": "Why can a woken consumer still need to wait? count > 0?; Wait. release mutex; Reacquire. mutex locked; Take item. under mutex. No; wake; recheck; Yes. The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.",
+    "description": "Why can a woken consumer still need to wait? Nodes: count > 0?, Wait (release mutex), Reacquire (mutex locked), Take item (under mutex). Connections: count > 0? leads to Wait (No); Wait leads to Reacquire (wake); Reacquire leads to count > 0? (recheck); count > 0? leads to Take item (Yes). The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.",
     "note": "The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop. Illustration of the supplied example; edits do not update this picture.",
     "kind": "learning-model",
     "data": {
@@ -3764,7 +3764,7 @@ function learningFigure(model, id, cls='concept-diagram') {
       "legend": "The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.",
       "height": 360,
       "note": "The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.",
-      "description": "Why can a woken consumer still need to wait? count > 0?; Wait. release mutex; Reacquire. mutex locked; Take item. under mutex. No; wake; recheck; Yes. The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop."
+      "description": "Why can a woken consumer still need to wait? Nodes: count > 0?, Wait (release mutex), Reacquire (mutex locked), Take item (under mutex). Connections: count > 0? leads to Wait (No); Wait leads to Reacquire (wake); Reacquire leads to count > 0? (recheck); count > 0? leads to Take item (Yes). The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop."
     },
     "routes": [
       "coordination/2"
@@ -3775,7 +3775,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "model-arrays-strings-4": {
     "title": "A parsed number can stop before the field ends",
     "caption": "Which position must end reach before accepting the complete integer field?",
-    "description": "Which position must end reach before accepting the complete integer field? Original text: 42. 4; 2; \\0. After strtol: parsed=42, end points to index 2.. end. Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix.",
+    "description": "Which position must end reach before accepting the complete integer field? Original text: 42: index 0 = 4, index 1 = 2, index 2 = \\0. After strtol: parsed=42, end points to index 2.. Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix.",
     "note": "Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix. Illustration of the supplied example; edits do not update this picture.",
     "kind": "learning-model",
     "data": {
@@ -3801,7 +3801,7 @@ function learningFigure(model, id, cls='concept-diagram') {
         }
       ],
       "note": "Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix.",
-      "description": "Which position must end reach before accepting the complete integer field? Original text: 42. 4; 2; \\0. After strtol: parsed=42, end points to index 2.. end. Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix."
+      "description": "Which position must end reach before accepting the complete integer field? Original text: 42: index 0 = 4, index 1 = 2, index 2 = \\0. After strtol: parsed=42, end points to index 2.. Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix."
     },
     "routes": [
       "arrays-strings/4"
@@ -3812,7 +3812,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "model-arrays-strings-5": {
     "title": "A new word starts only outside a word",
     "caption": "Which transition increments words?",
-    "description": "Which transition increments words? Outside word. in_word=false; Inside word. in_word=true. non-space: +1; whitespace. Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \\0.. Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs.",
+    "description": "Which transition increments words? Nodes: Outside word (in_word=false), Inside word (in_word=true). Connections: Outside word leads to Inside word (non-space: +1); Inside word leads to Outside word (whitespace). Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \\0.. Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs.",
     "note": "Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs. Illustration of the supplied example; edits do not update this picture.",
     "kind": "learning-model",
     "data": {
@@ -3850,7 +3850,7 @@ function learningFigure(model, id, cls='concept-diagram') {
       "legend": "Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \\0.",
       "height": 160,
       "note": "Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs.",
-      "description": "Which transition increments words? Outside word. in_word=false; Inside word. in_word=true. non-space: +1; whitespace. Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \\0.. Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs."
+      "description": "Which transition increments words? Nodes: Outside word (in_word=false), Inside word (in_word=true). Connections: Outside word leads to Inside word (non-space: +1); Inside word leads to Outside word (whitespace). Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \\0.. Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs."
     },
     "routes": [
       "arrays-strings/5"
@@ -4055,7 +4055,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "model-portable-c-7": {
     "title": "Byte classification does not decode Unicode",
     "caption": "Why are there 6 UTF-8 bytes but only 4 ASCII letters?",
-    "description": "Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. 43; 68; 6C; 6F; C3; A9. C. 1; h. 1; l. 1; o. 1; é. 2. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier.",
+    "description": "Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. C uses byte offsets 0: 43; h uses byte offsets 1: 68; l uses byte offsets 2: 6C; o uses byte offsets 3: 6F; é uses byte offsets 4 through 5: C3, A9. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier.",
     "note": "The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier. Illustration of the supplied example; edits do not update this picture.",
     "kind": "learning-model",
     "data": {
@@ -4094,7 +4094,7 @@ function learningFigure(model, id, cls='concept-diagram') {
         }
       ],
       "note": "The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier.",
-      "description": "Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. 43; 68; 6C; 6F; C3; A9. C. 1; h. 1; l. 1; o. 1; é. 2. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier."
+      "description": "Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. C uses byte offsets 0: 43; h uses byte offsets 1: 68; l uses byte offsets 2: 6C; o uses byte offsets 3: 6F; é uses byte offsets 4 through 5: C3, A9. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier."
     },
     "routes": [
       "portable-c/7"

@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 563754,
-  "sha256": "255ceb3a6524dfbcc67d6ca158aedbb22b1d0b4123d9e7924aac66a7c313920a",
+  "bytes": 564358,
+  "sha256": "e55caa561cbee9b2a24e6de5e57cada1c50ee1e47032095b4a13dc90a3ac9636",
   "files": [
     {
       "path": "LICENSE",
@@ -126,8 +126,8 @@
     },
     {
       "path": "docs/visual-opportunities.json",
-      "bytes": 269377,
-      "sha256": "62296e27c255151d8e8732d780a5828793a4df16498e330967ccfb948dc9ca52"
+      "bytes": 270278,
+      "sha256": "c522574acd1b9573291b9175afaec7ef2fd529588b9db66cc2d52c2cd6aebfbe"
     },
     {
       "path": "docs/visual-opportunities.md",
@@ -136,13 +136,13 @@
     },
     {
       "path": "native/chapters/allocation/README.md",
-      "bytes": 19416,
-      "sha256": "8b86d64c8f8753d02c39e10dccd8d37507dad1230960dba0a3091705a1ccc18e"
+      "bytes": 19543,
+      "sha256": "11f41db5fea09ac48ace3795c46bc7f322b7cbb89ec854db01f4228dd3f05339"
     },
     {
       "path": "native/chapters/arrays-strings/README.md",
-      "bytes": 19266,
-      "sha256": "d3a568008b0bd99b56ffadee514a009d42ad0a37c5de07fc2bb5bc3219a3c07f"
+      "bytes": 19385,
+      "sha256": "72353c0d5df8f600483057080cf44e3e247d1806152fab613fcf5f2668bc2dcd"
     },
     {
       "path": "native/chapters/atomics/README.md",
@@ -176,13 +176,13 @@
     },
     {
       "path": "native/chapters/coordination/README.md",
-      "bytes": 18071,
-      "sha256": "db73b08c2582f8b00e09b2a9957cff649c189c4b7061f9d83a6aa52a6d87b1b2"
+      "bytes": 18319,
+      "sha256": "ecbd0e06d3e149cde8403327b4f6ef9d09b96e8b6fcfaa36080db7abbcf8e236"
     },
     {
       "path": "native/chapters/database-foundations/README.md",
-      "bytes": 21477,
-      "sha256": "32acd9990c7d588758f5de3632df168460454e6140a89e506c0115347b7a1652"
+      "bytes": 21557,
+      "sha256": "18f3f01a7c61ab21c666ce6dc067638834108c0815732d9f45c64aabd5697e94"
     },
     {
       "path": "native/chapters/execution/README.md",
@@ -271,8 +271,8 @@
     },
     {
       "path": "native/chapters/portable-c/README.md",
-      "bytes": 37029,
-      "sha256": "dbf49162f283ce31bc3a02fd6cb465237b192333e49592dca7e95e33ef54858e"
+      "bytes": 37124,
+      "sha256": "2d97efc13bb8e37cefe5b4eb8fc129c841d976e115d259e36268ec8a972952ec"
     },
     {
       "path": "native/chapters/queues/README.md",
@@ -301,8 +301,8 @@
     },
     {
       "path": "native/chapters/searching/README.md",
-      "bytes": 15101,
-      "sha256": "48ae98404cc8929265cb61fac9cce52b33cb96cd4b4aeab2799da809ef4e558d"
+      "bytes": 15286,
+      "sha256": "5839ccfcb3198e648c20fae0191d3f47074a821ebd0cebe4a473781263146d71"
     },
     {
       "path": "native/chapters/ship/README.md",
@@ -336,8 +336,8 @@
     },
     {
       "path": "native/chapters/tables/README.md",
-      "bytes": 21346,
-      "sha256": "8a93cac13cad17a19e35025de1cffe92a7369921375cef1b581ce79ce7b3705c"
+      "bytes": 21393,
+      "sha256": "27a1a4eee303e70a703a273d183b12056d419e301159d79eda17f90e25345056"
     },
     {
       "path": "native/chapters/threads/README.md",
@@ -741,8 +741,8 @@
     },
     {
       "path": "native/examples/coordination-2/README.md",
-      "bytes": 6393,
-      "sha256": "0fca96f9e9372e449ce2c196720c89e46b6314f6b2684f897fdf819ba6ace3e5"
+      "bytes": 6533,
+      "sha256": "bea4a35cea297fc9e3906310ff9c240e3f2bb8635a02524576822d111e4616d1"
     },
     {
       "path": "native/examples/coordination-2/main.c",
@@ -751,8 +751,8 @@
     },
     {
       "path": "native/examples/coordination-3/README.md",
-      "bytes": 4583,
-      "sha256": "dae94c808e791075aa5b3a36fd57bc8d88709bab50b86db478ce43379d4fdc22"
+      "bytes": 4691,
+      "sha256": "0ecbfe01887665bef9db26605dd83bc5e4bb6069f27c1a554f74e02778786ca3"
     },
     {
       "path": "native/examples/coordination-3/main.c",
@@ -1501,8 +1501,8 @@
     },
     {
       "path": "native/examples/portable-c-7/README.md",
-      "bytes": 4022,
-      "sha256": "8c2f843c9421e1dcc55e22b79cd837daa0361f831a6a5fce5ff118afe7f12811"
+      "bytes": 4117,
+      "sha256": "320df65abb69a7a8da4ea4451aef5c283b7aa3dbdc63db9566015c4d6bc4b18b"
     },
     {
       "path": "native/examples/portable-c-7/main.c",

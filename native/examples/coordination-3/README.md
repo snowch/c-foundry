@@ -69,7 +69,7 @@ Both critical sections complete and their increments are protected. The output d
 
 What cycle would opposite lock orders permit?
 
-What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Thread A; L; Thread B; R. held by; waits for; held by; waits for. Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.
+What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Nodes: Thread A, L, Thread B, R. Connections: L leads to Thread A (held by); Thread A leads to R (waits for); R leads to Thread B (held by); Thread B leads to L (waits for). Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.
 
 The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness. Illustration of the supplied example; edits do not update this picture.
 

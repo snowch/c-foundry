@@ -40,7 +40,7 @@ Chloé occupies six UTF-8 bytes. In the C locale the four ASCII letters are clas
 
 Why are there 6 UTF-8 bytes but only 4 ASCII letters?
 
-Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. 43; 68; 6C; 6F; C3; A9. C. 1; h. 1; l. 1; o. 1; é. 2. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier.
+Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. C uses byte offsets 0: 43; h uses byte offsets 1: 68; l uses byte offsets 2: 6C; o uses byte offsets 3: 6F; é uses byte offsets 4 through 5: C3, A9. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier.
 
 The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier. Illustration of the supplied example; edits do not update this picture.
 

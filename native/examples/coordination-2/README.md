@@ -137,7 +137,7 @@ Reusing slots lets this four-slot queue drain eight requests. The fixture checks
 
 Why can a woken consumer still need to wait?
 
-Why can a woken consumer still need to wait? count > 0?; Wait. release mutex; Reacquire. mutex locked; Take item. under mutex. No; wake; recheck; Yes. The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.
+Why can a woken consumer still need to wait? Nodes: count > 0?, Wait (release mutex), Reacquire (mutex locked), Take item (under mutex). Connections: count > 0? leads to Wait (No); Wait leads to Reacquire (wake); Reacquire leads to count > 0? (recheck); count > 0? leads to Take item (Yes). The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.
 
 The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop. Illustration of the supplied example; edits do not update this picture.
 

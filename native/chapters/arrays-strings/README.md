@@ -269,7 +269,7 @@ Ada fits in eight chars including its terminator, so the copy and comparison suc
 
 Which position must end reach before accepting the complete integer field?
 
-Which position must end reach before accepting the complete integer field? Original text: 42. 4; 2; \0. After strtol: parsed=42, end points to index 2.. end. Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix.
+Which position must end reach before accepting the complete integer field? Original text: 42: index 0 = 4, index 1 = 2, index 2 = \0. After strtol: parsed=42, end points to index 2.. Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix.
 
 Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix. Illustration of the supplied example; edits do not update this picture.
 
@@ -348,7 +348,7 @@ For C is fun, each first letter after a boundary increases the word count; lette
 
 Which transition increments words?
 
-Which transition increments words? Outside word. in_word=false; Inside word. in_word=true. non-space: +1; whitespace. Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \0.. Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs.
+Which transition increments words? Nodes: Outside word (in_word=false), Inside word (in_word=true). Connections: Outside word leads to Inside word (non-space: +1); Inside word leads to Outside word (whitespace). Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \0.. Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs.
 
 Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs. Illustration of the supplied example; edits do not update this picture.
 

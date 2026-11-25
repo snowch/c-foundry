@@ -99,7 +99,7 @@ Changing the source name after insertion does not affect the stored row because 
 
 Why does changing source.name leave the stored name unchanged?
 
-Why does changing source.name leave the stored name unchanged? After source.name[0] = X. Source Row. 7 | Xda | 95. source. separate struct; Stored Row · count=1. 7 | Ada | 95. t.rows[0]. struct assignment copied fields. The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy.
+Why does changing source.name leave the stored name unchanged? After source.name[0] = X: Source Row contains 7 | Xda | 95. source separate struct Source Row; Stored Row · count=1 contains 7 | Ada | 95. t.rows[0] struct assignment copied fields Stored Row · count=1. The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy.
 
 The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy. Illustration of the supplied example; edits do not update this picture.
 

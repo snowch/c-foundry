@@ -318,7 +318,7 @@ Reusing slots lets this four-slot queue drain eight requests. The fixture checks
 
 Why can a woken consumer still need to wait?
 
-Why can a woken consumer still need to wait? count > 0?; Wait. release mutex; Reacquire. mutex locked; Take item. under mutex. No; wake; recheck; Yes. The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.
+Why can a woken consumer still need to wait? Nodes: count > 0?, Wait (release mutex), Reacquire (mutex locked), Take item (under mutex). Connections: count > 0? leads to Wait (No); Wait leads to Reacquire (wake); Reacquire leads to count > 0? (recheck); count > 0? leads to Take item (Yes). The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.
 
 The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop. Illustration of the supplied example; edits do not update this picture.
 
@@ -417,7 +417,7 @@ Both critical sections complete and their increments are protected. The output d
 
 What cycle would opposite lock orders permit?
 
-What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Thread A; L; Thread B; R. held by; waits for; held by; waits for. Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.
+What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Nodes: Thread A, L, Thread B, R. Connections: L leads to Thread A (held by); Thread A leads to R (waits for); R leads to Thread B (held by); Thread B leads to L (waits for). Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.
 
 The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness. Illustration of the supplied example; edits do not update this picture.
 
