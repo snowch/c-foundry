@@ -360,6 +360,14 @@ chain_height=3 balanced_height=2
 
 The stored heights include the root level. Balanced shape reduces the longest route without changing key order.
 
+### The same keys can have different heights
+
+How many node levels must a root-to-leaf path cross?
+
+The chain has root 1, right child 2, and right grandchild 3: height 3. The balanced tree has root 2, left child 1, and right child 3: height 2. Both have inorder traversal 1, 2, 3. In this program height counts node levels, and an empty tree has height zero.
+
+These are the two shapes constructed by the starter. Height bounds a search path; this picture does not measure runtime.
+
 **Watch for:** Testing only inorder output verifies order but does not verify balance or correct height metadata.
 
 **Check:** Can two correct BSTs have different lookup costs?
@@ -493,6 +501,14 @@ root=2 height=2 order=1 2 3
 ```
 
 Inserting two creates a left-right imbalance at three. The two rotations promote two while preserving the inorder sequence.
+
+### Rotations change links while preserving key order
+
+How does inserting 2 rebalance the keys 3, 1, 2?
+
+Immediately after linking the third key, root 3 has left child 1, whose right child is 2. This left-right shape is unbalanced. A left rotation at 1 followed by a right rotation at 3 gives root 2 with left child 1 and right child 3. Inorder traversal remains 1, 2, 3; the resulting height is 2 after height metadata is refreshed.
+
+The first tree is an intermediate insertion state. The program prints the final root, height, and inorder order; the picture explains the links behind that output.
 
 **Watch for:** Fixing pointers but leaving stale heights can cause later insertions to choose incorrect rotations.
 

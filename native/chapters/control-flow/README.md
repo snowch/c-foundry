@@ -245,6 +245,14 @@ Output:
 
 At i = 2, continue skips printf but the for update still increments i. At i = 5, break exits before printing and before another iteration. The values 5 and 6 are never printed. A break inside a switch nested in a loop would leave that switch rather than automatically leaving the loop.
 
+### Continue and break take different paths
+
+Which values reach printf in the supplied for loop?
+
+The loop prints 0 and 1. At i equal to 2, continue skips the remaining body and proceeds to the for loop update and next condition test. It then prints 3 and 4. At i equal to 5, break exits the loop without the for update. The output is 0, 1, 3, 4, one per line.
+
+This trace is for a for loop. A continue in a while loop returns to its condition; it does not supply an update statement.
+
 **Watch for:** Always ask which construct is nearest. Also, a continue can bypass cleanup or other work later in a loop body; resource handling becomes important when allocations and files are introduced.
 
 **Check:** Which value causes this loop to finish early?

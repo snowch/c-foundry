@@ -147,14 +147,6 @@ Reading a complete line is often more useful than reading a whitespace-delimited
 
 With a positive capacity of at least two, fgets reads at most capacity minus one characters, keeps a newline if it fits, and appends a zero terminator on success. It returns NULL when it cannot return a string, such as end-of-input before any characters. It can also return a partial line when the buffer fills first. Check its result before using the buffer, and do not assume every successful call consumed a whole logical line.
 
-### Length is different from storage size
-
-"cat" uses three character positions and one terminating zero.
-
-The array word initialized with the string cat has four elements. Indices 0, 1, and 2 contain c, a, and t. Index 3 contains the terminating zero byte. strlen(word) is 3. sizeof word is 4 for this declared char array.
-
-Here sizeof is applied to the actual array, not to a pointer parameter.
-
 ### main.c
 
 ```c
@@ -180,6 +172,14 @@ Read: Ada Lovelace
 ```
 
 The sample input contains a space, which fgets retains. Because it also retains the trailing newline, printf does not add a second one. The result check avoids reading uninitialized line contents when no input exists. The capacity here is a small fixed array size, which fits the int parameter expected by fgets.
+
+### Memory before and after fgets
+
+What does the supplied input put into the 32-byte line buffer?
+
+Before fgets, all 32 bytes of the automatic array line have indeterminate values; question marks mean uninitialized, not zero. On the successful read of Ada Lovelace followed by a newline, indices 0 through 11 hold the twelve name characters including the space. Index 12 holds the retained newline, and index 13 holds the terminating zero byte. Indices 14 through 31 are unchanged and remain indeterminate. The Read: prefix is added by printf and is not stored in line. The program uses the buffer only after fgets succeeds.
+
+For this 32-byte buffer, fgets stores at most 31 input characters plus \0. It keeps the newline when it fits. The Read: prefix comes from printf. This illustrates the supplied program and input; edits do not update the picture.
 
 **Watch for:** Truncation needs an explicit policy: reject a long line, collect its remaining pieces, or intentionally work on chunks. This example reads one chunk; it is not a complete line-reading library.
 

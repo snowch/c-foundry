@@ -70,7 +70,7 @@ The persistence lesson demonstrates creating and importing `people.tdb`. Its mat
 
 ## Original concept diagrams and references
 
-54 original static diagrams support 107 selected lessons across all nine parts. They reflow at small widths, retain readable text, and include **Diagram in words** descriptions. No external artwork or copied reference-site diagrams are included. See [the figure inventory and provenance](docs/concept-diagrams.md).
+76 original static diagrams support 126 selected lessons across all nine parts. They reflow at small widths, retain readable text, and include **Diagram in words** descriptions. No external artwork or copied reference-site diagrams are included. See [the figure inventory and provenance](docs/concept-diagrams.md) and [the complete lesson review](docs/concept-diagram-review.md).
 
 Every topic has a collapsed **References and help** section with one to three curated references and a purpose for each link. Forty-four topics include an optional documentation question with a locally available answer comparison. [Finding and reading C documentation](https://snowch.github.io/c-foundry/#/chapter/first-program/6) teaches signatures, argument types, returns, errors, and standards labels using online references and a runnable printf example. Optional `man` commands illustrate an equivalent lookup on systems with manual pages; the hosted image does not include them.
 

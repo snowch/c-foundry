@@ -90,6 +90,14 @@ consistent=1 final_total=100
 
 After joins there is no concurrent access, so main can read the final total directly. During execution every account access follows the lock discipline.
 
+### One lock protects the whole transfer
+
+Can a reader observe the state between the two field updates?
+
+At the first transfer, accounts a and b start at 100 and 0. With the writer lock held, decrementing a produces the intermediate state 99,0. Incrementing b completes the transfer at 99,1. A reader holding the required reader lock cannot overlap that writer critical section, so it cannot observe the intermediate total 99. Before or after the transfer the protected total is 100.
+
+This shows the first transfer, not the final account values after all iterations. Every participating reader and writer must use the same lock; no C data race is executed.
+
 **Watch for:** Adding a read lock to only some readers leaves the overall shared-state contract broken.
 
 **Check:** What protects a reader from a half-completed transfer?

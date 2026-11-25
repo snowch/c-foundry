@@ -107,6 +107,14 @@ Output:
 
 total is calculated when its initializer runs. It stores 21; it is not a formula that automatically tracks quantity. Assigning 4 to quantity changes that object only. The later printf therefore prints the old calculated total and the new quantity. To update total, evaluate the multiplication and assign again.
 
+### Assignment stores a value at that moment
+
+Does total change when quantity changes later?
+
+With unit_price equal to 7 and quantity equal to 3, the initialization stores 21 in total. The later assignment stores 4 in quantity. It does not repeat the multiplication: total still contains 21. The program therefore prints total 21 followed by quantity 4.
+
+These are values in the supplied example, not a live view of your edits. Reassign total to calculate a new product.
+
 **Watch for:** Use = for assignment. It stores a value and is different from ==, which compares values. A statement such as total = quantity changes total, even if the names suggest a calculation.
 
 **Check:** After quantity changes to 4, does total automatically become 28?

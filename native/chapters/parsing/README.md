@@ -333,6 +333,14 @@ A grammar specifies complete legal sequences, not just recognizable prefixes. St
 
 The subset is INSERT INTO people VALUES (number, string, number); and SELECT * FROM people optionally followed by WHERE id = number. Both require a semicolon and end of input. The parser builds a temporary statement and assigns it to the output only after success, preserving output state after rejection.
 
+### Both SELECT branches must reach the end
+
+Where may the optional WHERE clause appear?
+
+For the SELECT grammar in this lesson, begin with SELECT * FROM people. Either follow it directly with a semicolon, or add WHERE id = a number and then a semicolon. Both branches must then reach end of input. The keywords and table name are case-sensitive. INSERT follows its own grammar and is not drawn here.
+
+This shows only the supported SELECT subset, not general SQL. Both paths require a semicolon and complete input consumption.
+
 ### main.c
 
 ```c

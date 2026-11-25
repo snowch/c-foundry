@@ -445,6 +445,14 @@ leaf2 min=5 count=3
 
 The leaf minima one, three, and five act as root boundaries. Equality with five routes to the third leaf.
 
+### A boundary key belongs to the right-hand leaf
+
+Which leaf does the routing rule choose for key 5?
+
+After inserting keys 1 through 7, the root points to leaves containing 1,2; 3,4; and 5,6,7. The child minima are 1, 3, and 5. The loop advances while the next child minimum is at most the search key. Key 5 therefore passes the boundary 3 and then the boundary 5, selecting child 2, whose leaf contains 5,6,7.
+
+The starter derives boundaries from leaf minima rather than storing a separate separator array. It is a bounded in-memory model with at most eight leaves.
+
 **Watch for:** Mixing left-inclusive and right-inclusive separator rules can lose keys exactly at boundaries.
 
 **Check:** Where does a key equal to the next child’s minimum go?
@@ -1395,6 +1403,14 @@ leaves=1 remaining=3 4 5
 ```
 
 The first removal borrows from the right sibling; the second forces a merge into one leaf. Ordered keys and leaf-chain traversal still agree.
+
+### Deletion can borrow first, then merge
+
+Why do these two deletions leave one leaf?
+
+After inserting keys 1 through 5, the leaves contain 1,2 and 3,4,5. Deleting 1 leaves the first leaf below the two-key minimum, so it borrows 3 from the right leaf: 2,3 and 4,5. Deleting 2 leaves the first leaf short again; the right leaf cannot lend while retaining two keys. The leaves merge into 3,4,5, the right pool slot is released, and the root has one child.
+
+The two-key minimum applies to non-root leaves in this bounded model. The root’s only remaining leaf may hold fewer keys; persistent trees also need page-write and recovery rules.
 
 **Watch for:** Deleting a key without repairing separators or sibling links can leave point queries passing while ranges fail.
 

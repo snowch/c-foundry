@@ -163,6 +163,14 @@ rejected=1 retained=Keep count=1
 
 The header declares one forty-byte row but provides only one byte. Loading fails and the previously live Keep row remains unchanged.
 
+### Reject a partial file before replacing the live table
+
+What happens to the existing Keep row when the load fails?
+
+Before loading, the live table contains one row: ID 9, name Keep, score 1. The supplied file declares one forty-byte row but contains only one payload byte, 7. The loader reads into temporary candidate storage, detects the truncated row, and rejects the load. It never assigns the candidate to the live table, which still contains the same Keep row with count 1.
+
+This illustrates failure-atomic replacement in memory. It does not establish crash durability or validate every possible malformed file.
+
 **Watch for:** Assigning decoded rows directly into the live table before validating the entire file makes rejection destructive.
 
 **Check:** When is live state replaced?

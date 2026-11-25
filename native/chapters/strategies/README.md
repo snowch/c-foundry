@@ -181,6 +181,14 @@ optimal=2
 
 At amount six, the transition from best[3] through coin three produces two. Smaller states are initialized before use.
 
+### Three earlier answers feed best[6]
+
+Which last coin gives the fewest coins for amount 6?
+
+With coin values 1, 3, and 4, best[a] means the minimum number of coins for amount a. For amount 6, choosing last coin 1 gives best[5] plus 1, or 3 coins. Last coin 3 gives best[3] plus 1, or 2 coins. Last coin 4 gives best[2] plus 1, or 3 coins. The minimum is 2 coins, achieved by 3 plus 3.
+
+Coin values are positive and reusable in this example. The numbers on the arrows’ endpoints count coins, not time or currency units.
+
 **Watch for:** An unreachable sentinel must not overflow when incremented; use a checked sentinel or guard the transition.
 
 **Check:** Why may best[x] use best[x-c]?

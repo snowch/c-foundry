@@ -456,6 +456,14 @@ Ada 90
 
 Grace sorts before both ninety-score rows. The ID tie-break puts Ada before Ken. Taking the first two original rows first would be a different query.
 
+### Sort the result before applying LIMIT
+
+Which two records survive ORDER BY score LIMIT 2?
+
+The source records are Ada with ID 1 score 90, Grace with ID 2 score 80, and Ken with ID 3 score 90. The copied result is sorted by ascending score with ID as a tie-breaker: Grace, Ada, Ken. LIMIT 2 then keeps Grace and Ada. The original table order remains unchanged.
+
+This starter happens to return the same two rows if it limits first. The diagram explains operator order; a changed score can make that order affect which rows survive.
+
 **Watch for:** A limit does not generally permit stopping before sorting unless the input already satisfies the requested order or a correct top-k method is used.
 
 **Check:** Which happens first for ORDER BY score LIMIT 2?

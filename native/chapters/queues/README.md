@@ -16,13 +16,13 @@ A stack removes the most recently added value; a queue removes the oldest. The o
 
 An array-backed stack keeps its next free position in count. Push checks capacity before writing; pop checks count before decrementing and reading. A linked implementation avoids a fixed array limit but introduces allocation failure and node ownership. Both can implement constant-time push/pop when their required node locations are known.
 
-### A queue removes the oldest waiting item
+### Stacks and queues remove from different ends
 
-FIFO behavior is independent of how the queue stores its elements.
+After adding 10 then 20, which item leaves first?
 
-Three waiting items are shown in logical removal order: A first, then B, then C. The next dequeue returns A. If an enqueue accepts D, it joins after C. A ring-buffer implementation can store this order across the end of its physical array.
+Both structures receive 10 followed by 20. A stack removes the most recently added item, 20, leaving 10. A queue removes the oldest item, 10, leaving 20. The supplied worked program implements the stack branch and prints popped=20 remaining=1; the queue branch illustrates the contrasting removal rule.
 
-These are logical positions. Array indices can wrap around in a circular buffer.
+The starter executes the stack branch. The queue branch is a conceptual comparison, not additional output from that program.
 
 ### main.c
 
@@ -413,6 +413,14 @@ ok=1 result=7
 ```
 
 The subtraction computes 8−3, followed by adding two. Reversing the two popped operands would change the subtraction.
+
+### An operator takes the right operand first
+
+Why does the minus token compute 8 − 3 rather than 3 − 8?
+
+Read tokens 8, 3, minus, 2, plus from left to right. Push 8, then 3. For minus, pop right operand 3, then left operand 8, and push 8 minus 3 equal to 5. Push 2. For plus, pop right 2 then left 5, and push 7. One value remains, so the evaluation succeeds with result 7.
+
+Stacks are shown bottom to top, left to right. The starter accepts single-digit operands and + or −, checks bounds and arithmetic, and requires exactly one final value.
 
 **Watch for:** A parser for one-digit postfix tokens is not an infix or full numeric-expression parser.
 

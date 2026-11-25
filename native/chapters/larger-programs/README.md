@@ -146,6 +146,14 @@ calls=2 private=2
 
 Both objects persist across calls. tick updates the exported counter and the private counter, while main reads the latter through a function. The header contains no ordinary global object definition that would be repeated in each including file.
 
+### A shared declaration refers to one definition
+
+Which state can main name directly, and which stays inside counter.c?
+
+counter.h declares extern int operations and the tick and read_private functions. counter.c defines the one operations object and a separate static private_count object. main.c calls tick twice, which increments both objects. main can name operations through the header, but obtains private_count only by calling read_private. Both reported counts are 2.
+
+Both counter objects remain alive between calls to tick. Only operations is exposed by name in the header.
+
 **Watch for:** Defining a shared mutable global in a header can produce multiple definitions at link time. Prefer module functions when they make state ownership clearer.
 
 **Check:** How many source files should define the exported operations object?

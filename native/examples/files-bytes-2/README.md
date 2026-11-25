@@ -37,6 +37,14 @@ hex=20 bit2=0 bit5=1
 
 The program first sets bits 2 and 5, then clears only bit 2 with an inverted mask. The remaining value is hexadecimal 20, meaning bit 5 is set. The two comparisons turn selected bit fields into ordinary truth values for printing.
 
+### Clearing one flag preserves the other
+
+Which bit changes when the code clears bit 2?
+
+Bits are numbered from zero at the least significant end. After setting bits 2 and 5, the low eight bits are 00100100, hexadecimal 24, decimal 36. Clearing bit 2 gives 00100000, hexadecimal 20, decimal 32. Bit 5 remains set. The upper 24 bits of the uint32_t value stay zero.
+
+This is a bit-position view of a uint32_t value, not its byte order in memory. The output hex=20 uses hexadecimal, not decimal.
+
 **Watch for:** Shifting by a negative count or by a count at least as large as the promoted operand’s width is undefined. Bitwise & also does not short-circuit like logical &&.
 
 **Check:** Which operation clears the selected bit while preserving the others?

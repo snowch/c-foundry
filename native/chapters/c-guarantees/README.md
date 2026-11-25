@@ -253,6 +253,14 @@ promoted_sum=260 narrowed_sum=4
 
 Converting −1 to unsigned produces UINT_MAX, which is not less than one. The guarded mathematical comparison correctly says a negative integer is smaller than an unsigned nonnegative value, while the index check rejects it. The two uint8_t operands promote to int and sum to 260; casting that result to uint8_t then reduces it modulo 256 to four.
 
+### Conversion can happen before or after arithmetic
+
+Which conversion turns −1 into an unsigned value, and which turns 260 into 4?
+
+The starter explicitly casts int minus one to unsigned int, producing UINT_MAX. Comparing that value with unsigned one is false; an uncast mixed comparison would apply the same conversion here. In the uint8_t example, 250 and 10 are added as int to produce 260, then conversion back to uint8_t produces 4 modulo 256. The narrowing occurs after the addition.
+
+This example has uint8_t and an int type that represents all its values. UINT_MAX depends on unsigned int width; signed overflow has different rules.
+
 **Watch for:** Casting a negative index to size_t does not validate it. Also, signed/unsigned rules depend on rank and representability; a wider signed type can sometimes represent every value of the unsigned operand.
 
 **Check:** On these targets, what is the type of the sum of two uint8_t operands?

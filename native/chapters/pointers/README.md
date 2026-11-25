@@ -232,6 +232,14 @@ const can constrain the pointed-to object, the pointer object, or both. Read eac
 
 `const int *read` prevents modifying an int through read, but read may be redirected. `int *const fixed` fixes the pointer after initialization, while permitting writes through it to a modifiable int. These declarations do not create ownership or extend the target’s lifetime. A read-only interface can accept a modifiable object without promising that the entire program has no other writer.
 
+### Const can restrict two different objects
+
+May the pointer move, and may it change its target?
+
+For const int *read, read may be assigned another valid address, but the integer cannot be changed through read. For int *const fixed, fixed cannot be redirected after initialization, but it may change the modifiable integer it points to. These are restrictions on operations through each declared pointer, not ownership or synchronization guarantees.
+
+Dereferencing either pointer requires a live int object at that address. A read-only pointer to a modifiable int does not prevent changes through another writable pointer.
+
 ### main.c
 
 ```c

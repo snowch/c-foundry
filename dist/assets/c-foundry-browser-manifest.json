@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 459817,
-  "sha256": "e3235e9f52f71c20dea23cb28129904ba3b55a4a04dd07caf3a8bbb4ad3a54f1",
+  "bytes": 488467,
+  "sha256": "3630468b6167217fc6e2bf4effcff361155231a8f349097e8dc6b93b10ebd6c6",
   "files": [
     {
       "path": "LICENSE",
@@ -16,8 +16,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13493,
-      "sha256": "df9964b7018605ae00cf13b2cb6c185dec2dd3da27889330c9b5df98fd77da5f"
+      "bytes": 13558,
+      "sha256": "eef5df4779833d29adc2de842accd63f5d43dea53a57b83658840cb458ccc1be"
     },
     {
       "path": "dist/assets/tinydb-sample.tdb",
@@ -55,9 +55,14 @@
       "sha256": "339a8349581827c9d6d71229699938540ffb67b31a9b6a897bfc857cf729b447"
     },
     {
+      "path": "docs/concept-diagram-review.md",
+      "bytes": 84373,
+      "sha256": "518bf075db942f26e61d66e4f761cca9969dafd1ed16bfb364c1f982a50d31a9"
+    },
+    {
       "path": "docs/concept-diagrams.md",
-      "bytes": 6901,
-      "sha256": "0be3b9fb953a625b55452c4029e0e001a236c04c12cb65b05243a8ebd1ccd735"
+      "bytes": 8843,
+      "sha256": "a756e4d319cf4fd9f834440672426f1869bab9940876801502e32d9a98ca6be2"
     },
     {
       "path": "docs/content-completion.md",
@@ -116,8 +121,8 @@
     },
     {
       "path": "native/chapters/arrays-strings/README.md",
-      "bytes": 17265,
-      "sha256": "258ce07865de46427fa4d2856fc8ee249fe6bc275a40eed548fe825420338637"
+      "bytes": 17722,
+      "sha256": "9ee43cb2eeb9756f27e5f01457fbf6699882bd96edba5f13c9b85343526c8ed1"
     },
     {
       "path": "native/chapters/atomics/README.md",
@@ -131,23 +136,23 @@
     },
     {
       "path": "native/chapters/bplus-trees/README.md",
-      "bytes": 41036,
-      "sha256": "a310a98c3f77097b4c41503bc08e978cb0a7c2151b8420078e2b75eef071db3a"
+      "bytes": 42243,
+      "sha256": "5e6a479edfbd31d790913d3d5513838226800c232aa53e5a7af0b13d3f77fc1c"
     },
     {
       "path": "native/chapters/c-guarantees/README.md",
-      "bytes": 39071,
-      "sha256": "14fd5d692f5aef94be0c71907bd00689c17ff602d6b6941419a6d6325d7c4b1b"
+      "bytes": 39716,
+      "sha256": "c6e41212e329c1ab3d639d387c5953818197787a0e44ad3c49c2224dfccc4dfb"
     },
     {
       "path": "native/chapters/concurrent-storage/README.md",
-      "bytes": 21900,
-      "sha256": "63af715bd2f079383eb20a0927a24f94f58cb44c06bd2eef592077beeb65951b"
+      "bytes": 22626,
+      "sha256": "d61b38dc6f0ed7d2a9e94e76ef8ad1e938c0c6388d916a3ee93d81bda4a68634"
     },
     {
       "path": "native/chapters/control-flow/README.md",
-      "bytes": 14024,
-      "sha256": "e2d00af844df8bbd4783ef5d3d7f050c1d3ccdd9512f13ba18cbe825764317f1"
+      "bytes": 14510,
+      "sha256": "b6efe6c55341615ad19dc78c346c67b1d47d70dfbc81aaa95848944d401f4812"
     },
     {
       "path": "native/chapters/coordination/README.md",
@@ -161,13 +166,13 @@
     },
     {
       "path": "native/chapters/execution/README.md",
-      "bytes": 28091,
-      "sha256": "d940480b0bfd86be9794e72e75e2b3257cb1f092ba317497e77072e8da62d60b"
+      "bytes": 28625,
+      "sha256": "7a6e5f54d6e71f8baaf3e6cf10e6b92880b6d5b9f62abe560531303c0ffb96a4"
     },
     {
       "path": "native/chapters/files-bytes/README.md",
-      "bytes": 26823,
-      "sha256": "2e771f27583985e207bbcfa5eea116b85ff33425167c8bb4dec5fc7b51b78667"
+      "bytes": 27438,
+      "sha256": "3090e4296fd0fda494d27edeacdc7a19504355b01b776100e38b50b9bcbe59df"
     },
     {
       "path": "native/chapters/first-program/README.md",
@@ -181,8 +186,8 @@
     },
     {
       "path": "native/chapters/graphs/README.md",
-      "bytes": 24061,
-      "sha256": "07af0d9b1e29d66c34af07103f4b05ca3bf329e170867918f0248f20a0a715e5"
+      "bytes": 24698,
+      "sha256": "7a2b8d538554a918385a23b14088427563b3023767b93ab03ad7ef32e3e032f6"
     },
     {
       "path": "native/chapters/hardening-tinydb/README.md",
@@ -196,13 +201,13 @@
     },
     {
       "path": "native/chapters/isolation/README.md",
-      "bytes": 12352,
-      "sha256": "07df6f17b10af7c5b3d4c2216a633c85d67a253c2f801efbf5190cf685bb402a"
+      "bytes": 13010,
+      "sha256": "93cdb6858ad206988bb35a47ba448f6f55efeeafa33788ff80517bc07ea3e84f"
     },
     {
       "path": "native/chapters/larger-programs/README.md",
-      "bytes": 16502,
-      "sha256": "b60896730ec523387f592f67695eca90425e239980cf4bf29c82231a5346e89e"
+      "bytes": 17088,
+      "sha256": "b9dd9675ec7e572d0cabe07853a708559f9605f81620526de28e1102630da90e"
     },
     {
       "path": "native/chapters/lists/README.md",
@@ -226,13 +231,13 @@
     },
     {
       "path": "native/chapters/parsing/README.md",
-      "bytes": 31148,
-      "sha256": "012fd303b74cdae5aa70980c7eee5b8d39b964ca287ae66b9bbaa789edfd688f"
+      "bytes": 31676,
+      "sha256": "c0f076fd0ae76a17ca7ccb9a53c4c8d2667df9b91ccb06d02cc07d4f588b6f99"
     },
     {
       "path": "native/chapters/persistence/README.md",
-      "bytes": 38022,
-      "sha256": "3ffb24b9af195ed658d7a3f23f5ead1cae7ec1bece19711e2f8d84d49713098f"
+      "bytes": 38643,
+      "sha256": "66b517792e5bb83a5ae8539aa588b1277c19e9a37efa10aac34f905cb425adbf"
     },
     {
       "path": "native/chapters/planning/README.md",
@@ -241,8 +246,8 @@
     },
     {
       "path": "native/chapters/pointers/README.md",
-      "bytes": 15196,
-      "sha256": "2939366b5c40291ef81473226988fd86a2db3e50930616058cba164936174b9f"
+      "bytes": 15821,
+      "sha256": "c1589ca8e388dcdd798043b4c9f0827389f33a8713d8f9c90c9e91c0ebf16eae"
     },
     {
       "path": "native/chapters/portable-c/README.md",
@@ -251,8 +256,8 @@
     },
     {
       "path": "native/chapters/queues/README.md",
-      "bytes": 14789,
-      "sha256": "8e52135a74b29a5a6bddc224a4552452d346f9c0dd7ca7d5f81938ffb3156d40"
+      "bytes": 15436,
+      "sha256": "092b44fa92b5ea59b3499450120a7eb4ceeafc0fc26208f670fc53abd509bb4c"
     },
     {
       "path": "native/chapters/recovery/README.md",
@@ -291,8 +296,8 @@
     },
     {
       "path": "native/chapters/sorting/README.md",
-      "bytes": 19437,
-      "sha256": "c0e2d0dcb440f90a91a1fe527d836aea244f1b9d01ff95e3c521c069a101cfa7"
+      "bytes": 20192,
+      "sha256": "969bc963c22661bfb068c2b459b7bee42f95e6eacadf461b697ff80b165d2923"
     },
     {
       "path": "native/chapters/standards-evolution/README.md",
@@ -301,8 +306,8 @@
     },
     {
       "path": "native/chapters/strategies/README.md",
-      "bytes": 14518,
-      "sha256": "64b3ab44d0f76df2de46f8c85322fe03e7fe787248a6182726f9a9a6c5197122"
+      "bytes": 15042,
+      "sha256": "a5cd668ac0a6ea4ddd6d28bc945a4321e47ba0aaed47ea2d47afd82843f5cd9f"
     },
     {
       "path": "native/chapters/structured-data/README.md",
@@ -321,13 +326,13 @@
     },
     {
       "path": "native/chapters/trees-heaps/README.md",
-      "bytes": 23198,
-      "sha256": "676ef7378d5343efe19b9e3af4818b971c26e16dba0d3fd23c706feebe262069"
+      "bytes": 24280,
+      "sha256": "3fae53be76278a595b7f3ffe3be6efb366aa37d49599aeefc5b9c1b2feea7493"
     },
     {
       "path": "native/chapters/values/README.md",
-      "bytes": 15393,
-      "sha256": "8b7bfcfd405b0639fa77b2ae48373fb9500bcef6046e3f33cb201a77b125e1f9"
+      "bytes": 15865,
+      "sha256": "9d10a63ee4593a1cdb6b22fed3a0ad1f9dddee4ed52811604c875d2604c74ba7"
     },
     {
       "path": "native/cli/tinydb.c",
@@ -671,8 +676,8 @@
     },
     {
       "path": "native/examples/concurrent-storage-4/README.md",
-      "bytes": 6428,
-      "sha256": "991bf177a110b97321a2f2990fdfc3a3e685e98f3b02afc8403e345f21f92474"
+      "bytes": 7154,
+      "sha256": "f828e46a47ea3ab0f828e4892fab7653bdbbec488d55da929fe64418193f2d40"
     },
     {
       "path": "native/examples/concurrent-storage-4/main.c",
@@ -801,8 +806,8 @@
     },
     {
       "path": "native/examples/files-bytes-2/README.md",
-      "bytes": 3020,
-      "sha256": "05b1ad04e0229090fec7f27180ce6b309011d886c786e72fe17323490173dcf3"
+      "bytes": 3516,
+      "sha256": "8b0297b43a7c5aa57407fa2b0c62947f5b453a3b9fab443dbb27e177f1f07205"
     },
     {
       "path": "native/examples/files-bytes-2/main.c",
@@ -841,8 +846,8 @@
     },
     {
       "path": "native/examples/files-bytes-6/README.md",
-      "bytes": 4695,
-      "sha256": "1f723616d99d7bbce163cf21fd6d289fa27f7d1c763521e85cfac7c61f6d9ea1"
+      "bytes": 4814,
+      "sha256": "bc07f02dfd1fb92c49493179883c671fc7b93940d8066523b86cc2a824f90d73"
     },
     {
       "path": "native/examples/files-bytes-6/main.c",
@@ -1041,8 +1046,8 @@
     },
     {
       "path": "native/examples/isolation-1/README.md",
-      "bytes": 4184,
-      "sha256": "7567c528e0e2585f4b504d80896a6228143d3e95312437957112a4195de9d675"
+      "bytes": 4842,
+      "sha256": "2ce2b8895c3a6f8e1923a4d19db265baeb781d52862d5dc518da666f0f8a000d"
     },
     {
       "path": "native/examples/isolation-1/main.c",
@@ -1091,8 +1096,8 @@
     },
     {
       "path": "native/examples/larger-programs-2/README.md",
-      "bytes": 3067,
-      "sha256": "e73067a98dd975cd640ae5dd17d070a41beee6003c55e956fe5035afc55ea61c"
+      "bytes": 3653,
+      "sha256": "737bd8ba06212c5fc9e122afb759b3a86fe6b48e1dc53de6eb3eca0078186239"
     },
     {
       "path": "native/examples/larger-programs-2/counter.c",
@@ -1336,8 +1341,8 @@
     },
     {
       "path": "native/examples/persistence-6/README.md",
-      "bytes": 6599,
-      "sha256": "4d132fcf3bda21f8220118faa1cddfc7e399849ae06db91fb8835730d73a49ba"
+      "bytes": 7220,
+      "sha256": "5ee27d9ac48f8ab86c7623f3133e7be7bac81258daacd56ff27d2e2c1f4d6882"
     },
     {
       "path": "native/examples/persistence-6/main.c",
@@ -2306,8 +2311,8 @@
     },
     {
       "path": "tools/sync_readings.cjs",
-      "bytes": 6367,
-      "sha256": "88426cbd0afba8bd724a0d55faf9ffb21adb5b17a414d9abd8189dc5ad473db8"
+      "bytes": 6457,
+      "sha256": "5afc0c895f25673d2c7305e36e97568bdb1a6881a6d9501c1f669f8f1839afe4"
     }
   ]
 }

@@ -14,3 +14,7 @@ body{font:17px/1.65 var(--sans)}a{color:var(--accent)}h1{font-size:clamp(38px,4v
 
 /* Independent tools stay available without competing with the lesson editor. */
 .footer-workspaces{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 24px}.outline-workspaces{margin-block:12px}.outline-workspaces p{max-width:65ch}
+
+/* Long lab names wrap within the header, including at 320 px. */
+.brand{max-width:100%;min-width:0}.brand-mark{flex-shrink:0}.brand>span:not(.brand-mark){min-width:0;white-space:normal;overflow-wrap:anywhere}
+.concept-diagram svg{background:transparent}

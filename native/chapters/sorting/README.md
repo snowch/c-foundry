@@ -309,6 +309,14 @@ Output:
 
 The first pivot is 3. Its partition leaves two values on each side; later calls sort those regions.
 
+### Partition fixes one pivot position
+
+Which regions still need sorting after the first partition?
+
+The supplied array starts as 5, 2, 4, 1, 3. The last value, 3, is the pivot. The first partition leaves 2, 1 to its left, 3 at index 2, and 5, 4 to its right. The left values are smaller than 3; the right values are greater than or equal to 3. Recursive calls sort the two outer regions and exclude the pivot. This intermediate state differs from the program’s final sorted output.
+
+This is the state after the first partition of the unchanged starter, not the final output or a trace of edited code.
+
 **Watch for:** This simple partition degenerates on many equal keys. Three-way partitioning is one useful improvement.
 
 **Check:** Does choosing the final element guarantee balanced partitions?
@@ -341,12 +349,6 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 Stable means equal keys retain their relative order. In-place describes auxiliary storage; these are independent properties.
 
 Sort records by key while keeping a distinguishing tag. The strict comparison in insertion sort moves only larger keys, preserving equal-key order. A common selection-sort swap can reverse equal records even when the final keys are sorted. Always specify whether stack storage is included when describing an algorithm as in-place.
-
-### Merge consumes the smaller next value
-
-Two sorted inputs can be combined into one sorted output.
-
-The left input is 2, 7 and the right input is 3, 9. Compare their current first unconsumed values. Take 2, then 3, then 7, then the remaining 9. The output prefix stays sorted. On equality, choosing the left input first preserves relative order in a stable merge.
 
 ### main.c
 
@@ -386,6 +388,14 @@ Output:
 ```
 
 The equal-key records A and C remain in their original order. The tag makes stability observable.
+
+### Equal keys keep their original order
+
+After sorting by key, does tag A still come before tag C?
+
+The input records are key 2 tag A, key 1 tag B, and key 2 tag C. Stable insertion sorting produces 1B, 2A, 2C. The equal-key records 2A and 2C retain their input order. The comparison moves only strictly greater keys. Moving greater-or-equal keys instead would allow C to pass A.
+
+Tags identify records; they are not an additional sort key. The supplied code demonstrates insertion sort with a strict > comparison.
 
 **Watch for:** Sorted keys alone cannot reveal whether a sort is stable.
 

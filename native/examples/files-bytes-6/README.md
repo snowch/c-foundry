@@ -10,14 +10,6 @@ Also editable and runnable inline in the browser course. Files created by this e
 
 Our ten-byte format is: bytes 0–1 ASCII C and F, byte 2 version 1, byte 3 reserved zero, bytes 4–7 a little-endian uint32_t ID, and bytes 8–9 a little-endian uint16_t score. The API requires non-null pointers to valid objects, and eight-bit bytes. The decoder checks the length before inspecting fields and commits its output only after validation. IDs and scores may span their entire unsigned type ranges.
 
-### A file format chooses its byte order
-
-The same unsigned value can be encoded independently of host layout.
-
-Encoding the value 513 as an unsigned four-byte little-endian field produces bytes 01, 02, 00, 00 in hexadecimal at offsets 0, 1, 2, and 3. The least significant byte is first. A decoder reconstructs 1 plus 2 times 256, giving 513; it does not copy a raw host struct.
-
-Illustrative uint32_t field in a format requiring 8-bit bytes. This is not the complete row or file header.
-
 ### main.c
 
 ```c
@@ -67,6 +59,14 @@ bad version=1
 ```
 
 The first round trip restores the two fields without copying struct padding. Changing the version byte makes decoding fail. The chapter project moves the encoder and decoder behind a header and tests exact bytes, truncation, unknown versions, and an actual temporary-file round trip.
+
+### Each field has an explicit byte range
+
+Where do the decoder’s version, ID, and score come from?
+
+The ten-byte record begins with hexadecimal 43 46, the ASCII magic CF. Offset 2 holds version 01 and offset 3 is reserved 00. Offsets 4 through 7 hold the little-endian ID 513 as 01 02 00 00. Offsets 8 and 9 hold the little-endian score 90 as 5a 00. Changing offset 2 to 02 makes the version unsupported and the decoder rejects the record.
+
+Byte values above are hexadecimal. Field boxes are not drawn to scale. This format assumes 8-bit bytes and the exact-width integer types used by the supplied code.
 
 **Watch for:** Do not silently accept a format version you cannot interpret. Also, a round trip alone can miss a shared mistake in encoder and decoder, so test against independently specified byte fixtures.
 

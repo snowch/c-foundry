@@ -365,3 +365,19 @@ dialog::backdrop { background:#17241c88; }
 @media(max-width:520px){.linux-terminal iframe{height:570px}.linux-controls{gap:8px}}
 
 #linux-source-tools{margin:20px 0;padding:14px;border:1px solid var(--line);border-radius:6px}#linux-source-tools>summary{cursor:pointer;min-height:44px;align-content:center;font-weight:600}#linux-source-file{display:block;max-width:100%;width:100%;font-size:16px;padding:10px;margin:8px 0}#linux-source-code{display:block;width:100%;height:360px;padding:14px;background:#202b2a;color:#eff3ec;border:1px solid #859681;border-radius:4px;font:17px/1.6 var(--mono);tab-size:4}#linux-source-status{font-size:16px;overflow-wrap:anywhere}
+
+/* Compact, byte-indexed example memory; spare bytes are grouped without inventing values. */
+.concept-buffer-after{margin-top:16px}.concept-buffer-cells{grid-template-columns:repeat(7,minmax(0,1fr))}.concept-buffer-rest{margin-top:10px}.concept-buffer-rest .concept-node{padding:10px 12px}.concept-buffer-cells .concept-node-detail{font-size:14px}.concept-buffer-cells .concept-node-value{font-size:18px}
+@media(max-width:560px){.concept-buffer-cells{grid-template-columns:repeat(4,minmax(0,1fr))}.concept-buffer-cells .concept-node-label{font-size:14px}.concept-buffer-cells .concept-node-detail{font-size:14px}}
+
+.concept-buffer-key{font-size:16px;line-height:1.6;margin:12px 0}.concept-buffer-key>span{display:inline-block}.concept-buffer-key code{background:var(--soft);color:var(--ink)}
+
+/* Keep tree edges visible on phones; blank child slots preserve left/right meaning. */
+.concept-tree-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.concept-tree-panel{min-width:0;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.concept-tree-panel>.concept-lane-label{min-height:46px;margin-top:0}
+.concept-tree-node{display:block;width:48px;max-width:100%;margin-inline:auto;padding:10px 2px;text-align:center;border:1px solid var(--ink);border-radius:6px;background:var(--soft);color:var(--ink);font:600 18px/1.4 var(--mono)}
+.concept-tree-connectors{display:block;width:100%;height:28px;color:var(--ink)}
+.concept-tree-children{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+.concept-tree-edge{display:block;text-align:center;font-size:14px;line-height:1.5;margin-bottom:4px}
+@media(max-width:620px){.concept-tree-pair{grid-template-columns:1fr}.concept-tree-panel>.concept-lane-label{min-height:0}}

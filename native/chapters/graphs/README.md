@@ -518,6 +518,14 @@ distances=0,1,3,4
 
 The best path to two goes through one, and the best path to three goes through two, totaling four.
 
+### A cheaper route replaces a previous distance
+
+Why are the final distances to vertices 2 and 3 smaller than the first candidates?
+
+Starting at vertex 0, the direct edge to vertex 2 costs 5. Going through vertex 1 costs 1 plus 2, or 3, so distance[2] becomes 3. A route to vertex 3 through vertex 1 costs 1 plus 7, or 8. Going through vertices 1 and 2 costs 1 plus 2 plus 1, or 4, so distance[3] becomes 4. The output distances for vertices 0 through 3 are 0, 1, 3, 4.
+
+Weights are nonnegative costs, not measured time. A zero matrix entry means no edge in this fixture; these are selected relaxation steps, not every loop iteration.
+
 **Watch for:** This representation excludes zero-weight edges; supporting them requires changing the edge-presence representation.
 
 **Check:** Can this algorithm safely accept arbitrary negative weights?
