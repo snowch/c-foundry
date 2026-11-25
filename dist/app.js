@@ -19,7 +19,7 @@
   state.completed=state.completed.filter(id=>LESSONS.some(l=>l.id===id&&!l.isExample));
   const PRACTICE=COURSE.chapters.flatMap(c=>c.labs).map(id=>LESSONS.find(l=>l.id===id&&!l.isExample));
   let selected=Math.max(0,LESSONS.findIndex(l=>l.id===state.selected));
-  let worker,timer,busy=false,mode='run',runLesson,toastTimer,view='lab',currentRoute='',inlineActive=false,activeFile='main.c',hasOutput=false;
+  let worker,timer,busy=false,mode='run',runLesson,runSnapshot,toastTimer,view='lab',currentRoute='',inlineActive=false,activeFile='main.c',hasOutput=false;
   const assessments={hello:'Explain what main and printf each do.',loops:'Explain why the loop includes n and what happens for n = 0.',pointers:'Explain why temp must keep its own copy of the first value.',heap:'Output checks cannot verify ownership. Confirm that every successful allocation is freed exactly once, including error paths.',search:'Output checks cannot establish that you used binary search. Explain the sorted-input requirement and how every iteration shrinks the interval.',sort:'Output checks cannot establish insertion sort or its complexity. Explain the sorted-prefix invariant and why shifting can take quadratic time.',rows:'Explain the width limit and the zero terminator in the name field.',query:'Explain why find_row returns an index, how duplicates are detected, and what happens when the table is full.'};
   let baseline=JSON.parse(JSON.stringify(state));
   function save(){
@@ -239,6 +239,7 @@
         $('output').textContent=(data.diagnostics?'Compiler diagnostics:\n'+data.diagnostics+'\n\n':'')+(results[0].actual||'(no output)');
         $('engine-status').textContent=mode==='check'?'Practice checks finished':'Run finished';
         hasOutput=true;outputContext();state.results[runLesson.id]={output:$('output').textContent};save();
+        if(mode==='run'&&runSnapshot)window.dispatchEvent(new CustomEvent('c-foundry:program-run',{detail:runSnapshot}));
         if(mode==='check') {
           const passed=results.filter(r=>r.pass).length;
           $('test-count').textContent=`${passed}/${results.length}`;
@@ -271,7 +272,8 @@
     if(!hasOutput)$('output').textContent='Preparing the local C compiler…';
     $('test-results').textContent=check?'Compiling and running the checks…':'Run Check output to test this version of your code.'; $('test-count').textContent=''; consoleTab('output');
     timer=setTimeout(()=>stop('Compiler preparation timed out. Check your connection and try again.'),120000);
-    try { getWorker().postMessage({code:sourceFiles()['main.c'],files:runLesson.files?sourceFiles():undefined,input:$('stdin').value,tests:check?runLesson.tests:undefined}); }
+    const request={code:sourceFiles()['main.c'],files:runLesson.files?sourceFiles():undefined,input:$('stdin').value,tests:check?runLesson.tests:undefined};runSnapshot={lessonId:runLesson.id,code:request.code,input:request.input};
+    try { getWorker().postMessage(request); }
     catch(error){stop('Unable to start the compiler: '+error.message);}
   }
 

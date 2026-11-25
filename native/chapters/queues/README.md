@@ -420,7 +420,7 @@ Why does the minus token compute 8 − 3 rather than 3 − 8?
 
 Read tokens 8, 3, minus, 2, plus from left to right. Push 8, then 3. For minus, pop right operand 3, then left operand 8, and push 8 minus 3 equal to 5. Push 2. For plus, pop right 2 then left 5, and push 7. One value remains, so the evaluation succeeds with result 7.
 
-Stacks are shown bottom to top, left to right. The starter accepts single-digit operands and + or −, checks bounds and arithmetic, and requires exactly one final value.
+Only occupied stack entries are drawn, bottom to top from left to right. The rightmost value is the top. The starter checks arithmetic, capacity and the final one-value result.
 
 **Watch for:** A parser for one-digit postfix tokens is not an infix or full numeric-expression parser.
 

@@ -750,7 +750,8 @@
     "routes": [
       "queues/1"
     ],
-    "note": "The starter executes the stack branch. The queue branch is a conceptual comparison, not additional output from that program."
+    "note": "The starter executes the stack branch. The queue branch is a conceptual comparison, not additional output from that program.",
+    "focus": true
   },
   "hash-collision": {
     "title": "Two keys can start at the same bucket",
@@ -2121,123 +2122,137 @@
     "note": "The experiment requires binary64, gradual subnormals, and round-to-nearest. Boxes are not to scale; the C classification functions determine the printed results."
   },
   "fgets-buffer": {
-    "title": "Memory before and after fgets",
-    "caption": "fgets keeps the newline and adds a zero byte to end the string.",
-    "description": "Before fgets, all 32 bytes of line are uninitialized; no initial byte values are assumed. After the successful read of the original input, bytes 0 through 11 contain Ada Lovelace, including its space. Byte 12 contains the newline from the input. Byte 13 contains the zero byte added by fgets to terminate the C string. Bytes 14 through 31, eighteen bytes, are untouched and remain uninitialized. In total, thirteen input bytes and one terminator occupy fourteen of the thirty-two bytes. The Read: prefix comes from printf and is not stored in line. For this 32-byte array, fgets can store at most 31 input bytes plus the terminator. Groups are not drawn to scale, and edits do not update this illustration.",
+    "title": "How fgets fills a buffer",
+    "caption": "The same 32 bytes stay in the same positions. Only their contents change.",
+    "description": "The model always shows all 32 indexed bytes of line in fixed positions. Before the call every byte is uninitialized, shown as a question mark rather than an assumed zero. For the original input Ada Lovelace followed by a newline, bytes 0 through 11 contain the text, with SP denoting its space. Byte 12 contains the input newline and byte 13 the zero terminator added by fgets. Bytes 14 through 31 remain uninitialized. Thirteen input bytes plus one terminator occupy fourteen of the thirty-two bytes. The buffer can hold at most 31 input bytes plus the terminator. Shorter input moves the terminator earlier; longer input leaves a suffix unread by this call. The grid wraps for readability; it represents one contiguous array. This is an illustrative model, not a memory dump or an internal execution trace.",
     "kind": "buffer-change",
     "placement": "after-example",
     "data": {
       "capacity": 32,
       "input": "Ada Lovelace\n",
-      "groups": [
+      "examples": [
         {
-          "kind": "text",
-          "label": "Text",
-          "start": 0,
-          "end": 11,
-          "value": "Ada Lovelace",
-          "detail": "12 bytes from input"
+          "id": "original",
+          "label": "Original: Ada Lovelace",
+          "input": "Ada Lovelace\n"
         },
         {
-          "kind": "newline",
-          "label": "Newline",
-          "start": 12,
-          "end": 12,
-          "value": "\\n",
-          "detail": "Kept from input"
+          "id": "short",
+          "label": "Short: Ada",
+          "input": "Ada\n"
         },
         {
-          "kind": "terminator",
-          "label": "String end",
-          "start": 13,
-          "end": 13,
-          "value": "\\0",
-          "detail": "Added by fgets"
-        },
-        {
-          "kind": "unused",
-          "label": "Untouched",
-          "start": 14,
-          "end": 31,
-          "value": "18 bytes",
-          "detail": "Still uninitialized"
+          "id": "long",
+          "label": "Long: more than 31 bytes",
+          "input": "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789\n"
         }
       ]
     },
     "routes": [
       "arrays-strings/3"
     ],
-    "note": "Original example; byte groups are not to scale."
+    "note": "SP = space. ? = uninitialized, not a stored character.",
+    "focus": true
   },
   "assignment-snapshot": {
     "title": "Assignment stores a value at that moment",
     "caption": "Does total change when quantity changes later?",
     "description": "With unit_price equal to 7 and quantity equal to 3, the initialization stores 21 in total. The later assignment stores 4 in quantity. It does not repeat the multiplication: total still contains 21. The program therefore prints total 21 followed by quantity 4.",
-    "kind": "comparison",
+    "kind": "state-rows",
     "data": {
-      "headings": [
-        "After statement",
-        "quantity",
-        "total"
-      ],
       "rows": [
-        [
-          "int total = unit_price * quantity;",
-          "3",
-          "21"
-        ],
-        [
-          "quantity = 4;",
-          "4",
-          "21 (unchanged)"
-        ]
+        {
+          "label": "Initialize total · unit_price = 7",
+          "cards": [
+            {
+              "label": "quantity",
+              "value": "3",
+              "detail": "",
+              "state": "normal"
+            },
+            {
+              "label": "total",
+              "value": "21",
+              "detail": "",
+              "state": "normal"
+            }
+          ]
+        },
+        {
+          "label": "Assign quantity = 4",
+          "cards": [
+            {
+              "label": "quantity",
+              "value": "4",
+              "detail": "changed",
+              "state": "active"
+            },
+            {
+              "label": "total",
+              "value": "21",
+              "detail": "unchanged",
+              "state": "normal"
+            }
+          ]
+        }
       ]
     },
     "routes": [
       "values/2"
     ],
     "note": "These are values in the supplied example, not a live view of your edits. Reassign total to calculate a new product.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "loop-exits": {
     "title": "Continue and break take different paths",
     "caption": "Which values reach printf in the supplied for loop?",
     "description": "The loop prints 0 and 1. At i equal to 2, continue skips the remaining body and proceeds to the for loop update and next condition test. It then prints 3 and 4. At i equal to 5, break exits the loop without the for update. The output is 0, 1, 3, 4, one per line.",
-    "kind": "comparison",
-    "data": {
-      "headings": [
-        "i",
-        "Body action",
-        "Next step"
-      ],
-      "rows": [
-        [
-          "0, 1",
-          "Print i",
-          "Update i; test condition"
-        ],
-        [
-          "2",
-          "continue: skip printf",
-          "Update i; test condition"
-        ],
-        [
-          "3, 4",
-          "Print i",
-          "Update i; test condition"
-        ],
-        [
-          "5",
-          "break: skip printf",
-          "Leave loop"
-        ]
-      ]
-    },
+    "kind": "loop-trace",
+    "data": [
+      {
+        "label": "i = 0",
+        "value": "0",
+        "detail": "printf",
+        "state": "active"
+      },
+      {
+        "label": "i = 1",
+        "value": "1",
+        "detail": "printf",
+        "state": "active"
+      },
+      {
+        "label": "i = 2",
+        "value": "skip",
+        "detail": "continue",
+        "state": "muted"
+      },
+      {
+        "label": "i = 3",
+        "value": "3",
+        "detail": "printf",
+        "state": "active"
+      },
+      {
+        "label": "i = 4",
+        "value": "4",
+        "detail": "printf",
+        "state": "active"
+      },
+      {
+        "label": "i = 5",
+        "value": "exit",
+        "detail": "break",
+        "state": "boundary"
+      }
+    ],
     "routes": [
       "control-flow/4"
     ],
-    "note": "This trace is for a for loop. A continue in a while loop returns to its condition; it does not supply an update statement.",
-    "placement": "after-example"
+    "note": "Printed output: 0, 1, 3, 4. continue proceeds to the for-loop update and condition; break leaves the loop without that update.",
+    "placement": "after-example",
+    "focus": true
   },
   "pointer-const": {
     "title": "Const can restrict two different objects",
@@ -2267,133 +2282,142 @@
       "pointers/4"
     ],
     "note": "Dereferencing either pointer requires a live int object at that address. A read-only pointer to a modifiable int does not prevent changes through another writable pointer.",
-    "placement": "explanation"
+    "placement": "explanation",
+    "focus": true
   },
   "module-state": {
     "title": "A shared declaration refers to one definition",
     "caption": "Which state can main name directly, and which stays inside counter.c?",
     "description": "counter.h declares extern int operations and the tick and read_private functions. counter.c defines the one operations object and a separate static private_count object. main.c calls tick twice, which increments both objects. main can name operations through the header, but obtains private_count only by calling read_private. Both reported counts are 2.",
-    "kind": "lanes",
-    "data": [
-      {
-        "label": "Declarations shared through counter.h",
-        "cards": [
-          {
-            "label": "Header",
-            "value": "extern int operations",
-            "detail": "declares; does not allocate a second counter",
-            "state": "normal"
-          },
-          {
-            "label": "Header",
-            "value": "tick / read_private",
-            "detail": "function declarations",
-            "state": "normal"
-          }
-        ]
+    "kind": "branch",
+    "data": {
+      "root": {
+        "label": "Shared declarations · included by both files",
+        "value": "counter.h",
+        "detail": "extern int operations; tick; read_private",
+        "state": "normal"
       },
-      {
-        "label": "Definitions and access in the supplied program",
-        "cards": [
-          {
-            "label": "counter.c",
-            "value": "operations = 2",
-            "detail": "externally linked object",
-            "state": "normal"
-          },
-          {
-            "label": "counter.c",
-            "value": "private_count = 2",
-            "detail": "static: internal linkage",
-            "state": "normal"
-          },
-          {
-            "label": "main.c",
-            "value": "calls=2 private=2",
-            "detail": "two tick calls, then reads",
-            "state": "normal"
-          }
-        ]
-      }
-    ],
+      "children": [
+        {
+          "label": "counter.c · definitions",
+          "value": "operations = 2",
+          "detail": "private_count = 2 (static)",
+          "state": "normal"
+        },
+        {
+          "label": "main.c · caller",
+          "value": "tick twice",
+          "detail": "prints calls=2 private=2",
+          "state": "normal"
+        }
+      ]
+    },
     "routes": [
       "larger-programs/2"
     ],
-    "note": "Both counter objects remain alive between calls to tick. Only operations is exposed by name in the header.",
-    "placement": "after-example"
+    "note": "Both source files include counter.h. operations has one definition in counter.c; private_count stays private to that file.",
+    "placement": "after-example",
+    "focus": true
   },
   "flag-bits": {
     "title": "Clearing one flag preserves the other",
     "caption": "Which bit changes when the code clears bit 2?",
     "description": "Bits are numbered from zero at the least significant end. After setting bits 2 and 5, the low eight bits are 00100100, hexadecimal 24, decimal 36. Clearing bit 2 gives 00100000, hexadecimal 20, decimal 32. Bit 5 remains set. The upper 24 bits of the uint32_t value stay zero.",
-    "kind": "comparison",
+    "kind": "bit-change",
     "data": {
-      "headings": [
-        "State",
-        "Bits 7 … 0",
-        "Value"
-      ],
       "rows": [
-        [
-          "Set bits 2 and 5",
-          "00100100",
-          "0x24 = 36"
-        ],
-        [
-          "Clear bit 2",
-          "00100000",
-          "0x20 = 32"
-        ]
+        {
+          "label": "Before clearing bit 2 · 0x24 = 36",
+          "bits": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "label": "After clearing bit 2 · 0x20 = 32",
+          "bits": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
       ]
     },
     "routes": [
       "files-bytes/2"
     ],
-    "note": "This is a bit-position view of a uint32_t value, not its byte order in memory. The output hex=20 uses hexadecimal, not decimal.",
-    "placement": "after-example"
+    "note": "Bit 5 stays set; only bit 2 is cleared. The upper 24 bits stay zero. These are bit positions, not memory byte order; hex=20 means decimal 32.",
+    "placement": "after-example",
+    "focus": true
   },
   "record-fields": {
     "title": "Each field has an explicit byte range",
     "caption": "Where do the decoder’s version, ID, and score come from?",
     "description": "The ten-byte record begins with hexadecimal 43 46, the ASCII magic CF. Offset 2 holds version 01 and offset 3 is reserved 00. Offsets 4 through 7 hold the little-endian ID 513 as 01 02 00 00. Offsets 8 and 9 hold the little-endian score 90 as 5a 00. Changing offset 2 to 02 makes the version unsupported and the decoder rejects the record.",
-    "kind": "segments",
-    "data": [
-      {
-        "label": "Bytes 0–1",
-        "value": "43 46",
-        "detail": "magic: ASCII CF",
-        "state": "normal"
-      },
-      {
-        "label": "Byte 2",
-        "value": "01",
-        "detail": "supported version",
-        "state": "normal"
-      },
-      {
-        "label": "Byte 3",
-        "value": "00",
-        "detail": "reserved",
-        "state": "normal"
-      },
-      {
-        "label": "Bytes 4–7",
-        "value": "01 02 00 00",
-        "detail": "ID: 513",
-        "state": "normal"
-      },
-      {
-        "label": "Bytes 8–9",
-        "value": "5a 00",
-        "detail": "score: 90",
-        "state": "normal"
-      }
-    ],
+    "kind": "byte-map",
+    "data": {
+      "bytes": [
+        "43",
+        "46",
+        "01",
+        "00",
+        "01",
+        "02",
+        "00",
+        "00",
+        "5A",
+        "00"
+      ],
+      "fields": [
+        {
+          "label": "Magic",
+          "start": 0,
+          "end": 1,
+          "value": "CF"
+        },
+        {
+          "label": "Version",
+          "start": 2,
+          "end": 2,
+          "value": "1"
+        },
+        {
+          "label": "Reserved",
+          "start": 3,
+          "end": 3,
+          "value": "0"
+        },
+        {
+          "label": "ID, little-endian",
+          "start": 4,
+          "end": 7,
+          "value": "513"
+        },
+        {
+          "label": "Score, little-endian",
+          "start": 8,
+          "end": 9,
+          "value": "90"
+        }
+      ]
+    },
     "routes": [
       "files-bytes/6"
     ],
-    "note": "Byte values above are hexadecimal. Field boxes are not drawn to scale. This format assumes 8-bit bytes and the exact-width integer types used by the supplied code.",
-    "placement": "after-example"
+    "note": "Each box is one byte, shown in hexadecimal. The ID starts at byte 4; the score starts at byte 8. The format requires 8-bit bytes and the exact-width integer types in the code.",
+    "placement": "after-example",
+    "focus": true
   },
   "quicksort-partition": {
     "title": "Partition fixes one pivot position",
@@ -2424,7 +2448,8 @@
       "sorting/3"
     ],
     "note": "This is the state after the first partition of the unchanged starter, not the final output or a trace of edited code.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "stable-tags": {
     "title": "Equal keys keep their original order",
@@ -2483,7 +2508,8 @@
       "sorting/4"
     ],
     "note": "Tags identify records; they are not an additional sort key. The supplied code demonstrates insertion sort with a strict > comparison.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "coin-dependencies": {
     "title": "Three earlier answers feed best[6]",
@@ -2522,7 +2548,8 @@
       "strategies/3"
     ],
     "note": "Coin values are positive and reusable in this example. The numbers on the arrows’ endpoints count coins, not time or currency units.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "tree-height": {
     "title": "The same keys can have different heights",
@@ -2579,7 +2606,8 @@
       "trees-heaps/3"
     ],
     "note": "These are the two shapes constructed by the starter. Height bounds a search path; this picture does not measure runtime.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "avl-rotation": {
     "title": "Rotations change links while preserving key order",
@@ -2610,7 +2638,7 @@
         }
       },
       {
-        "label": "After left-at-1, right-at-3",
+        "label": "After both rotations · root 2",
         "root": {
           "value": "2",
           "children": [
@@ -2635,83 +2663,136 @@
     "routes": [
       "trees-heaps/4"
     ],
-    "note": "The first tree is an intermediate insertion state. The program prints the final root, height, and inorder order; the picture explains the links behind that output.",
-    "placement": "after-example"
+    "note": "Rotate left at node 1, then right at node 3. The links change; inorder order stays 1, 2, 3. The first tree is an intermediate insertion state.",
+    "placement": "after-example",
+    "focus": true
   },
   "dijkstra-relaxation": {
     "title": "A cheaper route replaces a previous distance",
     "caption": "Why are the final distances to vertices 2 and 3 smaller than the first candidates?",
     "description": "Starting at vertex 0, the direct edge to vertex 2 costs 5. Going through vertex 1 costs 1 plus 2, or 3, so distance[2] becomes 3. A route to vertex 3 through vertex 1 costs 1 plus 7, or 8. Going through vertices 1 and 2 costs 1 plus 2 plus 1, or 4, so distance[3] becomes 4. The output distances for vertices 0 through 3 are 0, 1, 3, 4.",
-    "kind": "comparison",
-    "data": {
-      "headings": [
-        "Vertex",
-        "Earlier candidate",
-        "Improved route"
-      ],
-      "rows": [
-        [
-          "2",
-          "0 → 2: cost 5",
-          "0 → 1 → 2: cost 3"
-        ],
-        [
-          "3",
-          "0 → 1 → 3: cost 8",
-          "0 → 1 → 2 → 3: cost 4"
+    "kind": "route-comparison",
+    "data": [
+      {
+        "vertex": 2,
+        "paths": [
+          {
+            "label": "Earlier candidate",
+            "vertices": [
+              0,
+              2
+            ],
+            "weights": [
+              5
+            ],
+            "cost": 5
+          },
+          {
+            "label": "Improved route",
+            "vertices": [
+              0,
+              1,
+              2
+            ],
+            "weights": [
+              1,
+              2
+            ],
+            "cost": 3
+          }
         ]
-      ]
-    },
+      },
+      {
+        "vertex": 3,
+        "paths": [
+          {
+            "label": "Earlier candidate",
+            "vertices": [
+              0,
+              1,
+              3
+            ],
+            "weights": [
+              1,
+              7
+            ],
+            "cost": 8
+          },
+          {
+            "label": "Improved route",
+            "vertices": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "weights": [
+              1,
+              2,
+              1
+            ],
+            "cost": 4
+          }
+        ]
+      }
+    ],
     "routes": [
       "graphs/5"
     ],
     "note": "Weights are nonnegative costs, not measured time. A zero matrix entry means no edge in this fixture; these are selected relaxation steps, not every loop iteration.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "postfix-stack": {
     "title": "An operator takes the right operand first",
     "caption": "Why does the minus token compute 8 − 3 rather than 3 − 8?",
     "description": "Read tokens 8, 3, minus, 2, plus from left to right. Push 8, then 3. For minus, pop right operand 3, then left operand 8, and push 8 minus 3 equal to 5. Push 2. For plus, pop right 2 then left 5, and push 7. One value remains, so the evaluation succeeds with result 7.",
-    "kind": "comparison",
-    "data": {
-      "headings": [
-        "Token",
-        "Action",
-        "Stack after token"
-      ],
-      "rows": [
-        [
-          "8",
-          "Push 8",
-          "[8]"
-        ],
-        [
-          "3",
-          "Push 3",
-          "[8, 3]"
-        ],
-        [
-          "−",
-          "Pop right=3, left=8; push 8−3",
-          "[5]"
-        ],
-        [
-          "2",
-          "Push 2",
-          "[5, 2]"
-        ],
-        [
-          "+",
-          "Pop right=2, left=5; push 5+2",
-          "[7]"
+    "kind": "stack-trace",
+    "data": [
+      {
+        "token": "8",
+        "action": "Push 8",
+        "stack": [
+          8
         ]
-      ]
-    },
+      },
+      {
+        "token": "3",
+        "action": "Push 3",
+        "stack": [
+          8,
+          3
+        ]
+      },
+      {
+        "token": "−",
+        "action": "Pop right=3, then left=8; compute 8−3",
+        "stack": [
+          5
+        ]
+      },
+      {
+        "token": "2",
+        "action": "Push 2",
+        "stack": [
+          5,
+          2
+        ]
+      },
+      {
+        "token": "+",
+        "action": "Pop right=2, then left=5; compute 5+2",
+        "stack": [
+          7
+        ]
+      }
+    ],
     "routes": [
       "queues/5"
     ],
-    "note": "Stacks are shown bottom to top, left to right. The starter accepts single-digit operands and + or −, checks bounds and arithmetic, and requires exactly one final value.",
-    "placement": "after-example"
+    "note": "Only occupied stack entries are drawn, bottom to top from left to right. The rightmost value is the top. The starter checks arithmetic, capacity and the final one-value result.",
+    "placement": "after-example",
+    "focus": true
   },
   "select-grammar": {
     "title": "Both SELECT branches must reach the end",
@@ -2744,7 +2825,8 @@
       "parsing/3"
     ],
     "note": "This shows only the supported SELECT subset, not general SQL. Both paths require a semicolon and complete input consumption.",
-    "placement": "explanation"
+    "placement": "explanation",
+    "focus": true
   },
   "sort-limit": {
     "title": "Sort the result before applying LIMIT",
@@ -2775,38 +2857,71 @@
       "execution/4"
     ],
     "note": "This starter happens to return the same two rows if it limits first. The diagram explains operator order; a changed score can make that order affect which rows survive.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "load-staging": {
     "title": "Reject a partial file before replacing the live table",
     "caption": "What happens to the existing Keep row when the load fails?",
     "description": "Before loading, the live table contains one row: ID 9, name Keep, score 1. The supplied file declares one forty-byte row but contains only one payload byte, 7. The loader reads into temporary candidate storage, detects the truncated row, and rejects the load. It never assigns the candidate to the live table, which still contains the same Keep row with count 1.",
-    "kind": "flow",
-    "data": [
-      {
-        "label": "Live table before",
-        "value": "9 | Keep | 1",
-        "detail": "count = 1",
-        "state": "normal"
-      },
-      {
-        "label": "Temporary load",
-        "value": "expected 40 bytes; got 1",
-        "detail": "reject truncated row",
-        "state": "boundary"
-      },
-      {
-        "label": "Live table after",
-        "value": "9 | Keep | 1",
-        "detail": "count = 1; unchanged",
-        "state": "active"
-      }
-    ],
+    "kind": "state-rows",
+    "data": {
+      "rows": [
+        {
+          "label": "Live table before load · count = 1",
+          "cards": [
+            {
+              "label": "ID",
+              "value": "9",
+              "detail": "",
+              "state": "normal"
+            },
+            {
+              "label": "Name",
+              "value": "Keep",
+              "detail": "",
+              "state": "normal"
+            },
+            {
+              "label": "Score",
+              "value": "1",
+              "detail": "",
+              "state": "normal"
+            }
+          ]
+        },
+        {
+          "label": "Live table after rejection · count = 1",
+          "cards": [
+            {
+              "label": "ID",
+              "value": "9",
+              "detail": "",
+              "state": "normal"
+            },
+            {
+              "label": "Name",
+              "value": "Keep",
+              "detail": "",
+              "state": "normal"
+            },
+            {
+              "label": "Score",
+              "value": "1",
+              "detail": "",
+              "state": "normal"
+            }
+          ]
+        }
+      ],
+      "bridge": "Candidate file: expected 40 payload bytes; found 1. Reject before replacing the live table."
+    },
     "routes": [
       "persistence/6"
     ],
     "note": "This illustrates failure-atomic replacement in memory. It does not establish crash durability or validate every possible malformed file.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "root-routing": {
     "title": "A boundary key belongs to the right-hand leaf",
@@ -2845,42 +2960,75 @@
       "bplus-trees/2"
     ],
     "note": "The starter derives boundaries from leaf minima rather than storing a separate separator array. It is a bounded in-memory model with at most eight leaves.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "leaf-repair": {
     "title": "Deletion can borrow first, then merge",
     "caption": "Why do these two deletions leave one leaf?",
     "description": "After inserting keys 1 through 5, the leaves contain 1,2 and 3,4,5. Deleting 1 leaves the first leaf below the two-key minimum, so it borrows 3 from the right leaf: 2,3 and 4,5. Deleting 2 leaves the first leaf short again; the right leaf cannot lend while retaining two keys. The leaves merge into 3,4,5, the right pool slot is released, and the root has one child.",
-    "kind": "comparison",
+    "kind": "state-rows",
     "data": {
-      "headings": [
-        "State",
-        "Leaf contents",
-        "Root children"
-      ],
       "rows": [
-        [
-          "After inserts",
-          "[1, 2] / [3, 4, 5]",
-          "2"
-        ],
-        [
-          "Erase 1; borrow 3",
-          "[2, 3] / [4, 5]",
-          "2"
-        ],
-        [
-          "Erase 2; merge",
-          "[3, 4, 5]; right slot released",
-          "1"
-        ]
+        {
+          "label": "After inserts · 2 root children",
+          "cards": [
+            {
+              "label": "Left leaf",
+              "value": "1, 2",
+              "detail": "",
+              "state": "normal"
+            },
+            {
+              "label": "Right leaf",
+              "value": "3, 4, 5",
+              "detail": "",
+              "state": "normal"
+            }
+          ]
+        },
+        {
+          "label": "Erase 1; borrow 3 · 2 root children",
+          "cards": [
+            {
+              "label": "Left leaf",
+              "value": "2, 3",
+              "detail": "receives 3",
+              "state": "active"
+            },
+            {
+              "label": "Right leaf",
+              "value": "4, 5",
+              "detail": "lends 3",
+              "state": "active"
+            }
+          ]
+        },
+        {
+          "label": "Erase 2; merge · 1 root child",
+          "cards": [
+            {
+              "label": "Left leaf",
+              "value": "3, 4, 5",
+              "detail": "merged keys",
+              "state": "active"
+            },
+            {
+              "label": "Former right slot",
+              "value": "Unused",
+              "detail": "slot reusable; not a root child",
+              "state": "muted"
+            }
+          ]
+        }
       ]
     },
     "routes": [
       "bplus-trees/6"
     ],
-    "note": "The two-key minimum applies to non-root leaves in this bounded model. The root’s only remaining leaf may hold fewer keys; persistent trees also need page-write and recovery rules.",
-    "placement": "after-example"
+    "note": "Leaf positions stay aligned across the three states. The released pool slot is reusable, not zeroed or freed. This bounded model keeps at least two keys per non-root leaf.",
+    "placement": "after-example",
+    "focus": true
   },
   "integer-conversions": {
     "title": "Conversion can happen before or after arithmetic",
@@ -2939,7 +3087,8 @@
       "c-guarantees/4"
     ],
     "note": "This example has uint8_t and an int type that represents all its values. UINT_MAX depends on unsigned int width; signed overflow has different rules.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   },
   "shutdown-lifecycle": {
     "title": "Destroy synchronization objects only after joins",
@@ -2960,9 +3109,9 @@
         "state": "normal"
       },
       {
-        "label": "Join",
-        "value": "both workers finished",
-        "detail": "main waits for completion",
+        "label": "Both joins return",
+        "value": "Workers finished",
+        "detail": "main may begin waiting earlier",
         "state": "normal"
       },
       {
@@ -2975,39 +3124,49 @@
     "routes": [
       "concurrent-storage/4"
     ],
-    "note": "This is cooperative shutdown in the supplied queue. Twenty successful cycles do not test every thread schedule or prove freedom from all concurrency bugs.",
-    "placement": "after-example"
+    "note": "Closing wakes waiters; accepted work drains before the consumer exits. Destruction waits until both joins return. Twenty cycles do not test every schedule.",
+    "placement": "after-example",
+    "focus": true
   },
   "locked-transfer": {
     "title": "One lock protects the whole transfer",
     "caption": "Can a reader observe the state between the two field updates?",
     "description": "At the first transfer, accounts a and b start at 100 and 0. With the writer lock held, decrementing a produces the intermediate state 99,0. Incrementing b completes the transfer at 99,1. A reader holding the required reader lock cannot overlap that writer critical section, so it cannot observe the intermediate total 99. Before or after the transfer the protected total is 100.",
-    "kind": "flow",
-    "data": [
-      {
-        "label": "Before writer lock",
+    "kind": "critical-section",
+    "data": {
+      "before": {
+        "label": "Before transfer",
         "value": "a=100, b=0",
         "detail": "total 100",
         "state": "normal"
       },
-      {
-        "label": "Writer holds lock",
-        "value": "a=99, b=0",
-        "detail": "reader excluded",
-        "state": "boundary"
-      },
-      {
-        "label": "Complete; unlock",
+      "inside": [
+        {
+          "label": "Decrement a",
+          "value": "a=99, b=0",
+          "detail": "intermediate total 99",
+          "state": "normal"
+        },
+        {
+          "label": "Increment b",
+          "value": "a=99, b=1",
+          "detail": "complete total 100",
+          "state": "normal"
+        }
+      ],
+      "after": {
+        "label": "After unlock",
         "value": "a=99, b=1",
-        "detail": "reader can see total 100",
-        "state": "active"
+        "detail": "reader can observe total 100",
+        "state": "normal"
       }
-    ],
+    },
     "routes": [
       "isolation/1"
     ],
     "note": "This shows the first transfer, not the final account values after all iterations. Every participating reader and writer must use the same lock; no C data race is executed.",
-    "placement": "after-example"
+    "placement": "after-example",
+    "focus": true
   }
 };
   const routes=new Map();
@@ -3033,8 +3192,14 @@
   function art(d){
     const data=d.data;
     switch(d.kind){
+      case 'state-rows':return data.rows.map((row,i)=>`<section class="concept-state-row"><p class="concept-lane-label">${escape(row.label)}</p>${cards(row.cards,'concept-state-cards')}</section>${data.bridge&&i===0?`<p class="concept-rejection">${escape(data.bridge)}</p>`:''}`).join('');
+      case 'bit-change':return data.rows.map(row=>`<section class="concept-bit-row"><p class="concept-lane-label">${escape(row.label)}</p><div class="concept-bits">${row.bits.map((bit,i)=>`<div class="concept-bit ${i===2?'bit-retained':i===5?'bit-changed':''}"><span>${7-i}</span><strong>${bit}</strong></div>`).join('')}</div></section>`).join('');
+      case 'byte-map':return `<div class="concept-byte-map">${data.bytes.map((byte,i)=>`<div class="concept-byte ${i>=4&&i<=7?'concept-active':''}"><span>${i}</span><strong>${escape(byte)}</strong></div>`).join('')}</div><dl class="concept-byte-key">${data.fields.map(f=>`<div><dt>[${f.start}${f.end===f.start?'':'–'+f.end}] ${escape(f.label)}</dt><dd>${escape(f.value)}</dd></div>`).join('')}</dl>`;
+      case 'critical-section':return `<div class="concept-root">${node(data.before)}</div><div class="concept-state-arrow">↓</div><div class="concept-critical"><p class="concept-lane-label">Writer holds the lock · readers wait</p>${cards(data.inside,'concept-flow')}</div><div class="concept-state-arrow">↓ unlock</div><div class="concept-root">${node(data.after)}</div>`;
+      case 'stack-trace':return `<p class="concept-lane-label">Stack after each token · bottom → top</p><ol class="concept-stack-trace">${data.map(step=>`<li><strong class="concept-token">${escape(step.token)}</strong><span class="concept-stack-action">${escape(step.action)}</span><div class="concept-stack-values">${step.stack.map(value=>`<strong>${value}</strong>`).join('')}<span>top</span></div></li>`).join('')}</ol>`;
+      case 'loop-trace':return `<p class="concept-lane-label">Iterations in increasing i</p>${cards(data,'concept-loop-trace')}`;
+      case 'route-comparison':return data.map(item=>`<section class="concept-route-group"><p class="concept-lane-label">Distance to vertex ${item.vertex}</p>${item.paths.map((path,i)=>`<div class="concept-route ${i?'route-improved':''}"><div class="concept-route-heading"><strong>${escape(path.label)}</strong><span>Cost ${path.cost}</span></div><div class="concept-route-path">${path.vertices.map((vertex,j)=>`${j?`<span class="concept-route-edge"><small>${path.weights[j-1]}</small><span>→</span></span>`:''}<strong class="concept-route-vertex">${vertex}</strong>`).join('')}</div></div>`).join('')}</section>`).join('');
       case 'tree-pair':return `<div class="concept-tree-pair">${data.map(tree=>`<div class="concept-tree-panel"><p class="concept-lane-label">${escape(tree.label)}</p>${treeArt(tree.root)}</div>`).join('')}</div>`;
-      case 'buffer-change':return `<div class="buffer-state-heading"><strong>Before</strong><code>line[${data.capacity}]</code></div><div class="buffer-before">${data.capacity} uninitialized bytes</div><div class="buffer-state-heading buffer-after-heading"><strong>After</strong><span>${data.input.length+1} bytes written</span></div><div class="buffer-strip">${data.groups.map(group=>`<div class="buffer-group buffer-${escape(group.kind)}"><div class="buffer-group-heading"><strong>${escape(group.label)}</strong><span class="buffer-range">[${group.start}${group.start===group.end?'':'–'+group.end}]</span></div><strong class="buffer-value">${escape(group.value)}</strong><span class="buffer-detail">${escape(group.detail)}</span></div>`).join('')}</div><p class="buffer-capacity">${data.capacity}-byte capacity: up to ${data.capacity-1} input bytes + <code>\\0</code>.</p>`;
       case 'flow':return cards(data,'concept-flow');
       case 'cells':return cards(data.cells,'concept-cells');
       case 'segments':return cards(data,'concept-segments');
@@ -3048,10 +3213,72 @@
     }
   }
   function get(chapterId,topicId){const id=routes.get(chapterId+'/'+topicId);return id?{id,...diagrams[id]}:null;}
+  // Pure byte model: the UI never claims to inspect WebAssembly memory.
+  function utf8(text){
+    const bytes=[];for(const ch of text){let cp=ch.codePointAt(0);if(cp>=0xd800&&cp<=0xdfff)cp=0xfffd;
+      if(cp<128)bytes.push(cp);else if(cp<2048)bytes.push(192|(cp>>6),128|(cp&63));else if(cp<65536)bytes.push(224|(cp>>12),128|((cp>>6)&63),128|(cp&63));else bytes.push(240|(cp>>18),128|((cp>>12)&63),128|((cp>>6)&63),128|(cp&63));
+    }return bytes;
+  }
+  function fgetsModel(input,capacity=32){
+    const bytes=utf8(input),copied=[];for(const byte of bytes){if(copied.length===capacity-1)break;copied.push(byte);if(byte===10)break;}
+    return {capacity,copied,remaining:bytes.slice(copied.length),success:copied.length>0,total:copied.length?copied.length+1:0};
+  }
+  function byteLabel(byte){return byte===32?'SP':byte===10?'\\n':byte===0?'\\0':byte===9?'\\t':byte===13?'\\r':byte>=33&&byte<=126?String.fromCharCode(byte):byte.toString(16).toUpperCase().padStart(2,'0');}
+  function streamLabel(bytes){return bytes.slice(0,80).map(b=>b===32?' ':b>=33&&b<=126?String.fromCharCode(b):b===10?'\\n':b===0?'\\0':b===9?'\\t':b===13?'\\r':'\\x'+b.toString(16).toUpperCase().padStart(2,'0')).join('')+(bytes.length>80?' … ('+(bytes.length-80)+' more bytes)':'');}
+  function memoryCanvas(model,step){
+    return Array.from({length:model.capacity},(_,i)=>{
+      const written=i<step,terminator=written&&i===model.copied.length,byte=model.copied[i],kind=!written?'unknown':terminator?'terminator':byte===10?'newline':'input';
+      return `<div class="memory-byte memory-${kind}" data-byte="${i}" data-kind="${kind}"><span class="memory-index">${i}</span><strong class="memory-value">${written?escape(terminator?'\\0':byteLabel(byte)):'?'}</strong></div>`;
+    }).join('');
+  }
+  function memoryLegend(){return '<ul class="memory-legend"><li><span class="memory-swatch memory-input"></span>Input byte</li><li><span class="memory-swatch memory-newline"></span>Newline</li><li><span class="memory-swatch memory-terminator"></span>Added \\0</li><li><span class="memory-swatch memory-unknown"></span>Uninitialized</li></ul>';}
+  function memorySummary(model,step){
+    const copied=Math.min(step,model.copied.length),terminated=step>model.copied.length?1:0;
+    return `<p class="memory-count"><strong>${step} / ${model.capacity} bytes written</strong></p><div class="memory-meter" aria-hidden="true"><span class="memory-input" style="width:${copied/model.capacity*100}%"></span><span class="memory-terminator" style="width:${terminated/model.capacity*100}%"></span></div><p class="memory-equation">${copied} input bytes + ${terminated} terminator + ${model.capacity-step} untouched</p>`;
+  }
+  function bufferFigure(d,prefix){
+    const model=fgetsModel(d.data.input,d.data.capacity);
+    return `<figure class="concept-diagram" data-concept="fgets-buffer"><figcaption id="${prefix}-caption"><strong>${escape(d.title)}</strong><p>${escape(d.caption)}</p></figcaption><div class="memory-examples"><label for="memory-example">Input example</label><select id="memory-example">${d.data.examples.map(e=>`<option value="${e.id}">${escape(e.label)}</option>`).join('')}<option value="custom" hidden>Custom input</option></select></div><p class="memory-help">Examples also fill the editor’s <strong>Input</strong>. <strong>Run code</strong> executes the program.</p><p class="memory-stream-label">Input stream</p><pre class="memory-stream">${escape(streamLabel(utf8(d.data.input)))}</pre><div class="memory-controls" role="group" aria-label="Illustrated memory state"><button type="button" data-memory="before" aria-pressed="false">Before</button><button type="button" data-memory="next" disabled>Next byte →</button><button type="button" data-memory="after" aria-pressed="true">After</button></div><p class="memory-phase" role="status">After a successful read · line[32]</p><div class="concept-art concept-kind-buffer-change" role="img" aria-labelledby="${prefix}-caption" aria-describedby="${prefix}-description"><div class="memory-grid">${memoryCanvas(model,model.total)}</div></div>${memoryLegend()}<div class="memory-summary">${memorySummary(model,model.total)}</div><p class="memory-unread" hidden></p><p class="memory-source">Original input. Memory is illustrated, not inspected.</p><p class="concept-note">${escape(d.note)}</p><details class="concept-text"><summary>Diagram in words</summary><p id="${prefix}-description">${escape(d.description)}</p></details></figure>`;
+  }
+  function memoryHost(){return location.hash.split('?')[0]==='#/chapter/arrays-strings/3'?document.querySelector('[data-concept="fgets-buffer"]'):null;}
+  function previewMemoryInput(){
+    const host=memoryHost();if(!host)return;const input=document.getElementById('stdin').value,code=document.getElementById('editor').value,starter=window.authoredLessons.content['arrays-strings'].topics['3'].code;
+    if(!host._memory&&input===diagrams['fgets-buffer'].data.input&&code===starter)return;
+    const source=code===starter?'Model of the editor’s current Input. Run code for actual program output.':'This fixed 32-byte model does not inspect your edited C program. Its reads may differ.';
+    host._customInput=input;updateMemory(host,input,fgetsModel(input).total,source);const select=host.querySelector('#memory-example');select.querySelector('[value="custom"]').hidden=false;select.value='custom';select.dataset.current='custom';
+  }
+  function updateMemory(host,input,step,source){
+    const model=fgetsModel(input),shown=Math.min(step,model.total);host._memory={input,step:shown,source};
+    host.querySelector('.memory-grid').innerHTML=memoryCanvas(model,shown);host.querySelector('.memory-stream').textContent=streamLabel(utf8(input))||'(empty input)';
+    host.querySelector('[data-memory="before"]').setAttribute('aria-pressed',String(shown===0));host.querySelector('[data-memory="after"]').setAttribute('aria-pressed',String(shown===model.total&&shown>0));host.querySelector('[data-memory="next"]').disabled=shown===model.total;
+    const phase=shown===0?'Before the read':shown===model.total?'After a successful read':shown<=model.copied.length?'Copied input byte '+(shown-1):'Added the terminator';
+    host.querySelector('.memory-phase').textContent=(model.success?phase:'No input: fgets returns NULL; no bytes written')+' · line[32]';host.querySelector('.memory-summary').innerHTML=memorySummary(model,shown);
+    const unread=host.querySelector('.memory-unread');unread.hidden=!model.remaining.length||shown!==model.total;unread.textContent='Unread by this call: '+streamLabel(model.remaining)+'. Another read in the same program could consume these bytes.';
+    host.querySelector('.memory-source').textContent=source;host.querySelector('.concept-text p').textContent=`The array has 32 bytes in the same positions at every step. ${shown} bytes are currently shown as written: ${Math.min(shown,model.copied.length)} copied input bytes and ${shown>model.copied.length?1:0} added terminator. ${32-shown} bytes remain uninitialized. ${model.remaining.length} input bytes are left unread by the modeled call. SP denotes a space, and ? denotes an uninitialized byte. Newline, carriage return, tab and zero use C escape notation; other non-printable or non-ASCII bytes use hexadecimal. ${source} This is an illustration, not inspected program memory or an internal execution trace. The grid wraps one contiguous array for readability.`;
+  }
+  document.addEventListener('click',event=>{
+    const button=event.target.closest('[data-memory]'),host=button?.closest('[data-concept="fgets-buffer"]');if(!host)return;
+    const state=host._memory||{input:diagrams['fgets-buffer'].data.input,step:14,source:'Original input. Memory is illustrated, not inspected.'};const model=fgetsModel(state.input);
+    updateMemory(host,state.input,button.dataset.memory==='before'?0:button.dataset.memory==='after'?model.total:state.step+1,state.source);
+  });
+  document.addEventListener('change',event=>{
+    if(event.target.id!=='memory-example')return;const choice=event.target.value,host=memoryHost(),item=choice==='custom'&&host?{input:host._customInput}:diagrams['fgets-buffer'].data.examples.find(e=>e.id===choice),stdin=document.getElementById('stdin');if(!host||!item||typeof item.input!=='string')return;
+    if(stdin.readOnly){event.target.value=event.target.dataset.current||'original';host.querySelector('.memory-source').textContent='Wait for the current run to finish before changing its input.';return;}
+    stdin.value=item.input;stdin.dispatchEvent(new Event('input',{bubbles:true}));event.target.value=choice;event.target.dataset.current=choice;updateMemory(host,item.input,fgetsModel(item.input).total,'Input loaded. Run code for the actual program output.');
+  });
+  document.addEventListener('input',event=>{if(event.target.id==='stdin')previewMemoryInput();});
+  window.addEventListener?.('c-foundry:route',previewMemoryInput);
+  window.addEventListener?.('c-foundry:program-run',event=>{
+    const host=memoryHost(),run=event.detail;if(!host||run.lessonId!=='example-arrays-strings-3')return;
+    const starter=window.authoredLessons.content['arrays-strings'].topics['3'].code;
+    if(run.code!==starter){const source='This fixed 32-byte model does not inspect your edited C program. Its reads may differ.';host._memory??={input:diagrams['fgets-buffer'].data.input,step:14};host._memory.source=source;host.querySelector('.memory-source').textContent=source;return;}
+    host._customInput=run.input;updateMemory(host,run.input,fgetsModel(run.input).total,'Input from the last completed run. Memory is illustrated, not inspected.');const select=host.querySelector('#memory-example');select.querySelector('[value="custom"]').hidden=false;select.value='custom';select.dataset.current='custom';
+  });
   function render(chapter,topic,placement){
     const d=get(chapter.id,topic.id);if(!d||(placement&&(d.placement||'explanation')!==placement))return '';
     const prefix='concept-'+d.id;
-    return `<figure class="concept-diagram" data-concept="${escape(d.id)}"><figcaption id="${prefix}-caption"><strong>${escape(d.title)}</strong><p>${escape(d.caption)}</p></figcaption><div class="concept-art concept-kind-${d.kind}" role="img" aria-labelledby="${prefix}-caption" aria-describedby="${prefix}-description">${art(d)}</div>${d.note?`<p class="concept-note">${escape(d.note)}</p>`:''}<details class="concept-text"><summary>Diagram in words</summary><p id="${prefix}-description">${escape(d.description)}</p></details></figure>`;
+    if(d.kind==='buffer-change')return bufferFigure(d,prefix);
+    return `<figure class="concept-diagram${d.focus?' concept-focused':''}" data-concept="${escape(d.id)}"><figcaption id="${prefix}-caption"><strong>${escape(d.title)}</strong><p>${escape(d.caption)}</p></figcaption><div class="concept-art concept-kind-${d.kind}" role="img" aria-labelledby="${prefix}-caption" aria-describedby="${prefix}-description">${art(d)}</div>${d.note?`<p class="concept-note">${escape(d.note)}</p>`:''}<details class="concept-text"><summary>Diagram in words</summary><p id="${prefix}-description">${escape(d.description)}</p></details></figure>`;
   }
-  window.conceptDiagrams={diagrams,get,render};
+  window.conceptDiagrams={diagrams,get,render,fgetsModel};
 })();

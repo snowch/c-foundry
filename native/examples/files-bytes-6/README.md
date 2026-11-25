@@ -66,7 +66,7 @@ Where do the decoder’s version, ID, and score come from?
 
 The ten-byte record begins with hexadecimal 43 46, the ASCII magic CF. Offset 2 holds version 01 and offset 3 is reserved 00. Offsets 4 through 7 hold the little-endian ID 513 as 01 02 00 00. Offsets 8 and 9 hold the little-endian score 90 as 5a 00. Changing offset 2 to 02 makes the version unsupported and the decoder rejects the record.
 
-Byte values above are hexadecimal. Field boxes are not drawn to scale. This format assumes 8-bit bytes and the exact-width integer types used by the supplied code.
+Each box is one byte, shown in hexadecimal. The ID starts at byte 4; the score starts at byte 8. The format requires 8-bit bytes and the exact-width integer types in the code.
 
 **Watch for:** Do not silently accept a format version you cannot interpret. Also, a round trip alone can miss a shared mistake in encoder and decoder, so test against independently specified byte fixtures.
 

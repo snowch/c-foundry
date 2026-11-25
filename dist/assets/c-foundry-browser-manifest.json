@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 488666,
-  "sha256": "c4106073bce07a3933b896446490e38e7f8e7fd69e0b0894b97230671d7fc827",
+  "bytes": 493158,
+  "sha256": "e8c24818202724df1732b8e8ba6f36c3c4dfccb69bd71c510a4ec762c66895dd",
   "files": [
     {
       "path": "LICENSE",
@@ -16,8 +16,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13558,
-      "sha256": "eef5df4779833d29adc2de842accd63f5d43dea53a57b83658840cb458ccc1be"
+      "bytes": 13661,
+      "sha256": "1d3f616c2c6233f773f18c6361b5b650d39bb7a256f1be29c2406e43ead756fa"
     },
     {
       "path": "dist/assets/tinydb-sample.tdb",
@@ -56,13 +56,13 @@
     },
     {
       "path": "docs/concept-diagram-review.md",
-      "bytes": 84611,
-      "sha256": "3c5ea437728b2eb2301403290b2061409a18e1dffb4c72471a29da06ea6e8185"
+      "bytes": 85694,
+      "sha256": "66cc9c2680d7642406b354d65fb5a71394e0d0badc1a1bfc8393298d80b03a2c"
     },
     {
       "path": "docs/concept-diagrams.md",
-      "bytes": 8843,
-      "sha256": "a756e4d319cf4fd9f834440672426f1869bab9940876801502e32d9a98ca6be2"
+      "bytes": 9260,
+      "sha256": "d816f2190638fc9517ede5b6671d87e45676e9cf34b66ccaeca72cbc88eac805"
     },
     {
       "path": "docs/content-completion.md",
@@ -115,14 +115,19 @@
       "sha256": "814740019fa475c44c966d94ad10b67bd2058834458f898f1ee3168dd1a8ccc2"
     },
     {
+      "path": "docs/visual-design-review.md",
+      "bytes": 9146,
+      "sha256": "a54c632db01a156abddba89dbb79eb27f10eb6e3d70bc131225a5a5be1580bdd"
+    },
+    {
       "path": "native/chapters/allocation/README.md",
       "bytes": 18690,
       "sha256": "4c882e2fe87f5cb47b4bbbf26e3c157c9f19b6278630f51cac95c4dc22f6065c"
     },
     {
       "path": "native/chapters/arrays-strings/README.md",
-      "bytes": 17724,
-      "sha256": "19c22b40d25d54ee8f4656388d2702c7c5e228ff70f9d7e46455f328d8ce492e"
+      "bytes": 17838,
+      "sha256": "ea46a855009ffcc7a8b0f4c8d492e0373b394d75f28217d285f788468ace9dbc"
     },
     {
       "path": "native/chapters/atomics/README.md",
@@ -136,8 +141,8 @@
     },
     {
       "path": "native/chapters/bplus-trees/README.md",
-      "bytes": 42243,
-      "sha256": "5e6a479edfbd31d790913d3d5513838226800c232aa53e5a7af0b13d3f77fc1c"
+      "bytes": 42233,
+      "sha256": "36f43dcdefbd1100ce32df6b417a7958a828fcd4501b3c65fdee9f94756a0690"
     },
     {
       "path": "native/chapters/c-guarantees/README.md",
@@ -146,13 +151,13 @@
     },
     {
       "path": "native/chapters/concurrent-storage/README.md",
-      "bytes": 22626,
-      "sha256": "d61b38dc6f0ed7d2a9e94e76ef8ad1e938c0c6388d916a3ee93d81bda4a68634"
+      "bytes": 22627,
+      "sha256": "b73acb2a03e94075b950a67d5c956a235a27cef75a4ccc92f227859b558ad2f5"
     },
     {
       "path": "native/chapters/control-flow/README.md",
-      "bytes": 14510,
-      "sha256": "b6efe6c55341615ad19dc78c346c67b1d47d70dfbc81aaa95848944d401f4812"
+      "bytes": 14514,
+      "sha256": "7ca401444d07e007f5b811385e57a631c2abf23c4820b418a4c7da1cbd7d0f28"
     },
     {
       "path": "native/chapters/coordination/README.md",
@@ -171,8 +176,8 @@
     },
     {
       "path": "native/chapters/files-bytes/README.md",
-      "bytes": 27438,
-      "sha256": "3090e4296fd0fda494d27edeacdc7a19504355b01b776100e38b50b9bcbe59df"
+      "bytes": 27464,
+      "sha256": "9c3fde5a87e4b9834785e2045ba05c5d7fafe1b854bdb37488fa45801c50cfe9"
     },
     {
       "path": "native/chapters/first-program/README.md",
@@ -206,8 +211,8 @@
     },
     {
       "path": "native/chapters/larger-programs/README.md",
-      "bytes": 17088,
-      "sha256": "b9dd9675ec7e572d0cabe07853a708559f9605f81620526de28e1102630da90e"
+      "bytes": 17104,
+      "sha256": "d9d92f35591021dda437a7112f8be67fb58e867fc0407a27f73eff4a175377bc"
     },
     {
       "path": "native/chapters/lists/README.md",
@@ -256,8 +261,8 @@
     },
     {
       "path": "native/chapters/queues/README.md",
-      "bytes": 15436,
-      "sha256": "092b44fa92b5ea59b3499450120a7eb4ceeafc0fc26208f670fc53abd509bb4c"
+      "bytes": 15442,
+      "sha256": "d2bd4bcdd3d09fc69c8bf4efce467f6bc64ae7112bfc7ee6ca5dfec2b8d69421"
     },
     {
       "path": "native/chapters/recovery/README.md",
@@ -326,8 +331,8 @@
     },
     {
       "path": "native/chapters/trees-heaps/README.md",
-      "bytes": 24280,
-      "sha256": "3fae53be76278a595b7f3ffe3be6efb366aa37d49599aeefc5b9c1b2feea7493"
+      "bytes": 24259,
+      "sha256": "3d649ea1371686aee521a88c3ae5496bdf2a7baca4ae929b418d76d54975141f"
     },
     {
       "path": "native/chapters/values/README.md",
@@ -676,8 +681,8 @@
     },
     {
       "path": "native/examples/concurrent-storage-4/README.md",
-      "bytes": 7154,
-      "sha256": "f828e46a47ea3ab0f828e4892fab7653bdbbec488d55da929fe64418193f2d40"
+      "bytes": 7155,
+      "sha256": "9cd756d641fb999f7f6d4844a6f1fe39f3cc94637f09c52cb269471541e74727"
     },
     {
       "path": "native/examples/concurrent-storage-4/main.c",
@@ -806,8 +811,8 @@
     },
     {
       "path": "native/examples/files-bytes-2/README.md",
-      "bytes": 3516,
-      "sha256": "8b0297b43a7c5aa57407fa2b0c62947f5b453a3b9fab443dbb27e177f1f07205"
+      "bytes": 3530,
+      "sha256": "ea0fdda96e6ba24b1a1d182a6fd06e5c900f9a571b465f802dd94af2f91a2017"
     },
     {
       "path": "native/examples/files-bytes-2/main.c",
@@ -846,8 +851,8 @@
     },
     {
       "path": "native/examples/files-bytes-6/README.md",
-      "bytes": 4814,
-      "sha256": "bc07f02dfd1fb92c49493179883c671fc7b93940d8066523b86cc2a824f90d73"
+      "bytes": 4826,
+      "sha256": "f047963a0a34350b18b2804266a2c0bd594698b65251b60ac7db67e43509a3b1"
     },
     {
       "path": "native/examples/files-bytes-6/main.c",
@@ -1096,8 +1101,8 @@
     },
     {
       "path": "native/examples/larger-programs-2/README.md",
-      "bytes": 3653,
-      "sha256": "737bd8ba06212c5fc9e122afb759b3a86fe6b48e1dc53de6eb3eca0078186239"
+      "bytes": 3669,
+      "sha256": "addfc84e88dd248778c0d0bea6f52041be186200eebb44df6c0b63a73177d484"
     },
     {
       "path": "native/examples/larger-programs-2/counter.c",

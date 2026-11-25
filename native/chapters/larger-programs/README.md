@@ -152,7 +152,7 @@ Which state can main name directly, and which stays inside counter.c?
 
 counter.h declares extern int operations and the tick and read_private functions. counter.c defines the one operations object and a separate static private_count object. main.c calls tick twice, which increments both objects. main can name operations through the header, but obtains private_count only by calling read_private. Both reported counts are 2.
 
-Both counter objects remain alive between calls to tick. Only operations is exposed by name in the header.
+Both source files include counter.h. operations has one definition in counter.c; private_count stays private to that file.
 
 **Watch for:** Defining a shared mutable global in a header can produce multiple definitions at link time. Prefer module functions when they make state ownership clearer.
 

@@ -120,7 +120,7 @@ Which bit changes when the code clears bit 2?
 
 Bits are numbered from zero at the least significant end. After setting bits 2 and 5, the low eight bits are 00100100, hexadecimal 24, decimal 36. Clearing bit 2 gives 00100000, hexadecimal 20, decimal 32. Bit 5 remains set. The upper 24 bits of the uint32_t value stay zero.
 
-This is a bit-position view of a uint32_t value, not its byte order in memory. The output hex=20 uses hexadecimal, not decimal.
+Bit 5 stays set; only bit 2 is cleared. The upper 24 bits stay zero. These are bit positions, not memory byte order; hex=20 means decimal 32.
 
 **Watch for:** Shifting by a negative count or by a count at least as large as the promoted operand’s width is undefined. Bitwise & also does not short-circuit like logical &&.
 
@@ -422,7 +422,7 @@ Where do the decoder’s version, ID, and score come from?
 
 The ten-byte record begins with hexadecimal 43 46, the ASCII magic CF. Offset 2 holds version 01 and offset 3 is reserved 00. Offsets 4 through 7 hold the little-endian ID 513 as 01 02 00 00. Offsets 8 and 9 hold the little-endian score 90 as 5a 00. Changing offset 2 to 02 makes the version unsupported and the decoder rejects the record.
 
-Byte values above are hexadecimal. Field boxes are not drawn to scale. This format assumes 8-bit bytes and the exact-width integer types used by the supplied code.
+Each box is one byte, shown in hexadecimal. The ID starts at byte 4; the score starts at byte 8. The format requires 8-bit bytes and the exact-width integer types in the code.
 
 **Watch for:** Do not silently accept a format version you cannot interpret. Also, a round trip alone can miss a shared mistake in encoder and decoder, so test against independently specified byte fixtures.
 

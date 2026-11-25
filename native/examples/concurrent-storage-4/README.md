@@ -141,7 +141,7 @@ What must finish between closing the queue and destroying its locks?
 
 The producer closes the queue after offering eight items. Closing sets closed, rejects future puts, and broadcasts both condition variables so blocked participants recheck their conditions. The consumer drains accepted items, then an empty closed queue ends its take loop. main joins producer and consumer before destroying the two condition variables and the mutex. The fixture checks eight received items with sum 36 in each of twenty cycles.
 
-This is cooperative shutdown in the supplied queue. Twenty successful cycles do not test every thread schedule or prove freedom from all concurrency bugs.
+Closing wakes waiters; accepted work drains before the consumer exits. Destruction waits until both joins return. Twenty cycles do not test every schedule.
 
 **Watch for:** pthread_cancel can require cleanup handlers for held resources; it is not a drop-in replacement for this cooperative close protocol.
 

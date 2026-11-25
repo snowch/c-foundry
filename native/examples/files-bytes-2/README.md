@@ -43,7 +43,7 @@ Which bit changes when the code clears bit 2?
 
 Bits are numbered from zero at the least significant end. After setting bits 2 and 5, the low eight bits are 00100100, hexadecimal 24, decimal 36. Clearing bit 2 gives 00100000, hexadecimal 20, decimal 32. Bit 5 remains set. The upper 24 bits of the uint32_t value stay zero.
 
-This is a bit-position view of a uint32_t value, not its byte order in memory. The output hex=20 uses hexadecimal, not decimal.
+Bit 5 stays set; only bit 2 is cleared. The upper 24 bits stay zero. These are bit positions, not memory byte order; hex=20 means decimal 32.
 
 **Watch for:** Shifting by a negative count or by a count at least as large as the promoted operand’s width is undefined. Bitwise & also does not short-circuit like logical &&.
 

@@ -6,7 +6,7 @@ The module contains no third-party artwork, downloaded figures, icon library, or
 
 ## Teaching and accessibility
 
-Each selected lesson gets at most one static figure beside its conceptual explanation, or after its worked example when the figure explains the resulting state. A short caption identifies the relationship. A full **Diagram in words** description provides the same information without the visual layout and is also available to assistive technology. Text remains live text at normal reading sizes, and active/deleted/boundary states have explicit labels and border distinctions in addition to colour. Narrow screens reflow the boxes instead of shrinking lettering.
+Each selected lesson gets at most one figure beside its conceptual explanation, or after its worked example when the figure explains the resulting state. A short caption identifies the relationship. A full **Diagram in words** description provides the same information without the visual layout and is also available to assistive technology. Text remains live text at normal reading sizes, and active/deleted/boundary states have explicit labels and border distinctions in addition to colour. Narrow screens reflow the boxes instead of shrinking lettering.
 
 These figures explain concepts; they do not execute the learner’s current source. Assumptions and limits are stated where needed: illustrative object layout, checked nonzero realloc sizes, inclusive versus half-open search bounds, one-shot atomic publication, committed-only version records, and the difference between a transaction model and host durability. They introduce no controls, dependencies, or completion requirements for running examples.
 
@@ -70,7 +70,7 @@ The reading exporter mirrors the captions, descriptions, and model notes into th
 | Compare the estimated work of both paths | `planning/1` |
 | Data frequency changes the match estimate | `richer-queries/2` |
 | Tiny positive results can become subnormal or zero | `c-guarantees/10` |
-| Memory before and after fgets | `arrays-strings/3` · after worked example |
+| How fgets fills a buffer | `arrays-strings/3` · after worked example |
 | Assignment stores a value at that moment | `values/2` · after worked example |
 | Continue and break take different paths | `control-flow/4` · after worked example |
 | Const can restrict two different objects | `pointers/4` |
@@ -98,3 +98,7 @@ The reading exporter mirrors the captions, descriptions, and model notes into th
 ## Maintaining the figures
 
 Edit the descriptive data or rendering helpers in `dist/concepts.js`, then run `node tools/sync_readings.cjs`. `npm test` checks placement, accessible descriptions, local-only rendering, source/draft preservation, reading parity, and the illustrated search counts. Browser checks additionally cover reflow, readable text, text alternatives, and page overflow on phone and tablet widths.
+
+## Recent visual-design pass
+
+See [the design review](visual-design-review.md) for all 23 recently added or revised figures. The fgets figure is an interactive, fixed-capacity model; its controls live outside the accessible image. All other figures remain static. Step controls do not run C. Input presets explicitly prepare the editor’s next input, and source/input provenance keeps the model distinct from inspected memory.

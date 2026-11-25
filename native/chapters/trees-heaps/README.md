@@ -508,7 +508,7 @@ How does inserting 2 rebalance the keys 3, 1, 2?
 
 Immediately after linking the third key, root 3 has left child 1, whose right child is 2. This left-right shape is unbalanced. A left rotation at 1 followed by a right rotation at 3 gives root 2 with left child 1 and right child 3. Inorder traversal remains 1, 2, 3; the resulting height is 2 after height metadata is refreshed.
 
-The first tree is an intermediate insertion state. The program prints the final root, height, and inorder order; the picture explains the links behind that output.
+Rotate left at node 1, then right at node 3. The links change; inorder order stays 1, 2, 3. The first tree is an intermediate insertion state.
 
 **Watch for:** Fixing pointers but leaving stale heights can cause later insertions to choose incorrect rotations.
 

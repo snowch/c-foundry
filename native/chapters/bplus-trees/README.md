@@ -1410,7 +1410,7 @@ Why do these two deletions leave one leaf?
 
 After inserting keys 1 through 5, the leaves contain 1,2 and 3,4,5. Deleting 1 leaves the first leaf below the two-key minimum, so it borrows 3 from the right leaf: 2,3 and 4,5. Deleting 2 leaves the first leaf short again; the right leaf cannot lend while retaining two keys. The leaves merge into 3,4,5, the right pool slot is released, and the root has one child.
 
-The two-key minimum applies to non-root leaves in this bounded model. The root’s only remaining leaf may hold fewer keys; persistent trees also need page-write and recovery rules.
+Leaf positions stay aligned across the three states. The released pool slot is reusable, not zeroed or freed. This bounded model keeps at least two keys per non-root leaf.
 
 **Watch for:** Deleting a key without repairing separators or sibling links can leave point queries passing while ranges fail.
 

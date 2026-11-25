@@ -2,7 +2,7 @@
 
 Reviewed all 227 reading lessons in 44 chapters and all 15 practice exercises against their explanations, starter source, supplied input, expected output, understanding check and existing illustration. The learner starts without C knowledge; later lessons may rely on earlier parts. This is an instructional review, not a learner study or a claim of measured learning gains.
 
-The decision is to add pictures for relationships that otherwise require mentally tracking objects, dependencies, boundaries or lifecycle order. Keep short arithmetic, exact syntax, actual diagnostics and existing visual output in their current forms. One static figure per selected reading remains the limit; no animations, extra navigation, new completion rules or automatic program execution are introduced.
+The decision is to add pictures for relationships that otherwise require mentally tracking objects, dependencies, boundaries or lifecycle order. Keep short arithmetic, exact syntax, actual diagnostics and existing visual output in their current forms. One figure per selected reading remains the limit; no automatic animations, extra navigation, new completion rules or automatic program execution are introduced.
 
 This revision adds 22 original figure definitions, including three replacements for less specific figures, and revises the stack/queue comparison. The resulting catalogue has 76 definitions at 126 reading placements. Nineteen lessons gain a first figure; three gain a more relevant replacement.
 
@@ -16,11 +16,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Does total change when quantity changes later?
 
-**Visual:** With unit_price equal to 7 and quantity equal to 3, the initialization stores 21 in total. The later assignment stores 4 in quantity. It does not repeat the multiplication: total still contains 21. The program therefore prints total 21 followed by quantity 4.
+**Visual:** With unit_price equal to 7 and quantity equal to 3, the initialization stores 21 in total. The later assignment stores 4 in quantity. It does not repeat the multiplication: total still contains 21. The program therefore prints total 21 followed by quantity 4. Align quantity and total in the same two columns before and after assignment. Highlight only quantity; keep total 21 in place. Remove the long expression from the narrow table column.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. These are values in the supplied example, not a live view of your edits. Reassign total to calculate a new product.
+**Prose and limits:** These are values in the supplied example, not a live view of your edits. Reassign total to calculate a new product.
 
 ### 3.4 break and continue — `control-flow/4`
 
@@ -28,11 +28,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Which values reach printf in the supplied for loop?
 
-**Visual:** The loop prints 0 and 1. At i equal to 2, continue skips the remaining body and proceeds to the for loop update and next condition test. It then prints 3 and 4. At i equal to 5, break exits the loop without the for update. The output is 0, 1, 3, 4, one per line.
+**Visual:** The loop prints 0 and 1. At i equal to 2, continue skips the remaining body and proceeds to the for loop update and next condition test. It then prints 3 and 4. At i equal to 5, break exits the loop without the for update. The output is 0, 1, 3, 4, one per line. Show all six visited i values in order, with the actual printed values and directly labelled skip/exit states. On phones, numbered iterations preserve order across wrapping.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. This trace is for a for loop. A continue in a while loop returns to its condition; it does not supply an update statement.
+**Prose and limits:** Printed output: 0, 1, 3, 4. continue proceeds to the for-loop update and condition; break leaves the loop without that update.
 
 ### 5.3 Reading lines with fgets — `arrays-strings/3`
 
@@ -40,11 +40,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Which bytes come from the input, which does fgets add, and which remain untouched?
 
-**Visual:** Before fgets, all 32 bytes of line are uninitialized; no initial byte values are assumed. After the successful read of the original input, bytes 0 through 11 contain Ada Lovelace, including its space. Byte 12 contains the newline from the input. Byte 13 contains the zero byte added by fgets to terminate the C string. Bytes 14 through 31, eighteen bytes, are untouched and remain uninitialized. In total, thirteen input bytes and one terminator occupy fourteen of the thirty-two bytes. The Read: prefix comes from printf and is not stored in line. For this 32-byte array, fgets can store at most 31 input bytes plus the terminator. Groups are not drawn to scale, and edits do not update this illustration. The text stays together as a readable name. Direct labels identify the newline, string end and untouched range. Green marks input bytes; amber marks the added terminator. The horizontal strip becomes an ordered vertical strip on phones.
+**Visual:** The model always shows all 32 indexed bytes of line in fixed positions. Before the call every byte is uninitialized, shown as a question mark rather than an assumed zero. For the original input Ada Lovelace followed by a newline, bytes 0 through 11 contain the text, with SP denoting its space. Byte 12 contains the input newline and byte 13 the zero terminator added by fgets. Bytes 14 through 31 remain uninitialized. Thirteen input bytes plus one terminator occupy fourteen of the thirty-two bytes. The buffer can hold at most 31 input bytes plus the terminator. Shorter input moves the terminator earlier; longer input leaves a suffix unread by this call. The grid wraps for readability; it represents one contiguous array. This is an illustrative model, not a memory dump or an internal execution trace. Fixed 32-cell map, constant positions across Before/Next/After, original/short/long inputs, proportional occupancy bar and unread suffix. Presets explicitly load editor Input; only an unchanged starter run updates the model from its captured input. Edited C is never described as inspected memory.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Replaces the previous string figure.
 
-**Prose and limits:** Preserve the successful-read condition, the original-input label, byte ranges and the 31-input-byte bound. Original example; byte groups are not to scale.
+**Prose and limits:** SP = space. ? = uninitialized, not a stored character.
 
 ### 6.4 const and pointer declarations — `pointers/4`
 
@@ -52,11 +52,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** May the pointer move, and may it change its target?
 
-**Visual:** For const int *read, read may be assigned another valid address, but the integer cannot be changed through read. For int *const fixed, fixed cannot be redirected after initialization, but it may change the modifiable integer it points to. These are restrictions on operations through each declared pointer, not ownership or synchronization guarantees.
+**Visual:** For const int *read, read may be assigned another valid address, but the integer cannot be changed through read. For int *const fixed, fixed cannot be redirected after initialization, but it may change the modifiable integer it points to. These are restrictions on operations through each declared pointer, not ownership or synchronization guarantees. A two-row permission comparison is the appropriate representation. Keep the exact declarations and distinct redirect/write questions; use readable labels.
 
 **Placement:** After the conceptual explanation, before the worked example. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. Dereferencing either pointer requires a live int object at that address. A read-only pointer to a modifiable int does not prevent changes through another writable pointer.
+**Prose and limits:** Dereferencing either pointer requires a live int object at that address. A read-only pointer to a modifiable int does not prevent changes through another writable pointer.
 
 ### 9.2 Declarations, definitions, linkage, and static — `larger-programs/2`
 
@@ -64,11 +64,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Which state can main name directly, and which stays inside counter.c?
 
-**Visual:** counter.h declares extern int operations and the tick and read_private functions. counter.c defines the one operations object and a separate static private_count object. main.c calls tick twice, which increments both objects. main can name operations through the header, but obtains private_count only by calling read_private. Both reported counts are 2.
+**Visual:** counter.h declares extern int operations and the tick and read_private functions. counter.c defines the one operations object and a separate static private_count object. main.c calls tick twice, which increments both objects. main can name operations through the header, but obtains private_count only by calling read_private. Both reported counts are 2. Draw the common header branching to the two source files. Label inclusion explicitly. Remove arrows that previously made declarations look like sequential execution.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. Both counter objects remain alive between calls to tick. Only operations is exposed by name in the header.
+**Prose and limits:** Both source files include counter.h. operations has one definition in counter.c; private_count stays private to that file.
 
 ### 10.2 Fixed-width integers, bitwise operations, and masks — `files-bytes/2`
 
@@ -76,11 +76,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Which bit changes when the code clears bit 2?
 
-**Visual:** Bits are numbered from zero at the least significant end. After setting bits 2 and 5, the low eight bits are 00100100, hexadecimal 24, decimal 36. Clearing bit 2 gives 00100000, hexadecimal 20, decimal 32. Bit 5 remains set. The upper 24 bits of the uint32_t value stay zero.
+**Visual:** Bits are numbered from zero at the least significant end. After setting bits 2 and 5, the low eight bits are 00100100, hexadecimal 24, decimal 36. Clearing bit 2 gives 00100000, hexadecimal 20, decimal 32. Bit 5 remains set. The upper 24 bits of the uint32_t value stay zero. Draw eight equally sized indexed bit positions in both states. Keep bit 5 aligned and set; outline bit 2 where 1 changes to 0. Retain hex/decimal values.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. This is a bit-position view of a uint32_t value, not its byte order in memory. The output hex=20 uses hexadecimal, not decimal.
+**Prose and limits:** Bit 5 stays set; only bit 2 is cleared. The upper 24 bits stay zero. These are bit positions, not memory byte order; hex=20 means decimal 32.
 
 ### 10.6 A portable binary record format — `files-bytes/6`
 
@@ -88,11 +88,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Where do the decoder’s version, ID, and score come from?
 
-**Visual:** The ten-byte record begins with hexadecimal 43 46, the ASCII magic CF. Offset 2 holds version 01 and offset 3 is reserved 00. Offsets 4 through 7 hold the little-endian ID 513 as 01 02 00 00. Offsets 8 and 9 hold the little-endian score 90 as 5a 00. Changing offset 2 to 02 makes the version unsupported and the decoder rejects the record.
+**Visual:** The ten-byte record begins with hexadecimal 43 46, the ASCII magic CF. Offset 2 holds version 01 and offset 3 is reserved 00. Offsets 4 through 7 hold the little-endian ID 513 as 01 02 00 00. Offsets 8 and 9 hold the little-endian score 90 as 5a 00. Changing offset 2 to 02 makes the version unsupported and the decoder rejects the record. Draw all ten equally sized indexed bytes. Show ID bytes 4–7 together with a range key that decodes each field. Wrapping preserves byte order and never shrinks the lettering.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Replaces the previous bytes figure.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. Byte values above are hexadecimal. Field boxes are not drawn to scale. This format assumes 8-bit bytes and the exact-width integer types used by the supplied code.
+**Prose and limits:** Each box is one byte, shown in hexadecimal. The ID starts at byte 4; the score starts at byte 8. The format requires 8-bit bytes and the exact-width integer types in the code.
 
 ### 13.3 Quicksort and pivot selection — `sorting/3`
 
@@ -100,11 +100,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Which regions still need sorting after the first partition?
 
-**Visual:** The supplied array starts as 5, 2, 4, 1, 3. The last value, 3, is the pivot. The first partition leaves 2, 1 to its left, 3 at index 2, and 5, 4 to its right. The left values are smaller than 3; the right values are greater than or equal to 3. Recursive calls sort the two outer regions and exclude the pivot. This intermediate state differs from the program’s final sorted output.
+**Visual:** The supplied array starts as 5, 2, 4, 1, 3. The last value, 3, is the pivot. The first partition leaves 2, 1 to its left, 3 at index 2, and 5, 4 to its right. The left values are smaller than 3; the right values are greater than or equal to 3. Recursive calls sort the two outer regions and exclude the pivot. This intermediate state differs from the program’s final sorted output. The left range, fixed pivot and right range already expose the recursive boundary. Keep the exact first-partition values and intermediate-state note. Narrow layouts keep the regions in order.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. This is the state after the first partition of the unchanged starter, not the final output or a trace of edited code.
+**Prose and limits:** This is the state after the first partition of the unchanged starter, not the final output or a trace of edited code.
 
 ### 13.4 Stability, in-place algorithms, and memory costs — `sorting/4`
 
@@ -112,11 +112,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** After sorting by key, does tag A still come before tag C?
 
-**Visual:** The input records are key 2 tag A, key 1 tag B, and key 2 tag C. Stable insertion sorting produces 1B, 2A, 2C. The equal-key records 2A and 2C retain their input order. The comparison moves only strictly greater keys. Moving greater-or-equal keys instead would allow C to pass A.
+**Visual:** The input records are key 2 tag A, key 1 tag B, and key 2 tag C. Stable insertion sorting produces 1B, 2A, 2C. The equal-key records 2A and 2C retain their input order. The comparison moves only strictly greater keys. Moving greater-or-equal keys instead would allow C to pass A. The same three tagged records remain visible in both sequences, so preserved A/C order can be checked directly. Keep tags separate from sort keys.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Replaces the previous merge figure.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. Tags identify records; they are not an additional sort key. The supplied code demonstrates insertion sort with a strict > comparison.
+**Prose and limits:** Tags identify records; they are not an additional sort key. The supplied code demonstrates insertion sort with a strict > comparison.
 
 ### 15.3 Memoization and dynamic programming — `strategies/3`
 
@@ -124,11 +124,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Which last coin gives the fewest coins for amount 6?
 
-**Visual:** With coin values 1, 3, and 4, best[a] means the minimum number of coins for amount a. For amount 6, choosing last coin 1 gives best[5] plus 1, or 3 coins. Last coin 3 gives best[3] plus 1, or 2 coins. Last coin 4 gives best[2] plus 1, or 3 coins. The minimum is 2 coins, achieved by 3 plus 3.
+**Visual:** With coin values 1, 3, and 4, best[a] means the minimum number of coins for amount a. For amount 6, choosing last coin 1 gives best[5] plus 1, or 3 coins. Last coin 3 gives best[3] plus 1, or 2 coins. Last coin 4 gives best[2] plus 1, or 3 coins. The minimum is 2 coins, achieved by 3 plus 3. Three candidate subproblems visibly converge on their minimum. The last coin and candidate coin count are labelled directly; no additional animation is needed.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. Coin values are positive and reusable in this example. The numbers on the arrows’ endpoints count coins, not time or currency units.
+**Prose and limits:** Coin values are positive and reusable in this example. The numbers on the arrows’ endpoints count coins, not time or currency units.
 
 ### 17.1 Array-backed and linked implementations — `queues/1`
 
@@ -136,11 +136,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** After adding 10 then 20, which item leaves first?
 
-**Visual:** Both structures receive 10 followed by 20. A stack removes the most recently added item, 20, leaving 10. A queue removes the oldest item, 10, leaving 20. The supplied worked program implements the stack branch and prints popped=20 remaining=1; the queue branch illustrates the contrasting removal rule.
+**Visual:** Both structures receive 10 followed by 20. A stack removes the most recently added item, 20, leaving 10. A queue removes the oldest item, 10, leaving 20. The supplied worked program implements the stack branch and prints popped=20 remaining=1; the queue branch illustrates the contrasting removal rule. The common enqueue/push order branches to different removal rules. Each branch explicitly names what leaves and remains, and only the stack branch is claimed as executed output.
 
 **Placement:** After the conceptual explanation, before the worked example. Revises the existing comparison.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. The starter executes the stack branch. The queue branch is a conceptual comparison, not additional output from that program.
+**Prose and limits:** The starter executes the stack branch. The queue branch is a conceptual comparison, not additional output from that program.
 
 ### 17.5 Expression evaluation — `queues/5`
 
@@ -148,11 +148,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Why does the minus token compute 8 − 3 rather than 3 − 8?
 
-**Visual:** Read tokens 8, 3, minus, 2, plus from left to right. Push 8, then 3. For minus, pop right operand 3, then left operand 8, and push 8 minus 3 equal to 5. Push 2. For plus, pop right 2 then left 5, and push 7. One value remains, so the evaluation succeeds with result 7.
+**Visual:** Read tokens 8, 3, minus, 2, plus from left to right. Push 8, then 3. For minus, pop right operand 3, then left operand 8, and push 8 minus 3 equal to 5. Push 2. For plus, pop right 2 then left 5, and push 7. One value remains, so the evaluation succeeds with result 7. Draw the occupied stack entries after each token. The rightmost occupied entry is explicitly the top. Keep operand-pop order beside the minus/plus steps; do not invent a two-slot capacity.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. Stacks are shown bottom to top, left to right. The starter accepts single-digit operands and + or −, checks bounds and arithmetic, and requires exactly one final value.
+**Prose and limits:** Only occupied stack entries are drawn, bottom to top from left to right. The rightmost value is the top. The starter checks arithmetic, capacity and the final one-value result.
 
 ### 19.3 Why balancing matters — `trees-heaps/3`
 
@@ -160,11 +160,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** How many node levels must a root-to-leaf path cross?
 
-**Visual:** The chain has root 1, right child 2, and right grandchild 3: height 3. The balanced tree has root 2, left child 1, and right child 3: height 2. Both have inorder traversal 1, 2, 3. In this program height counts node levels, and an empty tree has height zero.
+**Visual:** The chain has root 1, right child 2, and right grandchild 3: height 3. The balanced tree has root 2, left child 1, and right child 3: height 2. Both have inorder traversal 1, 2, 3. In this program height counts node levels, and an empty tree has height zero. Actual tree links, left/right labels and the same three keys already support the comparison. Preserve height units as node levels.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. These are the two shapes constructed by the starter. Height bounds a search path; this picture does not measure runtime.
+**Prose and limits:** These are the two shapes constructed by the starter. Height bounds a search path; this picture does not measure runtime.
 
 ### 19.4 Rotations and a balanced-tree implementation — `trees-heaps/4`
 
@@ -172,11 +172,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** How does inserting 2 rebalance the keys 3, 1, 2?
 
-**Visual:** Immediately after linking the third key, root 3 has left child 1, whose right child is 2. This left-right shape is unbalanced. A left rotation at 1 followed by a right rotation at 3 gives root 2 with left child 1 and right child 3. Inorder traversal remains 1, 2, 3; the resulting height is 2 after height metadata is refreshed.
+**Visual:** Immediately after linking the third key, root 3 has left child 1, whose right child is 2. This left-right shape is unbalanced. A left rotation at 1 followed by a right rotation at 3 gives root 2 with left child 1 and right child 3. Inorder traversal remains 1, 2, 3; the resulting height is 2 after height metadata is refreshed. Keep both tree drawings, replace the terse left-at/right-at heading with a clear final-root heading, and name both rotations in the visible note.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. The first tree is an intermediate insertion state. The program prints the final root, height, and inorder order; the picture explains the links behind that output.
+**Prose and limits:** Rotate left at node 1, then right at node 3. The links change; inorder order stays 1, 2, 3. The first tree is an intermediate insertion state.
 
 ### 20.5 Dijkstra’s shortest-path algorithm — `graphs/5`
 
@@ -184,11 +184,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Why are the final distances to vertices 2 and 3 smaller than the first candidates?
 
-**Visual:** Starting at vertex 0, the direct edge to vertex 2 costs 5. Going through vertex 1 costs 1 plus 2, or 3, so distance[2] becomes 3. A route to vertex 3 through vertex 1 costs 1 plus 7, or 8. Going through vertices 1 and 2 costs 1 plus 2 plus 1, or 4, so distance[3] becomes 4. The output distances for vertices 0 through 3 are 0, 1, 3, 4.
+**Visual:** Starting at vertex 0, the direct edge to vertex 2 costs 5. Going through vertex 1 costs 1 plus 2, or 3, so distance[2] becomes 3. A route to vertex 3 through vertex 1 costs 1 plus 7, or 8. Going through vertices 1 and 2 costs 1 plus 2 plus 1, or 4, so distance[3] becomes 4. The output distances for vertices 0 through 3 are 0, 1, 3, 4. Draw each candidate and improved route using vertex circles and edge weights. Display total cost separately. This replaces wrapped arrow strings in a narrow table.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. Weights are nonnegative costs, not measured time. A zero matrix entry means no edge in this fixture; these are selected relaxation steps, not every loop iteration.
+**Prose and limits:** Weights are nonnegative costs, not measured time. A zero matrix entry means no edge in this fixture; these are selected relaxation steps, not every loop iteration.
 
 ### 23.3 A small SQL grammar — `parsing/3`
 
@@ -196,11 +196,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Where may the optional WHERE clause appear?
 
-**Visual:** For the SELECT grammar in this lesson, begin with SELECT * FROM people. Either follow it directly with a semicolon, or add WHERE id = a number and then a semicolon. Both branches must then reach end of input. The keywords and table name are case-sensitive. INSERT follows its own grammar and is not drawn here.
+**Visual:** For the SELECT grammar in this lesson, begin with SELECT * FROM people. Either follow it directly with a semicolon, or add WHERE id = a number and then a semicolon. Both branches must then reach end of input. The keywords and table name are case-sensitive. INSERT follows its own grammar and is not drawn here. Two clearly named alternatives share the SELECT prefix and each requires semicolon/end-of-input. The branches describe only the supported SQL subset.
 
 **Placement:** After the conceptual explanation, before the worked example. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. This shows only the supported SELECT subset, not general SQL. Both paths require a semicolon and complete input consumption.
+**Prose and limits:** This shows only the supported SELECT subset, not general SQL. Both paths require a semicolon and complete input consumption.
 
 ### 24.4 Ordering and limiting results — `execution/4`
 
@@ -208,11 +208,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Which two records survive ORDER BY score LIMIT 2?
 
-**Visual:** The source records are Ada with ID 1 score 90, Grace with ID 2 score 80, and Ken with ID 3 score 90. The copied result is sorted by ascending score with ID as a tie-breaker: Grace, Ada, Ken. LIMIT 2 then keeps Grace and Ada. The original table order remains unchanged.
+**Visual:** The source records are Ada with ID 1 score 90, Grace with ID 2 score 80, and Ken with ID 3 score 90. The copied result is sorted by ascending score with ID as a tie-breaker: Grace, Ada, Ken. LIMIT 2 then keeps Grace and Ada. The original table order remains unchanged. The three operator stages are already directly named. Make narrow stages a single ordered column with downward arrows, and retain the caveat that the original fixture returns the same rows if limited first.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. This starter happens to return the same two rows if it limits first. The diagram explains operator order; a changed score can make that order affect which rows survive.
+**Prose and limits:** This starter happens to return the same two rows if it limits first. The diagram explains operator order; a changed score can make that order affect which rows survive.
 
 ### 25.6 Testing truncated and corrupt input — `persistence/6`
 
@@ -220,11 +220,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** What happens to the existing Keep row when the load fails?
 
-**Visual:** Before loading, the live table contains one row: ID 9, name Keep, score 1. The supplied file declares one forty-byte row but contains only one payload byte, 7. The loader reads into temporary candidate storage, detects the truncated row, and rejects the load. It never assigns the candidate to the live table, which still contains the same Keep row with count 1.
+**Visual:** Before loading, the live table contains one row: ID 9, name Keep, score 1. The supplied file declares one forty-byte row but contains only one payload byte, 7. The loader reads into temporary candidate storage, detects the truncated row, and rejects the load. It never assigns the candidate to the live table, which still contains the same Keep row with count 1. Keep all three live row fields aligned before and after rejection. Put the invalid candidate between the states with an explicit reject-before-replace explanation.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. This illustrates failure-atomic replacement in memory. It does not establish crash durability or validate every possible malformed file.
+**Prose and limits:** This illustrates failure-atomic replacement in memory. It does not establish crash durability or validate every possible malformed file.
 
 ### 27.2 Leaf pages and internal pages — `bplus-trees/2`
 
@@ -232,11 +232,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Which leaf does the routing rule choose for key 5?
 
-**Visual:** After inserting keys 1 through 7, the root points to leaves containing 1,2; 3,4; and 5,6,7. The child minima are 1, 3, and 5. The loop advances while the next child minimum is at most the search key. Key 5 therefore passes the boundary 3 and then the boundary 5, selecting child 2, whose leaf contains 5,6,7.
+**Visual:** After inserting keys 1 through 7, the root points to leaves containing 1,2; 3,4; and 5,6,7. The child minima are 1, 3, and 5. The loop advances while the next child minimum is at most the search key. Key 5 therefore passes the boundary 3 and then the boundary 5, selecting child 2, whose leaf contains 5,6,7. A root and three leaf children already show ordered ranges. The selected equality boundary is explicit; retain the bounded in-memory-model caveat.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. The starter derives boundaries from leaf minima rather than storing a separate separator array. It is a bounded in-memory model with at most eight leaves.
+**Prose and limits:** The starter derives boundaries from leaf minima rather than storing a separate separator array. It is a bounded in-memory model with at most eight leaves.
 
 ### 27.6 Deletion, redistribution, and merging — `bplus-trees/6`
 
@@ -244,11 +244,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Why do these two deletions leave one leaf?
 
-**Visual:** After inserting keys 1 through 5, the leaves contain 1,2 and 3,4,5. Deleting 1 leaves the first leaf below the two-key minimum, so it borrows 3 from the right leaf: 2,3 and 4,5. Deleting 2 leaves the first leaf short again; the right leaf cannot lend while retaining two keys. The leaves merge into 3,4,5, the right pool slot is released, and the root has one child.
+**Visual:** After inserting keys 1 through 5, the leaves contain 1,2 and 3,4,5. Deleting 1 leaves the first leaf below the two-key minimum, so it borrows 3 from the right leaf: 2,3 and 4,5. Deleting 2 leaves the first leaf short again; the right leaf cannot lend while retaining two keys. The leaves merge into 3,4,5, the right pool slot is released, and the root has one child. Keep left/right positions aligned through insert, borrow and merge. Keep a labelled reusable-slot placeholder after the merge. Never imply released storage was zeroed or freed.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. The two-key minimum applies to non-root leaves in this bounded model. The root’s only remaining leaf may hold fewer keys; persistent trees also need page-write and recovery rules.
+**Prose and limits:** Leaf positions stay aligned across the three states. The released pool slot is reusable, not zeroed or freed. This bounded model keeps at least two keys per non-root leaf.
 
 ### 32.4 Signed/unsigned comparisons and integer promotions — `c-guarantees/4`
 
@@ -256,11 +256,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Which conversion turns −1 into an unsigned value, and which turns 260 into 4?
 
-**Visual:** The starter explicitly casts int minus one to unsigned int, producing UINT_MAX. Comparing that value with unsigned one is false; an uncast mixed comparison would apply the same conversion here. In the uint8_t example, 250 and 10 are added as int to produce 260, then conversion back to uint8_t produces 4 modulo 256. The narrowing occurs after the addition.
+**Visual:** The starter explicitly casts int minus one to unsigned int, producing UINT_MAX. Comparing that value with unsigned one is false; an uncast mixed comparison would apply the same conversion here. In the uint8_t example, 250 and 10 are added as int to produce 260, then conversion back to uint8_t produces 4 modulo 256. The narrowing occurs after the addition. Separate conversion-before-comparison from addition-before-narrowing. Keep each calculation in order, with vertical arrows on narrow screens.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. This example has uint8_t and an int type that represents all its values. UINT_MAX depends on unsigned int width; signed overflow has different rules.
+**Prose and limits:** This example has uint8_t and an int type that represents all its values. UINT_MAX depends on unsigned int width; signed overflow has different rules.
 
 ### 38.4 Shutdown, cancellation, and concurrency testing — `concurrent-storage/4`
 
@@ -268,11 +268,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** What must finish between closing the queue and destroying its locks?
 
-**Visual:** The producer closes the queue after offering eight items. Closing sets closed, rejects future puts, and broadcasts both condition variables so blocked participants recheck their conditions. The consumer drains accepted items, then an empty closed queue ends its take loop. main joins producer and consumer before destroying the two condition variables and the mutex. The fixture checks eight received items with sum 36 in each of twenty cycles.
+**Visual:** The producer closes the queue after offering eight items. Closing sets closed, rejects future puts, and broadcasts both condition variables so blocked participants recheck their conditions. The consumer drains accepted items, then an empty closed queue ends its take loop. main joins producer and consumer before destroying the two condition variables and the mutex. The fixture checks eight received items with sum 36 in each of twenty cycles. Name the completion milestone Both joins return. State that main may begin waiting earlier, so the lifecycle picture cannot be read as a literal call-order trace.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. This is cooperative shutdown in the supplied queue. Twenty successful cycles do not test every thread schedule or prove freedom from all concurrency bugs.
+**Prose and limits:** Closing wakes waiters; accepted work drains before the consumer exits. Destruction waits until both joins return. Twenty cycles do not test every schedule.
 
 ### 40.1 Reader/writer locking — `isolation/1`
 
@@ -280,11 +280,11 @@ The quotations below identify the passage that benefits. Each entry names the le
 
 **Learning question:** Can a reader observe the state between the two field updates?
 
-**Visual:** At the first transfer, accounts a and b start at 100 and 0. With the writer lock held, decrementing a produces the intermediate state 99,0. Incrementing b completes the transfer at 99,1. A reader holding the required reader lock cannot overlap that writer critical section, so it cannot observe the intermediate total 99. Before or after the transfer the protected total is 100.
+**Visual:** At the first transfer, accounts a and b start at 100 and 0. With the writer lock held, decrementing a produces the intermediate state 99,0. Incrementing b completes the transfer at 99,1. A reader holding the required reader lock cannot overlap that writer critical section, so it cannot observe the intermediate total 99. Before or after the transfer the protected total is 100. Enclose both decrement and increment in one writer-lock boundary. Show readers waiting across the intermediate total 99, followed by the readable complete total 100.
 
 **Placement:** After the worked example’s actual console, optional expected output and walkthrough, before the next task. Adds the first figure to this lesson.
 
-**Prose and limits:** No essential explanation is removed; the figure externalizes the relationship rather than adding a second set of instructions. This shows the first transfer, not the final account values after all iterations. Every participating reader and writer must use the same lock; no C data race is executed.
+**Prose and limits:** This shows the first transfer, not the final account values after all iterations. Every participating reader and writer must use the same lock; no C data race is executed.
 
 ## Lesson-by-lesson decisions
 
@@ -589,3 +589,5 @@ The 15 practice pages already contain an example or an optional illustration. Ke
 The source/output checks establish whether the illustrated states match the unchanged examples. Responsive checks inspect phone, tablet and desktop layouts, both themes, text alternatives, one-figure placement and absence of page overflow. Existing source, predictions and explicit reading completion must survive opening a diagram. The `fgets` example is also run through the real C/WebAssembly toolchain.
 
 The full catalogue and provenance are maintained in [concept-diagrams.md](concept-diagrams.md). Revisit these decisions if a starter program, prerequisite, format or UI control changes. In particular, intermediate partition/rotation states must not be presented as printed output; concurrency drawings must not imply measured parallelism; and database models must not imply host crash durability.
+
+The later [visual-design review](visual-design-review.md) records the fixed-buffer redesign and the corresponding improvements to the other recent figures.

@@ -173,13 +173,13 @@ Read: Ada Lovelace
 
 The sample input contains a space, which fgets retains. Because it also retains the trailing newline, printf does not add a second one. The result check avoids reading uninitialized line contents when no input exists. The capacity here is a small fixed array size, which fits the int parameter expected by fgets.
 
-### Memory before and after fgets
+### How fgets fills a buffer
 
-fgets keeps the newline and adds a zero byte to end the string.
+The same 32 bytes stay in the same positions. Only their contents change.
 
-Before fgets, all 32 bytes of line are uninitialized; no initial byte values are assumed. After the successful read of the original input, bytes 0 through 11 contain Ada Lovelace, including its space. Byte 12 contains the newline from the input. Byte 13 contains the zero byte added by fgets to terminate the C string. Bytes 14 through 31, eighteen bytes, are untouched and remain uninitialized. In total, thirteen input bytes and one terminator occupy fourteen of the thirty-two bytes. The Read: prefix comes from printf and is not stored in line. For this 32-byte array, fgets can store at most 31 input bytes plus the terminator. Groups are not drawn to scale, and edits do not update this illustration.
+The model always shows all 32 indexed bytes of line in fixed positions. Before the call every byte is uninitialized, shown as a question mark rather than an assumed zero. For the original input Ada Lovelace followed by a newline, bytes 0 through 11 contain the text, with SP denoting its space. Byte 12 contains the input newline and byte 13 the zero terminator added by fgets. Bytes 14 through 31 remain uninitialized. Thirteen input bytes plus one terminator occupy fourteen of the thirty-two bytes. The buffer can hold at most 31 input bytes plus the terminator. Shorter input moves the terminator earlier; longer input leaves a suffix unread by this call. The grid wraps for readability; it represents one contiguous array. This is an illustrative model, not a memory dump or an internal execution trace.
 
-Original example; byte groups are not to scale.
+SP = space. ? = uninitialized, not a stored character.
 
 **Watch for:** Truncation needs an explicit policy: reject a long line, collect its remaining pieces, or intentionally work on chunks. This example reads one chunk; it is not a complete line-reading library.
 
