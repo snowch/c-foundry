@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 1016542,
-  "sha256": "e5b6bbbe0a95266efaa29faeac614561956ce0b87e40dc515e0be03c1d7b8c80",
+  "bytes": 1017002,
+  "sha256": "6218caace312b8af0be807e12cf49892c312c4a4efb35d055707706a4123dbdb",
   "files": [
     {
       "path": "LICENSE",
@@ -656,8 +656,8 @@
     },
     {
       "path": "docs/navigation-review.md",
-      "bytes": 1797,
-      "sha256": "28599c08ad9a58b187e6f60cea85c87a9ff4788b9693012be6f85f7b62da7031"
+      "bytes": 3322,
+      "sha256": "af52e4e6b5d2fb1742362fb7d5d3c29a57bc0d4b9d84e1950a77626713a553f5"
     },
     {
       "path": "docs/offline-update-design.md",

@@ -120,16 +120,17 @@ const { chromium, expect } = require("playwright/test"),
           );
         assert.equal(
           links[0].href,
-          previous?.href || "#/part/" + (chapter.part + 1),
+          (i===0&&chapters[chapter.number-2]?.labs.length?'#/lesson/'+chapters[chapter.number-2].labs.at(-1):previous?.href || "#/part/" + (chapter.part + 1)),
         );
         assert.equal(
           links[1].href,
-          next?.href ||
+          (i===chapter.topics.length-1&&chapter.labs.length?'#/lesson/'+chapter.labs[0]:next?.href ||
             (chapter.part < parts.length - 1
               ? "#/part/" + (chapter.part + 2)
-              : "#/course"),
+              : "#/course")),
         );
-        if (next) assert.ok(links[1].text.includes(next.title));
+        if(i===chapter.topics.length-1&&chapter.labs.length)assert.match(links[1].text,/Chapter practice/);
+        else if (next) assert.ok(links[1].text.includes(next.title));
         else
           assert.match(
             links[1].text,
@@ -194,7 +195,7 @@ const { chromium, expect } = require("playwright/test"),
           ),
         ).toHaveText("Chapter " + chapter.number + ": " + chapter.title);
         await expect(page.locator("#next-button")).toHaveText(
-          "Next practice →",
+          (chapter.labs.indexOf(id)<chapter.labs.length-1?'Next practice: ':'Next lesson: ')+ (chapter.labs.indexOf(id)<chapter.labs.length-1?await page.evaluate(id=>LESSONS.find(l=>l.id===id).title,chapter.labs[chapter.labs.indexOf(id)+1]):chapters[chapter.number].topics[0].title)+' →',
         );
         assert.ok(
           (await page.locator("#course-prediction").count()) <= 1,

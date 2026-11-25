@@ -147,6 +147,10 @@
     if (isPart) {
       const part = current.part;
       partPage.innerHTML = foundryHub.overview(part, done, last(), "#/course");
+      partPage.querySelectorAll('.part-chapter').forEach((section,index)=>{
+        const chapter=COURSE.chapters.find(c=>c.id===part.chapters[index].id);
+        if(chapter.labs.length)section.insertAdjacentHTML('beforeend','<p class="outline-practice">Chapter practice: '+chapter.labs.map(id=>`<a href="#/lesson/${id}" data-completed="${practiceCompletion.isDone(id)}">${escape(LESSONS.find(l=>l.id===id).title)}${practiceCompletion.isDone(id)?'<span class="practice-tick"> · ✓ Practice complete</span>':''}</a>`).join(' · ')+'</p>');
+      });
       const previous = courseParts[part.number - 2],
         next = courseParts[part.number];
       partPage.insertAdjacentHTML(
@@ -236,7 +240,7 @@
                     .find((ch) => ch.id === c.id)
                     .labs.map(
                       (id) =>
-                        `<a href="#/lesson/${id}" ${current.practice?.id === id ? 'aria-current="page"' : ""}>${escape(LESSONS.find((l) => l.id === id).title)}</a>`,
+                        `<a href="#/lesson/${id}" data-completed="${practiceCompletion.isDone(id)}" ${current.practice?.id === id ? 'aria-current="page"' : ""}>${escape(LESSONS.find((l) => l.id === id).title)}${practiceCompletion.isDone(id)?'<span class="practice-tick"> · ✓ Practice complete</span>':''}</a>`,
                     )
                     .join(" · ")}</p>`
                 : ""
@@ -383,14 +387,21 @@
       previous = part.lessons[position - 1],
       next = part.lessons[position + 1],
       nextPart = courseParts[part.number];
+    const previousChapter=COURSE.chapters[chapter.number-2],
+      previousPractice=chapter.topics[0].id===topic.id?previousChapter?.labs.at(-1):null,
+      nextPractice=chapter.topics.at(-1).id===topic.id?chapter.labs[0]:null;
     nav.innerHTML =
       card(
-        previous
+        previousPractice
+          ? {href:'#/lesson/'+previousPractice,label:'Previous practice',title:LESSONS.find(l=>l.id===previousPractice).title}
+          : previous
           ? lessonCard(previous, "Previous lesson", chapter)
           : { href: part.href, label: "Part overview", title: partLabel(part) },
       ) +
       card(
-        next
+        nextPractice
+          ? {href:'#/lesson/'+nextPractice,label:'Chapter practice',title:LESSONS.find(l=>l.id===nextPractice).title,detail:'Practise what you learned in this chapter'}
+          : next
           ? lessonCard(next, "Next lesson", chapter)
           : nextPart
             ? {
@@ -500,8 +511,6 @@
       if (text) text.textContent = " Mark lesson complete";
     }
     if (current.practice) {
-      $("previous-button").textContent = "← Previous practice";
-      $("next-button").textContent = "Next practice →";
       document.title =
         "Practice: " +
         current.practice.title +
@@ -530,5 +539,6 @@
   }
   addEventListener("c-foundry:route", render);
   addEventListener("lessoncompletionchange", outline);
+  addEventListener("practicecompletionchange",()=>{hub();outline();});
   render();
 })();

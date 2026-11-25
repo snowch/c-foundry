@@ -105,6 +105,16 @@
       if(!option.dataset.originalLabel)option.dataset.originalLabel=option.textContent;
       option.textContent=option.dataset.originalLabel+(lessonCompletion.isDone(id)?' · ✓ Done':'');
     });
+    document.querySelectorAll('[data-complete-and-practice]').forEach(button=>{button.textContent=lessonCompletion.isDone(button.dataset.reading)?'Continue to practice →':'Mark lesson complete and start practice →';});
+    document.querySelectorAll('a[href^="#/lesson/"]').forEach(link=>{const id=link.getAttribute('href').slice(9);if(!practiceCompletion.valid(id))return;const done=practiceCompletion.isDone(id);link.dataset.completed=String(done);link.querySelector('.practice-tick')?.remove();if(done){const tick=document.createElement('span');tick.className='practice-tick';tick.textContent=' · ✓ Practice complete';link.append(tick);}});
+    const current=LESSONS[selected];
+    if(current&&!current.isExample){
+      const context=practiceContext(current),reading=context.readingId,readingFailed=lessonCompletion.isUnsaved(reading),failed=practiceCompletion.isUnsaved(current.id);
+      $('practice-reading-complete').checked=lessonCompletion.isDone(reading);
+      $('practice-reading-note').textContent=readingFailed?'Couldn’t save the lesson mark. It applies in this session only. Toggle the checkbox twice to retry.':lessonCompletion.isDone(reading)?'Reading marked complete.':'Mark this reading only if you finished it.';
+      $('practice-complete').checked=practiceCompletion.isDone(current.id);
+      $('practice-completion-note').textContent=failed?'Couldn’t save this practice mark. It applies in this session only. Toggle the checkbox twice to retry.':practiceCompletion.isDone(current.id)?'Practice marked complete. Saved in this browser.':'Practice marks are saved in this browser.';
+    }
     const control=document.querySelector('[data-lesson-complete]');
     if(control){
       const id=control.dataset.lessonComplete;control.checked=lessonCompletion.isDone(id);
@@ -133,6 +143,8 @@
   function select(index){
     selected=index;const l=LESSONS[index];state.selected=l.id;
     const chapter=COURSE.chapters.find(c=>c.id===l.chapterId||c.labs.includes(l.id));
+    $('practice-reading-context').hidden=!!l.isExample;$('practice-completion').hidden=!!l.isExample;
+    if(!l.isExample){const context=practiceContext(l);$('practice-return').href='#/chapter/'+context.readingId;$('practice-return').textContent='← Back to reading: '+context.readingTitle;$('practice-reading-label').textContent='Mark reading complete: '+context.readingTitle;}
     $('lesson-number').textContent=`${l.isExample?'Worked example':'Practice'} · Chapter ${chapter.number}`;$('duration').textContent=l.time;
     $('lesson-title').textContent=l.title;$('lesson-concept').textContent=l.concept;
     $('lesson-body').innerHTML=l.body;$('lesson-detail').innerHTML=l.detail;$('lesson-task').innerHTML=l.task;$('lesson-hint').textContent=l.hint;
@@ -287,13 +299,23 @@
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&(view==='lab'||inlineActive)){e.preventDefault();run(e.shiftKey);}});
   document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view==='lab'?'/lesson/'+state.selected:'/course'));
   document.addEventListener('change',event=>{if(event.target.id==='chapter-jump')go(event.target.value);if(event.target.matches('[data-lesson-complete]'))lessonCompletion.mark(event.target.dataset.lessonComplete,event.target.checked);});
-  window.addEventListener('lessoncompletionchange',updateCompletion);
+  window.addEventListener('lessoncompletionchange',updateCompletion);window.addEventListener('practicecompletionchange',updateCompletion);
+  $('practice-complete').onchange=event=>practiceCompletion.mark(LESSONS[selected].id,event.target.checked);
+  $('practice-reading-complete').onchange=event=>lessonCompletion.mark(practiceContext(LESSONS[selected]).readingId,event.target.checked);
   document.querySelectorAll('[data-console]').forEach(b=>b.onclick=()=>consoleTab(b.dataset.console));
   $('run-button').onclick=()=>run();$('check-button').onclick=()=>run(true);$('stop-button').onclick=()=>stop();
-  function practiceSequence(){return COURSE.chapters.flatMap(c=>c.labs).filter(id=>PRACTICE.some(l=>l.id===id));}
-  function updateExerciseNavigation(){const l=LESSONS[selected],sequence=practiceSequence(),i=sequence.indexOf(l.id);$('previous-button').disabled=busy||(!l.isExample&&i<=0);$('next-button').disabled=busy||(!l.isExample&&i===sequence.length-1);$('previous-button').textContent=l.isExample?'← Topic explanation':'← Previous exercise';$('next-button').textContent=l.isExample?'Chapter overview →':'Next exercise →';}
-  $('previous-button').onclick=()=>{const l=LESSONS[selected],seq=practiceSequence();go(l.isExample?'/chapter/'+l.chapterId+'/'+l.topicId:'/lesson/'+seq[Math.max(0,seq.indexOf(l.id)-1)]);};
-  $('next-button').onclick=()=>{const l=LESSONS[selected],seq=practiceSequence();go(l.isExample?'/chapter/'+l.chapterId:'/lesson/'+seq[Math.min(seq.length-1,seq.indexOf(l.id)+1)]);};
+  function practiceContext(l){
+    const chapter=COURSE.chapters.find(c=>c.labs.includes(l.id)),last=chapter.topics.at(-1),index=chapter.labs.indexOf(l.id),nextChapter=COURSE.chapters[chapter.number];
+    const previousId=chapter.labs[index-1],nextId=chapter.labs[index+1];
+    return {chapter,readingId:chapter.id+'/'+last.id,readingTitle:last.title,
+      previous:previousId?'/lesson/'+previousId:'/chapter/'+chapter.id+'/'+last.id,
+      previousTitle:previousId?'Previous practice: '+LESSONS.find(item=>item.id===previousId).title:'Back to lesson: '+last.title,
+      next:nextId?'/lesson/'+nextId:nextChapter?'/chapter/'+nextChapter.id+'/'+nextChapter.topics[0].id:'/course',
+      nextTitle:nextId?'Next practice: '+LESSONS.find(item=>item.id===nextId).title:nextChapter?'Next lesson: '+nextChapter.topics[0].title:'Course overview'};
+  }
+  function updateExerciseNavigation(){const l=LESSONS[selected];$('previous-button').disabled=busy;$('next-button').disabled=busy;if(l.isExample){$('previous-button').textContent='← Topic explanation';$('next-button').textContent='Chapter overview →';}else{const context=practiceContext(l);$('previous-button').textContent='← '+context.previousTitle;$('next-button').textContent=context.nextTitle+' →';}}
+  $('previous-button').onclick=()=>{const l=LESSONS[selected];go(l.isExample?'/chapter/'+l.chapterId+'/'+l.topicId:practiceContext(l).previous);};
+  $('next-button').onclick=()=>{const l=LESSONS[selected];go(l.isExample?'/chapter/'+l.chapterId:practiceContext(l).next);};
   function rememberDraft(id){
     state.replacements[id]={files:sourceFiles(),input:$('stdin').value};
     $('undo-replace-button').hidden=false;
@@ -327,7 +349,7 @@
   $('workspace-button').onclick=async()=>{try{if(busy){toast('Stop the program first.');return;}await window.commandWorkspace.acceptSource($('editor').value,$('stdin').value);go('/workspace');}catch(error){toast(error.message);}};
   $('download-button').onclick=()=>{const url=URL.createObjectURL(new Blob([$('editor').value],{type:'text/x-c'}));const a=document.createElement('a');a.href=url;a.download=activeFile;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   $('start-db').onclick=()=>go('/chapter/database-foundations');
-  document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#/"]');if(a&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey&&e.button===0){e.preventDefault();go(a.getAttribute('href').slice(1));}});
+  document.addEventListener('click',e=>{const complete=e.target.closest('[data-complete-and-practice]');if(complete){if(busy){toast('Stop the program before leaving this lesson.');return;}lessonCompletion.mark(complete.dataset.reading,true);go('/lesson/'+complete.dataset.completeAndPractice);return;}const a=e.target.closest('a[href^="#/"]');if(a&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey&&e.button===0){e.preventDefault();go(a.getAttribute('href').slice(1));}});
   $('about-button')?.addEventListener('click',()=>$('about-dialog').showModal());$('close-about').onclick=()=>$('about-dialog').close();
   function closeCourseMenu(){if($('course-drawer').open)$('course-drawer').close();$('course-menu-button').setAttribute('aria-expanded','false');}
   $('course-menu-button').onclick=()=>{$('course-drawer').showModal();$('course-menu-button').setAttribute('aria-expanded','true');document.querySelector('#drawer-nav [aria-current="page"]')?.scrollIntoView({block:'center'});};
@@ -338,6 +360,6 @@
   $('course-outline-button').onclick=()=>{const heading=$('course-outline-title');heading.focus({preventScroll:true});heading.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
   window.addEventListener('hashchange',renderRoute);
   $('runtime-reload').onclick=()=>window.cFoundryRunner?.recovery.reload();
-  window.cFoundryApp={saveForRestart(){if(busy)throw Error('Wait for the current program to finish.');if(!save()||lessonCompletion.total().unsaved)throw Error('Your source, input or completion could not be saved. Export your files before reloading.');const expected=JSON.stringify(state);if(![readSaved('sessionStorage'),readSaved('localStorage')].some(value=>JSON.stringify(value)===expected))throw Error('The browser did not keep the saved draft. Export your files before reloading.');},snapshot(){return {output:$('output').textContent,context:$('output-context').textContent,hasOutput,activeFile};},restore(value){if(!value)return;if(Object.hasOwn(sourceFiles(),value.activeFile))showFile(value.activeFile);$('output').textContent=value.output;hasOutput=value.hasOutput;outputContext(value.context);},savePrediction(id,text){state.predictions[id]=text;save();},prediction(id){return state.predictions[id]||'';}};
+  window.cFoundryApp={practiceContext,saveForRestart(){if(busy)throw Error('Wait for the current program to finish.');if(!save()||lessonCompletion.total().unsaved||practiceCompletion.total().unsaved)throw Error('Your source, input or completion could not be saved. Export your files before reloading.');const expected=JSON.stringify(state);if(![readSaved('sessionStorage'),readSaved('localStorage')].some(value=>JSON.stringify(value)===expected))throw Error('The browser did not keep the saved draft. Export your files before reloading.');},snapshot(){return {output:$('output').textContent,context:$('output-context').textContent,hasOutput,activeFile};},restore(value){if(!value)return;if(Object.hasOwn(sourceFiles(),value.activeFile))showFile(value.activeFile);$('output').textContent=value.output;hasOutput=value.hasOutput;outputContext(value.context);},savePrediction(id,text){state.predictions[id]=text;save();},prediction(id){return state.predictions[id]||'';}};
   if(!location.hash)go('/course',true);else renderRoute();
 })();

@@ -483,3 +483,14 @@ pre.memory-stream{background:var(--soft);color:var(--ink);font:18px/1.6 var(--mo
 #help-contract-feedback,#help-run-evidence,#help-transfer-feedback { overflow-wrap:anywhere; }
 
 .help-manual-controls { position:sticky;top:0;z-index:10;background:var(--paper,var(--panel));padding-top:8px;border-bottom:1px solid var(--line); }
+
+/* Chapter practice follows the reading, with independent, explicit completion. */
+.practice-reading-context { margin:24px 0;padding:16px 20px;background:var(--soft);border:1px solid var(--line);border-radius:8px; }
+.practice-reading-context>a { display:block;margin-bottom:12px; }
+.practice-reading-context label,.practice-completion-control { display:flex;align-items:center;gap:12px;min-height:44px;font-size:17px; }
+.practice-reading-context input,.practice-completion-control input { width:22px;height:22px;flex-shrink:0; }
+.practice-reading-context p,#practice-completion-note { font-size:16px; }
+.practice-tick { font-size:14px;color:var(--accent); }
+.lesson-footer>div { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:16px; }
+.lesson-footer button { width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere;text-align:left;padding:18px;font-size:17px; }
+@media(max-width:600px){.lesson-footer>div{grid-template-columns:1fr}}
