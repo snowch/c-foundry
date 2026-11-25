@@ -8,7 +8,7 @@
     "serve": "npm run build && python3 -m http.server 8080 --directory .build/site",
     "test:browser": "npm run build && node tests/shared-browser.cjs && node tests/update-browser.cjs && node tests/background-handoff.cjs && node tests/concept-browser.cjs",
     "test:linux": "node tests/self-hosted-linux.cjs c",
-    "test:hub": "node tests/hub-selection.cjs && node tests/lab-hub.cjs"
+    "test:hub": "node tests/hub-selection.cjs && node tests/lab-hub.cjs && node tests/navigation.cjs"
   },
   "devDependencies": {
     "fake-indexeddb": "^6.2.7",

@@ -18,3 +18,31 @@ body{font:17px/1.65 var(--sans)}a{color:var(--accent)}h1{font-size:clamp(38px,4v
 /* Long lab names wrap within the header, including at 320 px. */
 .brand{max-width:100%;min-width:0}.brand-mark{flex-shrink:0}.brand>span:not(.brand-mark){min-width:0;white-space:normal;overflow-wrap:anywhere}
 .concept-diagram svg{background:transparent}
+
+/* Course location and hierarchy: labels are consistent at every depth. */
+#course-row-progress{margin:0;color:var(--muted);font-size:14px}
+#course-breadcrumbs{flex-basis:100%;align-items:baseline;gap:6px 10px;line-height:1.55;overflow-wrap:anywhere}
+#course-breadcrumbs a,#course-breadcrumbs [aria-current]{min-width:0;max-width:100%}
+.breadcrumb-separator{color:var(--muted)}
+.course-navigation{padding-bottom:18px;border-bottom:1px solid var(--line)}
+.outline-destinations{display:flex;flex-wrap:wrap;gap:12px 24px}
+.course-outline-grid h3 a{padding:0;font-size:18px}
+.course-outline-grid [data-current-chapter]{color:var(--accent)}
+.chapter-progress,.outline-practice,.part-scope{color:var(--muted);font-size:14px;line-height:1.5}
+.course-outline-grid .chapter-progress{margin:8px 0}
+.outline-lesson-number{color:var(--accent);min-width:1.4em;font-variant-numeric:tabular-nums}
+.outline-practice a{display:inline;padding:0}
+.outline-workspaces{margin-top:28px}
+.part-chapter{padding:22px 0;border-top:1px solid var(--line)}
+.part-chapter h3{margin:0 0 8px;font-size:20px}
+.part-chapter .chapter-progress{margin:0 0 10px}
+.part-chapter ol{padding-left:24px}
+.part-chapter li{padding-left:4px}
+.part-chapter li::marker{color:var(--accent);font-variant-numeric:tabular-nums}
+.lesson-done{color:var(--accent);font-size:14px;margin-left:8px}
+.navigation-detail{display:block;color:var(--muted);font-size:14px;margin-top:8px}
+.part-boundary{color:var(--muted);margin:24px 0 8px}
+.part-sequence{margin-top:12px}.course-hierarchy-note{color:var(--muted)}
+@media(max-width:560px){.course-location{gap:8px 12px}#course-row-progress{flex-basis:100%}.course-navigation{margin-top:16px}#course-breadcrumbs{font-size:14px}}
+
+.brand{min-width:0;max-width:100%}.brand>span:last-child{min-width:0}.brand small{white-space:normal;max-width:38ch}
