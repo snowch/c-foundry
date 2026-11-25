@@ -16,14 +16,6 @@ A table’s initialized count is not its reserved capacity. Only rows below coun
 
 Table t={0} initializes an empty table. Row assignment copies embedded arrays as part of the struct, while pointer fields would require a separate ownership policy. The fixed array avoids allocation during table operations but imposes a deliberate capacity limit. The name field must contain a terminator within its 32 bytes.
 
-### The row count identifies the valid prefix
-
-Capacity describes available slots; count describes rows actually stored.
-
-An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
-
-Row fields and the capacity limit follow the course’s bounded in-memory table model.
-
 ### main.c
 
 ```c
@@ -103,6 +95,14 @@ count=1 stored=Ada source=Xda
 
 Changing the source name after insertion does not affect the stored row because the embedded bytes were copied.
 
+### The stored row has its own embedded name array
+
+Why does changing source.name leave the stored name unchanged?
+
+Why does changing source.name leave the stored name unchanged? After source.name[0] = X. Source Row. 7 | Xda | 95. source. separate struct; Stored Row · count=1. 7 | Ada | 95. t.rows[0]. struct assignment copied fields. The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy.
+
+The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** Replacing the array with char * would make the same assignment share a target rather than clone it.
 
 **Check:** Does this row assignment copy the embedded name array?
@@ -144,14 +144,6 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 Insertion and selection form the minimal useful table interface. Return an explicit missing result before accessing row storage.
 
 find_row performs a linear scan and returns −1 for absence. Its signed result is tested before conversion to an array index. Full-table selection preserves insertion order in this baseline. Both lookup and a full selection take O(n) worst-case time; selection necessarily visits every emitted row.
-
-### The row count identifies the valid prefix
-
-Capacity describes available slots; count describes rows actually stored.
-
-An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
-
-Row fields and the capacity limit follow the course’s bounded in-memory table model.
 
 ### main.c
 
@@ -233,6 +225,14 @@ missing=1
 
 Storage order is the order of successful insertion, not sorted ID order. Binary search would therefore be invalid on this array.
 
+### Insertion order and live row count
+
+Why does display print Grace before Ada?
+
+Why does display print Grace before Ada? Slot; Inserted record; Included by display?. rows[0]; 2 | Grace | 80; Yes; rows[1]; 1 | Ada | 90; Yes; rows[2..7]; spare capacity; No. . . count=2 and capacity=8. This bounded table preserves insertion order; the ID lookup is a scan. The separate missing=1 result refers to find_row(t,99).
+
+count=2 and capacity=8. This bounded table preserves insertion order; the ID lookup is a scan. The separate missing=1 result refers to find_row(t,99). Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** Do not cast −1 to size_t and use it as an index.
 
 **Check:** Is this table sorted by ID?
@@ -266,14 +266,6 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 A failed insertion must leave existing rows intact. Define which error wins when more than one condition applies.
 
 This API checks row validity, then duplicate identity, then capacity. Therefore a duplicate in a full table reports DUPLICATE. That priority is observable behavior and belongs in tests. Appending occurs only after every check has passed, so count and existing records stay unchanged on rejection.
-
-### The row count identifies the valid prefix
-
-Capacity describes available slots; count describes rows actually stored.
-
-An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
-
-Row fields and the capacity limit follow the course’s bounded in-memory table model.
 
 ### main.c
 
@@ -355,6 +347,14 @@ duplicate=1 full=1 count=8
 ```
 
 The duplicate and new ninth key produce distinct failures. Neither increases the initialized count.
+
+### Rejected inserts leave the full table unchanged
+
+Why do both attempts fail while count stays 8?
+
+Why do both attempts fail while count stays 8? Table already contains IDs 1..8; count=capacity=8. Insert ID 1 again. DUPLICATE. The duplicate check runs before the capacity check.; Insert new ID 99. FULL. The ID is new, but no slot remains.. Both rejected operations retain the existing eight rows. A failure status is not an extra row or an increment of count.
+
+Both rejected operations retain the existing eight rows. A failure status is not an extra row or an increment of count. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** An API can be inconsistent even if it never crashes: error priority and state preservation need tests too.
 

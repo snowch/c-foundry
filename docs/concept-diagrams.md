@@ -93,7 +93,7 @@ The reading exporter mirrors the captions, descriptions, and model notes into th
 | Destroy synchronization objects only after joins | `concurrent-storage/4` · after worked example |
 | One lock protects the whole transfer | `isolation/1` · after worked example |
 
-76 original figure definitions serve 126 selected lessons across all nine parts. See the [complete lesson-by-lesson review](concept-diagram-review.md) for the additions, replacements and decisions to keep prose or existing output.
+94 original figure definitions serve 135 selected lessons across all nine parts. See the [complete lesson-by-lesson review](concept-diagram-review.md) for the additions, replacements and decisions to keep prose or existing output.
 
 ## Maintaining the figures
 
@@ -102,3 +102,5 @@ Edit the descriptive data or rendering helpers in `dist/concepts.js`, then run `
 ## Recent visual-design pass
 
 See [the design review](visual-design-review.md) for all 23 recently added or revised figures. The fgets figure is an interactive, fixed-capacity model; its controls live outside the accessible image. All other figures remain static. Step controls do not run C. Input presets explicitly prepare the editor’s next input, and source/input provenance keeps the model distinct from inspected memory.
+
+See the [expanded visual-opportunity audit](visual-opportunities.md) for nine newly illustrated lessons and the route-specific corrections to reused figures.

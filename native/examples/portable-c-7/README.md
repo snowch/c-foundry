@@ -36,6 +36,14 @@ utf8_bytes=6 ascii_letters=4
 
 Chloé occupies six UTF-8 bytes. In the C locale the four ASCII letters are classified as alphabetic; the two encoding bytes for é are not a decoded character for this byte-wise operation. The supported hosts use ASCII-compatible execution character sets.
 
+### Byte classification does not decode Unicode
+
+Why are there 6 UTF-8 bytes but only 4 ASCII letters?
+
+Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. 43; 68; 6C; 6F; C3; A9. C. 1; h. 1; l. 1; o. 1; é. 2. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier.
+
+The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** Strlen counts bytes before a zero terminator, not Unicode characters. Setting a process-global locale also affects other library calls and needs coordination in threaded programs.
 
 **Check:** What does casting to unsigned char before isalpha accomplish?

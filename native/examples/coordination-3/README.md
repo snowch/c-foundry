@@ -8,14 +8,6 @@ Lock ordering prevents circular wait when every path follows the same global ord
 
 Both workers acquire first_lock before second_lock and release in reverse order. A conflicting path that acquires them in the opposite order could deadlock. Also avoid holding a database lock while waiting for queue space or an external callback that may need that same lock. POSIX mutexes do not generally promise a specific fairness order.
 
-### Opposite lock orders can form a wait cycle
-
-Both threads can wait forever while retaining the lock the other needs.
-
-Thread A holds lock L and waits for R. Thread B holds R and waits for L. Each thread needs the lock held by the other, forming a cycle. For these two locks, requiring all threads to acquire L before R prevents this opposite-order cycle.
-
-A global lock order addresses this cycle; shutdown, external resources, and other wait dependencies still need analysis.
-
 ### main.c
 
 ```c
@@ -72,6 +64,14 @@ completed=2
 ```
 
 Both critical sections complete and their increments are protected. The output does not establish starvation freedom under an unbounded workload.
+
+### Consistent order prevents this lock cycle
+
+What cycle would opposite lock orders permit?
+
+What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Thread A; L; Thread B; R. held by; waits for; held by; waits for. Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.
+
+The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** Do not demonstrate deadlock by hanging the course runner; model the wait-for cycle or use a bounded diagnostic test.
 

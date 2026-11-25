@@ -42,6 +42,14 @@ Ada
 
 tmpfile creates a temporary binary update stream. The program checks the write, flushes buffered data, seeks back to the start, and reads the line. fclose releases the stream and removes its temporary file. Every path after a successful open attempts to close it.
 
+### The stream position moves before the read
+
+Why does fseek(file,0,SEEK_SET) come before fgets?
+
+Why does fseek(file,0,SEEK_SET) come before fgets? Write Ada\n. The update stream position advances past the written text.; fflush; fseek to position 0. Check both operations; reposition before changing from writing to reading.; fgets reads Ada\n. The read starts at the beginning.; fclose. Check close as well as earlier I/O.. This is the supplied temporary update stream. It does not assert that text-stream positions are portable byte counts or that every platform stores a newline as one byte.
+
+This is the supplied temporary update stream. It does not assert that text-stream positions are portable byte counts or that every platform stores a newline as one byte. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** Successful fprintf or fwrite can mean bytes reached a library buffer, not that they are durable on storage. Durability needs platform-specific guarantees discussed with the database log.
 
 **Check:** Does a buffered successful write alone prove crash durability?

@@ -81,14 +81,6 @@ Binary search discards half of the remaining candidates using an ordering guaran
 
 Keep the candidates in [lo,hi), initially [0,n). The lower-bound helper returns the first position whose value is at least key, which may equal n. Convert that position to a membership result only after checking both the bound and equality. The interval shrinks on every iteration, with O(log n) worst-case comparisons and O(1) auxiliary space.
 
-### Sorted order lets us discard a whole region
-
-When the middle value is too small, all earlier values are too small as well.
-
-Search the sorted values 2, 5, 8, 12, 16, 23, 38, 56 for 23. The first midpoint is index 3, value 12. Discard indices 0 through 3. Candidates at indices 4 through 7 are 16, 23, 38, and 56. Their next midpoint is index 5, value 23, which matches.
-
-The example uses an inclusive upper bound. Half-open bounds need their own consistent updates.
-
 ### main.c
 
 ```c
@@ -138,6 +130,14 @@ position=3 found=1
 ```
 
 At position three the value equals eight. The left operand of && prevents indexing when the returned position is n.
+
+### Keep the original array while bounds move
+
+Why does lower(a, 5, 8) return position 3?
+
+Why does lower(a, 5, 8) return position 3? [0,5). 2; 4; 6; 8; 10. mid=2: 6 < 8, so lo=3.. mid; [3,5). 2; 4; 6; 8; 10. mid=4: 10 ≥ 8, so hi=4.. mid; [3,4). 2; 4; 6; 8; 10. mid=3: 8 ≥ 8, so hi=3.. mid; [3,3) · stop. 2; 4; 6; 8; 10. position=3; 3 < 5 and a[3] == 8, so found=1.. lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership.
+
+lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** Applying the same code to an unsorted array removes the argument that discarded values cannot match.
 

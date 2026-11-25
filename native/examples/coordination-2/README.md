@@ -8,14 +8,6 @@ A bounded producer–consumer queue turns overload into backpressure rather than
 
 This four-slot queue carries eight requests, so a producer may wait for space. Every successful enqueue has one corresponding dequeue, and close rejects later offers while allowing already queued work to drain. FIFO is defined by queue admission order, not by when producer threads started. The example uses one producer and consumer to make the basic contract easy to verify.
 
-### Wake up, reacquire, and recheck the predicate
-
-A condition-variable wakeup is not a stored promise that work is available.
-
-With the queue mutex held, check whether the queue has an item or is closed. If waiting is needed, the condition-variable wait releases that mutex and blocks. Before the wait returns it reacquires the mutex. Recheck the predicate in a loop, then consume an item or handle the closed state while still holding the mutex.
-
-Spurious wakeups and competing consumers are reasons to recheck. Closed-and-empty needs an explicit exit path.
-
 ### main.c
 
 ```c
@@ -140,6 +132,14 @@ capacity=4 received_count=8
 ```
 
 Reusing slots lets this four-slot queue drain eight requests. The fixture checks the total and count from a fixed sequence of offered values.
+
+### Wake, reacquire, then test the queue again
+
+Why can a woken consumer still need to wait?
+
+Why can a woken consumer still need to wait? count > 0?; Wait. release mutex; Reacquire. mutex locked; Take item. under mutex. No; wake; recheck; Yes. The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.
+
+The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** Count and sum alone are not a complete exactly-once proof for arbitrary inputs; production tests should track each request ID.
 

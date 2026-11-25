@@ -37,6 +37,14 @@ oversize_rejected=1
 
 On the supported targets sizeof(int)>1, so the requested count cannot fit a byte size. The operating system is not asked to perform a huge allocation.
 
+### Check the count before multiplying
+
+Why must the guard run before count * sizeof(int)?
+
+Why must the guard run before count * sizeof(int)? count ≤ SIZE_MAX / sizeof(int)?. Yes. Multiplication fits size_t. Apply the separate zero-count and allocation-failure policies.; No · starter uses SIZE_MAX. Reject without multiplying. oversize_rejected=1; no huge allocation is attempted.. The guard prevents size_t multiplication wrap from producing a smaller allocation request. It does not prove an allocation will succeed or validate later indexing.
+
+The guard prevents size_t multiplication wrap from producing a smaller allocation request. It does not prove an allocation will succeed or validate later indexing. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** A NULL check after an already overflowing multiplication does not repair the requested size.
 
 **Check:** When must multiplication overflow be checked?

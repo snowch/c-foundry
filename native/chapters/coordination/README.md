@@ -189,14 +189,6 @@ A bounded producer–consumer queue turns overload into backpressure rather than
 
 This four-slot queue carries eight requests, so a producer may wait for space. Every successful enqueue has one corresponding dequeue, and close rejects later offers while allowing already queued work to drain. FIFO is defined by queue admission order, not by when producer threads started. The example uses one producer and consumer to make the basic contract easy to verify.
 
-### Wake up, reacquire, and recheck the predicate
-
-A condition-variable wakeup is not a stored promise that work is available.
-
-With the queue mutex held, check whether the queue has an item or is closed. If waiting is needed, the condition-variable wait releases that mutex and blocks. Before the wait returns it reacquires the mutex. Recheck the predicate in a loop, then consume an item or handle the closed state while still holding the mutex.
-
-Spurious wakeups and competing consumers are reasons to recheck. Closed-and-empty needs an explicit exit path.
-
 ### main.c
 
 ```c
@@ -322,6 +314,14 @@ capacity=4 received_count=8
 
 Reusing slots lets this four-slot queue drain eight requests. The fixture checks the total and count from a fixed sequence of offered values.
 
+### Wake, reacquire, then test the queue again
+
+Why can a woken consumer still need to wait?
+
+Why can a woken consumer still need to wait? count > 0?; Wait. release mutex; Reacquire. mutex locked; Take item. under mutex. No; wake; recheck; Yes. The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.
+
+The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** Count and sum alone are not a complete exactly-once proof for arbitrary inputs; production tests should track each request ID.
 
 **Check:** What happens when the queue fills under this policy?
@@ -355,14 +355,6 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 Lock ordering prevents circular wait when every path follows the same global order. It does not by itself guarantee fairness or eliminate every blocking failure.
 
 Both workers acquire first_lock before second_lock and release in reverse order. A conflicting path that acquires them in the opposite order could deadlock. Also avoid holding a database lock while waiting for queue space or an external callback that may need that same lock. POSIX mutexes do not generally promise a specific fairness order.
-
-### Opposite lock orders can form a wait cycle
-
-Both threads can wait forever while retaining the lock the other needs.
-
-Thread A holds lock L and waits for R. Thread B holds R and waits for L. Each thread needs the lock held by the other, forming a cycle. For these two locks, requiring all threads to acquire L before R prevents this opposite-order cycle.
-
-A global lock order addresses this cycle; shutdown, external resources, and other wait dependencies still need analysis.
 
 ### main.c
 
@@ -420,6 +412,14 @@ completed=2
 ```
 
 Both critical sections complete and their increments are protected. The output does not establish starvation freedom under an unbounded workload.
+
+### Consistent order prevents this lock cycle
+
+What cycle would opposite lock orders permit?
+
+What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Thread A; L; Thread B; R. held by; waits for; held by; waits for. Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.
+
+The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** Do not demonstrate deadlock by hanging the course runner; model the wait-for cycle or use a bounded diagnostic test.
 

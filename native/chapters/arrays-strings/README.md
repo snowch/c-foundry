@@ -265,6 +265,14 @@ number=42
 
 Ada fits in eight chars including its terminator, so the copy and comparison succeed. For the numeric text, reset errno before calling strtol with base 10. ERANGE signals a long-range failure. end == text means no conversion occurred, while *end != '\0' rejects an unconsumed suffix. Finally, check the int range before casting. Leading whitespace is accepted by strtol; this example deliberately rejects trailing whitespace or any other suffix. The address notation is introduced here as library scaffolding and developed fully in Part 2.
 
+### A parsed number can stop before the field ends
+
+Which position must end reach before accepting the complete integer field?
+
+Which position must end reach before accepting the complete integer field? Original text: 42. 4; 2; \0. After strtol: parsed=42, end points to index 2.. end. Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix.
+
+Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** A successful prefix conversion is not necessarily a valid whole input: "42x" begins with a number but fails this parser’s policy. Do not replace these checks with atoi, which does not provide the same error information. Likewise, a bounded copy can still truncate meaningful text, and strcmp need not return exactly -1 or 1.
 
 **Check:** What does strcmp(a, b) == 0 mean for two valid strings?
@@ -335,6 +343,14 @@ words=3
 ```
 
 For C is fun, each first letter after a boundary increases the word count; letters later in the same word do not. Multiple adjacent spaces therefore do not create extra words. The example counts words only. Your exercise adds a character counter while keeping the newline excluded. Test an empty input, whitespace-only input, and repeated spaces.
+
+### A new word starts only outside a word
+
+Which transition increments words?
+
+Which transition increments words? Outside word. in_word=false; Inside word. in_word=true. non-space: +1; whitespace. Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \0.. Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs.
+
+Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** This is byte-oriented ASCII processing, not a Unicode word segmenter. A long line is read only up to the buffer limit; the exercise’s contract avoids that truncation case, while a later robust input library must handle it.
 

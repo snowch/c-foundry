@@ -42,6 +42,14 @@ lf=3 crlf=3 equal=1 lone_cr=4
 
 Both supported terminators produce the same three-character record. The lone CR remains part of a four-byte payload. The caller owns an array with space for text[n]; this helper does not establish that fgets supplied an entire untruncated record.
 
+### LF and CRLF end at the same text boundary
+
+Which bytes does strip_line_ending remove?
+
+Which bytes does strip_line_ending remove? Input bytes; Recognized ending; Returned text length. Ada \n; LF removed; 3; Ada \r \n; CRLF removed; 3; Ada \r; No LF: lone CR retained; 4. . . Spaces in this display separate the text from escape labels; they are not extra input bytes. The helper writes \0 at the new end. Text-mode translation is a separate host behavior.
+
+Spaces in this display separate the text from escape labels; they are not extra input bytes. The helper writes \0 at the new end. Text-mode translation is a separate host behavior. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** Never strip all trailing whitespace from a field unless the grammar permits losing those characters. A buffer ending without LF may be the final complete record or only a prefix of a long line.
 
 **Check:** Which mode preserves a byte-defined database file on Windows as well as Unix?

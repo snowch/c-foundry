@@ -385,6 +385,14 @@ lf=3 crlf=3 equal=1 lone_cr=4
 
 Both supported terminators produce the same three-character record. The lone CR remains part of a four-byte payload. The caller owns an array with space for text[n]; this helper does not establish that fgets supplied an entire untruncated record.
 
+### LF and CRLF end at the same text boundary
+
+Which bytes does strip_line_ending remove?
+
+Which bytes does strip_line_ending remove? Input bytes; Recognized ending; Returned text length. Ada \n; LF removed; 3; Ada \r \n; CRLF removed; 3; Ada \r; No LF: lone CR retained; 4. . . Spaces in this display separate the text from escape labels; they are not extra input bytes. The helper writes \0 at the new end. Text-mode translation is a separate host behavior.
+
+Spaces in this display separate the text from escape labels; they are not extra input bytes. The helper writes \0 at the new end. Text-mode translation is a separate host behavior. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** Never strip all trailing whitespace from a field unless the grammar permits losing those characters. A buffer ending without LF may be the final complete record or only a prefix of a long line.
 
 **Check:** Which mode preserves a byte-defined database file on Windows as well as Unix?
@@ -512,6 +520,14 @@ utf8_bytes=6 ascii_letters=4
 ```
 
 Chloé occupies six UTF-8 bytes. In the C locale the four ASCII letters are classified as alphabetic; the two encoding bytes for é are not a decoded character for this byte-wise operation. The supported hosts use ASCII-compatible execution character sets.
+
+### Byte classification does not decode Unicode
+
+Why are there 6 UTF-8 bytes but only 4 ASCII letters?
+
+Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. 43; 68; 6C; 6F; C3; A9. C. 1; h. 1; l. 1; o. 1; é. 2. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier.
+
+The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** Strlen counts bytes before a zero terminator, not Unicode characters. Setting a process-global locale also affects other library calls and needs coordination in threaded programs.
 

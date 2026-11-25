@@ -1,6 +1,61 @@
 // Original C Foundry teaching diagrams. Authored here from the course concepts;
 // no third-party artwork, diagram layouts, fonts, or icon libraries are embedded.
 (() => {
+// Original, local teaching models. No code execution, storage, network or UI side effects.
+const modelEscape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const modelText = (tag, value, cls='') => `<${tag}${cls ? ` class="${cls}"` : ''}>${modelEscape(value)}</${tag}>`;
+const modelArrow = '<span class="lm-arrow" aria-hidden="true">↓</span>';
+
+function renderLearningBody(model) {
+  const e = modelEscape;
+  switch (model.kind) {
+    case 'slots':
+      return model.rows.map(row => `<section class="lm-state">${modelText('h4',row.label)}<ol class="lm-slots" style="--slots:${row.values.length}">${row.values.map((value,i)=>`<li class="lm-slot ${row.active?.includes(i)?'lm-active':''} ${row.muted?.includes(i)?'lm-muted':''}"><span class="lm-index">${e(row.indices?.[i] ?? i)}</span>${modelText('strong',value)}${row.tags?.[i]?modelText('span',row.tags[i],'lm-tag'):''}</li>`).join('')}</ol>${row.note?modelText('p',row.note,'lm-state-note'):''}</section>`).join('');
+    case 'bytes':
+      return `<section class="lm-state">${modelText('h4',model.label)}<div class="lm-byte-groups" style="--slots:${model.values.length}">${model.groups.map(g=>`<div style="grid-column:span ${g.size}">${modelText('strong',g.label)}${g.note?modelText('span',g.note):''}</div>`).join('')}</div>${renderLearningBody({kind:'slots',rows:[{label:model.byteLabel||'Byte offsets · hexadecimal',values:model.values,indices:model.indices,active:model.active}]})}</section>`;
+    case 'references':
+      return model.states.map(state => `<section class="lm-state">${modelText('h4',state.label)}<div class="lm-objects">${state.objects.map(object=>{
+        const refs=object.refs||[];
+        return `<div class="lm-object-group"><div class="lm-ref-names" style="--refs:${Math.max(1,refs.length)}">${refs.map(ref=>`<div>${modelText('strong',ref.name,'lm-binding')}${modelText('span',ref.edge,'lm-edge-label')}</div>`).join('')}</div>${refs.length?`<svg class="lm-ref-lines" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true" focusable="false">${refs.map((_,i)=>`<path d="M${(i+.5)*100/refs.length} 1V11L50 25 M46 20L50 25L54 20"/>`).join('')}</svg>`:''}<div class="lm-object ${object.dead?'lm-dead':''}">${modelText('span',object.label,'lm-object-label')}${modelText('strong',object.value,'lm-object-value')}</div></div>`;
+      }).join('')}</div>${state.note?modelText('p',state.note,'lm-state-note'):''}</section>`).join('');
+    case 'branch':
+      return `<div class="lm-root">${modelText('strong',model.root)}</div><div class="lm-branches">${model.paths.map(path=>`<section>${modelArrow}${modelText('h4',path.when,'lm-condition')}<div class="lm-outcome">${modelText('strong',path.result)}${path.detail?modelText('p',path.detail):''}</div></section>`).join('')}</div>${model.join?`${modelArrow}<div class="lm-root">${modelText('strong',model.join)}</div>`:''}`;
+    case 'flow':
+      return `<ol class="lm-flow">${model.steps.map((step,i)=>`<li>${i?modelArrow:''}${modelText('strong',step.label)}${step.detail?modelText('p',step.detail):''}${step.edge?modelText('span',step.edge,'lm-edge-label'):''}</li>`).join('')}</ol>`;
+    case 'table':
+    case 'lanes':
+      return `<div class="lm-table-scroll" tabindex="0" role="region" aria-label="${e(model.label||'Compare the model states')}"><table class="lm-table"><caption>${e(model.label||'')}</caption><thead><tr>${model.headings.map(h=>modelText('th',h)).join('')}</tr></thead><tbody>${model.rows.map(row=>`<tr>${row.map((value,i)=>modelText(i?'td':'th',value)).join('')}</tr>`).join('')}</tbody></table></div>${model.links?.length?`<ul class="lm-dependencies">${model.links.map(link=>modelText('li',link)).join('')}</ul>`:''}`;
+    case 'graph': {
+      const nodes=new Map(model.nodes.map(n=>[n.id,n]));
+      const lines=model.edges.map(edge=>{
+        const a=nodes.get(edge.from),b=nodes.get(edge.to);
+        if(!a||!b)throw Error('Unknown teaching-model vertex');
+        const dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy),ux=dx/length,uy=dy/length;
+        // Coordinates are percentages. Leave space for the live-text node labels.
+        const ax=(a.x+ux*7)*10,ay=(a.y+uy*7)*5,bx=(b.x-ux*7)*10,by=(b.y-uy*7)*5;
+        const reciprocal=model.edges.some(other=>other.from===edge.to&&other.to===edge.from);
+        const mx=(ax+bx)/2-uy*85,my=(ay+by)/2+ux*85;
+        const tx=bx-ax,ty=by-ay,tlen=Math.hypot(tx,ty),vx=tx/tlen,vy=ty/tlen;
+        // A mid-edge arrow stays visible with live-text nodes of different widths.
+        const px=reciprocal?(ax+2*mx+bx)/4:(ax+bx)/2,py=reciprocal?(ay+2*my+by)/4:(ay+by)/2;
+        const arrow=edge.directed===false?'':` M${px-vx*15-vy*10} ${py-vy*15+vx*10} L${px} ${py} L${px-vx*15+vy*10} ${py-vy*15-vx*10}`;
+        return `<path d="M${ax} ${ay}${reciprocal?`Q${mx} ${my} `:'L'}${bx} ${by}${arrow}"/>`;
+      }).join('');
+      return `<div class="lm-graph" style="--graph-height:${model.height||300}px"><svg viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true" focusable="false">${lines}</svg>${model.edges.filter(edge=>edge.label).map(edge=>{const a=nodes.get(edge.from),b=nodes.get(edge.to),dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy),offset=model.edges.some(other=>other.from===edge.to&&other.to===edge.from)?18:9;return `<span class="lm-graph-edge" style="left:${edge.x??(a.x+b.x)/2-dy/len*offset}%;top:${edge.y??(a.y+b.y)/2+dx/len*offset}%">${e(edge.label)}</span>`;}).join('')}${model.nodes.map(n=>`<div class="lm-vertex ${n.active?'lm-active':''}" style="left:${n.x}%;top:${n.y}%">${modelText('strong',n.label)}${n.detail?modelText('span',n.detail):''}</div>`).join('')}</div>${model.legend?modelText('p',model.legend,'lm-state-note'):''}`;
+    }
+    case 'frames':
+      return `<ol class="lm-frames">${model.frames.map((frame,i)=>`<li style="--depth:${i}">${modelText('strong',frame.call)}${modelText('span',frame.pending)}${modelText('span',frame.result,'lm-return')}</li>`).join('')}</ol>`;
+    case 'panels':
+      return model.panels.map(panel=>`<section class="lm-state">${modelText('h4',panel.label)}${renderLearningBody(panel.model)}</section>`).join('');
+    default: throw Error('Unknown teaching-model layout: '+model.kind);
+  }
+}
+
+function learningFigure(model, id, cls='concept-diagram') {
+  const e=modelEscape;
+  return `<figure class="${cls} learning-model" data-model="${e(id)}" aria-labelledby="lm-${e(id)}"><figcaption><h3 id="lm-${e(id)}">${e(model.title)}</h3><p>${e(model.question)}</p></figcaption>${renderLearningBody(model)}${model.note?modelText('p',model.note,'lm-note'):''}<p class="lm-scope">${e(model.scope||'Illustration of the supplied example. Editing the program does not update this picture.')}</p><details class="lm-description"><summary>Diagram in words</summary><p>${e(model.description)}</p></details></figure>`;
+}
+
   const diagrams = {
   "build": {
     "title": "Source becomes a runnable program",
@@ -301,7 +356,6 @@
       }
     ],
     "routes": [
-      "allocation/4",
       "lists/4"
     ],
     "note": ""
@@ -550,50 +604,112 @@
     "note": "This guard addresses division by zero. Signed INT_MIN / -1 also needs its own range check."
   },
   "binary-search": {
-    "title": "Sorted order lets us discard a whole region",
-    "caption": "When the middle value is too small, all earlier values are too small as well.",
-    "description": "Search the sorted values 2, 5, 8, 12, 16, 23, 38, 56 for 23. The first midpoint is index 3, value 12. Discard indices 0 through 3. Candidates at indices 4 through 7 are 16, 23, 38, and 56. Their next midpoint is index 5, value 23, which matches.",
-    "kind": "lanes",
-    "data": [
-      {
-        "label": "First comparison: 12 < 23",
-        "cards": [
-          {
-            "label": "Indices 0–3",
-            "value": "2, 5, 8, 12",
-            "detail": "discard",
-            "state": "muted"
-          },
-          {
-            "label": "Indices 4–7",
-            "value": "16, 23, 38, 56",
-            "detail": "keep searching",
-            "state": "active"
+    "title": "Keep the original array while bounds move",
+    "caption": "Why does lower(a, 5, 8) return position 3?",
+    "description": "Why does lower(a, 5, 8) return position 3? [0,5). 2; 4; 6; 8; 10. mid=2: 6 < 8, so lo=3.. mid; [3,5). 2; 4; 6; 8; 10. mid=4: 10 ≥ 8, so hi=4.. mid; [3,4). 2; 4; 6; 8; 10. mid=3: 8 ≥ 8, so hi=3.. mid; [3,3) · stop. 2; 4; 6; 8; 10. position=3; 3 < 5 and a[3] == 8, so found=1.. lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership.",
+    "note": "lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Keep the original array while bounds move",
+      "question": "Why does lower(a, 5, 8) return position 3?",
+      "kind": "slots",
+      "rows": [
+        {
+          "label": "[0,5)",
+          "values": [
+            2,
+            4,
+            6,
+            8,
+            10
+          ],
+          "note": "mid=2: 6 < 8, so lo=3.",
+          "active": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "muted": [],
+          "tags": {
+            "2": "mid"
           }
-        ]
-      },
-      {
-        "label": "Next comparison",
-        "cards": [
-          {
-            "label": "Midpoint",
-            "value": "index 5",
-            "detail": "",
-            "state": "normal"
-          },
-          {
-            "label": "Found value",
-            "value": "23",
-            "detail": "return the index",
-            "state": "active"
+        },
+        {
+          "label": "[3,5)",
+          "values": [
+            2,
+            4,
+            6,
+            8,
+            10
+          ],
+          "note": "mid=4: 10 ≥ 8, so hi=4.",
+          "active": [
+            3,
+            4
+          ],
+          "muted": [
+            0,
+            1,
+            2
+          ],
+          "tags": {
+            "4": "mid"
           }
-        ]
-      }
-    ],
+        },
+        {
+          "label": "[3,4)",
+          "values": [
+            2,
+            4,
+            6,
+            8,
+            10
+          ],
+          "note": "mid=3: 8 ≥ 8, so hi=3.",
+          "active": [
+            3
+          ],
+          "muted": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "tags": {
+            "3": "mid"
+          }
+        },
+        {
+          "label": "[3,3) · stop",
+          "values": [
+            2,
+            4,
+            6,
+            8,
+            10
+          ],
+          "note": "position=3; 3 < 5 and a[3] == 8, so found=1.",
+          "active": [],
+          "muted": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "note": "lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership.",
+      "description": "Why does lower(a, 5, 8) return position 3? [0,5). 2; 4; 6; 8; 10. mid=2: 6 < 8, so lo=3.. mid; [3,5). 2; 4; 6; 8; 10. mid=4: 10 ≥ 8, so hi=4.. mid; [3,4). 2; 4; 6; 8; 10. mid=3: 8 ≥ 8, so hi=3.. mid; [3,3) · stop. 2; 4; 6; 8; 10. position=3; 3 < 5 and a[3] == 8, so found=1.. lo is inclusive; hi is exclusive. Shading marks the candidate interval, not allocated memory. An insertion position alone is not proof of membership."
+    },
     "routes": [
       "searching/2"
     ],
-    "note": "The example uses an inclusive upper bound. Half-open bounds need their own consistent updates."
+    "placement": "after-example",
+    "focus": true
   },
   "growth": {
     "title": "Doubling the input changes the amount of work",
@@ -1408,56 +1524,106 @@
       }
     ],
     "routes": [
-      "coordination/2",
       "concurrent-storage/2"
     ],
     "note": "Spurious wakeups and competing consumers are reasons to recheck. Closed-and-empty needs an explicit exit path."
   },
   "deadlock": {
-    "title": "Opposite lock orders can form a wait cycle",
-    "caption": "Both threads can wait forever while retaining the lock the other needs.",
-    "description": "Thread A holds lock L and waits for R. Thread B holds R and waits for L. Each thread needs the lock held by the other, forming a cycle. For these two locks, requiring all threads to acquire L before R prevents this opposite-order cycle.",
-    "kind": "lanes",
-    "data": [
-      {
-        "label": "Thread A",
-        "cards": [
-          {
-            "label": "Already holds",
-            "value": "L",
-            "detail": "retains L",
-            "state": "active"
-          },
-          {
-            "label": "Waiting for",
-            "value": "R",
-            "detail": "held by B",
-            "state": "boundary"
+    "title": "Consistent order prevents this lock cycle",
+    "caption": "What cycle would opposite lock orders permit?",
+    "description": "What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Thread A; L; Thread B; R. held by; waits for; held by; waits for. Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.",
+    "note": "The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Consistent order prevents this lock cycle",
+      "question": "What cycle would opposite lock orders permit?",
+      "kind": "panels",
+      "panels": [
+        {
+          "label": "Unchanged starter: both workers use the same order",
+          "model": {
+            "kind": "flow",
+            "steps": [
+              {
+                "label": "lock first_lock"
+              },
+              {
+                "label": "lock second_lock"
+              },
+              {
+                "label": "complete work"
+              },
+              {
+                "label": "unlock second_lock, then first_lock"
+              }
+            ]
           }
-        ]
-      },
-      {
-        "label": "Thread B",
-        "cards": [
-          {
-            "label": "Already holds",
-            "value": "R",
-            "detail": "retains R",
-            "state": "active"
-          },
-          {
-            "label": "Waiting for",
-            "value": "L",
-            "detail": "held by A",
-            "state": "boundary"
+        },
+        {
+          "label": "Counterexample only: opposite orders",
+          "model": {
+            "kind": "graph",
+            "nodes": [
+              {
+                "id": "A",
+                "label": "Thread A",
+                "x": 20,
+                "y": 20
+              },
+              {
+                "id": "L",
+                "label": "L",
+                "x": 80,
+                "y": 20
+              },
+              {
+                "id": "B",
+                "label": "Thread B",
+                "x": 80,
+                "y": 80
+              },
+              {
+                "id": "R",
+                "label": "R",
+                "x": 20,
+                "y": 80
+              }
+            ],
+            "edges": [
+              {
+                "from": "L",
+                "to": "A",
+                "label": "held by"
+              },
+              {
+                "from": "A",
+                "to": "R",
+                "label": "waits for"
+              },
+              {
+                "from": "R",
+                "to": "B",
+                "label": "held by"
+              },
+              {
+                "from": "B",
+                "to": "L",
+                "label": "waits for"
+              }
+            ],
+            "legend": "Each thread holds one lock while waiting for the other.",
+            "height": 300
           }
-        ]
-      }
-    ],
+        }
+      ],
+      "note": "The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness.",
+      "description": "What cycle would opposite lock orders permit? Unchanged starter: both workers use the same order. lock first_lock; lock second_lock; complete work; unlock second_lock, then first_lock; Counterexample only: opposite orders. Thread A; L; Thread B; R. held by; waits for; held by; waits for. Each thread holds one lock while waiting for the other.. The starter completes with completed=2. The opposite-order cycle is a separate illustration, not an observed deadlock. Lock ordering does not guarantee fairness."
+    },
     "routes": [
       "coordination/3"
     ],
-    "note": "A global lock order addresses this cycle; shutdown, external resources, and other wait dependencies still need analysis."
+    "placement": "after-example",
+    "focus": true
   },
   "publication": {
     "title": "Release/acquire can publish earlier writes",
@@ -1585,36 +1751,52 @@
     "note": "A conceptual schedule with individually safe accesses. It does not predict the result of an ordinary C data race, which has undefined behavior."
   },
   "snapshot": {
-    "title": "A snapshot chooses a visible committed version",
-    "caption": "Creation is inclusive; deletion is exclusive in this model.",
-    "description": "An older committed version has value 10, created at timestamp 1 and deleted at 3. A newer committed version has value 42, created at 3 and not deleted. Snapshot 2 sees value 10. Snapshot 3 does not see the old version because 3 is not less than its deleted timestamp; it sees value 42.",
-    "kind": "comparison",
+    "title": "Two statements can observe different committed values",
+    "caption": "Which commit happens between the two reads?",
+    "description": "Which commit happens between the two reads? Step; Reader session; Other session. 1; first = 10; —; 2; —; commit value 20; version 1 → 2; 3; second = 20; —; Result; statement_reads=10,20; repeatable=0; —. . . The fixture models a per-statement committed-read policy. It does not provide a repeatable snapshot or a complete multi-row isolation implementation.",
+    "note": "The fixture models a per-statement committed-read policy. It does not provide a repeatable snapshot or a complete multi-row isolation implementation. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
     "data": {
+      "title": "Two statements can observe different committed values",
+      "question": "Which commit happens between the two reads?",
+      "kind": "table",
       "headings": [
-        "Committed version",
-        "Visible interval",
-        "Reader sees"
+        "Step",
+        "Reader session",
+        "Other session"
       ],
       "rows": [
         [
-          "value 10",
-          "1 ≤ snapshot < 3",
-          "snapshot 2 → 10"
+          "1",
+          "first = 10",
+          "—"
         ],
         [
-          "value 42",
-          "3 ≤ snapshot",
-          "snapshot 3 → 42"
+          "2",
+          "—",
+          "commit value 20; version 1 → 2"
+        ],
+        [
+          "3",
+          "second = 20",
+          "—"
+        ],
+        [
+          "Result",
+          "statement_reads=10,20; repeatable=0",
+          "—"
         ]
-      ]
+      ],
+      "label": "",
+      "links": [],
+      "note": "The fixture models a per-statement committed-read policy. It does not provide a repeatable snapshot or a complete multi-row isolation implementation.",
+      "description": "Which commit happens between the two reads? Step; Reader session; Other session. 1; first = 10; —; 2; —; commit value 20; version 1 → 2; 3; second = 20; —; Result; statement_reads=10,20; repeatable=0; —. . . The fixture models a per-statement committed-read policy. It does not provide a repeatable snapshot or a complete multi-row isolation implementation."
     },
     "routes": [
-      "snapshots/1",
-      "snapshots/2",
-      "snapshots/3",
       "isolation/3"
     ],
-    "note": "Only committed immutable versions are shown. Conflict handling and safe reclamation are separate responsibilities."
+    "placement": "after-example",
+    "focus": true
   },
   "checkpoint": {
     "title": "Checkpoint before retiring recovery information",
@@ -1730,46 +1912,36 @@
     "note": "A one-past pointer may be formed for allowed operations, but it must not be dereferenced."
   },
   "record-table": {
-    "title": "The row count identifies the valid prefix",
-    "caption": "Capacity describes available slots; count describes rows actually stored.",
-    "description": "An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.",
-    "kind": "branch",
+    "title": "Rejected inserts leave the full table unchanged",
+    "caption": "Why do both attempts fail while count stays 8?",
+    "description": "Why do both attempts fail while count stays 8? Table already contains IDs 1..8; count=capacity=8. Insert ID 1 again. DUPLICATE. The duplicate check runs before the capacity check.; Insert new ID 99. FULL. The ID is new, but no slot remains.. Both rejected operations retain the existing eight rows. A failure status is not an extra row or an increment of count.",
+    "note": "Both rejected operations retain the existing eight rows. A failure status is not an extra row or an increment of count. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
     "data": {
-      "root": {
-        "label": "Table",
-        "value": "count = 2; capacity = 8",
-        "detail": "",
-        "state": "normal"
-      },
-      "children": [
+      "title": "Rejected inserts leave the full table unchanged",
+      "question": "Why do both attempts fail while count stays 8?",
+      "kind": "branch",
+      "root": "Table already contains IDs 1..8; count=capacity=8",
+      "paths": [
         {
-          "label": "rows[0]",
-          "value": "1 | Ada | 90",
-          "detail": "live row",
-          "state": "active"
+          "when": "Insert ID 1 again",
+          "result": "DUPLICATE",
+          "detail": "The duplicate check runs before the capacity check."
         },
         {
-          "label": "rows[1]",
-          "value": "2 | Grace | 80",
-          "detail": "live row",
-          "state": "active"
-        },
-        {
-          "label": "Slots 2–7",
-          "value": "spare capacity",
-          "detail": "not six more rows",
-          "state": "muted"
+          "when": "Insert new ID 99",
+          "result": "FULL",
+          "detail": "The ID is new, but no slot remains."
         }
-      ]
+      ],
+      "note": "Both rejected operations retain the existing eight rows. A failure status is not an extra row or an increment of count.",
+      "description": "Why do both attempts fail while count stays 8? Table already contains IDs 1..8; count=capacity=8. Insert ID 1 again. DUPLICATE. The duplicate check runs before the capacity check.; Insert new ID 99. FULL. The ID is new, but no slot remains.. Both rejected operations retain the existing eight rows. A failure status is not an extra row or an increment of count."
     },
     "routes": [
-      "structured-data/5",
-      "database-foundations/1",
-      "tables/1",
-      "tables/2",
       "tables/3"
     ],
-    "note": "Row fields and the capacity limit follow the course’s bounded in-memory table model."
+    "placement": "after-example",
+    "focus": true
   },
   "duplicate-bounds": {
     "title": "Bounds bracket every occurrence of an equal key",
@@ -3167,6 +3339,800 @@
     "note": "This shows the first transfer, not the final account values after all iterations. Every participating reader and writer must use the same lock; no C data race is executed.",
     "placement": "after-example",
     "focus": true
+  },
+  "model-snapshots-1": {
+    "title": "Which version can this snapshot see?",
+    "caption": "Why does snapshot 2 see 10 while snapshot 3 sees 20?",
+    "description": "Why does snapshot 2 see 10 while snapshot 3 sees 20? Version value; Visible snapshots; Example reader. 10; 1 ≤ snapshot < 3; snapshot 2 → 10; 20; 3 ≤ snapshot; snapshot 3 → 20. Committed version intervals. . Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed.",
+    "note": "Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Which version can this snapshot see?",
+      "question": "Why does snapshot 2 see 10 while snapshot 3 sees 20?",
+      "kind": "table",
+      "headings": [
+        "Version value",
+        "Visible snapshots",
+        "Example reader"
+      ],
+      "rows": [
+        [
+          "10",
+          "1 ≤ snapshot < 3",
+          "snapshot 2 → 10"
+        ],
+        [
+          "20",
+          "3 ≤ snapshot",
+          "snapshot 3 → 20"
+        ]
+      ],
+      "label": "Committed version intervals",
+      "links": [],
+      "note": "Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed.",
+      "description": "Why does snapshot 2 see 10 while snapshot 3 sees 20? Version value; Visible snapshots; Example reader. 10; 1 ≤ snapshot < 3; snapshot 2 → 10; 20; 3 ≤ snapshot; snapshot 3 → 20. Committed version intervals. . Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed."
+    },
+    "routes": [
+      "snapshots/1"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-snapshots-2": {
+    "title": "Which version can this snapshot see?",
+    "caption": "Why does snapshot 2 see 10 while snapshot 3 sees 20?",
+    "description": "Why does snapshot 2 see 10 while snapshot 3 sees 20? Version value; Visible snapshots; Example reader. 10; 1 ≤ snapshot < 3; snapshot 2 → 10; 20; 3 ≤ snapshot; snapshot 3 → 20. Committed version intervals. . Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed.",
+    "note": "Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Which version can this snapshot see?",
+      "question": "Why does snapshot 2 see 10 while snapshot 3 sees 20?",
+      "kind": "table",
+      "headings": [
+        "Version value",
+        "Visible snapshots",
+        "Example reader"
+      ],
+      "rows": [
+        [
+          "10",
+          "1 ≤ snapshot < 3",
+          "snapshot 2 → 10"
+        ],
+        [
+          "20",
+          "3 ≤ snapshot",
+          "snapshot 3 → 20"
+        ]
+      ],
+      "label": "Committed version intervals",
+      "links": [],
+      "note": "Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed.",
+      "description": "Why does snapshot 2 see 10 while snapshot 3 sees 20? Version value; Visible snapshots; Example reader. 10; 1 ≤ snapshot < 3; snapshot 2 → 10; 20; 3 ≤ snapshot; snapshot 3 → 20. Committed version intervals. . Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed."
+    },
+    "routes": [
+      "snapshots/2"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-snapshots-3": {
+    "title": "Which version can this snapshot see?",
+    "caption": "Why does snapshot 2 see 10 while snapshot 3 sees 20?",
+    "description": "Why does snapshot 2 see 10 while snapshot 3 sees 20? Version value; Visible snapshots; Example reader. 10; 1 ≤ snapshot < 3; snapshot 2 → 10; 20; 3 ≤ snapshot; snapshot 3 → 20. Committed version intervals. . Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed.",
+    "note": "Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Which version can this snapshot see?",
+      "question": "Why does snapshot 2 see 10 while snapshot 3 sees 20?",
+      "kind": "table",
+      "headings": [
+        "Version value",
+        "Visible snapshots",
+        "Example reader"
+      ],
+      "rows": [
+        [
+          "10",
+          "1 ≤ snapshot < 3",
+          "snapshot 2 → 10"
+        ],
+        [
+          "20",
+          "3 ≤ snapshot",
+          "snapshot 3 → 20"
+        ]
+      ],
+      "label": "Committed version intervals",
+      "links": [],
+      "note": "Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed.",
+      "description": "Why does snapshot 2 see 10 while snapshot 3 sees 20? Version value; Visible snapshots; Example reader. 10; 1 ≤ snapshot < 3; snapshot 2 → 10; 20; 3 ≤ snapshot; snapshot 3 → 20. Committed version intervals. . Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed."
+    },
+    "routes": [
+      "snapshots/3"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-structured-data-5": {
+    "title": "A returned pointer reaches an existing row",
+    "caption": "Which row changes when the caller writes found->score = 99?",
+    "description": "Which row changes when the caller writes found->score = 99? Row index; Before find(rows,2,2); After writing through found. 0; 1 | Ada | 80; 1 | Ada | 80; 1; 2 | Grace | 90; 2 | Grace | 99 ← found. . . This starter has an exact two-element Row array. find returns a pointer into that array or NULL; the caller checks before dereferencing. It does not allocate a new row.",
+    "note": "This starter has an exact two-element Row array. find returns a pointer into that array or NULL; the caller checks before dereferencing. It does not allocate a new row. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "A returned pointer reaches an existing row",
+      "question": "Which row changes when the caller writes found->score = 99?",
+      "kind": "table",
+      "headings": [
+        "Row index",
+        "Before find(rows,2,2)",
+        "After writing through found"
+      ],
+      "rows": [
+        [
+          "0",
+          "1 | Ada | 80",
+          "1 | Ada | 80"
+        ],
+        [
+          "1",
+          "2 | Grace | 90",
+          "2 | Grace | 99 ← found"
+        ]
+      ],
+      "label": "",
+      "links": [],
+      "note": "This starter has an exact two-element Row array. find returns a pointer into that array or NULL; the caller checks before dereferencing. It does not allocate a new row.",
+      "description": "Which row changes when the caller writes found->score = 99? Row index; Before find(rows,2,2); After writing through found. 0; 1 | Ada | 80; 1 | Ada | 80; 1; 2 | Grace | 90; 2 | Grace | 99 ← found. . . This starter has an exact two-element Row array. find returns a pointer into that array or NULL; the caller checks before dereferencing. It does not allocate a new row."
+    },
+    "routes": [
+      "structured-data/5"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-database-foundations-1": {
+    "title": "One row is live; the other slots are capacity",
+    "caption": "Which slots may display inspect after this insertion?",
+    "description": "Which slots may display inspect after this insertion? Table after insert_row. 1; spare; spare; spare; spare; spare; spare; spare. count=1; capacity=8. Row 0 is ID 1, Ada, score 90.. Only rows[0..count) are stored records. Unused capacity is not seven additional database rows.",
+    "note": "Only rows[0..count) are stored records. Unused capacity is not seven additional database rows. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "One row is live; the other slots are capacity",
+      "question": "Which slots may display inspect after this insertion?",
+      "kind": "slots",
+      "rows": [
+        {
+          "label": "Table after insert_row",
+          "values": [
+            1,
+            "spare",
+            "spare",
+            "spare",
+            "spare",
+            "spare",
+            "spare",
+            "spare"
+          ],
+          "note": "count=1; capacity=8. Row 0 is ID 1, Ada, score 90.",
+          "active": [
+            0
+          ],
+          "muted": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      "note": "Only rows[0..count) are stored records. Unused capacity is not seven additional database rows.",
+      "description": "Which slots may display inspect after this insertion? Table after insert_row. 1; spare; spare; spare; spare; spare; spare; spare. count=1; capacity=8. Row 0 is ID 1, Ada, score 90.. Only rows[0..count) are stored records. Unused capacity is not seven additional database rows."
+    },
+    "routes": [
+      "database-foundations/1"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-tables-1": {
+    "title": "The stored row has its own embedded name array",
+    "caption": "Why does changing source.name leave the stored name unchanged?",
+    "description": "Why does changing source.name leave the stored name unchanged? After source.name[0] = X. Source Row. 7 | Xda | 95. source. separate struct; Stored Row · count=1. 7 | Ada | 95. t.rows[0]. struct assignment copied fields. The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy.",
+    "note": "The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "The stored row has its own embedded name array",
+      "question": "Why does changing source.name leave the stored name unchanged?",
+      "kind": "references",
+      "states": [
+        {
+          "label": "After source.name[0] = X",
+          "objects": [
+            {
+              "label": "Source Row",
+              "value": "7 | Xda | 95",
+              "refs": [
+                {
+                  "name": "source",
+                  "edge": "separate struct"
+                }
+              ]
+            },
+            {
+              "label": "Stored Row · count=1",
+              "value": "7 | Ada | 95",
+              "refs": [
+                {
+                  "name": "t.rows[0]",
+                  "edge": "struct assignment copied fields"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "note": "The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy.",
+      "description": "Why does changing source.name leave the stored name unchanged? After source.name[0] = X. Source Row. 7 | Xda | 95. source. separate struct; Stored Row · count=1. 7 | Ada | 95. t.rows[0]. struct assignment copied fields. The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointer members would need a separate ownership policy."
+    },
+    "routes": [
+      "tables/1"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-tables-2": {
+    "title": "Insertion order and live row count",
+    "caption": "Why does display print Grace before Ada?",
+    "description": "Why does display print Grace before Ada? Slot; Inserted record; Included by display?. rows[0]; 2 | Grace | 80; Yes; rows[1]; 1 | Ada | 90; Yes; rows[2..7]; spare capacity; No. . . count=2 and capacity=8. This bounded table preserves insertion order; the ID lookup is a scan. The separate missing=1 result refers to find_row(t,99).",
+    "note": "count=2 and capacity=8. This bounded table preserves insertion order; the ID lookup is a scan. The separate missing=1 result refers to find_row(t,99). Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Insertion order and live row count",
+      "question": "Why does display print Grace before Ada?",
+      "kind": "table",
+      "headings": [
+        "Slot",
+        "Inserted record",
+        "Included by display?"
+      ],
+      "rows": [
+        [
+          "rows[0]",
+          "2 | Grace | 80",
+          "Yes"
+        ],
+        [
+          "rows[1]",
+          "1 | Ada | 90",
+          "Yes"
+        ],
+        [
+          "rows[2..7]",
+          "spare capacity",
+          "No"
+        ]
+      ],
+      "label": "",
+      "links": [],
+      "note": "count=2 and capacity=8. This bounded table preserves insertion order; the ID lookup is a scan. The separate missing=1 result refers to find_row(t,99).",
+      "description": "Why does display print Grace before Ada? Slot; Inserted record; Included by display?. rows[0]; 2 | Grace | 80; Yes; rows[1]; 1 | Ada | 90; Yes; rows[2..7]; spare capacity; No. . . count=2 and capacity=8. This bounded table preserves insertion order; the ID lookup is a scan. The separate missing=1 result refers to find_row(t,99)."
+    },
+    "routes": [
+      "tables/2"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-allocation-4": {
+    "title": "The text copy has independent storage",
+    "caption": "Why does changing and freeing copy leave original unchanged?",
+    "description": "Why does changing and freeing copy leave original unchanged? After copy[0] = B · before free(copy). Original character array. Hi. original. separate array; Allocated character array. Bi. copy. owns this allocation; After free(copy); copy = NULL. Original array remains alive. Hi. original. unchanged; Pointer variable copy. NULL · no target. ; Old allocation: lifetime ended. released character storage. . True. copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid.",
+    "note": "copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "The text copy has independent storage",
+      "question": "Why does changing and freeing copy leave original unchanged?",
+      "kind": "references",
+      "states": [
+        {
+          "label": "After copy[0] = B · before free(copy)",
+          "objects": [
+            {
+              "label": "Original character array",
+              "value": "Hi",
+              "refs": [
+                {
+                  "name": "original",
+                  "edge": "separate array"
+                }
+              ]
+            },
+            {
+              "label": "Allocated character array",
+              "value": "Bi",
+              "refs": [
+                {
+                  "name": "copy",
+                  "edge": "owns this allocation"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "After free(copy); copy = NULL",
+          "objects": [
+            {
+              "label": "Original array remains alive",
+              "value": "Hi",
+              "refs": [
+                {
+                  "name": "original",
+                  "edge": "unchanged"
+                }
+              ]
+            },
+            {
+              "label": "Pointer variable copy",
+              "value": "NULL · no target",
+              "refs": []
+            },
+            {
+              "label": "Old allocation: lifetime ended",
+              "value": "released character storage",
+              "refs": [],
+              "dead": true
+            }
+          ]
+        }
+      ],
+      "note": "copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid.",
+      "description": "Why does changing and freeing copy leave original unchanged? After copy[0] = B · before free(copy). Original character array. Hi. original. separate array; Allocated character array. Bi. copy. owns this allocation; After free(copy); copy = NULL. Original array remains alive. Hi. original. unchanged; Pointer variable copy. NULL · no target. ; Old allocation: lifetime ended. released character storage. . True. copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid."
+    },
+    "routes": [
+      "allocation/4"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-coordination-2": {
+    "title": "Wake, reacquire, then test the queue again",
+    "caption": "Why can a woken consumer still need to wait?",
+    "description": "Why can a woken consumer still need to wait? count > 0?; Wait. release mutex; Reacquire. mutex locked; Take item. under mutex. No; wake; recheck; Yes. The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.",
+    "note": "The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Wake, reacquire, then test the queue again",
+      "question": "Why can a woken consumer still need to wait?",
+      "kind": "graph",
+      "nodes": [
+        {
+          "id": "test",
+          "label": "count > 0?",
+          "x": 50,
+          "y": 15
+        },
+        {
+          "id": "wait",
+          "label": "Wait",
+          "x": 16,
+          "y": 54,
+          "detail": "release mutex"
+        },
+        {
+          "id": "lock",
+          "label": "Reacquire",
+          "x": 50,
+          "y": 88,
+          "detail": "mutex locked"
+        },
+        {
+          "id": "use",
+          "label": "Take item",
+          "x": 84,
+          "y": 54,
+          "detail": "under mutex"
+        }
+      ],
+      "edges": [
+        {
+          "from": "test",
+          "to": "wait",
+          "label": "No"
+        },
+        {
+          "from": "wait",
+          "to": "lock",
+          "label": "wake"
+        },
+        {
+          "from": "lock",
+          "to": "test",
+          "label": "recheck"
+        },
+        {
+          "from": "test",
+          "to": "use",
+          "label": "Yes"
+        }
+      ],
+      "legend": "The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.",
+      "height": 360,
+      "note": "The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop.",
+      "description": "Why can a woken consumer still need to wait? count > 0?; Wait. release mutex; Reacquire. mutex locked; Take item. under mutex. No; wake; recheck; Yes. The empty-and-closed case exits instead of waiting. A producer changes the predicate while holding the same mutex.. The actual take_work predicate is !count && !closed. pthread_cond_wait releases the mutex while waiting and reacquires it before returning. A notification is not a stored item; always recheck in a while loop."
+    },
+    "routes": [
+      "coordination/2"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-arrays-strings-4": {
+    "title": "A parsed number can stop before the field ends",
+    "caption": "Which position must end reach before accepting the complete integer field?",
+    "description": "Which position must end reach before accepting the complete integer field? Original text: 42. 4; 2; \\0. After strtol: parsed=42, end points to index 2.. end. Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix.",
+    "note": "Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "A parsed number can stop before the field ends",
+      "question": "Which position must end reach before accepting the complete integer field?",
+      "kind": "slots",
+      "rows": [
+        {
+          "label": "Original text: 42",
+          "values": [
+            "4",
+            "2",
+            "\\0"
+          ],
+          "note": "After strtol: parsed=42, end points to index 2.",
+          "active": [
+            2
+          ],
+          "muted": [],
+          "tags": {
+            "2": "end"
+          }
+        }
+      ],
+      "note": "Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix.",
+      "description": "Which position must end reach before accepting the complete integer field? Original text: 42. 4; 2; \\0. After strtol: parsed=42, end points to index 2.. end. Accept only after checking conversion occurred, errno is not ERANGE, *end is zero and the value fits int. An edited input such as 42x must be rejected despite its numeric prefix."
+    },
+    "routes": [
+      "arrays-strings/4"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-arrays-strings-5": {
+    "title": "A new word starts only outside a word",
+    "caption": "Which transition increments words?",
+    "description": "Which transition increments words? Outside word. in_word=false; Inside word. in_word=true. non-space: +1; whitespace. Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \\0.. Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs.",
+    "note": "Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "A new word starts only outside a word",
+      "question": "Which transition increments words?",
+      "kind": "graph",
+      "nodes": [
+        {
+          "id": "out",
+          "label": "Outside word",
+          "x": 22,
+          "y": 50,
+          "detail": "in_word=false"
+        },
+        {
+          "id": "in",
+          "label": "Inside word",
+          "x": 78,
+          "y": 50,
+          "detail": "in_word=true"
+        }
+      ],
+      "edges": [
+        {
+          "from": "out",
+          "to": "in",
+          "label": "non-space: +1"
+        },
+        {
+          "from": "in",
+          "to": "out",
+          "label": "whitespace"
+        }
+      ],
+      "legend": "Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \\0.",
+      "height": 160,
+      "note": "Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs.",
+      "description": "Which transition increments words? Outside word. in_word=false; Inside word. in_word=true. non-space: +1; whitespace. Non-whitespace while inside keeps the same word; whitespace while outside stays outside. The loop stops at newline or \\0.. Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is a state model of the loop rule, not a counter for arbitrary edited programs."
+    },
+    "routes": [
+      "arrays-strings/5"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-structured-data-2": {
+    "title": "The tag selects one union interpretation",
+    "caption": "Which member is valid for each established tag?",
+    "description": "Which member is valid for each established tag? Value.kind. NUMBER. data.number = 7. show reads the integer member.; TEXT. data.text points to Ada. show reads the pointer member.. The starter establishes NUMBER/7, prints it, then establishes TEXT/Ada and prints that. These are alternative active interpretations over time, not two simultaneously active union payloads.",
+    "note": "The starter establishes NUMBER/7, prints it, then establishes TEXT/Ada and prints that. These are alternative active interpretations over time, not two simultaneously active union payloads. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "The tag selects one union interpretation",
+      "question": "Which member is valid for each established tag?",
+      "kind": "branch",
+      "root": "Value.kind",
+      "paths": [
+        {
+          "when": "NUMBER",
+          "result": "data.number = 7",
+          "detail": "show reads the integer member."
+        },
+        {
+          "when": "TEXT",
+          "result": "data.text points to Ada",
+          "detail": "show reads the pointer member."
+        }
+      ],
+      "note": "The starter establishes NUMBER/7, prints it, then establishes TEXT/Ada and prints that. These are alternative active interpretations over time, not two simultaneously active union payloads.",
+      "description": "Which member is valid for each established tag? Value.kind. NUMBER. data.number = 7. show reads the integer member.; TEXT. data.text points to Ada. show reads the pointer member.. The starter establishes NUMBER/7, prints it, then establishes TEXT/Ada and prints that. These are alternative active interpretations over time, not two simultaneously active union payloads."
+    },
+    "routes": [
+      "structured-data/2"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-files-bytes-1": {
+    "title": "The stream position moves before the read",
+    "caption": "Why does fseek(file,0,SEEK_SET) come before fgets?",
+    "description": "Why does fseek(file,0,SEEK_SET) come before fgets? Write Ada\\n. The update stream position advances past the written text.; fflush; fseek to position 0. Check both operations; reposition before changing from writing to reading.; fgets reads Ada\\n. The read starts at the beginning.; fclose. Check close as well as earlier I/O.. This is the supplied temporary update stream. It does not assert that text-stream positions are portable byte counts or that every platform stores a newline as one byte.",
+    "note": "This is the supplied temporary update stream. It does not assert that text-stream positions are portable byte counts or that every platform stores a newline as one byte. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "The stream position moves before the read",
+      "question": "Why does fseek(file,0,SEEK_SET) come before fgets?",
+      "kind": "flow",
+      "steps": [
+        {
+          "label": "Write Ada\\n",
+          "detail": "The update stream position advances past the written text."
+        },
+        {
+          "label": "fflush; fseek to position 0",
+          "detail": "Check both operations; reposition before changing from writing to reading."
+        },
+        {
+          "label": "fgets reads Ada\\n",
+          "detail": "The read starts at the beginning."
+        },
+        {
+          "label": "fclose",
+          "detail": "Check close as well as earlier I/O."
+        }
+      ],
+      "note": "This is the supplied temporary update stream. It does not assert that text-stream positions are portable byte counts or that every platform stores a newline as one byte.",
+      "description": "Why does fseek(file,0,SEEK_SET) come before fgets? Write Ada\\n. The update stream position advances past the written text.; fflush; fseek to position 0. Check both operations; reposition before changing from writing to reading.; fgets reads Ada\\n. The read starts at the beginning.; fclose. Check close as well as earlier I/O.. This is the supplied temporary update stream. It does not assert that text-stream positions are portable byte counts or that every platform stores a newline as one byte."
+    },
+    "routes": [
+      "files-bytes/1"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-hardening-tinydb-1": {
+    "title": "Check the count before multiplying",
+    "caption": "Why must the guard run before count * sizeof(int)?",
+    "description": "Why must the guard run before count * sizeof(int)? count ≤ SIZE_MAX / sizeof(int)?. Yes. Multiplication fits size_t. Apply the separate zero-count and allocation-failure policies.; No · starter uses SIZE_MAX. Reject without multiplying. oversize_rejected=1; no huge allocation is attempted.. The guard prevents size_t multiplication wrap from producing a smaller allocation request. It does not prove an allocation will succeed or validate later indexing.",
+    "note": "The guard prevents size_t multiplication wrap from producing a smaller allocation request. It does not prove an allocation will succeed or validate later indexing. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Check the count before multiplying",
+      "question": "Why must the guard run before count * sizeof(int)?",
+      "kind": "branch",
+      "root": "count ≤ SIZE_MAX / sizeof(int)?",
+      "paths": [
+        {
+          "when": "Yes",
+          "result": "Multiplication fits size_t",
+          "detail": "Apply the separate zero-count and allocation-failure policies."
+        },
+        {
+          "when": "No · starter uses SIZE_MAX",
+          "result": "Reject without multiplying",
+          "detail": "oversize_rejected=1; no huge allocation is attempted."
+        }
+      ],
+      "note": "The guard prevents size_t multiplication wrap from producing a smaller allocation request. It does not prove an allocation will succeed or validate later indexing.",
+      "description": "Why must the guard run before count * sizeof(int)? count ≤ SIZE_MAX / sizeof(int)?. Yes. Multiplication fits size_t. Apply the separate zero-count and allocation-failure policies.; No · starter uses SIZE_MAX. Reject without multiplying. oversize_rejected=1; no huge allocation is attempted.. The guard prevents size_t multiplication wrap from producing a smaller allocation request. It does not prove an allocation will succeed or validate later indexing."
+    },
+    "routes": [
+      "hardening-tinydb/1"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-threads-2": {
+    "title": "Join keeps the shared Job use ordered",
+    "caption": "When may main read result and let job leave scope?",
+    "description": "When may main read result and let job leave scope? Dependency; main; Worker. 1; Create job {21,0}; pass &job; Starts with access to the same Job; 2; pthread_join waits; Writes result=42; returns; 3; join returns; read result=42; Finished; 4; job may leave scope; No further access. Ordering, not elapsed time. Worker completion → successful join return → main reads result.. The one Job object remains alive throughout worker access. Thread scheduling and simultaneous execution are not demonstrated by these rows.",
+    "note": "The one Job object remains alive throughout worker access. Thread scheduling and simultaneous execution are not demonstrated by these rows. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Join keeps the shared Job use ordered",
+      "question": "When may main read result and let job leave scope?",
+      "kind": "table",
+      "headings": [
+        "Dependency",
+        "main",
+        "Worker"
+      ],
+      "rows": [
+        [
+          "1",
+          "Create job {21,0}; pass &job",
+          "Starts with access to the same Job"
+        ],
+        [
+          "2",
+          "pthread_join waits",
+          "Writes result=42; returns"
+        ],
+        [
+          "3",
+          "join returns; read result=42",
+          "Finished"
+        ],
+        [
+          "4",
+          "job may leave scope",
+          "No further access"
+        ]
+      ],
+      "label": "Ordering, not elapsed time",
+      "links": [
+        "Worker completion → successful join return → main reads result."
+      ],
+      "note": "The one Job object remains alive throughout worker access. Thread scheduling and simultaneous execution are not demonstrated by these rows.",
+      "description": "When may main read result and let job leave scope? Dependency; main; Worker. 1; Create job {21,0}; pass &job; Starts with access to the same Job; 2; pthread_join waits; Writes result=42; returns; 3; join returns; read result=42; Finished; 4; job may leave scope; No further access. Ordering, not elapsed time. Worker completion → successful join return → main reads result.. The one Job object remains alive throughout worker access. Thread scheduling and simultaneous execution are not demonstrated by these rows."
+    },
+    "routes": [
+      "threads/2"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-portable-c-5": {
+    "title": "LF and CRLF end at the same text boundary",
+    "caption": "Which bytes does strip_line_ending remove?",
+    "description": "Which bytes does strip_line_ending remove? Input bytes; Recognized ending; Returned text length. Ada \\n; LF removed; 3; Ada \\r \\n; CRLF removed; 3; Ada \\r; No LF: lone CR retained; 4. . . Spaces in this display separate the text from escape labels; they are not extra input bytes. The helper writes \\0 at the new end. Text-mode translation is a separate host behavior.",
+    "note": "Spaces in this display separate the text from escape labels; they are not extra input bytes. The helper writes \\0 at the new end. Text-mode translation is a separate host behavior. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "LF and CRLF end at the same text boundary",
+      "question": "Which bytes does strip_line_ending remove?",
+      "kind": "table",
+      "headings": [
+        "Input bytes",
+        "Recognized ending",
+        "Returned text length"
+      ],
+      "rows": [
+        [
+          "Ada \\n",
+          "LF removed",
+          "3"
+        ],
+        [
+          "Ada \\r \\n",
+          "CRLF removed",
+          "3"
+        ],
+        [
+          "Ada \\r",
+          "No LF: lone CR retained",
+          "4"
+        ]
+      ],
+      "label": "",
+      "links": [],
+      "note": "Spaces in this display separate the text from escape labels; they are not extra input bytes. The helper writes \\0 at the new end. Text-mode translation is a separate host behavior.",
+      "description": "Which bytes does strip_line_ending remove? Input bytes; Recognized ending; Returned text length. Ada \\n; LF removed; 3; Ada \\r \\n; CRLF removed; 3; Ada \\r; No LF: lone CR retained; 4. . . Spaces in this display separate the text from escape labels; they are not extra input bytes. The helper writes \\0 at the new end. Text-mode translation is a separate host behavior."
+    },
+    "routes": [
+      "portable-c/5"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-portable-c-7": {
+    "title": "Byte classification does not decode Unicode",
+    "caption": "Why are there 6 UTF-8 bytes but only 4 ASCII letters?",
+    "description": "Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. 43; 68; 6C; 6F; C3; A9. C. 1; h. 1; l. 1; o. 1; é. 2. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier.",
+    "note": "The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "Byte classification does not decode Unicode",
+      "question": "Why are there 6 UTF-8 bytes but only 4 ASCII letters?",
+      "kind": "bytes",
+      "label": "Known UTF-8 sequence: Chloé",
+      "values": [
+        "43",
+        "68",
+        "6C",
+        "6F",
+        "C3",
+        "A9"
+      ],
+      "groups": [
+        {
+          "label": "C",
+          "size": 1
+        },
+        {
+          "label": "h",
+          "size": 1
+        },
+        {
+          "label": "l",
+          "size": 1
+        },
+        {
+          "label": "o",
+          "size": 1
+        },
+        {
+          "label": "é",
+          "size": 2
+        }
+      ],
+      "note": "The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier.",
+      "description": "Why are there 6 UTF-8 bytes but only 4 ASCII letters? Known UTF-8 sequence: Chloé. 43; 68; 6C; 6F; C3; A9. C. 1; h. 1; l. 1; o. 1; é. 2. The C-locale isalpha calls recognize C,h,l,o. The two UTF-8 bytes of é do not separately become Unicode letters. This byte-defined input is not a C-wide Unicode classifier."
+    },
+    "routes": [
+      "portable-c/7"
+    ],
+    "placement": "after-example",
+    "focus": true
+  },
+  "model-c-guarantees-9": {
+    "title": "A numeric spelling can still violate the field policy",
+    "caption": "Why must the parser test isfinite after strtod succeeds?",
+    "description": "Why must the parser test isfinite after strtod succeeds? strtod result, complete field and no range error?. Finite result: -1.25. Accept; assign output. finite_accepted=1 value=-1.25; Nonfinite result: nan. Reject; preserve output 7.0. nan_rejected=1 preserved=1. The parser also rejects empty conversion and trailing input. Quiet NaN is unordered: nan==nan is false. Use isnan/isinf/isfinite rather than equality with NAN.",
+    "note": "The parser also rejects empty conversion and trailing input. Quiet NaN is unordered: nan==nan is false. Use isnan/isinf/isfinite rather than equality with NAN. Illustration of the supplied example; edits do not update this picture.",
+    "kind": "learning-model",
+    "data": {
+      "title": "A numeric spelling can still violate the field policy",
+      "question": "Why must the parser test isfinite after strtod succeeds?",
+      "kind": "branch",
+      "root": "strtod result, complete field and no range error?",
+      "paths": [
+        {
+          "when": "Finite result: -1.25",
+          "result": "Accept; assign output",
+          "detail": "finite_accepted=1 value=-1.25"
+        },
+        {
+          "when": "Nonfinite result: nan",
+          "result": "Reject; preserve output 7.0",
+          "detail": "nan_rejected=1 preserved=1"
+        }
+      ],
+      "note": "The parser also rejects empty conversion and trailing input. Quiet NaN is unordered: nan==nan is false. Use isnan/isinf/isfinite rather than equality with NAN.",
+      "description": "Why must the parser test isfinite after strtod succeeds? strtod result, complete field and no range error?. Finite result: -1.25. Accept; assign output. finite_accepted=1 value=-1.25; Nonfinite result: nan. Reject; preserve output 7.0. nan_rejected=1 preserved=1. The parser also rejects empty conversion and trailing input. Quiet NaN is unordered: nan==nan is false. Use isnan/isinf/isfinite rather than equality with NAN."
+    },
+    "routes": [
+      "c-guarantees/9"
+    ],
+    "placement": "after-example",
+    "focus": true
   }
 };
   const routes=new Map();
@@ -3192,6 +4158,7 @@
   function art(d){
     const data=d.data;
     switch(d.kind){
+      case 'learning-model':return renderLearningBody(data);
       case 'state-rows':return data.rows.map((row,i)=>`<section class="concept-state-row"><p class="concept-lane-label">${escape(row.label)}</p>${cards(row.cards,'concept-state-cards')}</section>${data.bridge&&i===0?`<p class="concept-rejection">${escape(data.bridge)}</p>`:''}`).join('');
       case 'bit-change':return data.rows.map(row=>`<section class="concept-bit-row"><p class="concept-lane-label">${escape(row.label)}</p><div class="concept-bits">${row.bits.map((bit,i)=>`<div class="concept-bit ${i===2?'bit-retained':i===5?'bit-changed':''}"><span>${7-i}</span><strong>${bit}</strong></div>`).join('')}</div></section>`).join('');
       case 'byte-map':return `<div class="concept-byte-map">${data.bytes.map((byte,i)=>`<div class="concept-byte ${i>=4&&i<=7?'concept-active':''}"><span>${i}</span><strong>${escape(byte)}</strong></div>`).join('')}</div><dl class="concept-byte-key">${data.fields.map(f=>`<div><dt>[${f.start}${f.end===f.start?'':'–'+f.end}] ${escape(f.label)}</dt><dd>${escape(f.value)}</dd></div>`).join('')}</dl>`;
@@ -3278,7 +4245,7 @@
     const d=get(chapter.id,topic.id);if(!d||(placement&&(d.placement||'explanation')!==placement))return '';
     const prefix='concept-'+d.id;
     if(d.kind==='buffer-change')return bufferFigure(d,prefix);
-    return `<figure class="concept-diagram${d.focus?' concept-focused':''}" data-concept="${escape(d.id)}"><figcaption id="${prefix}-caption"><strong>${escape(d.title)}</strong><p>${escape(d.caption)}</p></figcaption><div class="concept-art concept-kind-${d.kind}" role="img" aria-labelledby="${prefix}-caption" aria-describedby="${prefix}-description">${art(d)}</div>${d.note?`<p class="concept-note">${escape(d.note)}</p>`:''}<details class="concept-text"><summary>Diagram in words</summary><p id="${prefix}-description">${escape(d.description)}</p></details></figure>`;
+    return `<figure class="concept-diagram${d.focus?' concept-focused':''}${d.kind==='learning-model'?' learning-model':''}" data-concept="${escape(d.id)}"><figcaption id="${prefix}-caption"><strong>${escape(d.title)}</strong><p>${escape(d.caption)}</p></figcaption><div class="concept-art concept-kind-${d.kind}" role="img" aria-labelledby="${prefix}-caption" aria-describedby="${prefix}-description">${art(d)}</div>${d.note?`<p class="concept-note">${escape(d.note)}</p>`:''}<details class="concept-text"><summary>Diagram in words</summary><p id="${prefix}-description">${escape(d.description)}</p></details></figure>`;
   }
   window.conceptDiagrams={diagrams,get,render,fgetsModel};
 })();

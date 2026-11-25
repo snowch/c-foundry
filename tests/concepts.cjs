@@ -26,7 +26,7 @@ for(const [id,diagram] of Object.entries(w.conceptDiagrams.diagrams)){
   if(diagram.placement==='after-example'){assert.equal(reading.querySelector('.worked-example').contains(placed),true);assert.ok(reading.querySelector('.example-walkthrough').compareDocumentPosition(placed)&w.Node.DOCUMENT_POSITION_FOLLOWING);}else assert.ok(placed.compareDocumentPosition(reading.querySelector('.worked-example'))&w.Node.DOCUMENT_POSITION_FOLLOWING);
  }
 }
-assert.equal(placements,126);assert.equal(parts.size,9);
+assert.equal(placements,135);assert.equal(parts.size,9);
 for(const input of ['','Ada\n','ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789\n','A\nB\n','é'.repeat(18),'a\0b\n']){
  const bytes=Buffer.from(input),newline=bytes.indexOf(10),count=Math.min(31,newline<0?bytes.length:newline+1),m=w.conceptDiagrams.fgetsModel(input);assert.deepEqual(Array.from(m.copied),Array.from(bytes.subarray(0,count)));assert.deepEqual(Array.from(m.remaining),Array.from(bytes.subarray(count)));assert.equal(m.total,count?count+1:0);
 }
@@ -41,4 +41,4 @@ for(const id of ['string','builder'])assert.equal(w.conceptDiagrams.diagrams[id]
 // Check comparison counts against the same specified search problem independently.
 function binaryCount(n){let lo=0,hi=n-1,count=0;while(lo<=hi){count++;const mid=lo+Math.floor((hi-lo)/2);if(mid===n-1)return count;lo=mid+1;}}
 for(const row of w.conceptDiagrams.diagrams.growth.data.rows){const n=parseInt(row[0]);assert.equal(parseInt(row[1]),n);assert.equal(parseInt(row[2]),binaryCount(n));}
-console.log('PASS original diagrams across all nine parts, 126 valid placements, accessible text, local assets, model counts, native reading parity and preserved editor/completion state');dom.window.close();
+console.log('PASS original diagrams across all nine parts, 135 valid placements, accessible text, local assets, model counts, native reading parity and preserved editor/completion state');dom.window.close();

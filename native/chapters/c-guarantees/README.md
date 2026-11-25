@@ -660,6 +660,14 @@ finite_accepted=1 value=-1.25
 
 The classification macros return nonzero for the matching category. Rejecting nan retains the earlier value seven; the valid finite literal then replaces it with −1.25. Parse success is not the same as meeting a finite-only schema or fitting a later integer conversion.
 
+### A numeric spelling can still violate the field policy
+
+Why must the parser test isfinite after strtod succeeds?
+
+Why must the parser test isfinite after strtod succeeds? strtod result, complete field and no range error?. Finite result: -1.25. Accept; assign output. finite_accepted=1 value=-1.25; Nonfinite result: nan. Reject; preserve output 7.0. nan_rejected=1 preserved=1. The parser also rejects empty conversion and trailing input. Quiet NaN is unordered: nan==nan is false. Use isnan/isinf/isfinite rather than equality with NAN.
+
+The parser also rejects empty conversion and trailing input. Quiet NaN is unordered: nan==nan is false. Use isnan/isinf/isfinite rather than equality with NAN. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** A check such as value < minimum || value > maximum can miss NaN because both ordered comparisons are false. Do not compile these classification examples with -ffast-math, whose assumptions can invalidate NaN/infinity reasoning.
 
 **Check:** Which check establishes a finite value for a finite-only field?

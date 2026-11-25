@@ -16,14 +16,6 @@ A schema names the fields and constrains their values. A key identifies a row un
 
 Our teaching table has a positive 32-bit ID, a bounded terminated name, and a nonnegative 32-bit score. The struct is an in-memory representation, not a disk format. The ID uniqueness rule belongs to the table interface rather than to C’s type system. Define these choices before adding indexes or parsing syntax.
 
-### The row count identifies the valid prefix
-
-Capacity describes available slots; count describes rows actually stored.
-
-An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
-
-Row fields and the capacity limit follow the course’s bounded in-memory table model.
-
 ### main.c
 
 ```c
@@ -100,6 +92,14 @@ Output:
 ```
 
 Insertion validates the row and copies it into the table. Embedded name storage makes this particular row copy independent of its source object.
+
+### One row is live; the other slots are capacity
+
+Which slots may display inspect after this insertion?
+
+Which slots may display inspect after this insertion? Table after insert_row. 1; spare; spare; spare; spare; spare; spare; spare. count=1; capacity=8. Row 0 is ID 1, Ada, score 90.. Only rows[0..count) are stored records. Unused capacity is not seven additional database rows.
+
+Only rows[0..count) are stored records. Unused capacity is not seven additional database rows. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** A struct declaration alone cannot enforce unique keys or guarantee portable serialized bytes.
 

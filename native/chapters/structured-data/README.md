@@ -112,6 +112,14 @@ text=Ada
 
 The first value establishes the number alternative. Before the second call, both tag and text member are updated. show therefore follows the matching branch each time. The union reuses storage; it is not a record holding both independent payloads simultaneously.
 
+### The tag selects one union interpretation
+
+Which member is valid for each established tag?
+
+Which member is valid for each established tag? Value.kind. NUMBER. data.number = 7. show reads the integer member.; TEXT. data.text points to Ada. show reads the pointer member.. The starter establishes NUMBER/7, prints it, then establishes TEXT/Ada and prints that. These are alternative active interpretations over time, not two simultaneously active union payloads.
+
+The starter establishes NUMBER/7, prints it, then establishes TEXT/Ada and prints that. These are alternative active interpretations over time, not two simultaneously active union payloads. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** Reading another union member to guess a different representation is not a portable serialization strategy. Keep the tag and payload consistent instead.
 
 **Check:** What tells show which union member to use?
@@ -286,14 +294,6 @@ A collection interface should make lookup success, failure, and mutation explici
 
 The helper searches only the supplied count of initialized rows and returns either a row address or NULL. Its caller checks the result before modifying a field. The embedded name storage remains owned by each row. If the table were dynamically resized, a previously returned row pointer could become invalid; a larger interface must document that invalidation rule.
 
-### The row count identifies the valid prefix
-
-Capacity describes available slots; count describes rows actually stored.
-
-An illustrative Table has eight row slots and count equal to two. Slot rows[0] contains ID 1, name Ada, score 90. Slot rows[1] contains ID 2, name Grace, score 80. The remaining six slots are spare capacity and must not be treated as six additional rows.
-
-Row fields and the capacity limit follow the course’s bounded in-memory table model.
-
 ### main.c
 
 ```c
@@ -324,6 +324,14 @@ Grace 99
 ```
 
 The returned address reaches the second element. Updating found->score therefore updates rows[1]. The pointer is borrowed, so the caller does not free it. With an unknown ID, find returns NULL and the conditional prevents a dereference.
+
+### A returned pointer reaches an existing row
+
+Which row changes when the caller writes found->score = 99?
+
+Which row changes when the caller writes found->score = 99? Row index; Before find(rows,2,2); After writing through found. 0; 1 | Ada | 80; 1 | Ada | 80; 1; 2 | Grace | 90; 2 | Grace | 99 ← found. . . This starter has an exact two-element Row array. find returns a pointer into that array or NULL; the caller checks before dereferencing. It does not allocate a new row.
+
+This starter has an exact two-element Row array. find returns a pointer into that array or NULL; the caller checks before dereferencing. It does not allocate a new row. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** Passing capacity instead of initialized count could expose uninitialized rows. Also, a successful lookup does not justify keeping its pointer past the collection’s lifetime or a relocation.
 

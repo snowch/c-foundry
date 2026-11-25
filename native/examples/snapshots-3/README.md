@@ -10,14 +10,6 @@ Also editable and runnable inline in the browser course.
 
 For exclusive deletion time d, a version is no longer visible to snapshots at or after d. If the oldest active snapshot is at least d, the version can be removed under this model. Protect the active-reader registry and reclamation decision with synchronization, and prevent raw version pointers from escaping their protected lifetime. Timestamp wrap and abandoned reader handling need explicit policies.
 
-### A snapshot chooses a visible committed version
-
-Creation is inclusive; deletion is exclusive in this model.
-
-An older committed version has value 10, created at timestamp 1 and deleted at 3. A newer committed version has value 42, created at 3 and not deleted. Snapshot 2 sees value 10. Snapshot 3 does not see the old version because 3 is not less than its deleted timestamp; it sees value 42.
-
-Only committed immutable versions are shown. Conflict handling and safe reclamation are separate responsibilities.
-
 ### main.c
 
 ```c
@@ -68,6 +60,14 @@ old_reader_keeps=2 horizon3_keeps=1
 ```
 
 A reader at time two keeps the old version alive. Once the horizon reaches three, only the current version remains.
+
+### Which version can this snapshot see?
+
+Why does snapshot 2 see 10 while snapshot 3 sees 20?
+
+Why does snapshot 2 see 10 while snapshot 3 sees 20? Version value; Visible snapshots; Example reader. 10; 1 ≤ snapshot < 3; snapshot 2 → 10; 20; 3 ≤ snapshot; snapshot 3 → 20. Committed version intervals. . Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed.
+
+Creation is inclusive and deletion is exclusive. These are committed sequence numbers, not wall-clock time. At oldest snapshot 2 keep both versions; at oldest snapshot 3 the old version may be reclaimed. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** Compacting a version array invalidates borrowed addresses even for surviving entries.
 

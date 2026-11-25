@@ -242,12 +242,6 @@ Ownership is a program convention explaining who releases an allocation. Copying
 
 A helper that returns a newly allocated copy transfers ownership to its caller. A borrowed pointer permits use under a stated lifetime but does not transfer the obligation to free. Define whether a function borrows, takes, or returns ownership in its interface. After free, every alias into that allocation is invalid for access; setting one owner variable to NULL does not update other aliases.
 
-### Freeing storage does not clear every alias
-
-Once the allocation is released, both pointers lose their valid target.
-
-Before free(p), p and borrowed alias q designate the same live allocation. After free(p), that allocation’s lifetime has ended. Neither p nor q may be dereferenced. free does not automatically assign a null pointer to those variables.
-
 ### main.c
 
 ```c
@@ -281,6 +275,14 @@ Hi Bi
 ```
 
 The source is borrowed and must be a valid terminated string whose length plus one is representable. The helper copies its bytes into separate storage. Changing copy does not change original. The caller frees the returned allocation once and does not attempt to free the automatic original array.
+
+### The text copy has independent storage
+
+Why does changing and freeing copy leave original unchanged?
+
+Why does changing and freeing copy leave original unchanged? After copy[0] = B · before free(copy). Original character array. Hi. original. separate array; Allocated character array. Bi. copy. owns this allocation; After free(copy); copy = NULL. Original array remains alive. Hi. original. unchanged; Pointer variable copy. NULL · no target. ; Old allocation: lifetime ended. released character storage. . True. copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid.
+
+copy_text allocates strlen(source)+1 bytes, including the terminator. The program prints Hi Bi before freeing the copy. free does not itself set copy to NULL; the next assignment does. Any other aliases to that allocation would still be invalid. Illustration of the supplied example; edits do not update this picture.
 
 **Watch for:** A double free is not harmless cleanup, and a dangling pointer is not made safe by being non-null. Review all returns and error paths for the same ownership rule.
 

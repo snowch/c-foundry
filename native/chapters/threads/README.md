@@ -157,6 +157,14 @@ input=21 result=42
 
 The worker borrows a live Job and writes a result that main reads only after join. No heap ownership transfer is needed.
 
+### Join keeps the shared Job use ordered
+
+When may main read result and let job leave scope?
+
+When may main read result and let job leave scope? Dependency; main; Worker. 1; Create job {21,0}; pass &job; Starts with access to the same Job; 2; pthread_join waits; Writes result=42; returns; 3; join returns; read result=42; Finished; 4; job may leave scope; No further access. Ordering, not elapsed time. Worker completion → successful join return → main reads result.. The one Job object remains alive throughout worker access. Thread scheduling and simultaneous execution are not demonstrated by these rows.
+
+The one Job object remains alive throughout worker access. Thread scheduling and simultaneous execution are not demonstrated by these rows. Illustration of the supplied example; edits do not update this picture.
+
 **Watch for:** Detaching a worker removes the ability to use join as its argument-lifetime boundary.
 
 **Check:** When may this stack Job leave scope?
