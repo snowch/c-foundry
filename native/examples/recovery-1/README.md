@@ -139,8 +139,10 @@ No. Process memory can disappear without a persistent recovery protocol.
 
 ### References and help
 
-- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) — Read the failure assumptions and ordering required for a durable commit protocol.
-- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: atomic commit](https://www.sqlite.org/atomiccommit.html) (online) — Read the failure assumptions and ordering required for a durable commit protocol.
+- [SQLite documentation: write-ahead logging](https://www.sqlite.org/wal.html) (online) — Compare logging, checkpoints, and durability assumptions with the bounded redo models.
 
 Native source: `native/examples/recovery-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

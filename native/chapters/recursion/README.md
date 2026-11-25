@@ -74,7 +74,9 @@ The unsigned argument for n≥2. Each recursive call receives n−1 only when n 
 
 ### References and help
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
 
 **Use the documentation (optional):** Which two parts of a recursive algorithm prevent the same subproblem from recurring forever?
 
@@ -160,7 +162,9 @@ The base-case call with n=0. The caller waits for the child’s result.
 
 ### References and help
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
 
 Native source: `native/examples/recursion-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -226,7 +230,9 @@ No. An implementation may preserve a call frame for each recursive call.
 
 ### References and help
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
 
 Native source: `native/examples/recursion-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -304,8 +310,10 @@ The subproblem sizes shrink by about half. A recurrence must describe sizes and 
 
 ### References and help
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Native source: `native/examples/recursion-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -380,7 +388,9 @@ The tree’s height. Calls remain active along the current root-to-node path.
 
 ### References and help
 
-- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) — Identify base cases and progress toward them.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: recursion](https://xlinux.nist.gov/dads/HTML/recursion.html) (online) — Identify base cases and progress toward them.
 
 Native source: `native/examples/recursion-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

@@ -229,8 +229,10 @@ It reduces the number of page levels visited. Many routing choices fit within ea
 
 ### References and help
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 Native source: `native/examples/bplus-trees-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -470,8 +472,10 @@ To that next child. This model uses the child’s minimum as an inclusive lower 
 
 ### References and help
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 **Use the documentation (optional):** Does SQLite’s documented B-tree page layout define the exact layout of the course’s B+ tree?
 
@@ -711,8 +715,10 @@ No. The Boolean result must be checked before treating the output as a match.
 
 ### References and help
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 Native source: `native/examples/bplus-trees-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -950,9 +956,11 @@ Root-child capacity and a free leaf page. A split needs both a new leaf and a ne
 
 ### References and help
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) (online) — Check valid pointer arguments and access after deallocation.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 Native source: `native/examples/bplus-trees-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -1189,8 +1197,10 @@ No. The API uses a half-open [lo,hi) range.
 
 ### References and help
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 Native source: `native/examples/bplus-trees-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -1431,8 +1441,10 @@ When it is the sole root leaf. The root has a special occupancy exception.
 
 ### References and help
 
-- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: database file format](https://www.sqlite.org/fileformat.html) (online) — Compare explicit headers, page layouts, and encoding rules with the teaching format.
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 Native source: `native/examples/bplus-trees-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

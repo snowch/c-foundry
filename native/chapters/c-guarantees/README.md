@@ -73,8 +73,10 @@ No, it is undefined behavior in standard C. Standard unsigned and signed arithme
 
 ### References and help
 
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
-- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find the macros that describe the selected implementation’s ranges.
 
 Native source: `native/examples/c-guarantees-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -138,9 +140,11 @@ Alignment and object-type requirements may not be satisfied. memcpy transfers re
 
 ### References and help
 
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
-- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
-- [C reference: memcpy](https://en.cppreference.com/w/c/string/byte/memcpy.html) — Check byte counts, valid object ranges, and the non-overlap requirement.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) (online) — Check valid pointer arguments and access after deallocation.
+- [C reference: memcpy](https://en.cppreference.com/w/c/string/byte/memcpy.html) (online) — Check byte counts, valid object ranges, and the non-overlap requirement.
 
 Native source: `native/examples/c-guarantees-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -205,8 +209,10 @@ Lifetime, bounds, aliasing, initialization, and synchronization. A valid source 
 
 ### References and help
 
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
-- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find the macros that describe the selected implementation’s ranges.
 
 Native source: `native/examples/c-guarantees-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -278,9 +284,11 @@ int after integer promotion. An int can represent every uint8_t value on the sup
 
 ### References and help
 
-- [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) — Check integer promotions, usual arithmetic conversions, and narrowing.
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
-- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) (online) — Check integer promotions, usual arithmetic conversions, and narrowing.
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find the macros that describe the selected implementation’s ranges.
 
 **Use the documentation (optional):** Does an unsigned operand always convert a signed operand to unsigned, regardless of their ranks and ranges?
 
@@ -362,8 +370,10 @@ Before converting, using the original value. The original information may be los
 
 ### References and help
 
-- [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) — Check integer promotions, usual arithmetic conversions, and narrowing.
-- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) (online) — Check integer promotions, usual arithmetic conversions, and narrowing.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find the macros that describe the selected implementation’s ranges.
 
 Native source: `native/examples/c-guarantees-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -448,8 +458,10 @@ No, the guard must run before the overflowing expression. Undefined behavior has
 
 ### References and help
 
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
-- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find the macros that describe the selected implementation’s ranges.
 
 Native source: `native/examples/c-guarantees-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -522,8 +534,10 @@ No: the unrepresentable quotient also makes % invalid. C defines both operations
 
 ### References and help
 
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
-- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find the macros that describe the selected implementation’s ranges.
 
 Native source: `native/examples/c-guarantees-7.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -599,8 +613,10 @@ No, choose absolute/relative tolerances from the problem’s error budget. DBL_E
 
 ### References and help
 
-- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
-- [C reference: floating-point environment](https://en.cppreference.com/w/c/numeric/fenv.html) — Check rounding modes and implementation support before relying on them.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find precision, exponent-range, and subnormal-support macros.
+- [C reference: floating-point environment](https://en.cppreference.com/w/c/numeric/fenv.html) (online) — Check rounding modes and implementation support before relying on them.
 
 Native source: `native/examples/c-guarantees-8/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -685,8 +701,10 @@ isfinite(value). Self-equality excludes quiet NaN but still permits infinities; 
 
 ### References and help
 
-- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
-- [C reference: strtof, strtod, strtold](https://en.cppreference.com/w/c/string/byte/strtof.html) — Check endptr, range errors, and acceptance of infinity/NaN before enforcing a finite-input policy.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) (online) — Find finite/NaN classification and library error-handling contracts.
+- [C reference: strtof, strtod, strtold](https://en.cppreference.com/w/c/string/byte/strtof.html) (online) — Check endptr, range errors, and acceptance of infinity/NaN before enforcing a finite-input policy.
 
 Native source: `native/examples/c-guarantees-9/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -765,8 +783,10 @@ The smallest positive normal double. Use -DBL_MAX for the negative finite endpoi
 
 ### References and help
 
-- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
-- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find precision, exponent-range, and subnormal-support macros.
+- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) (online) — Find finite/NaN classification and library error-handling contracts.
 
 Native source: `native/examples/c-guarantees-10/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

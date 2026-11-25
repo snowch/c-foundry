@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 564358,
-  "sha256": "e55caa561cbee9b2a24e6de5e57cada1c50ee1e47032095b4a13dc90a3ac9636",
+  "bytes": 1014305,
+  "sha256": "431777f148b45c952e91ab62ae3a34132448b4f81d9f02a41bd32c1178f6de7c",
   "files": [
     {
       "path": "LICENSE",
@@ -16,8 +16,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 13661,
-      "sha256": "1d3f616c2c6233f773f18c6361b5b650d39bb7a256f1be29c2406e43ead756fa"
+      "bytes": 14469,
+      "sha256": "1862c2289da315d86c930cf5cf3f6def192f1333732f54d86ec810306cda88fa"
     },
     {
       "path": "dist/assets/tinydb-sample.tdb",
@@ -28,6 +28,566 @@
       "path": "dist/lessons.js",
       "bytes": 49813,
       "sha256": "b5c0f5b65cd799e91ee037a76c983845c7e14c170c0dd8fedd5d2147076d4f3e"
+    },
+    {
+      "path": "dist/manuals/NOTICE.md",
+      "bytes": 941,
+      "sha256": "ea2b2da9b35571f32f0f5def77d4f77d431f78c52d3ef49df8205dac6a743e71"
+    },
+    {
+      "path": "dist/manuals/licenses/BSD-2-Clause.txt",
+      "bytes": 1266,
+      "sha256": "017b5ee48f680e82cba79141c7895a1f02b856df2512225f5c427fe36765ef0b"
+    },
+    {
+      "path": "dist/manuals/licenses/BSD-3-Clause.txt",
+      "bytes": 1459,
+      "sha256": "3cf06aba3588c41c514f6946bb2d757b413ff6491647d474800f55edca75dcb4"
+    },
+    {
+      "path": "dist/manuals/licenses/BSD-4-Clause-UC.txt",
+      "bytes": 1771,
+      "sha256": "c82a5eb55679a3fd483d992c2428e66ee4b9b05b5b78b4ac916692368955b526"
+    },
+    {
+      "path": "dist/manuals/licenses/GPL-1.0-or-later.txt",
+      "bytes": 12235,
+      "sha256": "da37ffd5fcdf0a7d76af862a4330ea1076e1443b51782b2f912148357b7acabe"
+    },
+    {
+      "path": "dist/manuals/licenses/GPL-2.0-only.txt",
+      "bytes": 17337,
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+    },
+    {
+      "path": "dist/manuals/licenses/GPL-2.0-or-later.txt",
+      "bytes": 17337,
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+    },
+    {
+      "path": "dist/manuals/licenses/GPL-3.0-or-later.txt",
+      "bytes": 34674,
+      "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0"
+    },
+    {
+      "path": "dist/manuals/licenses/LGPL-3.0-linking-exception.txt",
+      "bytes": 1033,
+      "sha256": "ba8baef109f934bf1832b45a75a22f2737bcccdac1211745c2bdcda9499e8a37"
+    },
+    {
+      "path": "dist/manuals/licenses/LGPL-3.0-or-later.txt",
+      "bytes": 42098,
+      "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1"
+    },
+    {
+      "path": "dist/manuals/licenses/Linux-man-pages-1-para.txt",
+      "bytes": 215,
+      "sha256": "f0c23664f8d8f73ed33aaba09b4686d05deb2723fe1cfd8fbc1f697013686cb3"
+    },
+    {
+      "path": "dist/manuals/licenses/Linux-man-pages-copyleft-2-para.txt",
+      "bytes": 409,
+      "sha256": "9404a643cfa5e118b50ac14584f5ed01d63f2e14d7249068f3b69bdda73846ec"
+    },
+    {
+      "path": "dist/manuals/licenses/Linux-man-pages-copyleft-var.txt",
+      "bytes": 799,
+      "sha256": "d3cdca84a710af3f270fe5ee33bc6c5c2cc87373559bc8acc52a8efbea6ee33f"
+    },
+    {
+      "path": "dist/manuals/licenses/Linux-man-pages-copyleft.txt",
+      "bytes": 1019,
+      "sha256": "e7241c6405f8ad70943bcdb0fd83cb79fb25eec601ecf311acc9c72f19794d5a"
+    },
+    {
+      "path": "dist/manuals/licenses/MIT.txt",
+      "bytes": 1078,
+      "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+    },
+    {
+      "path": "dist/manuals/manifest.json",
+      "bytes": 18363,
+      "sha256": "293ea4d502f4ce06b98d4ddc87d932684b6dc88c334241c05812eb4dccd28f50"
+    },
+    {
+      "path": "dist/manuals/source/abort.3",
+      "bytes": 2026,
+      "sha256": "0c20876aacad21dc69db44b887b60d5e07056a3466ae38445301b828e930f1f4"
+    },
+    {
+      "path": "dist/manuals/source/assert.3",
+      "bytes": 2087,
+      "sha256": "ff4d0cfb3431e635c6eccc633ed8e165decbfd860a287c71f6f12504a82b7685"
+    },
+    {
+      "path": "dist/manuals/source/atexit.3",
+      "bytes": 3711,
+      "sha256": "c6a7af31450fb4be98dcca3021e95d692c2a4e59afe72c4ef4770ff81d883e05"
+    },
+    {
+      "path": "dist/manuals/source/bsearch.3",
+      "bytes": 3173,
+      "sha256": "a3a9f25637efe9e3d5b00099c730dff38b9aab4b59c76ef2e0b07b0feb71e24b"
+    },
+    {
+      "path": "dist/manuals/source/calloc.3",
+      "bytes": 12300,
+      "sha256": "3ca29dbb74c64c555d701ad8cff37a2e3d0013a753858dc7b182b4c458eb2099"
+    },
+    {
+      "path": "dist/manuals/source/clock_gettime.2",
+      "bytes": 14863,
+      "sha256": "b72ec2b60860a15407c10d191e50106ecf2cb8a360c0922a38a884081f717862"
+    },
+    {
+      "path": "dist/manuals/source/close.2",
+      "bytes": 7644,
+      "sha256": "ac800c7e3f983330ac2a2f289a6659b03cd51f96888f899e80124a14dae2a14a"
+    },
+    {
+      "path": "dist/manuals/source/errno.3",
+      "bytes": 13253,
+      "sha256": "18fbca55815d62eec2581f9ec51dc6816d741f33deb87f5cb212ddd0e6aa499e"
+    },
+    {
+      "path": "dist/manuals/source/exit.3",
+      "bytes": 5006,
+      "sha256": "42d94b87ed47788b76924937c5821605af74e95ef6ef4bdc9e5820782cbc1914"
+    },
+    {
+      "path": "dist/manuals/source/fclose.3",
+      "bytes": 1972,
+      "sha256": "22451f4cc83635d998830adc2b627965d38ff8e9a1f65411631d8ad39ca613da"
+    },
+    {
+      "path": "dist/manuals/source/feature_test_macros.7",
+      "bytes": 24997,
+      "sha256": "a817273ccc067d1206559f53adb7bac468c70ba2f7ae15869b5c322f313e3360"
+    },
+    {
+      "path": "dist/manuals/source/fenv.3",
+      "bytes": 8802,
+      "sha256": "1d94015f68c6303641cf3924ae0ef4c27f4b9fc0b876c4d38fdb0da0f2194c22"
+    },
+    {
+      "path": "dist/manuals/source/feof.3",
+      "bytes": 2323,
+      "sha256": "0a3d469869a0e5b43e028f7aeae0f3c0110c3bf244a7050c61cae2b7c2a51b5c"
+    },
+    {
+      "path": "dist/manuals/source/ferror.3",
+      "bytes": 2323,
+      "sha256": "0a3d469869a0e5b43e028f7aeae0f3c0110c3bf244a7050c61cae2b7c2a51b5c"
+    },
+    {
+      "path": "dist/manuals/source/fflush.3",
+      "bytes": 2283,
+      "sha256": "5ba63cf7f27d85a7367917642998e3cc910b7ed9b2b8c569d69fc33320d536ca"
+    },
+    {
+      "path": "dist/manuals/source/fgetc.3",
+      "bytes": 2747,
+      "sha256": "5b043d0039b905b8b27d75652686592eea0e7f0e6b366f692ba03e606433fc8b"
+    },
+    {
+      "path": "dist/manuals/source/fgets.3",
+      "bytes": 2747,
+      "sha256": "5b043d0039b905b8b27d75652686592eea0e7f0e6b366f692ba03e606433fc8b"
+    },
+    {
+      "path": "dist/manuals/source/fopen.3",
+      "bytes": 9146,
+      "sha256": "051592c4435fc670c2cee189e1f17dc1849ae2bc4c19e0dc6d644df3934b7215"
+    },
+    {
+      "path": "dist/manuals/source/fork.2",
+      "bytes": 8709,
+      "sha256": "c0288e19c073dcfd469e62594f5aa25521da13dcd2be7d5da5b248fdf4d5693d"
+    },
+    {
+      "path": "dist/manuals/source/fprintf.3",
+      "bytes": 29189,
+      "sha256": "d12cfe949b9cdf67184f61d6cd94fb12149d1e393d6e4c976e2074a7c419c563"
+    },
+    {
+      "path": "dist/manuals/source/fread.3",
+      "bytes": 3275,
+      "sha256": "977d3b3dc0461f658af3e81083cc7d032f912a499f5ca49b887941e5a9f56c02"
+    },
+    {
+      "path": "dist/manuals/source/free.3",
+      "bytes": 12300,
+      "sha256": "3ca29dbb74c64c555d701ad8cff37a2e3d0013a753858dc7b182b4c458eb2099"
+    },
+    {
+      "path": "dist/manuals/source/fseek.3",
+      "bytes": 3495,
+      "sha256": "8d34bb84ff7918e7b5776cdb18b776242c5e07a428af55e2df0563e61a6f6e6b"
+    },
+    {
+      "path": "dist/manuals/source/fsync.2",
+      "bytes": 4766,
+      "sha256": "7667990a911f5519fd0b686a99b62c0e3df342414879418854d2d39e5e6a2f2e"
+    },
+    {
+      "path": "dist/manuals/source/ftell.3",
+      "bytes": 3495,
+      "sha256": "8d34bb84ff7918e7b5776cdb18b776242c5e07a428af55e2df0563e61a6f6e6b"
+    },
+    {
+      "path": "dist/manuals/source/fwrite.3",
+      "bytes": 3275,
+      "sha256": "977d3b3dc0461f658af3e81083cc7d032f912a499f5ca49b887941e5a9f56c02"
+    },
+    {
+      "path": "dist/manuals/source/getchar.3",
+      "bytes": 2747,
+      "sha256": "5b043d0039b905b8b27d75652686592eea0e7f0e6b366f692ba03e606433fc8b"
+    },
+    {
+      "path": "dist/manuals/source/isalpha.3",
+      "bytes": 7780,
+      "sha256": "8e80f57a810fe8f13095b8700813d3bb0d91b891be380bb58506df9541b9393a"
+    },
+    {
+      "path": "dist/manuals/source/isdigit.3",
+      "bytes": 7780,
+      "sha256": "8e80f57a810fe8f13095b8700813d3bb0d91b891be380bb58506df9541b9393a"
+    },
+    {
+      "path": "dist/manuals/source/isfinite.3",
+      "bytes": 2947,
+      "sha256": "5da73263e323fc6927f48086b5dbce91333728794c546734dcbf55dc33397fb4"
+    },
+    {
+      "path": "dist/manuals/source/isnan.3",
+      "bytes": 2947,
+      "sha256": "5da73263e323fc6927f48086b5dbce91333728794c546734dcbf55dc33397fb4"
+    },
+    {
+      "path": "dist/manuals/source/isspace.3",
+      "bytes": 7780,
+      "sha256": "8e80f57a810fe8f13095b8700813d3bb0d91b891be380bb58506df9541b9393a"
+    },
+    {
+      "path": "dist/manuals/source/localeconv.3",
+      "bytes": 1617,
+      "sha256": "86a783816ecd73afafa29bdbe08ebed4528596dbd56acd4b8f02b30b38ad7c77"
+    },
+    {
+      "path": "dist/manuals/source/malloc.3",
+      "bytes": 12300,
+      "sha256": "3ca29dbb74c64c555d701ad8cff37a2e3d0013a753858dc7b182b4c458eb2099"
+    },
+    {
+      "path": "dist/manuals/source/memcmp.3",
+      "bytes": 2079,
+      "sha256": "0a8694f0e6655213b44ec91e10414121653a3c05294922652d12913a7da2bd6d"
+    },
+    {
+      "path": "dist/manuals/source/memcpy.3",
+      "bytes": 2768,
+      "sha256": "31631f5719375141cd1af64285b0fd4f71a785ca916baeffb9a8fea9d6f6f36d"
+    },
+    {
+      "path": "dist/manuals/source/memmove.3",
+      "bytes": 1260,
+      "sha256": "74e93873791bb3014767aaa41f9d1f491850341cbcf3f9dd8b80d715a9f39f29"
+    },
+    {
+      "path": "dist/manuals/source/memset.3",
+      "bytes": 1008,
+      "sha256": "d1e8a97bdd378d03530c0627bc51f5b2c7e7c672dcaa1db87777dab389e61b14"
+    },
+    {
+      "path": "dist/manuals/source/mmap.2",
+      "bytes": 28407,
+      "sha256": "678889e186bcb07f9e71b8f65f55f8c498335ee785a5417315db2ed478283e5c"
+    },
+    {
+      "path": "dist/manuals/source/open.2",
+      "bytes": 46859,
+      "sha256": "11801291bfb403118addca5cc14ce9c2ce56649f573be6c3f333d53851cb4fcd"
+    },
+    {
+      "path": "dist/manuals/source/perror.3",
+      "bytes": 2894,
+      "sha256": "ff2319740f482e549dc746d69cf151bdcaef38aa066a07509a2d62006e140026"
+    },
+    {
+      "path": "dist/manuals/source/pipe.2",
+      "bytes": 7622,
+      "sha256": "202f87360845ee4f1f14aa318e69e0803cd2ba100c1db55cf85a5653a614760f"
+    },
+    {
+      "path": "dist/manuals/source/pow.3",
+      "bytes": 7491,
+      "sha256": "e5decb50155c4ae149329a9aa05071bb6d62af05c8cd246e95d35d45d877aa86"
+    },
+    {
+      "path": "dist/manuals/source/printf.3",
+      "bytes": 29189,
+      "sha256": "d12cfe949b9cdf67184f61d6cd94fb12149d1e393d6e4c976e2074a7c419c563"
+    },
+    {
+      "path": "dist/manuals/source/pthread_cond_broadcast.3",
+      "bytes": 8169,
+      "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc"
+    },
+    {
+      "path": "dist/manuals/source/pthread_cond_destroy.3",
+      "bytes": 8169,
+      "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc"
+    },
+    {
+      "path": "dist/manuals/source/pthread_cond_init.3",
+      "bytes": 8169,
+      "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc"
+    },
+    {
+      "path": "dist/manuals/source/pthread_cond_signal.3",
+      "bytes": 8169,
+      "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc"
+    },
+    {
+      "path": "dist/manuals/source/pthread_cond_wait.3",
+      "bytes": 8169,
+      "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc"
+    },
+    {
+      "path": "dist/manuals/source/pthread_create.3",
+      "bytes": 10930,
+      "sha256": "6084933ad693f7bc3ecccc945a36eac4f3e905b665689c42da123c6388d48bf1"
+    },
+    {
+      "path": "dist/manuals/source/pthread_equal.3",
+      "bytes": 1185,
+      "sha256": "4d2d33f876648b51f60d9deb3e1c53b528136a032d91340fab347475832098a9"
+    },
+    {
+      "path": "dist/manuals/source/pthread_join.3",
+      "bytes": 3281,
+      "sha256": "ccd1d2b8680476442571c179a092f19528314695b2bede9e703df1c742ae8142"
+    },
+    {
+      "path": "dist/manuals/source/pthread_mutex_destroy.3",
+      "bytes": 7338,
+      "sha256": "670693a468d40827e267e9395d4d83f425a408a975b507bcabf518aa062d34d3"
+    },
+    {
+      "path": "dist/manuals/source/pthread_mutex_init.3",
+      "bytes": 7338,
+      "sha256": "670693a468d40827e267e9395d4d83f425a408a975b507bcabf518aa062d34d3"
+    },
+    {
+      "path": "dist/manuals/source/pthread_mutex_lock.3",
+      "bytes": 7338,
+      "sha256": "670693a468d40827e267e9395d4d83f425a408a975b507bcabf518aa062d34d3"
+    },
+    {
+      "path": "dist/manuals/source/pthread_mutex_unlock.3",
+      "bytes": 7338,
+      "sha256": "670693a468d40827e267e9395d4d83f425a408a975b507bcabf518aa062d34d3"
+    },
+    {
+      "path": "dist/manuals/source/pthread_self.3",
+      "bytes": 1869,
+      "sha256": "c3517196bbcfa9da99d5568f3d8516a3280edd796dbdedf2b61dc345486c6aa5"
+    },
+    {
+      "path": "dist/manuals/source/pthreads.7",
+      "bytes": 21787,
+      "sha256": "4ef555c96b14a2cca776aa0dd895009268d2e69597e4085ad70881d413d20ba5"
+    },
+    {
+      "path": "dist/manuals/source/putchar.3",
+      "bytes": 2308,
+      "sha256": "1e84086c50a82b57896a8a084cfbe2650eb85e88c50ba615848e378c966a4385"
+    },
+    {
+      "path": "dist/manuals/source/puts.3",
+      "bytes": 2308,
+      "sha256": "1e84086c50a82b57896a8a084cfbe2650eb85e88c50ba615848e378c966a4385"
+    },
+    {
+      "path": "dist/manuals/source/qsort.3",
+      "bytes": 3482,
+      "sha256": "eab3c3bb00560e46eaa19725332b616ac46092afa57c67c5706892111cce9d2d"
+    },
+    {
+      "path": "dist/manuals/source/read.2",
+      "bytes": 6283,
+      "sha256": "803922a20bb57a77e0115f440f53931efe8c1c20cba9918940fd811a77083053"
+    },
+    {
+      "path": "dist/manuals/source/realloc.3",
+      "bytes": 12300,
+      "sha256": "3ca29dbb74c64c555d701ad8cff37a2e3d0013a753858dc7b182b4c458eb2099"
+    },
+    {
+      "path": "dist/manuals/source/remove.3",
+      "bytes": 1958,
+      "sha256": "f5557464b65e6291b530742219dde49a016baa54e47768738295f7bf42698a6b"
+    },
+    {
+      "path": "dist/manuals/source/rename.2",
+      "bytes": 12644,
+      "sha256": "4f39e029eadbb3c33bd4aa2322140cb3eb1c1535fd0d7323c9371efab77c249d"
+    },
+    {
+      "path": "dist/manuals/source/rewind.3",
+      "bytes": 3495,
+      "sha256": "8d34bb84ff7918e7b5776cdb18b776242c5e07a428af55e2df0563e61a6f6e6b"
+    },
+    {
+      "path": "dist/manuals/source/scanf.3",
+      "bytes": 3672,
+      "sha256": "97514072ea51409a1417f3b9f99c88a15f06e0ce91386c67be43807d1f0c70f8"
+    },
+    {
+      "path": "dist/manuals/source/sem_destroy.3",
+      "bytes": 1680,
+      "sha256": "e9a2a0b106f7d007126d5d2cc2d9cde0c2b7c4075fa2e00a3bfb8e661a2a9dd2"
+    },
+    {
+      "path": "dist/manuals/source/sem_init.3",
+      "bytes": 2406,
+      "sha256": "fe6ee07c162c3e6b1c21b4327bc59bee69b78fc550295df01a3ac61cd933160e"
+    },
+    {
+      "path": "dist/manuals/source/sem_post.3",
+      "bytes": 1505,
+      "sha256": "ac6d91315af8560b55bed2a06d7162f923361e70cc9debe69f681149f3b19890"
+    },
+    {
+      "path": "dist/manuals/source/sem_wait.3",
+      "bytes": 5979,
+      "sha256": "2929a6d20545bca68e5211c4ea9b9ea509ab70c4e20860820beae58a5d5fd4eb"
+    },
+    {
+      "path": "dist/manuals/source/setlocale.3",
+      "bytes": 4820,
+      "sha256": "88f8ea65bf924e72472444074648a9914dce2587b7f53e6365347dbbd4a2526c"
+    },
+    {
+      "path": "dist/manuals/source/setvbuf.3",
+      "bytes": 4781,
+      "sha256": "6ec4d9dd03113213a76fbd0b34d6652e47c51699710dd614a4fa6b5179f4ee80"
+    },
+    {
+      "path": "dist/manuals/source/signal.7",
+      "bytes": 29813,
+      "sha256": "e2abecee3ec8f6a51a6c170c7fbd056034b6eb42b398e6875eddfb903fa5ab72"
+    },
+    {
+      "path": "dist/manuals/source/snprintf.3",
+      "bytes": 29189,
+      "sha256": "d12cfe949b9cdf67184f61d6cd94fb12149d1e393d6e4c976e2074a7c419c563"
+    },
+    {
+      "path": "dist/manuals/source/sqrt.3",
+      "bytes": 1821,
+      "sha256": "687faf94f7968bfead46d28918b85dd996a6a595636966175dd83ac03e2d12d3"
+    },
+    {
+      "path": "dist/manuals/source/sscanf.3",
+      "bytes": 16818,
+      "sha256": "33f37780a7c087012a5754f55892648b75953e2928e2e127b1421effc2b9b74c"
+    },
+    {
+      "path": "dist/manuals/source/stdio.3",
+      "bytes": 7946,
+      "sha256": "6c3470378e5055a24326881547266ee8c64655c2731bdd5775f330f4b2560258"
+    },
+    {
+      "path": "dist/manuals/source/strchr.3",
+      "bytes": 2253,
+      "sha256": "459032dac46f38010a990d26b58689d732501d60134b05e6109ccb4bcc88a8a6"
+    },
+    {
+      "path": "dist/manuals/source/strcmp.3",
+      "bytes": 4376,
+      "sha256": "5f04bc7ee05f5ee6e44473e15b39f1580efa4f87dea3ede30caa73c601b24cb4"
+    },
+    {
+      "path": "dist/manuals/source/strcpy.3",
+      "bytes": 3847,
+      "sha256": "5d08b2d53ff6afe90f13213aef0b34253bfc07fab71c7b54b052850dbe6f3796"
+    },
+    {
+      "path": "dist/manuals/source/strerror.3",
+      "bytes": 7063,
+      "sha256": "108fce3760f1c81635a183907827d3470ec27337abf4a980e8afc0307593b71f"
+    },
+    {
+      "path": "dist/manuals/source/strftime.3",
+      "bytes": 17299,
+      "sha256": "b810626f7e5bf9abc75c22403374c6144b38521f2c2dcc5732a28642aa0957aa"
+    },
+    {
+      "path": "dist/manuals/source/strlen.3",
+      "bytes": 1117,
+      "sha256": "c310f840485250aef7a5ea5043600f27f493f2794297e45a384cc572e0157ca7"
+    },
+    {
+      "path": "dist/manuals/source/strncmp.3",
+      "bytes": 4376,
+      "sha256": "5f04bc7ee05f5ee6e44473e15b39f1580efa4f87dea3ede30caa73c601b24cb4"
+    },
+    {
+      "path": "dist/manuals/source/strncpy.3",
+      "bytes": 4287,
+      "sha256": "565a6a72d4c2e9e796bfd18d5739c2287abdb8bb41c9a440a5fce2df6ac9d688"
+    },
+    {
+      "path": "dist/manuals/source/strstr.3",
+      "bytes": 1667,
+      "sha256": "d32bb85c26b41c025d00253cbe4669fe28cd38420f3eb32a16a9abafe8263112"
+    },
+    {
+      "path": "dist/manuals/source/strtod.3",
+      "bytes": 4955,
+      "sha256": "7621c1b0ef97961dac117d6ebdc64fb23a60615c2f2a4523d3304ddd97f6d4cf"
+    },
+    {
+      "path": "dist/manuals/source/strtok.3",
+      "bytes": 6786,
+      "sha256": "42d349d183ee061225e4a121d14e963f193c9652dfc16b5f38319bd5bb2cca9e"
+    },
+    {
+      "path": "dist/manuals/source/strtol.3",
+      "bytes": 7174,
+      "sha256": "88b8d9df99f077266baa536ec715a0ef8e80a138b9fc9c160d979cb29802e21d"
+    },
+    {
+      "path": "dist/manuals/source/strtoul.3",
+      "bytes": 4919,
+      "sha256": "2021de6e1549717c35d85a5ea13484315e93714657f9c91a6132f3720d740749"
+    },
+    {
+      "path": "dist/manuals/source/time.2",
+      "bytes": 2916,
+      "sha256": "a8d3f04d446cd1810746f365a1bdfecbd23bf4ff6d5b2ed34678be9f0fddf48b"
+    },
+    {
+      "path": "dist/manuals/source/tolower.3",
+      "bytes": 3647,
+      "sha256": "8f194c3bb4071dbbffa4dd439403deead125705c748324f8ef41f1566f2ee456"
+    },
+    {
+      "path": "dist/manuals/source/toupper.3",
+      "bytes": 3647,
+      "sha256": "8f194c3bb4071dbbffa4dd439403deead125705c748324f8ef41f1566f2ee456"
+    },
+    {
+      "path": "dist/manuals/source/wait.2",
+      "bytes": 17684,
+      "sha256": "d108a9453a63f2858121ab4b9487c7a302fd08a2a8a18214a26be0f743560fc7"
+    },
+    {
+      "path": "dist/manuals/source/write.2",
+      "bytes": 8666,
+      "sha256": "bc842a7aafa1570b67f038c86d2f0d468f4d51e463ef3e4bdc710a457e6bd990"
     },
     {
       "path": "dist/programs/tinydb.c",
@@ -106,8 +666,8 @@
     },
     {
       "path": "docs/review.md",
-      "bytes": 2191,
-      "sha256": "245f5913288ab7bae053fbcdfff132d3b3b1241cc5251604be7aea4bddeaca17"
+      "bytes": 4301,
+      "sha256": "3cc6766eabee624b83a9f03be4a88e699cbcece73d22e7f93d30caef30fa86db"
     },
     {
       "path": "docs/self-hosted-linux-validation.json",
@@ -136,223 +696,223 @@
     },
     {
       "path": "native/chapters/allocation/README.md",
-      "bytes": 19543,
-      "sha256": "11f41db5fea09ac48ace3795c46bc7f322b7cbb89ec854db01f4228dd3f05339"
+      "bytes": 20799,
+      "sha256": "2d5d22e4fbe77bddeaabfba49129e4f001d38dd15b2c380ea47955d7544fdeb3"
     },
     {
       "path": "native/chapters/arrays-strings/README.md",
-      "bytes": 19385,
-      "sha256": "72353c0d5df8f600483057080cf44e3e247d1806152fab613fcf5f2668bc2dcd"
+      "bytes": 20623,
+      "sha256": "019518ad717ee297567b50179c88621871b59d4a256b1c8bce85c36145079ef4"
     },
     {
       "path": "native/chapters/atomics/README.md",
-      "bytes": 16156,
-      "sha256": "91596f9388d98a86dfba09d66b3f521405c855d922babd316ed40d6964a9b322"
+      "bytes": 17132,
+      "sha256": "1bb5766a453b706fa56d9b9a6326efe3eb0e081bf74ba82c96ae95c95ebed256"
     },
     {
       "path": "native/chapters/big-o/README.md",
-      "bytes": 19038,
-      "sha256": "62675d70f17257dd07d260198325a0557261eb944fe7ce54fb85bf322a7b2154"
+      "bytes": 20692,
+      "sha256": "5e6d7d31526df0ef5064d4404277e76a4031d29954e5eb6a63a31f0c63ffdc7d"
     },
     {
       "path": "native/chapters/bplus-trees/README.md",
-      "bytes": 42233,
-      "sha256": "36f43dcdefbd1100ce32df6b417a7958a828fcd4501b3c65fdee9f94756a0690"
+      "bytes": 43706,
+      "sha256": "ab91db00a2259876bd837e4e2670b8d7d5af6c351c7cfb67080d6a070b7c979e"
     },
     {
       "path": "native/chapters/c-guarantees/README.md",
-      "bytes": 40491,
-      "sha256": "0fea381f86d2610905b70e3482511dfa16e0c3ffa4ba9189ad3f8a098d1c8faa"
+      "bytes": 42949,
+      "sha256": "568d4bc83300769c2ea4cd6d9125c73180cc33b69b0751cc4a366d2d1f55f7b3"
     },
     {
       "path": "native/chapters/concurrent-storage/README.md",
-      "bytes": 22627,
-      "sha256": "b73acb2a03e94075b950a67d5c956a235a27cef75a4ccc92f227859b558ad2f5"
+      "bytes": 23603,
+      "sha256": "1989e257dd5979e29eb324c228f9e54e0422100774b2ac5505f0e1a56848dabf"
     },
     {
       "path": "native/chapters/control-flow/README.md",
-      "bytes": 14514,
-      "sha256": "7ca401444d07e007f5b811385e57a631c2abf23c4820b418a4c7da1cbd7d0f28"
+      "bytes": 15716,
+      "sha256": "684cf81d8fd55259b875affdf2b5a1179338fd5193f3c6e32774c5862f06a897"
     },
     {
       "path": "native/chapters/coordination/README.md",
-      "bytes": 18319,
-      "sha256": "ecbd0e06d3e149cde8403327b4f6ef9d09b96e8b6fcfaa36080db7abbcf8e236"
+      "bytes": 19051,
+      "sha256": "61d094bb459600741528712ce9646f932a847e860c32fcfe67a035e67d74c93d"
     },
     {
       "path": "native/chapters/database-foundations/README.md",
-      "bytes": 21557,
-      "sha256": "18f3f01a7c61ab21c666ce6dc067638834108c0815732d9f45c64aabd5697e94"
+      "bytes": 22786,
+      "sha256": "b881244218052096b16fbe556b0e552481162866bd3dc49593028edc137c725f"
     },
     {
       "path": "native/chapters/execution/README.md",
-      "bytes": 28625,
-      "sha256": "7a6e5f54d6e71f8baaf3e6cf10e6b92880b6d5b9f62abe560531303c0ffb96a4"
+      "bytes": 30098,
+      "sha256": "b79d3da7f3ca2587f44b93561c14a6d2c7337121b8833dd22158f5b4192c2186"
     },
     {
       "path": "native/chapters/files-bytes/README.md",
-      "bytes": 28305,
-      "sha256": "8cdabec124e3a1c9bc456f40416975ef77272ecbbde442539469784fc209096a"
+      "bytes": 30031,
+      "sha256": "80a759970ed2264b3b66459af7ef4b8b8fad6e7526130a6229d105be760de915"
     },
     {
       "path": "native/chapters/first-program/README.md",
-      "bytes": 18812,
-      "sha256": "a8b0a87cd12288e3d008db6e5998036379bfd216c33e4fb42c856c59bcc59360"
+      "bytes": 20380,
+      "sha256": "4c05ab512816da43d3417bcb7819e04abc7dd2f39387412b19dc53cd8835e16b"
     },
     {
       "path": "native/chapters/functions/README.md",
-      "bytes": 14956,
-      "sha256": "6f85ae23506b93e1ba8ea982dc857de958085e92d04c510357497b35bcfb7088"
+      "bytes": 16176,
+      "sha256": "7a1c740615cc1b57acfd34001cf48eb09f4e842302257e192f038eb21b8fd092"
     },
     {
       "path": "native/chapters/graphs/README.md",
-      "bytes": 24698,
-      "sha256": "7a2b8d538554a918385a23b14088427563b3023767b93ab03ad7ef32e3e032f6"
+      "bytes": 26108,
+      "sha256": "81e581d85e7dacef9cf047aa4aa73b23f2098621880803dbfa5ec66979fac6bd"
     },
     {
       "path": "native/chapters/hardening-tinydb/README.md",
-      "bytes": 37368,
-      "sha256": "b23c75669c24ab2e3d778c8eea8db6bf76d0dda64cf695b08dc7f933fdfa75ca"
+      "bytes": 38597,
+      "sha256": "4b8b6bb8d88ae7b3b5e14cec5fb7e5d0947593b70160a8887fba4c8bbf7fb529"
     },
     {
       "path": "native/chapters/hash-tables/README.md",
-      "bytes": 22353,
-      "sha256": "5802121dadf44f9ffc98206badf8c47cd6677a3bcf1e2e5f937c38f3db22e85f"
+      "bytes": 23763,
+      "sha256": "88918fac83559822e1c34f90c438b37d1dc15da907941695fe4e9f420a018f19"
     },
     {
       "path": "native/chapters/isolation/README.md",
-      "bytes": 13190,
-      "sha256": "d93906579ba4fe3deab9c67ea9efe3f03f1cc055e94da707aebf227426f30aff"
+      "bytes": 13895,
+      "sha256": "1366b5392bddcf7f8ea4c61a8e28ad39e08b96f16f7de40ab4956c41ced0b5df"
     },
     {
       "path": "native/chapters/larger-programs/README.md",
-      "bytes": 17104,
-      "sha256": "d9d92f35591021dda437a7112f8be67fb58e867fc0407a27f73eff4a175377bc"
+      "bytes": 18324,
+      "sha256": "8054352349141e4750cc00d557727f3570a39dbde0c0591395424527a955d586"
     },
     {
       "path": "native/chapters/lists/README.md",
-      "bytes": 17100,
-      "sha256": "75174897dce6448604e47c696df9c443da819701dfd811d3640f4824b8e2a496"
+      "bytes": 18320,
+      "sha256": "adef0161fc1ad473753f328db4d556c7c2823c42dec30f3346b6122526b6cc2d"
     },
     {
       "path": "native/chapters/maintenance/README.md",
-      "bytes": 16667,
-      "sha256": "ff736752b0c2c00e7e5c32d8e84e9a5704d0ccdc038076231fcc883e9c0abd0d"
+      "bytes": 17408,
+      "sha256": "09625f4656047995a673ad407ca1b31e272ad6e4e9b89bc772b6d076fafeb78d"
     },
     {
       "path": "native/chapters/multi-client/README.md",
-      "bytes": 16844,
-      "sha256": "7f1cfb29a29d11a0219c03ae87b35914ab98fb47d1d351434c39fc19a6b5c638"
+      "bytes": 17576,
+      "sha256": "f4ece9fae18a25532f6c987e6a1613854ffe2bb8ed63afdeed4361160c10de67"
     },
     {
       "path": "native/chapters/pages/README.md",
-      "bytes": 25299,
-      "sha256": "b76e291e5b440f348efba02efead885c036967f2e9e8f20779878dc2acabca0b"
+      "bytes": 26718,
+      "sha256": "c569c783ca9ecb3efe88a1e698a5d3ca5fd02e47c9caaab3bf0be628011e1bbc"
     },
     {
       "path": "native/chapters/parsing/README.md",
-      "bytes": 31676,
-      "sha256": "c0f076fd0ae76a17ca7ccb9a53c4c8d2667df9b91ccb06d02cc07d4f588b6f99"
+      "bytes": 32896,
+      "sha256": "74384ac12d8d0788fc36294737b283b5ee15c178ea0e7f316cd0847eb67c3349"
     },
     {
       "path": "native/chapters/persistence/README.md",
-      "bytes": 38643,
-      "sha256": "66b517792e5bb83a5ae8539aa588b1277c19e9a37efa10aac34f905cb425adbf"
+      "bytes": 40107,
+      "sha256": "9e3bb33fbbea4bc31990147e7786fe5dda4de8ea9d9dab7d36aa709cd2da8b82"
     },
     {
       "path": "native/chapters/planning/README.md",
-      "bytes": 17815,
-      "sha256": "25b690a133360df023a3f9122e2fff4663dcd7a9421938df9c0c5f30602b8d41"
+      "bytes": 19279,
+      "sha256": "628ddeb38ca480304822f3fdb1f345ab148f2c0adb3f80b518e1e6272bcf90ec"
     },
     {
       "path": "native/chapters/pointers/README.md",
-      "bytes": 15821,
-      "sha256": "c1589ca8e388dcdd798043b4c9f0827389f33a8713d8f9c90c9e91c0ebf16eae"
+      "bytes": 17041,
+      "sha256": "9a478f33086c665150c59ce1ef8377041b2098339e48d0e5e5a33036457d1b31"
     },
     {
       "path": "native/chapters/portable-c/README.md",
-      "bytes": 37124,
-      "sha256": "2d97efc13bb8e37cefe5b4eb8fc129c841d976e115d259e36268ec8a972952ec"
+      "bytes": 39347,
+      "sha256": "6c0efaa33613444929156f2c7bdf225991c43d4ced6c197388fdeac4e4e9220c"
     },
     {
       "path": "native/chapters/queues/README.md",
-      "bytes": 15442,
-      "sha256": "d2bd4bcdd3d09fc69c8bf4efce467f6bc64ae7112bfc7ee6ca5dfec2b8d69421"
+      "bytes": 16626,
+      "sha256": "bdef59ddda882e0b36b002bcca5cda83e32d727c99dc8ab4c1b1f17ceac83c80"
     },
     {
       "path": "native/chapters/recovery/README.md",
-      "bytes": 29570,
-      "sha256": "208a14f4734f8dd928d371cb9690896adbee8d30c12fc953386809097bf391dd"
+      "bytes": 31043,
+      "sha256": "29caaf6ec2a630e545ad13df53427f656992158f7409b60060d560fdac3cbc82"
     },
     {
       "path": "native/chapters/recursion/README.md",
-      "bytes": 14053,
-      "sha256": "1c58c7afad9a3750c1bb5c474a46b164611149709cd912b05a7f3d5d7b93e93b"
+      "bytes": 15237,
+      "sha256": "0c19682e7a05c7774a93c371d81af43a0e91e92d57bec1598cda928d706261ec"
     },
     {
       "path": "native/chapters/reliability/README.md",
-      "bytes": 22441,
-      "sha256": "ea1c20f85ce4b2deafe27b4377106a4dd0717e848538aead63d78835d20d6740"
+      "bytes": 23173,
+      "sha256": "33d0c1f80d5573935b44419738dfc5b36a9f3be0807d717a80aa098aa8686ea4"
     },
     {
       "path": "native/chapters/richer-queries/README.md",
-      "bytes": 13039,
-      "sha256": "be787754958b74f004fceb477cf385348a55c6cbe966645214d8bad4be3a6a71"
+      "bytes": 13771,
+      "sha256": "0be32ecadbc7aa64c6f40c0c1379ccaae98a632040a391bdd08ef5110fd88c55"
     },
     {
       "path": "native/chapters/searching/README.md",
-      "bytes": 15286,
-      "sha256": "5839ccfcb3198e648c20fae0191d3f47074a821ebd0cebe4a473781263146d71"
+      "bytes": 16461,
+      "sha256": "a5685d2cb573c159fccec84a19a33af9e8acd4d81d98a794de8c1948f037c7f0"
     },
     {
       "path": "native/chapters/ship/README.md",
-      "bytes": 47915,
-      "sha256": "66cda98d28be08dbcd2ca52cdda7db137c0ea7066c06a7ffddd9afc02c471d21"
+      "bytes": 49867,
+      "sha256": "63327902f5b16579f16bc56b61c993cbd9f16e0c93c21a7229413dd573aa2675"
     },
     {
       "path": "native/chapters/snapshots/README.md",
-      "bytes": 13662,
-      "sha256": "65b6131f779f8bd6d3f34aeae79e01898314be9d9c890e89f86ed7cec46a2b4e"
+      "bytes": 14394,
+      "sha256": "97debe6f905566b680c6164a862414b5fa74991e013842ecdff06e31ee43e27c"
     },
     {
       "path": "native/chapters/sorting/README.md",
-      "bytes": 20192,
-      "sha256": "969bc963c22661bfb068c2b459b7bee42f95e6eacadf461b697ff80b165d2923"
+      "bytes": 21611,
+      "sha256": "dd3b6db58c5806d98b2acabd2ad2964046b2c11e4cadae3120fb58051ad3a3c2"
     },
     {
       "path": "native/chapters/standards-evolution/README.md",
-      "bytes": 10615,
-      "sha256": "f1882f7e19dc1562abc9f36ee0723203cb65b59ba3ca514ce1e1368471aaf6c5"
+      "bytes": 11347,
+      "sha256": "8b3ff77e0a1a48fe9844e76faf6e6a003797e9b5d47aaaec7cca1784ac20a0d1"
     },
     {
       "path": "native/chapters/strategies/README.md",
-      "bytes": 15042,
-      "sha256": "a5cd668ac0a6ea4ddd6d28bc945a4321e47ba0aaed47ea2d47afd82843f5cd9f"
+      "bytes": 16226,
+      "sha256": "30ba79b8fc6c366ec1e2a0447a7d2a0bf78d3bd14169135f4c2739fcd421fba4"
     },
     {
       "path": "native/chapters/structured-data/README.md",
-      "bytes": 16764,
-      "sha256": "126e80efa21d54d6f5a4864f06d78237df6f38ce689ab64b61d5ec9b93772b0c"
+      "bytes": 17984,
+      "sha256": "ba8e2c2d38713ade782e62722875ab1b21bed63f3809cfcca420c9a24a00e21c"
     },
     {
       "path": "native/chapters/tables/README.md",
-      "bytes": 21393,
-      "sha256": "27a1a4eee303e70a703a273d183b12056d419e301159d79eda17f90e25345056"
+      "bytes": 22613,
+      "sha256": "f351690871e6ffb744c478f14a9475c381727e3330c87ab985d21eff0d78a025"
     },
     {
       "path": "native/chapters/threads/README.md",
-      "bytes": 13500,
-      "sha256": "f1e08fa63037405d07a319b85c7a19a9849a42c2407c245483cc4c5928d79b10"
+      "bytes": 14232,
+      "sha256": "c039491dc9866318646a0fb9d261225309151e85d666a9804d4db1a37681bca2"
     },
     {
       "path": "native/chapters/trees-heaps/README.md",
-      "bytes": 24259,
-      "sha256": "3d649ea1371686aee521a88c3ae5496bdf2a7baca4ae929b418d76d54975141f"
+      "bytes": 25669,
+      "sha256": "9744338a539321c3c17a3905f8cf2dc12f4cf2029c702c7c71818d80796f4abb"
     },
     {
       "path": "native/chapters/values/README.md",
-      "bytes": 15865,
-      "sha256": "9d10a63ee4593a1cdb6b22fed3a0ad1f9dddee4ed52811604c875d2604c74ba7"
+      "bytes": 17076,
+      "sha256": "5c9f9c8ede1d341a0bd229b818d41da33be9014c9a61ba8c600fdd738855c75a"
     },
     {
       "path": "native/cli/tinydb.c",
@@ -481,8 +1041,8 @@
     },
     {
       "path": "native/examples/atomics-1/README.md",
-      "bytes": 4215,
-      "sha256": "4c70625cb924c8935559259abc57ad8516cb9a5061575d119e0cd19e72e7a4cd"
+      "bytes": 4459,
+      "sha256": "45221a4224eff412dcc4cfcb0fc4e841f527b1f4faa7b7dca3a6e1d7b43a105a"
     },
     {
       "path": "native/examples/atomics-1/main.c",
@@ -491,8 +1051,8 @@
     },
     {
       "path": "native/examples/atomics-2/README.md",
-      "bytes": 3240,
-      "sha256": "e3821e3aac7c59335989e035b9ef008b926fe1b720ae674340028d80326e162d"
+      "bytes": 3484,
+      "sha256": "6f25b58e55a3d32e00f989f230b74a4e52b8fd9f57bc0cea437dc804042884e2"
     },
     {
       "path": "native/examples/atomics-2/main.c",
@@ -501,8 +1061,8 @@
     },
     {
       "path": "native/examples/atomics-3/README.md",
-      "bytes": 3961,
-      "sha256": "2d64b2e2458ad52b93674f29b7d8d984f198c4c1900edef44d457a5940ef962a"
+      "bytes": 4205,
+      "sha256": "ea59c7646b870e6e0edbb7eb2235b3df86a76b357b70d05bb7298dd3aabb7d0f"
     },
     {
       "path": "native/examples/atomics-3/main.c",
@@ -511,8 +1071,8 @@
     },
     {
       "path": "native/examples/atomics-4/README.md",
-      "bytes": 4039,
-      "sha256": "b9dd7628d70a334f96f93432f7a2598f0b4baa1df8781de8c6d10f26fa2ea3c0"
+      "bytes": 4283,
+      "sha256": "b8bb1957956d741ad23e4150bf95ee7df5a0234c4f15d1043f17d5235dff2a9d"
     },
     {
       "path": "native/examples/atomics-4/main.c",
@@ -586,8 +1146,8 @@
     },
     {
       "path": "native/examples/c-guarantees-1/README.md",
-      "bytes": 3316,
-      "sha256": "fb00860fe56a9fa7cc77ed27817e545b09645d57ee8ea76599bfa31b806f7f07"
+      "bytes": 3560,
+      "sha256": "1af6dce662fef231d5985275187ca51f870e71fc2a008c76bada6f8e7c07db8f"
     },
     {
       "path": "native/examples/c-guarantees-1/main.c",
@@ -596,8 +1156,8 @@
     },
     {
       "path": "native/examples/c-guarantees-10/README.md",
-      "bytes": 4744,
-      "sha256": "5a99a6541fcad4390cff3ae23315bd645293544e5829e4abba38a4232943a9b5"
+      "bytes": 4988,
+      "sha256": "85e115c88a6b2f72c6f8de1ea7f2d3cc0b24bbca35a893a1c029708d8bd9bb2f"
     },
     {
       "path": "native/examples/c-guarantees-10/main.c",
@@ -606,8 +1166,8 @@
     },
     {
       "path": "native/examples/c-guarantees-2/README.md",
-      "bytes": 3141,
-      "sha256": "12c401e188fb45c20330a5d715213ff2791c294ce017070882500c0236637ad7"
+      "bytes": 3394,
+      "sha256": "08b9dd067ae9b6513e76aa66c4dd9e8bf67f27e95c2b80e1491101404f95e1f2"
     },
     {
       "path": "native/examples/c-guarantees-2/main.c",
@@ -616,8 +1176,8 @@
     },
     {
       "path": "native/examples/c-guarantees-3/README.md",
-      "bytes": 2926,
-      "sha256": "45548d802b02df1a170b5a5c3892d0cf3f15ce9186bd992451bc4a7eb5ff81ee"
+      "bytes": 3170,
+      "sha256": "b78852619be47f13211f80c37a21fc1daa7433a527bcd3bed2c841a54d847b16"
     },
     {
       "path": "native/examples/c-guarantees-3/main.c",
@@ -646,8 +1206,8 @@
     },
     {
       "path": "native/examples/c-guarantees-8/README.md",
-      "bytes": 4175,
-      "sha256": "9fb0ad8155c2073ad644b325a5901fbc719356330b0b47f52511e333c8f5df32"
+      "bytes": 4419,
+      "sha256": "c638a358c30dff060a74c35d1020f0cfefd731104a94d78e8c54bcd9b086a30b"
     },
     {
       "path": "native/examples/c-guarantees-8/main.c",
@@ -656,8 +1216,8 @@
     },
     {
       "path": "native/examples/c-guarantees-9/README.md",
-      "bytes": 4629,
-      "sha256": "bb176dea1b5ab8f16a8b6aa89089ffd001cb722069cd4a9f4e49ba467701ffdf"
+      "bytes": 4873,
+      "sha256": "6636e87a7bbe9eb1b17619f66de6257d9e2ae11b68affe347b43ddd59e51b9c4"
     },
     {
       "path": "native/examples/c-guarantees-9/main.c",
@@ -666,8 +1226,8 @@
     },
     {
       "path": "native/examples/concurrent-storage-1/README.md",
-      "bytes": 2673,
-      "sha256": "f708d19235ea951c1cea356ab91962b19d5d2a9a86dda4c064fe3193643cfaa3"
+      "bytes": 2917,
+      "sha256": "3547bcf5f3693ea632668a6a9d6c0efafacac45152e89df784832b6a2df384ac"
     },
     {
       "path": "native/examples/concurrent-storage-1/main.c",
@@ -676,8 +1236,8 @@
     },
     {
       "path": "native/examples/concurrent-storage-2/README.md",
-      "bytes": 6020,
-      "sha256": "8a62d179eedced3117a82cb79782575992a9da41e8740db5c0bfe388daacf593"
+      "bytes": 6264,
+      "sha256": "ea5bb3caebec550d9074726251621e8d53a0d794a268fa00db9430ccdf3dd75c"
     },
     {
       "path": "native/examples/concurrent-storage-2/main.c",
@@ -686,8 +1246,8 @@
     },
     {
       "path": "native/examples/concurrent-storage-3/README.md",
-      "bytes": 6083,
-      "sha256": "20c38b712825b2250a67119154ab6fcf8b085bc746289bcda1a84ff45526c1e3"
+      "bytes": 6327,
+      "sha256": "97475cac06833d5e7a779e4c12c29b8060456c96a79a249d92ecfbcd021e6b37"
     },
     {
       "path": "native/examples/concurrent-storage-3/main.c",
@@ -696,8 +1256,8 @@
     },
     {
       "path": "native/examples/concurrent-storage-4/README.md",
-      "bytes": 7155,
-      "sha256": "9cd756d641fb999f7f6d4844a6f1fe39f3cc94637f09c52cb269471541e74727"
+      "bytes": 7399,
+      "sha256": "905b2d768ca117747a0d5171fd4b488bff2ee00c055d50cb381191634e0d4696"
     },
     {
       "path": "native/examples/concurrent-storage-4/main.c",
@@ -731,8 +1291,8 @@
     },
     {
       "path": "native/examples/coordination-1/README.md",
-      "bytes": 6307,
-      "sha256": "d237fb9b1c4c4b1535411675f3d91d6a3cc4ddbfe0f4b1b2a7fd2545aa4871d8"
+      "bytes": 6551,
+      "sha256": "a535f2ae3017a31da80be8e9e3e3044bcb5a351e05a1c8cfaab199c38b84f007"
     },
     {
       "path": "native/examples/coordination-1/main.c",
@@ -741,8 +1301,8 @@
     },
     {
       "path": "native/examples/coordination-2/README.md",
-      "bytes": 6533,
-      "sha256": "bea4a35cea297fc9e3906310ff9c240e3f2bb8635a02524576822d111e4616d1"
+      "bytes": 6777,
+      "sha256": "ccb74da52d050366e8d6a407cd4cf28f12df9f916fd95eaace33734d25bdb3f1"
     },
     {
       "path": "native/examples/coordination-2/main.c",
@@ -751,8 +1311,8 @@
     },
     {
       "path": "native/examples/coordination-3/README.md",
-      "bytes": 4691,
-      "sha256": "0ecbfe01887665bef9db26605dd83bc5e4bb6069f27c1a554f74e02778786ca3"
+      "bytes": 4935,
+      "sha256": "f95323149f82cb43efbdaf18c0f711479bb8703dde722eaf3cd0a93fa773f2eb"
     },
     {
       "path": "native/examples/coordination-3/main.c",
@@ -816,8 +1376,8 @@
     },
     {
       "path": "native/examples/files-bytes-1/README.md",
-      "bytes": 4034,
-      "sha256": "b2815bbe112bdc79f9c14bf02f5f93b5a48430224b1ecc4c7399d93ffa32e443"
+      "bytes": 4287,
+      "sha256": "33649b785f1f39850a0da198bb1a58cc2141093aa09a70bc56fcf85e8bd94207"
     },
     {
       "path": "native/examples/files-bytes-1/main.c",
@@ -826,8 +1386,8 @@
     },
     {
       "path": "native/examples/files-bytes-2/README.md",
-      "bytes": 3530,
-      "sha256": "ea0fdda96e6ba24b1a1d182a6fd06e5c900f9a571b465f802dd94af2f91a2017"
+      "bytes": 3783,
+      "sha256": "b97abd704a7a2cb19512ae17cc3fd0c08f9fb9f0129a67d75d50518184e61f19"
     },
     {
       "path": "native/examples/files-bytes-2/main.c",
@@ -836,8 +1396,8 @@
     },
     {
       "path": "native/examples/files-bytes-3/README.md",
-      "bytes": 3668,
-      "sha256": "b47e97519ba2d8773377a416bf8dfe25d64f08738b7b1e35858f9b7b70a986fc"
+      "bytes": 3912,
+      "sha256": "39db4eedcb5e7b1adbcb300bd5cf1d62cdbd5ed8d45fe8222d4645982c338c2a"
     },
     {
       "path": "native/examples/files-bytes-3/main.c",
@@ -846,8 +1406,8 @@
     },
     {
       "path": "native/examples/files-bytes-4/README.md",
-      "bytes": 2997,
-      "sha256": "26f71844344254bf60ae38f156e697f6614a51ecca8e008681bf6da5da81a848"
+      "bytes": 3241,
+      "sha256": "470ad012340b4fc32856019c84dbea3ec438f8265872e5bd87d8fe4bbba8c94e"
     },
     {
       "path": "native/examples/files-bytes-4/main.c",
@@ -856,8 +1416,8 @@
     },
     {
       "path": "native/examples/files-bytes-5/README.md",
-      "bytes": 3519,
-      "sha256": "02c39ffaf9c45419490f16b12817ecee5e96238a9c81341a286c9e8b6330b470"
+      "bytes": 3772,
+      "sha256": "f4e9a23bc97a049a8a54c0f862f7bbb8acf4114fd8f11614cca1acb45d141720"
     },
     {
       "path": "native/examples/files-bytes-5/main.c",
@@ -866,8 +1426,8 @@
     },
     {
       "path": "native/examples/files-bytes-6/README.md",
-      "bytes": 4826,
-      "sha256": "f047963a0a34350b18b2804266a2c0bd594698b65251b60ac7db67e43509a3b1"
+      "bytes": 5070,
+      "sha256": "e790b3385bac5e3d61a7d9c18486fc36959d8b1c6346a4177bbf637e127ce49f"
     },
     {
       "path": "native/examples/files-bytes-6/main.c",
@@ -876,8 +1436,8 @@
     },
     {
       "path": "native/examples/files-bytes-7/README.md",
-      "bytes": 5674,
-      "sha256": "64e68d2d93270516806bbefe2d59b04fa236502ef45f5cd425a3cc8698846267"
+      "bytes": 5909,
+      "sha256": "d0cf232ccce8be3cc16d74dca59342bcb2404ad30ecbcb88e21df389ddde4077"
     },
     {
       "path": "native/examples/files-bytes-7/main.c",
@@ -971,8 +1531,8 @@
     },
     {
       "path": "native/examples/hardening-tinydb-1/README.md",
-      "bytes": 3799,
-      "sha256": "a5328d2fa16340da6e04fbe5b72d4ac7687a86436faf68f04f859c4f069aa38d"
+      "bytes": 4043,
+      "sha256": "223e717a679723ecb8501d0b5a35b432a576ca9db1cdbab0741f22c22a4e84b6"
     },
     {
       "path": "native/examples/hardening-tinydb-1/main.c",
@@ -981,8 +1541,8 @@
     },
     {
       "path": "native/examples/hardening-tinydb-2/README.md",
-      "bytes": 6945,
-      "sha256": "32c1c311a04abcde6432c4d04e41f3a9f751336752338f37ee28d3cf6687d63b"
+      "bytes": 7189,
+      "sha256": "c63b9a9bcd95452fec546a3fb2c9062a49fc65e644b8bb342810cd1e8a63ff45"
     },
     {
       "path": "native/examples/hardening-tinydb-2/main.c",
@@ -991,8 +1551,8 @@
     },
     {
       "path": "native/examples/hardening-tinydb-3/README.md",
-      "bytes": 6580,
-      "sha256": "1782eba4c35e2e851cea83c6376a1fe8a10c6cf0fa0a672f4bfaf1856c3b6440"
+      "bytes": 6824,
+      "sha256": "f008f5b39c2c0f0d2ba467373ad1360939d2efc50a6cbaa64f4177843c803696"
     },
     {
       "path": "native/examples/hardening-tinydb-3/main.c",
@@ -1001,8 +1561,8 @@
     },
     {
       "path": "native/examples/hardening-tinydb-4/README.md",
-      "bytes": 7350,
-      "sha256": "8092bbc8c2e01ef5baa6d0da690cd888aa5a727d1ab350e78d7352d383f5930e"
+      "bytes": 7594,
+      "sha256": "73979ffe8d02c6423171ca0d32962668de309acee2e7a9eb0edc3ce19973fe13"
     },
     {
       "path": "native/examples/hardening-tinydb-4/main.c",
@@ -1011,8 +1571,8 @@
     },
     {
       "path": "native/examples/hardening-tinydb-5/README.md",
-      "bytes": 11106,
-      "sha256": "415d867fb72e3cc889192e07f55fa4b54d9f1a078a95ccaf0fb6f8bade2e738f"
+      "bytes": 11359,
+      "sha256": "66bfa7a895459e706b1fb52d8d59a77badc78041dd81066cf0436ad47c19c8a4"
     },
     {
       "path": "native/examples/hardening-tinydb-5/codec.c",
@@ -1066,8 +1626,8 @@
     },
     {
       "path": "native/examples/isolation-1/README.md",
-      "bytes": 4842,
-      "sha256": "2ce2b8895c3a6f8e1923a4d19db265baeb781d52862d5dc518da666f0f8a000d"
+      "bytes": 5077,
+      "sha256": "7010d71ae6b8c04f1c47298578f02f817e04a3944ca390f296cf744cc5524bc7"
     },
     {
       "path": "native/examples/isolation-1/main.c",
@@ -1076,8 +1636,8 @@
     },
     {
       "path": "native/examples/isolation-2/README.md",
-      "bytes": 3521,
-      "sha256": "dc4abba16ccd5c23ab0dfe05c8210e241522ac80fb4b4e95c817c6e1fbb5ab49"
+      "bytes": 3756,
+      "sha256": "dac2c15382e8abbfc83425e079230d0b79cd07bcb938ffee25faf0eb4b0fb693"
     },
     {
       "path": "native/examples/isolation-2/main.c",
@@ -1086,8 +1646,8 @@
     },
     {
       "path": "native/examples/isolation-3/README.md",
-      "bytes": 3926,
-      "sha256": "5bddd033efbcd04b44f1b6d33f8fd1529c86c9b463c9a87c1a42930ec92663df"
+      "bytes": 4161,
+      "sha256": "37d815145375ea484733dfacff991fbb254cf43ff8999d8fcd1f8f373f432702"
     },
     {
       "path": "native/examples/isolation-3/main.c",
@@ -1096,8 +1656,8 @@
     },
     {
       "path": "native/examples/larger-programs-1/README.md",
-      "bytes": 3376,
-      "sha256": "53e49f619ce26dc539e3ceb19a8f87b62463c119d87e453b79026ec980d7b6f5"
+      "bytes": 3620,
+      "sha256": "60f4e56209a3b3cf495ae42bb308dc5986e8cd5d1dd945501def1e1d9b4b29dc"
     },
     {
       "path": "native/examples/larger-programs-1/main.c",
@@ -1116,8 +1676,8 @@
     },
     {
       "path": "native/examples/larger-programs-2/README.md",
-      "bytes": 3669,
-      "sha256": "addfc84e88dd248778c0d0bea6f52041be186200eebb44df6c0b63a73177d484"
+      "bytes": 3913,
+      "sha256": "f6b8ef2e719d0d34de6017d1815a740bb933638220f2e63a25d4e8d8771b5b4d"
     },
     {
       "path": "native/examples/larger-programs-2/counter.c",
@@ -1136,8 +1696,8 @@
     },
     {
       "path": "native/examples/larger-programs-3/README.md",
-      "bytes": 3457,
-      "sha256": "5be7fde449e97a4092bc55d1268539a535369c49b582b0f0013b9a4dd6b1b1f4"
+      "bytes": 3701,
+      "sha256": "642348c7b196ae5ec82955b808302566f9c44e88dc3324189929546d2145ff0a"
     },
     {
       "path": "native/examples/larger-programs-3/main.c",
@@ -1151,8 +1711,8 @@
     },
     {
       "path": "native/examples/larger-programs-4/README.md",
-      "bytes": 2914,
-      "sha256": "cfab06170b1451beb3f2b0c9165bc1b0f34e52eabb5a1d8ca37f81db37439713"
+      "bytes": 3158,
+      "sha256": "e8d3d44fb1daee98dec323eb4d8235730472aa72b3e3b05e12db7db34eea6732"
     },
     {
       "path": "native/examples/larger-programs-4/main.c",
@@ -1161,8 +1721,8 @@
     },
     {
       "path": "native/examples/larger-programs-5/README.md",
-      "bytes": 3407,
-      "sha256": "baa6c6376a531ebae71cee93f9196fa00b66c25327e4e10ba84bebb8def265c2"
+      "bytes": 3651,
+      "sha256": "e4ec0a95f7b52035747fe907668baf9db7752c0f34b77fafc744a2f5cab3995b"
     },
     {
       "path": "native/examples/larger-programs-5/main.c",
@@ -1196,8 +1756,8 @@
     },
     {
       "path": "native/examples/maintenance-1/README.md",
-      "bytes": 5682,
-      "sha256": "ff5de4a8355e1da6ebdbd818ad88d50531aed33af94a74c829faba0ec2a4c953"
+      "bytes": 5926,
+      "sha256": "8750ea79add6225f5808ab558af2b81d278a7235a4b784523f69f1bb9250bc88"
     },
     {
       "path": "native/examples/maintenance-1/main.c",
@@ -1206,8 +1766,8 @@
     },
     {
       "path": "native/examples/maintenance-2/README.md",
-      "bytes": 5177,
-      "sha256": "45483ee751be7cc3116aeca1e1ab6b1e19b868570d632625de2d80e9b8e964db"
+      "bytes": 5421,
+      "sha256": "2fb8b9dd59c543e176a5b3bd413f40ee7e6e59495e948d9133ded6ad393b1a06"
     },
     {
       "path": "native/examples/maintenance-2/main.c",
@@ -1216,8 +1776,8 @@
     },
     {
       "path": "native/examples/maintenance-3/README.md",
-      "bytes": 4998,
-      "sha256": "173a7684836aa4bc697f05566ea49fd072df99c0f6761883ab183eb2bed1ba8f"
+      "bytes": 5251,
+      "sha256": "168c68a45cde44342fc63878290bc5b4155c7251d1a26d7e4e9d737af9f6d2a7"
     },
     {
       "path": "native/examples/maintenance-3/main.c",
@@ -1226,8 +1786,8 @@
     },
     {
       "path": "native/examples/multi-client-1/README.md",
-      "bytes": 5955,
-      "sha256": "2bb0a0c8e25a77a133c14c7f0fd8d9e3f9aa164eb99019be6836da51b8645c1e"
+      "bytes": 6199,
+      "sha256": "1667a920c64f20dd9ab537a3ca8e52ce071a426eab7fcaf8088cd12847d5e040"
     },
     {
       "path": "native/examples/multi-client-1/main.c",
@@ -1236,8 +1796,8 @@
     },
     {
       "path": "native/examples/multi-client-2/README.md",
-      "bytes": 3674,
-      "sha256": "d7423f7054adb77daf39e1a8ea6ba2e12768888b710d7928d8aed58eed5ece41"
+      "bytes": 3918,
+      "sha256": "9fc5f3a0ffcf293f6a3cfc624542a80ce4a9d0e37a80d6457bdb5687133cfb0b"
     },
     {
       "path": "native/examples/multi-client-2/main.c",
@@ -1246,8 +1806,8 @@
     },
     {
       "path": "native/examples/multi-client-3/README.md",
-      "bytes": 6371,
-      "sha256": "f74f7e530496e2829954ebc4ff38dbf9965799cd3afcf0f30501a3717fc5b1f1"
+      "bytes": 6615,
+      "sha256": "9ecd657a75c30bd9ecdee2fd0b3fb10a351f2023fce5b52ac1fe3a52dda07fe3"
     },
     {
       "path": "native/examples/multi-client-3/main.c",
@@ -1311,8 +1871,8 @@
     },
     {
       "path": "native/examples/persistence-1/README.md",
-      "bytes": 3406,
-      "sha256": "f210496829548912aa406774d20ec10956b1bd3549dd38024bbde51a7e7f9f08"
+      "bytes": 3650,
+      "sha256": "a3206a7971687ead5bb909348d8c28ba3980f66c5b33c43708f2ab2a06d5d124"
     },
     {
       "path": "native/examples/persistence-1/main.c",
@@ -1321,8 +1881,8 @@
     },
     {
       "path": "native/examples/persistence-2/README.md",
-      "bytes": 7077,
-      "sha256": "39898e0049e8918bfad1e3665ba7ac9496401aee3a0640dbbf3acfd440b6147d"
+      "bytes": 7321,
+      "sha256": "9973f90b80c6838bd080fd73f2b63044b15ee93b4dd40ea4d1437bb48717bcac"
     },
     {
       "path": "native/examples/persistence-2/main.c",
@@ -1331,8 +1891,8 @@
     },
     {
       "path": "native/examples/persistence-3/README.md",
-      "bytes": 6722,
-      "sha256": "84895e71c1f9dcb6c8994afc99eab6d65a6d7b986701d8b04c1adf0c96127004"
+      "bytes": 6966,
+      "sha256": "691fede4e00933ab2bc59ad6cf4ca3d3d15eaaa5e4d074363ca398af5c646da0"
     },
     {
       "path": "native/examples/persistence-3/main.c",
@@ -1341,8 +1901,8 @@
     },
     {
       "path": "native/examples/persistence-4/README.md",
-      "bytes": 6715,
-      "sha256": "cbb72bda8edfe0aa05d303b6e8f88d0912ad12dc0d17a664e327135817c100a6"
+      "bytes": 6959,
+      "sha256": "eadc28c125802cd1a696c21330807377bcfc21f5a343d2992aeedf1c3929f01c"
     },
     {
       "path": "native/examples/persistence-4/main.c",
@@ -1351,8 +1911,8 @@
     },
     {
       "path": "native/examples/persistence-5/README.md",
-      "bytes": 7032,
-      "sha256": "97fea1a25bcf1a6bdd245c2aaf42059b1d776acbcda568deff6928ce74f7257a"
+      "bytes": 7276,
+      "sha256": "9e126b4ed8b7aca920184db176fff062a3aae8d24744c3a30266ecd1595d8c06"
     },
     {
       "path": "native/examples/persistence-5/main.c",
@@ -1361,8 +1921,8 @@
     },
     {
       "path": "native/examples/persistence-6/README.md",
-      "bytes": 7220,
-      "sha256": "5ee27d9ac48f8ab86c7623f3133e7be7bac81258daacd56ff27d2e2c1f4d6882"
+      "bytes": 7464,
+      "sha256": "556f95d856bdcf8b3d89e36c5f2af01f86f9906a0868d56819be9b64d36b40a9"
     },
     {
       "path": "native/examples/persistence-6/main.c",
@@ -1426,8 +1986,8 @@
     },
     {
       "path": "native/examples/portable-c-1/README.md",
-      "bytes": 3812,
-      "sha256": "b22c947c854335d227ab06e25c6d72d6a622f723d3b3b7891d67a27646fed0e0"
+      "bytes": 4065,
+      "sha256": "3f56bf405eab043b868e625d2354604c25840ce39315b5f137dc54e3d08b96d2"
     },
     {
       "path": "native/examples/portable-c-1/main.c",
@@ -1436,8 +1996,8 @@
     },
     {
       "path": "native/examples/portable-c-2/README.md",
-      "bytes": 3906,
-      "sha256": "5f42e77964a719b28a1750c86a8286897164d30cb03724c0d48e279e8408111b"
+      "bytes": 4150,
+      "sha256": "2be305cbcea5c3bb93acec0b95e95ae5cd47da8a42b416385ad8d025224f8b9a"
     },
     {
       "path": "native/examples/portable-c-2/main.c",
@@ -1446,8 +2006,8 @@
     },
     {
       "path": "native/examples/portable-c-3/README.md",
-      "bytes": 3865,
-      "sha256": "523ee208787542223082a8294b88f328fc609469180483578eb049d9f32d4543"
+      "bytes": 4109,
+      "sha256": "2b00b58dd940430276d4afeb11be0f5df1a273ca647eba905ab60dcbf3d33d2a"
     },
     {
       "path": "native/examples/portable-c-3/main.c",
@@ -1456,8 +2016,8 @@
     },
     {
       "path": "native/examples/portable-c-4/README.md",
-      "bytes": 4742,
-      "sha256": "5e2582fbd6c76c78573563879d621ee03c106f61fa860441c6f604ea372a03ca"
+      "bytes": 4986,
+      "sha256": "fadbee668baf0be3581be35929b5fb4cc8986dd1bb32b943045fba8e8a392a31"
     },
     {
       "path": "native/examples/portable-c-4/core.c",
@@ -1481,8 +2041,8 @@
     },
     {
       "path": "native/examples/portable-c-5/README.md",
-      "bytes": 4118,
-      "sha256": "e66e91d01e0788460d04df7a3358db5c4b3cef79f08910e204b1f9d297b83dd2"
+      "bytes": 4362,
+      "sha256": "f39f10918190a5c09e266d0707b1684424b5b7b9961801ff9ae102df2902209c"
     },
     {
       "path": "native/examples/portable-c-5/main.c",
@@ -1491,8 +2051,8 @@
     },
     {
       "path": "native/examples/portable-c-6/README.md",
-      "bytes": 3762,
-      "sha256": "0e6cca8cc4ec8daffd2ee2ee52900c831ea54de56e210dee1c82fad23c8272f2"
+      "bytes": 4015,
+      "sha256": "9edc7ae80b0b96a07c6a11a2120e1115a095ad7816a92639b2cb013aa5531b5f"
     },
     {
       "path": "native/examples/portable-c-6/main.c",
@@ -1501,8 +2061,8 @@
     },
     {
       "path": "native/examples/portable-c-7/README.md",
-      "bytes": 4117,
-      "sha256": "320df65abb69a7a8da4ea4451aef5c283b7aa3dbdc63db9566015c4d6bc4b18b"
+      "bytes": 4361,
+      "sha256": "65cb9fe2736877eb9a7be4814621e514a6b0cf4deebb3b43afb04dca148c0d06"
     },
     {
       "path": "native/examples/portable-c-7/main.c",
@@ -1511,8 +2071,8 @@
     },
     {
       "path": "native/examples/portable-c-8/README.md",
-      "bytes": 3918,
-      "sha256": "e225a4930a72ddec4b77a09989e888a27ac295f03eecaf597c3af9a631550cb0"
+      "bytes": 4162,
+      "sha256": "0580a0bfd5fcbd0220a24dfec7429d10254ad844bba8084c55875535294b41b3"
     },
     {
       "path": "native/examples/portable-c-8/main.c",
@@ -1521,8 +2081,8 @@
     },
     {
       "path": "native/examples/portable-c-9/README.md",
-      "bytes": 3927,
-      "sha256": "a8f9593a8f6f968c1f636631eb67f8627f474a4c2638c384adcfb4398974781f"
+      "bytes": 4180,
+      "sha256": "a4d20e0404a43481c15ae0dedefe086a91ab444847c71770a82753589f5cf2c5"
     },
     {
       "path": "native/examples/portable-c-9/main.c",
@@ -1556,8 +2116,8 @@
     },
     {
       "path": "native/examples/recovery-1/README.md",
-      "bytes": 4775,
-      "sha256": "1417c9401c14505c1ee8bcc4f68c71c1a84984474b28f01b3aa76f617e55d029"
+      "bytes": 5019,
+      "sha256": "ba969c934a9403c076edf102183d5434a178902bcb35eef83767ac67f6586ec8"
     },
     {
       "path": "native/examples/recovery-1/main.c",
@@ -1566,8 +2126,8 @@
     },
     {
       "path": "native/examples/recovery-2/README.md",
-      "bytes": 4778,
-      "sha256": "8f9185506c15f1bf90e04f3ec7fd15dd2230f2cee1b1da3e07576c38df6306eb"
+      "bytes": 5022,
+      "sha256": "dccd3115a286d4b6479bebddb49b2d4e2f08d32c34f43979c6fb65fac8ef99a0"
     },
     {
       "path": "native/examples/recovery-2/main.c",
@@ -1576,8 +2136,8 @@
     },
     {
       "path": "native/examples/recovery-3/README.md",
-      "bytes": 4837,
-      "sha256": "267a84da58b075d3331a88e4eec6c0635d3ff3462a8c227379120df9c3ccfa89"
+      "bytes": 5081,
+      "sha256": "e3ac8030402079e2084c5d4bb01550085d225341d56b464078f3788c0f13d12c"
     },
     {
       "path": "native/examples/recovery-3/main.c",
@@ -1586,8 +2146,8 @@
     },
     {
       "path": "native/examples/recovery-4/README.md",
-      "bytes": 5441,
-      "sha256": "e687b474f6a6859dd7810a5ae4cf19b390c38efa38cf44fcf34911f06ea3769b"
+      "bytes": 5694,
+      "sha256": "1f773177042a3ea2d835b3926f75ca6b80906f07222fb2178a909d58c76a8766"
     },
     {
       "path": "native/examples/recovery-4/main.c",
@@ -1596,8 +2156,8 @@
     },
     {
       "path": "native/examples/recovery-5/README.md",
-      "bytes": 4888,
-      "sha256": "7aac5ed993183dd9d438468044e1a5c7820ae782971aa0996a6e47d42df666d1"
+      "bytes": 5132,
+      "sha256": "09fa2d520b2eb29efc713fce400eacdd11466a587f04abff362b66b29469af7c"
     },
     {
       "path": "native/examples/recovery-5/main.c",
@@ -1606,8 +2166,8 @@
     },
     {
       "path": "native/examples/recovery-6/README.md",
-      "bytes": 4260,
-      "sha256": "d42ddb6e52de2b87dcafbb0ef0b579100dcc5e825bba22e98dead73c3b362d46"
+      "bytes": 4504,
+      "sha256": "06e08d634c51627ff864f7388c0061289746a90b1769900a5477c9e76abcae54"
     },
     {
       "path": "native/examples/recovery-6/main.c",
@@ -1641,8 +2201,8 @@
     },
     {
       "path": "native/examples/reliability-1/README.md",
-      "bytes": 4073,
-      "sha256": "20f06de2288ad9675109c71b04f8644902aa17eb4f3e2b632db87c7833bc8377"
+      "bytes": 4317,
+      "sha256": "715af7acd8d17001446747dc3d1081ba83834ec781ba1252cdeb232c7fc4156f"
     },
     {
       "path": "native/examples/reliability-1/main.c",
@@ -1651,8 +2211,8 @@
     },
     {
       "path": "native/examples/reliability-2/README.md",
-      "bytes": 5589,
-      "sha256": "4620d091d60dfeb05bf523bb7c05193eddcb22d777e45cb77ff74b0bf34f0b3b"
+      "bytes": 5833,
+      "sha256": "42441a0a4f1eaecde67daf0c81ec2dc83e81219c862f41f9a14e8b4e2829f137"
     },
     {
       "path": "native/examples/reliability-2/main.c",
@@ -1661,8 +2221,8 @@
     },
     {
       "path": "native/examples/reliability-3/README.md",
-      "bytes": 11871,
-      "sha256": "eecf7f7c4c2fadca7742221de224dbfbce9600718eee2ae52b857a816f0498d2"
+      "bytes": 12115,
+      "sha256": "fb6d594df5f6a485dacca4228b8ce070262ff9bf4a7546585c3396b893398b17"
     },
     {
       "path": "native/examples/reliability-3/main.c",
@@ -1671,8 +2231,8 @@
     },
     {
       "path": "native/examples/richer-queries-1/README.md",
-      "bytes": 4970,
-      "sha256": "fec0fbb5ef5c3eede7be27bc86803d72bcba9befcd7f3d8c98790767d2e4ffb5"
+      "bytes": 5214,
+      "sha256": "47bea05f5e60e7f5902cf861a4cbef6e6e8ad02a71928de7276662ea1c9d8839"
     },
     {
       "path": "native/examples/richer-queries-1/main.c",
@@ -1681,8 +2241,8 @@
     },
     {
       "path": "native/examples/richer-queries-2/README.md",
-      "bytes": 3396,
-      "sha256": "289ae3e7d2e10290c7edbddd223d43f0708dfd7898a8bc2a427179fd7337a062"
+      "bytes": 3640,
+      "sha256": "4a633d3704549d41bf5395737b517fb916587654e4a3b818a093e370e29c32c4"
     },
     {
       "path": "native/examples/richer-queries-2/main.c",
@@ -1691,8 +2251,8 @@
     },
     {
       "path": "native/examples/richer-queries-3/README.md",
-      "bytes": 3857,
-      "sha256": "037ef7f65876a5daecba4dd413cf973ab82e040011acd87d51a59d55528ecd85"
+      "bytes": 4101,
+      "sha256": "d7f4e2e270168ff209b2ac65153b6a53a754f3cc2422dd3599dd911d336e580b"
     },
     {
       "path": "native/examples/richer-queries-3/main.c",
@@ -1726,8 +2286,8 @@
     },
     {
       "path": "native/examples/ship-1/README.md",
-      "bytes": 7607,
-      "sha256": "47f91d090f098396004016bcaee2ef7c3b1cfc52ef4e68ac8e9e57ccccae6cc0"
+      "bytes": 7851,
+      "sha256": "abaf62fc0975aaf30d50c8a7008a3d193b6166dd5a636e94428666edc6d0c3ca"
     },
     {
       "path": "native/examples/ship-1/main.c",
@@ -1736,8 +2296,8 @@
     },
     {
       "path": "native/examples/ship-2/README.md",
-      "bytes": 7429,
-      "sha256": "6b61ef9e1f13258abc44f2f7b4aa1ff4efd220f6c9be8555cd883b66a0c4765a"
+      "bytes": 7673,
+      "sha256": "c5f1a76af8b29495f183f467cdab8f83d6ccbaa158cd53a0efa9f529806e750b"
     },
     {
       "path": "native/examples/ship-2/main.c",
@@ -1746,8 +2306,8 @@
     },
     {
       "path": "native/examples/ship-3/README.md",
-      "bytes": 5164,
-      "sha256": "537674d0a14659e8de382e828c31adf58e80c59c980d5daf7f9135f219037419"
+      "bytes": 5408,
+      "sha256": "6bab1a02821e3d32d780689aa93b4d434a9790892f75bf98bc1aefbf4dadca31"
     },
     {
       "path": "native/examples/ship-3/main.c",
@@ -1756,8 +2316,8 @@
     },
     {
       "path": "native/examples/ship-4/README.md",
-      "bytes": 2807,
-      "sha256": "aa4540e40dc3e7caf21f7a65fbc9348539dd9f147024301a386c004a68ebd959"
+      "bytes": 3051,
+      "sha256": "441025b2c90b6400897ed34930f71ea1410b0b244a2cc4764cc25a06bab71979"
     },
     {
       "path": "native/examples/ship-4/main.c",
@@ -1766,8 +2326,8 @@
     },
     {
       "path": "native/examples/ship-5/README.md",
-      "bytes": 5897,
-      "sha256": "3ccef5e14adbfc91169b9ddb44632f29a66427ca5954b8a535fa7644c29f1da0"
+      "bytes": 6141,
+      "sha256": "69f56c48058e4c7d78b4a8ee818729d150022edb5d826419595666ad60064189"
     },
     {
       "path": "native/examples/ship-5/main.c",
@@ -1776,8 +2336,8 @@
     },
     {
       "path": "native/examples/ship-6/README.md",
-      "bytes": 6147,
-      "sha256": "bfdbd8d7b77f72b80a83d28a021958efe189d65282621f14858e38d229ef0a06"
+      "bytes": 6391,
+      "sha256": "c3317c488223e3df5baaae687684749f0594506ddce1a248d124a8889b6b5f40"
     },
     {
       "path": "native/examples/ship-6/main.c",
@@ -1786,8 +2346,8 @@
     },
     {
       "path": "native/examples/ship-7/README.md",
-      "bytes": 6580,
-      "sha256": "69dced87d9d48756618cf371d9ec36d854dd6e2285a3004c0db33299c52dfe51"
+      "bytes": 6824,
+      "sha256": "76772302d25804612b8aead4109167cee3fb00255e7c6a7dca6df00fe318699e"
     },
     {
       "path": "native/examples/ship-7/main.c",
@@ -1796,8 +2356,8 @@
     },
     {
       "path": "native/examples/ship-8/README.md",
-      "bytes": 5881,
-      "sha256": "87adba9ce1848b4963461e416638837efd3925ceddd17357e611749bca277f47"
+      "bytes": 6125,
+      "sha256": "9975578a66c304d432180a56a5cdec32059497e0596b9b7040495a6f5bb8386c"
     },
     {
       "path": "native/examples/ship-8/main.c",
@@ -1806,8 +2366,8 @@
     },
     {
       "path": "native/examples/snapshots-1/README.md",
-      "bytes": 4026,
-      "sha256": "509184dd693e84798f12897359dd87e0e1ccd91c2c97dd982d2a142740da23d0"
+      "bytes": 4270,
+      "sha256": "2ca39a921f73f3b15aeaac012c1d5f3ffbc7135118443315fc7ba138a937d1d3"
     },
     {
       "path": "native/examples/snapshots-1/main.c",
@@ -1816,8 +2376,8 @@
     },
     {
       "path": "native/examples/snapshots-2/README.md",
-      "bytes": 4525,
-      "sha256": "67025d48bac018360ee7336fb73a9c1a2be18f64915202ce475e0e6409883833"
+      "bytes": 4769,
+      "sha256": "ec7c9c5709ee1528346eb2df70efda05babeca28decdf45597e175206369effd"
     },
     {
       "path": "native/examples/snapshots-2/main.c",
@@ -1826,8 +2386,8 @@
     },
     {
       "path": "native/examples/snapshots-3/README.md",
-      "bytes": 4217,
-      "sha256": "ad606147249fa0cd894a8271a3689d78a1694a053ab5c609201bfc4994f71c15"
+      "bytes": 4461,
+      "sha256": "5f1bd13a62bdbed4a15ba9cfb103196fa5110285b5d9e64248c3f70e8f8f879d"
     },
     {
       "path": "native/examples/snapshots-3/main.c",
@@ -1866,8 +2426,8 @@
     },
     {
       "path": "native/examples/standards-evolution-1/README.md",
-      "bytes": 3025,
-      "sha256": "7d16991e1efe2d1e45bb739329109175c3e39817fca25c79e8588a80297a0034"
+      "bytes": 3269,
+      "sha256": "fc58eee3782cb9e00437c30b0283ed1dd791a76352443c7c988d436838a5a20a"
     },
     {
       "path": "native/examples/standards-evolution-1/main.c",
@@ -1876,8 +2436,8 @@
     },
     {
       "path": "native/examples/standards-evolution-2/README.md",
-      "bytes": 2989,
-      "sha256": "fcd82f30fb1961a759a1b324d09a522f0c9875bec5c1a7abc8555a4e1654445f"
+      "bytes": 3233,
+      "sha256": "6137730c7049e44062943d5ad80a8b040961db79e3ecbd3a0eee4e7ad76c6820"
     },
     {
       "path": "native/examples/standards-evolution-2/main.c",
@@ -1886,8 +2446,8 @@
     },
     {
       "path": "native/examples/standards-evolution-3/README.md",
-      "bytes": 3733,
-      "sha256": "cbe269122aed974495d14e471990479df9683f7fe0febe0286605da6b6dc601d"
+      "bytes": 3977,
+      "sha256": "9a261bc5d00c9b8dd671b5ee0dbd565857f6a15b701ad5dccacb7a3238fc6740"
     },
     {
       "path": "native/examples/standards-evolution-3/main.c",
@@ -1976,8 +2536,8 @@
     },
     {
       "path": "native/examples/threads-1/README.md",
-      "bytes": 3305,
-      "sha256": "ed0bfc077f35020d9bc0ec93243309a6d97c9a8709249b4c2df0ff11596cbbd2"
+      "bytes": 3549,
+      "sha256": "26e214fb28e475ad4497e3eee73f06f83f67ecf5c2e161a67bb6635f570bf1a7"
     },
     {
       "path": "native/examples/threads-1/main.c",
@@ -1986,8 +2546,8 @@
     },
     {
       "path": "native/examples/threads-2/README.md",
-      "bytes": 4590,
-      "sha256": "a3ee1777f9c8edb0ae6110586dffca4ee1f79ceabcce86eb8c1fcedd6d2ca893"
+      "bytes": 4834,
+      "sha256": "599d56ab2baa115873fb5394fcf38f9f08b6553577c746bee4c6d3194e2c92f1"
     },
     {
       "path": "native/examples/threads-2/main.c",
@@ -1996,8 +2556,8 @@
     },
     {
       "path": "native/examples/threads-3/README.md",
-      "bytes": 4716,
-      "sha256": "40036c7f194ebdf57a1ae5251b0ab796dfb636c481c19fdca394869b7eb452b4"
+      "bytes": 4960,
+      "sha256": "00a3200192d1e7274bb957e311083d43236d772e14681406a34fe971184daa81"
     },
     {
       "path": "native/examples/threads-3/main.c",
@@ -2140,6 +2700,566 @@
       "sha256": "8b70eff826d5cdfa1e6659769f13469429159713b58f8b9284a7208a52ff3818"
     },
     {
+      "path": "native/manuals/BSD-2-Clause.txt",
+      "bytes": 1266,
+      "sha256": "017b5ee48f680e82cba79141c7895a1f02b856df2512225f5c427fe36765ef0b"
+    },
+    {
+      "path": "native/manuals/BSD-3-Clause.txt",
+      "bytes": 1459,
+      "sha256": "3cf06aba3588c41c514f6946bb2d757b413ff6491647d474800f55edca75dcb4"
+    },
+    {
+      "path": "native/manuals/BSD-4-Clause-UC.txt",
+      "bytes": 1771,
+      "sha256": "c82a5eb55679a3fd483d992c2428e66ee4b9b05b5b78b4ac916692368955b526"
+    },
+    {
+      "path": "native/manuals/GPL-1.0-or-later.txt",
+      "bytes": 12235,
+      "sha256": "da37ffd5fcdf0a7d76af862a4330ea1076e1443b51782b2f912148357b7acabe"
+    },
+    {
+      "path": "native/manuals/GPL-2.0-only.txt",
+      "bytes": 17337,
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+    },
+    {
+      "path": "native/manuals/GPL-2.0-or-later.txt",
+      "bytes": 17337,
+      "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+    },
+    {
+      "path": "native/manuals/GPL-3.0-or-later.txt",
+      "bytes": 34674,
+      "sha256": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0"
+    },
+    {
+      "path": "native/manuals/LGPL-3.0-linking-exception.txt",
+      "bytes": 1033,
+      "sha256": "ba8baef109f934bf1832b45a75a22f2737bcccdac1211745c2bdcda9499e8a37"
+    },
+    {
+      "path": "native/manuals/LGPL-3.0-or-later.txt",
+      "bytes": 42098,
+      "sha256": "996af0513df21f7496288951c41428a03c174e9e4a9d63665c57d670f845ccb1"
+    },
+    {
+      "path": "native/manuals/Linux-man-pages-1-para.txt",
+      "bytes": 215,
+      "sha256": "f0c23664f8d8f73ed33aaba09b4686d05deb2723fe1cfd8fbc1f697013686cb3"
+    },
+    {
+      "path": "native/manuals/Linux-man-pages-copyleft-2-para.txt",
+      "bytes": 409,
+      "sha256": "9404a643cfa5e118b50ac14584f5ed01d63f2e14d7249068f3b69bdda73846ec"
+    },
+    {
+      "path": "native/manuals/Linux-man-pages-copyleft-var.txt",
+      "bytes": 799,
+      "sha256": "d3cdca84a710af3f270fe5ee33bc6c5c2cc87373559bc8acc52a8efbea6ee33f"
+    },
+    {
+      "path": "native/manuals/Linux-man-pages-copyleft.txt",
+      "bytes": 1019,
+      "sha256": "e7241c6405f8ad70943bcdb0fd83cb79fb25eec601ecf311acc9c72f19794d5a"
+    },
+    {
+      "path": "native/manuals/MIT.txt",
+      "bytes": 1078,
+      "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+    },
+    {
+      "path": "native/manuals/NOTICE.md",
+      "bytes": 967,
+      "sha256": "bc350733f272d42ec5059934e1d348b414dd84c7199033cc2e69831e231e52b1"
+    },
+    {
+      "path": "native/manuals/abort.3.txt",
+      "bytes": 2320,
+      "sha256": "4cd8a25dd1648cc9debd8c5765f0a63b6cf65e31e94b55fe8a7d053f6d2007a9"
+    },
+    {
+      "path": "native/manuals/assert.3.txt",
+      "bytes": 2405,
+      "sha256": "113550d43b9dc9f3db645936e15341d3ab9b4ff8c893bc636ebf0b59a28d755f"
+    },
+    {
+      "path": "native/manuals/atexit.3.txt",
+      "bytes": 3871,
+      "sha256": "7bc372855fce5be496fd1189054f2d2a6d44f809dd940ce61cda11c44bd6127c"
+    },
+    {
+      "path": "native/manuals/bsearch.3.txt",
+      "bytes": 3678,
+      "sha256": "76b545b677ed66b1e56795402442c15d790caf36fb941675e62135b140f6ef4f"
+    },
+    {
+      "path": "native/manuals/calloc.3.txt",
+      "bytes": 12471,
+      "sha256": "da237370e16af7de8d9e5e75233b415e885f126d6ffb31da2b14bb02e6119ca0"
+    },
+    {
+      "path": "native/manuals/clock_gettime.2.txt",
+      "bytes": 15833,
+      "sha256": "b5398deea7baf311d400259127b14c56a19ff2b0a1a4b044b3d623fe03376359"
+    },
+    {
+      "path": "native/manuals/close.2.txt",
+      "bytes": 6863,
+      "sha256": "d0c6ec6500d4c5fe262a6504f7565a5a64249a68e5591c324ff893c6b8140fa6"
+    },
+    {
+      "path": "native/manuals/errno.3.txt",
+      "bytes": 14016,
+      "sha256": "48ab2d63afb432d5c97394df0f7f823d98bae21f283358d34612942af19d4519"
+    },
+    {
+      "path": "native/manuals/exit.3.txt",
+      "bytes": 5315,
+      "sha256": "1ac371ec2142debc9efc277710114ceb4587c9dedc24678d4945ffb370701ae0"
+    },
+    {
+      "path": "native/manuals/fclose.3.txt",
+      "bytes": 1941,
+      "sha256": "02ac362af6ec5d8ae0850df1eb7e17fa20638aac312f6f04ee84fbe9cc1ee5fa"
+    },
+    {
+      "path": "native/manuals/feature_test_macros.7.txt",
+      "bytes": 26173,
+      "sha256": "b0aec12fe3d255187380961bc0936f7829f721a2e1310a4720262d4e709b3fe4"
+    },
+    {
+      "path": "native/manuals/fenv.3.txt",
+      "bytes": 9304,
+      "sha256": "fc25df72241598408516121785a97e919d3b46d5e328a1c0a70e52279912bd48"
+    },
+    {
+      "path": "native/manuals/feof.3.txt",
+      "bytes": 2512,
+      "sha256": "31becb997c09e6754f9c491b0bd814ab679f21ee8d2ba08802605a4c79aa8825"
+    },
+    {
+      "path": "native/manuals/ferror.3.txt",
+      "bytes": 2512,
+      "sha256": "31becb997c09e6754f9c491b0bd814ab679f21ee8d2ba08802605a4c79aa8825"
+    },
+    {
+      "path": "native/manuals/fflush.3.txt",
+      "bytes": 2432,
+      "sha256": "47810888e646b605baf77d3ac5af02784163057bee7d6c3391905f5fd63c3b76"
+    },
+    {
+      "path": "native/manuals/fgetc.3.txt",
+      "bytes": 2946,
+      "sha256": "2d1f36d0a82dbc8e7be8d947f0e1b8033a36e39671c21a3a2e80080bd0634b87"
+    },
+    {
+      "path": "native/manuals/fgets.3.txt",
+      "bytes": 2946,
+      "sha256": "2d1f36d0a82dbc8e7be8d947f0e1b8033a36e39671c21a3a2e80080bd0634b87"
+    },
+    {
+      "path": "native/manuals/fopen.3.txt",
+      "bytes": 10341,
+      "sha256": "db817d00686dac72ee2d115c356bc5887684e9eaffad6bc27c298bb0c2a4f10d"
+    },
+    {
+      "path": "native/manuals/fork.2.txt",
+      "bytes": 8851,
+      "sha256": "e2ebab4fdc55e3b56f7eef95e3b8f9911152e57d23108ef05f303f2ee02a886f"
+    },
+    {
+      "path": "native/manuals/fprintf.3.txt",
+      "bytes": 28153,
+      "sha256": "07ebd1b436cc1ab7582a72b0d4292e7a5bca5269ac721ec223aec0984bf6de43"
+    },
+    {
+      "path": "native/manuals/fread.3.txt",
+      "bytes": 3621,
+      "sha256": "0215ff72b524aaba8c3da1539383ab435570a7199cfb674c3e5fc2229f7c5dea"
+    },
+    {
+      "path": "native/manuals/free.3.txt",
+      "bytes": 12471,
+      "sha256": "da237370e16af7de8d9e5e75233b415e885f126d6ffb31da2b14bb02e6119ca0"
+    },
+    {
+      "path": "native/manuals/fseek.3.txt",
+      "bytes": 3679,
+      "sha256": "98db443a29ab92de260c8b24638063458e6834e352bf2d470b2eb23f88b49cf7"
+    },
+    {
+      "path": "native/manuals/fsync.2.txt",
+      "bytes": 4772,
+      "sha256": "c6126494442bed851655690b8f00eabc74461d3615787ccc6cf636d1adeeda47"
+    },
+    {
+      "path": "native/manuals/ftell.3.txt",
+      "bytes": 3679,
+      "sha256": "98db443a29ab92de260c8b24638063458e6834e352bf2d470b2eb23f88b49cf7"
+    },
+    {
+      "path": "native/manuals/fwrite.3.txt",
+      "bytes": 3621,
+      "sha256": "0215ff72b524aaba8c3da1539383ab435570a7199cfb674c3e5fc2229f7c5dea"
+    },
+    {
+      "path": "native/manuals/getchar.3.txt",
+      "bytes": 2946,
+      "sha256": "2d1f36d0a82dbc8e7be8d947f0e1b8033a36e39671c21a3a2e80080bd0634b87"
+    },
+    {
+      "path": "native/manuals/index.json",
+      "bytes": 13567,
+      "sha256": "de70068255aae354df109c54ff638a5b9ebb6ff688b8faa2575da4c57561167b"
+    },
+    {
+      "path": "native/manuals/isalpha.3.txt",
+      "bytes": 8149,
+      "sha256": "cf6feace4fd2ba63b9f6a205d25436280c17d0a62fe6d05cb9279d16cb9e97ea"
+    },
+    {
+      "path": "native/manuals/isdigit.3.txt",
+      "bytes": 8149,
+      "sha256": "cf6feace4fd2ba63b9f6a205d25436280c17d0a62fe6d05cb9279d16cb9e97ea"
+    },
+    {
+      "path": "native/manuals/isfinite.3.txt",
+      "bytes": 3270,
+      "sha256": "91ac3363b19c01fbbe327713118a313d5faff69e8bb83363b9c1abfa7e262843"
+    },
+    {
+      "path": "native/manuals/isnan.3.txt",
+      "bytes": 3270,
+      "sha256": "91ac3363b19c01fbbe327713118a313d5faff69e8bb83363b9c1abfa7e262843"
+    },
+    {
+      "path": "native/manuals/isspace.3.txt",
+      "bytes": 8149,
+      "sha256": "cf6feace4fd2ba63b9f6a205d25436280c17d0a62fe6d05cb9279d16cb9e97ea"
+    },
+    {
+      "path": "native/manuals/localeconv.3.txt",
+      "bytes": 1887,
+      "sha256": "a56a185488fecf99395d96bc59a5532c847b114012d4b029b0a0d2dd87bf46fe"
+    },
+    {
+      "path": "native/manuals/malloc.3.txt",
+      "bytes": 12471,
+      "sha256": "da237370e16af7de8d9e5e75233b415e885f126d6ffb31da2b14bb02e6119ca0"
+    },
+    {
+      "path": "native/manuals/memcmp.3.txt",
+      "bytes": 2409,
+      "sha256": "58f3a3bc1e05f6c427e32d2f2cca2b1f39fcce34410879320bedeb4fb96bf710"
+    },
+    {
+      "path": "native/manuals/memcpy.3.txt",
+      "bytes": 2528,
+      "sha256": "7407108687bc68ca82ccfd96e41e8630691ac8b1c02886ea7cb67f041d4e01b8"
+    },
+    {
+      "path": "native/manuals/memmove.3.txt",
+      "bytes": 1533,
+      "sha256": "07fad28f3ccd902cbbc895c954deb34d35620ce8415b6686ec6125abd5034c3b"
+    },
+    {
+      "path": "native/manuals/memset.3.txt",
+      "bytes": 1302,
+      "sha256": "cea0cf0a98def3af49a9308a778d2ea1cc7fdc02560c7d2f4e6c59eef5b940b9"
+    },
+    {
+      "path": "native/manuals/mmap.2.txt",
+      "bytes": 28881,
+      "sha256": "c195b4a6cedb3568aa6813e98467f17de8f6d2163d87f1dac8113c77c5b14c8c"
+    },
+    {
+      "path": "native/manuals/open.2.txt",
+      "bytes": 46811,
+      "sha256": "f1e47596ba59d7e3e5dc48b457a8a4c5b353517203763255f542c149d75ad3b5"
+    },
+    {
+      "path": "native/manuals/perror.3.txt",
+      "bytes": 3279,
+      "sha256": "1c0296b8fd54912a4d438cc14f04cea75f77f3bf81cf8ce124809ee3b4f58042"
+    },
+    {
+      "path": "native/manuals/pipe.2.txt",
+      "bytes": 7789,
+      "sha256": "5fc06e8fb4852173cccbeae8b8a3fa299f00551e3600a15cb46d2b61b4e3bce2"
+    },
+    {
+      "path": "native/manuals/pow.3.txt",
+      "bytes": 5501,
+      "sha256": "cdfb7b61d633a89874c1bac35c84037acc4f4261c1a2ac688cd9be23e0a64abb"
+    },
+    {
+      "path": "native/manuals/printf.3.txt",
+      "bytes": 28153,
+      "sha256": "07ebd1b436cc1ab7582a72b0d4292e7a5bca5269ac721ec223aec0984bf6de43"
+    },
+    {
+      "path": "native/manuals/pthread_cond_broadcast.3.txt",
+      "bytes": 8610,
+      "sha256": "03ded6afbc74981eda7b43a79d55b4d3952283e454cb86e327ae4381be2d5770"
+    },
+    {
+      "path": "native/manuals/pthread_cond_destroy.3.txt",
+      "bytes": 8610,
+      "sha256": "03ded6afbc74981eda7b43a79d55b4d3952283e454cb86e327ae4381be2d5770"
+    },
+    {
+      "path": "native/manuals/pthread_cond_init.3.txt",
+      "bytes": 8610,
+      "sha256": "03ded6afbc74981eda7b43a79d55b4d3952283e454cb86e327ae4381be2d5770"
+    },
+    {
+      "path": "native/manuals/pthread_cond_signal.3.txt",
+      "bytes": 8610,
+      "sha256": "03ded6afbc74981eda7b43a79d55b4d3952283e454cb86e327ae4381be2d5770"
+    },
+    {
+      "path": "native/manuals/pthread_cond_wait.3.txt",
+      "bytes": 8610,
+      "sha256": "03ded6afbc74981eda7b43a79d55b4d3952283e454cb86e327ae4381be2d5770"
+    },
+    {
+      "path": "native/manuals/pthread_create.3.txt",
+      "bytes": 11908,
+      "sha256": "3bbd3ef84f0576fe45ff820d2f078069d59f849aa31cb377b401a9fcc1adbe80"
+    },
+    {
+      "path": "native/manuals/pthread_equal.3.txt",
+      "bytes": 1508,
+      "sha256": "29a2b077add5972728b1f1ee2bdf82a1e63f433285037d7faaa95023e7dd1de4"
+    },
+    {
+      "path": "native/manuals/pthread_join.3.txt",
+      "bytes": 3534,
+      "sha256": "820df0dfcfd3a2527d532d6127ad9d6c478d10f031ab302a50fbb6b9978122ce"
+    },
+    {
+      "path": "native/manuals/pthread_mutex_destroy.3.txt",
+      "bytes": 7667,
+      "sha256": "ab52977fab381c36647385b7dad4bab482afdade149da5c9fb588c87dffae09f"
+    },
+    {
+      "path": "native/manuals/pthread_mutex_init.3.txt",
+      "bytes": 7667,
+      "sha256": "ab52977fab381c36647385b7dad4bab482afdade149da5c9fb588c87dffae09f"
+    },
+    {
+      "path": "native/manuals/pthread_mutex_lock.3.txt",
+      "bytes": 7667,
+      "sha256": "ab52977fab381c36647385b7dad4bab482afdade149da5c9fb588c87dffae09f"
+    },
+    {
+      "path": "native/manuals/pthread_mutex_unlock.3.txt",
+      "bytes": 7667,
+      "sha256": "ab52977fab381c36647385b7dad4bab482afdade149da5c9fb588c87dffae09f"
+    },
+    {
+      "path": "native/manuals/pthread_self.3.txt",
+      "bytes": 2251,
+      "sha256": "ede2b3bc4dfbc56be8ebbaa2f652206264534233e313ac2c931a360a530fa101"
+    },
+    {
+      "path": "native/manuals/pthreads.7.txt",
+      "bytes": 24623,
+      "sha256": "42d0d13daccb0cc3bf45f66fcb591872f129b854891de9eecbf819e5ad6fcd29"
+    },
+    {
+      "path": "native/manuals/putchar.3.txt",
+      "bytes": 2471,
+      "sha256": "879d41178d6af0d42f7eacf7c65439fc395e986690445c2466678ff67eafc959"
+    },
+    {
+      "path": "native/manuals/puts.3.txt",
+      "bytes": 2471,
+      "sha256": "879d41178d6af0d42f7eacf7c65439fc395e986690445c2466678ff67eafc959"
+    },
+    {
+      "path": "native/manuals/qsort.3.txt",
+      "bytes": 3905,
+      "sha256": "64d3e42f3f65c325438ff82b65e5d7dc750d536c9ffab349d68161fe9bdebe8b"
+    },
+    {
+      "path": "native/manuals/read.2.txt",
+      "bytes": 5995,
+      "sha256": "68d77af739ddf122643f5c292c973361730eeebd3e94a4fbe51a545814a7cd62"
+    },
+    {
+      "path": "native/manuals/realloc.3.txt",
+      "bytes": 12471,
+      "sha256": "da237370e16af7de8d9e5e75233b415e885f126d6ffb31da2b14bb02e6119ca0"
+    },
+    {
+      "path": "native/manuals/remove.3.txt",
+      "bytes": 2165,
+      "sha256": "31c74b7d86b23b6ae7fe441acc82065b82b85f65878d229c9ab3fbe5b26bdd5a"
+    },
+    {
+      "path": "native/manuals/rename.2.txt",
+      "bytes": 12500,
+      "sha256": "b66c46ae483e3a4712e7a86fe22c91ae5e0ffd3a0cb7c1436bd12414be670485"
+    },
+    {
+      "path": "native/manuals/rewind.3.txt",
+      "bytes": 3679,
+      "sha256": "98db443a29ab92de260c8b24638063458e6834e352bf2d470b2eb23f88b49cf7"
+    },
+    {
+      "path": "native/manuals/scanf.3.txt",
+      "bytes": 3970,
+      "sha256": "3edcf0e6a009c320dada1e19651461865c729b6d99c669b972a3ae4966003340"
+    },
+    {
+      "path": "native/manuals/sem_destroy.3.txt",
+      "bytes": 1952,
+      "sha256": "384c36b126fa9b08b793073e392eae48b010c190b9d3cb2da22c3272cac183a9"
+    },
+    {
+      "path": "native/manuals/sem_init.3.txt",
+      "bytes": 2762,
+      "sha256": "3a2790d67ca8a55b631904560b90013d42224e11648e2a2407efc00300f23c6a"
+    },
+    {
+      "path": "native/manuals/sem_post.3.txt",
+      "bytes": 1769,
+      "sha256": "e5c8db257d5939c5568f11483b6de00e8540ba1b3c043301eb3160144071a255"
+    },
+    {
+      "path": "native/manuals/sem_wait.3.txt",
+      "bytes": 6537,
+      "sha256": "84a7b771d18fdad3aeddcb34696a492cd68bf7d53c901e92451795e51db47995"
+    },
+    {
+      "path": "native/manuals/setlocale.3.txt",
+      "bytes": 5386,
+      "sha256": "295a0f809a2b35553f8e8901cfa54ccdeee566619ede50d00c038d05f98c562b"
+    },
+    {
+      "path": "native/manuals/setvbuf.3.txt",
+      "bytes": 4682,
+      "sha256": "579e0d77f608d9ba7ad95bb644d8a50add9c6676ea1cb006496b77f155492ceb"
+    },
+    {
+      "path": "native/manuals/signal.7.txt",
+      "bytes": 31801,
+      "sha256": "9d4cfcd091bdb23d621395c800d9810071fee834f6cd146e3129bc00e3dbbc73"
+    },
+    {
+      "path": "native/manuals/snprintf.3.txt",
+      "bytes": 28153,
+      "sha256": "07ebd1b436cc1ab7582a72b0d4292e7a5bca5269ac721ec223aec0984bf6de43"
+    },
+    {
+      "path": "native/manuals/sqrt.3.txt",
+      "bytes": 2135,
+      "sha256": "b56690e8b4134fc3a1d824fa8646db0c0dfb818aadd8cf4f85bb58283987e3c0"
+    },
+    {
+      "path": "native/manuals/sscanf.3.txt",
+      "bytes": 17459,
+      "sha256": "3cc11abf4f77239caae5b5872e92b3c4075d2e1a7b72453f45db971494a8075a"
+    },
+    {
+      "path": "native/manuals/stdio.3.txt",
+      "bytes": 8069,
+      "sha256": "f3030cc9e5986e7c7e81a1a6240dc781803a5d7db38fc02679921c84f4c7965b"
+    },
+    {
+      "path": "native/manuals/strchr.3.txt",
+      "bytes": 2532,
+      "sha256": "0668f4520802a7ecc40541d1d4b68938d5f3a2e6565e0c1ecf816ba6bcd9d7ef"
+    },
+    {
+      "path": "native/manuals/strcmp.3.txt",
+      "bytes": 4787,
+      "sha256": "650f3a9dcdcbdbe89b6367de55199c2f19a508b4674a9824192054a9c7d1bf8b"
+    },
+    {
+      "path": "native/manuals/strcpy.3.txt",
+      "bytes": 4624,
+      "sha256": "952f604bba03fae25d0376135daccf60c706b124309ff9f7235a38eb0efbd2f7"
+    },
+    {
+      "path": "native/manuals/strerror.3.txt",
+      "bytes": 7616,
+      "sha256": "3ac85ffec8be403c00843363cc257e9bf2b2c0c69d0ed2ebed62318e7e0da21a"
+    },
+    {
+      "path": "native/manuals/strftime.3.txt",
+      "bytes": 18038,
+      "sha256": "a40e0c9c634869d58bf368a8d2a06bf9f932b4c8fb53913ebab54cb2afc57d93"
+    },
+    {
+      "path": "native/manuals/strlen.3.txt",
+      "bytes": 1423,
+      "sha256": "753259bda91cc24bb5a67c915af59e3735e5aa50af173a79a3bd0b11737d66c0"
+    },
+    {
+      "path": "native/manuals/strncmp.3.txt",
+      "bytes": 4787,
+      "sha256": "650f3a9dcdcbdbe89b6367de55199c2f19a508b4674a9824192054a9c7d1bf8b"
+    },
+    {
+      "path": "native/manuals/strncpy.3.txt",
+      "bytes": 4858,
+      "sha256": "d6bdc935402668d70e4b29556b237fbbdeb6ad5da75f10eb9adee6671cffbbd9"
+    },
+    {
+      "path": "native/manuals/strstr.3.txt",
+      "bytes": 2104,
+      "sha256": "778c773584d47f104b4a64eead51b8833745fd33d06852ba8d10f3646f77b1a2"
+    },
+    {
+      "path": "native/manuals/strtod.3.txt",
+      "bytes": 4844,
+      "sha256": "536fa2b19317f9365cdfa1352ee54cebcf0915a013d3132875fe6dd20536d90f"
+    },
+    {
+      "path": "native/manuals/strtok.3.txt",
+      "bytes": 7450,
+      "sha256": "0b7e1c7eea318edc6014c9f2c3d631742e3f7c1bbdecaab99be32eccf40f1e7b"
+    },
+    {
+      "path": "native/manuals/strtol.3.txt",
+      "bytes": 7767,
+      "sha256": "af2bd57d72533b081dbc59819abd6473973e88b2fb3b51ce13b78eb29e3da6fa"
+    },
+    {
+      "path": "native/manuals/strtoul.3.txt",
+      "bytes": 5195,
+      "sha256": "cc542bef563a72731228475759bac41c5bb7bdfe1f2753c897b6a903f9a7b56a"
+    },
+    {
+      "path": "native/manuals/time.2.txt",
+      "bytes": 3062,
+      "sha256": "24d0b694b1a411a4bfcfba40f54f9509f7f2709cb5e5a36aeb4b7389714a2a0d"
+    },
+    {
+      "path": "native/manuals/tolower.3.txt",
+      "bytes": 3737,
+      "sha256": "0d46bccc05597ccd010c4ebb1ed4fdeac565093d3a411e96173d129b622379f9"
+    },
+    {
+      "path": "native/manuals/toupper.3.txt",
+      "bytes": 3737,
+      "sha256": "0d46bccc05597ccd010c4ebb1ed4fdeac565093d3a411e96173d129b622379f9"
+    },
+    {
+      "path": "native/manuals/wait.2.txt",
+      "bytes": 17809,
+      "sha256": "e9361e67031eaae5fedcf6a331815da052f434c8dca0d7f04f2a2721af8059a6"
+    },
+    {
+      "path": "native/manuals/write.2.txt",
+      "bytes": 8379,
+      "sha256": "bf327d67830eca512964c1a9c07afd2b7caf7d5815121623589e5854a2d729e4"
+    },
+    {
       "path": "native/portability/README.md",
       "bytes": 7617,
       "sha256": "1b7aa5de5a537e38447f67ba568d263dd67dbf59e17a71238d8b5f57fd58b9b1"
@@ -2221,8 +3341,8 @@
     },
     {
       "path": "tools/build_browser_linux.py",
-      "bytes": 2880,
-      "sha256": "737968c48e8b902b73f9b5ce3400ee5b6ebe8d18ad68c20cf66b16fcd42a5d69"
+      "bytes": 2960,
+      "sha256": "0e99dbf631c1007b81604b535411c480363216db7d7eaabff7b41fcb528e6627"
     },
     {
       "path": "tools/build_browser_programs.cjs",
@@ -2280,14 +3400,19 @@
       "sha256": "9638c64345796d4429a7a479aba7885d81c0980eb13704140ccfb83e8a107aab"
     },
     {
+      "path": "tools/import_manuals.py",
+      "bytes": 5799,
+      "sha256": "4558ac926311579bebdcfdc87ddd91425d7f57904c961b324144daf77f1740a4"
+    },
+    {
       "path": "tools/lab.py",
       "bytes": 5030,
       "sha256": "020e901050d2290c55ebc51c3035a02c4e340425ebc4734d3a0f5f8fb240ec69"
     },
     {
       "path": "tools/local-linux/build.py",
-      "bytes": 11622,
-      "sha256": "35b8da56fde5c6c579eb3d0d10eae119d7e0b4da9cf806ca8d78a4fbc1c2f1af"
+      "bytes": 11899,
+      "sha256": "fdc5b6bf3665c419e7392b2b37add72978c4440ed56abe87124d1ee7549fd04d"
     },
     {
       "path": "tools/local-linux/lz4-legacy.py",
@@ -2315,6 +3440,11 @@
       "sha256": "8a6120989dc604070b209ee6d5359944be25b1763206b61752eec71d29b75a17"
     },
     {
+      "path": "tools/man.py",
+      "bytes": 1450,
+      "sha256": "fc2bdebf95a74fd4cf7c5902c2fc32f5052ac30f579b08ab586473554e413bf6"
+    },
+    {
       "path": "tools/project.py",
       "bytes": 1512,
       "sha256": "5d8c0bba9f61f67fd829cda39928dea61a897245b2b80e23f1ecc2f9e3be1cd8"
@@ -2331,8 +3461,8 @@
     },
     {
       "path": "tools/sync_readings.cjs",
-      "bytes": 6457,
-      "sha256": "5afc0c895f25673d2c7305e36e97568bdb1a6881a6d9501c1f669f8f1839afe4"
+      "bytes": 6694,
+      "sha256": "b4873bb6d36a49f0838ac986e8796432b4aaa4f8241c59d5b02e5fc748c7fced"
     }
   ]
 }

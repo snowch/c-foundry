@@ -71,8 +71,10 @@ The most recently pushed item. LIFO is the defining removal order.
 
 ### References and help
 
-- [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) — Check FIFO behavior separately from implementation and capacity policy.
-- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) (online) — Check FIFO behavior separately from implementation and capacity policy.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) (online) — Check valid pointer arguments and access after deallocation.
 
 Native source: `native/examples/queues-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -169,7 +171,9 @@ The count field. Both states may have the same head and tail positions.
 
 ### References and help
 
-- [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) — Check FIFO behavior separately from implementation and capacity policy.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) (online) — Check FIFO behavior separately from implementation and capacity policy.
 
 **Use the documentation (optional):** Does FIFO behavior specify what a bounded queue should do when it is full?
 
@@ -263,7 +267,9 @@ Leave it unchanged. The capacity invariant must remain true when the operation r
 
 ### References and help
 
-- [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) — Check FIFO behavior separately from implementation and capacity policy.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: queues](https://xlinux.nist.gov/dads/HTML/queue.html) (online) — Check FIFO behavior separately from implementation and capacity policy.
 
 Native source: `native/examples/queues-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -340,7 +346,9 @@ The first close does not match the most recent open. The top is [ when ) arrives
 
 ### References and help
 
-- [NIST DADS: stacks](https://xlinux.nist.gov/dads/HTML/stack.html) — Check LIFO behavior and how it differs from a FIFO queue.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: stacks](https://xlinux.nist.gov/dads/HTML/stack.html) (online) — Check LIFO behavior and how it differs from a FIFO queue.
 
 Native source: `native/examples/queues-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -439,7 +447,9 @@ The right operand. The left operand was pushed earlier and lies below the right.
 
 ### References and help
 
-- [NIST DADS: stacks](https://xlinux.nist.gov/dads/HTML/stack.html) — Check LIFO behavior and how it differs from a FIFO queue.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: stacks](https://xlinux.nist.gov/dads/HTML/stack.html) (online) — Check LIFO behavior and how it differs from a FIFO queue.
 
 Native source: `native/examples/queues-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

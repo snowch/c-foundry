@@ -120,8 +120,10 @@ Yes. A compatible struct assignment copies its array members as part of the stru
 
 ### References and help
 
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
 **Use the documentation (optional):** Does a C struct declaration serialize a portable database row by itself?
 
@@ -250,8 +252,10 @@ No. The insertion operation appends rather than maintaining sorted order.
 
 ### References and help
 
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
 Native source: `native/examples/tables-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -373,8 +377,10 @@ DUPLICATE under this documented policy. Duplicate checking precedes the capacity
 
 ### References and help
 
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
 Native source: `native/examples/tables-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -488,8 +494,10 @@ No. Shifting changes the position-to-row mapping.
 
 ### References and help
 
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
 Native source: `native/examples/tables-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -607,8 +615,10 @@ Public results and logical state against a reference. An independent model can d
 
 ### References and help
 
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
-- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
+- [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html) (online) — Compare SQL clause behavior with the deliberately smaller TinyDB grammar.
 
 Native source: `native/examples/tables-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

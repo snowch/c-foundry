@@ -1,0 +1,578 @@
+[
+  {
+    "id": "printf.3",
+    "source": "man/man3/printf.3",
+    "sha256": "d12cfe949b9cdf67184f61d6cd94fb12149d1e393d6e4c976e2074a7c419c563",
+    "license": "GPL-2.0-or-later"
+  },
+  {
+    "id": "fprintf.3",
+    "source": "man/man3/printf.3",
+    "sha256": "d12cfe949b9cdf67184f61d6cd94fb12149d1e393d6e4c976e2074a7c419c563",
+    "license": "GPL-2.0-or-later"
+  },
+  {
+    "id": "snprintf.3",
+    "source": "man/man3/printf.3",
+    "sha256": "d12cfe949b9cdf67184f61d6cd94fb12149d1e393d6e4c976e2074a7c419c563",
+    "license": "GPL-2.0-or-later"
+  },
+  {
+    "id": "puts.3",
+    "source": "man/man3/puts.3",
+    "sha256": "1e84086c50a82b57896a8a084cfbe2650eb85e88c50ba615848e378c966a4385",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "putchar.3",
+    "source": "man/man3/puts.3",
+    "sha256": "1e84086c50a82b57896a8a084cfbe2650eb85e88c50ba615848e378c966a4385",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "fgets.3",
+    "source": "man/man3/fgetc.3",
+    "sha256": "5b043d0039b905b8b27d75652686592eea0e7f0e6b366f692ba03e606433fc8b",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "getchar.3",
+    "source": "man/man3/fgetc.3",
+    "sha256": "5b043d0039b905b8b27d75652686592eea0e7f0e6b366f692ba03e606433fc8b",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "fgetc.3",
+    "source": "man/man3/fgetc.3",
+    "sha256": "5b043d0039b905b8b27d75652686592eea0e7f0e6b366f692ba03e606433fc8b",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "scanf.3",
+    "source": "man/man3/scanf.3",
+    "sha256": "97514072ea51409a1417f3b9f99c88a15f06e0ce91386c67be43807d1f0c70f8",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "sscanf.3",
+    "source": "man/man3/sscanf.3",
+    "sha256": "33f37780a7c087012a5754f55892648b75953e2928e2e127b1421effc2b9b74c",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "fopen.3",
+    "source": "man/man3/fopen.3",
+    "sha256": "051592c4435fc670c2cee189e1f17dc1849ae2bc4c19e0dc6d644df3934b7215",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "fclose.3",
+    "source": "man/man3/fclose.3",
+    "sha256": "22451f4cc83635d998830adc2b627965d38ff8e9a1f65411631d8ad39ca613da",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "fread.3",
+    "source": "man/man3/fread.3",
+    "sha256": "977d3b3dc0461f658af3e81083cc7d032f912a499f5ca49b887941e5a9f56c02",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "fwrite.3",
+    "source": "man/man3/fread.3",
+    "sha256": "977d3b3dc0461f658af3e81083cc7d032f912a499f5ca49b887941e5a9f56c02",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "fflush.3",
+    "source": "man/man3/fflush.3",
+    "sha256": "5ba63cf7f27d85a7367917642998e3cc910b7ed9b2b8c569d69fc33320d536ca",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "ferror.3",
+    "source": "man/man3/ferror.3",
+    "sha256": "0a3d469869a0e5b43e028f7aeae0f3c0110c3bf244a7050c61cae2b7c2a51b5c",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "feof.3",
+    "source": "man/man3/ferror.3",
+    "sha256": "0a3d469869a0e5b43e028f7aeae0f3c0110c3bf244a7050c61cae2b7c2a51b5c",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "fseek.3",
+    "source": "man/man3/fseek.3",
+    "sha256": "8d34bb84ff7918e7b5776cdb18b776242c5e07a428af55e2df0563e61a6f6e6b",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "ftell.3",
+    "source": "man/man3/fseek.3",
+    "sha256": "8d34bb84ff7918e7b5776cdb18b776242c5e07a428af55e2df0563e61a6f6e6b",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "rewind.3",
+    "source": "man/man3/fseek.3",
+    "sha256": "8d34bb84ff7918e7b5776cdb18b776242c5e07a428af55e2df0563e61a6f6e6b",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "remove.3",
+    "source": "man/man3/remove.3",
+    "sha256": "f5557464b65e6291b530742219dde49a016baa54e47768738295f7bf42698a6b",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "rename.2",
+    "source": "man/man2/rename.2",
+    "sha256": "4f39e029eadbb3c33bd4aa2322140cb3eb1c1535fd0d7323c9371efab77c249d",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "setvbuf.3",
+    "source": "man/man3/setbuf.3",
+    "sha256": "6ec4d9dd03113213a76fbd0b34d6652e47c51699710dd614a4fa6b5179f4ee80",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "malloc.3",
+    "source": "man/man3/malloc.3",
+    "sha256": "3ca29dbb74c64c555d701ad8cff37a2e3d0013a753858dc7b182b4c458eb2099",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "calloc.3",
+    "source": "man/man3/malloc.3",
+    "sha256": "3ca29dbb74c64c555d701ad8cff37a2e3d0013a753858dc7b182b4c458eb2099",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "realloc.3",
+    "source": "man/man3/malloc.3",
+    "sha256": "3ca29dbb74c64c555d701ad8cff37a2e3d0013a753858dc7b182b4c458eb2099",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "free.3",
+    "source": "man/man3/malloc.3",
+    "sha256": "3ca29dbb74c64c555d701ad8cff37a2e3d0013a753858dc7b182b4c458eb2099",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "memcpy.3",
+    "source": "man/man3/memcpy.3",
+    "sha256": "31631f5719375141cd1af64285b0fd4f71a785ca916baeffb9a8fea9d6f6f36d",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "memmove.3",
+    "source": "man/man3/memmove.3",
+    "sha256": "74e93873791bb3014767aaa41f9d1f491850341cbcf3f9dd8b80d715a9f39f29",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "memset.3",
+    "source": "man/man3/memset.3",
+    "sha256": "d1e8a97bdd378d03530c0627bc51f5b2c7e7c672dcaa1db87777dab389e61b14",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "memcmp.3",
+    "source": "man/man3/memcmp.3",
+    "sha256": "0a8694f0e6655213b44ec91e10414121653a3c05294922652d12913a7da2bd6d",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strlen.3",
+    "source": "man/man3/strlen.3",
+    "sha256": "c310f840485250aef7a5ea5043600f27f493f2794297e45a384cc572e0157ca7",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strcmp.3",
+    "source": "man/man3/strcmp.3",
+    "sha256": "5f04bc7ee05f5ee6e44473e15b39f1580efa4f87dea3ede30caa73c601b24cb4",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strncmp.3",
+    "source": "man/man3/strcmp.3",
+    "sha256": "5f04bc7ee05f5ee6e44473e15b39f1580efa4f87dea3ede30caa73c601b24cb4",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strcpy.3",
+    "source": "man/man3/strcpy.3",
+    "sha256": "5d08b2d53ff6afe90f13213aef0b34253bfc07fab71c7b54b052850dbe6f3796",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strncpy.3",
+    "source": "man/man3/stpncpy.3",
+    "sha256": "565a6a72d4c2e9e796bfd18d5739c2287abdb8bb41c9a440a5fce2df6ac9d688",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strchr.3",
+    "source": "man/man3/strchr.3",
+    "sha256": "459032dac46f38010a990d26b58689d732501d60134b05e6109ccb4bcc88a8a6",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strstr.3",
+    "source": "man/man3/strstr.3",
+    "sha256": "d32bb85c26b41c025d00253cbe4669fe28cd38420f3eb32a16a9abafe8263112",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strtok.3",
+    "source": "man/man3/strtok.3",
+    "sha256": "42d349d183ee061225e4a121d14e963f193c9652dfc16b5f38319bd5bb2cca9e",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strtol.3",
+    "source": "man/man3/strtol.3",
+    "sha256": "88b8d9df99f077266baa536ec715a0ef8e80a138b9fc9c160d979cb29802e21d",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strtoul.3",
+    "source": "man/man3/strtoul.3",
+    "sha256": "2021de6e1549717c35d85a5ea13484315e93714657f9c91a6132f3720d740749",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strtod.3",
+    "source": "man/man3/strtod.3",
+    "sha256": "7621c1b0ef97961dac117d6ebdc64fb23a60615c2f2a4523d3304ddd97f6d4cf",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "isspace.3",
+    "source": "man/man3/isalpha.3",
+    "sha256": "8e80f57a810fe8f13095b8700813d3bb0d91b891be380bb58506df9541b9393a",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "isalpha.3",
+    "source": "man/man3/isalpha.3",
+    "sha256": "8e80f57a810fe8f13095b8700813d3bb0d91b891be380bb58506df9541b9393a",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "isdigit.3",
+    "source": "man/man3/isalpha.3",
+    "sha256": "8e80f57a810fe8f13095b8700813d3bb0d91b891be380bb58506df9541b9393a",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "tolower.3",
+    "source": "man/man3/toupper.3",
+    "sha256": "8f194c3bb4071dbbffa4dd439403deead125705c748324f8ef41f1566f2ee456",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "toupper.3",
+    "source": "man/man3/toupper.3",
+    "sha256": "8f194c3bb4071dbbffa4dd439403deead125705c748324f8ef41f1566f2ee456",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "qsort.3",
+    "source": "man/man3/qsort.3",
+    "sha256": "eab3c3bb00560e46eaa19725332b616ac46092afa57c67c5706892111cce9d2d",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "bsearch.3",
+    "source": "man/man3/bsearch.3",
+    "sha256": "a3a9f25637efe9e3d5b00099c730dff38b9aab4b59c76ef2e0b07b0feb71e24b",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "assert.3",
+    "source": "man/man3/assert.3",
+    "sha256": "ff4d0cfb3431e635c6eccc633ed8e165decbfd860a287c71f6f12504a82b7685",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "perror.3",
+    "source": "man/man3/perror.3",
+    "sha256": "ff2319740f482e549dc746d69cf151bdcaef38aa066a07509a2d62006e140026",
+    "license": "GPL-2.0-or-later"
+  },
+  {
+    "id": "strerror.3",
+    "source": "man/man3/strerror.3",
+    "sha256": "108fce3760f1c81635a183907827d3470ec27337abf4a980e8afc0307593b71f",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "exit.3",
+    "source": "man/man3/exit.3",
+    "sha256": "42d94b87ed47788b76924937c5821605af74e95ef6ef4bdc9e5820782cbc1914",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "abort.3",
+    "source": "man/man3/abort.3",
+    "sha256": "0c20876aacad21dc69db44b887b60d5e07056a3466ae38445301b828e930f1f4",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "atexit.3",
+    "source": "man/man3/atexit.3",
+    "sha256": "c6a7af31450fb4be98dcca3021e95d692c2a4e59afe72c4ef4770ff81d883e05",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "strftime.3",
+    "source": "man/man3/strftime.3",
+    "sha256": "b810626f7e5bf9abc75c22403374c6144b38521f2c2dcc5732a28642aa0957aa",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "time.2",
+    "source": "man/man2/time.2",
+    "sha256": "a8d3f04d446cd1810746f365a1bdfecbd23bf4ff6d5b2ed34678be9f0fddf48b",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "clock_gettime.2",
+    "source": "man/man2/clock_getres.2",
+    "sha256": "b72ec2b60860a15407c10d191e50106ecf2cb8a360c0922a38a884081f717862",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "setlocale.3",
+    "source": "man/man3/setlocale.3",
+    "sha256": "88f8ea65bf924e72472444074648a9914dce2587b7f53e6365347dbbd4a2526c",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "localeconv.3",
+    "source": "man/man3/localeconv.3",
+    "sha256": "86a783816ecd73afafa29bdbe08ebed4528596dbd56acd4b8f02b30b38ad7c77",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "sqrt.3",
+    "source": "man/man3/sqrt.3",
+    "sha256": "687faf94f7968bfead46d28918b85dd996a6a595636966175dd83ac03e2d12d3",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pow.3",
+    "source": "man/man3/pow.3",
+    "sha256": "e5decb50155c4ae149329a9aa05071bb6d62af05c8cd246e95d35d45d877aa86",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "isnan.3",
+    "source": "man/man3/fpclassify.3",
+    "sha256": "5da73263e323fc6927f48086b5dbce91333728794c546734dcbf55dc33397fb4",
+    "license": "GPL-1.0-or-later"
+  },
+  {
+    "id": "isfinite.3",
+    "source": "man/man3/fpclassify.3",
+    "sha256": "5da73263e323fc6927f48086b5dbce91333728794c546734dcbf55dc33397fb4",
+    "license": "GPL-1.0-or-later"
+  },
+  {
+    "id": "fenv.3",
+    "source": "man/man3/fenv.3",
+    "sha256": "1d94015f68c6303641cf3924ae0ef4c27f4b9fc0b876c4d38fdb0da0f2194c22",
+    "license": "GPL-2.0-or-later"
+  },
+  {
+    "id": "stdio.3",
+    "source": "man/man3/stdio.3",
+    "sha256": "6c3470378e5055a24326881547266ee8c64655c2731bdd5775f330f4b2560258",
+    "license": "BSD-4-Clause-UC"
+  },
+  {
+    "id": "errno.3",
+    "source": "man/man3/errno.3",
+    "sha256": "18fbca55815d62eec2581f9ec51dc6816d741f33deb87f5cb212ddd0e6aa499e",
+    "license": "GPL-2.0-or-later"
+  },
+  {
+    "id": "pthread_create.3",
+    "source": "man/man3/pthread_create.3",
+    "sha256": "6084933ad693f7bc3ecccc945a36eac4f3e905b665689c42da123c6388d48bf1",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_join.3",
+    "source": "man/man3/pthread_join.3",
+    "sha256": "ccd1d2b8680476442571c179a092f19528314695b2bede9e703df1c742ae8142",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_mutex_init.3",
+    "source": "man/man3/pthread_mutex_init.3",
+    "sha256": "670693a468d40827e267e9395d4d83f425a408a975b507bcabf518aa062d34d3",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_mutex_lock.3",
+    "source": "man/man3/pthread_mutex_init.3",
+    "sha256": "670693a468d40827e267e9395d4d83f425a408a975b507bcabf518aa062d34d3",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_mutex_unlock.3",
+    "source": "man/man3/pthread_mutex_init.3",
+    "sha256": "670693a468d40827e267e9395d4d83f425a408a975b507bcabf518aa062d34d3",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_mutex_destroy.3",
+    "source": "man/man3/pthread_mutex_init.3",
+    "sha256": "670693a468d40827e267e9395d4d83f425a408a975b507bcabf518aa062d34d3",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_cond_init.3",
+    "source": "man/man3/pthread_cond_init.3",
+    "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_cond_wait.3",
+    "source": "man/man3/pthread_cond_init.3",
+    "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_cond_signal.3",
+    "source": "man/man3/pthread_cond_init.3",
+    "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_cond_broadcast.3",
+    "source": "man/man3/pthread_cond_init.3",
+    "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_cond_destroy.3",
+    "source": "man/man3/pthread_cond_init.3",
+    "sha256": "2738267f67cb3788118fb339dbfee4331bafb4b60089e534e57334edb1dc9fbc",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_self.3",
+    "source": "man/man3/pthread_self.3",
+    "sha256": "c3517196bbcfa9da99d5568f3d8516a3280edd796dbdedf2b61dc345486c6aa5",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthread_equal.3",
+    "source": "man/man3/pthread_equal.3",
+    "sha256": "4d2d33f876648b51f60d9deb3e1c53b528136a032d91340fab347475832098a9",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "sem_init.3",
+    "source": "man/man3/sem_init.3",
+    "sha256": "fe6ee07c162c3e6b1c21b4327bc59bee69b78fc550295df01a3ac61cd933160e",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "sem_wait.3",
+    "source": "man/man3/sem_wait.3",
+    "sha256": "2929a6d20545bca68e5211c4ea9b9ea509ab70c4e20860820beae58a5d5fd4eb",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "sem_post.3",
+    "source": "man/man3/sem_post.3",
+    "sha256": "ac6d91315af8560b55bed2a06d7162f923361e70cc9debe69f681149f3b19890",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "sem_destroy.3",
+    "source": "man/man3/sem_destroy.3",
+    "sha256": "e9a2a0b106f7d007126d5d2cc2d9cde0c2b7c4075fa2e00a3bfb8e661a2a9dd2",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "fsync.2",
+    "source": "man/man2/fsync.2",
+    "sha256": "7667990a911f5519fd0b686a99b62c0e3df342414879418854d2d39e5e6a2f2e",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "open.2",
+    "source": "man/man2/open.2",
+    "sha256": "11801291bfb403118addca5cc14ce9c2ce56649f573be6c3f333d53851cb4fcd",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "read.2",
+    "source": "man/man2/read.2",
+    "sha256": "803922a20bb57a77e0115f440f53931efe8c1c20cba9918940fd811a77083053",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "write.2",
+    "source": "man/man2/write.2",
+    "sha256": "bc842a7aafa1570b67f038c86d2f0d468f4d51e463ef3e4bdc710a457e6bd990",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "close.2",
+    "source": "man/man2/close.2",
+    "sha256": "ac800c7e3f983330ac2a2f289a6659b03cd51f96888f899e80124a14dae2a14a",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "fork.2",
+    "source": "man/man2/fork.2",
+    "sha256": "c0288e19c073dcfd469e62594f5aa25521da13dcd2be7d5da5b248fdf4d5693d",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "wait.2",
+    "source": "man/man2/wait.2",
+    "sha256": "d108a9453a63f2858121ab4b9487c7a302fd08a2a8a18214a26be0f743560fc7",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pipe.2",
+    "source": "man/man2/pipe.2",
+    "sha256": "202f87360845ee4f1f14aa318e69e0803cd2ba100c1db55cf85a5653a614760f",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "mmap.2",
+    "source": "man/man2/mmap.2",
+    "sha256": "678889e186bcb07f9e71b8f65f55f8c498335ee785a5417315db2ed478283e5c",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "pthreads.7",
+    "source": "man/man7/pthreads.7",
+    "sha256": "4ef555c96b14a2cca776aa0dd895009268d2e69597e4085ad70881d413d20ba5",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "signal.7",
+    "source": "man/man7/signal.7",
+    "sha256": "e2abecee3ec8f6a51a6c170c7fbd056034b6eb42b398e6875eddfb903fa5ab72",
+    "license": "Linux-man-pages-copyleft"
+  },
+  {
+    "id": "feature_test_macros.7",
+    "source": "man/man7/feature_test_macros.7",
+    "sha256": "a817273ccc067d1206559f53adb7bac468c70ba2f7ae15869b5c322f313e3360",
+    "license": "Linux-man-pages-copyleft"
+  }
+]

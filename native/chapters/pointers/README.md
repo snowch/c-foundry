@@ -66,8 +66,10 @@ p first holds an address that reaches value. The assignment through *p changes v
 
 ### References and help
 
-- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) (online) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
 
 Native source: `native/examples/pointers-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -142,8 +144,10 @@ int **. The helper needs access to the pointer object itself, through its addres
 
 ### References and help
 
-- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) (online) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
 
 Native source: `native/examples/pointers-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -207,8 +211,10 @@ No: it is one past the array. The one-past position supports iteration boundarie
 
 ### References and help
 
-- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) (online) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
 
 **Use the documentation (optional):** May you form a pointer one past an array, and may you dereference it?
 
@@ -281,8 +287,10 @@ read = &b;. The pointer may change, but this access path does not permit modifyi
 
 ### References and help
 
-- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) (online) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
 
 Native source: `native/examples/pointers-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -352,8 +360,10 @@ It stores its own int value. The initializer copies the integer into a separate 
 
 ### References and help
 
-- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) (online) — Check pointer declarations, null pointers, and valid pointer operations.
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
 
 Native source: `native/examples/pointers-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

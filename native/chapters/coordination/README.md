@@ -164,8 +164,10 @@ The predicate may still be false. A wake is permission to re-evaluate state unde
 
 ### References and help
 
-- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
-- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) (online) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) (online) — Check thread creation, joining, mutexes, and optional implementation support.
 
 **Use the documentation (optional):** Why should a condition-variable wait be inside a loop that rechecks a predicate?
 
@@ -339,8 +341,10 @@ The producer waits for space or closure. Blocking admission preserves accepted w
 
 ### References and help
 
-- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
-- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) (online) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) (online) — Check thread creation, joining, mutexes, and optional implementation support.
 
 Native source: `native/examples/coordination-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -438,8 +442,10 @@ No. It addresses circular wait, not every scheduling policy.
 
 ### References and help
 
-- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) — Read the predicate-loop and mutex rules for waiting on a condition variable.
-- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [Linux/POSIX manual: pthread_cond_wait(3)](https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html) (online) — Read the predicate-loop and mutex rules for waiting on a condition variable.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) (online) — Check thread creation, joining, mutexes, and optional implementation support.
 
 Native source: `native/examples/coordination-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

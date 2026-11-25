@@ -76,8 +76,10 @@ Yes, especially for many scattered matches. Lookup and row-fetch costs can excee
 
 ### References and help
 
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
-- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) (online) — Compare a plan explanation with measured execution work.
 
 Native source: `native/examples/planning-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -137,8 +139,10 @@ The fraction of rows passing a predicate. It is a cardinality estimate relative 
 
 ### References and help
 
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
-- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) (online) — Compare a plan explanation with measured execution work.
 
 Native source: `native/examples/planning-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -208,8 +212,10 @@ After enough qualifying rows are emitted in the requested order. Residual predic
 
 ### References and help
 
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
-- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) (online) — Compare a plan explanation with measured execution work.
 
 Native source: `native/examples/planning-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -286,8 +292,10 @@ No. It reports the selected model; actual execution needs a separate explicit pa
 
 ### References and help
 
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
-- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) (online) — Compare a plan explanation with measured execution work.
 
 **Use the documentation (optional):** Does an EXPLAIN plan by itself establish how many pages the execution actually reads?
 
@@ -360,8 +368,10 @@ No. They measure different work and may differ greatly under selective filters.
 
 ### References and help
 
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
-- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) (online) — Compare a plan explanation with measured execution work.
 
 Native source: `native/examples/planning-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -438,8 +448,10 @@ N times M. Every outer row scans all inner rows.
 
 ### References and help
 
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
-- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) (online) — Compare a plan explanation with measured execution work.
 
 Native source: `native/examples/planning-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

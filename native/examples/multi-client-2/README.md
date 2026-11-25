@@ -94,8 +94,10 @@ No. The transaction handle is associated with a session identity.
 
 ### References and help
 
-- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
-- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: transactions](https://www.sqlite.org/lang_transaction.html) (online) — Compare BEGIN, COMMIT, and ROLLBACK with the deliberately smaller transaction model.
+- [SQLite documentation: isolation](https://www.sqlite.org/isolation.html) (online) — Compare committed visibility and snapshot behavior with the lesson’s explicit contract.
 
 Native source: `native/examples/multi-client-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

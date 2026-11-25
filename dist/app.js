@@ -201,6 +201,8 @@
     else if(parts[0]==='course'||parts[0]==='lab'||parts[0]==='part'){renderMap();showView('curriculum');}
     else if(parts[0]==='capstone')showView('capstone');
     else if(parts[0]==='workspace'){showView('workspace');window.commandWorkspace?.init();}
+    else if(parts[0]==='manual'&&window.cManuals){$('preview-content').innerHTML=cManuals.render(parts[1]);showView('preview');}
+    else if(parts[0]==='reference'&&window.cManuals){$('preview-content').innerHTML=cManuals.reference(parts[1]);showView('preview');}
     else if(parts[0]==='setup')showView('setup');
     else if(parts[0]==='linux'){showView('linux');try{if(!window.browserLinux.show(parts[1]||'',parts[2]?decodeURIComponent(parts[2]):''))notFound();}catch(_){notFound();}}
     else if(parts[0]==='tools'&&parts[1]==='threadsanitizer'){$('preview-content').innerHTML=window.browserLinux.tsanPage();showView('preview');}
@@ -210,7 +212,7 @@
       if(!chapter||(parts[2]&&!topic)){notFound();}else preview(chapter,topic);
     }else{notFound();}
     currentRoute=raw;document.title=(document.querySelector('main > section:not([hidden]) h1')?.textContent||'Course')+' · C Foundry';
-    closeCourseMenu();window.dispatchEvent(new CustomEvent('c-foundry:route'));const heading=[...document.querySelectorAll('main > section:not([hidden]) h1')].find(node=>!node.closest('[hidden]'));heading?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});
+    closeCourseMenu();window.dispatchEvent(new CustomEvent('c-foundry:route'));const heading=[...document.querySelectorAll('main > section:not([hidden]) h1')].find(node=>!node.closest('[hidden]'));heading?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});if(parts[0]==='manual'&&parts[2])document.getElementById(parts[2])?.scrollIntoView();
   }
   function notFound(){$('preview-content').innerHTML='<h1 tabindex="-1">Page not found</h1><p><a href="#/course">Return to the course map</a></p>';showView('preview');}
   function go(path,replace=false){if(busy){toast('Stop the program before leaving this lesson.');return;}history[replace?'replaceState':'pushState'](null,'','#'+path);renderRoute();}
@@ -253,9 +255,9 @@
         }
       } else if(data.type==='error') {
         finish();$('engine-status').textContent=data.runtimeLoad?'Code runner files could not be loaded.':'Run did not finish';const details=[data.diagnostics,data.output,data.message].filter(Boolean).join('\n\n');
-        $('run-warning').hidden=false;$('run-warning').textContent=data.runtimeLoad?'The compiler files could not be loaded. Your code and previous output are kept.':'The program could not complete. Read the compiler or execution message below.';
+        $('run-warning').hidden=false;$('run-warning').textContent=data.runtimeLoad?'The compiler files could not be loaded. Your code and previous output are kept.':'This attempt failed. Read Compiler and execution messages below.';
         $('run-diagnostics').hidden=false;$('run-diagnostics').open=!data.runtimeLoad;$('run-diagnostics').querySelector('pre').textContent=details;$('runtime-reload').hidden=!data.runtimeLoad;
-        if(!hasOutput){$('output').className='error';$('output').textContent=details;}else outputContext('Output from the last program that ran. The latest attempt did not complete.');consoleTab('output');
+        if(!hasOutput){$('output').textContent='';}else outputContext('Previous successful output is shown below. This attempt failed; it did not replace that output.');consoleTab('output');
         if(mode==='check'){$('test-count').textContent='error';$('test-results').textContent='Checks could not finish. Fix the compiler or runtime error shown in Console.';}
         worker.terminate();worker=null;
       }

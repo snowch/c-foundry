@@ -95,8 +95,10 @@ Not by itself. Atomicity for one object and synchronization of other objects are
 
 ### References and help
 
-- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
-- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) (online) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) (online) — Check thread creation, joining, mutexes, and optional implementation support.
 
 Native source: `native/examples/atomics-1/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -170,8 +172,10 @@ No, it acts on its atomic object. The operation’s atomicity scope is the objec
 
 ### References and help
 
-- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
-- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) (online) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) (online) — Check thread creation, joining, mutexes, and optional implementation support.
 
 Native source: `native/examples/atomics-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -264,8 +268,10 @@ The acquire load of ready. Synchronization depends on the matching atomic commun
 
 ### References and help
 
-- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
-- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) (online) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) (online) — Check thread creation, joining, mutexes, and optional implementation support.
 
 Native source: `native/examples/atomics-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -355,8 +361,10 @@ No. It supplies neither the required atomic update nor the inter-thread ordering
 
 ### References and help
 
-- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) — Read atomic operations and their memory-order contracts.
-- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) — Check thread creation, joining, mutexes, and optional implementation support.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: atomics](https://en.cppreference.com/w/c/atomic.html) (online) — Read atomic operations and their memory-order contracts.
+- [C reference: C11 concurrency](https://en.cppreference.com/w/c/thread.html) (online) — Check thread creation, joining, mutexes, and optional implementation support.
 
 **Use the documentation (optional):** Does volatile make ordinary shared accesses atomic or establish inter-thread synchronization?
 

@@ -174,8 +174,10 @@ No. Ownership remains until the resource is released.
 
 ### References and help
 
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
-- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) — Read what each sanitizer observes and which runtime/toolchain it needs.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+- [GCC manual: instrumentation](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html) (online) — Read what each sanitizer observes and which runtime/toolchain it needs.
 
 Native source: `native/examples/ship-5/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

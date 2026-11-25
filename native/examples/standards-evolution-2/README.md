@@ -57,8 +57,10 @@ A guarded interface with a documented fallback or requirement. Centralizing the 
 
 ### References and help
 
-- [C reference: language history](https://en.cppreference.com/w/c/language/history.html) — Separate C17 facilities from later additions and compiler extensions.
-- [GCC manual: C dialect options](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html) — Check -std modes and distinguish standard language facilities from GNU extensions.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: language history](https://en.cppreference.com/w/c/language/history.html) (online) — Separate C17 facilities from later additions and compiler extensions.
+- [GCC manual: C dialect options](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html) (online) — Check -std modes and distinguish standard language facilities from GNU extensions.
 
 Native source: `native/examples/standards-evolution-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

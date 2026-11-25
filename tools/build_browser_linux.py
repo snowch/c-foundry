@@ -14,10 +14,11 @@ parser.add_argument('--check',action='store_true')
 args=parser.parse_args()
 paths=[root/'LICENSE',root/'README.md',root/'Makefile']
 for folder in ['native','tools']:
-    allowed={'.c','.h','.md','.json','.gdb'} if folder=='native' else {'.py','.cjs','.sh'}
+    allowed={'.c','.h','.md','.json','.gdb','.txt'} if folder=='native' else {'.py','.cjs','.sh'}
     paths.extend(p for p in (root/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix in allowed)
 paths.extend([root/'dist/lessons.js',root/'dist/assets/tinydb-sample.tdb'])
 paths.append(root/'dist/programs/tinydb.c')
+paths.extend(p for p in (root/'dist/manuals').rglob('*') if p.is_file())
 paths.extend(p for p in (root/'docs').glob('*') if p.is_file() and p.suffix in {'.md','.json'})
 files=sorted(set(paths),key=lambda p:p.relative_to(root).as_posix())
 manifest=[]

@@ -58,9 +58,11 @@ The formats match the arguments: %d for int, %.1f for a double printed with one 
 
 ### References and help
 
-- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
-- [C reference: arithmetic types](https://en.cppreference.com/w/c/language/arithmetic_types.html) — Compare integer ranges, signedness, and floating-point types.
-- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) (online) — Read conversion specifiers, required argument types, and the return value.
+- [C reference: arithmetic types](https://en.cppreference.com/w/c/language/arithmetic_types.html) (online) — Compare integer ranges, signedness, and floating-point types.
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find the macros that describe the selected implementation’s ranges.
 
 **Use the documentation (optional):** Which argument type does printf expect for %d, and which type does %f receive?
 
@@ -132,8 +134,10 @@ No. An initializer is evaluated once at that point in execution. C does not main
 
 ### References and help
 
-- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
-- [C reference: arithmetic types](https://en.cppreference.com/w/c/language/arithmetic_types.html) — Compare integer ranges, signedness, and floating-point types.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) (online) — Find the rules for explicit initializers and omitted aggregate members.
+- [C reference: arithmetic types](https://en.cppreference.com/w/c/language/arithmetic_types.html) (online) — Compare integer ranges, signedness, and floating-point types.
 
 Native source: `native/examples/values-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -188,7 +192,9 @@ The first line reports three complete groups of two, with one left over: 7 = 3 �
 
 ### References and help
 
-- [C reference: operator precedence](https://en.cppreference.com/w/c/language/operator_precedence.html) — Use the precedence table, then check the operator’s own semantics.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: operator precedence](https://en.cppreference.com/w/c/language/operator_precedence.html) (online) — Use the precedence table, then check the operator’s own semantics.
 
 Native source: `native/examples/values-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -242,7 +248,9 @@ fractional receives 3.5 because conversion happens before division. truncated re
 
 ### References and help
 
-- [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) — Check integer promotions, usual arithmetic conversions, and narrowing.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: conversions](https://en.cppreference.com/w/c/language/conversion.html) (online) — Check integer promotions, usual arithmetic conversions, and narrowing.
 
 Native source: `native/examples/values-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -305,8 +313,10 @@ No; signed overflow has undefined behavior. Unsigned arithmetic has defined modu
 
 ### References and help
 
-- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) — Find the macros that describe the selected implementation’s ranges.
-- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) — Distinguish undefined, unspecified, and implementation-defined behavior.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: numeric limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find the macros that describe the selected implementation’s ranges.
+- [C reference: behavior categories](https://en.cppreference.com/w/c/language/behavior.html) (online) — Distinguish undefined, unspecified, and implementation-defined behavior.
 
 Native source: `native/examples/values-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

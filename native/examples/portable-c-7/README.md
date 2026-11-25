@@ -61,8 +61,10 @@ It makes any byte a valid classification argument. The cast satisfies the ctype 
 
 ### References and help
 
-- [C reference: locales](https://en.cppreference.com/w/c/locale.html) — Check which operations depend on the active locale.
-- [C reference: isspace](https://en.cppreference.com/w/c/string/byte/isspace.html) — Check which argument values are valid and how locale affects classification.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: locales](https://en.cppreference.com/w/c/locale.html) (online) — Check which operations depend on the active locale.
+- [C reference: isspace](https://en.cppreference.com/w/c/string/byte/isspace.html) (online) — Check which argument values are valid and how locale affects classification.
 
 Native source: `native/examples/portable-c-7/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

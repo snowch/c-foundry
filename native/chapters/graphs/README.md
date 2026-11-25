@@ -117,7 +117,9 @@ An adjacency list. It stores actual edges rather than every possible pair.
 
 ### References and help
 
-- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) (online) — Identify vertices, edges, and directed versus undirected representations.
 
 **Use the documentation (optional):** Does an adjacency matrix use space proportional to the number of edges or to all possible vertex pairs?
 
@@ -236,7 +238,9 @@ When it is enqueued. Early marking prevents duplicate pending copies.
 
 ### References and help
 
-- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) (online) — Identify vertices, edges, and directed versus undirected representations.
 
 Native source: `native/examples/graphs-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -346,7 +350,9 @@ An unseen vertex after earlier traversals finish. A completed traversal already 
 
 ### References and help
 
-- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) (online) — Identify vertices, edges, and directed versus undirected representations.
 
 Native source: `native/examples/graphs-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -430,7 +436,9 @@ Fewer than V emitted vertices. A cycle retains positive indegrees after removabl
 
 ### References and help
 
-- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) (online) — Identify vertices, edges, and directed versus undirected representations.
 
 Native source: `native/examples/graphs-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -543,7 +551,9 @@ No. A settled distance may later decrease through a negative edge, breaking the 
 
 ### References and help
 
-- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) (online) — Identify vertices, edges, and directed versus undirected representations.
 
 Native source: `native/examples/graphs-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -710,7 +720,9 @@ Its distance differs from the current best distance. A newer relaxation establis
 
 ### References and help
 
-- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) — Identify vertices, edges, and directed versus undirected representations.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: graphs](https://xlinux.nist.gov/dads/HTML/graph.html) (online) — Identify vertices, edges, and directed versus undirected representations.
 
 Native source: `native/examples/graphs-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

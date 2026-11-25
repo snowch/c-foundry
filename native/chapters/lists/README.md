@@ -92,8 +92,10 @@ No. Capacity reserves storage; length defines which elements belong to the seque
 
 ### References and help
 
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Native source: `native/examples/lists-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -175,8 +177,10 @@ b.previous. Both neighboring relationships must agree.
 
 ### References and help
 
-- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) — Compare representation, traversal, and insertion costs.
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) (online) — Compare representation, traversal, and insertion costs.
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 
 Native source: `native/examples/lists-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -286,8 +290,10 @@ The incoming link. No access to the node is valid after free.
 
 ### References and help
 
-- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) — Compare representation, traversal, and insertion costs.
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) (online) — Compare representation, traversal, and insertion costs.
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 
 **Use the documentation (optional):** Why is deleting the node after a known node different from locating a node by value in a singly linked list?
 
@@ -389,8 +395,10 @@ It does not contain an address into the old allocation. The guarantee is specifi
 
 ### References and help
 
-- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) — Check when an object exists and when access through a pointer becomes invalid.
-- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) — Check pointer declarations, null pointers, and valid pointer operations.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: object lifetime](https://en.cppreference.com/w/c/language/lifetime.html) (online) — Check when an object exists and when access through a pointer becomes invalid.
+- [C reference: pointers](https://en.cppreference.com/w/c/language/pointer.html) (online) — Check pointer declarations, null pointers, and valid pointer operations.
 
 Native source: `native/examples/lists-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -470,8 +478,10 @@ Access by arbitrary index. A list must follow links to find an index.
 
 ### References and help
 
-- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) — Compare representation, traversal, and insertion costs.
-- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: linked lists](https://xlinux.nist.gov/dads/HTML/linkedList.html) (online) — Compare representation, traversal, and insertion costs.
+- [C reference: dynamic memory](https://en.cppreference.com/w/c/memory.html) (online) — Check allocation, reallocation, failure, ownership, and deallocation contracts.
 
 Native source: `native/examples/lists-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

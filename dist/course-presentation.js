@@ -427,7 +427,7 @@
       "main .lesson-references",
     )) {
       const summary = details.querySelector(":scope > summary");
-      const names = [...details.querySelectorAll(":scope > ul > li > a")].map(
+      const names = [...details.querySelectorAll(":scope > ul > li > a:first-child")].map(
         (a) => a.textContent.replace("(new tab)", "").trim(),
       );
       summary.innerHTML =

@@ -28,7 +28,7 @@ const panel = `<dialog id="app-status-dialog" aria-labelledby="app-status-title"
 <p id="restart-note" hidden>Restart reloads your open C Foundry windows and restores their lessons and saved work. Finish any running experiment first.</p></section>
 <details id="app-status-details"><summary>Version and download details</summary><p id="running-version"></p><p id="release-detail"></p>
 <button id="check-update" type="button">Check for updates</button>
-<p>Downloads include all readings, diagrams, example sources and the inline C compiler. Browser storage overhead is additional. External links need internet access.</p>
+<p>Downloads include all readings, diagrams, bundled C manual pages, example sources and the inline C compiler. Browser storage overhead is additional. External links need internet access.</p>
 <p>The saved course includes the Linux terminal, emulator, kernel and guest files. Export guest files before reloading.</p>
 <button id="remove-offline" type="button" hidden>Remove offline copy</button>
 <div id="remove-confirmation" hidden><p>Remove C Foundry’s downloaded files from this browser? Your experiment work, preferences and other apps will be kept.</p><button id="confirm-remove" type="button">Remove downloaded files</button><button id="cancel-remove" type="button">Keep offline copy</button></div></details>

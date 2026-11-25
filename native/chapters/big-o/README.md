@@ -77,7 +77,9 @@ The four initialized elements. The search problem grows with the number of candi
 
 ### References and help
 
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Native source: `native/examples/big-o-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -138,7 +140,9 @@ The printed values illustrate the inequality; the algebra proves it for every n�
 
 ### References and help
 
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 **Use the documentation (optional):** Does an O(n) bound mean the program performs exactly n operations for every input?
 
@@ -219,7 +223,9 @@ It becomes four times as large. (2n)² equals 4n².
 
 ### References and help
 
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Native source: `native/examples/big-o-3.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -289,7 +295,9 @@ Yes. An expectation is defined relative to probabilities over inputs.
 
 ### References and help
 
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Native source: `native/examples/big-o-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -354,8 +362,10 @@ Yes, when it grows the buffer. The total sequence bound permits occasional expen
 
 ### References and help
 
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
-- [C reference: realloc](https://en.cppreference.com/w/c/memory/realloc.html) — Check what happens to the original allocation on success and failure.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
+- [C reference: realloc](https://en.cppreference.com/w/c/memory/realloc.html) (online) — Check what happens to the original allocation on success and failure.
 
 Native source: `native/examples/big-o-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -421,7 +431,9 @@ The prefix a[0..i). The next unread element is a[i], so it cannot already be inc
 
 ### References and help
 
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Native source: `native/examples/big-o-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -499,7 +511,9 @@ Correctness checks and a stated workload. A fast incorrect program is not an imp
 
 ### References and help
 
-- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) — Read an asymptotic bound as a growth claim, not an exact operation count.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: Big O](https://xlinux.nist.gov/dads/HTML/bigOnotation.html) (online) — Read an asymptotic bound as a growth claim, not an exact operation count.
 
 Native source: `native/examples/big-o-7.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

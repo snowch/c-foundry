@@ -58,8 +58,10 @@ No. Pointer members are copied as values; the pointed-to allocation is not dupli
 
 ### References and help
 
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
-- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) (online) — Find the rules for explicit initializers and omitted aggregate members.
 
 Native source: `native/examples/structured-data-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -137,8 +139,10 @@ The tag. The program’s invariant associates each Kind value with an establishe
 
 ### References and help
 
-- [C reference: enumerations](https://en.cppreference.com/w/c/language/enum.html) — Check enumeration constants and how a tagged union can identify its active representation.
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: enumerations](https://en.cppreference.com/w/c/language/enum.html) (online) — Check enumeration constants and how a tagged union can identify its active representation.
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
 
 Native source: `native/examples/structured-data-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -203,8 +207,10 @@ No. Padding can make the complete object larger.
 
 ### References and help
 
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
-- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) (online) — Find the rules for explicit initializers and omitted aggregate members.
 
 **Use the documentation (optional):** Does the order of struct members guarantee that sizeof(struct) equals the sum of their sizes?
 
@@ -277,8 +283,10 @@ Before freeing the current node. Accessing a member requires the current node to
 
 ### References and help
 
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
-- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) (online) — Find the rules for explicit initializers and omitted aggregate members.
 
 Native source: `native/examples/structured-data-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -350,8 +358,10 @@ No. It designates an element inside an existing array, not an independently owne
 
 ### References and help
 
-- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) — Find member access, layout constraints, and padding rules.
-- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) — Find the rules for explicit initializers and omitted aggregate members.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: structures](https://en.cppreference.com/w/c/language/struct.html) (online) — Find member access, layout constraints, and padding rules.
+- [C reference: initialization](https://en.cppreference.com/w/c/language/initialization.html) (online) — Find the rules for explicit initializers and omitted aggregate members.
 
 Native source: `native/examples/structured-data-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

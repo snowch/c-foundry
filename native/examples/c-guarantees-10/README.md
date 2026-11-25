@@ -71,8 +71,10 @@ The smallest positive normal double. Use -DBL_MAX for the negative finite endpoi
 
 ### References and help
 
-- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) — Find precision, exponent-range, and subnormal-support macros.
-- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) — Find finite/NaN classification and library error-handling contracts.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: floating-point limits](https://en.cppreference.com/w/c/types/limits.html) (online) — Find precision, exponent-range, and subnormal-support macros.
+- [C reference: mathematical functions](https://en.cppreference.com/w/c/numeric/math.html) (online) — Find finite/NaN classification and library error-handling contracts.
 
 Native source: `native/examples/c-guarantees-10/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

@@ -91,7 +91,7 @@ input[type=radio] { width:20px; height:20px; accent-color:#557346; flex-shrink:0
 .console-tabs button { background:transparent; color:#b3c9b8; border:0; border-bottom:2px solid transparent; border-radius:0; padding:8px 0; }
 .console-tabs button.active { color:#e1efdb; border-bottom-color:#a7c396; }
 .console-tabs button span { font-size:14px; }
-.console-content { height:210px; overflow:auto; padding:16px; }
+.console-content { min-height:150px; height:auto; padding:16px; min-width:0; }
 .console-content pre,#test-results { font:17px/1.65 var(--mono); color:#c5dbc7; }
 .console-content label { display:block; font-size:14px; color:#b5c8b7; margin-bottom:10px; }
 .console-content textarea { width:100%; min-height:120px; background:#293a31; border:1px solid #72826b; border-radius:4px; padding:10px; font:17px/1.65 var(--mono); color:#e1eddf; }
@@ -207,7 +207,7 @@ dialog::backdrop { background:#17241c88; }
 /* Keep experimentation beside its explanation, using the existing compiler/editor. */
 #inline-editor-host { min-width:0; }
 .inline-editor { margin-top:12px; }
-.inline-editor .console-content { height:150px; }
+.inline-editor .console-content { min-height:150px; height:auto; }
 .inline-editor [data-console="tests"] { display:none; }
 .topic-content .inline-editor pre { background:transparent; border:0; border-radius:0; padding:0; }
 .topic-content .inline-editor .editor-wrap pre { padding-right:14px; }
@@ -443,3 +443,15 @@ pre.memory-stream{background:var(--soft);color:var(--ink);font:18px/1.6 var(--mo
 .concept-tree-children{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
 .concept-tree-edge{display:block;text-align:center;font-size:14px;line-height:1.5;margin-bottom:4px}
 @media(max-width:620px){.concept-tree-pair{grid-template-columns:1fr}.concept-tree-panel>.concept-lane-label{min-height:0}}
+
+/* Let results and diagnostics grow with their content instead of hiding them in a nested viewport. */
+.coding-panel .console-content pre { white-space:pre-wrap; overflow-wrap:anywhere; max-height:none; overflow:visible; }
+#run-diagnostics { margin-block:16px; } #run-diagnostics summary { min-height:44px; cursor:pointer; }
+.manual-reader { max-width:85ch; margin:24px auto; overflow-wrap:anywhere; }
+.manual-reader h2 { font-size:22px; margin-top:32px; } .manual-reader h3 { font-size:20px; }
+.manual-reader pre { white-space:pre-wrap; overflow-wrap:anywhere; font:16px/1.65 var(--mono); padding:16px; background:var(--soft); }
+.manual-reader table { display:block; max-width:100%; overflow-x:auto; font-size:16px; }
+.manual-reader table td,.manual-reader table th { padding:6px; }
+.manual-reader .Bd,.manual-reader .Bl { margin-inline:0; } .manual-reader .manual-scope { padding:16px; border-left:3px solid var(--accent); background:var(--soft); }
+#manual-search { display:block; width:100%; margin-block:8px; padding:12px; font:inherit; }
+#manual-index li { padding-block:12px; border-bottom:1px solid var(--line); } #manual-index p { margin:4px 0; }

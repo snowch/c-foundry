@@ -121,3 +121,9 @@ Browser Linux is included in the complete verified offline copy. Export its gues
 For a production-equivalent local preview, run `npm ci` and `npm run serve`. The authored `dist/` directory is source; generated Pages output is `.build/site`.
 
 See [course style](docs/course-style.md), [runner lifecycle](docs/code-runner-design.md) and [offline/update adapter](docs/offline-update-design.md).
+
+### Offline C documentation
+
+The course download includes 96 selected C/Linux manual entries. Open **References** in a lesson or [search the bundled manuals](https://snowch.github.io/c-foundry/#/manual). In Browser Linux, run `man 3 printf`, `man 3 fgets` or `man -k keyword`; `/RETURN VALUE` searches in the pager and `q` returns to the shell. The finding-help lesson includes a lookup exercise. Full external references are labelled as online.
+
+With a source checkout, `python3 tools/man.py 3 printf` reads the same manual. Original sources, licences and hashes are in `dist/manuals/`. Regeneration instructions are in `tools/import_manuals.py`; no documentation is fetched at runtime. Linux/glibc manual extensions are not guaranteed to be supported by the inline compiler or the musl-based Linux guest.

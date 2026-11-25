@@ -1,0 +1,386 @@
+{
+  "printf.3": {
+    "summary": "printf, fprintf, dprintf, sprintf, snprintf, vprintf, vfprintf, vdprintf, vsprintf, vsnprintf - formatted output conversion",
+    "file": "printf.3.txt"
+  },
+  "fprintf.3": {
+    "summary": "printf, fprintf, dprintf, sprintf, snprintf, vprintf, vfprintf, vdprintf, vsprintf, vsnprintf - formatted output conversion",
+    "file": "fprintf.3.txt"
+  },
+  "snprintf.3": {
+    "summary": "printf, fprintf, dprintf, sprintf, snprintf, vprintf, vfprintf, vdprintf, vsprintf, vsnprintf - formatted output conversion",
+    "file": "snprintf.3.txt"
+  },
+  "puts.3": {
+    "summary": "fputc, fputs, putc, putchar, puts - output of characters and strings",
+    "file": "puts.3.txt"
+  },
+  "putchar.3": {
+    "summary": "fputc, fputs, putc, putchar, puts - output of characters and strings",
+    "file": "putchar.3.txt"
+  },
+  "fgets.3": {
+    "summary": "fgetc, fgets, getchar, ungetc - input of characters and strings",
+    "file": "fgets.3.txt"
+  },
+  "getchar.3": {
+    "summary": "fgetc, fgets, getchar, ungetc - input of characters and strings",
+    "file": "getchar.3.txt"
+  },
+  "fgetc.3": {
+    "summary": "fgetc, fgets, getchar, ungetc - input of characters and strings",
+    "file": "fgetc.3.txt"
+  },
+  "scanf.3": {
+    "summary": "scanf, fscanf, vscanf, vfscanf - input FILE format conversion",
+    "file": "scanf.3.txt"
+  },
+  "sscanf.3": {
+    "summary": "sscanf, vsscanf - input string format conversion",
+    "file": "sscanf.3.txt"
+  },
+  "fopen.3": {
+    "summary": "fopen, fdopen, freopen - stream open functions",
+    "file": "fopen.3.txt"
+  },
+  "fclose.3": {
+    "summary": "fclose - close a stream",
+    "file": "fclose.3.txt"
+  },
+  "fread.3": {
+    "summary": "fread, fwrite - binary stream input/output",
+    "file": "fread.3.txt"
+  },
+  "fwrite.3": {
+    "summary": "fread, fwrite - binary stream input/output",
+    "file": "fwrite.3.txt"
+  },
+  "fflush.3": {
+    "summary": "fflush - flush a stream",
+    "file": "fflush.3.txt"
+  },
+  "ferror.3": {
+    "summary": "clearerr, feof, ferror - check and reset stream status",
+    "file": "ferror.3.txt"
+  },
+  "feof.3": {
+    "summary": "clearerr, feof, ferror - check and reset stream status",
+    "file": "feof.3.txt"
+  },
+  "fseek.3": {
+    "summary": "fgetpos, fseek, fsetpos, ftell, rewind - reposition a stream",
+    "file": "fseek.3.txt"
+  },
+  "ftell.3": {
+    "summary": "fgetpos, fseek, fsetpos, ftell, rewind - reposition a stream",
+    "file": "ftell.3.txt"
+  },
+  "rewind.3": {
+    "summary": "fgetpos, fseek, fsetpos, ftell, rewind - reposition a stream",
+    "file": "rewind.3.txt"
+  },
+  "remove.3": {
+    "summary": "remove - remove a file or directory",
+    "file": "remove.3.txt"
+  },
+  "rename.2": {
+    "summary": "rename, renameat, renameat2 - change the name or location of a file",
+    "file": "rename.2.txt"
+  },
+  "setvbuf.3": {
+    "summary": "setbuf, setbuffer, setlinebuf, setvbuf - stream buffering operations",
+    "file": "setvbuf.3.txt"
+  },
+  "malloc.3": {
+    "summary": "malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory",
+    "file": "malloc.3.txt"
+  },
+  "calloc.3": {
+    "summary": "malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory",
+    "file": "calloc.3.txt"
+  },
+  "realloc.3": {
+    "summary": "malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory",
+    "file": "realloc.3.txt"
+  },
+  "free.3": {
+    "summary": "malloc, free, calloc, realloc, reallocarray - allocate and free dynamic memory",
+    "file": "free.3.txt"
+  },
+  "memcpy.3": {
+    "summary": "memcpy - copy memory area",
+    "file": "memcpy.3.txt"
+  },
+  "memmove.3": {
+    "summary": "memmove - copy memory area",
+    "file": "memmove.3.txt"
+  },
+  "memset.3": {
+    "summary": "memset - fill memory with a constant byte",
+    "file": "memset.3.txt"
+  },
+  "memcmp.3": {
+    "summary": "memcmp - compare memory areas",
+    "file": "memcmp.3.txt"
+  },
+  "strlen.3": {
+    "summary": "strlen - calculate the length of a string",
+    "file": "strlen.3.txt"
+  },
+  "strcmp.3": {
+    "summary": "strcmp, strncmp - compare two strings",
+    "file": "strcmp.3.txt"
+  },
+  "strncmp.3": {
+    "summary": "strcmp, strncmp - compare two strings",
+    "file": "strncmp.3.txt"
+  },
+  "strcpy.3": {
+    "summary": "stpcpy, strcpy, strcat - copy or catenate a string",
+    "file": "strcpy.3.txt"
+  },
+  "strncpy.3": {
+    "summary": "stpncpy, strncpy - fill a fixed-size buffer with non-null bytes from a string, padding with null bytes as needed",
+    "file": "strncpy.3.txt"
+  },
+  "strchr.3": {
+    "summary": "strchr, strrchr, strchrnul - locate character in string",
+    "file": "strchr.3.txt"
+  },
+  "strstr.3": {
+    "summary": "strstr, strcasestr - locate a substring",
+    "file": "strstr.3.txt"
+  },
+  "strtok.3": {
+    "summary": "strtok, strtok_r - extract tokens from strings",
+    "file": "strtok.3.txt"
+  },
+  "strtol.3": {
+    "summary": "strtol, strtoll, strtoq - convert a string to a long integer",
+    "file": "strtol.3.txt"
+  },
+  "strtoul.3": {
+    "summary": "strtoul, strtoull, strtouq - convert a string to an unsigned long integer",
+    "file": "strtoul.3.txt"
+  },
+  "strtod.3": {
+    "summary": "strtod, strtof, strtold - convert ASCII string to floating-point number",
+    "file": "strtod.3.txt"
+  },
+  "isspace.3": {
+    "summary": "isalnum, isalpha, isascii, isblank, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, isupper, isxdigit, isalnum_l, isalpha_l, isascii_l, isblank_l, iscntrl_l, isdigit_l, isgraph_l, islower_l, isprint_l, ispunct_l, isspace_l, isupper_l, isxdigit_l - character classification functions",
+    "file": "isspace.3.txt"
+  },
+  "isalpha.3": {
+    "summary": "isalnum, isalpha, isascii, isblank, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, isupper, isxdigit, isalnum_l, isalpha_l, isascii_l, isblank_l, iscntrl_l, isdigit_l, isgraph_l, islower_l, isprint_l, ispunct_l, isspace_l, isupper_l, isxdigit_l - character classification functions",
+    "file": "isalpha.3.txt"
+  },
+  "isdigit.3": {
+    "summary": "isalnum, isalpha, isascii, isblank, iscntrl, isdigit, isgraph, islower, isprint, ispunct, isspace, isupper, isxdigit, isalnum_l, isalpha_l, isascii_l, isblank_l, iscntrl_l, isdigit_l, isgraph_l, islower_l, isprint_l, ispunct_l, isspace_l, isupper_l, isxdigit_l - character classification functions",
+    "file": "isdigit.3.txt"
+  },
+  "tolower.3": {
+    "summary": "toupper, tolower, toupper_l, tolower_l - convert uppercase or lowercase",
+    "file": "tolower.3.txt"
+  },
+  "toupper.3": {
+    "summary": "toupper, tolower, toupper_l, tolower_l - convert uppercase or lowercase",
+    "file": "toupper.3.txt"
+  },
+  "qsort.3": {
+    "summary": "qsort, qsort_r - sort an array",
+    "file": "qsort.3.txt"
+  },
+  "bsearch.3": {
+    "summary": "bsearch - binary search of a sorted array",
+    "file": "bsearch.3.txt"
+  },
+  "assert.3": {
+    "summary": "assert - abort the program if assertion is false",
+    "file": "assert.3.txt"
+  },
+  "perror.3": {
+    "summary": "perror - print a system error message",
+    "file": "perror.3.txt"
+  },
+  "strerror.3": {
+    "summary": "strerror, strerrorname_np, strerrordesc_np, strerror_r, strerror_l - return string describing error number",
+    "file": "strerror.3.txt"
+  },
+  "exit.3": {
+    "summary": "exit - cause normal process termination",
+    "file": "exit.3.txt"
+  },
+  "abort.3": {
+    "summary": "abort - cause abnormal process termination",
+    "file": "abort.3.txt"
+  },
+  "atexit.3": {
+    "summary": "atexit - register a function to be called at normal process termination",
+    "file": "atexit.3.txt"
+  },
+  "strftime.3": {
+    "summary": "strftime - format date and time",
+    "file": "strftime.3.txt"
+  },
+  "time.2": {
+    "summary": "time - get time in seconds",
+    "file": "time.2.txt"
+  },
+  "clock_gettime.2": {
+    "summary": "clock_getres, clock_gettime, clock_settime - clock and time functions",
+    "file": "clock_gettime.2.txt"
+  },
+  "setlocale.3": {
+    "summary": "setlocale - set the current locale",
+    "file": "setlocale.3.txt"
+  },
+  "localeconv.3": {
+    "summary": "localeconv - get numeric formatting information",
+    "file": "localeconv.3.txt"
+  },
+  "sqrt.3": {
+    "summary": "sqrt, sqrtf, sqrtl - square root function",
+    "file": "sqrt.3.txt"
+  },
+  "pow.3": {
+    "summary": "pow, powf, powl - power functions",
+    "file": "pow.3.txt"
+  },
+  "isnan.3": {
+    "summary": "fpclassify, isfinite, isnormal, isnan, isinf - floating-point classification macros",
+    "file": "isnan.3.txt"
+  },
+  "isfinite.3": {
+    "summary": "fpclassify, isfinite, isnormal, isnan, isinf - floating-point classification macros",
+    "file": "isfinite.3.txt"
+  },
+  "fenv.3": {
+    "summary": "feclearexcept, fegetexceptflag, feraiseexcept, fesetexceptflag, fetestexcept, fegetenv, fegetround, feholdexcept, fesetround, fesetenv, feupdateenv, feenableexcept, fedisableexcept, fegetexcept - floating-point rounding and exception handling",
+    "file": "fenv.3.txt"
+  },
+  "stdio.3": {
+    "summary": "stdio - standard input/output library functions",
+    "file": "stdio.3.txt"
+  },
+  "errno.3": {
+    "summary": "errno - number of last error",
+    "file": "errno.3.txt"
+  },
+  "pthread_create.3": {
+    "summary": "pthread_create - create a new thread",
+    "file": "pthread_create.3.txt"
+  },
+  "pthread_join.3": {
+    "summary": "pthread_join - join with a terminated thread",
+    "file": "pthread_join.3.txt"
+  },
+  "pthread_mutex_init.3": {
+    "summary": "pthread_mutex_init, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock, pthread_mutex_destroy - operations on mutexes",
+    "file": "pthread_mutex_init.3.txt"
+  },
+  "pthread_mutex_lock.3": {
+    "summary": "pthread_mutex_init, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock, pthread_mutex_destroy - operations on mutexes",
+    "file": "pthread_mutex_lock.3.txt"
+  },
+  "pthread_mutex_unlock.3": {
+    "summary": "pthread_mutex_init, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock, pthread_mutex_destroy - operations on mutexes",
+    "file": "pthread_mutex_unlock.3.txt"
+  },
+  "pthread_mutex_destroy.3": {
+    "summary": "pthread_mutex_init, pthread_mutex_lock, pthread_mutex_trylock, pthread_mutex_unlock, pthread_mutex_destroy - operations on mutexes",
+    "file": "pthread_mutex_destroy.3.txt"
+  },
+  "pthread_cond_init.3": {
+    "summary": "pthread_cond_init, pthread_cond_signal, pthread_cond_broadcast, pthread_cond_wait, pthread_cond_timedwait, pthread_cond_destroy - operations on conditions",
+    "file": "pthread_cond_init.3.txt"
+  },
+  "pthread_cond_wait.3": {
+    "summary": "pthread_cond_init, pthread_cond_signal, pthread_cond_broadcast, pthread_cond_wait, pthread_cond_timedwait, pthread_cond_destroy - operations on conditions",
+    "file": "pthread_cond_wait.3.txt"
+  },
+  "pthread_cond_signal.3": {
+    "summary": "pthread_cond_init, pthread_cond_signal, pthread_cond_broadcast, pthread_cond_wait, pthread_cond_timedwait, pthread_cond_destroy - operations on conditions",
+    "file": "pthread_cond_signal.3.txt"
+  },
+  "pthread_cond_broadcast.3": {
+    "summary": "pthread_cond_init, pthread_cond_signal, pthread_cond_broadcast, pthread_cond_wait, pthread_cond_timedwait, pthread_cond_destroy - operations on conditions",
+    "file": "pthread_cond_broadcast.3.txt"
+  },
+  "pthread_cond_destroy.3": {
+    "summary": "pthread_cond_init, pthread_cond_signal, pthread_cond_broadcast, pthread_cond_wait, pthread_cond_timedwait, pthread_cond_destroy - operations on conditions",
+    "file": "pthread_cond_destroy.3.txt"
+  },
+  "pthread_self.3": {
+    "summary": "pthread_self - obtain ID of the calling thread",
+    "file": "pthread_self.3.txt"
+  },
+  "pthread_equal.3": {
+    "summary": "pthread_equal - compare thread IDs",
+    "file": "pthread_equal.3.txt"
+  },
+  "sem_init.3": {
+    "summary": "sem_init - initialize an unnamed semaphore",
+    "file": "sem_init.3.txt"
+  },
+  "sem_wait.3": {
+    "summary": "sem_wait, sem_timedwait, sem_trywait - lock a semaphore",
+    "file": "sem_wait.3.txt"
+  },
+  "sem_post.3": {
+    "summary": "sem_post - unlock a semaphore",
+    "file": "sem_post.3.txt"
+  },
+  "sem_destroy.3": {
+    "summary": "sem_destroy - destroy an unnamed semaphore",
+    "file": "sem_destroy.3.txt"
+  },
+  "fsync.2": {
+    "summary": "fsync, fdatasync - synchronize a file's in-core state with storage device",
+    "file": "fsync.2.txt"
+  },
+  "open.2": {
+    "summary": "open, openat, creat - open and possibly create a file",
+    "file": "open.2.txt"
+  },
+  "read.2": {
+    "summary": "read - read from a file descriptor",
+    "file": "read.2.txt"
+  },
+  "write.2": {
+    "summary": "write - write to a file descriptor",
+    "file": "write.2.txt"
+  },
+  "close.2": {
+    "summary": "close - close a file descriptor",
+    "file": "close.2.txt"
+  },
+  "fork.2": {
+    "summary": "fork - create a child process",
+    "file": "fork.2.txt"
+  },
+  "wait.2": {
+    "summary": "wait, waitpid, waitid - wait for process to change state",
+    "file": "wait.2.txt"
+  },
+  "pipe.2": {
+    "summary": "pipe, pipe2 - create pipe",
+    "file": "pipe.2.txt"
+  },
+  "mmap.2": {
+    "summary": "mmap, munmap - map or unmap files or devices into memory",
+    "file": "mmap.2.txt"
+  },
+  "pthreads.7": {
+    "summary": "pthreads - POSIX threads",
+    "file": "pthreads.7.txt"
+  },
+  "signal.7": {
+    "summary": "signal - overview of signals",
+    "file": "signal.7.txt"
+  },
+  "feature_test_macros.7": {
+    "summary": "feature_test_macros - feature test macros",
+    "file": "feature_test_macros.7.txt"
+  }
+}

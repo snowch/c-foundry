@@ -79,6 +79,11 @@ if kind == "c":
     project = layer / "root/work"
     project.mkdir(parents=True, exist_ok=True)
     extract(root / "dist/assets/c-foundry-browser.tar.gz", project)
+    # A small offline reader uses the exact same selected manuals as the page.
+    man = layer / "usr/local/bin/man"
+    man.parent.mkdir(parents=True, exist_ok=True)
+    man.write_text("#!/bin/sh\nexec python3 /root/work/c-foundry/tools/man.py \"$@\"\n")
+    man.chmod(0o755)
 else:
     extract(fetch(by_name["alpine-base.tar.gz"]), layer)
     base = cache / "module-root"

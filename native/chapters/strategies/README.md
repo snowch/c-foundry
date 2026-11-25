@@ -68,7 +68,9 @@ All input values are nonnegative. The remaining sum cannot be increased by inclu
 
 ### References and help
 
-- [NIST DADS: backtracking](https://xlinux.nist.gov/dads/HTML/backtrack.html) — Identify the choices explored, rejected partial candidates, and restoration of state.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: backtracking](https://xlinux.nist.gov/dads/HTML/backtrack.html) (online) — Identify the choices explored, rejected partial candidates, and restoration of state.
 
 Native source: `native/examples/strategies-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -132,7 +134,9 @@ The greedy rule is not always optimal. It refutes this rule under the stated dom
 
 ### References and help
 
-- [NIST DADS: greedy algorithms](https://xlinux.nist.gov/dads/HTML/greedyalgo.html) — Distinguish a locally attractive choice from a proof of global correctness.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: greedy algorithms](https://xlinux.nist.gov/dads/HTML/greedyalgo.html) (online) — Distinguish a locally attractive choice from a proof of global correctness.
 
 Native source: `native/examples/strategies-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -206,7 +210,9 @@ x-c is an already solved smaller state. Positive coin values and increasing x es
 
 ### References and help
 
-- [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) — Check how overlapping subproblems and stored results change the work.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) (online) — Check how overlapping subproblems and stored results change the work.
 
 **Use the documentation (optional):** What does memoization retain, and how can it change repeated recursive work?
 
@@ -288,8 +294,10 @@ The cell above and the cell to the left. Every valid final move enters from one 
 
 ### References and help
 
-- [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) — Check how overlapping subproblems and stored results change the work.
-- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) — Check valid pointer arguments and access after deallocation.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) (online) — Check how overlapping subproblems and stored results change the work.
+- [C reference: free](https://en.cppreference.com/w/c/memory/free.html) (online) — Check valid pointer arguments and access after deallocation.
 
 Native source: `native/examples/strategies-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -360,7 +368,9 @@ To avoid reusing the current item. The source state must exclude the current ite
 
 ### References and help
 
-- [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) — Check how overlapping subproblems and stored results change the work.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: dynamic programming](https://xlinux.nist.gov/dads/HTML/dynamicprog.html) (online) — Check how overlapping subproblems and stored results change the work.
 
 Native source: `native/examples/strategies-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

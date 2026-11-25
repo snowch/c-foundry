@@ -13,3 +13,13 @@ CI exposed a native Background Fetch stall at exactly 222.7 MB of 242.6 MB after
 ## Visual opportunities, 25 November 2026
 
 See [the whole-course visual review](visual-opportunities.md) and its source-pinned lesson records. This pass adds source-specific models as well as revising existing diagrams; the model renderer has no runner, navigation, draft or completion side effects.
+
+## Console visibility and offline documentation — 2026-11-25
+
+The lesson Console now grows with its results, wraps diagnostics and long lines, and avoids a second vertical scrolling viewport. Failed attempts show one expanded diagnostic block. If there is an earlier successful result, it is explicitly labelled as previous output; a first failure does not duplicate the message as program output. The semicolon exercise names the diagnostic source line, and the string-edit exercise quotes the exact old and new text. Chapter practice explicitly opens an interactive coding exercise.
+
+References now lead first to bundled C manuals or original course notes. Full third-party references remain separately labelled as requiring internet access. The course includes 96 selected Linux man-pages entries in the offline release, an indexed browser reader, local cross-references, original roff sources, per-page provenance and all upstream licence texts. They describe Linux/glibc contracts and extensions; the reader keeps the ISO C/POSIX/Linux and musl/WASI distinction visible. Course notes are identified as course explanations, not offline copies of the linked third-party reference.
+
+Browser Linux provides `man 3 printf`, `man 3 fgets` and `man -k keyword` through a selected-page reader and its existing less pager. The help lesson now asks learners to search RETURN VALUE, compare two different function contracts and leave the pager with q. The C library manual is section 3; the shell printf(1) reference is separate. Optional documentation questions accept a written answer, preserve it while opening a reference, and offer comparison feedback without marking the lesson done.
+
+Verification covers source hashes/licence retention, local manual cross-references and search, command-line section/keyword lookup, offline reference navigation, real compiler errors and longer output at phone/tablet widths, and the actual Linux pager search/quit flow. Existing course, saved-work and offline-update suites remain required. This is interface and execution evidence, not a measured learning-outcome claim.

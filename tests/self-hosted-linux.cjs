@@ -33,6 +33,16 @@ const assert=require('node:assert/strict'),http=require('node:http'),fs=require(
   await frame.waitForFunction(()=>foundryLinux.getTranscript().includes('__REAL_GUEST_CHECK_EXIT:0'),null,{timeout:420000});
   const text=await output();if(kind==='go'){assert(text.includes('sum 29'));assert(text.includes('7 | Ada | 42'))}else{assert(text.includes('clang'));assert(text.includes('Breakpoint 1'))}
   console.log('PASS '+kind+' real compiler/runtime checks; shell metacharacters in editor text did not execute');
+  if(kind==='c'){
+   const send=command=>page.evaluate(command=>document.querySelector('#linux-terminal iframe').contentWindow.postMessage({channel:'foundry-linux',type:'command',command},location.origin),command);
+   await send('man 3 printf | grep -q "RETURN VALUE" && man 3 fgets | grep -q "RETURN VALUE" && man -k printf && echo __MAN_CONTRACT_CHECK_PASSED__');
+   await frame.waitForFunction(()=>foundryLinux.getTranscript().includes('printf.3 -')&&/(?:^|[\r\n])__MAN_CONTRACT_CHECK_PASSED__\r?(?:\n|$)/.test(foundryLinux.getTranscript()),null,{timeout:90000});
+   console.log('PASS real guest manual contracts and keyword lookup');
+   await send('man 3 printf');await frame.waitForFunction(()=>/printf\(3\)[^\r\n]*Library Functions Manual/.test(foundryLinux.getTranscript()),null,{timeout:90000}).catch(async error=>{console.error((await output()).slice(-6000));throw error;});
+   await frame.locator('.xterm-helper-textarea').focus();await frame.locator('.xterm-helper-textarea').pressSequentially('/RETURN VALUE');await frame.locator('.xterm-helper-textarea').press('Enter');await frame.waitForFunction(()=>foundryLinux.getTranscript().includes('Upon successful return'),null,{timeout:90000}).catch(async error=>{console.error((await output()).slice(-6000));throw error;});await frame.locator('.xterm-helper-textarea').press('q');
+   await send('echo __MAN_PAGER_RETURNED_TO_SHELL__');await frame.waitForFunction(()=>/(?:^|[\r\n])__MAN_PAGER_RETURNED_TO_SHELL__\r?(?:\n|$)/.test(foundryLinux.getTranscript()),null,{timeout:90000}).catch(async error=>{console.error((await output()).slice(-6000));throw error;});
+   console.log('PASS bundled printf/fgets manual contracts, keyword search and interactive pager search/quit in real Browser Linux');
+  }
   const downloaded=page.waitForEvent('download',{timeout:90000});
   await page.locator(kind==='go'?'#copy-save':'[data-linux-copy="linux-save"]').click();
   const archive=await downloaded;const backup=path.resolve('test-results/'+kind+'-work.tar.gz');await fs.mkdir(path.dirname(backup),{recursive:true});await archive.saveAs(backup);assert((await fs.stat(backup)).size>100);

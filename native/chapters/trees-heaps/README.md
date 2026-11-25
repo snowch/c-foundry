@@ -122,7 +122,9 @@ When the BST ordering invariant holds. The left and right subtree key constraint
 
 ### References and help
 
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 Native source: `native/examples/trees-heaps-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -252,7 +254,9 @@ Tree height. Each step follows one level of the tree.
 
 ### References and help
 
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 Native source: `native/examples/trees-heaps-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -385,7 +389,9 @@ Yes, their shapes may differ. Ordering constrains key placement relative to ance
 
 ### References and help
 
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 **Use the documentation (optional):** What happens to search cost when a binary search tree degenerates into a chain?
 
@@ -527,7 +533,9 @@ The inorder key sequence. Reparenting is the mechanism; ordering is the preserve
 
 ### References and help
 
-- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) — Identify the ordering invariant and how tree shape affects height.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: binary search trees](https://xlinux.nist.gov/dads/HTML/binarySearchTree.html) (online) — Identify the ordering invariant and how tree shape affects height.
 
 Native source: `native/examples/trees-heaps-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -635,7 +643,9 @@ The root. Only the ancestor-to-descendant ordering invariant is required.
 
 ### References and help
 
-- [NIST DADS: binary heaps](https://xlinux.nist.gov/dads/HTML/binaryheap.html) — Read the heap-order and complete-tree properties used by a priority queue.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: binary heaps](https://xlinux.nist.gov/dads/HTML/binaryheap.html) (online) — Read the heap-order and complete-tree properties used by a priority queue.
 
 Native source: `native/examples/trees-heaps-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -745,7 +755,9 @@ No. It implements the ordering rule, which may permit starvation.
 
 ### References and help
 
-- [NIST DADS: binary heaps](https://xlinux.nist.gov/dads/HTML/binaryheap.html) — Read the heap-order and complete-tree properties used by a priority queue.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [NIST DADS: binary heaps](https://xlinux.nist.gov/dads/HTML/binaryheap.html) (online) — Read the heap-order and complete-tree properties used by a priority queue.
 
 Native source: `native/examples/trees-heaps-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

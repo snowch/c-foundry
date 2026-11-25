@@ -64,8 +64,10 @@ Linking. The linker connects the translated program with the library code it nee
 
 ### References and help
 
-- [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
-- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [GCC manual: compilation stages](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html) (online) — Compare preprocessing, compilation, assembly, and linking; inspect -E, -S, and -c.
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) (online) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
 
 Native source: `native/examples/first-program-1.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -120,8 +122,10 @@ No. Returning a status and writing output are separate operations.
 
 ### References and help
 
-- [C reference: main](https://en.cppreference.com/w/c/language/main_function.html) — Check the supported forms of main and what returning a status means.
-- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) — Read declarations, parameter types, and the rules for calling functions.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: main](https://en.cppreference.com/w/c/language/main_function.html) (online) — Check the supported forms of main and what returning a status means.
+- [C reference: functions](https://en.cppreference.com/w/c/language/functions.html) (online) — Read declarations, parameter types, and the rules for calling functions.
 
 Native source: `native/examples/first-program-2.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -176,8 +180,10 @@ The first call substitutes 3 for %d and then starts a new line. The second print
 
 ### References and help
 
-- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
-- [Linux manual: printf(3)](https://man7.org/linux/man-pages/man3/printf.3.html) — Use SYNOPSIS, conversion specifications, RETURN VALUE, and STANDARDS; note POSIX extensions.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) (online) — Read conversion specifiers, required argument types, and the return value.
+- [Linux manual: printf(3)](https://man7.org/linux/man-pages/man3/printf.3.html) (online) — Use SYNOPSIS, conversion specifications, RETURN VALUE, and STANDARDS; note POSIX extensions.
 
 **Use the documentation (optional):** What does printf return on success, and how many characters does printf("Hi!\n") report?
 
@@ -234,11 +240,13 @@ The preceding statement. The reported location is where parsing failed, which ca
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/4). In main.c, remove the semicolon immediately after printf("Hello\n"). Choose Run code and read the first compiler diagnostic in Console. Put the semicolon back and run again. Which line did the compiler report, and why can it follow the actual mistake?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/4). In main.c, remove the semicolon immediately after printf("Hello\n"). Choose Run code and read the first compiler diagnostic in Console. Put the semicolon back and run again. Which source line does the first diagnostic identify? Why can the compiler report the line after the missing semicolon?
 
 ### References and help
 
-- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) — Look up a diagnostic option and the conditions it reports.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [GCC manual: warning options](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) (online) — Look up a diagnostic option and the conditions it reports.
 
 Native source: `native/examples/first-program-4.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -294,12 +302,14 @@ Before pressing Run code. The runner passes the Input text at the start. It does
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/5). In main.c, replace This program runs in the browser. with Built and run here. Choose Run code, then confirm Console shows the new line. In Editor tools, choose Export to save the edited main.c. The chapter’s greeting exercise uses Check output for separate practice.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/first-program/5). In main.c, replace “This program runs in the browser.” inside the printf string with “I changed this message.” Leave the newline escape at the end of the string and the surrounding quotation marks unchanged. Choose Run code, then confirm Console shows the new line. In Editor tools, choose Export to save the edited main.c. The chapter’s greeting exercise uses Check output for separate practice.
 
 ### References and help
 
-- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
-- [C reference: input/output](https://en.cppreference.com/w/c/io.html) — Compare stream modes, positioning, error indicators, and formatted I/O.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [WebAssembly concepts](https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/Concepts) (online) — Distinguish source code, a Wasm module, and the host/runtime that supplies its environment.
+- [C reference: input/output](https://en.cppreference.com/w/c/io.html) (online) — Compare stream modes, positioning, error indicators, and formatted I/O.
 
 Native source: `native/examples/first-program-5.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -317,11 +327,10 @@ A function reference describes a contract: the header to include, the arguments 
 
 ### Choose the right entry
 
-Use the online references below in this browser lab. Section 3 of Linux manuals describes C library functions; section 1 describes commands. A shell can also have a printf builtin with separate help. The example manual commands below are optional reference instructions for systems that have man pages installed; the hosted Browser Linux image does not include them.
+Open the bundled printf(3) manual from References below, or start the Browser Linux help exercise. Section 3 describes C library functions; section 1 describes shell commands. The course bundles selected C library and Linux manuals. Shell-command manuals such as printf(1) are separate online references.
 
 ```text
 man 3 printf
-man 1 printf
 man -k printf
 ```
 
@@ -335,7 +344,7 @@ int printf(const char *restrict format, ...);
 
 ### Search, predict, then verify
 
-Use your browser’s Find feature to locate RETURN VALUE in the online printf reference. Read that success returns the transmitted character count and output or encoding failure returns a negative value. Predict the result for Hi! followed by a newline, then run the example. In an optional man/less environment, /RETURN VALUE searches, n finds the next match, and q quits; man -k searches installed descriptions.
+Use your browser’s Find feature to locate RETURN VALUE in the bundled printf(3) manual. Read that success returns the transmitted character count and output or encoding failure returns a negative value. Predict the result for Hi! followed by a newline, then run the example. In the Browser Linux manual pager, /RETURN VALUE searches, n finds the next match, and q quits; man -k searches installed descriptions.
 
 ### main.c
 
@@ -376,9 +385,11 @@ The first call writes H, i, !, and a newline: four characters. The terminating n
 
 ### References and help
 
-- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) — Read conversion specifiers, required argument types, and the return value.
-- [Linux manual: printf(3)](https://man7.org/linux/man-pages/man3/printf.3.html) — Use SYNOPSIS, conversion specifications, RETURN VALUE, and STANDARDS; note POSIX extensions.
-- [Linux manual: printf(1)](https://man7.org/linux/man-pages/man1/printf.1.html) — Compare the command-line utility with the C library function in section 3.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [C reference: printf family](https://en.cppreference.com/w/c/io/fprintf.html) (online) — Read conversion specifiers, required argument types, and the return value.
+- [Linux manual: printf(3)](https://man7.org/linux/man-pages/man3/printf.3.html) (online) — Use SYNOPSIS, conversion specifications, RETURN VALUE, and STANDARDS; note POSIX extensions.
+- [Linux manual: printf(1)](https://man7.org/linux/man-pages/man1/printf.1.html) (online) — Compare the command-line utility with the C library function in section 3.
 
 Native source: `native/examples/first-program-6.c`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 

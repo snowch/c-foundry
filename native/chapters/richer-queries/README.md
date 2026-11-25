@@ -125,8 +125,10 @@ To keep data separate from the prepared syntax. Typed binding retains the query 
 
 ### References and help
 
-- [SQLite C interface: prepared statements](https://www.sqlite.org/c3ref/prepare.html) — Read preparation and statement lifecycle contracts; these are design comparisons, not TinyDB APIs.
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite C interface: prepared statements](https://www.sqlite.org/c3ref/prepare.html) (online) — Read preparation and statement lifecycle contracts; these are design comparisons, not TinyDB APIs.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
 **Use the documentation (optional):** Does preparing a statement automatically mean every value is a safe parameter, or that the program can ignore its lifecycle?
 
@@ -209,8 +211,10 @@ The values are heavily skewed. The distribution assumption disagrees with the st
 
 ### References and help
 
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
-- [SQLite C interface: prepared statements](https://www.sqlite.org/c3ref/prepare.html) — Read preparation and statement lifecycle contracts; these are design comparisons, not TinyDB APIs.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+- [SQLite C interface: prepared statements](https://www.sqlite.org/c3ref/prepare.html) (online) — Read preparation and statement lifecycle contracts; these are design comparisons, not TinyDB APIs.
 
 Native source: `native/examples/richer-queries-2/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
@@ -305,8 +309,10 @@ The query’s logical results. A faster plan that drops or duplicates rows is in
 
 ### References and help
 
-- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) — Compare a plan explanation with measured execution work.
-- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
+Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
+
+- [SQLite documentation: EXPLAIN QUERY PLAN](https://www.sqlite.org/eqp.html) (online) — Compare a plan explanation with measured execution work.
+- [SQLite documentation: query planning](https://www.sqlite.org/queryplanner.html) (online) — Compare scans, index lookups, sorting, and cost choices; TinyDB implements a smaller model.
 
 Native source: `native/examples/richer-queries-3/`. The command below builds that source and prints its output in the terminal. Run from the repository root:
 
