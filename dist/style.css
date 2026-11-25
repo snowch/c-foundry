@@ -366,11 +366,41 @@ dialog::backdrop { background:#17241c88; }
 
 #linux-source-tools{margin:20px 0;padding:14px;border:1px solid var(--line);border-radius:6px}#linux-source-tools>summary{cursor:pointer;min-height:44px;align-content:center;font-weight:600}#linux-source-file{display:block;max-width:100%;width:100%;font-size:16px;padding:10px;margin:8px 0}#linux-source-code{display:block;width:100%;height:360px;padding:14px;background:#202b2a;color:#eff3ec;border:1px solid #859681;border-radius:4px;font:17px/1.6 var(--mono);tab-size:4}#linux-source-status{font-size:16px;overflow-wrap:anywhere}
 
-/* Compact, byte-indexed example memory; spare bytes are grouped without inventing values. */
-.concept-buffer-after{margin-top:16px}.concept-buffer-cells{grid-template-columns:repeat(7,minmax(0,1fr))}.concept-buffer-rest{margin-top:10px}.concept-buffer-rest .concept-node{padding:10px 12px}.concept-buffer-cells .concept-node-detail{font-size:14px}.concept-buffer-cells .concept-node-value{font-size:18px}
-@media(max-width:560px){.concept-buffer-cells{grid-template-columns:repeat(4,minmax(0,1fr))}.concept-buffer-cells .concept-node-label{font-size:14px}.concept-buffer-cells .concept-node-detail{font-size:14px}}
-
-.concept-buffer-key{font-size:16px;line-height:1.6;margin:12px 0}.concept-buffer-key>span{display:inline-block}.concept-buffer-key code{background:var(--soft);color:var(--ink)}
+/* A continuous memory strip: keep words readable and label byte roles directly. */
+.concept-diagram[data-concept="fgets-buffer"]{container:buffer / inline-size;--buffer-end-bg:#fff3d9;--buffer-end-ink:#70490c;--buffer-end-line:#ba8a3b}
+:root[data-theme="dark"] .concept-diagram[data-concept="fgets-buffer"]{--buffer-end-bg:#453722;--buffer-end-ink:#f4d395;--buffer-end-line:#bd914c}
+.buffer-state-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px;font-size:16px}
+.buffer-state-heading>code{font-size:16px;background:none;color:var(--muted)}
+.buffer-state-heading>span{color:var(--muted)}
+.buffer-before{padding:14px 16px;border:1px dashed var(--line);border-radius:6px;background:var(--soft);color:var(--muted);font-size:17px}
+.buffer-after-heading{margin-top:24px}
+.buffer-strip{display:grid;grid-template-columns:minmax(180px,2.2fr) minmax(95px,1fr) minmax(110px,1.1fr) minmax(125px,1.3fr);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.buffer-group{min-width:0;display:grid;grid-template-rows:52px 48px auto;gap:8px;padding:16px 12px;background:var(--accent-soft);color:var(--ink);border-right:1px solid var(--line)}
+.buffer-group:last-child{border-right:0}
+.buffer-group-heading{display:flex;flex-direction:column;gap:4px;font-size:16px;line-height:1.4}
+.buffer-range{font:15px/1.4 var(--mono);color:var(--muted)}
+.buffer-value{align-self:center;font:500 24px/1.4 var(--mono);white-space:nowrap}
+.buffer-text .buffer-value{font-size:22px}
+.buffer-detail{font-size:16px;line-height:1.5}
+.buffer-terminator{background:var(--buffer-end-bg);color:var(--buffer-end-ink);box-shadow:inset 0 3px var(--buffer-end-line)}
+.buffer-terminator .buffer-range{color:inherit}
+.buffer-unused{background:var(--soft);color:var(--muted);border-left:1px dashed var(--line)}
+.buffer-unused .buffer-value{font:500 20px/1.4 var(--sans)}
+.buffer-capacity{font-size:16px;line-height:1.5;color:var(--muted);margin:16px 0 0}
+.concept-diagram[data-concept="fgets-buffer"]>.concept-note{font-size:15px;color:var(--muted);margin-top:16px}
+@container buffer (max-width:560px){
+ .buffer-strip{grid-template-columns:1fr}
+ .buffer-group{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;gap:6px 12px;border-right:0;border-bottom:1px solid var(--line);padding:14px 16px}
+ .buffer-group:last-child{border-bottom:0}
+ .buffer-group-heading{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:baseline;gap:8px}
+ .buffer-value{grid-column:1/-1;font-size:24px}
+ .buffer-detail{grid-column:1/-1}
+ .buffer-unused{border-left:0;border-top:1px dashed var(--line)}
+ .buffer-group:not(.buffer-text){grid-template-rows:auto auto;gap:6px 12px;padding-block:12px}
+ .buffer-group:not(.buffer-text) .buffer-group-heading{grid-column:1;grid-row:1;flex-direction:column;gap:2px}
+ .buffer-group:not(.buffer-text) .buffer-value{grid-column:2;grid-row:1;text-align:right}
+ .buffer-group:not(.buffer-text) .buffer-detail{grid-row:2}
+}
 
 /* Keep tree edges visible on phones; blank child slots preserve left/right meaning. */
 .concept-tree-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}

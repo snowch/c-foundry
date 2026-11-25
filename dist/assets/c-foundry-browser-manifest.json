@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 488467,
-  "sha256": "3630468b6167217fc6e2bf4effcff361155231a8f349097e8dc6b93b10ebd6c6",
+  "bytes": 488666,
+  "sha256": "c4106073bce07a3933b896446490e38e7f8e7fd69e0b0894b97230671d7fc827",
   "files": [
     {
       "path": "LICENSE",
@@ -56,8 +56,8 @@
     },
     {
       "path": "docs/concept-diagram-review.md",
-      "bytes": 84373,
-      "sha256": "518bf075db942f26e61d66e4f761cca9969dafd1ed16bfb364c1f982a50d31a9"
+      "bytes": 84611,
+      "sha256": "3c5ea437728b2eb2301403290b2061409a18e1dffb4c72471a29da06ea6e8185"
     },
     {
       "path": "docs/concept-diagrams.md",
@@ -121,8 +121,8 @@
     },
     {
       "path": "native/chapters/arrays-strings/README.md",
-      "bytes": 17722,
-      "sha256": "9ee43cb2eeb9756f27e5f01457fbf6699882bd96edba5f13c9b85343526c8ed1"
+      "bytes": 17724,
+      "sha256": "19c22b40d25d54ee8f4656388d2702c7c5e228ff70f9d7e46455f328d8ce492e"
     },
     {
       "path": "native/chapters/atomics/README.md",

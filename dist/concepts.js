@@ -2122,130 +2122,52 @@
   },
   "fgets-buffer": {
     "title": "Memory before and after fgets",
-    "caption": "What does the supplied input put into the 32-byte line buffer?",
-    "description": "Before fgets, all 32 bytes of the automatic array line have indeterminate values; question marks mean uninitialized, not zero. On the successful read of Ada Lovelace followed by a newline, indices 0 through 11 hold the twelve name characters including the space. Index 12 holds the retained newline, and index 13 holds the terminating zero byte. Indices 14 through 31 are unchanged and remain indeterminate. The Read: prefix is added by printf and is not stored in line. The program uses the buffer only after fgets succeeds.",
+    "caption": "fgets keeps the newline and adds a zero byte to end the string.",
+    "description": "Before fgets, all 32 bytes of line are uninitialized; no initial byte values are assumed. After the successful read of the original input, bytes 0 through 11 contain Ada Lovelace, including its space. Byte 12 contains the newline from the input. Byte 13 contains the zero byte added by fgets to terminate the C string. Bytes 14 through 31, eighteen bytes, are untouched and remain uninitialized. In total, thirteen input bytes and one terminator occupy fourteen of the thirty-two bytes. The Read: prefix comes from printf and is not stored in line. For this 32-byte array, fgets can store at most 31 input bytes plus the terminator. Groups are not drawn to scale, and edits do not update this illustration.",
     "kind": "buffer-change",
     "placement": "after-example",
     "data": {
       "capacity": 32,
       "input": "Ada Lovelace\n",
-      "before": {
-        "label": "Before fgets",
-        "value": "? … ?",
-        "detail": "line[32]: all 32 bytes are uninitialized",
-        "state": "muted"
-      },
-      "cells": [
+      "groups": [
         {
-          "label": "[0]",
-          "value": "A",
-          "detail": "",
-          "state": "normal"
+          "kind": "text",
+          "label": "Text",
+          "start": 0,
+          "end": 11,
+          "value": "Ada Lovelace",
+          "detail": "12 bytes from input"
         },
         {
-          "label": "[1]",
-          "value": "d",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[2]",
-          "value": "a",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[3]",
-          "value": "␠",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[4]",
-          "value": "L",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[5]",
-          "value": "o",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[6]",
-          "value": "v",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[7]",
-          "value": "e",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[8]",
-          "value": "l",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[9]",
-          "value": "a",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[10]",
-          "value": "c",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[11]",
-          "value": "e",
-          "detail": "",
-          "state": "normal"
-        },
-        {
-          "label": "[12]",
+          "kind": "newline",
+          "label": "Newline",
+          "start": 12,
+          "end": 12,
           "value": "\\n",
-          "detail": "",
-          "state": "active"
+          "detail": "Kept from input"
         },
         {
-          "label": "[13]",
+          "kind": "terminator",
+          "label": "String end",
+          "start": 13,
+          "end": 13,
           "value": "\\0",
-          "detail": "",
-          "state": "boundary"
-        }
-      ],
-      "remaining": {
-        "label": "[14]–[31] · 18 bytes",
-        "value": "? … ?",
-        "detail": "unchanged; still uninitialized",
-        "state": "muted"
-      },
-      "legend": [
-        {
-          "value": "␠",
-          "meaning": "space"
+          "detail": "Added by fgets"
         },
         {
-          "value": "\\n",
-          "meaning": "newline"
-        },
-        {
-          "value": "\\0",
-          "meaning": "string terminator"
+          "kind": "unused",
+          "label": "Untouched",
+          "start": 14,
+          "end": 31,
+          "value": "18 bytes",
+          "detail": "Still uninitialized"
         }
       ]
     },
     "routes": [
       "arrays-strings/3"
     ],
-    "note": "For this 32-byte buffer, fgets stores at most 31 input characters plus \\0. It keeps the newline when it fits. The Read: prefix comes from printf. This illustrates the supplied program and input; edits do not update the picture."
+    "note": "Original example; byte groups are not to scale."
   },
   "assignment-snapshot": {
     "title": "Assignment stores a value at that moment",
@@ -3112,7 +3034,7 @@
     const data=d.data;
     switch(d.kind){
       case 'tree-pair':return `<div class="concept-tree-pair">${data.map(tree=>`<div class="concept-tree-panel"><p class="concept-lane-label">${escape(tree.label)}</p>${treeArt(tree.root)}</div>`).join('')}</div>`;
-      case 'buffer-change':return `<p class="concept-lane-label">Before the read</p>${node(data.before)}<p class="concept-lane-label concept-buffer-after">After a successful read</p>${cards(data.cells,'concept-cells concept-buffer-cells')}<p class="concept-buffer-key">${data.legend.map(item=>`<span><code>${escape(item.value)}</code> ${escape(item.meaning)}</span>`).join(' · ')}</p><div class="concept-buffer-rest">${node(data.remaining)}</div>`;
+      case 'buffer-change':return `<div class="buffer-state-heading"><strong>Before</strong><code>line[${data.capacity}]</code></div><div class="buffer-before">${data.capacity} uninitialized bytes</div><div class="buffer-state-heading buffer-after-heading"><strong>After</strong><span>${data.input.length+1} bytes written</span></div><div class="buffer-strip">${data.groups.map(group=>`<div class="buffer-group buffer-${escape(group.kind)}"><div class="buffer-group-heading"><strong>${escape(group.label)}</strong><span class="buffer-range">[${group.start}${group.start===group.end?'':'–'+group.end}]</span></div><strong class="buffer-value">${escape(group.value)}</strong><span class="buffer-detail">${escape(group.detail)}</span></div>`).join('')}</div><p class="buffer-capacity">${data.capacity}-byte capacity: up to ${data.capacity-1} input bytes + <code>\\0</code>.</p>`;
       case 'flow':return cards(data,'concept-flow');
       case 'cells':return cards(data.cells,'concept-cells');
       case 'segments':return cards(data,'concept-segments');
