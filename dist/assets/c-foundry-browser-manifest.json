@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 1021870,
-  "sha256": "f05e47887a4de73986854cf0fdd60ea36d37d5a714715b6c729cba00ea0c64d7",
+  "bytes": 1022105,
+  "sha256": "9e87c8eb0155213664eb6a592102d7d1218ee85fca993df59bc0e3db172825d2",
   "files": [
     {
       "path": "LICENSE",
@@ -666,8 +666,8 @@
     },
     {
       "path": "docs/review.md",
-      "bytes": 9002,
-      "sha256": "54d868a39cd831e6a809a4cc3babde6fd4ef1feffa54d2b139fcda04734f01c0"
+      "bytes": 9901,
+      "sha256": "66f5d5f188fcbde6df867b9357c9bb5147f8f4b9f9dfdcd96e7c5a1f00ac4067"
     },
     {
       "path": "docs/self-hosted-linux-validation.json",
