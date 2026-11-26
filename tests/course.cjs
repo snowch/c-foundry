@@ -9,7 +9,7 @@ assert.equal(w.COURSE.chapters.filter(c=>c.status==='ready').length,44);assert.e
 const manifest=JSON.parse(fs.readFileSync('native/examples/tests.json','utf8'));assert.equal(Object.keys(manifest).length,227);assert.equal(w.LESSONS.filter(l=>l.isExample).length,Object.values(w.authoredLessons.content).flatMap(c=>Object.values(c.topics)).filter(t=>t.runtime!=='native'||t.browser).length);
 let newTopics=0,browser=0,native=0,marked=0;
 for(const chapter of w.COURSE.chapters.filter(c=>c.part>=2)){
- go('/chapter/'+chapter.id);assert.ok(!$('#preview-content').textContent.includes('Preview page'));assert.ok($('#preview-content').textContent.includes(chapter.project));assert.ok($('#preview-content').textContent.includes('Build it yourself'));
+ go('/chapter/'+chapter.id);assert.ok(!$('#preview-content').textContent.includes('Preview page'));assert.ok($('#preview-content').textContent.includes(chapter.project.replace(/\.$/,'')));assert.ok($('#preview-content a[href="#/chapter/'+chapter.id+'/practice"]'));
  const content=w.authoredLessons.content[chapter.id];assert.ok(content.practicePlan.tasks.length>=1);
  for(const topic of chapter.topics){
   const t=content.topics[topic.id],id=chapter.id+'-'+topic.id;newTopics++;
@@ -29,6 +29,6 @@ for(const chapter of w.COURSE.chapters.filter(c=>c.part>=2)){
 }
 assert.equal(newTopics,174);assert.equal(browser+native,174);assert.equal(w.lessonCompletion.total().done,marked+1);
 go('/chapter/persistence/5');const artifact=$('a[download]');assert.equal(artifact.getAttribute('href'),'assets/tinydb-sample.tdb');const sample=fs.readFileSync('dist/'+artifact.getAttribute('href'));assert.equal(sample.length,88);assert.equal(sample.subarray(0,4).toString(),'TDB1');assert.equal(sample[6],2);assert.equal(sample.readUInt32LE(8),1);assert.equal(sample.readUInt32LE(48),2);
-go('/chapter/reliability/3');assert.ok($('.page-navigation').textContent.includes('Course map'));assert.ok($('#preview-content').textContent.includes('Build it yourself'));
+go('/chapter/reliability/3');assert.equal($('.page-navigation a:last-child').getAttribute('href'),'#/chapter/reliability/practice');go('/chapter/reliability/practice');assert.equal($('.page-navigation a:last-child').getAttribute('href'),'#/course');assert.ok($('.practice-content'));
 go('/course');assert.equal(w.document.querySelectorAll('.course-part li').length,44);assert.ok(!$('#course-cards').textContent.includes('planned topics'));assert.match($('#course-cards [data-chapter-progress="reliability"]').textContent,/2\/3 done/);
 console.log('PASS remaining 174 authored routes, questions, inline/native examples, source/command parity, all chapter workshops, expanded completion tracking and downloadable database fixture');dom.window.close();

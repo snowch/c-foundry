@@ -38,6 +38,7 @@ const { chromium, expect } = require("playwright/test"),
           title: c.title,
           topics: c.topics,
           labs: c.labs,
+          practices: authoredLessons.practices(c),
         })),
       ),
       parts = await page.evaluate(() => COURSE.parts);
@@ -120,16 +121,16 @@ const { chromium, expect } = require("playwright/test"),
           );
         assert.equal(
           links[0].href,
-          (i===0&&chapters[chapter.number-2]?.labs.length?'#/lesson/'+chapters[chapter.number-2].labs.at(-1):previous?.href || "#/part/" + (chapter.part + 1)),
+          (i===0&&chapters[chapter.number-2]?.practices.length?chapters[chapter.number-2].practices.at(-1).href:previous?.href || "#/part/" + (chapter.part + 1)),
         );
         assert.equal(
           links[1].href,
-          (i===chapter.topics.length-1&&chapter.labs.length?'#/lesson/'+chapter.labs[0]:next?.href ||
+          (i===chapter.topics.length-1&&chapter.practices.length?chapter.practices[0].href:next?.href ||
             (chapter.part < parts.length - 1
               ? "#/part/" + (chapter.part + 2)
               : "#/course")),
         );
-        if(i===chapter.topics.length-1&&chapter.labs.length)assert.match(links[1].text,/Chapter practice/);
+        if(i===chapter.topics.length-1&&chapter.practices.length)assert.match(links[1].text,/Next · Practice/);
         else if (next) assert.ok(links[1].text.includes(next.title));
         else
           assert.match(
@@ -158,7 +159,16 @@ const { chromium, expect } = require("playwright/test"),
     await expect(page.locator("#course-contents")).toBeHidden();
     await expect(page.locator("#preview-content h1")).toBeFocused();
     await page.locator("#course-menu-button").click();
+    assert.equal(await page.locator('.outline-chapter[open]').count(),1);
+    assert.equal(await page.locator('#course-contents a[href="#/course"]').count(),0);
+    assert.equal(await page.locator('.outline-toolbar a').count(),0);
+    await expect(page.locator('.outline-chapter[open] summary')).toContainText('Your first C program');
+    await page.locator('.outline-chapter summary').nth(1).click();
+    assert.equal(await page.locator('.outline-chapter[open]').count(),1);
+    await expect(page.locator('.outline-chapter[open] summary')).toContainText('Values, types, and expressions');
     await page.locator("#outline-part").selectOption("7");
+    await expect(page.locator('#outline-part')).toBeFocused();
+    await expect(page.locator('.outline-toolbar a')).toHaveAttribute('href','#/part/8');
     assert.equal(new URL(page.url()).hash, "#/chapter/first-program/1");
     await expect(page.locator("#editor")).toHaveValue(
       "// navigation draft\nint main(void){return 0;}",
@@ -195,7 +205,9 @@ const { chromium, expect } = require("playwright/test"),
           ),
         ).toHaveText("Chapter " + chapter.number + ": " + chapter.title);
         await expect(page.locator("#next-button")).toHaveText(
-          (chapter.labs.indexOf(id)<chapter.labs.length-1?'Next practice: ':'Next lesson: ')+ (chapter.labs.indexOf(id)<chapter.labs.length-1?await page.evaluate(id=>LESSONS.find(l=>l.id===id).title,chapter.labs[chapter.labs.indexOf(id)+1]):chapters[chapter.number].topics[0].title)+' →',
+          chapter.practices[chapter.labs.indexOf(id)+1]
+            ? 'Next practice: '+chapter.practices[chapter.labs.indexOf(id)+1].title+' →'
+            : 'Next lesson: '+chapters[chapter.number].topics[0].title+' →',
         );
         assert.ok(
           (await page.locator("#course-prediction").count()) <= 1,
@@ -204,6 +216,24 @@ const { chromium, expect } = require("playwright/test"),
         practiceCount++;
       }
     assert.equal(practiceCount, 15);
+    let projectCount=0;
+    for(const chapter of chapters){
+      const project=chapter.practices.find(p=>p.project);if(!project)continue;
+      await go(project.href);
+      await expect(page.locator('#preview-content h1')).toHaveText(project.title);
+      await expect(page.locator('#course-breadcrumbs [aria-current]')).toHaveText('Chapter practice');
+      await expect(page.locator('[data-project-complete]')).not.toBeChecked();
+      await page.locator('[data-project-complete]').check();
+      await page.locator('#course-menu-button').click();
+      await expect(page.locator('#course-contents a[aria-current="page"]')).toContainText('Practice complete');
+      await page.keyboard.press('Escape');
+      await page.reload();
+      await expect(page.locator('[data-project-complete]')).toBeChecked();
+      const next=chapters[chapter.number];
+      assert.equal(await page.locator('[data-course-paging] a').last().getAttribute('href'),next?'#/chapter/'+next.id+'/'+next.topics[0].id:'#/course');
+      projectCount++;
+    }
+    assert.equal(projectCount,36);
     fs.mkdirSync("test-results", { recursive: true });
     for (const width of [320, 390, 820, 1440])
       for (const theme of ["light", "dark"]) {

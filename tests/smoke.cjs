@@ -7,6 +7,10 @@ for(const lesson of sandbox.LESSONS){const r=await run({code:lesson.solution,fil
 const helpLesson=sandbox.LESSONS.find(l=>l.id==='example-first-program-6');
 for(const [message,expected] of [['C\\n','C\ncount=2'],['100%%\\n','100%\ncount=5']]){const result=await run({code:helpLesson.code.replace('Hi!\\n',message)});assert.equal(result.type,'done',JSON.stringify(result));assert.equal(result.diagnostics,'');assert.equal(result.results[0].actual,expected);}
 console.log('PASS documentation predictions: newline, literal percent, and printf return counts');
+const fractions=sandbox.LESSONS.find(l=>l.id==='example-values-1');
+const exactHalf=await run({code:fractions.code.replace('double tenth = 0.1;', 'double tenth = 0.5;')});
+assert.equal(exactHalf.type,'done',JSON.stringify(exactHalf));assert.equal(exactHalf.diagnostics,'');assert.equal(exactHalf.results[0].actual,'7 2.5 A 1\nrounded: 0.5\nmore digits: 0.50000000000000000');
+console.log('PASS binary floating-point: decimal tenth exposes approximation while one half is exact');
 let r=await run({code:'#warning \"visible warning regression\"\nint main(void){return 0;}'});assert.equal(r.type,'done');assert.match(r.diagnostics,/warning:.*visible warning regression/);console.log('PASS learner compiler warnings remain visible');
 r=await run({code:'#include <stdio.h>\nint main(void){ printf("broken") return 0; }'});assert.equal(r.type,'error');assert.match(r.diagnostics,/error:/);console.log('PASS compiler diagnostics');
 r=await run({code:'#include <stdio.h>\nint main(void){puts("custom code works");return 0;}'});assert.equal(r.type,'done');assert.equal(r.results[0].actual,'custom code works');console.log('PASS arbitrary C after compile failure');

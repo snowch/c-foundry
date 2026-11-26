@@ -145,10 +145,10 @@ window.PART_ONE = {
     "topics": {
       "1": {
         "intro": "A type determines the values an object can represent and the operations that make sense for it. Choose a type from the meaning and range of the data, rather than assuming every number should be an int.",
-        "explanation": "<code>int</code> represents whole numbers, while <code>double</code> represents floating-point approximations. <code>char</code> is an integer type used for character-sized storage; a character literal such as <code>'A'</code> uses single quotes. In C17, include <code>&lt;stdbool.h&gt;</code> to use <code>bool</code>, <code>true</code>, and <code>false</code>. Integer widths and plain-char signedness are implementation choices within the standard’s requirements. Do not assume one compiler’s sizes describe all C platforms. The language also provides short, long, long long, and unsigned integer variants, and float and long double for other floating-point ranges or precision. This introduction uses double for fractional calculations. A float argument to printf is promoted to double; scanf follows different format rules, so do not transfer printf formats to input functions without checking their contracts.",
-        "code": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int count = 7;\n    double distance = 2.5;\n    char letter = 'A';\n    bool ready = true;\n    printf(\"%d %.1f %c %d\\n\", count, distance, letter, ready);\n    return 0;\n}\n",
-        "expected": "7 2.5 A 1",
-        "walkthrough": "The formats match the arguments: %d for int, %.1f for a double printed with one fractional digit, and %c for a character value. The bool value is promoted to int when passed to printf and prints as 1. Floating-point values generally cannot represent every decimal fraction exactly; formatting is a presentation choice, not a change to stored precision.",
+        "explanation": "<code>int</code> represents whole numbers, while <code>double</code> represents floating-point approximations. <code>char</code> is an integer type used for character-sized storage; a character literal such as <code>'A'</code> uses single quotes. In C17, include <code>&lt;stdbool.h&gt;</code> to use <code>bool</code>, <code>true</code>, and <code>false</code>. The language also provides short, long, long long, and unsigned integer variants, and float and long double for other floating-point ranges or precision. This introduction uses double for fractional calculations. A float argument to printf is promoted to double; scanf follows different format rules, so do not transfer printf formats to input functions without checking their contracts.",
+        "code": "#include <stdio.h>\n#include <stdbool.h>\n\nint main(void) {\n    int count = 7;\n    double distance = 2.5;\n    char letter = 'A';\n    bool ready = true;\n    printf(\"%d %.1f %c %d\\n\", count, distance, letter, ready);\n    double tenth = 0.1;\n    printf(\"rounded: %.1f\\n\", tenth);\n    printf(\"more digits: %.17f\\n\", tenth);\n    return 0;\n}\n",
+        "expected": "7 2.5 A 1\nrounded: 0.1\nmore digits: 0.10000000000000001",
+        "walkthrough": "The first line uses %d for int, %.1f for double with one fractional digit, and %c for a character value. The bool argument is promoted to int and prints as 1. The last two lines print the same stored tenth with different formats. On this browser target, double uses binary fractions: 2.5 is exact, but 0.1 lies between representable values. The extra digits expose its approximation. Formatting changes the displayed digits, not the stored value. <a href=\"#/chapter/c-guarantees/8\">Part 7 explores rounding and choosing tolerances for comparisons</a>.",
         "pitfall": "The format string does not convert an incorrectly typed argument into the expected type. For example, passing a double to %d is not a safe shortcut.",
         "question": "Which format is appropriate for printing a double with one decimal place?",
         "choices": [
@@ -158,8 +158,12 @@ window.PART_ONE = {
         ],
         "answer": 1,
         "why": "The f conversion expects a double; .1 requests one digit after the decimal point.",
-        "tryit": "In main.c after the first run, change count from 7 to 9, distance from 2.5 to 4.0, letter from 'A' to 'B', and ready from true to false. Predict the four fields and choose Run code. In Console, which field shows a Boolean as an integer?",
-        "input": ""
+        "tryit": "In main.c after the first run, change count from 7 to 9, distance from 2.5 to 4.0, letter from 'A' to 'B', and ready from true to false. Predict the four fields and choose Run code. In Console, which field shows a Boolean as an integer? Then change tenth from 0.1 to 0.5 and run again. Compare rounded: and more digits:. Can this binary floating-point type represent one half exactly?",
+        "input": "",
+        "keyPoint": {
+          "title": "One compiler’s sizes are not a C guarantee",
+          "body": "C guarantees minimum ranges, not one size for every type. For example, <code>int</code> must represent at least −32767 through 32767; it need not be 32 bits. A C byte is the size of <code>char</code> and has at least 8 bits. <code>&lt;stdint.h&gt;</code> provides exact-width names such as <code>uint32_t</code> when that width is supported; <code>uint_least32_t</code> guarantees at least 32 value bits. <a href=\"#/chapter/files-bytes/2\">Chapter 10 shows fixed-width values and their print formats</a>; <a href=\"#/chapter/portable-c/2\">Part 7 applies them to portable files</a>."
+        }
       },
       "2": {
         "intro": "A variable is a named object whose stored value may change. Initialization gives it a starting value at its declaration. A later assignment replaces the value it holds.",
@@ -215,7 +219,7 @@ window.PART_ONE = {
       },
       "5": {
         "intro": "C’s numeric types have finite ranges. Correct code distinguishes unsigned arithmetic, which wraps modulo its type’s range, from signed overflow, whose behavior is undefined.",
-        "explanation": "Use <code>&lt;limits.h&gt;</code> for bounds such as INT_MAX, INT_MIN, and UINT_MAX. Do not assume int is exactly 32 bits merely because this browser target uses that size. A signed addition must be checked before it overflows, not afterward. Unsigned wrap is defined, but it can still be a bug in sizes or indexes. Floating-point types have separate limits and precision characteristics described by <code>&lt;float.h&gt;</code>. Part 7’s What C guarantees chapter extends this introduction with checked arithmetic, exceptional division and negation, rounding, NaN/infinity, and underflow.",
+        "explanation": "Use <code>&lt;limits.h&gt;</code> for bounds such as INT_MAX, INT_MIN, and UINT_MAX. Use <code>sizeof(int)</code> to find its storage size in C bytes, and <code>CHAR_BIT</code> for the number of bits in a byte; storage bits may include padding. Neither result replaces the value bounds in limits.h. A signed addition must be checked before it overflows, not afterward. Unsigned wrap is defined, but it can still be a bug in sizes or indexes. Floating-point types have separate limits and precision characteristics described by <code>&lt;float.h&gt;</code>. Part 7’s What C guarantees chapter extends this introduction with checked arithmetic, exceptional division and negation, rounding, NaN/infinity, and underflow.",
         "code": "#include <stdio.h>\n#include <limits.h>\n\nint main(void) {\n    unsigned int value = 0;\n    value -= 1;\n    printf(\"%d\\n\", value == UINT_MAX);\n    return 0;\n}\n",
         "expected": "1",
         "walkthrough": "Subtracting one from unsigned zero wraps to UINT_MAX. The comparison is true, so printf prints 1. This is a defined unsigned operation. Replacing value with a signed int and deliberately overflowing its range would not be a comparable experiment: a particular output would provide no guarantee about that invalid program.",
@@ -228,7 +232,8 @@ window.PART_ONE = {
         "answer": 1,
         "why": "Unsigned arithmetic has defined modular behavior. Ordinary signed overflow does not.",
         "tryit": "In main.c, change value -= 1; to value -= 2;. Choose Run code and compare the printed test against UINT_MAX with the starter. Then change the test to value == UINT_MAX - 1 and run again. Which value does defined unsigned subtraction produce?",
-        "input": ""
+        "input": "",
+        "extension": "Before return 0;, add printf(\"int bytes=%zu bits per byte=%d max=%d\\n\", sizeof(int), CHAR_BIT, INT_MAX); and run again. In Console, identify the storage size, bits per byte, and largest int value on this target. These are measurements of this implementation, not sizes guaranteed for every C platform."
       }
     }
   },

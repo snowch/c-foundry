@@ -45,7 +45,7 @@
     {
       "name": "Integers, floating-point numbers, characters, and Boolean values",
       "input": "",
-      "expected": "7 2.5 A 1"
+      "expected": "7 2.5 A 1\nrounded: 0.1\nmore digits: 0.10000000000000001"
     }
   ],
   "values-2": [

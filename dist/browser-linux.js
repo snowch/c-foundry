@@ -17,11 +17,11 @@
     if(data.practicePlan)result.add(data.practicePlan.command||`make example EXAMPLE=${data.practicePlan.example}`);
     return result;
   }
-  function show(chapterId='',command=''){
-    if(!chapterId&&!command){chapterId=lastSelection.chapterId;command=lastSelection.command;}
+  function show(chapterId='',command='',returnPractice=false){
+    if(!chapterId&&!command){chapterId=lastSelection.chapterId;command=lastSelection.command;returnPractice=lastSelection.returnPractice;}
     const chapter=chapterId?COURSE.chapters.find(c=>c.id===chapterId):null;
     if(chapterId&&!chapter||command&&(!chapter||!commands(chapter).has(command)))return false;
-    lastSelection={chapterId,command};
+    lastSelection={chapterId,command,returnPractice};
     const help=command==='man 3 printf';$('linux-view').classList.toggle('linux-help-mode',help);
     document.querySelector('#linux-view>h1').textContent=help?'Practise finding help with man':'Browser Linux';
     let guide=$('linux-help-guide');if(!guide){guide=document.createElement('section');guide.id='linux-help-guide';guide.innerHTML='<h2>Find a rule, then use it in your code</h2><p>Open the printf manual below. In the terminal’s Find in manual field, enter <strong>RETURN VALUE</strong> and choose <strong>Find</strong>. Read what success and failure return.</p><button id="linux-help-open">Open printf · man 3 printf</button><p>Use <strong>Next page</strong>, <strong>Previous page</strong> or swipe inside the manual. <strong>Close manual · q</strong> returns to the shell without stopping Linux.</p><p>After closing the manual, enter <code>man -k printf</code> in <strong>Command</strong> and choose <strong>Run</strong>. Find the entry in section 3, the section for C library functions.</p><a class="primary-link" href="#/chapter/first-program/6">Back to the prediction and C program →</a>';
@@ -32,8 +32,9 @@
     $('linux-context').textContent=chapter?`Chapter ${chapter.number}: ${chapter.title}`:'A complete Linux toolchain, running in your browser';
     $('linux-command').textContent=command||chapter?.command||'make counter';
     const topic=command==='man 3 printf'?chapter?.topics.find(t=>t.id==='6'):chapter?.topics.find(topic=>{const t=authoredLessons.content[chapter.id].topics[topic.id];return (t.command||`make example EXAMPLE=${chapter.id}-${topic.id}`)===command.replace(/ RUN_ONLY=1$/,'')||t.lab?.command===command;});
-    $('linux-return').href=chapter?'#/chapter/'+chapter.id+(topic?'/'+topic.id:''):'#/course';
-    $('linux-return').textContent=chapter?'← Return to '+(topic?.title||chapter.title):'← Complete course';
+    const project=returnPractice&&chapter?authoredLessons.practices(chapter).find(p=>p.project):null;
+    $('linux-return').href=project?project.href:chapter?'#/chapter/'+chapter.id+(topic?'/'+topic.id:''):'#/course';
+    $('linux-return').textContent=project?'← Return to practice: '+project.title:chapter?'← Return to '+(topic?.title||chapter.title):'← Complete course';
     return true;
   }
   function start(){

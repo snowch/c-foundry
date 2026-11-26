@@ -131,7 +131,9 @@
       practice:
         segments[0] === "lesson"
           ? LESSONS.find((l) => l.id === segments[1])
-          : null,
+          : chapter && segments[2] === "practice"
+            ? authoredLessons.practices(chapter).find(p=>p.project)
+            : null,
     };
   }
   const partLabel = (p) => "Part " + p.number + ": " + p.title;
@@ -149,7 +151,7 @@
       partPage.innerHTML = foundryHub.overview(part, done, last(), "#/course");
       partPage.querySelectorAll('.part-chapter').forEach((section,index)=>{
         const chapter=COURSE.chapters.find(c=>c.id===part.chapters[index].id);
-        if(chapter.labs.length)section.insertAdjacentHTML('beforeend','<p class="outline-practice">Chapter practice: '+chapter.labs.map(id=>`<a href="#/lesson/${id}" data-completed="${practiceCompletion.isDone(id)}">${escape(LESSONS.find(l=>l.id===id).title)}${practiceCompletion.isDone(id)?'<span class="practice-tick"> · ✓ Practice complete</span>':''}</a>`).join(' · ')+'</p>');
+        section.insertAdjacentHTML('beforeend','<p class="outline-practice">Practice: '+authoredLessons.practices(chapter).map(p=>`<a href="${p.href}" data-completed="${practiceCompletion.isDone(p.id)}">${escape(p.title)}${practiceCompletion.isDone(p.id)?'<span class="practice-tick"> · ✓ Practice complete</span>':''}</a>`).join(' · ')+'</p>');
       });
       const previous = courseParts[part.number - 2],
         next = courseParts[part.number];
@@ -230,28 +232,19 @@
       " / " +
       scoped.length +
       " lessons complete";
+    const activeChapter = part.chapters.find(c=>c.id===current.chapter?.id) || part.chapters[0];
+    function outlineStep(step, number, completed, practice=false){
+      return `<li><a href="${step.href}" ${location.hash===step.href?'aria-current="page"':''} data-completed="${completed}" aria-label="${escape((practice?'Practice: ':'Lesson '+number+': ')+step.title+(completed?', complete':''))}"><span class="outline-lesson-number" aria-hidden="true">${practice?materialSymbol('terminal'):number}</span><span class="outline-step-title">${escape(step.title)}${practice?'<small>Practice</small>':''}</span><span class="outline-step-status">${completed?materialSymbol('check')+'<span class="sr-only">'+(practice?'Practice complete':'Completed')+'</span>':''}</span></a></li>`;
+    }
     $("course-contents").innerHTML =
-      `<div class="outline-destinations"><a href="#/course">All parts</a><a href="${part.href}">${escape(partLabel(part))} overview</a></div><label for="outline-part">Show chapters in</label><select id="outline-part">${courseParts.map((p, i) => `<option value="${i}" ${p === part ? "selected" : ""}>${escape(partLabel(p))}</option>`).join("")}</select><div class="course-outline-grid">${part.chapters
-        .map(
-          (c) =>
-            `<section><h3><a href="${c.href}" ${current.chapter?.id === c.id ? 'data-current-chapter="true"' : ""}>${escape(chapterLabel(c))}</a></h3><p class="chapter-progress">${c.lessons.filter((l) => done(l.id)).length} / ${c.lessons.length} lessons complete</p><ol>${c.lessons.map((l) => `<li><a href="${l.href}" ${location.hash === l.href ? 'aria-current="page"' : ""} aria-label="Lesson ${l.number}: ${escape(l.title)}${done(l.id) ? ", complete" : ""}"><span class="outline-lesson-number">${l.number}</span><span>${escape(l.title)}</span>${done(l.id) ? materialSymbol("check") : ""}</a></li>`).join("")}</ol>${
-              COURSE.chapters.find((ch) => ch.id === c.id).labs.length
-                ? `<p class="outline-practice">Practice: ${COURSE.chapters
-                    .find((ch) => ch.id === c.id)
-                    .labs.map(
-                      (id) =>
-                        `<a href="#/lesson/${id}" data-completed="${practiceCompletion.isDone(id)}" ${current.practice?.id === id ? 'aria-current="page"' : ""}>${escape(LESSONS.find((l) => l.id === id).title)}${practiceCompletion.isDone(id)?'<span class="practice-tick"> · ✓ Practice complete</span>':''}</a>`,
-                    )
-                    .join(" · ")}</p>`
-                : ""
-            }</section>`,
-        )
-        .join(
-          "",
-        )}</div><details class="outline-workspaces"><summary>Independent workspaces</summary><p><a href="#/workspace">Command workspace</a> keeps files for independent C programs. <a href="#/linux">Browser Linux</a> provides the optional terminal and native tools.</p></details>`;
+      `<div class="outline-toolbar"><label for="outline-part">Browse a part<select id="outline-part">${courseParts.map((p,i)=>`<option value="${i}" ${p===part?'selected':''}>${escape(partLabel(p))}</option>`).join('')}</select></label>${part!==current.part?`<a href="${part.href}">Part overview ${materialSymbol('chevron_right')}</a>`:''}</div><div class="course-chapter-list">${part.chapters.map(c=>{
+        const chapter=COURSE.chapters.find(ch=>ch.id===c.id),completed=c.lessons.filter(l=>done(l.id)).length;
+        return `<details class="outline-chapter" name="course-chapters" ${c===activeChapter?'open':''}><summary><span class="outline-chapter-number" aria-hidden="true">${c.number}</span><span class="outline-chapter-title">${escape(c.title)}<small>${completed} of ${c.lessons.length} lessons complete</small></span>${materialSymbol('expand_more')}</summary><div class="outline-chapter-body"><ol>${c.lessons.map(l=>outlineStep(l,l.number,done(l.id))).join('')}${authoredLessons.practices(chapter).map(p=>outlineStep(p,null,practiceCompletion.isDone(p.id),true)).join('')}</ol><a class="outline-chapter-overview" href="${c.href}">Chapter overview ${materialSymbol('chevron_right')}</a></div></details>`;
+      }).join('')}</div><details class="outline-workspaces"><summary>Independent workspaces</summary><p><a href="#/workspace">Command workspace</a> keeps files for independent C programs. <a href="#/linux">Browser Linux</a> provides the terminal and native tools.</p></details>`;
     $("outline-part").onchange = (event) => {
       selectedPart = Number(event.target.value);
       outline();
+      $("outline-part").focus();
     };
   }
   button.onclick = () => {
@@ -312,7 +305,7 @@
           current.chapter.topics.length,
       });
     else if (current.practice)
-      crumbs.push({ title: "Practice: " + current.practice.title });
+      crumbs.push({ title: current.practice.project ? "Chapter practice" : "Practice: " + current.practice.title });
     else if (!current.part && current.segments[0] !== "course")
       crumbs.push({
         title:
@@ -322,12 +315,12 @@
     $("course-breadcrumbs").innerHTML = crumbs
       .map(
         (c, i) =>
-          (i
+          '<span class="breadcrumb-item">' + (i
             ? '<span class="breadcrumb-separator" aria-hidden="true">/</span>'
             : "") +
           (c.href
             ? `<a href="${c.href}">${escape(c.title)}</a>`
-            : `<span${i === crumbs.length - 1 ? ' aria-current="page"' : ""}>${escape(c.title)}</span>`),
+            : `<span${i === crumbs.length - 1 ? ' aria-current="page"' : ""}>${escape(c.title)}</span>`) + '</span>',
       )
       .join("");
   }
@@ -388,19 +381,19 @@
       next = part.lessons[position + 1],
       nextPart = courseParts[part.number];
     const previousChapter=COURSE.chapters[chapter.number-2],
-      previousPractice=chapter.topics[0].id===topic.id?previousChapter?.labs.at(-1):null,
-      nextPractice=chapter.topics.at(-1).id===topic.id?chapter.labs[0]:null;
+      previousPractice=chapter.topics[0].id===topic.id&&previousChapter?authoredLessons.practices(previousChapter).at(-1):null,
+      nextPractice=chapter.topics.at(-1).id===topic.id?authoredLessons.practices(chapter)[0]:null;
     nav.innerHTML =
       card(
         previousPractice
-          ? {href:'#/lesson/'+previousPractice,label:'Previous practice',title:LESSONS.find(l=>l.id===previousPractice).title}
+          ? {href:previousPractice.href,label:'Previous practice',title:previousPractice.title}
           : previous
           ? lessonCard(previous, "Previous lesson", chapter)
           : { href: part.href, label: "Part overview", title: partLabel(part) },
       ) +
       card(
         nextPractice
-          ? {href:'#/lesson/'+nextPractice,label:'Chapter practice',title:LESSONS.find(l=>l.id===nextPractice).title,detail:'Practise what you learned in this chapter'}
+          ? {href:nextPractice.href,label:'Next · Practice',title:nextPractice.title,detail:'Apply what you learned in this chapter'}
           : next
           ? lessonCard(next, "Next lesson", chapter)
           : nextPart
@@ -416,7 +409,7 @@
                 title: "All parts",
               },
       );
-    if (!next) {
+    if (!next && !nextPractice) {
       const note = document.createElement("p");
       note.className = "part-boundary";
       note.textContent = "This is the last lesson in " + partLabel(part) + ".";

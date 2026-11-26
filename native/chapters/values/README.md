@@ -14,7 +14,11 @@ Learn what your data can represent, how expressions are evaluated, and when conv
 
 A type determines the values an object can represent and the operations that make sense for it. Choose a type from the meaning and range of the data, rather than assuming every number should be an int.
 
-`int` represents whole numbers, while `double` represents floating-point approximations. `char` is an integer type used for character-sized storage; a character literal such as `'A'` uses single quotes. In C17, include `<stdbool.h>` to use `bool`, `true`, and `false`. Integer widths and plain-char signedness are implementation choices within the standard’s requirements. Do not assume one compiler’s sizes describe all C platforms. The language also provides short, long, long long, and unsigned integer variants, and float and long double for other floating-point ranges or precision. This introduction uses double for fractional calculations. A float argument to printf is promoted to double; scanf follows different format rules, so do not transfer printf formats to input functions without checking their contracts.
+`int` represents whole numbers, while `double` represents floating-point approximations. `char` is an integer type used for character-sized storage; a character literal such as `'A'` uses single quotes. In C17, include `<stdbool.h>` to use `bool`, `true`, and `false`. The language also provides short, long, long long, and unsigned integer variants, and float and long double for other floating-point ranges or precision. This introduction uses double for fractional calculations. A float argument to printf is promoted to double; scanf follows different format rules, so do not transfer printf formats to input functions without checking their contracts.
+
+**One compiler’s sizes are not a C guarantee**
+
+C guarantees minimum ranges, not one size for every type. For example, `int` must represent at least −32767 through 32767; it need not be 32 bits. A C byte is the size of `char` and has at least 8 bits. `<stdint.h>` provides exact-width names such as `uint32_t` when that width is supported; `uint_least32_t` guarantees at least 32 value bits. [Chapter 10 shows fixed-width values and their print formats](https://snowch.github.io/c-foundry/#/chapter/files-bytes/2); [Part 7 applies them to portable files](https://snowch.github.io/c-foundry/#/chapter/portable-c/2).
 
 ### main.c
 
@@ -28,6 +32,9 @@ int main(void) {
     char letter = 'A';
     bool ready = true;
     printf("%d %.1f %c %d\n", count, distance, letter, ready);
+    double tenth = 0.1;
+    printf("rounded: %.1f\n", tenth);
+    printf("more digits: %.17f\n", tenth);
     return 0;
 }
 ```
@@ -36,9 +43,11 @@ Output:
 
 ```text
 7 2.5 A 1
+rounded: 0.1
+more digits: 0.10000000000000001
 ```
 
-The formats match the arguments: %d for int, %.1f for a double printed with one fractional digit, and %c for a character value. The bool value is promoted to int when passed to printf and prints as 1. Floating-point values generally cannot represent every decimal fraction exactly; formatting is a presentation choice, not a change to stored precision.
+The first line uses %d for int, %.1f for double with one fractional digit, and %c for a character value. The bool argument is promoted to int and prints as 1. The last two lines print the same stored tenth with different formats. On this browser target, double uses binary fractions: 2.5 is exact, but 0.1 lies between representable values. The extra digits expose its approximation. Formatting changes the displayed digits, not the stored value. [Part 7 explores rounding and choosing tolerances for comparisons](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/8).
 
 **Watch for:** The format string does not convert an incorrectly typed argument into the expected type. For example, passing a double to %d is not a safe shortcut.
 
@@ -54,7 +63,7 @@ The formats match the arguments: %d for int, %.1f for a double printed with one 
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/values/1). In main.c after the first run, change count from 7 to 9, distance from 2.5 to 4.0, letter from 'A' to 'B', and ready from true to false. Predict the four fields and choose Run code. In Console, which field shows a Boolean as an integer?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/values/1). In main.c after the first run, change count from 7 to 9, distance from 2.5 to 4.0, letter from 'A' to 'B', and ready from true to false. Predict the four fields and choose Run code. In Console, which field shows a Boolean as an integer? Then change tenth from 0.1 to 0.5 and run again. Compare rounded: and more digits:. Can this binary floating-point type represent one half exactly?
 
 ### References and help
 
@@ -282,7 +291,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 C’s numeric types have finite ranges. Correct code distinguishes unsigned arithmetic, which wraps modulo its type’s range, from signed overflow, whose behavior is undefined.
 
-Use `<limits.h>` for bounds such as INT_MAX, INT_MIN, and UINT_MAX. Do not assume int is exactly 32 bits merely because this browser target uses that size. A signed addition must be checked before it overflows, not afterward. Unsigned wrap is defined, but it can still be a bug in sizes or indexes. Floating-point types have separate limits and precision characteristics described by `<float.h>`. Part 7’s What C guarantees chapter extends this introduction with checked arithmetic, exceptional division and negation, rounding, NaN/infinity, and underflow.
+Use `<limits.h>` for bounds such as INT_MAX, INT_MIN, and UINT_MAX. Use `sizeof(int)` to find its storage size in C bytes, and `CHAR_BIT` for the number of bits in a byte; storage bits may include padding. Neither result replaces the value bounds in limits.h. A signed addition must be checked before it overflows, not afterward. Unsigned wrap is defined, but it can still be a bug in sizes or indexes. Floating-point types have separate limits and precision characteristics described by `<float.h>`. Part 7’s What C guarantees chapter extends this introduction with checked arithmetic, exceptional division and negation, rounding, NaN/infinity, and underflow.
 
 ### Unsigned wrap and signed overflow are different
 
@@ -328,6 +337,8 @@ No; signed overflow has undefined behavior. Unsigned arithmetic has defined modu
 </details>
 
 **Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/values/5). In main.c, change value -= 1; to value -= 2;. Choose Run code and compare the printed test against UINT_MAX with the starter. Then change the test to value == UINT_MAX - 1 and run again. Which value does defined unsigned subtraction produce?
+
+**Extend the example:** Before return 0;, add printf("int bytes=%zu bits per byte=%d max=%d\n", sizeof(int), CHAR_BIT, INT_MAX); and run again. In Console, identify the storage size, bits per byte, and largest int value on this target. These are measurements of this implementation, not sizes guaranteed for every C platform.
 
 ### References and help
 

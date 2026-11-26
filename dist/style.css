@@ -201,7 +201,7 @@ dialog::backdrop { background:#17241c88; }
 .example-output-heading { margin-top:18px; }
 .example-walkthrough { margin-top:16px; }
 .chapter-practice { margin:24px 0; padding:18px; background:var(--panel); border-radius:5px; }
-.topic-list li { margin-block:10px; }
+.topic-list li, .practice-list li { margin-block:10px; }
 #topic-feedback { color:#365e36; margin-top:12px; }
 
 /* Keep experimentation beside its explanation, using the existing compiler/editor. */
@@ -503,3 +503,11 @@ pre.memory-stream{background:var(--soft);color:var(--ink);font:18px/1.6 var(--mo
 
 .supplementary-references { margin-top:16px;padding-top:12px;border-top:1px solid var(--line); }
 .supplementary-references>summary { min-height:44px;cursor:pointer;font-weight:600; }
+
+/* Essential language guarantees stay visible beside the first type example. */
+.lesson-key-point { border-inline-start:4px solid var(--accent); background:var(--accent-soft); padding:20px 24px; margin-block:24px; }
+.lesson-key-point h2 { margin:0 0 10px; font-size:1.15em; }
+.lesson-key-point p { margin:0; }
+.practice-content { margin-block:24px; }
+.practice-content li { margin-block:12px; }
+.practice-content #inline-editor-host { margin-block:24px; }

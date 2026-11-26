@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 1020806,
-  "sha256": "673dee2dd92107ae3318f31d3537d5c38b38111d86d4e8cbf526943a98621d00",
+  "bytes": 1021870,
+  "sha256": "f05e47887a4de73986854cf0fdd60ea36d37d5a714715b6c729cba00ea0c64d7",
   "files": [
     {
       "path": "LICENSE",
@@ -26,8 +26,8 @@
     },
     {
       "path": "dist/lessons.js",
-      "bytes": 49813,
-      "sha256": "b5c0f5b65cd799e91ee037a76c983845c7e14c170c0dd8fedd5d2147076d4f3e"
+      "bytes": 50069,
+      "sha256": "faec4ce10bceb9daf249d5978bc3018121a2f500a2db77f0d540464e2afc805c"
     },
     {
       "path": "dist/manuals/NOTICE.md",
@@ -656,8 +656,8 @@
     },
     {
       "path": "docs/navigation-review.md",
-      "bytes": 3322,
-      "sha256": "af52e4e6b5d2fb1742362fb7d5d3c29a57bc0d4b9d84e1950a77626713a553f5"
+      "bytes": 4446,
+      "sha256": "0a6781928d733b9c9b6c3ae540b7377f9455c8b88c76e5e22c12ba5fd830e4b8"
     },
     {
       "path": "docs/offline-update-design.md",
@@ -911,8 +911,8 @@
     },
     {
       "path": "native/chapters/values/README.md",
-      "bytes": 17780,
-      "sha256": "f50fc39c8f2ff825ce1c512a023c6d53eb4a4088ca98b1e11fe97852ecc45f80"
+      "bytes": 19184,
+      "sha256": "6fa334a07bf3533c19678248ddc32d8d5fe463a07796f8dc544c589e34ec05e5"
     },
     {
       "path": "native/cli/tinydb.c",
@@ -2531,8 +2531,8 @@
     },
     {
       "path": "native/examples/tests.json",
-      "bytes": 41922,
-      "sha256": "eb87b2d407dbe8cf81ed8cda6e3a8cf5c04ffbd505f728f94323fc4b6ac3c6de"
+      "bytes": 41970,
+      "sha256": "c3cdd06af19a0b08254f85b6fe0826916a645a4fd3a11d751dca713e51cd3a19"
     },
     {
       "path": "native/examples/threads-1/README.md",
@@ -2596,8 +2596,8 @@
     },
     {
       "path": "native/examples/values-1.c",
-      "bytes": 229,
-      "sha256": "2727bd2726ce36678259f994d1fb3335dd6575ed3966730f952652c347aecac2"
+      "bytes": 334,
+      "sha256": "ac92d0b2d0e45ef15650f15fa9f981060ce2b1dc5cd817ea1aab112f3b23fc19"
     },
     {
       "path": "native/examples/values-2.c",
@@ -3466,8 +3466,8 @@
     },
     {
       "path": "tools/sync_readings.cjs",
-      "bytes": 7050,
-      "sha256": "bd698142bbf1fffa0e73f9b7f575e5af13d36fe384bd5abbb8cd297b9e251266"
+      "bytes": 7126,
+      "sha256": "eac107ee363833d505125f90ef58637c41bd9e9227fc919606d6cae8bcaa0c62"
     }
   ]
 }

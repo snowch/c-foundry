@@ -41,5 +41,5 @@
   function publish(){window.dispatchEvent(new Event('practicecompletionchange'));}
   function mark(id,done){if(!ids.has(id))return;if(done)completed.add(id);else completed.delete(id);try{localStorage.setItem(prefix+id,String(done));unsaved.delete(id);}catch(_){unsaved.add(id);}publish();}
   window.addEventListener('storage',event=>{try{if(event.storageArea&&event.storageArea!==localStorage)return;}catch(_){return;}if(event.key===null)ids.forEach(read);else if(event.key.startsWith(prefix)&&ids.has(event.key.slice(prefix.length)))read(event.key.slice(prefix.length));else return;publish();});
-  window.practiceCompletion={valid:id=>ids.has(id),isDone:id=>completed.has(id),isUnsaved:id=>unsaved.has(id),total:()=>({done:completed.size,available:ids.size,unsaved:unsaved.size}),mark};
+  window.practiceCompletion={register(values){for(const id of values)if(!ids.has(id)){ids.add(id);read(id);}},valid:id=>ids.has(id),isDone:id=>completed.has(id),isUnsaved:id=>unsaved.has(id),total:()=>({done:completed.size,available:ids.size,unsaved:unsaved.size}),mark};
 })();

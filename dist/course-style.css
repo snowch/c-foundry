@@ -63,3 +63,38 @@ body{font:17px/1.65 var(--sans)}a{color:var(--accent)}h1{font-size:clamp(38px,4v
 .learning-model svg{pointer-events:none}.learning-model .lm-graph>svg{height:100%!important;max-width:none!important}.learning-model svg.lm-ref-lines{height:40px!important;max-width:none!important}.lm-vertex strong{overflow-wrap:anywhere}
 @media(max-width:600px){.lm-slots{grid-template-columns:repeat(min(var(--slots),4),minmax(0,1fr))}.lm-byte-groups+.lm-state .lm-slots{grid-template-columns:repeat(var(--slots),minmax(0,1fr))}.lm-branches{grid-template-columns:1fr;gap:12px}.learning-model{padding-left:16px!important;padding-right:16px!important}.lm-table th,.lm-table td{padding:9px 6px}.lm-object-group{max-width:100%}.lm-graph-edge{padding:0 2px}}
 @media(prefers-reduced-motion:reduce){.learning-model *{scroll-behavior:auto;animation:none;transition:none}}
+
+/* A compact chapter accordion keeps the current lesson visible in the contents. */
+.outline-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
+.outline-toolbar label{display:grid;gap:6px;flex:1;max-width:620px;color:var(--muted);font-size:15px}
+.outline-toolbar>label:only-child{max-width:none}
+.outline-toolbar select{width:100%;font-size:16px}
+.outline-toolbar>a,.outline-chapter-overview{display:inline-flex;align-items:center;gap:6px;font-size:15px;text-underline-offset:4px;min-height:44px}
+.course-chapter-list{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+.outline-chapter{margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0;background:transparent}
+.outline-chapter:last-child{border-bottom:0}
+.outline-chapter>summary{display:flex;align-items:center;gap:16px;list-style:none;padding:18px 20px;cursor:pointer}
+.outline-chapter>summary::-webkit-details-marker{display:none}
+.outline-chapter-number{display:grid;place-items:center;flex:0 0 36px;height:36px;background:var(--soft);border:1px solid var(--line);border-radius:8px;color:var(--muted);font:16px var(--mono)}
+.outline-chapter-title{flex:1;min-width:0;font-size:18px;font-weight:600;line-height:1.45;color:var(--ink)}
+.outline-chapter-title small{display:block;margin-top:3px;font-size:14px;font-weight:400;color:var(--muted)}
+.outline-chapter>summary>.material-symbol{color:var(--muted);transition:transform .15s}
+.outline-chapter[open]>summary{background:var(--soft)}
+.outline-chapter[open]>summary>.material-symbol{transform:rotate(180deg)}
+.outline-chapter-body{padding:8px 12px 12px}
+.outline-chapter-body ol{list-style:none;margin:0;padding:0}
+.outline-chapter-body li{margin:0}
+.outline-chapter-body li>a{display:grid;grid-template-columns:28px minmax(0,1fr) 24px;align-items:start;gap:12px;padding:12px;border-radius:7px;text-decoration:none;font-size:16px;line-height:1.55}
+.outline-chapter-body li>a:hover{background:var(--soft)}
+.outline-chapter-body [aria-current=page]{background:var(--accent-soft);box-shadow:inset 3px 0 var(--accent);font-weight:600}
+.outline-step-title{min-width:0}
+.outline-step-title small{display:block;font-size:13px;font-weight:400;color:var(--muted)}
+.outline-step-status{justify-self:end;color:var(--accent)}
+.outline-lesson-number{color:var(--muted);text-align:center}
+.outline-chapter-overview{margin:8px 12px 0}
+#course-contents .outline-workspaces{margin:16px 0 0;font-size:15px}
+@media(max-width:560px){.outline-toolbar{align-items:stretch;flex-direction:column;gap:4px}.outline-toolbar>a{align-self:flex-start}.outline-chapter>summary{padding:15px 12px;gap:12px}.outline-chapter-title{font-size:16px}.outline-chapter-body{padding:6px}.outline-chapter-body li>a{gap:8px;padding:12px 8px}}
+@media(prefers-reduced-motion:reduce){.outline-chapter>summary>.material-symbol{transition:none}}
+
+.breadcrumb-item{display:inline-flex;align-items:baseline;gap:10px;min-width:0;max-width:100%}
+.breadcrumb-item>.breadcrumb-separator{flex:none}
