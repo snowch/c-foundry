@@ -292,7 +292,7 @@ lower returns the index of the first element whose value is at least key; upper 
 
 ### Bounds bracket every occurrence of an equal key
 
-Lower bound is the first not-less value; upper bound is the first greater value.
+Illustrative bounds: lower and upper return indices around the equal-key range.
 
 In the sorted values 2, 5, 5, 5, 9, the lower bound for 5 is index 1 and the upper bound is index 4. The equal values occupy the half-open interval [1, 4), with three elements. A matching midpoint alone does not establish the first or last occurrence.
 

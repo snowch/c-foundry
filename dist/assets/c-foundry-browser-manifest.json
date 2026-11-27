@@ -1,8 +1,8 @@
 {
   "format": 1,
   "root": "c-foundry",
-  "bytes": 1039753,
-  "sha256": "4f241bdf603483c29c30815a2392db7bd3c41384c31a14e1429e6b835daedd5a",
+  "bytes": 1039864,
+  "sha256": "77c070cd7baae3dcc27637eef57949ad4758bf19dc8d28c531db4dedbc740964",
   "files": [
     {
       "path": "LICENSE",
@@ -611,8 +611,8 @@
     },
     {
       "path": "docs/clarity-review-2026-11-27.json",
-      "bytes": 69303,
-      "sha256": "bdc2dece14e5e4517b5f43f9f563af9881a552082ab448bc3b60fd44e7a1238d"
+      "bytes": 69745,
+      "sha256": "2dafa1b75a56b0b76473ee0ba55656d49c0748db7ceb27c542a6b49aa6b93463"
     },
     {
       "path": "docs/clarity-review-2026-11-27.md",
@@ -871,8 +871,8 @@
     },
     {
       "path": "native/chapters/searching/README.md",
-      "bytes": 17248,
-      "sha256": "ec4a153802797696aafd1332319eb4d771f1c57e2bda4eae9857ec4d0ffb2eb0"
+      "bytes": 17247,
+      "sha256": "cbc2b7c208a7ffde646b4c32baf6888c599695d820040b2e12c82637f8686e38"
     },
     {
       "path": "native/chapters/ship/README.md",

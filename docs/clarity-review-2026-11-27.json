@@ -1095,6 +1095,13 @@
       "before": null,
       "after": "For the optimization comparison, expand Browser Linux and source files and choose Open Browser Linux. At ~/work/c-foundry in that terminal, run gcc -std=c17 -O0 native/examples/c-guarantees-3/main.c -o /tmp/unsigned-probe && /tmp/unsigned-probe. Repeat with -O2. Compare wrapped= and sum=; the two builds of the same valid source must preserve its defined results.",
       "reason": "Supply the actual optional compiler commands instead of leaving the optimization comparison implicit."
+    },
+    {
+      "route": "dist/concepts.js",
+      "field": "caption",
+      "before": "Lower bound is the first not-less value; upper bound is the first greater value.",
+      "after": "Illustrative bounds: lower and upper return indices around the equal-key range.",
+      "reason": "Keep the duplicate-range figure consistent with the corrected explanation: the helpers return indices, and the pictured key is an illustrative example."
     }
   ],
   "validation": {
