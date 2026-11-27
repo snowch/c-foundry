@@ -78,7 +78,7 @@ operations.h. The public header describes the interface; the implementation is a
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/1). Choose operations.c in Source files. In twice, change the multiplication by 2 to multiplication by 3. Choose Run code and compare Console with 42. Which file supplies the changed definition?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/1). Choose operations.c above the editor. In twice, change the multiplication by 2 to multiplication by 3. Choose Run code and compare Console with 42. Which file supplies the changed definition?
 
 ### References and help
 
@@ -174,7 +174,7 @@ Exactly one. The extern declaration can be repeated; the object needs one progra
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/2). Choose main.c in Source files. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/2). Choose main.c above the editor. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?
 
 ### References and help
 
@@ -250,7 +250,7 @@ No. It prevents repetition within one translation unit; separate translation uni
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/3). Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect preprocessing, choose Linux in the header, complete its setup, and run cd ~/work/c-foundry/native/examples/larger-programs-3 && gcc -E main.c. Find twice-included scale.h’s single function definition in the terminal output.
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/3). Choose scale.h above the editor. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with the original 21. For a separate preprocessing experiment, open Browser Linux from the footer, choose Start Linux, and wait for Linux is ready. At the shell, run cd ~/work/c-foundry/native/examples/larger-programs-3 && gcc -E main.c. Find scale.h’s single function definition despite its two includes. The inline edit does not change the separate Linux copy; that copy still uses its original FACTOR unless you edit it there.
 
 ### References and help
 
@@ -319,7 +319,7 @@ The relational expressions each yield 0 or 1, so their difference produces a val
 
 **Watch for:** return a - b can overflow for valid int values, and casting an incompatible function pointer does not repair a mismatched callback signature.
 
-**Check:** Why avoid a - b as this comparator?
+**Check:** Why would return a - b be unsafe for a comparator that must support every int pair?
 
 1. It can overflow
 2. qsort only accepts positive results
@@ -404,7 +404,7 @@ The caller checks the status before reading the returned string and frees it exa
 
 **Watch for:** Error handling is part of the API, not an afterthought. Document output state on failure and ensure the implementation matches that promise.
 
-**Check:** May a caller assume name is usable after any status?
+**Check:** After copy_name returns, which status permits the caller to use the output string name?
 
 1. Yes
 2. Only after OK

@@ -15,7 +15,7 @@ window.PART_TWO = {
         "expected": "value=42\nnull=1",
         "walkthrough": "p first holds an address that reaches value. The assignment through *p changes value, not the address in p. Assigning NULL afterward changes the pointer itself. It does not undo the earlier write or destroy value. The program compares the null pointer but never dereferences it.",
         "pitfall": "An uninitialized pointer is not an empty pointer. Initialize it to a valid address or NULL, and establish lifetime and bounds before use.",
-        "question": "Which statement changes the integer reached by p?",
+        "question": "When p points to a live, modifiable int, which statement writes a new value into that int?",
         "choices": [
           "p = NULL;",
           "*p = 42;"
@@ -52,7 +52,7 @@ window.PART_TWO = {
         "expected": "4 6 3",
         "walkthrough": "p reaches the second int, so *p is 4 and *(p + 1) is 6. end is one past the third element, and end - values counts three int elements, not their byte size. The %td format prints ptrdiff_t. No expression reads *end.",
         "pitfall": "Subtracting unrelated pointers or dereferencing the endpoint has undefined behavior. An apparently plausible address is not evidence that an access is valid.",
-        "question": "May this program read *end?",
+        "question": "For int values[] = {2, 4, 6} and int *end = values + 3, may the program read *end?",
         "choices": [
           "Yes: it is an endpoint",
           "No: it is one past the array"
@@ -88,7 +88,7 @@ window.PART_TWO = {
         "expected": "42 10 7",
         "walkthrough": "The first call exchanges two objects. The second reads and writes the same object through both parameters; each step leaves a valid value and the final result is still 7. Both calls satisfy the helper’s requirement of pointers to live, modifiable ints.",
         "pitfall": "Overwriting *a before saving it loses the original value. Conversely, changing a rather than *a changes only a pointer copy.",
-        "question": "Why does the temporary survive the write to *a?",
+        "question": "In swap, why does saved retain its value after *a = *b?",
         "choices": [
           "It stores its own int value",
           "It is another name for *a"
@@ -171,7 +171,7 @@ window.PART_TWO = {
         "expected": "Hi Bi",
         "walkthrough": "The source is borrowed and must be a valid terminated string whose length plus one is representable. The helper copies its bytes into separate storage. Changing copy does not change original. The caller frees the returned allocation once and does not attempt to free the automatic original array.",
         "pitfall": "A double free is not harmless cleanup, and a dangling pointer is not made safe by being non-null. Review all returns and error paths for the same ownership rule.",
-        "question": "Does assigning another pointer variable to copy create a second allocation?",
+        "question": "If p and copy are char * variables, does p = copy allocate a second string?",
         "choices": [
           "Yes",
           "No"
@@ -237,7 +237,7 @@ window.PART_TWO = {
         "expected": "number=7\ntext=Ada",
         "walkthrough": "The first value establishes the number alternative. Before the second call, both tag and text member are updated. show therefore follows the matching branch each time. The union reuses storage; it is not a record holding both independent payloads simultaneously.",
         "pitfall": "Reading another union member to guess a different representation is not a portable serialization strategy. Keep the tag and payload consistent instead.",
-        "question": "What tells show which union member to use?",
+        "question": "Which field tells show whether to read value.data.number or value.data.text?",
         "choices": [
           "The tag",
           "The size of the union"
@@ -291,7 +291,7 @@ window.PART_TWO = {
         "expected": "Grace 99",
         "walkthrough": "The returned address reaches the second element. Updating found->score therefore updates rows[1]. The pointer is borrowed, so the caller does not free it. With an unknown ID, find returns NULL and the conditional prevents a dereference.",
         "pitfall": "Passing capacity instead of initialized count could expose uninitialized rows. Also, a successful lookup does not justify keeping its pointer past the collection’s lifetime or a relocation.",
-        "question": "Should the caller free the pointer returned from this stack-array lookup?",
+        "question": "When find returns a pointer into the caller’s automatic rows array, should the caller free that pointer?",
         "choices": [
           "Yes",
           "No"
@@ -330,7 +330,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "The public header describes the interface; the implementation is a separately compiled translation unit.",
-        "tryit": "Choose operations.c in Source files. In twice, change the multiplication by 2 to multiplication by 3. Choose Run code and compare Console with 42. Which file supplies the changed definition?",
+        "tryit": "Choose operations.c above the editor. In twice, change the multiplication by 2 to multiplication by 3. Choose Run code and compare Console with 42. Which file supplies the changed definition?",
         "input": "",
         "runtime": "native",
         "files": {
@@ -356,7 +356,7 @@ window.PART_TWO = {
         ],
         "answer": 0,
         "why": "The extern declaration can be repeated; the object needs one program definition.",
-        "tryit": "Choose main.c in Source files. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?",
+        "tryit": "Choose main.c above the editor. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?",
         "input": "",
         "runtime": "native",
         "files": {
@@ -382,7 +382,7 @@ window.PART_TWO = {
         ],
         "answer": 1,
         "why": "It prevents repetition within one translation unit; separate translation units still need a correct linkage design.",
-        "tryit": "Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect preprocessing, choose Linux in the header, complete its setup, and run cd ~/work/c-foundry/native/examples/larger-programs-3 && gcc -E main.c. Find twice-included scale.h’s single function definition in the terminal output.",
+        "tryit": "Choose scale.h above the editor. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with the original 21. For a separate preprocessing experiment, open Browser Linux from the footer, choose Start Linux, and wait for Linux is ready. At the shell, run cd ~/work/c-foundry/native/examples/larger-programs-3 && gcc -E main.c. Find scale.h’s single function definition despite its two includes. The inline edit does not change the separate Linux copy; that copy still uses its original FACTOR unless you edit it there.",
         "input": "",
         "runtime": "native",
         "files": {
@@ -400,7 +400,7 @@ window.PART_TWO = {
         "expected": "-3 0 7 7",
         "walkthrough": "The relational expressions each yield 0 or 1, so their difference produces a valid sign without subtracting the potentially extreme element values themselves. Equal values compare as zero. The callback must describe a consistent ordering throughout the call.",
         "pitfall": "return a - b can overflow for valid int values, and casting an incompatible function pointer does not repair a mismatched callback signature.",
-        "question": "Why avoid a - b as this comparator?",
+        "question": "Why would return a - b be unsafe for a comparator that must support every int pair?",
         "choices": [
           "It can overflow",
           "qsort only accepts positive results"
@@ -421,7 +421,7 @@ window.PART_TWO = {
         "expected": "Ada\nbad input=1",
         "walkthrough": "The caller checks the status before reading the returned string and frees it exactly once. The second call supplies an invalid source and observes BAD_INPUT with a null output. The chapter project extends this ownership contract into a multi-file record-store module.",
         "pitfall": "Error handling is part of the API, not an afterthought. Document output state on failure and ensure the implementation matches that promise.",
-        "question": "May a caller assume name is usable after any status?",
+        "question": "After copy_name returns, which status permits the caller to use the output string name?",
         "choices": [
           "Yes",
           "Only after OK"

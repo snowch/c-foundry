@@ -456,7 +456,7 @@
           consult.parentElement.textContent =
             "Use the " +
             consult.textContent.replace("(new tab)", "").trim() +
-            " link above, then open Compare your answer.";
+            " link above to find the rule. Write the rule and its conditions in Your answer below, then open Compare your answer.";
         details.append(section);
         practice.remove();
       }
@@ -471,9 +471,10 @@
     )
       return;
     const id = location.hash;
+    const project = !!host.closest(".practice-content");
     host.insertAdjacentHTML(
       "beforebegin",
-      '<label class="prediction-label" for="course-prediction">Your prediction (optional)</label><textarea id="course-prediction" rows="2" placeholder="What do you expect the program to show?"></textarea>',
+      `<label class="prediction-label" for="course-prediction">${project ? "Your next test prediction" : "Your prediction for Try a change"} (optional)</label><textarea id="course-prediction" rows="2" placeholder="${project ? "Name a test case and its expected result." : "Name the change above and the output you expect."}"></textarea>`,
     );
     const field = $("course-prediction");
     field.value = window.cFoundryApp.prediction(id);

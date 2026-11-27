@@ -122,7 +122,7 @@ During merging, the output prefix is sorted and contains exactly the consumed in
 
 ### Merge consumes the smaller next value
 
-Two sorted inputs can be combined into one sorted output.
+Illustrative merge: combine sorted inputs [2, 7] and [3, 9].
 
 The left input is 2, 7 and the right input is 3, 9. Compare their current first unconsumed values. Take 2, then 3, then 7, then the remaining 9. The output prefix stays sorted. On equality, choosing the left input first preserves relative order in a stable merge.
 
@@ -206,7 +206,7 @@ Both duplicates survive. Each recursive subproblem has fewer elements and the n<
 
 **Watch for:** Do not allocate an n-element temporary array at every recursive level when one reusable buffer suffices.
 
-**Check:** What extra array space does this merge sort use?
+**Check:** How much temporary array space does the original merge-sort implementation use for n elements?
 
 1. O(1)
 2. O(n)
@@ -564,7 +564,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Comparisons and moves can respond differently to the same input. Instrument both when choosing an algorithm for a workload.
 
-For insertion sort, sorted input causes no shifts; reversed distinct input causes n(n−1)/2 shifts. An assignment that writes the saved key back is not counted as a shift here. State that convention, keep output outside timing, and verify that every run preserves the multiset.
+For insertion sort, sorted input causes no shifts; reversed distinct input causes n(n−1)/2 shifts. An assignment that writes the saved key back is not counted as a shift here. State that convention, keep output outside timing, and verify that every run preserves the multiset: the same values with the same duplicate counts.
 
 ### main.c
 
@@ -630,7 +630,7 @@ The reversed input shifts 1+2+3 values. This illustrates an input-sensitive cost
 
 **Watch for:** A count labeled moves is ambiguous unless you define whether final placement and swaps count once or multiple times.
 
-**Check:** What is being counted here?
+**Check:** What does the shifts counter in the insertion-sort example count?
 
 1. Every executed C statement
 2. Rightward shifts of existing elements

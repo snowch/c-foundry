@@ -98,7 +98,7 @@ All three initialized rows are emitted once. The remaining five capacity slots a
 
 **Watch for:** Using capacity instead of count exposes storage that does not belong to the logical table.
 
-**Check:** What bounds the scan?
+**Check:** Which value bounds the table-scan loop in the original main.c?
 
 1. The initialized row count
 2. The maximum table capacity
@@ -227,7 +227,7 @@ Filtering changes output size without making this full scan sublinear. The count
 
 **Watch for:** Reporting only matching-row count as query work hides rejected-row comparisons.
 
-**Check:** Does returning two rows mean only two were examined?
+**Check:** In a full table scan, does emitting two matching rows imply that only two rows were examined?
 
 1. Yes
 2. No

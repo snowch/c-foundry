@@ -80,14 +80,14 @@ Both protected writes store their stale local zero plus one. Protecting the whol
 
 **Watch for:** A race-free program can still violate an application’s transaction semantics.
 
-**Check:** What must be atomic to avoid this lost update?
+**Check:** Which steps must one lock acquisition protect to prevent the lost update in stale_update?
 
 1. The complete read-modify-write operation
 2. Only each separate load and store
 
 <details><summary>Answer</summary>
 
-The complete read-modify-write operation. Both workers must not base their committed update on the same stale state.
+The complete read-modify-write operation. The lock must cover the read, increment, and write together. Locking each read and write separately still allows both workers to base their update on the same stale value.
 
 </details>
 

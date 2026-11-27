@@ -51,7 +51,7 @@ p first holds an address that reaches value. The assignment through *p changes v
 
 **Watch for:** An uninitialized pointer is not an empty pointer. Initialize it to a valid address or NULL, and establish lifetime and bounds before use.
 
-**Check:** Which statement changes the integer reached by p?
+**Check:** When p points to a live, modifiable int, which statement writes a new value into that int?
 
 1. p = NULL;
 2. *p = 42;
@@ -206,7 +206,7 @@ p reaches the second int, so *p is 4 and *(p + 1) is 6. end is one past the thir
 
 **Watch for:** Subtracting unrelated pointers or dereferencing the endpoint has undefined behavior. An apparently plausible address is not evidence that an access is valid.
 
-**Check:** May this program read *end?
+**Check:** For int values[] = {2, 4, 6} and int *end = values + 3, may the program read *end?
 
 1. Yes: it is an endpoint
 2. No: it is one past the array
@@ -365,7 +365,7 @@ The first call exchanges two objects. The second reads and writes the same objec
 
 **Watch for:** Overwriting *a before saving it loses the original value. Conversely, changing a rather than *a changes only a pointer copy.
 
-**Check:** Why does the temporary survive the write to *a?
+**Check:** In swap, why does saved retain its value after *a = *b?
 
 1. It stores its own int value
 2. It is another name for *a

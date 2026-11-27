@@ -21,7 +21,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "A .c file can be compiled under several revisions and extension policies.",
-        "tryit": "After the browser run, choose Linux in the header, complete its setup, and run make standards-matrix at ~/work/c-foundry. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?",
+        "tryit": "After the browser run, open Browser Linux from the footer, choose Start Linux if needed, and wait for Linux is ready. Run cd ~/work/c-foundry && make standards-matrix in the terminal. Compare the reported GCC and Clang modes and feature-probe diagnostics. Which modes were accepted, and which named facilities were actually compiled and linked?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -42,7 +42,7 @@ window.PART_SEVEN = {
         ],
         "answer": 1,
         "why": "Centralizing the dependency makes supported targets and failures reviewable.",
-        "tryit": "In main.c, change >= 64 to >= 128 in both branches and wide_at_least64= to wide_at_least128=. Run code. Compare the browser flag with a native run of the same edit. Which branch can supply a 128-bit type?",
+        "tryit": "In main.c, change >= 64 to >= 128 in both branches and rename wide_at_least64= to wide_at_least128=. Run code. For the GCC comparison, expand Browser Linux and source files below the editor and choose Open Browser Linux there. In Edit a course file in this browser, select native/examples/standards-evolution-2/main.c. Make the same edits there, then choose Run edited source in Linux. Compare the two wide_at_least128= flags and identify which conditional branch each compiler selected. Inline edits are not copied to Linux automatically.",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -122,7 +122,7 @@ window.PART_SEVEN = {
         "expected": "roundtrip=1 bytes=4",
         "walkthrough": "On the supported eight-bit-byte targets, uint32_t occupies four bytes. The test compares restored value rather than assuming a host byte order.",
         "pitfall": "A byte-for-byte native representation round trip is not a portable external file encoding.",
-        "question": "Why avoid casting this arbitrary byte array to uint32_t *?",
+        "question": "Why avoid reading the unsigned-char bytes array by casting it to uint32_t *?",
         "choices": [
           "memcpy cannot copy integer values",
           "Alignment and object-type requirements may not be satisfied"
@@ -158,7 +158,8 @@ window.PART_SEVEN = {
         ],
         "browser": {
           "note": "This probe runs with the inline browser’s fixed C17 toolchain. Use Browser Linux for GCC/Clang comparisons and supported language modes."
-        }
+        },
+        "extension": "For the optimization comparison, expand Browser Linux and source files and choose Open Browser Linux. At ~/work/c-foundry in that terminal, run gcc -std=c17 -O0 native/examples/c-guarantees-3/main.c -o /tmp/unsigned-probe && /tmp/unsigned-probe. Repeat with -O2. Compare wrapped= and sum=; the two builds of the same valid source must preserve its defined results."
       },
       "4": {
         "intro": "Before evaluating a mixed-type expression, determine the promoted operand types. A negative signed value can become a large unsigned value before comparison.",
@@ -167,7 +168,7 @@ window.PART_SEVEN = {
         "expected": "converted_less=0 mathematical_less=1 valid_index=0\npromoted_sum=260 narrowed_sum=4",
         "walkthrough": "Converting −1 to unsigned produces UINT_MAX, which is not less than one. The guarded mathematical comparison correctly says a negative integer is smaller than an unsigned nonnegative value, while the index check rejects it. The two uint8_t operands promote to int and sum to 260; casting that result to uint8_t then reduces it modulo 256 to four.",
         "pitfall": "Casting a negative index to size_t does not validate it. Also, signed/unsigned rules depend on rank and representability; a wider signed type can sometimes represent every value of the unsigned operand.",
-        "question": "On these targets, what is the type of the sum of two uint8_t operands?",
+        "question": "On the course’s targets, what is the type of the addition result for two uint8_t operands?",
         "choices": [
           "uint8_t, so addition itself must wrap at 255",
           "int after integer promotion"
@@ -375,7 +376,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "A fallback may preserve a contract or explicitly report unsupported behavior; it must not silently change the meaning.",
-        "tryit": "After observing monotonic_configured=0 in the browser, choose Linux in the header, complete its setup, and at ~/work/c-foundry run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?",
+        "tryit": "After observing monotonic_configured=0 in the inline example, open Browser Linux from the footer, choose Start Linux if needed, and wait for Linux is ready. Run cd ~/work/c-foundry && python3 tools/check_portability.py --compiler gcc in the terminal. Compare the reported monotonic-clock capability with the inline result. Which toolchain and environment produced each result?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -384,7 +385,7 @@ window.PART_SEVEN = {
       },
       "4": {
         "intro": "Separate portable data operations from the host that stores their bytes. A small interface makes dependencies and unsupported guarantees visible.",
-        "explanation": "The core below emits four specified bytes through a ByteSink interface. It knows nothing about FILE, paths, file descriptors, native handles, or durability. The ISO C adapter checks fwrite, while main checks flush, repositioning, the read, and close. A future POSIX or Win32 adapter can implement a stronger publication contract without leaking those APIs into the codec. Name the guarantee carefully: buffered stream acceptance is not a claim that a record survives power loss.",
+        "explanation": "The worked example’s core emits four specified bytes through a ByteSink interface. It knows nothing about FILE, paths, file descriptors, native handles, or durability. The ISO C adapter checks fwrite, while main checks flush, repositioning, the read, and close. A future POSIX or Win32 adapter can implement a stronger publication contract without leaking those APIs into the codec. Name the guarantee carefully: buffered stream acceptance is not a claim that a record survives power loss.",
         "code": "#include \"sink.h\"\n#include <stdio.h>\n\nint main(void) {\n    FILE *file = tmpfile();\n    if (!file) return 1;\n    ByteSink sink = {file_write, file};\n    int ok = emit_header(&sink) && fflush(file) == 0 && fseek(file, 0, SEEK_SET) == 0;\n    unsigned char bytes[4];\n    size_t n = ok ? fread(bytes, 1, sizeof bytes, file) : 0;\n    if (fclose(file) != 0) ok = 0;\n    if (!ok || n != sizeof bytes || bytes[0] != 0x54 || bytes[3] != 0x31) return 1;\n    printf(\"portable_bytes=%zu\\n\", n);\n    return 0;\n}\n",
         "expected": "portable_bytes=4",
         "walkthrough": "The same core can send bytes to another implementation of the callback. This fixture exercises a real temporary binary stream and confirms its contents without putting stdio in the core module.",
@@ -589,7 +590,7 @@ window.PART_SEVEN = {
         ],
         "answer": 0,
         "why": "Undiagnosed undefined behavior remains possible.",
-        "tryit": "With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at ~/work/c-foundry in Browser Linux, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?",
+        "tryit": "With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at ~/work/c-foundry in Browser Linux, then repeat with --compiler clang. Compare the completion messages. Which compilers ran inside Browser Linux, and which additional operating systems are tested by the repository’s separate Actions matrix?",
         "input": "",
         "runtime": "native",
         "browser": {
@@ -624,7 +625,7 @@ window.PART_SEVEN = {
         "expected": "rows=2 bytes=88",
         "walkthrough": "The worked example exports the two-row Ada/Grace fixture into a new file. Run make check-portability for the independent oracle and API checks, including control-valued bytes that would reveal text-mode translation. The complete audit guide lists concrete gaps in the larger CLI: rename replacement differs between POSIX and Windows, narrow fopen is not a universal Unicode path API, and neither fflush nor a successful rename alone is a cross-platform crash-durability contract.",
         "pitfall": "This is an audited portability slice, not a claim that all course components or the complete database run unchanged on every host. The C17 exclusive-create adapter refuses existing destinations; it never implements replacement by deleting the old file first.",
-        "question": "Which result establishes the strongest file-compatibility evidence here?",
+        "question": "Which test provides the strongest evidence that the supported hosts exchange the documented file format correctly?",
         "choices": [
           "Only a same-process encode/decode round trip",
           "Every tested host validates and copies files from all producers against an independent byte fixture"

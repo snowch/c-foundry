@@ -301,7 +301,7 @@ copy_text allocates strlen(source)+1 bytes, including the terminator. The progra
 
 **Watch for:** A double free is not harmless cleanup, and a dangling pointer is not made safe by being non-null. Review all returns and error paths for the same ownership rule.
 
-**Check:** Does assigning another pointer variable to copy create a second allocation?
+**Check:** If p and copy are char * variables, does p = copy allocate a second string?
 
 1. Yes
 2. No

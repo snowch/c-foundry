@@ -50,7 +50,7 @@ window.PART_FIVE = {
         "expected": "inserted=1 duplicate=1 rows=1",
         "walkthrough": "The second call is rejected and the original table count remains one. Rejection is observable rather than a silent overwrite.",
         "pitfall": "Implementing a feature’s happy path without its error contract does not complete the feature.",
-        "question": "What happens to the first row after a duplicate insertion?",
+        "question": "Under the original duplicate-rejection contract, what happens to the existing row when insertion repeats its ID?",
         "choices": [
           "It remains unchanged",
           "It is silently replaced"
@@ -75,7 +75,7 @@ window.PART_FIVE = {
         ],
         "answer": 1,
         "why": "Input framing must remain aligned after rejecting a long command.",
-        "tryit": "Open Input and append a new select line after the existing commands. Run code and compare the first and second displayed rows with unknown command. What shows the command loop continued after rejecting the unrecognized command?",
+        "tryit": "Open Input and append select on a new line after all existing commands. Choose Run code. In Console, find unknown command and the row printed after it. Does that row match the earlier selection, showing that the loop continued after the rejected command?",
         "input": "insert-demo\nselect\nwat\n",
         "runtime": "browser"
       },
@@ -101,8 +101,7 @@ window.PART_FIVE = {
     "practicePlan": {
       "goal": "Define TinyDB’s first commands and test their observable behavior.",
       "tasks": [
-        "Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.",
-        "Test selection from an empty table, ID zero, duplicate ID, and insertion beyond capacity."
+        "Extend the acceptance suite to test selection from an empty table, ID zero, duplicate IDs, and insertion beyond capacity."
       ],
       "checks": [
         "For every rejected insert, compare the row count and every existing row with a copy taken before the call."
@@ -120,12 +119,12 @@ window.PART_FIVE = {
     "topics": {
       "1": {
         "intro": "A table’s initialized count is not its reserved capacity. Only rows below count belong to the logical table.",
-        "explanation": "Table t={0} initializes an empty table. Row assignment copies embedded arrays as part of the struct, while pointer fields would require a separate ownership policy. The fixed array avoids allocation during table operations but imposes a deliberate capacity limit. The name field must contain a terminator within its 32 bytes.",
+        "explanation": "Table t = {.count = 0} initializes an empty table; its other members are zero-initialized too. Row assignment copies embedded arrays as part of the struct, while pointer fields would require a separate ownership policy. The fixed array avoids allocation during table operations but imposes a deliberate capacity limit. The name field must contain a terminator within its 32 bytes.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\n\nint main(void) {\n  Table t = {.count = 0};\n  Row source = {7, \"Ada\", 95};\n  insert_row(&t, source);\n  source.name[0] = 'X';\n  printf(\"count=%zu stored=%s source=%s\\n\", t.count, t.rows[0].name,\n         source.name);\n  return 0;\n}\n",
         "expected": "count=1 stored=Ada source=Xda",
         "walkthrough": "Changing the source name after insertion does not affect the stored row because the embedded bytes were copied.",
         "pitfall": "Replacing the array with char * would make the same assignment share a target rather than clone it.",
-        "question": "Does this row assignment copy the embedded name array?",
+        "question": "Does assigning a Row struct copy its embedded char name[32] array?",
         "choices": [
           "Yes",
           "No"
@@ -143,7 +142,7 @@ window.PART_FIVE = {
         "expected": "2 | Grace | 80\n1 | Ada | 90\nmissing=1",
         "walkthrough": "Storage order is the order of successful insertion, not sorted ID order. Binary search would therefore be invalid on this array.",
         "pitfall": "Do not cast −1 to size_t and use it as an index.",
-        "question": "Is this table sorted by ID?",
+        "question": "Does the original insert_row implementation maintain ascending ID order?",
         "choices": [
           "Yes",
           "No"
@@ -161,7 +160,7 @@ window.PART_FIVE = {
         "expected": "duplicate=1 full=1 count=8",
         "walkthrough": "The duplicate and new ninth key produce distinct failures. Neither increases the initialized count.",
         "pitfall": "An API can be inconsistent even if it never crashes: error priority and state preservation need tests too.",
-        "question": "What is returned for a duplicate ID in a full table?",
+        "question": "When insert_row checks duplicates before capacity, what does a duplicate ID return in a full table?",
         "choices": [
           "DUPLICATE under this documented policy",
           "An insertion that overwrites the first row"
@@ -204,7 +203,7 @@ window.PART_FIVE = {
         ],
         "answer": 0,
         "why": "An independent model can detect errors that the implementation’s own assumptions would miss.",
-        "tryit": "In main.c, change the update value 88 and the expected value in t.rows[i].score != 88 to 95. Run code and compare Grace’s printed score and table contract passed. Which equality protects against passing a check with an incorrect value?",
+        "tryit": "In main.c, change the update value 88 and the expected value in t.rows[i].score != 88 to 95. Run code and compare Grace’s printed score with the new expected value. Which check rejects a surviving row with the wrong score? Confirm that table contract passed appears only after the checks succeed.",
         "input": "",
         "runtime": "browser"
       }
@@ -255,7 +254,7 @@ window.PART_FIVE = {
         "expected": "Ada Lovelace\nO'Brien\nunterminated=1",
         "walkthrough": "The doubled quote contributes one character to O'Brien. The malformed third fixture reaches the end before a closing quote.",
         "pitfall": "A fixed-size token buffer needs a decoded-length check before every write, including escaped data.",
-        "question": "Is a doubled quote inside this literal a token boundary?",
+        "question": "Inside the SQL string 'O''Brien', is the doubled quote a token boundary?",
         "choices": [
           "Yes, it ends the statement",
           "No, it represents one quote character"
@@ -273,7 +272,7 @@ window.PART_FIVE = {
         "expected": "valid=1 missing_semicolon=1 trailing=1",
         "walkthrough": "The valid insert matches the complete production. The other strings fail because the required terminator or end-of-input contract is violated.",
         "pitfall": "Accepting a valid prefix while ignoring trailing tokens can hide malformed or unintended commands.",
-        "question": "What follows the semicolon in this grammar?",
+        "question": "In the single-statement SQL grammar taught here, what must follow the semicolon?",
         "choices": [
           "End of input",
           "Any ignored characters"
@@ -291,7 +290,7 @@ window.PART_FIVE = {
         "expected": "select=1 filtered=1 id=7",
         "walkthrough": "The filtered flag distinguishes an explicit key predicate from an unfiltered scan; zero-initialized spare fields are not used as a substitute for that flag.",
         "pitfall": "Keeping l.text pointers in the statement would make earlier tokens change when the lexer reads the next token.",
-        "question": "Why copy the string into the statement?",
+        "question": "Why must the statement copy a string value out of the lexer’s reusable token buffer?",
         "choices": [
           "String literals always need malloc",
           "The lexer’s token buffer is reused"
@@ -309,7 +308,7 @@ window.PART_FIVE = {
         "expected": "parsed=1 value_rejected=1\nsyntax_rejected=1",
         "walkthrough": "The zero-ID statement reaches validation and is rejected there. The missing-parenthesis statement never produces a valid new statement.",
         "pitfall": "Do not partially insert a row while still parsing later fields; a later syntax failure must leave the table unchanged.",
-        "question": "Where should zero-ID rejection occur?",
+        "question": "Under the people schema’s positive-ID rule, which stage should reject ID zero?",
         "choices": [
           "Schema validation",
           "Character tokenization"
@@ -324,8 +323,8 @@ window.PART_FIVE = {
     "practicePlan": {
       "goal": "Parse a small SQL subset and explain malformed statements.",
       "tasks": [
-        "Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.",
-        "Test a missing semicolon, trailing tokens, an unterminated string, ID zero, and an oversized number."
+        "Return structured errors containing stage, source offset, and expected token.",
+        "Test a missing semicolon, trailing tokens, an unterminated string, ID zero, and an oversized number; check that rejected input preserves the output statement and table."
       ],
       "checks": [
         "Check the reported stage and source position; rejected syntax must not change the output statement or table."
@@ -348,7 +347,7 @@ window.PART_FIVE = {
         "expected": "1 | Ada | 90\n2 | Grace | 80\n3 | Ken | 90",
         "walkthrough": "All three initialized rows are emitted once. The remaining five capacity slots are not rows.",
         "pitfall": "Using capacity instead of count exposes storage that does not belong to the logical table.",
-        "question": "What bounds the scan?",
+        "question": "Which value bounds the table-scan loop in the original main.c?",
         "choices": [
           "The initialized row count",
           "The maximum table capacity"
@@ -366,7 +365,7 @@ window.PART_FIVE = {
         "expected": "Ada\nKen\nexamined=3 matched=2",
         "walkthrough": "Filtering changes output size without making this full scan sublinear. The counters distinguish those two quantities.",
         "pitfall": "Reporting only matching-row count as query work hides rejected-row comparisons.",
-        "question": "Does returning two rows mean only two were examined?",
+        "question": "In a full table scan, does emitting two matching rows imply that only two rows were examined?",
         "choices": [
           "Yes",
           "No"
@@ -498,7 +497,7 @@ window.PART_FIVE = {
         "expected": "id_bytes=1,2,0,0 row=513:Ada:90",
         "walkthrough": "The ID 513 is 1+2·256, so its first two bytes are one and two. The name is copied into owned embedded storage.",
         "pitfall": "A round trip alone can hide matching encoder/decoder bugs; also compare independently specified bytes.",
-        "question": "Does this format depend on sizeof(Row)?",
+        "question": "Does the specified 40-byte row encoding depend on sizeof(Row)?",
         "choices": [
           "Yes",
           "No"
@@ -519,7 +518,7 @@ window.PART_FIVE = {
         "expected": "pages=1 byte7=42 missing=1",
         "walkthrough": "The first write establishes page zero. Reading page one fails before accessing a nonexistent page.",
         "pitfall": "An unchecked page_id×page_size can overflow before fseek receives the offset.",
-        "question": "Which page may be appended?",
+        "question": "Under this pager’s contiguous-page policy, which page ID may be appended?",
         "choices": [
           "Exactly the current page count",
           "Any arbitrary unbounded page ID"
@@ -537,7 +536,7 @@ window.PART_FIVE = {
         "expected": "gap_rejected=1 valid=1 marker=9",
         "walkthrough": "The rejected gap write leaves the page count zero, allowing the valid page-zero append afterward.",
         "pitfall": "A boolean page write is not a transaction commit; naming it commit would imply guarantees it lacks.",
-        "question": "Who closes the stream in this pager API?",
+        "question": "Who closes the FILE stream borrowed by Pager?",
         "choices": [
           "Every read_page call",
           "The caller that owns it"
@@ -581,7 +580,7 @@ window.PART_FIVE = {
         "expected": "rejected=1 retained=Keep count=1",
         "walkthrough": "The header declares one forty-byte row but provides only one byte. Loading fails and the previously live Keep row remains unchanged.",
         "pitfall": "Assigning decoded rows directly into the live table before validating the entire file makes rejection destructive.",
-        "question": "When is live state replaced?",
+        "question": "When may load replace the caller’s live table?",
         "choices": [
           "Immediately after reading the magic bytes",
           "Only after complete validation succeeds"
@@ -597,7 +596,6 @@ window.PART_FIVE = {
     "practicePlan": {
       "goal": "Persist rows through a pager and reject corrupt database input.",
       "tasks": [
-        "Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.",
         "Try every byte truncation of a valid export, duplicate IDs, a missing name terminator, and one trailing byte."
       ],
       "checks": [

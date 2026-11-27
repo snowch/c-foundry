@@ -173,7 +173,7 @@ This illustrates failure-atomic replacement in memory. It does not establish cra
 
 **Watch for:** Assigning decoded rows directly into the live table before validating the entire file makes rejection destructive.
 
-**Check:** When is live state replaced?
+**Check:** When may load replace the caller’s live table?
 
 1. Immediately after reading the magic bytes
 2. Only after complete validation succeeds

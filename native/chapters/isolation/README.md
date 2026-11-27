@@ -332,8 +332,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Specify the behavior of concurrent reads before changing the locking strategy.
 
-1. Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.
-2. Write fixed schedules for a nonrepeatable read, a stale write, and a two-account transfer.
+1. Write fixed schedules for a nonrepeatable read, a stale write, and a two-account transfer before choosing an isolation label.
 
 ### Check your work
 

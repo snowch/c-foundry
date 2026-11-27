@@ -20,7 +20,7 @@ The typed-record model skips records at or before the checkpoint’s applied LSN
 
 ### Recovery keeps committed work and ignores an incomplete tail
 
-A complete commit record separates published work from tentative work.
+Illustrative log: commit value 42, then leave value 99 uncommitted.
 
 Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
 
@@ -458,8 +458,8 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Extend the earlier pager and log with a tested checkpoint protocol.
 
-1. Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.
-2. Add generation numbers to page handles and test a handle saved before deleting and reusing its page.
+1. Add generation numbers to page handles and a root-to-page integrity walk.
+2. Save a handle, delete and reuse its page, then verify that the old handle is rejected.
 
 ### Check your work
 

@@ -106,7 +106,7 @@ join=Ada:30
 join=Ken:40
 ```
 
-Tenant two’s ID one correctly selects Ken rather than tenant one’s Ada. Two orders for Ada produce two join rows.
+The original bind(&p, 1, 2) selects Grace using tenant 1 and ID 2. The join uses its own order keys, so two orders for Ada produce two join rows independently of the prepared lookup.
 
 **Watch for:** A composite index on (tenant,id) does not directly provide global ordering by id alone.
 

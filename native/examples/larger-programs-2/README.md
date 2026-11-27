@@ -76,7 +76,7 @@ Exactly one. The extern declaration can be repeated; the object needs one progra
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/2). Choose main.c in Source files. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/larger-programs/2). Choose main.c above the editor. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?
 
 ### References and help
 

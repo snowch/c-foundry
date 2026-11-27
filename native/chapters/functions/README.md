@@ -91,7 +91,7 @@ Think of the call as initializing a new local parameter from the argument. The p
 
 ### A parameter is a separate object
 
-Changing a copied integer does not change the caller’s integer.
+Separate illustration: assigning 42 to parameter n leaves caller variable x at 10.
 
 Before the call, caller variable x contains 10. The function receives a copy, parameter n, also containing 10. Assigning 42 to n changes n alone; x remains 10.
 
@@ -125,7 +125,7 @@ value begins at 10 inside add_one, then becomes 11. original in main remains 10.
 
 **Watch for:** Matching variable names do not create shared storage. A local variable or parameter named original in another function would still be a separate object.
 
-**Check:** Does value++ change original in this example?
+**Check:** Inside add_one, does value++ directly change main’s variable original?
 
 1. Yes
 2. No
@@ -201,7 +201,7 @@ The static object count is initialized once and survives the first return. The s
 
 **Watch for:** Do not return the address of an ordinary local variable for later use: its lifetime ends when the relevant block exits. Part 2 makes that memory rule concrete with pointer examples.
 
-**Check:** If static is removed, what does the second call return?
+**Check:** If next_count declares int count = 0 instead of static int count = 0, what does its second call return?
 
 1. 1
 2. 2
@@ -272,7 +272,7 @@ The two helper calls depend only on their parameters and do not change shared st
 
 **Watch for:** A function name should reveal its result or effect. Also document input constraints: moving a multiplication into a helper does not remove its overflow risks.
 
-**Check:** Which responsibility belongs in main for this design?
+**Check:** In the rectangle calculator, which responsibility belongs in main rather than the area helper?
 
 1. Formatting the final output
 2. Making area read from stdin

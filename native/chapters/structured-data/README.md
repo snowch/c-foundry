@@ -129,7 +129,7 @@ The starter establishes NUMBER/7, prints it, then establishes TEXT/Ada and print
 
 **Watch for:** Reading another union member to guess a different representation is not a portable serialization strategy. Keep the tag and payload consistent instead.
 
-**Check:** What tells show which union member to use?
+**Check:** Which field tells show whether to read value.data.number or value.data.text?
 
 1. The tag
 2. The size of the union
@@ -363,7 +363,7 @@ This starter has an exact two-element Row array. find returns a pointer into tha
 
 **Watch for:** Passing capacity instead of initialized count could expose uninitialized rows. Also, a successful lookup does not justify keeping its pointer past the collection’s lifetime or a relocation.
 
-**Check:** Should the caller free the pointer returned from this stack-array lookup?
+**Check:** When find returns a pointer into the caller’s automatic rows array, should the caller free that pointer?
 
 1. Yes
 2. No

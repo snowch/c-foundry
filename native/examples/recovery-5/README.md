@@ -12,7 +12,7 @@ The bounded redo model scans complete eight-byte records, retains tentative stat
 
 ### Recovery keeps committed work and ignores an incomplete tail
 
-A complete commit record separates published work from tentative work.
+Illustrative log: commit value 42, then leave value 99 uncommitted.
 
 Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
 
@@ -99,7 +99,7 @@ The complete first transaction publishes ten. The later uncommitted 99 is ignore
 
 **Watch for:** Ignoring a torn tail is not a general policy for silently skipping corruption in the middle of a log.
 
-**Check:** Is a SET record enough to publish a transaction?
+**Check:** In the redo-log model, is a SET record alone enough to publish a transaction?
 
 1. No, a valid matching COMMIT is required
 2. Yes

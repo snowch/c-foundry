@@ -20,7 +20,7 @@ The copy-on-begin transaction model keeps uncommitted changes in a private worki
 
 ### A private working copy can commit or roll back
 
-Uncommitted edits do not replace the live table in this model.
+Illustrative transaction: live score 10 is separate from tentative score 42.
 
 The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
 
@@ -175,7 +175,7 @@ begin refuses to start another transaction using the same active handle, but the
 
 ### A private working copy can commit or roll back
 
-Uncommitted edits do not replace the live table in this model.
+Illustrative transaction: live score 10 is separate from tentative score 42.
 
 The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
 
@@ -328,7 +328,7 @@ The fixture commits one score update and then rolls back another. In this bounde
 
 ### A private working copy can commit or roll back
 
-Uncommitted edits do not replace the live table in this model.
+Illustrative transaction: live score 10 is separate from tentative score 42.
 
 The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
 
@@ -444,7 +444,7 @@ The committed 95 survives the later rollback. Committing an inactive transaction
 
 **Watch for:** A failed durable commit must not be reported as successful merely because the working copy is valid.
 
-**Check:** Which score is visible after the rollback?
+**Check:** In the original program, a score of 95 is committed and a later tentative zero is rolled back. Which score remains live?
 
 1. The earlier committed 95
 2. The later tentative zero
@@ -485,7 +485,7 @@ The one-value redo log uses eight-byte BEGIN, SET, and COMMIT records with trans
 
 ### Recovery keeps committed work and ignores an incomplete tail
 
-A complete commit record separates published work from tentative work.
+Illustrative log: commit value 42, then leave value 99 uncommitted.
 
 Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
 
@@ -635,7 +635,7 @@ The bounded redo model scans complete eight-byte records, retains tentative stat
 
 ### Recovery keeps committed work and ignores an incomplete tail
 
-A complete commit record separates published work from tentative work.
+Illustrative log: commit value 42, then leave value 99 uncommitted.
 
 Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
 
@@ -722,7 +722,7 @@ The complete first transaction publishes ten. The later uncommitted 99 is ignore
 
 **Watch for:** Ignoring a torn tail is not a general policy for silently skipping corruption in the middle of a log.
 
-**Check:** Is a SET record enough to publish a transaction?
+**Check:** In the redo-log model, is a SET record alone enough to publish a transaction?
 
 1. No, a valid matching COMMIT is required
 2. Yes

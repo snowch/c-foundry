@@ -70,14 +70,14 @@ The payload read occurs after the successful acquire, before join. The flag sync
 
 **Watch for:** Using a relaxed load here would not establish the required payload publication relationship.
 
-**Check:** Which load must observe the release store?
+**Check:** To publish payload safely, which load must read the true value written by ready’s release store?
 
 1. The acquire load of ready
 2. Any unrelated relaxed counter load
 
 <details><summary>Answer</summary>
 
-The acquire load of ready. Synchronization depends on the matching atomic communication.
+The acquire load of ready. The acquire load of ready must observe the true written by the release store. Loads that still read false do not yet establish this payload-publication relationship.
 
 </details>
 

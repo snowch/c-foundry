@@ -12,7 +12,7 @@ The fixture commits one score update and then rolls back another. In this bounde
 
 ### A private working copy can commit or roll back
 
-Uncommitted edits do not replace the live table in this model.
+Illustrative transaction: live score 10 is separate from tentative score 42.
 
 The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
 
@@ -128,7 +128,7 @@ The committed 95 survives the later rollback. Committing an inactive transaction
 
 **Watch for:** A failed durable commit must not be reported as successful merely because the working copy is valid.
 
-**Check:** Which score is visible after the rollback?
+**Check:** In the original program, a score of 95 is committed and a later tentative zero is rolled back. Which score remains live?
 
 1. The earlier committed 95
 2. The later tentative zero

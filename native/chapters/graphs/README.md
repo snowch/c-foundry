@@ -227,7 +227,7 @@ Vertices one and two are discovered from zero before three is discovered from tw
 
 **Watch for:** BFS minimizes edge count on unweighted graphs, not total cost on arbitrary weighted graphs.
 
-**Check:** When should this BFS mark a vertex seen?
+**Check:** In the BFS queue algorithm, when should a vertex be marked seen?
 
 1. Only after all its neighbors are processed
 2. When it is enqueued
@@ -433,7 +433,7 @@ Zero enables one and two, which together enable three. All four vertices are emi
 
 **Watch for:** Returning a partial ordering as a full solution hides cycles.
 
-**Check:** What indicates a cycle in this algorithm?
+**Check:** What indicates a cycle in the indegree-based topological-sort algorithm?
 
 1. Two vertices are initially available
 2. Fewer than V emitted vertices
@@ -552,7 +552,7 @@ Weights are nonnegative costs, not measured time. A zero matrix entry means no e
 
 **Watch for:** This representation excludes zero-weight edges; supporting them requires changing the edge-presence representation.
 
-**Check:** Can this algorithm safely accept arbitrary negative weights?
+**Check:** Can Dijkstra’s algorithm safely accept arbitrary negative edge weights?
 
 1. No
 2. Yes
@@ -591,7 +591,7 @@ The lazy-duplicate approach leaves older candidates in the heap and skips them w
 
 ### A min-heap orders parents before children
 
-Sibling positions do not imply a fully sorted sequence.
+Illustrative min-heap: parent 2 has children 8 and 5; sibling order is not constrained.
 
 A three-element min-heap has root priority 2, left child priority 8, and right child priority 5. The root is no larger than either child. The siblings need not be ordered relative to one another. Removing the minimum requires repairing the heap after moving another element into the root.
 

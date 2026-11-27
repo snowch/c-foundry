@@ -165,7 +165,7 @@ The ID 513 is 1+2·256, so its first two bytes are one and two. The name is copi
 
 **Watch for:** A round trip alone can hide matching encoder/decoder bugs; also compare independently specified bytes.
 
-**Check:** Does this format depend on sizeof(Row)?
+**Check:** Does the specified 40-byte row encoding depend on sizeof(Row)?
 
 1. Yes
 2. No

@@ -252,7 +252,7 @@ The ID 513 is 1+2·256, so its first two bytes are one and two. The name is copi
 
 **Watch for:** A round trip alone can hide matching encoder/decoder bugs; also compare independently specified bytes.
 
-**Check:** Does this format depend on sizeof(Row)?
+**Check:** Does the specified 40-byte row encoding depend on sizeof(Row)?
 
 1. Yes
 2. No
@@ -475,7 +475,7 @@ The first write establishes page zero. Reading page one fails before accessing a
 
 **Watch for:** An unchecked page_id×page_size can overflow before fseek receives the offset.
 
-**Check:** Which page may be appended?
+**Check:** Under this pager’s contiguous-page policy, which page ID may be appended?
 
 1. Exactly the current page count
 2. Any arbitrary unbounded page ID
@@ -686,7 +686,7 @@ The rejected gap write leaves the page count zero, allowing the valid page-zero 
 
 **Watch for:** A boolean page write is not a transaction commit; naming it commit would imply guarantees it lacks.
 
-**Check:** Who closes the stream in this pager API?
+**Check:** Who closes the FILE stream borrowed by Pager?
 
 1. Every read_page call
 2. The caller that owns it
@@ -1100,7 +1100,7 @@ This illustrates failure-atomic replacement in memory. It does not establish cra
 
 **Watch for:** Assigning decoded rows directly into the live table before validating the entire file makes rejection destructive.
 
-**Check:** When is live state replaced?
+**Check:** When may load replace the caller’s live table?
 
 1. Immediately after reading the magic bytes
 2. Only after complete validation succeeds
@@ -1139,8 +1139,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Persist rows through a pager and reject corrupt database input.
 
-1. Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.
-2. Try every byte truncation of a valid export, duplicate IDs, a missing name terminator, and one trailing byte.
+1. Try every byte truncation of a valid export, duplicate IDs, a missing name terminator, and one trailing byte.
 
 ### Check your work
 

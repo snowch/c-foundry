@@ -462,7 +462,7 @@ The starter derives boundaries from leaf minima rather than storing a separate s
 
 **Watch for:** Mixing left-inclusive and right-inclusive separator rules can lose keys exactly at boundaries.
 
-**Check:** Where does a key equal to the next child’s minimum go?
+**Check:** When each separator is the next child’s minimum, where must a search for that exact key go?
 
 1. Always to the preceding child
 2. To that next child
@@ -710,14 +710,14 @@ Key six is found in the final leaf with value sixty. The missing-key call leaves
 
 **Watch for:** A pointer to a leaf entry may be invalidated by a split, merge, or compaction; copied results simplify the caller’s lifetime contract.
 
-**Check:** Does a missing lookup return an entry pointer?
+**Check:** If tree_find returns false, may the caller treat its output value as a found result?
 
 1. No
 2. Yes
 
 <details><summary>Answer</summary>
 
-No. The Boolean result must be checked before treating the output as a match.
+No. A false return reports no match. Check that Boolean before interpreting the output value; a value left from an earlier successful lookup is not a new match.
 
 </details>
 
@@ -956,7 +956,7 @@ The fifth insertion triggers the first split. The right leaf starts at key three
 
 **Watch for:** A real multi-level implementation must propagate an internal-page overflow upward, including root growth.
 
-**Check:** What must be checked before splitting this bounded model?
+**Check:** Before splitting a leaf in the bounded two-level tree, which resources must be available?
 
 1. Only whether the new key is positive
 2. Root-child capacity and a free leaf page
@@ -1202,7 +1202,7 @@ The executed fixture uses [2,8), returning six keys across all three leaves. The
 
 **Watch for:** A range ending exactly at a separator must not duplicate or skip boundary keys.
 
-**Check:** Is the upper endpoint included?
+**Check:** For the range-query contract [lo,hi), is the upper endpoint hi included?
 
 1. No
 2. Yes
@@ -1449,7 +1449,7 @@ Leaf positions stay aligned across the three states. The released pool slot is r
 
 **Watch for:** Deleting a key without repairing separators or sibling links can leave point queries passing while ranges fail.
 
-**Check:** When may this model keep an empty leaf?
+**Check:** Under this tree model’s occupancy rule, when may an empty leaf remain in the tree?
 
 1. For every nonroot leaf after deletion
 2. When it is the sole root leaf

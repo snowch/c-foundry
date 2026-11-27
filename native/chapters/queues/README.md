@@ -160,7 +160,7 @@ The slot freed by removing one is reused after the tail wraps. FIFO order is ind
 
 **Watch for:** A modulo expression does not by itself prevent writing when the queue is full.
 
-**Check:** What separates a full ring from an empty ring here?
+**Check:** In the circular queue with an explicit count field, what distinguishes full from empty?
 
 1. The contents of the first array cell
 2. The count field
@@ -448,7 +448,7 @@ Only occupied stack entries are drawn, bottom to top from left to right. The rig
 
 **Watch for:** A parser for one-digit postfix tokens is not an infix or full numeric-expression parser.
 
-**Check:** Which operand is popped first?
+**Check:** When evaluate applies a binary operator to postfix operands, which operand does it pop first?
 
 1. The right operand
 2. The left operand

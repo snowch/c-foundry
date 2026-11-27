@@ -180,7 +180,7 @@ The rejected gap write leaves the page count zero, allowing the valid page-zero 
 
 **Watch for:** A boolean page write is not a transaction commit; naming it commit would imply guarantees it lacks.
 
-**Check:** Who closes the stream in this pager API?
+**Check:** Who closes the FILE stream borrowed by Pager?
 
 1. Every read_page call
 2. The caller that owns it

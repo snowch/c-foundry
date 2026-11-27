@@ -53,7 +53,7 @@ A guarded interface with a documented fallback or requirement. Centralizing the 
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/2). In main.c, change >= 64 to >= 128 in both branches and wide_at_least64= to wide_at_least128=. Run code. Compare the browser flag with a native run of the same edit. Which branch can supply a 128-bit type?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/2). In main.c, change >= 64 to >= 128 in both branches and rename wide_at_least64= to wide_at_least128=. Run code. For the GCC comparison, expand Browser Linux and source files below the editor and choose Open Browser Linux there. In Edit a course file in this browser, select native/examples/standards-evolution-2/main.c. Make the same edits there, then choose Run edited source in Linux. Compare the two wide_at_least128= flags and identify which conditional branch each compiler selected. Inline edits are not copied to Linux automatically.
 
 ### References and help
 

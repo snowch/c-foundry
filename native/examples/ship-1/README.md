@@ -238,7 +238,7 @@ Output:
 SQL contract passed
 ```
 
-The table result confirms execution, while the final count confirms malformed input did not mutate it.
+The selected row confirms execution of the INSERT and SELECT. The final SQL contract passed line appears only after the code checks that the rejected statement left one stored row.
 
 **Watch for:** A parser-only test cannot establish that the executor interprets the statement correctly.
 

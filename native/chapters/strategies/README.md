@@ -53,7 +53,7 @@ Including 2 and 4 reaches six. No subset of these values reaches five. Both bran
 
 **Watch for:** Pruning on a negative remainder is invalid if later values may be negative.
 
-**Check:** Why is this pruning valid here?
+**Check:** Why may subset reject a branch when remaining < 0 for the supplied nonnegative values?
 
 1. All input values are nonnegative
 2. Recursion always permits pruning
@@ -291,7 +291,7 @@ The printed bottom-right 6 counts paths whose last move is either down from abov
 
 **Watch for:** Reducing space without preserving dependency order can accidentally reuse the current row instead of the previous row.
 
-**Check:** Which earlier cells determine an interior cell?
+**Check:** For obstacle-free paths that move only right or down, which earlier cells determine an interior ways cell?
 
 1. Every cell in the grid
 2. The cell above and the cell to the left
@@ -369,7 +369,7 @@ Choosing weights two and three gives value seven. Each item contributes at most 
 
 **Watch for:** A one-dimensional table can silently change the problem if its iteration order changes.
 
-**Check:** Why iterate capacities downward?
+**Check:** Why does the 0/1 knapsack update visit capacities downward for each item?
 
 1. To avoid reusing the current item
 2. To make every knapsack instance greedy

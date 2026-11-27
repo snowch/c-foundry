@@ -73,7 +73,7 @@ Creation is inclusive and deletion is exclusive. These are committed sequence nu
 
 **Watch for:** A snapshot timestamp must refer to a known committed state; wall-clock comparisons alone do not establish commit order.
 
-**Check:** Which value does snapshot two see after time three commits?
+**Check:** In the original model, value 10 is superseded by 20 at timestamp 3. What does a reader fixed at snapshot timestamp 2 see?
 
 1. Ten
 2. Twenty

@@ -167,7 +167,7 @@ The new node is between a and b. Updating b.previous is essential; a forward-onl
 
 **Watch for:** A data structure can look correct in one traversal direction while violating another invariant.
 
-**Check:** Which link must also change when inserting before b?
+**Check:** When inserting a node immediately before b in a doubly linked list, which existing backward link must change?
 
 1. Only the new node’s value
 2. b.previous
@@ -395,7 +395,7 @@ The index still identifies the same logical element because this operation appen
 
 **Watch for:** An index can also become stale after insertion or deletion changes logical positions.
 
-**Check:** Why is an index useful across this append?
+**Check:** Why can a saved element index be reused after an append that preserves earlier positions but may relocate the vector?
 
 1. Indices survive every possible edit
 2. It does not contain an address into the old allocation

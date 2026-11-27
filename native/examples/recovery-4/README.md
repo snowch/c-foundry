@@ -10,7 +10,7 @@ The one-value redo log uses eight-byte BEGIN, SET, and COMMIT records with trans
 
 ### Recovery keeps committed work and ignores an incomplete tail
 
-A complete commit record separates published work from tentative work.
+Illustrative log: commit value 42, then leave value 99 uncommitted.
 
 Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
 

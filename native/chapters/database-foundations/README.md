@@ -357,7 +357,7 @@ The second call is rejected and the original table count remains one. Rejection 
 
 **Watch for:** Implementing a feature’s happy path without its error contract does not complete the feature.
 
-**Check:** What happens to the first row after a duplicate insertion?
+**Check:** Under the original duplicate-rejection contract, what happens to the existing row when insertion repeats its ID?
 
 1. It remains unchanged
 2. It is silently replaced
@@ -511,7 +511,7 @@ To prevent its tail being treated as a new command. Input framing must remain al
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/database-foundations/4). Open Input and append a new select line after the existing commands. Run code and compare the first and second displayed rows with unknown command. What shows the command loop continued after rejecting the unrecognized command?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/database-foundations/4). Open Input and append select on a new line after all existing commands. Choose Run code. In Console, find unknown command and the row printed after it. Does that row match the earlier selection, showing that the loop continued after the rejected command?
 
 ### References and help
 
@@ -658,8 +658,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Define TinyDB’s first commands and test their observable behavior.
 
-1. Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.
-2. Test selection from an empty table, ID zero, duplicate ID, and insertion beyond capacity.
+1. Extend the acceptance suite to test selection from an empty table, ID zero, duplicate IDs, and insertion beyond capacity.
 
 ### Check your work
 

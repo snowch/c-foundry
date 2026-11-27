@@ -41,7 +41,7 @@ On the supported eight-bit-byte targets, uint32_t occupies four bytes. The test 
 
 **Watch for:** A byte-for-byte native representation round trip is not a portable external file encoding.
 
-**Check:** Why avoid casting this arbitrary byte array to uint32_t *?
+**Check:** Why avoid reading the unsigned-char bytes array by casting it to uint32_t *?
 
 1. memcpy cannot copy integer values
 2. Alignment and object-type requirements may not be satisfied

@@ -12,7 +12,7 @@ For each possible byte cut in a single transaction log, the reference expectatio
 
 ### Recovery keeps committed work and ignores an incomplete tail
 
-A complete commit record separates published work from tentative work.
+Illustrative log: commit value 42, then leave value 99 uncommitted.
 
 Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.
 
@@ -101,7 +101,7 @@ The only prefix containing a complete matching COMMIT is the full 24-byte log. E
 
 **Watch for:** Killing a process at one convenient point does not cover all interruption boundaries.
 
-**Check:** Which prefixes may recover 42 in this fixture?
+**Check:** In the original 24-byte transaction log, which prefixes may recover the committed value 42?
 
 1. Only the prefix containing the full commit record
 2. Every prefix containing the SET value

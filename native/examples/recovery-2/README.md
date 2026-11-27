@@ -12,7 +12,7 @@ begin refuses to start another transaction using the same active handle, but the
 
 ### A private working copy can commit or roll back
 
-Uncommitted edits do not replace the live table in this model.
+Illustrative transaction: live score 10 is separate from tentative score 42.
 
 The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
 

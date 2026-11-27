@@ -14,7 +14,7 @@ window.PART_EIGHT = {
         "expected": "joined=4 sum=20",
         "walkthrough": "The worker results are two, four, six, and eight. Joining establishes completion before their sum is read.",
         "pitfall": "Thread creation overhead can exceed useful work for very small jobs; speedup requires measurement.",
-        "question": "Does this output establish parallel execution?",
+        "question": "Do joined= and sum= establish that the worker threads executed simultaneously?",
         "choices": [
           "No",
           "Yes"
@@ -35,7 +35,7 @@ window.PART_EIGHT = {
         "expected": "input=21 result=42",
         "walkthrough": "The worker borrows a live Job and writes a result that main reads only after join. No heap ownership transfer is needed.",
         "pitfall": "Detaching a worker removes the ability to use join as its argument-lifetime boundary.",
-        "question": "When may this stack Job leave scope?",
+        "question": "When may the Job object passed to the worker leave main’s scope?",
         "choices": [
           "Immediately after pthread_create returns",
           "After its worker has finished and been joined"
@@ -56,13 +56,13 @@ window.PART_EIGHT = {
         "expected": "final=1 expected_atomic_increment=2",
         "walkthrough": "Both protected writes store their stale local zero plus one. Protecting the whole increment with one lock acquisition fixes the lost update.",
         "pitfall": "A race-free program can still violate an application’s transaction semantics.",
-        "question": "What must be atomic to avoid this lost update?",
+        "question": "Which steps must one lock acquisition protect to prevent the lost update in stale_update?",
         "choices": [
           "The complete read-modify-write operation",
           "Only each separate load and store"
         ],
         "answer": 0,
-        "why": "Both workers must not base their committed update on the same stale state.",
+        "why": "The lock must cover the read, increment, and write together. Locking each read and write separately still allows both workers to base their update on the same stale value.",
         "tryit": "In native/examples/threads-3/main.c, find stale_update. Remove the three lines that lock gate, read copy, and unlock gate before pthread_barrier_wait. In the remaining lock/unlock pair after the barrier, replace shared_value = copy + 1; with ++shared_value;. Repeat the terminal run. What changed in final= when both increments each hold the lock from read through write?",
         "input": "",
         "runtime": "native",
@@ -120,7 +120,7 @@ window.PART_EIGHT = {
         "expected": "capacity=4 received_count=8",
         "walkthrough": "Reusing slots lets this four-slot queue drain eight requests. The fixture checks the total and count from a fixed sequence of offered values.",
         "pitfall": "Count and sum alone are not a complete exactly-once proof for arbitrary inputs; production tests should track each request ID.",
-        "question": "What happens when the queue fills under this policy?",
+        "question": "Under the bounded queue’s blocking-admission policy, what happens when the queue fills?",
         "choices": [
           "The oldest request is silently overwritten",
           "The producer waits for space or closure"
@@ -159,8 +159,7 @@ window.PART_EIGHT = {
     "practicePlan": {
       "goal": "Check the lock order used by a bounded work queue and its callers.",
       "tasks": [
-        "Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.",
-        "Mark an edge A → B whenever a path holds lock A while acquiring B; check the graph for a directed cycle."
+        "Draw a lock-order graph for your database. Add A → B whenever a code path holds lock A while acquiring B; identify and reject any cycle."
       ],
       "checks": [
         "Check workers finish under the chosen order; a completed finite run does not establish starvation freedom."
@@ -225,13 +224,13 @@ window.PART_EIGHT = {
         "expected": "published=42",
         "walkthrough": "The payload read occurs after the successful acquire, before join. The flag synchronization is therefore essential to that read’s validity.",
         "pitfall": "Using a relaxed load here would not establish the required payload publication relationship.",
-        "question": "Which load must observe the release store?",
+        "question": "To publish payload safely, which load must read the true value written by ready’s release store?",
         "choices": [
           "The acquire load of ready",
           "Any unrelated relaxed counter load"
         ],
         "answer": 0,
-        "why": "Synchronization depends on the matching atomic communication.",
+        "why": "The acquire load of ready must observe the true written by the release store. Loads that still read false do not yet establish this payload-publication relationship.",
         "tryit": "In native/examples/atomics-3/main.c, change the value assigned to payload by publish_payload from 42 to 17. Leave the release and acquire operations in place and repeat the terminal run. Which order lets the reader see published= safely?",
         "input": "",
         "runtime": "native",
@@ -264,8 +263,7 @@ window.PART_EIGHT = {
     "practicePlan": {
       "goal": "Explain atomic counter updates and one-shot payload publication.",
       "tasks": [
-        "Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.",
-        "List each shared field and the mutex or atomic operation protecting it; distinguish counter atomicity from payload publication."
+        "List each shared field in your queue and database, then name the mutex or atomic protocol protecting it. Distinguish counter atomicity from payload publication."
       ],
       "checks": [
         "Check the counter total after joins and trace the release store read by the payload’s acquire load."
@@ -369,7 +367,6 @@ window.PART_EIGHT = {
     "practicePlan": {
       "goal": "Use the queue as a foundation for a single-writer storage service.",
       "tasks": [
-        "Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks.",
         "Add repeated-close, full-queue admission, consumer-failure, and per-request-ID completion cases."
       ],
       "checks": [

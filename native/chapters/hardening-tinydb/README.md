@@ -458,7 +458,7 @@ No. Undiagnosed undefined behavior remains possible.
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/3). With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at ~/work/c-foundry in Browser Linux, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/hardening-tinydb/3). With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at ~/work/c-foundry in Browser Linux, then repeat with --compiler clang. Compare the completion messages. Which compilers ran inside Browser Linux, and which additional operating systems are tested by the repository’s separate Actions matrix?
 
 ### References and help
 
@@ -870,7 +870,7 @@ The worked example exports the two-row Ada/Grace fixture into a new file. Run ma
 
 **Watch for:** This is an audited portability slice, not a claim that all course components or the complete database run unchanged on every host. The C17 exclusive-create adapter refuses existing destinations; it never implements replacement by deleting the old file first.
 
-**Check:** Which result establishes the strongest file-compatibility evidence here?
+**Check:** Which test provides the strongest evidence that the supported hosts exchange the documented file format correctly?
 
 1. Only a same-process encode/decode round trip
 2. Every tested host validates and copies files from all producers against an independent byte fixture

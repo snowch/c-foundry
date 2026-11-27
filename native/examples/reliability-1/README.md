@@ -76,7 +76,7 @@ Every request completes. The number that initially encountered a busy lock may d
 
 **Watch for:** A benchmark that asserts a nonzero wait count can be flaky when the scheduler runs workers mostly sequentially.
 
-**Check:** Which value is safe to assert exactly here?
+**Check:** For fixed worker and per-worker request counts, which metric has a deterministic expected value?
 
 1. The total processed requests
 2. The number of contended attempts

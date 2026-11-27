@@ -172,7 +172,7 @@ window.PART_ONE = {
         "expected": "21 4",
         "walkthrough": "total is calculated when its initializer runs. It stores 21; it is not a formula that automatically tracks quantity. Assigning 4 to quantity changes that object only. The later printf therefore prints the old calculated total and the new quantity. To update total, evaluate the multiplication and assign again.",
         "pitfall": "Use = for assignment. It stores a value and is different from ==, which compares values. A statement such as total = quantity changes total, even if the names suggest a calculation.",
-        "question": "After quantity changes to 4, does total automatically become 28?",
+        "question": "If total was initialized using quantity = 3, does assigning quantity = 4 alone recompute total?",
         "choices": [
           "Yes",
           "No"
@@ -253,7 +253,7 @@ window.PART_ONE = {
         "expected": "pass\nstop",
         "walkthrough": "The comparison 72 >= 50 is true, so only the pass branch runs. The switch then selects case 2 and prints stop. Its break leaves the switch. A switch is not a loop: the cases describe alternatives within that one selection, not repeated iterations.",
         "pitfall": "A single = assigns rather than compares. In addition, forgetting break can create unintended fallthrough. Both mistakes may compile; understanding the control flow is still necessary.",
-        "question": "Which branch runs when score is exactly 50?",
+        "question": "For if (score >= 50), which branch runs when score is exactly 50?",
         "choices": [
           "pass",
           "retry"
@@ -270,7 +270,7 @@ window.PART_ONE = {
         "expected": "not evaluated or too small",
         "walkthrough": "The first comparison is false, so the division is not evaluated. The program therefore avoids dividing by zero. Reversing the operands would remove that protection. The order here is a language guarantee of &&, unlike the general evaluation-order questions raised by ordinary arithmetic expressions.",
         "pitfall": "The bitwise operators & and | do not provide the same short-circuit rule. They have useful roles in bit manipulation, but should not replace && and || in these guards.",
-        "question": "Does the division run when divisor is zero in this example?",
+        "question": "In divisor != 0 && numerator / divisor > 2, is the division evaluated when divisor is zero?",
         "choices": [
           "Yes",
           "No"
@@ -287,14 +287,14 @@ window.PART_ONE = {
         "expected": "0\n1\n2\nremaining=0",
         "walkthrough": "The for body sees i equal to 0, 1, and 2. After the update makes it 3, the condition is false. The while loop subtracts one twice and stops at zero. Neither loop executes its body after its condition has become false. This is why < n and <= n often differ by one iteration.",
         "pitfall": "An empty body caused by a stray semicolon, or an update that never approaches the stopping condition, can create an unintended loop. The Stop button is available if an experiment fails to terminate.",
-        "question": "How many times does the for body run?",
+        "question": "In the original printing loop, for (int i = 0; i < 3; i++), how many times does the body run?",
         "choices": [
           "2",
           "3",
           "4"
         ],
         "answer": 1,
-        "why": "The values 0, 1, and 2 satisfy i < 3.",
+        "why": "The printing loop runs for i = 0, 1, and 2, then stops when i < 3 becomes false. The loop you write for remaining is a different loop.",
         "tryit": "In main.c, replace the while loop with for (; remaining > 0; remaining--) { }. Choose Run code. Compare the numbers and remaining= line with the original and explain why the final value is the same.",
         "input": ""
       },
@@ -305,7 +305,7 @@ window.PART_ONE = {
         "expected": "0\n1\n3\n4",
         "walkthrough": "At i = 2, continue skips printf but the for update still increments i. At i = 5, break exits before printing and before another iteration. The values 5 and 6 are never printed. A break inside a switch nested in a loop would leave that switch rather than automatically leaving the loop.",
         "pitfall": "Always ask which construct is nearest. Also, a continue can bypass cleanup or other work later in a loop body; resource handling becomes important when allocations and files are introduced.",
-        "question": "Which value causes this loop to finish early?",
+        "question": "In the original loop, which i value triggers break and ends the loop early?",
         "choices": [
           "2",
           "5",
@@ -369,7 +369,7 @@ window.PART_ONE = {
         "expected": "10 11",
         "walkthrough": "value begins at 10 inside add_one, then becomes 11. original in main remains 10. result receives the returned 11. If you instead want original to hold 11, write original = add_one(original). This makes the data flow visible at the call site.",
         "pitfall": "Matching variable names do not create shared storage. A local variable or parameter named original in another function would still be a separate object.",
-        "question": "Does value++ change original in this example?",
+        "question": "Inside add_one, does value++ directly change main’s variable original?",
         "choices": [
           "Yes",
           "No"
@@ -386,7 +386,7 @@ window.PART_ONE = {
         "expected": "1\n2",
         "walkthrough": "The static object count is initialized once and survives the first return. The second call therefore increments 1 to 2. If count were an ordinary local initialized to zero on each call, both calls would return 1. Persistent state can be useful, but it makes calls depend on history and can later require synchronization.",
         "pitfall": "Do not return the address of an ordinary local variable for later use: its lifetime ends when the relevant block exits. Part 2 makes that memory rule concrete with pointer examples.",
-        "question": "If static is removed, what does the second call return?",
+        "question": "If next_count declares int count = 0 instead of static int count = 0, what does its second call return?",
         "choices": [
           "1",
           "2",
@@ -404,7 +404,7 @@ window.PART_ONE = {
         "expected": "area=12 perimeter=14",
         "walkthrough": "The two helper calls depend only on their parameters and do not change shared state, so their unspecified argument evaluation order is harmless here. Both results are ready when printf formats them. In the chapter exercise, dimensions are restricted to 1 through 100 so the integer operations stay comfortably within the required range.",
         "pitfall": "A function name should reveal its result or effect. Also document input constraints: moving a multiplication into a helper does not remove its overflow risks.",
-        "question": "Which responsibility belongs in main for this design?",
+        "question": "In the rectangle calculator, which responsibility belongs in main rather than the area helper?",
         "choices": [
           "Formatting the final output",
           "Making area read from stdin"
@@ -449,7 +449,7 @@ window.PART_ONE = {
         "expected": "15",
         "walkthrough": "The initializer determines a five-element array. sizeof reports sizes in bytes and produces size_t, a standard unsigned size type. The loop uses i < count, so it visits each element once without reaching the invalid index count. The total fits in int for these particular data values.",
         "pitfall": "An out-of-bounds read is not a legitimate way to inspect what happens to be nearby. It has undefined behavior. When debugging, inspect both the index and the length that is supposed to constrain it.",
-        "question": "What is the last valid index of this five-element array?",
+        "question": "What is the last valid index of an array with five elements?",
         "choices": [
           "4",
           "5",
@@ -518,7 +518,7 @@ window.PART_ONE = {
         "expected": "words=3",
         "walkthrough": "For C is fun, each first letter after a boundary increases the word count; letters later in the same word do not. Multiple adjacent spaces therefore do not create extra words. The example counts words only. Your exercise adds a character counter while keeping the newline excluded. Test an empty input, whitespace-only input, and repeated spaces.",
         "pitfall": "This is byte-oriented ASCII processing, not a Unicode word segmenter. A long line is read only up to the buffer limit; the exercise’s contract avoids that truncation case, while a later robust input library must handle it.",
-        "question": "How many words does \"  C   lab  \" contain under this definition?",
+        "question": "Counting each run of non-whitespace characters as one word, how many words are in \"  C   lab  \"?",
         "choices": [
           "2",
           "3",

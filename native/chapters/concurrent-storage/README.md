@@ -618,8 +618,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Use the queue as a foundation for a single-writer storage service.
 
-1. Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks.
-2. Add repeated-close, full-queue admission, consumer-failure, and per-request-ID completion cases.
+1. Add repeated-close, full-queue admission, consumer-failure, and per-request-ID completion cases.
 
 ### Check your work
 

@@ -197,7 +197,7 @@ The worked example exports the two-row Ada/Grace fixture into a new file. Run ma
 
 **Watch for:** This is an audited portability slice, not a claim that all course components or the complete database run unchanged on every host. The C17 exclusive-create adapter refuses existing destinations; it never implements replacement by deleting the old file first.
 
-**Check:** Which result establishes the strongest file-compatibility evidence here?
+**Check:** Which test provides the strongest evidence that the supported hosts exchange the documented file format correctly?
 
 1. Only a same-process encode/decode round trip
 2. Every tested host validates and copies files from all producers against an independent byte fixture

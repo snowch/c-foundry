@@ -243,7 +243,7 @@ The lookup follows one right edge for three. Seven follows the right child and t
 
 **Watch for:** A BST is not automatically balanced, so its height need not be logarithmic.
 
-**Check:** What determines this lookup’s path length?
+**Check:** What determines the maximum number of levels visited by a binary-search-tree lookup?
 
 1. Only the key’s numeric magnitude
 2. Tree height
@@ -569,7 +569,7 @@ Store a complete binary tree in an array. Parent and child indices follow from t
 
 ### A min-heap orders parents before children
 
-Sibling positions do not imply a fully sorted sequence.
+Illustrative min-heap: parent 2 has children 8 and 5; sibling order is not constrained.
 
 A three-element min-heap has root priority 2, left child priority 8, and right child priority 5. The root is no larger than either child. The siblings need not be ordered relative to one another. Removing the minimum requires repairing the heap after moving another element into the root.
 
@@ -644,7 +644,7 @@ Repeated removal yields sorted priorities even though an arbitrary heap array po
 
 **Watch for:** Binary-searching a heap array assumes an ordering it does not provide.
 
-**Check:** Which element is guaranteed minimal?
+**Check:** In a min-heap, which element is guaranteed to be minimal?
 
 1. The root
 2. Every leftmost array prefix
@@ -683,7 +683,7 @@ This small scheduler encodes priority and insertion sequence into one bounded in
 
 ### A min-heap orders parents before children
 
-Sibling positions do not imply a fully sorted sequence.
+Illustrative min-heap: parent 2 has children 8 and 5; sibling order is not constrained.
 
 A three-element min-heap has root priority 2, left child priority 8, and right child priority 5. The root is no larger than either child. The siblings need not be ordered relative to one another. Removing the minimum requires repairing the heap after moving another element into the root.
 

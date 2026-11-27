@@ -14,7 +14,7 @@ Implement row lifecycle operations while keeping key uniqueness and initialized-
 
 A table’s initialized count is not its reserved capacity. Only rows below count belong to the logical table.
 
-Table t={0} initializes an empty table. Row assignment copies embedded arrays as part of the struct, while pointer fields would require a separate ownership policy. The fixed array avoids allocation during table operations but imposes a deliberate capacity limit. The name field must contain a terminator within its 32 bytes.
+Table t = {.count = 0} initializes an empty table; its other members are zero-initialized too. Row assignment copies embedded arrays as part of the struct, while pointer fields would require a separate ownership policy. The fixed array avoids allocation during table operations but imposes a deliberate capacity limit. The name field must contain a terminator within its 32 bytes.
 
 ### main.c
 
@@ -105,7 +105,7 @@ The fixed Table has capacity 8. Struct assignment copies embedded arrays; pointe
 
 **Watch for:** Replacing the array with char * would make the same assignment share a target rather than clone it.
 
-**Check:** Does this row assignment copy the embedded name array?
+**Check:** Does assigning a Row struct copy its embedded char name[32] array?
 
 1. Yes
 2. No
@@ -242,7 +242,7 @@ count=2 and capacity=8. This bounded table preserves insertion order; the ID loo
 
 **Watch for:** Do not cast −1 to size_t and use it as an index.
 
-**Check:** Is this table sorted by ID?
+**Check:** Does the original insert_row implementation maintain ascending ID order?
 
 1. Yes
 2. No
@@ -372,7 +372,7 @@ Both rejected operations retain the existing eight rows. A failure status is not
 
 **Watch for:** An API can be inconsistent even if it never crashes: error priority and state preservation need tests too.
 
-**Check:** What is returned for a duplicate ID in a full table?
+**Check:** When insert_row checks duplicates before capacity, what does a duplicate ID return in a full table?
 
 1. DUPLICATE under this documented policy
 2. An insertion that overwrites the first row
@@ -631,7 +631,7 @@ Public results and logical state against a reference. An independent model can d
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/tables/5). In main.c, change the update value 88 and the expected value in t.rows[i].score != 88 to 95. Run code and compare Grace’s printed score and table contract passed. Which equality protects against passing a check with an incorrect value?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/tables/5). In main.c, change the update value 88 and the expected value in t.rows[i].score != 88 to 95. Run code and compare Grace’s printed score with the new expected value. Which check rejects a surviving row with the wrong score? Confirm that table contract passed appears only after the checks succeed.
 
 ### References and help
 

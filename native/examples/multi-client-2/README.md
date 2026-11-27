@@ -12,7 +12,7 @@ The serialized-owner model tracks the active session ID. SET and COMMIT reject a
 
 ### A private working copy can commit or roll back
 
-Uncommitted edits do not replace the live table in this model.
+Illustrative transaction: live score 10 is separate from tentative score 42.
 
 The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.
 
@@ -79,7 +79,7 @@ The failed session-two commit leaves session one’s working value intact. Only 
 
 **Watch for:** Serializing individual requests does not automatically serialize a multi-request transaction under one owner.
 
-**Check:** May another session commit the current transaction?
+**Check:** Under this model’s session-ownership rule, may a different session commit the active transaction?
 
 1. Yes
 2. No

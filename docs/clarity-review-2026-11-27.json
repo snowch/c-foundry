@@ -1,0 +1,1125 @@
+{
+  "date": "2026-11-27",
+  "baseline": "95f6758",
+  "scope": {
+    "reading_lessons": 227,
+    "chapter_overviews": 44,
+    "checked_practices": 15,
+    "chapter_projects": 36,
+    "documentation_questions": 44,
+    "shared_interfaces": [
+      "editor and predictions",
+      "Browser Linux launch, editing, and backup",
+      "references and course-note excerpts",
+      "practice illustrations",
+      "concept-figure captions and descriptions"
+    ]
+  },
+  "method": "Read the authored lesson introductions, explanations, original-output interpretations, pitfalls, questions, choices, feedback, edit tasks, overviews and project tasks in course order. Check ambiguous references against the starter code, supplied input, expected output and requested edits. Review practice and documentation questions plus shared controls. Retain correct wording and existing C programs; preserve licensed imported manual text.",
+  "changes": [
+    {
+      "route": "values/2",
+      "field": "question",
+      "before": "After quantity changes to 4, does total automatically become 28?",
+      "after": "If total was initialized using quantity = 3, does assigning quantity = 4 alone recompute total?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "control-flow/1",
+      "field": "question",
+      "before": "Which branch runs when score is exactly 50?",
+      "after": "For if (score >= 50), which branch runs when score is exactly 50?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "control-flow/2",
+      "field": "question",
+      "before": "Does the division run when divisor is zero in this example?",
+      "after": "In divisor != 0 && numerator / divisor > 2, is the division evaluated when divisor is zero?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "control-flow/3",
+      "field": "question",
+      "before": "How many times does the for body run?",
+      "after": "In the original printing loop, for (int i = 0; i < 3; i++), how many times does the body run?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "control-flow/4",
+      "field": "question",
+      "before": "Which value causes this loop to finish early?",
+      "after": "In the original loop, which i value triggers break and ends the loop early?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "functions/2",
+      "field": "question",
+      "before": "Does value++ change original in this example?",
+      "after": "Inside add_one, does value++ directly change main’s variable original?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "functions/3",
+      "field": "question",
+      "before": "If static is removed, what does the second call return?",
+      "after": "If next_count declares int count = 0 instead of static int count = 0, what does its second call return?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "functions/4",
+      "field": "question",
+      "before": "Which responsibility belongs in main for this design?",
+      "after": "In the rectangle calculator, which responsibility belongs in main rather than the area helper?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "arrays-strings/1",
+      "field": "question",
+      "before": "What is the last valid index of this five-element array?",
+      "after": "What is the last valid index of an array with five elements?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "arrays-strings/5",
+      "field": "question",
+      "before": "How many words does \"  C   lab  \" contain under this definition?",
+      "after": "Counting each run of non-whitespace characters as one word, how many words are in \"  C   lab  \"?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "pointers/1",
+      "field": "question",
+      "before": "Which statement changes the integer reached by p?",
+      "after": "When p points to a live, modifiable int, which statement writes a new value into that int?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "pointers/3",
+      "field": "question",
+      "before": "May this program read *end?",
+      "after": "For int values[] = {2, 4, 6} and int *end = values + 3, may the program read *end?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "pointers/5",
+      "field": "question",
+      "before": "Why does the temporary survive the write to *a?",
+      "after": "In swap, why does saved retain its value after *a = *b?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "allocation/4",
+      "field": "question",
+      "before": "Does assigning another pointer variable to copy create a second allocation?",
+      "after": "If p and copy are char * variables, does p = copy allocate a second string?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "structured-data/2",
+      "field": "question",
+      "before": "What tells show which union member to use?",
+      "after": "Which field tells show whether to read value.data.number or value.data.text?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "structured-data/5",
+      "field": "question",
+      "before": "Should the caller free the pointer returned from this stack-array lookup?",
+      "after": "When find returns a pointer into the caller’s automatic rows array, should the caller free that pointer?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "larger-programs/4",
+      "field": "question",
+      "before": "Why avoid a - b as this comparator?",
+      "after": "Why would return a - b be unsafe for a comparator that must support every int pair?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "larger-programs/5",
+      "field": "question",
+      "before": "May a caller assume name is usable after any status?",
+      "after": "After copy_name returns, which status permits the caller to use the output string name?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "big-o/1",
+      "field": "question",
+      "before": "What is n in this example?",
+      "after": "In the original call scan(a, 4, 7), what does the size argument 4 count?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "big-o/6",
+      "field": "question",
+      "before": "What does sum represent before iteration i?",
+      "after": "In the summing loop, what does sum represent just before iteration i adds a[i]?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "searching/4",
+      "field": "question",
+      "before": "How many values match in [lo,hi)?",
+      "after": "If lower and upper give the matching range [lo,hi) for one key, how many elements match?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "searching/5",
+      "field": "question",
+      "before": "Which order does this lookup require?",
+      "after": "Which row order does the ID-based binary search in find_id require?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "sorting/2",
+      "field": "question",
+      "before": "What extra array space does this merge sort use?",
+      "after": "How much temporary array space does the original merge-sort implementation use for n elements?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "sorting/6",
+      "field": "question",
+      "before": "What is being counted here?",
+      "after": "What does the shifts counter in the insertion-sort example count?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "recursion/1",
+      "field": "question",
+      "before": "What decreases in this recursion?",
+      "after": "In factorial, what decreases on each recursive call made when n is at least 2?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "recursion/2",
+      "field": "question",
+      "before": "Which call returns first?",
+      "after": "In the original visit(2) trace, which call returns first?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "strategies/1",
+      "field": "question",
+      "before": "Why is this pruning valid here?",
+      "after": "Why may subset reject a branch when remaining < 0 for the supplied nonnegative values?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "strategies/4",
+      "field": "question",
+      "before": "Which earlier cells determine an interior cell?",
+      "after": "For obstacle-free paths that move only right or down, which earlier cells determine an interior ways cell?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "strategies/5",
+      "field": "question",
+      "before": "Why iterate capacities downward?",
+      "after": "Why does the 0/1 knapsack update visit capacities downward for each item?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "lists/2",
+      "field": "question",
+      "before": "Which link must also change when inserting before b?",
+      "after": "When inserting a node immediately before b in a doubly linked list, which existing backward link must change?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "lists/4",
+      "field": "question",
+      "before": "Why is an index useful across this append?",
+      "after": "Why can a saved element index be reused after an append that preserves earlier positions but may relocate the vector?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "queues/2",
+      "field": "question",
+      "before": "What separates a full ring from an empty ring here?",
+      "after": "In the circular queue with an explicit count field, what distinguishes full from empty?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "queues/5",
+      "field": "question",
+      "before": "Which operand is popped first?",
+      "after": "When evaluate applies a binary operator to postfix operands, which operand does it pop first?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "hash-tables/5",
+      "field": "question",
+      "before": "What can one worst-case lookup cost?",
+      "after": "With n stored entries, what can a worst-case hash-table lookup cost?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "hash-tables/6",
+      "field": "question",
+      "before": "When is borrowing these keys valid?",
+      "after": "Under what lifetime condition may the word-frequency table borrow pointers to immutable keys?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "trees-heaps/2",
+      "field": "question",
+      "before": "What determines this lookup’s path length?",
+      "after": "What determines the maximum number of levels visited by a binary-search-tree lookup?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "trees-heaps/5",
+      "field": "question",
+      "before": "Which element is guaranteed minimal?",
+      "after": "In a min-heap, which element is guaranteed to be minimal?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "graphs/2",
+      "field": "question",
+      "before": "When should this BFS mark a vertex seen?",
+      "after": "In the BFS queue algorithm, when should a vertex be marked seen?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "graphs/4",
+      "field": "question",
+      "before": "What indicates a cycle in this algorithm?",
+      "after": "What indicates a cycle in the indegree-based topological-sort algorithm?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "graphs/5",
+      "field": "question",
+      "before": "Can this algorithm safely accept arbitrary negative weights?",
+      "after": "Can Dijkstra’s algorithm safely accept arbitrary negative edge weights?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "database-foundations/3",
+      "field": "question",
+      "before": "What happens to the first row after a duplicate insertion?",
+      "after": "Under the original duplicate-rejection contract, what happens to the existing row when insertion repeats its ID?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "tables/1",
+      "field": "question",
+      "before": "Does this row assignment copy the embedded name array?",
+      "after": "Does assigning a Row struct copy its embedded char name[32] array?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "tables/2",
+      "field": "question",
+      "before": "Is this table sorted by ID?",
+      "after": "Does the original insert_row implementation maintain ascending ID order?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "tables/3",
+      "field": "question",
+      "before": "What is returned for a duplicate ID in a full table?",
+      "after": "When insert_row checks duplicates before capacity, what does a duplicate ID return in a full table?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "parsing/2",
+      "field": "question",
+      "before": "Is a doubled quote inside this literal a token boundary?",
+      "after": "Inside the SQL string 'O''Brien', is the doubled quote a token boundary?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "parsing/3",
+      "field": "question",
+      "before": "What follows the semicolon in this grammar?",
+      "after": "In the single-statement SQL grammar taught here, what must follow the semicolon?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "parsing/4",
+      "field": "question",
+      "before": "Why copy the string into the statement?",
+      "after": "Why must the statement copy a string value out of the lexer’s reusable token buffer?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "parsing/5",
+      "field": "question",
+      "before": "Where should zero-ID rejection occur?",
+      "after": "Under the people schema’s positive-ID rule, which stage should reject ID zero?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "execution/1",
+      "field": "question",
+      "before": "What bounds the scan?",
+      "after": "Which value bounds the table-scan loop in the original main.c?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "execution/2",
+      "field": "question",
+      "before": "Does returning two rows mean only two were examined?",
+      "after": "In a full table scan, does emitting two matching rows imply that only two rows were examined?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "persistence/2",
+      "field": "question",
+      "before": "Does this format depend on sizeof(Row)?",
+      "after": "Does the specified 40-byte row encoding depend on sizeof(Row)?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "persistence/3",
+      "field": "question",
+      "before": "Which page may be appended?",
+      "after": "Under this pager’s contiguous-page policy, which page ID may be appended?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "persistence/4",
+      "field": "question",
+      "before": "Who closes the stream in this pager API?",
+      "after": "Who closes the FILE stream borrowed by Pager?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "persistence/6",
+      "field": "question",
+      "before": "When is live state replaced?",
+      "after": "When may load replace the caller’s live table?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "bplus-trees/2",
+      "field": "question",
+      "before": "Where does a key equal to the next child’s minimum go?",
+      "after": "When each separator is the next child’s minimum, where must a search for that exact key go?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "bplus-trees/3",
+      "field": "question",
+      "before": "Does a missing lookup return an entry pointer?",
+      "after": "If tree_find returns false, may the caller treat its output value as a found result?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "bplus-trees/4",
+      "field": "question",
+      "before": "What must be checked before splitting this bounded model?",
+      "after": "Before splitting a leaf in the bounded two-level tree, which resources must be available?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "bplus-trees/5",
+      "field": "question",
+      "before": "Is the upper endpoint included?",
+      "after": "For the range-query contract [lo,hi), is the upper endpoint hi included?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "bplus-trees/6",
+      "field": "question",
+      "before": "When may this model keep an empty leaf?",
+      "after": "Under this tree model’s occupancy rule, when may an empty leaf remain in the tree?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "planning/6",
+      "field": "question",
+      "before": "How many candidate pairs does this baseline examine?",
+      "after": "For N outer rows and M inner rows, how many candidate pairs does the plain nested-loop join examine?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "recovery/3",
+      "field": "question",
+      "before": "Which score is visible after the rollback?",
+      "after": "In the original program, a score of 95 is committed and a later tentative zero is rolled back. Which score remains live?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "recovery/5",
+      "field": "question",
+      "before": "Is a SET record enough to publish a transaction?",
+      "after": "In the redo-log model, is a SET record alone enough to publish a transaction?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "ship/3",
+      "field": "question",
+      "before": "Which prefixes may recover 42 in this fixture?",
+      "after": "In the original 24-byte transaction log, which prefixes may recover the committed value 42?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "c-guarantees/2",
+      "field": "question",
+      "before": "Why avoid casting this arbitrary byte array to uint32_t *?",
+      "after": "Why avoid reading the unsigned-char bytes array by casting it to uint32_t *?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "c-guarantees/4",
+      "field": "question",
+      "before": "On these targets, what is the type of the sum of two uint8_t operands?",
+      "after": "On the course’s targets, what is the type of the addition result for two uint8_t operands?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "hardening-tinydb/5",
+      "field": "question",
+      "before": "Which result establishes the strongest file-compatibility evidence here?",
+      "after": "Which test provides the strongest evidence that the supported hosts exchange the documented file format correctly?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "threads/1",
+      "field": "question",
+      "before": "Does this output establish parallel execution?",
+      "after": "Do joined= and sum= establish that the worker threads executed simultaneously?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "threads/2",
+      "field": "question",
+      "before": "When may this stack Job leave scope?",
+      "after": "When may the Job object passed to the worker leave main’s scope?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "threads/3",
+      "field": "question",
+      "before": "What must be atomic to avoid this lost update?",
+      "after": "Which steps must one lock acquisition protect to prevent the lost update in stale_update?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "coordination/2",
+      "field": "question",
+      "before": "What happens when the queue fills under this policy?",
+      "after": "Under the bounded queue’s blocking-admission policy, what happens when the queue fills?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "atomics/3",
+      "field": "question",
+      "before": "Which load must observe the release store?",
+      "after": "To publish payload safely, which load must read the true value written by ready’s release store?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "multi-client/2",
+      "field": "question",
+      "before": "May another session commit the current transaction?",
+      "after": "Under this model’s session-ownership rule, may a different session commit the active transaction?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "snapshots/1",
+      "field": "question",
+      "before": "Which value does snapshot two see after time three commits?",
+      "after": "In the original model, value 10 is superseded by 20 at timestamp 3. What does a reader fixed at snapshot timestamp 2 see?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "snapshots/3",
+      "field": "question",
+      "before": "May the old version be freed while snapshot two is active?",
+      "after": "May a version deleted at timestamp 3 be freed while a reader at snapshot timestamp 2 is still active?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "reliability/1",
+      "field": "question",
+      "before": "Which value is safe to assert exactly here?",
+      "after": "For fixed worker and per-worker request counts, which metric has a deterministic expected value?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "control-flow/3",
+      "field": "why",
+      "before": "The values 0, 1, and 2 satisfy i < 3.",
+      "after": "The printing loop runs for i = 0, 1, and 2, then stops when i < 3 becomes false. The loop you write for remaining is a different loop.",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "big-o/6",
+      "field": "choices",
+      "before": [
+        "The entire array",
+        "The prefix a[0..i)"
+      ],
+      "after": [
+        "The sum of every element in the array",
+        "The sum of a[0] through a[i - 1]"
+      ],
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "bplus-trees/3",
+      "field": "why",
+      "before": "The Boolean result must be checked before treating the output as a match.",
+      "after": "A false return reports no match. Check that Boolean before interpreting the output value; a value left from an earlier successful lookup is not a new match.",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "threads/3",
+      "field": "why",
+      "before": "Both workers must not base their committed update on the same stale state.",
+      "after": "The lock must cover the read, increment, and write together. Locking each read and write separately still allows both workers to base their update on the same stale value.",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "atomics/3",
+      "field": "why",
+      "before": "Synchronization depends on the matching atomic communication.",
+      "after": "The acquire load of ready must observe the true written by the release store. Loads that still read false do not yet establish this payload-publication relationship.",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "big-o/1",
+      "field": "choices",
+      "before": [
+        "The four initialized elements",
+        "The number of bytes in the executable"
+      ],
+      "after": [
+        "The four initialized array elements searched",
+        "The number of bytes in the executable"
+      ],
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "searching/4",
+      "field": "explanation",
+      "before": "lower returns the first value ≥key; upper returns the first value >key. Their difference counts matches, and [lower,upper) is the duplicate range. Both searches use the same sorted input but differ in which equality case moves the left boundary. A missing key produces equal boundaries.",
+      "after": "lower returns the index of the first element whose value is at least key; upper returns the index of the first element whose value is greater than key. Either index may be n when no such element exists. The difference between these indices counts matches, and [lower,upper) is their half-open index range. Both searches use the same sorted input but differ in which equality case moves the left boundary. A missing key produces equal boundaries.",
+      "reason": "Distinguish returned indices from element values."
+    },
+    {
+      "route": "hash-tables/5",
+      "field": "explanation",
+      "before": "With a suitable distribution and bounded load, expected lookup and insertion can be O(1). A set of colliding keys can require Θ(n) probes for one operation; resizing also costs Θ(n) occasionally. The fixture constructs a collision cluster and counts occupied positions before the first empty slot to expose the mechanism.",
+      "after": "With a suitable distribution and bounded load, expected lookup and insertion can be O(1). A set of colliding keys can require Θ(n) probes for one operation; resizing also costs Θ(n) occasionally. The fixture constructs a collision cluster. Its probe counter counts every inspected slot, including the empty slot that ends an unsuccessful search.",
+      "reason": "Make the stated counting unit agree with absent_probes=4 (three live slots plus one empty slot)."
+    },
+    {
+      "route": "sorting/6",
+      "field": "explanation",
+      "before": "For insertion sort, sorted input causes no shifts; reversed distinct input causes n(n−1)/2 shifts. An assignment that writes the saved key back is not counted as a shift here. State that convention, keep output outside timing, and verify that every run preserves the multiset.",
+      "after": "For insertion sort, sorted input causes no shifts; reversed distinct input causes n(n−1)/2 shifts. An assignment that writes the saved key back is not counted as a shift here. State that convention, keep output outside timing, and verify that every run preserves the multiset: the same values with the same duplicate counts.",
+      "reason": "Define multiset before later projects rely on that term."
+    },
+    {
+      "route": "tables/1",
+      "field": "explanation",
+      "before": "Table t={0} initializes an empty table. Row assignment copies embedded arrays as part of the struct, while pointer fields would require a separate ownership policy. The fixed array avoids allocation during table operations but imposes a deliberate capacity limit. The name field must contain a terminator within its 32 bytes.",
+      "after": "Table t = {.count = 0} initializes an empty table; its other members are zero-initialized too. Row assignment copies embedded arrays as part of the struct, while pointer fields would require a separate ownership policy. The fixed array avoids allocation during table operations but imposes a deliberate capacity limit. The name field must contain a terminator within its 32 bytes.",
+      "reason": "Use the initializer actually shown in the worked example."
+    },
+    {
+      "route": "richer-queries/1",
+      "field": "walkthrough",
+      "before": "Tenant two’s ID one correctly selects Ken rather than tenant one’s Ada. Two orders for Ada produce two join rows.",
+      "after": "The original bind(&p, 1, 2) selects Grace using tenant 1 and ID 2. The join uses its own order keys, so two orders for Ada produce two join rows independently of the prepared lookup.",
+      "reason": "The original program prints prepared=Grace; Ken is the result of the requested edit, not the starter."
+    },
+    {
+      "route": "ship/1",
+      "field": "walkthrough",
+      "before": "The table result confirms execution, while the final count confirms malformed input did not mutate it.",
+      "after": "The selected row confirms execution of the INSERT and SELECT. The final SQL contract passed line appears only after the code checks that the rejected statement left one stored row.",
+      "reason": "Name the actual visible result rather than suggesting that a separate count is printed."
+    },
+    {
+      "route": "database-foundations/4",
+      "field": "tryit",
+      "before": "Open Input and append a new select line after the existing commands. Run code and compare the first and second displayed rows with unknown command. What shows the command loop continued after rejecting the unrecognized command?",
+      "after": "Open Input and append select on a new line after all existing commands. Choose Run code. In Console, find unknown command and the row printed after it. Does that row match the earlier selection, showing that the loop continued after the rejected command?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "tables/5",
+      "field": "tryit",
+      "before": "In main.c, change the update value 88 and the expected value in t.rows[i].score != 88 to 95. Run code and compare Grace’s printed score and table contract passed. Which equality protects against passing a check with an incorrect value?",
+      "after": "In main.c, change the update value 88 and the expected value in t.rows[i].score != 88 to 95. Run code and compare Grace’s printed score with the new expected value. Which check rejects a surviving row with the wrong score? Confirm that table contract passed appears only after the checks succeed.",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "hardening-tinydb/3",
+      "field": "tryit",
+      "before": "With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at ~/work/c-foundry in Browser Linux, then repeat with --compiler clang. Compare the completion messages. Which compilers did you run on your operating system, and which operating systems are covered by the separate Actions matrix?",
+      "after": "With the starter unchanged, run python3 tools/check_portability.py --compiler gcc at ~/work/c-foundry in Browser Linux, then repeat with --compiler clang. Compare the completion messages. Which compilers ran inside Browser Linux, and which additional operating systems are tested by the repository’s separate Actions matrix?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "larger-programs/1",
+      "field": "tryit",
+      "before": "Choose operations.c in Source files. In twice, change the multiplication by 2 to multiplication by 3. Choose Run code and compare Console with 42. Which file supplies the changed definition?",
+      "after": "Choose operations.c above the editor. In twice, change the multiplication by 2 to multiplication by 3. Choose Run code and compare Console with 42. Which file supplies the changed definition?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "larger-programs/2",
+      "field": "tryit",
+      "before": "Choose main.c in Source files. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?",
+      "after": "Choose main.c above the editor. Add a third tick() before printf. Choose Run code and compare calls= with private=. Which state is read through read_private?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "larger-programs/3",
+      "field": "tryit",
+      "before": "Choose scale.h in Source files. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with 21. To inspect preprocessing, choose Linux in the header, complete its setup, and run cd ~/work/c-foundry/native/examples/larger-programs-3 && gcc -E main.c. Find twice-included scale.h’s single function definition in the terminal output.",
+      "after": "Choose scale.h above the editor. Change the default FACTOR from 3 to 4 and choose Run code. Compare Console with the original 21. For a separate preprocessing experiment, open Browser Linux from the footer, choose Start Linux, and wait for Linux is ready. At the shell, run cd ~/work/c-foundry/native/examples/larger-programs-3 && gcc -E main.c. Find scale.h’s single function definition despite its two includes. The inline edit does not change the separate Linux copy; that copy still uses its original FACTOR unless you edit it there.",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "standards-evolution/1",
+      "field": "tryit",
+      "before": "After the browser run, choose Linux in the header, complete its setup, and run make standards-matrix at ~/work/c-foundry. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?",
+      "after": "After the browser run, open Browser Linux from the footer, choose Start Linux if needed, and wait for Linux is ready. Run cd ~/work/c-foundry && make standards-matrix in the terminal. Compare the reported GCC and Clang modes and feature-probe diagnostics. Which modes were accepted, and which named facilities were actually compiled and linked?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "portable-c/3",
+      "field": "tryit",
+      "before": "After observing monotonic_configured=0 in the browser, choose Linux in the header, complete its setup, and at ~/work/c-foundry run python3 tools/check_portability.py --compiler gcc. Compare its capability result with the browser. Which toolchain and environment reported each result?",
+      "after": "After observing monotonic_configured=0 in the inline example, open Browser Linux from the footer, choose Start Linux if needed, and wait for Linux is ready. Run cd ~/work/c-foundry && python3 tools/check_portability.py --compiler gcc in the terminal. Compare the reported monotonic-clock capability with the inline result. Which toolchain and environment produced each result?",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "standards-evolution/2",
+      "field": "tryit",
+      "before": "In main.c, change >= 64 to >= 128 in both branches and wide_at_least64= to wide_at_least128=. Run code. Compare the browser flag with a native run of the same edit. Which branch can supply a 128-bit type?",
+      "after": "In main.c, change >= 64 to >= 128 in both branches and rename wide_at_least64= to wide_at_least128=. Run code. For the GCC comparison, expand Browser Linux and source files below the editor and choose Open Browser Linux there. In Edit a course file in this browser, select native/examples/standards-evolution-2/main.c. Make the same edits there, then choose Run edited source in Linux. Compare the two wide_at_least128= flags and identify which conditional branch each compiler selected. Inline edits are not copied to Linux automatically.",
+      "reason": "Identify the exact program, operation, or condition rather than relying on an ambiguous reference."
+    },
+    {
+      "route": "database-foundations/practice",
+      "field": "tasks",
+      "before": [
+        "Extend the acceptance suite with empty selection, invalid ID, and full-capacity failure preservation.",
+        "Test selection from an empty table, ID zero, duplicate ID, and insertion beyond capacity."
+      ],
+      "after": [
+        "Extend the acceptance suite to test selection from an empty table, ID zero, duplicate IDs, and insertion beyond capacity."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "parsing/practice",
+      "field": "tasks",
+      "before": [
+        "Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.",
+        "Test a missing semicolon, trailing tokens, an unterminated string, ID zero, and an oversized number."
+      ],
+      "after": [
+        "Return structured errors containing stage, source offset, and expected token.",
+        "Test a missing semicolon, trailing tokens, an unterminated string, ID zero, and an oversized number; check that rejected input preserves the output statement and table."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "persistence/practice",
+      "field": "tasks",
+      "before": [
+        "Test every truncation offset, a duplicate ID, an unterminated name field, and one extra trailing byte.",
+        "Try every byte truncation of a valid export, duplicate IDs, a missing name terminator, and one trailing byte."
+      ],
+      "after": [
+        "Try every byte truncation of a valid export, duplicate IDs, a missing name terminator, and one trailing byte."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "coordination/practice",
+      "field": "tasks",
+      "before": [
+        "Draw the lock-order graph for your database and reject any proposed edge that creates a cycle.",
+        "Mark an edge A → B whenever a path holds lock A while acquiring B; check the graph for a directed cycle."
+      ],
+      "after": [
+        "Draw a lock-order graph for your database. Add A → B whenever a code path holds lock A while acquiring B; identify and reject any cycle."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "atomics/practice",
+      "field": "tasks",
+      "before": [
+        "Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.",
+        "List each shared field and the mutex or atomic operation protecting it; distinguish counter atomicity from payload publication."
+      ],
+      "after": [
+        "List each shared field in your queue and database, then name the mutex or atomic protocol protecting it. Distinguish counter atomicity from payload publication."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "concurrent-storage/practice",
+      "field": "tasks",
+      "before": [
+        "Add repeated close, blocked admission, consumer failure, and per-ID exactly-once checks.",
+        "Add repeated-close, full-queue admission, consumer-failure, and per-request-ID completion cases."
+      ],
+      "after": [
+        "Add repeated-close, full-queue admission, consumer-failure, and per-request-ID completion cases."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "multi-client/practice",
+      "field": "tasks",
+      "before": [
+        "Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.",
+        "Add immediate-rejection and timed-admission variants with request IDs; repeat an ID after an ambiguous response."
+      ],
+      "after": [
+        "Add immediate-rejection and timed-admission variants with request IDs.",
+        "Repeat a request ID after an ambiguous response and check that its logical mutation is applied at most once."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "isolation/practice",
+      "field": "tasks",
+      "before": [
+        "Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.",
+        "Write fixed schedules for a nonrepeatable read, a stale write, and a two-account transfer."
+      ],
+      "after": [
+        "Write fixed schedules for a nonrepeatable read, a stale write, and a two-account transfer before choosing an isolation label."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "snapshots/practice",
+      "field": "tasks",
+      "before": [
+        "Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.",
+        "Keep a reader at snapshot 2 active while version 3 commits; end that reader before advancing the reclamation horizon."
+      ],
+      "after": [
+        "Implement an active-snapshot registry under a documented synchronization protocol.",
+        "Keep a reader at snapshot 2 active while version 3 commits; end that reader before advancing the reclamation horizon."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "maintenance/practice",
+      "field": "tasks",
+      "before": [
+        "Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.",
+        "Add generation numbers to page handles and test a handle saved before deleting and reusing its page."
+      ],
+      "after": [
+        "Add generation numbers to page handles and a root-to-page integrity walk.",
+        "Save a handle, delete and reuse its page, then verify that the old handle is rejected."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "ship/practice",
+      "field": "tasks",
+      "before": [
+        "Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.",
+        "Package your assembled program, its build command, acceptance tests, format specification, and an independently validated export."
+      ],
+      "after": [
+        "Package your assembled program, its build command, acceptance tests, format specification, and an independently validated export.",
+        "List implemented features, input limits, unsupported features, and untested failure conditions."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "reliability/practice",
+      "field": "tasks",
+      "before": [
+        "Run the complete course examples with GCC and Clang in Browser Linux, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
+        "Run the course fixtures with GCC and Clang in Browser Linux, then assemble your own release suite."
+      ],
+      "after": [
+        "Run the course fixtures with GCC and Clang in Browser Linux, then assemble your database’s own release suite.",
+        "Package the release suite with its artifacts and document the observed limits."
+      ],
+      "reason": "Separate implementation work from test evidence; remove duplicated instructions."
+    },
+    {
+      "route": "dist/readings.js",
+      "field": "shared wording",
+      "before": "<p class=\"example-walkthrough\">${t.walkthrough}</p>",
+      "after": "<h3 class=\"original-explanation-title\">How the original example works</h3><p class=\"example-walkthrough\">${t.walkthrough}</p>",
+      "reason": "Keep the starter explanation visibly separate from the learner’s edited output on all 227 lesson pages."
+    },
+    {
+      "route": "dist/readings.js",
+      "field": "shared wording",
+      "before": "Open Browser Linux, import the course bundle, and choose Edit a course file in this browser to edit ${fileList} in that folder. Download the edited file, upload it into the terminal, then paste its Copy apply and run command. The source listing on this lesson is read-only.",
+      "after": "Choose <strong>Open Browser Linux</strong> below. The tools and course files are prepared automatically; wait for <strong>Linux is ready</strong>. Open <strong>Edit a course file in this browser</strong> and select ${fileList} under that folder. After editing, choose <strong>Run edited source in Linux</strong> to transfer the selected editor text and run the lab. The source listing on this lesson is read-only.",
+      "reason": "Replace obsolete manual import/download/upload steps with the actual automatic preparation and transfer controls."
+    },
+    {
+      "route": "dist/readings.js",
+      "field": "shared wording",
+      "before": "Use Browser Linux. Run this at the imported repository root to build the files and print their output.",
+      "after": "Browser Linux prepares the course files at ~/work/c-foundry automatically. Run the selected lab there to build these files and print their output.",
+      "reason": "Name the prepared location without asking the learner to import an already installed course."
+    },
+    {
+      "route": "dist/execution.js",
+      "field": "shared wording",
+      "before": "Choose Open Browser Linux, then follow its setup steps before pasting the command shown here. No account or local installation is required.",
+      "after": "Choose <strong>Open Browser Linux</strong>, then <strong>Run lab in Linux</strong> on that page. The course prepares the tools and files automatically and sends the selected command to the terminal. Wait for <strong>Linux is ready</strong>, then inspect the terminal output. No account or local installation is required.",
+      "reason": "Describe the real automatic run action rather than requiring a manual paste."
+    },
+    {
+      "route": "dist/execution.js",
+      "field": "shared wording",
+      "before": "The Linux system loads when you start it. Import the course bundle once per session. Download a work backup before closing or reloading the terminal.",
+      "after": "The Linux system loads when you start it. Its files are temporary; export a work archive before closing or reloading the terminal.",
+      "reason": "Remove the obsolete required import step while retaining the actual guest-file lifetime."
+    },
+    {
+      "route": "dist/index.html",
+      "field": "shared wording",
+      "before": "After creating <code>~/work/c-foundry</code>, run this to download your sources, generated files, and edits:",
+      "after": "The course has already created <code>~/work/c-foundry</code>. Choose <strong>Export work archive</strong> to download its sources, generated files, and edits:",
+      "reason": "Distinguish automatic workspace preparation from the learner’s backup action."
+    },
+    {
+      "route": "dist/course-presentation.js",
+      "field": "prediction labels",
+      "before": "    host.insertAdjacentHTML(\n      \"beforebegin\",\n      '<label class=\"prediction-label\" for=\"course-prediction\">Your prediction (optional)</label><textarea id=\"course-prediction\" rows=\"2\" placeholder=\"What do you expect the program to show?\"></textarea>',\n    );",
+      "after": "    const project = !!host.closest(\".practice-content\");\n    host.insertAdjacentHTML(\n      \"beforebegin\",\n      `<label class=\"prediction-label\" for=\"course-prediction\">${project ? \"Your next test prediction\" : \"Your prediction for Try a change\"} (optional)</label><textarea id=\"course-prediction\" rows=\"2\" placeholder=\"${project ? \"Name a test case and its expected result.\" : \"Name the change above and the output you expect.\"}\"></textarea>`,\n    );",
+      "reason": "Name whether a prediction concerns the Try a change experiment or the next project test. Preserve the existing prediction storage keys."
+    },
+    {
+      "route": "dist/visuals.js",
+      "field": "practice illustration wording",
+      "before": "If n is 3, what will sum_to(n) return?",
+      "after": "For the illustrated 1-through-n summing loop, what would sum_to(3) return?",
+      "reason": "Make illustration inputs, units, and the operation being questioned explicit."
+    },
+    {
+      "route": "dist/visuals.js",
+      "field": "practice illustration wording",
+      "before": "Start with 10 at a and 42 at b. After int temp = *a; then *a = *b;, what is temp?",
+      "after": "Start with *a = 10 and *b = 42. After int temp = *a; then *a = *b;, what value does temp hold?",
+      "reason": "Make illustration inputs, units, and the operation being questioned explicit."
+    },
+    {
+      "route": "dist/visuals.js",
+      "field": "practice illustration wording",
+      "before": "What must happen before you read values[0] after malloc?",
+      "after": "After malloc succeeds, what must happen before you read values[0]?",
+      "reason": "Make illustration inputs, units, and the operation being questioned explicit."
+    },
+    {
+      "route": "dist/visuals.js",
+      "field": "practice illustration wording",
+      "before": "After the first insertion, how many elements belong to the sorted prefix?",
+      "after": "After the illustrated first insertion of 2 into [9], how many elements belong to the sorted prefix?",
+      "reason": "Make illustration inputs, units, and the operation being questioned explicit."
+    },
+    {
+      "route": "dist/visuals.js",
+      "field": "practice illustration wording",
+      "before": "Why is the input width 31 when name has room for 32 characters?",
+      "after": "Why is the scanf input width 31 for char name[32]?",
+      "reason": "Make illustration inputs, units, and the operation being questioned explicit."
+    },
+    {
+      "route": "dist/visuals.js",
+      "field": "practice illustration wording",
+      "before": "A maximum of 31 input characters leaves space for it.",
+      "after": "A maximum of 31 input bytes leaves one char element for the terminator.",
+      "reason": "Make illustration inputs, units, and the operation being questioned explicit."
+    },
+    {
+      "route": "dist/visuals.js",
+      "field": "practice illustration wording",
+      "before": "Which index should find_row return for ID 2 after these inserts?",
+      "after": "After insert 1 Ada then insert 2 Grace into an empty table, which index should find_row return for ID 2?",
+      "reason": "Make illustration inputs, units, and the operation being questioned explicit."
+    },
+    {
+      "route": "practice/heap",
+      "field": "body",
+      "before": "When the size of an array is only known at runtime, allocate storage on the heap with <code>malloc</code>. Check for failure and release the storage with <code>free</code> when you are done.",
+      "after": "In this exercise, the array length comes from input. Use <code>malloc</code> to allocate its storage, check for failure, and call <code>free</code> after the last use.",
+      "reason": "Make exercise-specific assumptions, illustration input, and byte limits explicit."
+    },
+    {
+      "route": "practice/search",
+      "field": "concept",
+      "before": "Find an answer in fewer steps.",
+      "after": "Halve a sorted search interval until the target is found or the interval is empty.",
+      "reason": "Make exercise-specific assumptions, illustration input, and byte limits explicit."
+    },
+    {
+      "route": "practice/rows",
+      "field": "detail",
+      "before": "The array <code>char name[32]</code> has room for 31 characters plus the terminating zero. The <code>%31s</code> width prevents scanf from overflowing it. This first version accepts one-word names.",
+      "after": "The array <code>char name[32]</code> has room for 31 bytes of name text plus the terminating zero. The <code>%31s</code> width prevents scanf from overflowing it. This exercise accepts one-word names.",
+      "reason": "Make exercise-specific assumptions, illustration input, and byte limits explicit."
+    },
+    {
+      "route": "practice/textstats",
+      "field": "example.html",
+      "before": "<pre>characters = 8\nwords = 3</pre>",
+      "after": "<p>For the ASCII line <code>C is fun</code>, excluding its newline:</p><pre>characters = 8\nwords = 3</pre>",
+      "reason": "Make exercise-specific assumptions, illustration input, and byte limits explicit."
+    },
+    {
+      "route": "practice/grow",
+      "field": "example.html",
+      "before": "<pre>length=1\ncapacity=4\nvalues[0]=1</pre>",
+      "after": "<p>After one successful push of 1 into an empty array:</p><pre>length=1\ncapacity=4\nvalues[0]=1</pre>",
+      "reason": "Make exercise-specific assumptions, illustration input, and byte limits explicit."
+    },
+    {
+      "route": "practice/records",
+      "field": "example.question",
+      "before": "Does a name of 32 text characters fit in char name[32] as a C string?",
+      "after": "Does a 32-byte name fit in char name[32] when it also needs a zero terminator?",
+      "reason": "Make exercise-specific assumptions, illustration input, and byte limits explicit."
+    },
+    {
+      "route": "practice/records",
+      "field": "example.why",
+      "before": "The zero terminator needs a further element; at most 31 text chars fit.",
+      "after": "The terminator needs one additional char element. At most 31 name bytes fit; a multibyte character can occupy more than one byte.",
+      "reason": "Make exercise-specific assumptions, illustration input, and byte limits explicit."
+    },
+    {
+      "route": "dist/references.js",
+      "field": "shared wording",
+      "before": "Which SQL clauses on the reference page are deliberately absent from the lesson’s grammar?",
+      "after": "The lesson implements INSERT and SELECT with an optional WHERE id filter. Does that grammar also accept JOIN, GROUP BY, or UNION? Find the supported statement forms before answering.",
+      "reason": "Make the lookup question self-contained instead of depending on an unspecified reference page or an online-only clause list."
+    },
+    {
+      "route": "dist/references.js",
+      "field": "shared wording",
+      "before": "Compare the actual grammar in this lesson with the reference and list the differences. For example, supporting a small SELECT/WHERE subset does not add SQLite’s complete expression, join, grouping, or compound-query syntax.",
+      "after": "No. This parser’s implemented grammar does not include JOIN, GROUP BY, or UNION. Recognizing a few keywords does not add their complete syntax, validation, or execution rules. Each extension needs its own implementation and tests.",
+      "reason": "Answer the named grammar question directly with the implemented subset’s limits."
+    },
+    {
+      "route": "dist/concepts.js",
+      "field": "wording",
+      "before": "For divisor != 0 && total / divisor > 2, first test the divisor.",
+      "after": "For divisor != 0 && numerator / divisor > 2, first test the divisor.",
+      "reason": "Identify a concept illustration’s independent example values, or align its variable name with the lesson’s guard."
+    },
+    {
+      "route": "dist/concepts.js",
+      "field": "wording",
+      "before": "Changing a copied integer does not change the caller’s integer.",
+      "after": "Separate illustration: assigning 42 to parameter n leaves caller variable x at 10.",
+      "reason": "Identify a concept illustration’s independent example values, or align its variable name with the lesson’s guard."
+    },
+    {
+      "route": "dist/concepts.js",
+      "field": "wording",
+      "before": "Two sorted inputs can be combined into one sorted output.",
+      "after": "Illustrative merge: combine sorted inputs [2, 7] and [3, 9].",
+      "reason": "Identify a concept illustration’s independent example values, or align its variable name with the lesson’s guard."
+    },
+    {
+      "route": "dist/concepts.js",
+      "field": "wording",
+      "before": "A tombstone keeps the search moving toward colliding keys.",
+      "after": "Illustrative five-slot table: deleting key 1 must not hide colliding key 6.",
+      "reason": "Identify a concept illustration’s independent example values, or align its variable name with the lesson’s guard."
+    },
+    {
+      "route": "dist/concepts.js",
+      "field": "wording",
+      "before": "Sibling positions do not imply a fully sorted sequence.",
+      "after": "Illustrative min-heap: parent 2 has children 8 and 5; sibling order is not constrained.",
+      "reason": "Identify a concept illustration’s independent example values, or align its variable name with the lesson’s guard."
+    },
+    {
+      "route": "dist/concepts.js",
+      "field": "wording",
+      "before": "Uncommitted edits do not replace the live table in this model.",
+      "after": "Illustrative transaction: live score 10 is separate from tentative score 42.",
+      "reason": "Identify a concept illustration’s independent example values, or align its variable name with the lesson’s guard."
+    },
+    {
+      "route": "dist/concepts.js",
+      "field": "wording",
+      "before": "A complete commit record separates published work from tentative work.",
+      "after": "Illustrative log: commit value 42, then leave value 99 uncommitted.",
+      "reason": "Identify a concept illustration’s independent example values, or align its variable name with the lesson’s guard."
+    },
+    {
+      "route": "dist/course-presentation.js",
+      "field": "wording",
+      "before": "\" link above, then open Compare your answer.\"",
+      "after": "\" link above to find the rule. Write the rule and its conditions in Your answer below, then open Compare your answer.\"",
+      "reason": "Retain the actual lookup, response, and comparison actions when adapting the reference panel."
+    },
+    {
+      "route": "dist/manuals.js",
+      "field": "wording",
+      "before": "The explanations below are included with the course and work offline.",
+      "after": "These excerpts are included with the course and work offline. Choose a lesson title to see its associated source, prepared input, and output.",
+      "reason": "Explain where the code referred to by an excerpt can be found on a standalone course-notes page."
+    },
+    {
+      "route": "portable-c/4",
+      "field": "explanation",
+      "before": "The core below emits four specified bytes through a ByteSink interface. It knows nothing about FILE, paths, file descriptors, native handles, or durability. The ISO C adapter checks fwrite, while main checks flush, repositioning, the read, and close. A future POSIX or Win32 adapter can implement a stronger publication contract without leaking those APIs into the codec. Name the guarantee carefully: buffered stream acceptance is not a claim that a record survives power loss.",
+      "after": "The worked example’s core emits four specified bytes through a ByteSink interface. It knows nothing about FILE, paths, file descriptors, native handles, or durability. The ISO C adapter checks fwrite, while main checks flush, repositioning, the read, and close. A future POSIX or Win32 adapter can implement a stronger publication contract without leaking those APIs into the codec. Name the guarantee carefully: buffered stream acceptance is not a claim that a record survives power loss.",
+      "reason": "The same explanation also appears in notes that link to the code instead of displaying it below."
+    },
+    {
+      "route": "ship/8",
+      "field": "explanation",
+      "before": "A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the <a href=\"#/chapter/files-bytes/7\">optional Part 2 GDB lab</a> first, or skip this optional workshop.",
+      "after": "A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small worked example states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the <a href=\"#/chapter/files-bytes/7\">optional Part 2 GDB lab</a> first, or skip this optional workshop.",
+      "reason": "Keep the explanation valid when shown as a linked excerpt."
+    },
+    {
+      "route": "c-guarantees/3",
+      "field": "extension",
+      "before": null,
+      "after": "For the optimization comparison, expand Browser Linux and source files and choose Open Browser Linux. At ~/work/c-foundry in that terminal, run gcc -std=c17 -O0 native/examples/c-guarantees-3/main.c -o /tmp/unsigned-probe && /tmp/unsigned-probe. Repeat with -O2. Compare wrapped= and sum=; the two builds of the same valid source must preserve its defined results.",
+      "reason": "Supply the actual optional compiler commands instead of leaving the optimization comparison implicit."
+    }
+  ],
+  "validation": {
+    "existing_checks_passed": [
+      "content-complete",
+      "part1",
+      "part2",
+      "references",
+      "manuals",
+      "concepts",
+      "interface",
+      "course",
+      "practice-flow",
+      "browser-linux",
+      "execution",
+      "navigation"
+    ],
+    "unchanged_programs": "All 227 lesson source sets, inputs, expected outputs, runtime/compiler settings and answer indices match baseline 95f6758.",
+    "real_compiler_walkthroughs": [
+      "Original printing loop plus the learner-created loop over remaining both run successfully; the quiz explicitly targets the printing loop.",
+      "Variable initialization prints 21 4; explicit reassignment prints 28 4.",
+      "Original prepared query prints Grace; the requested bind edit prints Ken while join rows stay unchanged.",
+      "GCC -O0 and -O2 produce wrapped=0 sum=10 for the optional optimization probe."
+    ],
+    "browser_checks": "Chromium: four widths (320, 390, 820, 1440), both themes, retained edited drafts and predictions after reload, the correct Linux command/source selection, and no script errors.",
+    "bundle": "Regenerated native reading mirrors and the reproducible browser Linux source bundle; verified archive provenance and source parity."
+  }
+}

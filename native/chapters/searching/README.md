@@ -288,7 +288,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Finding any matching element does not locate every duplicate. Use two boundary searches to describe the full matching range.
 
-lower returns the first value ≥key; upper returns the first value >key. Their difference counts matches, and [lower,upper) is the duplicate range. Both searches use the same sorted input but differ in which equality case moves the left boundary. A missing key produces equal boundaries.
+lower returns the index of the first element whose value is at least key; upper returns the index of the first element whose value is greater than key. Either index may be n when no such element exists. The difference between these indices counts matches, and [lower,upper) is their half-open index range. Both searches use the same sorted input but differ in which equality case moves the left boundary. A missing key produces equal boundaries.
 
 ### Bounds bracket every occurrence of an equal key
 
@@ -350,7 +350,7 @@ The three matching elements occupy indices one, two, and three. The upper endpoi
 
 **Watch for:** A binary search that stops at the first equality cannot promise the first duplicate.
 
-**Check:** How many values match in [lo,hi)?
+**Check:** If lower and upper give the matching range [lo,hi) for one key, how many elements match?
 
 1. hi - lo + 1
 2. hi - lo
@@ -433,7 +433,7 @@ The key search selects index one and equality confirms the row before printing. 
 
 **Watch for:** Searching by one field in a table ordered by another field does not satisfy binary search’s precondition.
 
-**Check:** Which order does this lookup require?
+**Check:** Which row order does the ID-based binary search in find_id require?
 
 1. Ascending ID order
 2. Alphabetical name order

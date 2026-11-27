@@ -49,7 +49,7 @@ The compiler invocation and supported mode. A .c file can be compiled under seve
 
 </details>
 
-**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/1). After the browser run, choose Linux in the header, complete its setup, and run make standards-matrix at ~/work/c-foundry. Compare accepted modes and feature-probe diagnostics for GCC and Clang. Which mode did each compiler accept, and which feature did the matrix actually test?
+**Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/standards-evolution/1). After the browser run, open Browser Linux from the footer, choose Start Linux if needed, and wait for Linux is ready. Run cd ~/work/c-foundry && make standards-matrix in the terminal. Compare the reported GCC and Clang modes and feature-probe diagnostics. Which modes were accepted, and which named facilities were actually compiled and linked?
 
 ### References and help
 

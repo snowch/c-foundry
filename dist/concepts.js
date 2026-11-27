@@ -103,7 +103,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   },
   "by-value": {
     "title": "A parameter is a separate object",
-    "caption": "Changing a copied integer does not change the caller’s integer.",
+    "caption": "Separate illustration: assigning 42 to parameter n leaves caller variable x at 10.",
     "description": "Before the call, caller variable x contains 10. The function receives a copy, parameter n, also containing 10. Assigning 42 to n changes n alone; x remains 10.",
     "kind": "link",
     "data": [
@@ -574,7 +574,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   "short-circuit": {
     "title": "A guard can prevent an invalid operation",
     "caption": "&& evaluates its right operand only if its left operand is true.",
-    "description": "For divisor != 0 && total / divisor > 2, first test the divisor. If it is zero, the whole expression is false and the division is not evaluated. If it is nonzero, the division expression is evaluated next, so it must also be valid for those operand values.",
+    "description": "For divisor != 0 && numerator / divisor > 2, first test the divisor. If it is zero, the whole expression is false and the division is not evaluated. If it is nonzero, the division expression is evaluated next, so it must also be valid for those operand values.",
     "kind": "branch",
     "data": {
       "root": {
@@ -744,7 +744,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   },
   "merge": {
     "title": "Merge consumes the smaller next value",
-    "caption": "Two sorted inputs can be combined into one sorted output.",
+    "caption": "Illustrative merge: combine sorted inputs [2, 7] and [3, 9].",
     "description": "The left input is 2, 7 and the right input is 3, 9. Compare their current first unconsumed values. Take 2, then 3, then 7, then the remaining 9. The output prefix stays sorted. On equality, choosing the left input first preserves relative order in a stable merge.",
     "kind": "converge",
     "data": {
@@ -916,7 +916,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   },
   "tombstone": {
     "title": "A deleted slot must not break a probe chain",
-    "caption": "A tombstone keeps the search moving toward colliding keys.",
+    "caption": "Illustrative five-slot table: deleting key 1 must not hide colliding key 6.",
     "description": "Keys 1 and 6 originally collided at slot 1 in a five-slot linear-probing table. After deleting 1, mark slot 1 as deleted. Searching for 6 continues through that tombstone and finds key 6 at slot 2. Changing slot 1 to never-used empty would incorrectly stop this lookup.",
     "kind": "cells",
     "data": {
@@ -992,7 +992,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   },
   "heap": {
     "title": "A min-heap orders parents before children",
-    "caption": "Sibling positions do not imply a fully sorted sequence.",
+    "caption": "Illustrative min-heap: parent 2 has children 8 and 5; sibling order is not constrained.",
     "description": "A three-element min-heap has root priority 2, left child priority 8, and right child priority 5. The root is no larger than either child. The siblings need not be ordered relative to one another. Removing the minimum requires repairing the heap after moving another element into the root.",
     "kind": "branch",
     "data": {
@@ -1267,7 +1267,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   },
   "transaction": {
     "title": "A private working copy can commit or roll back",
-    "caption": "Uncommitted edits do not replace the live table in this model.",
+    "caption": "Illustrative transaction: live score 10 is separate from tentative score 42.",
     "description": "The live table starts with a score of 10. Begin copies it into a private working table. Editing changes the working score to 42 while live remains 10. Commit publishes the working table, making live 42. Rollback discards the working changes and leaves live 10.",
     "kind": "branch",
     "data": {
@@ -1302,7 +1302,7 @@ function learningFigure(model, id, cls='concept-diagram') {
   },
   "redo": {
     "title": "Recovery keeps committed work and ignores an incomplete tail",
-    "caption": "A complete commit record separates published work from tentative work.",
+    "caption": "Illustrative log: commit value 42, then leave value 99 uncommitted.",
     "description": "Read a log containing BEGIN, SET score to 42, COMMIT, then a second BEGIN and SET score to 99 with no complete matching COMMIT. Recovery applies the first transaction. It ignores the incomplete second transaction, so the recovered score is 42. A short or invalid tail must be handled according to the log format.",
     "kind": "lanes",
     "data": [

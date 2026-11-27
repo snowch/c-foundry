@@ -81,7 +81,7 @@ Creation is inclusive and deletion is exclusive. These are committed sequence nu
 
 **Watch for:** A snapshot timestamp must refer to a known committed state; wall-clock comparisons alone do not establish commit order.
 
-**Check:** Which value does snapshot two see after time three commits?
+**Check:** In the original model, value 10 is superseded by 20 at timestamp 3. What does a reader fixed at snapshot timestamp 2 see?
 
 1. Ten
 2. Twenty
@@ -295,7 +295,7 @@ Creation is inclusive and deletion is exclusive. These are committed sequence nu
 
 **Watch for:** Compacting a version array invalidates borrowed addresses even for surviving entries.
 
-**Check:** May the old version be freed while snapshot two is active?
+**Check:** May a version deleted at timestamp 3 be freed while a reader at snapshot timestamp 2 is still active?
 
 1. No
 2. Yes
@@ -332,7 +332,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Design version visibility tests before implementing snapshot reads.
 
-1. Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.
+1. Implement an active-snapshot registry under a documented synchronization protocol.
 2. Keep a reader at snapshot 2 active while version 3 commits; end that reader before advancing the reclamation horizon.
 
 ### Check your work

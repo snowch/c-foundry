@@ -133,7 +133,7 @@ These are values in the supplied example, not a live view of your edits. Reassig
 
 **Watch for:** Use = for assignment. It stores a value and is different from ==, which compares values. A statement such as total = quantity changes total, even if the names suggest a calculation.
 
-**Check:** After quantity changes to 4, does total automatically become 28?
+**Check:** If total was initialized using quantity = 3, does assigning quantity = 4 alone recompute total?
 
 1. Yes
 2. No

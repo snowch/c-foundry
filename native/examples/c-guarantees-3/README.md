@@ -55,6 +55,8 @@ Lifetime, bounds, aliasing, initialization, and synchronization. A valid source 
 
 **Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/3). In main.c, change x += UINT32_C(1); to x += UINT32_C(2);. Run code. Compare wrapped= and sum=. Which value changes according to the defined uint32_t wrap rule, even if a native compiler later optimizes the loop?
 
+**Extend the example:** For the optimization comparison, expand Browser Linux and source files and choose Open Browser Linux. At ~/work/c-foundry in that terminal, run gcc -std=c17 -O0 native/examples/c-guarantees-3/main.c -o /tmp/unsigned-probe && /tmp/unsigned-probe. Repeat with -O2. Compare wrapped= and sum=; the two builds of the same valid source must preserve its defined results.
+
 ### References and help
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.

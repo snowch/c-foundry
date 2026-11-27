@@ -162,7 +162,7 @@ window.PART_SIX = {
         "expected": "leaf0 min=1 count=2\nleaf1 min=3 count=2\nleaf2 min=5 count=3",
         "walkthrough": "The leaf minima one, three, and five act as root boundaries. Equality with five routes to the third leaf.",
         "pitfall": "Mixing left-inclusive and right-inclusive separator rules can lose keys exactly at boundaries.",
-        "question": "Where does a key equal to the next child’s minimum go?",
+        "question": "When each separator is the next child’s minimum, where must a search for that exact key go?",
         "choices": [
           "Always to the preceding child",
           "To that next child"
@@ -180,13 +180,13 @@ window.PART_SIX = {
         "expected": "found=1 value=60 missing=1",
         "walkthrough": "Key six is found in the final leaf with value sixty. The missing-key call leaves the output value unchanged under this implementation.",
         "pitfall": "A pointer to a leaf entry may be invalidated by a split, merge, or compaction; copied results simplify the caller’s lifetime contract.",
-        "question": "Does a missing lookup return an entry pointer?",
+        "question": "If tree_find returns false, may the caller treat its output value as a found result?",
         "choices": [
           "No",
           "Yes"
         ],
         "answer": 0,
-        "why": "The Boolean result must be checked before treating the output as a match.",
+        "why": "A false return reports no match. Check that Boolean before interpreting the output value; a value left from an earlier successful lookup is not a new match.",
         "tryit": "In main.c, change tree_find(&t, 6, &value) to tree_find(&t, 3, &value). Run code and compare found=, value=, and missing=. Why does an equal separator route to the leaf that begins with 3?",
         "input": "",
         "runtime": "browser"
@@ -198,7 +198,7 @@ window.PART_SIX = {
         "expected": "leaves=2 left=2 right=3 boundary=3",
         "walkthrough": "The fifth insertion triggers the first split. The right leaf starts at key three and the left leaf links to it.",
         "pitfall": "A real multi-level implementation must propagate an internal-page overflow upward, including root growth.",
-        "question": "What must be checked before splitting this bounded model?",
+        "question": "Before splitting a leaf in the bounded two-level tree, which resources must be available?",
         "choices": [
           "Only whether the new key is positive",
           "Root-child capacity and a free leaf page"
@@ -216,7 +216,7 @@ window.PART_SIX = {
         "expected": "2 3 4 5 6 7",
         "walkthrough": "The executed fixture uses [2,8), returning six keys across all three leaves. The general contract excludes the upper bound.",
         "pitfall": "A range ending exactly at a separator must not duplicate or skip boundary keys.",
-        "question": "Is the upper endpoint included?",
+        "question": "For the range-query contract [lo,hi), is the upper endpoint hi included?",
         "choices": [
           "No",
           "Yes"
@@ -234,7 +234,7 @@ window.PART_SIX = {
         "expected": "leaves=1 remaining=3 4 5",
         "walkthrough": "The first removal borrows from the right sibling; the second forces a merge into one leaf. Ordered keys and leaf-chain traversal still agree.",
         "pitfall": "Deleting a key without repairing separators or sibling links can leave point queries passing while ranges fail.",
-        "question": "When may this model keep an empty leaf?",
+        "question": "Under this tree model’s occupancy rule, when may an empty leaf remain in the tree?",
         "choices": [
           "For every nonroot leaf after deletion",
           "When it is the sole root leaf"
@@ -364,7 +364,7 @@ window.PART_SIX = {
         "expected": "Ada 20\nAda 30\nGrace 50\npairs=6",
         "walkthrough": "Ada matches two orders and Grace matches one. Six comparisons are performed regardless of the three output pairs.",
         "pitfall": "Returning only the first matching inner row changes a join into a lookup and loses duplicate matches.",
-        "question": "How many candidate pairs does this baseline examine?",
+        "question": "For N outer rows and M inner rows, how many candidate pairs does the plain nested-loop join examine?",
         "choices": [
           "Always N plus M",
           "N times M"
@@ -442,7 +442,7 @@ window.PART_SIX = {
         "expected": "committed_score=95 invalid_commit=1",
         "walkthrough": "The committed 95 survives the later rollback. Committing an inactive transaction fails.",
         "pitfall": "A failed durable commit must not be reported as successful merely because the working copy is valid.",
-        "question": "Which score is visible after the rollback?",
+        "question": "In the original program, a score of 95 is committed and a later tentative zero is rolled back. Which score remains live?",
         "choices": [
           "The earlier committed 95",
           "The later tentative zero"
@@ -479,7 +479,7 @@ window.PART_SIX = {
         "expected": "committed=10 torn=0",
         "walkthrough": "The complete first transaction publishes ten. The later uncommitted 99 is ignored. Cutting the first COMMIT record at byte nineteen leaves no committed change.",
         "pitfall": "Ignoring a torn tail is not a general policy for silently skipping corruption in the middle of a log.",
-        "question": "Is a SET record enough to publish a transaction?",
+        "question": "In the redo-log model, is a SET record alone enough to publish a transaction?",
         "choices": [
           "No, a valid matching COMMIT is required",
           "Yes"
@@ -537,7 +537,7 @@ window.PART_SIX = {
         "explanation": "The fixture inserts through the implemented SQL grammar, selects by key, and rejects an invalid statement before execution. A useful suite checks output rows, status, and persistent logical state after rejected operations. Operators not yet added to the parser grammar remain separate extension exercises rather than silently supported SQL syntax.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { TABLE_CAP = 8 };\ntypedef struct {\n  uint32_t id;\n  char name[32];\n  uint32_t score;\n} Row;\ntypedef struct {\n  Row rows[TABLE_CAP];\n  size_t count;\n} Table;\ntypedef enum { OK, DUPLICATE, FULL, INVALID, MISSING } Status;\nint find_row(const Table *t, uint32_t id) {\n  for (size_t i = 0; i < t->count; ++i)\n    if (t->rows[i].id == id)\n      return (int)i;\n  return -1;\n}\nStatus insert_row(Table *t, Row row) {\n  if (row.id == 0 || !memchr(row.name, 0, sizeof row.name) || row.name[0] == 0)\n    return INVALID;\n  if (find_row(t, row.id) >= 0)\n    return DUPLICATE;\n  if (t->count == TABLE_CAP)\n    return FULL;\n  t->rows[t->count++] = row;\n  return OK;\n}\nStatus update_score(Table *t, uint32_t id, uint32_t score) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  t->rows[i].score = score;\n  return OK;\n}\nStatus delete_row(Table *t, uint32_t id) {\n  int i = find_row(t, id);\n  if (i < 0)\n    return MISSING;\n  for (size_t j = (size_t)i + 1; j < t->count; ++j)\n    t->rows[j - 1] = t->rows[j];\n  --t->count;\n  return OK;\n}\nvoid display(const Table *t) {\n  for (size_t i = 0; i < t->count; ++i)\n    printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n           (unsigned)t->rows[i].score);\n}\ntypedef enum {\n  END,\n  WORD,\n  NUMBER,\n  STRING,\n  SEMI,\n  LP,\n  RP,\n  COMMA,\n  STAR,\n  EQUAL,\n  BAD\n} Token;\ntypedef struct {\n  const char *p;\n  char text[32];\n  uint32_t number;\n} Lexer;\nToken next(Lexer *l) {\n  while (*l->p == ' ' || *l->p == '\\t' || *l->p == '\\n' || *l->p == '\\r')\n    ++l->p;\n  unsigned char ch = (unsigned char)*l->p;\n  l->text[0] = 0;\n  if (!ch)\n    return END;\n  if (ch >= '0' && ch <= '9') {\n    uint32_t n = 0;\n    do {\n      unsigned digit = (unsigned)(*l->p - '0');\n      if (n > (UINT32_MAX - digit) / 10)\n        return BAD;\n      n = n * 10 + digit;\n      ++l->p;\n    } while (*l->p >= '0' && *l->p <= '9');\n    l->number = n;\n    return NUMBER;\n  }\n  if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '_') {\n    size_t n = 0;\n    while ((*l->p >= 'A' && *l->p <= 'Z') || (*l->p >= 'a' && *l->p <= 'z') ||\n           (*l->p >= '0' && *l->p <= '9') || *l->p == '_') {\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p++;\n    }\n    l->text[n] = 0;\n    return WORD;\n  }\n  ++l->p;\n  if (ch == '\\'') {\n    size_t n = 0;\n    for (;;) {\n      if (!*l->p)\n        return BAD;\n      if (*l->p == '\\'' && l->p[1] != '\\'') {\n        ++l->p;\n        l->text[n] = 0;\n        return STRING;\n      }\n      if (n + 1 == sizeof l->text)\n        return BAD;\n      l->text[n++] = *l->p;\n      if (*l->p == '\\'')\n        ++l->p;\n      ++l->p;\n    }\n  }\n  switch (ch) {\n  case ';':\n    return SEMI;\n  case '(':\n    return LP;\n  case ')':\n    return RP;\n  case ',':\n    return COMMA;\n  case '*':\n    return STAR;\n  case '=':\n    return EQUAL;\n  default:\n    return BAD;\n  }\n}\nbool keyword(Lexer *l, const char *word) {\n  return next(l) == WORD && strcmp(l->text, word) == 0;\n}\ntypedef enum { INSERT_STMT, SELECT_STMT } Kind;\ntypedef struct {\n  Kind kind;\n  Row row;\n  bool filtered;\n  uint32_t key;\n} Statement;\nbool parse(const char *sql, Statement *out) {\n  Lexer l = {sql, {0}, 0};\n  Statement s = {0};\n  if (next(&l) != WORD)\n    return false;\n  if (strcmp(l.text, \"INSERT\") == 0) {\n    s.kind = INSERT_STMT;\n    if (!keyword(&l, \"INTO\") || !keyword(&l, \"people\") ||\n        !keyword(&l, \"VALUES\") || next(&l) != LP || next(&l) != NUMBER)\n      return false;\n    s.row.id = l.number;\n    if (next(&l) != COMMA || next(&l) != STRING)\n      return false;\n    memcpy(s.row.name, l.text, sizeof s.row.name);\n    if (next(&l) != COMMA || next(&l) != NUMBER)\n      return false;\n    s.row.score = l.number;\n    if (next(&l) != RP || next(&l) != SEMI || next(&l) != END)\n      return false;\n  } else if (strcmp(l.text, \"SELECT\") == 0) {\n    s.kind = SELECT_STMT;\n    if (next(&l) != STAR || !keyword(&l, \"FROM\") || !keyword(&l, \"people\"))\n      return false;\n    Token t = next(&l);\n    if (t == WORD && strcmp(l.text, \"WHERE\") == 0) {\n      if (!keyword(&l, \"id\") || next(&l) != EQUAL || next(&l) != NUMBER)\n        return false;\n      s.filtered = true;\n      s.key = l.number;\n      t = next(&l);\n    }\n    if (t != SEMI || next(&l) != END)\n      return false;\n  } else\n    return false;\n  *out = s;\n  return true;\n}\nbool validate(const Statement *s) {\n  return s->kind != INSERT_STMT || (s->row.id > 0 && s->row.name[0] != 0);\n}\nbool execute(Table *t, const Statement *s) {\n  if (!validate(s))\n    return false;\n  if (s->kind == INSERT_STMT)\n    return insert_row(t, s->row) == OK;\n  for (size_t i = 0; i < t->count; ++i)\n    if (!s->filtered || t->rows[i].id == s->key)\n      printf(\"%u | %s | %u\\n\", (unsigned)t->rows[i].id, t->rows[i].name,\n             (unsigned)t->rows[i].score);\n  return true;\n}\n\nint main(void) {\n  Table t = {.count = 0};\n  Statement s = {0};\n  if (!parse(\"INSERT INTO people VALUES (7, 'Ada', 90);\", &s) ||\n      !execute(&t, &s))\n    return 1;\n  if (!parse(\"SELECT * FROM people WHERE id = 7;\", &s) || !execute(&t, &s))\n    return 1;\n  if (parse(\"DELETE nonsense\", &s) || t.count != 1)\n    return 1;\n  puts(\"SQL contract passed\");\n  return 0;\n}\n",
         "expected": "7 | Ada | 90\nSQL contract passed",
-        "walkthrough": "The table result confirms execution, while the final count confirms malformed input did not mutate it.",
+        "walkthrough": "The selected row confirms execution of the INSERT and SELECT. The final SQL contract passed line appears only after the code checks that the rejected statement left one stored row.",
         "pitfall": "A parser-only test cannot establish that the executor interprets the statement correctly.",
         "question": "Which layers does an end-to-end query test cross?",
         "choices": [
@@ -581,7 +581,7 @@ window.PART_SIX = {
         "expected": "25 interruption boundaries passed",
         "walkthrough": "The only prefix containing a complete matching COMMIT is the full 24-byte log. Every shorter prefix leaves the base unchanged.",
         "pitfall": "Killing a process at one convenient point does not cover all interruption boundaries.",
-        "question": "Which prefixes may recover 42 in this fixture?",
+        "question": "In the original 24-byte transaction log, which prefixes may recover the committed value 42?",
         "choices": [
           "Only the prefix containing the full commit record",
           "Every prefix containing the SET value"
@@ -672,7 +672,7 @@ window.PART_SIX = {
       },
       "8": {
         "intro": "Use GDB to explain two data-integrity failures in a deliberately broken copy of the real TinyDB CLI, then verify the repair after reopening its database file.",
-        "explanation": "A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small example below states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the <a href=\"#/chapter/files-bytes/7\">optional Part 2 GDB lab</a> first, or skip this optional workshop.",
+        "explanation": "A database can exit successfully and still update the wrong row or lose a survivor during deletion. The repair workshop freezes a copy of the runnable C CLI and introduces two logical defects. Each launch seeds a new three-row file, so the investigation does not touch a database you want to keep. Begin with the failing contract, inspect the selected ID and array slot, and follow the candidate table through mutation and serialization. The small worked example states the neighbor-preservation contract; the separate workshop contains the full CLI to repair. Complete the <a href=\"#/chapter/files-bytes/7\">optional Part 2 GDB lab</a> first, or skip this optional workshop.",
         "code": "#include <stdbool.h>\n#include <stddef.h>\n#include <stdio.h>\n\ntypedef struct { unsigned id, score; } Row;\n\nbool update_score(Row *rows, size_t count, unsigned id, unsigned score) {\n    for (size_t i = 0; i < count; ++i) {\n        if (rows[i].id == id) {\n            rows[i].score = score;\n            return true;\n        }\n    }\n    return false;\n}\n\nint main(void) {\n    Row rows[] = {{1, 90}, {2, 80}, {3, 70}};\n    if (!update_score(rows, 3, 2, 99)) return 1;\n    for (size_t i = 0; i < 3; ++i)\n        printf(\"id=%u score=%u\\n\", rows[i].id, rows[i].score);\n    return 0;\n}\n",
         "expected": "id=1 score=90\nid=2 score=99\nid=3 score=70",
         "runtime": "native",
@@ -726,8 +726,8 @@ window.PART_SIX = {
     "practicePlan": {
       "goal": "Ship a documented TinyDB build with tests, benchmarks, and exportable files.",
       "tasks": [
-        "Package your assembled TinyDB, its acceptance suite, the format document, and a verified exported file; list every feature still outside your implementation.",
-        "Package your assembled program, its build command, acceptance tests, format specification, and an independently validated export."
+        "Package your assembled program, its build command, acceptance tests, format specification, and an independently validated export.",
+        "List implemented features, input limits, unsupported features, and untested failure conditions."
       ],
       "checks": [
         "Rebuild from that package in a fresh Browser Linux session and list implemented features, input limits, and untested failure conditions."

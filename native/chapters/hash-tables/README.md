@@ -329,7 +329,7 @@ An empty slot can end a probe because insertion would have stopped there. A dele
 
 ### A deleted slot must not break a probe chain
 
-A tombstone keeps the search moving toward colliding keys.
+Illustrative five-slot table: deleting key 1 must not hide colliding key 6.
 
 Keys 1 and 6 originally collided at slot 1 in a five-slot linear-probing table. After deleting 1, mark slot 1 as deleted. Searching for 6 continues through that tombstone and finds key 6 at slot 2. Changing slot 1 to never-used empty would incorrectly stop this lookup.
 
@@ -447,7 +447,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Hash-table complexity depends on hashing assumptions, load, and collision policy. Expected constant time is not an unconditional worst-case guarantee.
 
-With a suitable distribution and bounded load, expected lookup and insertion can be O(1). A set of colliding keys can require Θ(n) probes for one operation; resizing also costs Θ(n) occasionally. The fixture constructs a collision cluster and counts occupied positions before the first empty slot to expose the mechanism.
+With a suitable distribution and bounded load, expected lookup and insertion can be O(1). A set of colliding keys can require Θ(n) probes for one operation; resizing also costs Θ(n) occasionally. The fixture constructs a collision cluster. Its probe counter counts every inspected slot, including the empty slot that ends an unsuccessful search.
 
 ### main.c
 
@@ -533,7 +533,7 @@ An absent colliding key examines three live entries and then an empty slot. The 
 
 **Watch for:** A benchmark using uniformly distributed keys does not test chosen-collision behavior.
 
-**Check:** What can one worst-case lookup cost?
+**Check:** With n stored entries, what can a worst-case hash-table lookup cost?
 
 1. Θ(n)
 2. Always exactly one probe
@@ -688,7 +688,7 @@ Three red tokens update one entry rather than creating duplicate key slots. The 
 
 **Watch for:** Storing pointers into a reused input line makes previously inserted words change underneath the table.
 
-**Check:** When is borrowing these keys valid?
+**Check:** Under what lifetime condition may the word-frequency table borrow pointers to immutable keys?
 
 1. Whenever the pointer is non-null
 2. While their immutable storage outlives the table

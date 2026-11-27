@@ -84,7 +84,7 @@ Every request completes. The number that initially encountered a busy lock may d
 
 **Watch for:** A benchmark that asserts a nonzero wait count can be flaky when the scheduler runs workers mostly sequentially.
 
-**Check:** Which value is safe to assert exactly here?
+**Check:** For fixed worker and per-worker request counts, which metric has a deterministic expected value?
 
 1. The total processed requests
 2. The number of contended attempts
@@ -690,8 +690,8 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Evaluate an advanced TinyDB implementation against concurrent and fault-injected workloads.
 
-1. Run the complete course examples with GCC and Clang in Browser Linux, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.
-2. Run the course fixtures with GCC and Clang in Browser Linux, then assemble your own release suite.
+1. Run the course fixtures with GCC and Clang in Browser Linux, then assemble your database’s own release suite.
+2. Package the release suite with its artifacts and document the observed limits.
 
 ### Check your work
 

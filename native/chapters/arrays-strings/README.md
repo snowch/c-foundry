@@ -51,7 +51,7 @@ The initializer determines a five-element array. sizeof reports sizes in bytes a
 
 **Watch for:** An out-of-bounds read is not a legitimate way to inspect what happens to be nearby. It has undefined behavior. When debugging, inspect both the index and the length that is supposed to constrain it.
 
-**Check:** What is the last valid index of this five-element array?
+**Check:** What is the last valid index of an array with five elements?
 
 1. 4
 2. 5
@@ -381,7 +381,7 @@ Input is ASCII in this exercise. Pass an unsigned-char value to isspace. This is
 
 **Watch for:** This is byte-oriented ASCII processing, not a Unicode word segmenter. A long line is read only up to the buffer limit; the exercise’s contract avoids that truncation case, while a later robust input library must handle it.
 
-**Check:** How many words does "  C   lab  " contain under this definition?
+**Check:** Counting each run of non-whitespace characters as one word, how many words are in "  C   lab  "?
 
 1. 2
 2. 3

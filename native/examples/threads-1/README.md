@@ -67,7 +67,7 @@ The worker results are two, four, six, and eight. Joining establishes completion
 
 **Watch for:** Thread creation overhead can exceed useful work for very small jobs; speedup requires measurement.
 
-**Check:** Does this output establish parallel execution?
+**Check:** Do joined= and sum= establish that the worker threads executed simultaneously?
 
 1. No
 2. Yes

@@ -32,7 +32,7 @@ window.PART_FOUR = {
         "expected": "forward=1,9,2 backward=9",
         "walkthrough": "The new node is between a and b. Updating b.previous is essential; a forward-only walk would not reveal a stale backward link.",
         "pitfall": "A data structure can look correct in one traversal direction while violating another invariant.",
-        "question": "Which link must also change when inserting before b?",
+        "question": "When inserting a node immediately before b in a doubly linked list, which existing backward link must change?",
         "choices": [
           "Only the new node’s value",
           "b.previous"
@@ -68,7 +68,7 @@ window.PART_FOUR = {
         "expected": "reacquired=20",
         "walkthrough": "The index still identifies the same logical element because this operation appends rather than inserting before it. The pointer is acquired only after possible growth.",
         "pitfall": "An index can also become stale after insertion or deletion changes logical positions.",
-        "question": "Why is an index useful across this append?",
+        "question": "Why can a saved element index be reused after an append that preserves earlier positions but may relocate the vector?",
         "choices": [
           "Indices survive every possible edit",
           "It does not contain an address into the old allocation"
@@ -143,7 +143,7 @@ window.PART_FOUR = {
         "expected": "2 3 4 5",
         "walkthrough": "The slot freed by removing one is reused after the tail wraps. FIFO order is independent of the physical slot numbering.",
         "pitfall": "A modulo expression does not by itself prevent writing when the queue is full.",
-        "question": "What separates a full ring from an empty ring here?",
+        "question": "In the circular queue with an explicit count field, what distinguishes full from empty?",
         "choices": [
           "The contents of the first array cell",
           "The count field"
@@ -197,7 +197,7 @@ window.PART_FOUR = {
         "expected": "ok=1 result=7",
         "walkthrough": "The subtraction computes 8−3, followed by adding two. Reversing the two popped operands would change the subtraction.",
         "pitfall": "A parser for one-digit postfix tokens is not an infix or full numeric-expression parser.",
-        "question": "Which operand is popped first?",
+        "question": "When evaluate applies a binary operator to postfix operands, which operand does it pop first?",
         "choices": [
           "The right operand",
           "The left operand"
@@ -303,12 +303,12 @@ window.PART_FOUR = {
       },
       "5": {
         "intro": "Hash-table complexity depends on hashing assumptions, load, and collision policy. Expected constant time is not an unconditional worst-case guarantee.",
-        "explanation": "With a suitable distribution and bounded load, expected lookup and insertion can be O(1). A set of colliding keys can require Θ(n) probes for one operation; resizing also costs Θ(n) occasionally. The fixture constructs a collision cluster and counts occupied positions before the first empty slot to expose the mechanism.",
+        "explanation": "With a suitable distribution and bounded load, expected lookup and insertion can be O(1). A set of colliding keys can require Θ(n) probes for one operation; resizing also costs Θ(n) occasionally. The fixture constructs a collision cluster. Its probe counter counts every inspected slot, including the empty slot that ends an unsuccessful search.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nenum { HCAP = 8, EMPTY = 0, LIVE = 1, DEAD = 2 };\ntypedef struct {\n  int key, value;\n  unsigned state;\n} Slot;\nsize_t bucket(int key) { return (unsigned)key % HCAP; }\nint lookup(const Slot *table, int key) {\n  for (size_t k = 0; k < HCAP; ++k) {\n    size_t i = (bucket(key) + k) % HCAP;\n    if (table[i].state == EMPTY)\n      return -1;\n    if (table[i].state == LIVE && table[i].key == key)\n      return (int)i;\n  }\n  return -1;\n}\nbool put(Slot *table, int key, int value) {\n  int existing = lookup(table, key);\n  if (existing >= 0) {\n    table[existing].value = value;\n    return true;\n  }\n  for (size_t k = 0; k < HCAP; ++k) {\n    size_t i = (bucket(key) + k) % HCAP;\n    if (table[i].state != LIVE) {\n      table[i] = (Slot){key, value, LIVE};\n      return true;\n    }\n  }\n  return false;\n}\nbool erase(Slot *table, int key) {\n  int i = lookup(table, key);\n  if (i < 0)\n    return false;\n  table[i].state = DEAD;\n  return true;\n}\nuint32_t hash_text(const char *s) {\n  uint32_t h = UINT32_C(2166136261);\n  for (; *s; ++s) {\n    h ^= (unsigned char)*s;\n    h *= UINT32_C(16777619);\n  }\n  return h;\n}\n\nint main(void) {\n  Slot table[HCAP] = {0};\n  put(table, 1, 1);\n  put(table, 9, 2);\n  put(table, 17, 3);\n  size_t probes = 0;\n  for (size_t k = 0; k < HCAP; ++k) {\n    ++probes;\n    if (table[(1 + k) % HCAP].state == EMPTY)\n      break;\n  }\n  printf(\"absent_probes=%zu\\n\", probes);\n  return 0;\n}\n",
         "expected": "absent_probes=4",
         "walkthrough": "An absent colliding key examines three live entries and then an empty slot. The probe count grows with cluster length.",
         "pitfall": "A benchmark using uniformly distributed keys does not test chosen-collision behavior.",
-        "question": "What can one worst-case lookup cost?",
+        "question": "With n stored entries, what can a worst-case hash-table lookup cost?",
         "choices": [
           "Θ(n)",
           "Always exactly one probe"
@@ -326,7 +326,7 @@ window.PART_FOUR = {
         "expected": "red=3 blue=1 absent=0",
         "walkthrough": "Three red tokens update one entry rather than creating duplicate key slots. The absent key returns zero frequency.",
         "pitfall": "Storing pointers into a reused input line makes previously inserted words change underneath the table.",
-        "question": "When is borrowing these keys valid?",
+        "question": "Under what lifetime condition may the word-frequency table borrow pointers to immutable keys?",
         "choices": [
           "Whenever the pointer is non-null",
           "While their immutable storage outlives the table"
@@ -384,7 +384,7 @@ window.PART_FOUR = {
         "expected": "three=1 missing=1",
         "walkthrough": "The lookup follows one right edge for three. Seven follows the right child and then reaches NULL.",
         "pitfall": "A BST is not automatically balanced, so its height need not be logarithmic.",
-        "question": "What determines this lookup’s path length?",
+        "question": "What determines the maximum number of levels visited by a binary-search-tree lookup?",
         "choices": [
           "Only the key’s numeric magnitude",
           "Tree height"
@@ -438,7 +438,7 @@ window.PART_FOUR = {
         "expected": "2 5 7",
         "walkthrough": "Repeated removal yields sorted priorities even though an arbitrary heap array position need not be globally ordered.",
         "pitfall": "Binary-searching a heap array assumes an ordering it does not provide.",
-        "question": "Which element is guaranteed minimal?",
+        "question": "In a min-heap, which element is guaranteed to be minimal?",
         "choices": [
           "The root",
           "Every leftmost array prefix"
@@ -513,7 +513,7 @@ window.PART_FOUR = {
         "expected": "0 1 2 3",
         "walkthrough": "Vertices one and two are discovered from zero before three is discovered from two. Neighbor index order fixes the deterministic tie order.",
         "pitfall": "BFS minimizes edge count on unweighted graphs, not total cost on arbitrary weighted graphs.",
-        "question": "When should this BFS mark a vertex seen?",
+        "question": "In the BFS queue algorithm, when should a vertex be marked seen?",
         "choices": [
           "Only after all its neighbors are processed",
           "When it is enqueued"
@@ -549,7 +549,7 @@ window.PART_FOUR = {
         "expected": "0 1 2 3\nacyclic=1",
         "walkthrough": "Zero enables one and two, which together enable three. All four vertices are emitted.",
         "pitfall": "Returning a partial ordering as a full solution hides cycles.",
-        "question": "What indicates a cycle in this algorithm?",
+        "question": "What indicates a cycle in the indegree-based topological-sort algorithm?",
         "choices": [
           "Two vertices are initially available",
           "Fewer than V emitted vertices"
@@ -567,7 +567,7 @@ window.PART_FOUR = {
         "expected": "distances=0,1,3,4",
         "walkthrough": "The best path to two goes through one, and the best path to three goes through two, totaling four.",
         "pitfall": "This representation excludes zero-weight edges; supporting them requires changing the edge-presence representation.",
-        "question": "Can this algorithm safely accept arbitrary negative weights?",
+        "question": "Can Dijkstra’s algorithm safely accept arbitrary negative edge weights?",
         "choices": [
           "No",
           "Yes"

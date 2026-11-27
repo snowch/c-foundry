@@ -41,7 +41,7 @@ The relational expressions each yield 0 or 1, so their difference produces a val
 
 **Watch for:** return a - b can overflow for valid int values, and casting an incompatible function pointer does not repair a mismatched callback signature.
 
-**Check:** Why avoid a - b as this comparator?
+**Check:** Why would return a - b be unsafe for a comparator that must support every int pair?
 
 1. It can overflow
 2. qsort only accepts positive results

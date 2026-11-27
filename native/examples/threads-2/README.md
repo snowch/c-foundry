@@ -68,7 +68,7 @@ The one Job object remains alive throughout worker access. Thread scheduling and
 
 **Watch for:** Detaching a worker removes the ability to use join as its argument-lifetime boundary.
 
-**Check:** When may this stack Job leave scope?
+**Check:** When may the Job object passed to the worker leave main’s scope?
 
 1. Immediately after pthread_create returns
 2. After its worker has finished and been joined

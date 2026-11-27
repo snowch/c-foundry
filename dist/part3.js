@@ -14,9 +14,9 @@ window.PART_THREE = {
         "expected": "comparisons=4",
         "walkthrough": "The target 7 is absent. The loop tests all four elements, so the counter reaches 4. No read occurs at index 4.",
         "pitfall": "A loop may do several different operations per iteration. State which one you count.",
-        "question": "What is n in this example?",
+        "question": "In the original call scan(a, 4, 7), what does the size argument 4 count?",
         "choices": [
-          "The four initialized elements",
+          "The four initialized array elements searched",
           "The number of bytes in the executable"
         ],
         "answer": 0,
@@ -104,10 +104,10 @@ window.PART_THREE = {
         "expected": "before i=0 sum=0\nbefore i=1 sum=3\nbefore i=2 sum=4\ntotal=8",
         "walkthrough": "Each line shows the invariant before the write. The final sum 8 follows from including exactly the three initialized elements.",
         "pitfall": "A statement that holds only after the loop is a postcondition, not enough to explain preservation.",
-        "question": "What does sum represent before iteration i?",
+        "question": "In the summing loop, what does sum represent just before iteration i adds a[i]?",
         "choices": [
-          "The entire array",
-          "The prefix a[0..i)"
+          "The sum of every element in the array",
+          "The sum of a[0] through a[i - 1]"
         ],
         "answer": 1,
         "why": "The next unread element is a[i], so it cannot already be included.",
@@ -210,12 +210,12 @@ window.PART_THREE = {
       },
       "4": {
         "intro": "Finding any matching element does not locate every duplicate. Use two boundary searches to describe the full matching range.",
-        "explanation": "lower returns the first value ≥key; upper returns the first value >key. Their difference counts matches, and [lower,upper) is the duplicate range. Both searches use the same sorted input but differ in which equality case moves the left boundary. A missing key produces equal boundaries.",
+        "explanation": "lower returns the index of the first element whose value is at least key; upper returns the index of the first element whose value is greater than key. Either index may be n when no such element exists. The difference between these indices counts matches, and [lower,upper) is their half-open index range. Both searches use the same sorted input but differ in which equality case moves the left boundary. A missing key produces equal boundaries.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nsize_t lower(const int *a, size_t n, int key) {\n  size_t lo = 0, hi = n;\n  while (lo < hi) {\n    size_t mid = lo + (hi - lo) / 2;\n    if (a[mid] < key)\n      lo = mid + 1;\n    else\n      hi = mid;\n  }\n  return lo;\n}\nsize_t upper(const int *a, size_t n, int key) {\n  size_t lo = 0, hi = n;\n  while (lo < hi) {\n    size_t mid = lo + (hi - lo) / 2;\n    if (a[mid] <= key)\n      lo = mid + 1;\n    else\n      hi = mid;\n  }\n  return lo;\n}\n\nint main(void) {\n  int a[] = {1, 3, 3, 3, 8};\n  size_t lo = lower(a, 5, 3), hi = upper(a, 5, 3);\n  printf(\"range=[%zu,%zu) count=%zu\\n\", lo, hi, hi - lo);\n  return 0;\n}\n",
         "expected": "range=[1,4) count=3",
         "walkthrough": "The three matching elements occupy indices one, two, and three. The upper endpoint four is not another matching element.",
         "pitfall": "A binary search that stops at the first equality cannot promise the first duplicate.",
-        "question": "How many values match in [lo,hi)?",
+        "question": "If lower and upper give the matching range [lo,hi) for one key, how many elements match?",
         "choices": [
           "hi - lo + 1",
           "hi - lo"
@@ -233,7 +233,7 @@ window.PART_THREE = {
         "expected": "5 Grace",
         "walkthrough": "The key search selects index one and equality confirms the row before printing. The string is borrowed from a literal with static lifetime.",
         "pitfall": "Searching by one field in a table ordered by another field does not satisfy binary search’s precondition.",
-        "question": "Which order does this lookup require?",
+        "question": "Which row order does the ID-based binary search in find_id require?",
         "choices": [
           "Ascending ID order",
           "Alphabetical name order"
@@ -291,7 +291,7 @@ window.PART_THREE = {
         "expected": "1 1 3 4 5",
         "walkthrough": "Both duplicates survive. Each recursive subproblem has fewer elements and the n<2 base case ends recursion.",
         "pitfall": "Do not allocate an n-element temporary array at every recursive level when one reusable buffer suffices.",
-        "question": "What extra array space does this merge sort use?",
+        "question": "How much temporary array space does the original merge-sort implementation use for n elements?",
         "choices": [
           "O(1)",
           "O(n)"
@@ -358,12 +358,12 @@ window.PART_THREE = {
       },
       "6": {
         "intro": "Comparisons and moves can respond differently to the same input. Instrument both when choosing an algorithm for a workload.",
-        "explanation": "For insertion sort, sorted input causes no shifts; reversed distinct input causes n(n−1)/2 shifts. An assignment that writes the saved key back is not counted as a shift here. State that convention, keep output outside timing, and verify that every run preserves the multiset.",
+        "explanation": "For insertion sort, sorted input causes no shifts; reversed distinct input causes n(n−1)/2 shifts. An assignment that writes the saved key back is not counted as a shift here. State that convention, keep output outside timing, and verify that every run preserves the multiset: the same values with the same duplicate counts.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nvoid show(const int *a, size_t n) {\n  for (size_t i = 0; i < n; ++i)\n    printf(\"%s%d\", i ? \" \" : \"\", a[i]);\n  puts(\"\");\n}\nsize_t insertion(int *a, size_t n) {\n  size_t moves = 0;\n  for (size_t i = 1; i < n; ++i) {\n    int x = a[i];\n    size_t j = i;\n    while (j && a[j - 1] > x) {\n      a[j] = a[j - 1];\n      --j;\n      ++moves;\n    }\n    a[j] = x;\n  }\n  return moves;\n}\nvoid selection(int *a, size_t n) {\n  for (size_t i = 0; i < n; ++i) {\n    size_t least = i;\n    for (size_t j = i + 1; j < n; ++j)\n      if (a[j] < a[least])\n        least = j;\n    int t = a[i];\n    a[i] = a[least];\n    a[least] = t;\n  }\n}\nint compare_int(const void *x, const void *y) {\n  int a = *(const int *)x, b = *(const int *)y;\n  return (a > b) - (a < b);\n}\n\nint main(void) {\n  int sorted[] = {1, 2, 3, 4}, reverse[] = {4, 3, 2, 1};\n  printf(\"sorted shifts=%zu reverse shifts=%zu\\n\", insertion(sorted, 4),\n         insertion(reverse, 4));\n  return 0;\n}\n",
         "expected": "sorted shifts=0 reverse shifts=6",
         "walkthrough": "The reversed input shifts 1+2+3 values. This illustrates an input-sensitive cost while keeping n fixed.",
         "pitfall": "A count labeled moves is ambiguous unless you define whether final placement and swaps count once or multiple times.",
-        "question": "What is being counted here?",
+        "question": "What does the shifts counter in the insertion-sort example count?",
         "choices": [
           "Every executed C statement",
           "Rightward shifts of existing elements"
@@ -403,7 +403,7 @@ window.PART_THREE = {
         "expected": "zero=1 five=120",
         "walkthrough": "Zero returns at the base case. Five multiplies 5·4·3·2·1 while calls return.",
         "pitfall": "A base case that cannot be reached from a valid input does not guarantee termination.",
-        "question": "What decreases in this recursion?",
+        "question": "In factorial, what decreases on each recursive call made when n is at least 2?",
         "choices": [
           "The unsigned argument for n≥2",
           "The size of the result"
@@ -421,7 +421,7 @@ window.PART_THREE = {
         "expected": "enter 2\nenter 1\nenter 0\nleave 0\nleave 1\nleave 2",
         "walkthrough": "Returns unwind in the reverse order of calls, because each caller resumes after its child completes.",
         "pitfall": "The trace describes logical call nesting, not a portable memory-address layout of the native stack.",
-        "question": "Which call returns first?",
+        "question": "In the original visit(2) trace, which call returns first?",
         "choices": [
           "The initial call with n=2",
           "The base-case call with n=0"
@@ -514,7 +514,7 @@ window.PART_THREE = {
         "expected": "target6=1 target5=0",
         "walkthrough": "Including 2 and 4 reaches six. No subset of these values reaches five. Both branches progress to the next input position.",
         "pitfall": "Pruning on a negative remainder is invalid if later values may be negative.",
-        "question": "Why is this pruning valid here?",
+        "question": "Why may subset reject a branch when remaining < 0 for the supplied nonnegative values?",
         "choices": [
           "All input values are nonnegative",
           "Recursion always permits pruning"
@@ -568,7 +568,7 @@ window.PART_THREE = {
         "expected": "1 1 1\n1 2 3\n1 3 6",
         "walkthrough": "The printed bottom-right 6 counts paths whose last move is either down from above or right from the left. The figure connects those two predecessor cells.",
         "pitfall": "Reducing space without preserving dependency order can accidentally reuse the current row instead of the previous row.",
-        "question": "Which earlier cells determine an interior cell?",
+        "question": "For obstacle-free paths that move only right or down, which earlier cells determine an interior ways cell?",
         "choices": [
           "Every cell in the grid",
           "The cell above and the cell to the left"
@@ -586,7 +586,7 @@ window.PART_THREE = {
         "expected": "capacity5=7",
         "walkthrough": "Choosing weights two and three gives value seven. Each item contributes at most once because capacities descend.",
         "pitfall": "A one-dimensional table can silently change the problem if its iteration order changes.",
-        "question": "Why iterate capacities downward?",
+        "question": "Why does the 0/1 knapsack update visit capacities downward for each item?",
         "choices": [
           "To avoid reusing the current item",
           "To make every knapsack instance greedy"

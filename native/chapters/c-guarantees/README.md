@@ -130,7 +130,7 @@ On the supported eight-bit-byte targets, uint32_t occupies four bytes. The test 
 
 **Watch for:** A byte-for-byte native representation round trip is not a portable external file encoding.
 
-**Check:** Why avoid casting this arbitrary byte array to uint32_t *?
+**Check:** Why avoid reading the unsigned-char bytes array by casting it to uint32_t *?
 
 1. memcpy cannot copy integer values
 2. Alignment and object-type requirements may not be satisfied
@@ -216,6 +216,8 @@ Lifetime, bounds, aliasing, initialization, and synchronization. A valid source 
 
 **Try:** [Try this edit in the browser](https://snowch.github.io/c-foundry/#/chapter/c-guarantees/3). In main.c, change x += UINT32_C(1); to x += UINT32_C(2);. Run code. Compare wrapped= and sum=. Which value changes according to the defined uint32_t wrap rule, even if a native compiler later optimizes the loop?
 
+**Extend the example:** For the optimization comparison, expand Browser Linux and source files and choose Open Browser Linux. At ~/work/c-foundry in that terminal, run gcc -std=c17 -O0 native/examples/c-guarantees-3/main.c -o /tmp/unsigned-probe && /tmp/unsigned-probe. Repeat with -O2. Compare wrapped= and sum=; the two builds of the same valid source must preserve its defined results.
+
 ### References and help
 
 Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, or use [the bundled manual reader](https://snowch.github.io/c-foundry/#/manual). Browser Linux also provides `man 3 printf` and `man -k keyword`.
@@ -283,7 +285,7 @@ This example has uint8_t and an int type that represents all its values. UINT_MA
 
 **Watch for:** Casting a negative index to size_t does not validate it. Also, signed/unsigned rules depend on rank and representability; a wider signed type can sometimes represent every value of the unsigned operand.
 
-**Check:** On these targets, what is the type of the sum of two uint8_t operands?
+**Check:** On the course’s targets, what is the type of the addition result for two uint8_t operands?
 
 1. uint8_t, so addition itself must wrap at 255
 2. int after integer promotion

@@ -71,7 +71,7 @@ Creation is inclusive and deletion is exclusive. These are committed sequence nu
 
 **Watch for:** Compacting a version array invalidates borrowed addresses even for surviving entries.
 
-**Check:** May the old version be freed while snapshot two is active?
+**Check:** May a version deleted at timestamp 3 be freed while a reader at snapshot timestamp 2 is still active?
 
 1. No
 2. Yes

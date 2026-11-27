@@ -62,14 +62,14 @@ The target 7 is absent. The loop tests all four elements, so the counter reaches
 
 **Watch for:** A loop may do several different operations per iteration. State which one you count.
 
-**Check:** What is n in this example?
+**Check:** In the original call scan(a, 4, 7), what does the size argument 4 count?
 
-1. The four initialized elements
+1. The four initialized array elements searched
 2. The number of bytes in the executable
 
 <details><summary>Answer</summary>
 
-The four initialized elements. The search problem grows with the number of candidate elements.
+The four initialized array elements searched. The search problem grows with the number of candidate elements.
 
 </details>
 
@@ -436,14 +436,14 @@ Each line shows the invariant before the write. The final sum 8 follows from inc
 
 **Watch for:** A statement that holds only after the loop is a postcondition, not enough to explain preservation.
 
-**Check:** What does sum represent before iteration i?
+**Check:** In the summing loop, what does sum represent just before iteration i adds a[i]?
 
-1. The entire array
-2. The prefix a[0..i)
+1. The sum of every element in the array
+2. The sum of a[0] through a[i - 1]
 
 <details><summary>Answer</summary>
 
-The prefix a[0..i). The next unread element is a[i], so it cannot already be included.
+The sum of a[0] through a[i - 1]. The next unread element is a[i], so it cannot already be included.
 
 </details>
 

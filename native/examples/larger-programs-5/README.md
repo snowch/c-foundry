@@ -54,7 +54,7 @@ The caller checks the status before reading the returned string and frees it exa
 
 **Watch for:** Error handling is part of the API, not an afterthought. Document output state on failure and ensure the implementation matches that promise.
 
-**Check:** May a caller assume name is usable after any status?
+**Check:** After copy_name returns, which status permits the caller to use the output string name?
 
 1. Yes
 2. Only after OK

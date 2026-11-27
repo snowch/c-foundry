@@ -59,7 +59,7 @@ Zero returns at the base case. Five multiplies 5·4·3·2·1 while calls return.
 
 **Watch for:** A base case that cannot be reached from a valid input does not guarantee termination.
 
-**Check:** What decreases in this recursion?
+**Check:** In factorial, what decreases on each recursive call made when n is at least 2?
 
 1. The unsigned argument for n≥2
 2. The size of the result
@@ -151,7 +151,7 @@ Returns unwind in the reverse order of calls, because each caller resumes after 
 
 **Watch for:** The trace describes logical call nesting, not a portable memory-address layout of the native stack.
 
-**Check:** Which call returns first?
+**Check:** In the original visit(2) trace, which call returns first?
 
 1. The initial call with n=2
 2. The base-case call with n=0

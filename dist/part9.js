@@ -35,7 +35,7 @@ window.PART_NINE = {
         "expected": "other_rejected=1 owner_committed=1 value=42",
         "walkthrough": "The failed session-two commit leaves session one’s working value intact. Only its owner can publish it.",
         "pitfall": "Serializing individual requests does not automatically serialize a multi-request transaction under one owner.",
-        "question": "May another session commit the current transaction?",
+        "question": "Under this model’s session-ownership rule, may a different session commit the active transaction?",
         "choices": [
           "Yes",
           "No"
@@ -72,8 +72,8 @@ window.PART_NINE = {
     "practicePlan": {
       "goal": "Extend your TinyDB project with a serialized request path in Browser Linux.",
       "tasks": [
-        "Add try-offer and timed-admission variants, then test exactly-once request IDs across retries.",
-        "Add immediate-rejection and timed-admission variants with request IDs; repeat an ID after an ambiguous response."
+        "Add immediate-rejection and timed-admission variants with request IDs.",
+        "Repeat a request ID after an ambiguous response and check that its logical mutation is applied at most once."
       ],
       "checks": [
         "Check that retries do not apply one logical mutation twice and distinguish accepted, executed, and committed responses."
@@ -152,8 +152,7 @@ window.PART_NINE = {
     "practicePlan": {
       "goal": "Specify the behavior of concurrent reads before changing the locking strategy.",
       "tasks": [
-        "Write schedule tests for nonrepeatable reads, lost updates, and multi-row consistency before choosing an isolation label.",
-        "Write fixed schedules for a nonrepeatable read, a stale write, and a two-account transfer."
+        "Write fixed schedules for a nonrepeatable read, a stale write, and a two-account transfer before choosing an isolation label."
       ],
       "checks": [
         "Check which committed versions each read may observe and whether the account total stays constant; name only the isolation guarantees your tests specify."
@@ -176,7 +175,7 @@ window.PART_NINE = {
         "expected": "snapshot2=10 snapshot3=20",
         "walkthrough": "The old version’s deletion boundary is exclusive: it is visible before time three, not at three. The new version is visible starting at three.",
         "pitfall": "A snapshot timestamp must refer to a known committed state; wall-clock comparisons alone do not establish commit order.",
-        "question": "Which value does snapshot two see after time three commits?",
+        "question": "In the original model, value 10 is superseded by 20 at timestamp 3. What does a reader fixed at snapshot timestamp 2 see?",
         "choices": [
           "Ten",
           "Twenty"
@@ -214,7 +213,7 @@ window.PART_NINE = {
         "expected": "old_reader_keeps=2 horizon3_keeps=1",
         "walkthrough": "A reader at time two keeps the old version alive. Once the horizon reaches three, only the current version remains.",
         "pitfall": "Compacting a version array invalidates borrowed addresses even for surviving entries.",
-        "question": "May the old version be freed while snapshot two is active?",
+        "question": "May a version deleted at timestamp 3 be freed while a reader at snapshot timestamp 2 is still active?",
         "choices": [
           "No",
           "Yes"
@@ -230,7 +229,7 @@ window.PART_NINE = {
     "practicePlan": {
       "goal": "Design version visibility tests before implementing snapshot reads.",
       "tasks": [
-        "Implement an active-snapshot registry and test reader start/end interleavings with reclamation under one documented protocol.",
+        "Implement an active-snapshot registry under a documented synchronization protocol.",
         "Keep a reader at snapshot 2 active while version 3 commits; end that reader before advancing the reclamation horizon."
       ],
       "checks": [
@@ -309,8 +308,8 @@ window.PART_NINE = {
     "practicePlan": {
       "goal": "Extend the earlier pager and log with a tested checkpoint protocol.",
       "tasks": [
-        "Add free-list generations and a root-to-page integrity walk, then test stale handles after reuse.",
-        "Add generation numbers to page handles and test a handle saved before deleting and reusing its page."
+        "Add generation numbers to page handles and a root-to-page integrity walk.",
+        "Save a handle, delete and reuse its page, then verify that the old handle is rejected."
       ],
       "checks": [
         "Reject the stale handle, check live-page reachability, and list which snapshot or log still prevents each proposed page reuse."
@@ -331,7 +330,7 @@ window.PART_NINE = {
         "explanation": "The fixture supports one exact prepared query shape, deliberately not a general SQL preparer. It binds tenant and ID as unsigned values and executes a composite-key binary search. The same lookup serves an indexed join from orders to customers, preserving one output per matching order. Adding these capabilities to the earlier SQL grammar is an assembly exercise with new parser and validation tests.",
         "code": "#include <limits.h>\n#include <stdbool.h>\n#include <stddef.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\ntypedef struct {\n  unsigned tenant, id;\n  const char *name;\n} Customer;\nint compare_key(const Customer *a, unsigned tenant, unsigned id) {\n  if (a->tenant != tenant)\n    return (a->tenant > tenant) - (a->tenant < tenant);\n  return (a->id > id) - (a->id < id);\n}\nconst Customer *lookup_customer(const Customer *rows, size_t n, unsigned tenant,\n                                unsigned id) {\n  size_t lo = 0, hi = n;\n  while (lo < hi) {\n    size_t mid = lo + (hi - lo) / 2;\n    if (compare_key(&rows[mid], tenant, id) < 0)\n      lo = mid + 1;\n    else\n      hi = mid;\n  }\n  return lo < n && compare_key(&rows[lo], tenant, id) == 0 ? &rows[lo] : NULL;\n}\ntypedef struct {\n  bool prepared, bound;\n  unsigned tenant, id;\n} Prepared;\nbool prepare(Prepared *p, const char *sql) {\n  *p = (Prepared){0};\n  if (strcmp(sql, \"SELECT name FROM people WHERE tenant = ? AND id = ?;\") != 0)\n    return false;\n  p->prepared = true;\n  return true;\n}\nbool bind(Prepared *p, unsigned tenant, unsigned id) {\n  if (!p->prepared || !tenant || !id)\n    return false;\n  p->tenant = tenant;\n  p->id = id;\n  p->bound = true;\n  return true;\n}\nconst Customer *execute_prepared(const Prepared *p, const Customer *rows,\n                                 size_t n) {\n  return p->prepared && p->bound ? lookup_customer(rows, n, p->tenant, p->id)\n                                 : NULL;\n}\n\nint main(void) {\n  Customer customers[] = {{1, 1, \"Ada\"}, {1, 2, \"Grace\"}, {2, 1, \"Ken\"}};\n  Prepared p;\n  if (!prepare(&p, \"SELECT name FROM people WHERE tenant = ? AND id = ?;\") ||\n      !bind(&p, 1, 2))\n    return 1;\n  const Customer *row = execute_prepared(&p, customers, 3);\n  if (!row)\n    return 1;\n  printf(\"prepared=%s\\n\", row->name);\n  struct Order {\n    unsigned tenant, person, total;\n  } orders[] = {{1, 1, 20}, {1, 1, 30}, {2, 1, 40}};\n  for (size_t i = 0; i < 3; ++i) {\n    row = lookup_customer(customers, 3, orders[i].tenant, orders[i].person);\n    if (row)\n      printf(\"join=%s:%u\\n\", row->name, orders[i].total);\n  }\n  return 0;\n}\n",
         "expected": "prepared=Grace\njoin=Ada:20\njoin=Ada:30\njoin=Ken:40",
-        "walkthrough": "Tenant two’s ID one correctly selects Ken rather than tenant one’s Ada. Two orders for Ada produce two join rows.",
+        "walkthrough": "The original bind(&p, 1, 2) selects Grace using tenant 1 and ID 2. The join uses its own order keys, so two orders for Ada produce two join rows independently of the prepared lookup.",
         "pitfall": "A composite index on (tenant,id) does not directly provide global ordering by id alone.",
         "question": "Why bind values instead of appending them into SQL text?",
         "choices": [
@@ -412,7 +411,7 @@ window.PART_NINE = {
         "expected": "requests=4000 wait_count_bounded=1",
         "walkthrough": "Every request completes. The number that initially encountered a busy lock may differ on another run without indicating a correctness failure.",
         "pitfall": "A benchmark that asserts a nonzero wait count can be flaky when the scheduler runs workers mostly sequentially.",
-        "question": "Which value is safe to assert exactly here?",
+        "question": "For fixed worker and per-worker request counts, which metric has a deterministic expected value?",
         "choices": [
           "The total processed requests",
           "The number of contended attempts"
@@ -469,8 +468,8 @@ window.PART_NINE = {
     "practicePlan": {
       "goal": "Evaluate an advanced TinyDB implementation against concurrent and fault-injected workloads.",
       "tasks": [
-        "Run the complete course examples with GCC and Clang in Browser Linux, assemble your database’s own release suite, and publish the observed limits alongside its artifacts.",
-        "Run the course fixtures with GCC and Clang in Browser Linux, then assemble your own release suite."
+        "Run the course fixtures with GCC and Clang in Browser Linux, then assemble your database’s own release suite.",
+        "Package the release suite with its artifacts and document the observed limits."
       ],
       "checks": [
         "Keep minimized failing inputs and deterministic log-prefix checks; report completed requests separately from schedule-dependent contention counts."

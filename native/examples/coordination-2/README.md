@@ -143,7 +143,7 @@ The actual take_work predicate is !count && !closed. pthread_cond_wait releases 
 
 **Watch for:** Count and sum alone are not a complete exactly-once proof for arbitrary inputs; production tests should track each request ID.
 
-**Check:** What happens when the queue fills under this policy?
+**Check:** Under the bounded queue’s blocking-admission policy, what happens when the queue fills?
 
 1. The oldest request is silently overwritten
 2. The producer waits for space or closure

@@ -687,8 +687,8 @@
     "exerciseAt": "3",
     "exercise": {
       "reference": "sql",
-      "question": "Which SQL clauses on the reference page are deliberately absent from the lesson’s grammar?",
-      "answer": "Compare the actual grammar in this lesson with the reference and list the differences. For example, supporting a small SELECT/WHERE subset does not add SQLite’s complete expression, join, grouping, or compound-query syntax."
+      "question": "The lesson implements INSERT and SELECT with an optional WHERE id filter. Does that grammar also accept JOIN, GROUP BY, or UNION? Find the supported statement forms before answering.",
+      "answer": "No. This parser’s implemented grammar does not include JOIN, GROUP BY, or UNION. Recognizing a few keywords does not add their complete syntax, validation, or execution rules. Each extension needs its own implementation and tests."
     }
   },
   "execution": {

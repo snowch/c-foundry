@@ -308,7 +308,7 @@ The doubled quote contributes one character to O'Brien. The malformed third fixt
 
 **Watch for:** A fixed-size token buffer needs a decoded-length check before every write, including escaped data.
 
-**Check:** Is a doubled quote inside this literal a token boundary?
+**Check:** Inside the SQL string 'O''Brien', is the doubled quote a token boundary?
 
 1. Yes, it ends the statement
 2. No, it represents one quote character
@@ -570,7 +570,7 @@ The valid insert matches the complete production. The other strings fail because
 
 **Watch for:** Accepting a valid prefix while ignoring trailing tokens can hide malformed or unintended commands.
 
-**Check:** What follows the semicolon in this grammar?
+**Check:** In the single-statement SQL grammar taught here, what must follow the semicolon?
 
 1. End of input
 2. Any ignored characters
@@ -595,11 +595,11 @@ Offline C manuals: run `python3 tools/man.py 3 printf` at the repository root, o
 - [SQLite documentation: SELECT](https://www.sqlite.org/lang_select.html)
 - [C reference: byte strings](https://en.cppreference.com/w/c/string/byte.html)
 
-**Use the documentation (optional):** Which SQL clauses on the reference page are deliberately absent from the lesson’s grammar?
+**Use the documentation (optional):** The lesson implements INSERT and SELECT with an optional WHERE id filter. Does that grammar also accept JOIN, GROUP BY, or UNION? Find the supported statement forms before answering.
 
 <details><summary>Compare your answer</summary>
 
-Compare the actual grammar in this lesson with the reference and list the differences. For example, supporting a small SELECT/WHERE subset does not add SQLite’s complete expression, join, grouping, or compound-query syntax.
+No. This parser’s implemented grammar does not include JOIN, GROUP BY, or UNION. Recognizing a few keywords does not add their complete syntax, validation, or execution rules. Each extension needs its own implementation and tests.
 
 </details>
 
@@ -840,7 +840,7 @@ The filtered flag distinguishes an explicit key predicate from an unfiltered sca
 
 **Watch for:** Keeping l.text pointers in the statement would make earlier tokens change when the lexer reads the next token.
 
-**Check:** Why copy the string into the statement?
+**Check:** Why must the statement copy a string value out of the lexer’s reusable token buffer?
 
 1. String literals always need malloc
 2. The lexer’s token buffer is reused
@@ -1095,7 +1095,7 @@ The zero-ID statement reaches validation and is rejected there. The missing-pare
 
 **Watch for:** Do not partially insert a row while still parsing later fields; a later syntax failure must leave the table unchanged.
 
-**Check:** Where should zero-ID rejection occur?
+**Check:** Under the people schema’s positive-ID rule, which stage should reject ID zero?
 
 1. Schema validation
 2. Character tokenization
@@ -1132,8 +1132,8 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Parse a small SQL subset and explain malformed statements.
 
-1. Return a structured error with stage, source offset, and expected token, then test that rejection preserves table state.
-2. Test a missing semicolon, trailing tokens, an unterminated string, ID zero, and an oversized number.
+1. Return structured errors containing stage, source offset, and expected token.
+2. Test a missing semicolon, trailing tokens, an unterminated string, ID zero, and an oversized number; check that rejected input preserves the output statement and table.
 
 ### Check your work
 

@@ -49,7 +49,7 @@ The comparison 72 >= 50 is true, so only the pass branch runs. The switch then s
 
 **Watch for:** A single = assigns rather than compares. In addition, forgetting break can create unintended fallthrough. Both mistakes may compile; understanding the control flow is still necessary.
 
-**Check:** Which branch runs when score is exactly 50?
+**Check:** For if (score >= 50), which branch runs when score is exactly 50?
 
 1. pass
 2. retry
@@ -92,7 +92,7 @@ C evaluates the left operand of && first and evaluates the right operand only if
 
 && evaluates its right operand only if its left operand is true.
 
-For divisor != 0 && total / divisor > 2, first test the divisor. If it is zero, the whole expression is false and the division is not evaluated. If it is nonzero, the division expression is evaluated next, so it must also be valid for those operand values.
+For divisor != 0 && numerator / divisor > 2, first test the divisor. If it is zero, the whole expression is false and the division is not evaluated. If it is nonzero, the division expression is evaluated next, so it must also be valid for those operand values.
 
 This guard addresses division by zero. Signed INT_MIN / -1 also needs its own range check.
 
@@ -123,7 +123,7 @@ The first comparison is false, so the division is not evaluated. The program the
 
 **Watch for:** The bitwise operators & and | do not provide the same short-circuit rule. They have useful roles in bit manipulation, but should not replace && and || in these guards.
 
-**Check:** Does the division run when divisor is zero in this example?
+**Check:** In divisor != 0 && numerator / divisor > 2, is the division evaluated when divisor is zero?
 
 1. Yes
 2. No
@@ -201,7 +201,7 @@ The for body sees i equal to 0, 1, and 2. After the update makes it 3, the condi
 
 **Watch for:** An empty body caused by a stray semicolon, or an update that never approaches the stopping condition, can create an unintended loop. The Stop button is available if an experiment fails to terminate.
 
-**Check:** How many times does the for body run?
+**Check:** In the original printing loop, for (int i = 0; i < 3; i++), how many times does the body run?
 
 1. 2
 2. 3
@@ -209,7 +209,7 @@ The for body sees i equal to 0, 1, and 2. After the update makes it 3, the condi
 
 <details><summary>Answer</summary>
 
-3. The values 0, 1, and 2 satisfy i < 3.
+3. The printing loop runs for i = 0, 1, and 2, then stops when i < 3 becomes false. The loop you write for remaining is a different loop.
 
 </details>
 
@@ -275,7 +275,7 @@ Printed output: 0, 1, 3, 4. continue proceeds to the for-loop update and conditi
 
 **Watch for:** Always ask which construct is nearest. Also, a continue can bypass cleanup or other work later in a loop body; resource handling becomes important when allocations and files are introduced.
 
-**Check:** Which value causes this loop to finish early?
+**Check:** In the original loop, which i value triggers break and ends the loop early?
 
 1. 2
 2. 5

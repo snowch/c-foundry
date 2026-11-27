@@ -263,14 +263,14 @@ The payload read occurs after the successful acquire, before join. The flag sync
 
 **Watch for:** Using a relaxed load here would not establish the required payload publication relationship.
 
-**Check:** Which load must observe the release store?
+**Check:** To publish payload safely, which load must read the true value written by ready’s release store?
 
 1. The acquire load of ready
 2. Any unrelated relaxed counter load
 
 <details><summary>Answer</summary>
 
-The acquire load of ready. Synchronization depends on the matching atomic communication.
+The acquire load of ready. The acquire load of ready must observe the true written by the release store. Loads that still read false do not yet establish this payload-publication relationship.
 
 </details>
 
@@ -406,8 +406,7 @@ Remove RUN_ONLY=1 to compare the starter with its original output.
 
 Explain atomic counter updates and one-shot payload publication.
 
-1. Audit shared variables in your queue and database; identify the mutex or atomic protocol protecting each one.
-2. List each shared field and the mutex or atomic operation protecting it; distinguish counter atomicity from payload publication.
+1. List each shared field in your queue and database, then name the mutex or atomic protocol protecting it. Distinguish counter atomicity from payload publication.
 
 ### Check your work
 

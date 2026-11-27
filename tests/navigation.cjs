@@ -148,6 +148,21 @@ const { chromium, expect } = require("playwright/test"),
       }
     }
     assert.equal(visited, 227);
+    // A learner-created second for loop must not change which loop the quiz asks about.
+    await go('#/chapter/control-flow/3');
+    const loopStarter=await page.locator('#editor').inputValue();
+    const editedLoop=loopStarter.replace(/while \(remaining > 0\) \{\n\s*remaining--;\n\s*\}/,'for (; remaining > 0; remaining--) { }');
+    assert.notEqual(editedLoop,loopStarter);
+    await page.locator('#editor').fill(editedLoop);
+    await expect(page.locator('.topic-content .prediction legend')).toContainText('original printing loop');
+    await expect(page.locator('.topic-content .prediction legend')).toContainText('i < 3');
+    await expect(page.locator('label[for="course-prediction"]')).toContainText('Try a change');
+    await expect(page.locator('.original-explanation-title')).toHaveText('How the original example works');
+    await page.locator('input[name="topic-check"][value="1"]').check();
+    await page.locator('[data-topic-check]').click();
+    await expect(page.locator('#topic-feedback')).toContainText('Correct.');
+    await expect(page.locator('#editor')).toHaveValue(editedLoop);
+
     await go("#/chapter/first-program/1");
     await page
       .locator("#editor")
@@ -221,6 +236,7 @@ const { chromium, expect } = require("playwright/test"),
       const project=chapter.practices.find(p=>p.project);if(!project)continue;
       await go(project.href);
       await expect(page.locator('#preview-content h1')).toHaveText(project.title);
+      if(await page.locator('#inline-editor-host').count())await expect(page.locator('label[for="course-prediction"]')).toContainText('next test prediction');
       await expect(page.locator('#course-breadcrumbs [aria-current]')).toHaveText('Chapter practice');
       await expect(page.locator('[data-project-complete]')).not.toBeChecked();
       await page.locator('[data-project-complete]').check();

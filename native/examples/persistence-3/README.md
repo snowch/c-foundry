@@ -184,7 +184,7 @@ The first write establishes page zero. Reading page one fails before accessing a
 
 **Watch for:** An unchecked page_id×page_size can overflow before fseek receives the offset.
 
-**Check:** Which page may be appended?
+**Check:** Under this pager’s contiguous-page policy, which page ID may be appended?
 
 1. Exactly the current page count
 2. Any arbitrary unbounded page ID

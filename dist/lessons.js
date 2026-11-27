@@ -92,7 +92,7 @@ window.LESSONS = [
     "time": "18 min",
     "tag": "Own your memory",
     "concept": "Make room for data at runtime.",
-    "body": "When the size of an array is only known at runtime, allocate storage on the heap with <code>malloc</code>. Check for failure and release the storage with <code>free</code> when you are done.",
+    "body": "In this exercise, the array length comes from input. Use <code>malloc</code> to allocate its storage, check for failure, and call <code>free</code> after the last use.",
     "detail": "Allocate <code>n * sizeof *values</code> bytes. The allocated contents are initially uninitialized, so fill each element before reading it. Never access the array after calling free.",
     "task": "In main.c, replace the NULL allocation TODO, fill values[i] with (i + 1) * (i + 1), and add free after the last use. With the supplied Input 5, choose Run code and compare the five squares with Expected output. Choose Check output for the other supplied counts. Inputs range from 1 through 100.",
     "hint": "Use int *values = malloc(n * sizeof *values); check !values, fill values[i] = (i+1)*(i+1), then free(values).",
@@ -123,7 +123,7 @@ window.LESSONS = [
     "title": "Binary search",
     "time": "20 min",
     "tag": "Divide the problem",
-    "concept": "Find an answer in fewer steps.",
+    "concept": "Halve a sorted search interval until the target is found or the interval is empty.",
     "body": "Binary search repeatedly halves a sorted search interval. Compare the middle value with your target, then discard the half that cannot contain it. Its time complexity is <code>O(log n)</code>.",
     "detail": "Track inclusive bounds lo and hi. Calculate <code>mid = lo + (hi - lo) / 2</code>. Always shrink the interval, and return -1 if it becomes empty. An unsorted array breaks this algorithm’s assumptions. Halving n repeatedly takes about log₂(n) steps, giving O(log n) worst-case time. The iterative version uses O(1) extra space.",
     "task": "In main.c, complete search for the fixed sorted array. Return the target’s zero-based index or -1 when absent. With Input 23, choose Run code and find index 5 in Console. Choose Check output for first, last, and missing targets.",
@@ -194,7 +194,7 @@ window.LESSONS = [
     "tag": "Start building TinyDB",
     "concept": "Store a name and ID in one record.",
     "body": "A database starts with a representation for its data. In C, a <code>struct</code> groups related fields. Our first row has an integer ID and space for a short name.",
-    "detail": "The array <code>char name[32]</code> has room for 31 characters plus the terminating zero. The <code>%31s</code> width prevents scanf from overflowing it. This first version accepts one-word names.",
+    "detail": "The array <code>char name[32]</code> has room for 31 bytes of name text plus the terminating zero. The <code>%31s</code> width prevents scanf from overflowing it. This exercise accepts one-word names.",
     "task": "In main.c, read the ID and name into the supplied Row. Print its fields in the format 1 | Ada for the supplied input. Choose Run code to inspect the row, then Check output to compare the practice cases.",
     "hint": "Use scanf(\"%d %31s\", &row.id, row.name), then printf(\"%d | %s\\n\", row.id, row.name).",
     "code": "#include <stdio.h>\n\ntypedef struct {\n    int id;\n    char name[32];\n} Row;\n\nint main(void) {\n    Row row = {0, \"\"};\n    // TODO: read the two fields from stdin.\n    printf(\"%d | %s\\n\", row.id, row.name);\n    return 0;\n}\n",
@@ -460,7 +460,7 @@ window.LESSONS = [
     "assessment": "Explain why repeated whitespace does not add words and why the cast before isspace matters. Describe the buffer-length and ASCII limits.",
     "example": {
       "code": "// C is fun\n// Characters: C, space, i, s, space, f, u, n\n// Word starts: C, i, f",
-      "html": "<pre>characters = 8\nwords = 3</pre>",
+      "html": "<p>For the ASCII line <code>C is fun</code>, excluding its newline:</p><pre>characters = 8\nwords = 3</pre>",
       "question": "Does every space increase the word count?",
       "choices": [
         "Yes",
@@ -530,7 +530,7 @@ window.LESSONS = [
     "assessment": "Output checks do not prove ownership or exercise allocator failure. Review the temporary realloc owner, overflow checks, cleanup paths, and length/capacity invariant.",
     "example": {
       "code": "// Push into an empty buffer.\n// Grow capacity to 4, store 1, then set length to 1.",
-      "html": "<pre>length=1\ncapacity=4\nvalues[0]=1</pre>",
+      "html": "<p>After one successful push of 1 into an empty array:</p><pre>length=1\ncapacity=4\nvalues[0]=1</pre>",
       "question": "Does unused capacity contain initialized logical elements?",
       "choices": [
         "Yes",
@@ -596,13 +596,13 @@ window.LESSONS = [
     "example": {
       "code": "// Row 2 before: {2, \"Grace\"}\n// After a validated copy: {2, \"Grace Hopper\"}",
       "html": "<pre>2 | Grace Hopper</pre>",
-      "question": "Does a name of 32 text characters fit in char name[32] as a C string?",
+      "question": "Does a 32-byte name fit in char name[32] when it also needs a zero terminator?",
       "choices": [
         "Yes",
         "No"
       ],
       "answer": 1,
-      "why": "The zero terminator needs a further element; at most 31 text chars fit."
+      "why": "The terminator needs one additional char element. At most 31 name bytes fit; a multibyte character can occupy more than one byte."
     }
   },
   {

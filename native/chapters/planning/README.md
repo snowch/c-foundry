@@ -456,7 +456,7 @@ Ada matches two orders and Grace matches one. Six comparisons are performed rega
 
 **Watch for:** Returning only the first matching inner row changes a join into a lookup and loses duplicate matches.
 
-**Check:** How many candidate pairs does this baseline examine?
+**Check:** For N outer rows and M inner rows, how many candidate pairs does the plain nested-loop join examine?
 
 1. Always N plus M
 2. N times M
